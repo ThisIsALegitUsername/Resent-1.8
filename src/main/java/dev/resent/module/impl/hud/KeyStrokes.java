@@ -10,7 +10,8 @@ import dev.resent.setting.ModeSetting;
 import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.render.RainbowUtil;
 import dev.resent.util.render.RenderUtils;
-GlStateManager.popMatrix();
+import net.lax1dude.eaglercraft.v1_8.Mouse;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -85,9 +86,9 @@ public class KeyStrokes extends RenderModule{
 
 			GlStateManager.pushMatrix();
 
-			EaglerAdapter.glTranslatef(this.x + 1, this.y + 1, 0);
-			EaglerAdapter.glScalef(getSize(this.size), getSize(this.size), getSize(this.size));
-			EaglerAdapter.glTranslatef(-(this.x + 1), -(this.y + 1), 0);
+			GlStateManager.translate(this.x + 1, this.y + 1, 0);
+			GlStateManager.scale(getSize(this.size), getSize(this.size), getSize(this.size));
+			GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
 
 			//W
 			Gui.drawRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3,
@@ -128,26 +129,26 @@ public class KeyStrokes extends RenderModule{
 		mc.fontRendererObj.drawString("\u00A7m-------", this.x+85+(25/2-mc.fontRendererObj.getStringWidth("u00A7m-------") + 4), this.y+92-3, (chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindJump.pressed  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color)), tshadow.getValue());
 		if(sneak.getValue())
 		mc.fontRendererObj.drawString("Sneak", this.x+38+3+(25/2-mc.fontRendererObj.getStringWidth("Sneak") + 4), jump.getValue() ? this.y+92+15+1-3 : this.y+92-4, (chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindSneak.pressed  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color)), tshadow.getValue());
-		mc.fontRendererObj.drawString("LMB", this.x+3+40/2-mc.fontRendererObj.getStringWidth("LMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : EaglerAdapter.mouseIsButtonDown(0)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-		mc.fontRendererObj.drawString("RMB", this.x+40+3+40/2-mc.fontRendererObj.getStringWidth("RMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : EaglerAdapter.mouseIsButtonDown(1)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("LMB", this.x+3+40/2-mc.fontRendererObj.getStringWidth("LMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(0)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("RMB", this.x+40+3+40/2-mc.fontRendererObj.getStringWidth("RMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(1)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
-		EaglerAdapter.glTranslatef(this.x + 1, this.y + 1, 0);
-			EaglerAdapter.glScalef(getSize(this.size), getSize(this.size), getSize(this.size));
-			EaglerAdapter.glTranslatef(-(this.x + 1), -(this.y + 1), 0);
-		EaglerAdapter.glTranslatef(this.x+41, this.y+82, 0);
-		EaglerAdapter.glScalef(0.5f, 0.5f, 0);
-		EaglerAdapter.glTranslatef(-(this.x+41), -(this.y+82), 0);
+		GlStateManager.translate(this.x + 1, this.y + 1, 0);
+			GlStateManager.scale(getSize(this.size), getSize(this.size), getSize(this.size));
+			GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
+		GlStateManager.translate(this.x+41, this.y+82, 0);
+		GlStateManager.scale(0.5f, 0.5f, 0);
+		GlStateManager.translate(-(this.x+41), -(this.y+82), 0);
 
 		if(lmbcps.getValue())
-		mc.fontRendererObj.drawString(getLeftCPS() + " CPS", this.x-10, this.y+72, EaglerAdapter.mouseIsButtonDown(0)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString(getLeftCPS() + " CPS", this.x-10, this.y+72, Mouse.isButtonDown(0)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
 		if(rmbcps.getValue())
-		mc.fontRendererObj.drawString(getRightCPS() + " CPS", this.x+70, this.y+72, EaglerAdapter.mouseIsButtonDown(1)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString(getRightCPS() + " CPS", this.x+70, this.y+72, Mouse.isButtonDown(1)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		EaglerAdapter.glTranslatef(this.x + 1, this.y + 1, 0);
-			EaglerAdapter.glTranslatef(-(this.x + 1), -(this.y + 1), 0);
+		GlStateManager.translate(this.x + 1, this.y + 1, 0);
+			GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
 		this.setHeight((25 + 5 + 25 + 5 + 25 + 25));
 		this.setWidth((25 + 5 + 25 + 5 + 30));
 
