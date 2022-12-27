@@ -1,13 +1,13 @@
 package dev.resent.event.impl;
 
-import net.minecraft.src.Packet38EntityStatus;
+import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class EntityStatusEvent extends Event{
 
     public byte status;
 
-    public EntityStatusEvent(Packet38EntityStatus event){
-        this.status = event.entityStatus;
+    public EntityStatusEvent(S19PacketEntityStatus event){
+        this.status = event.logicOpcode;
     }
     
 }
