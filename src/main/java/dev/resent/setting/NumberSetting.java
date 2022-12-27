@@ -1,6 +1,6 @@
 package dev.resent.setting;
 
-import net.minecraft.src.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class NumberSetting extends Setting {
     public float value;
