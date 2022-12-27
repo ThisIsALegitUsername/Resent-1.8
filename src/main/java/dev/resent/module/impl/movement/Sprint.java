@@ -5,11 +5,13 @@ import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.ui.mods.ClickGUI;
 import dev.resent.ui.mods.HUDConfigScreen;
+import net.minecraft.client.gui.FontRenderer;
 
 public class Sprint extends RenderModule {
 
     public BooleanSetting drawn = new BooleanSetting("Text Drawn", "", true);
-    
+    public FontRenderer fr;
+
     public Sprint(){
         super("ToggleSprint", Category.MOVEMENT, 4, 10, true);
         addSetting(drawn);
@@ -64,7 +66,6 @@ public class Sprint extends RenderModule {
     
     @Override
     public void draw() {
-    	super.draw();
         this.fr = mc.fontRendererObj;
         if(drawn.getValue())
     	fr.drawStringWithShadow(getText(), getX() + getWidth() / 2 - ((getWidth() - 10) / 2), getY() + (getHeight() / 2 - fr.FONT_HEIGHT / 2), -1);
