@@ -22,7 +22,6 @@ import dev.resent.module.impl.hud.Watermark;
 import dev.resent.module.impl.misc.Animations;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
-import dev.resent.module.impl.misc.ChunkBorders;
 import dev.resent.module.impl.misc.ClearChat;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
@@ -68,7 +67,7 @@ public class ModManager {
 	public static ComboCounter comboCounter;
 	public static Hitboxes hitboxes;
 	public static Health health;
-	public static ChunkBorders chunkBorders;
+	//public static ChunkBorders chunkBorders;
 	public static NoParticles noParticles;
 	public static ScoreboardNumbers scoreboardNumbers;
 	public static Scoreboard scoreboard;
@@ -121,7 +120,7 @@ public class ModManager {
 		register(autoGG = new AutoGG());
 		register(autoRespawn = new AutoRespawn());
 		register(hitboxes = new Hitboxes());
-		register(chunkBorders = new ChunkBorders());
+		//register(chunkBorders = new ChunkBorders());
 		register(noParticles = new NoParticles());
 		register(scoreboardNumbers = new ScoreboardNumbers());
 		register(scoreboard = new Scoreboard());
