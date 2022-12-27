@@ -111,7 +111,7 @@ public class ClickGUI extends GuiScreen {
         int off = 0;
 
         // background
-        RenderUtils.drawRoundedRect(x - 10, y + 20, width + 35, height - 10, 1, new Color(35, 39, 42, 80).getRGB());
+        Gui.drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 80).getRGB());
         fr.drawString(Resent.NAME + " Client " + Resent.VERSION, x + 8, height - 2, -1);
         RenderUtils.drawRectOutline(GuiScreen.width/2-fr.getStringWidth("Edit Layout")/2-5, GuiScreen.height - y - fr.FONT_HEIGHT, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), GuiScreen.height - y + 5, -1);
         Gui.drawRect(GuiScreen.width/2-fr.getStringWidth("Edit Layout")/2-4,
