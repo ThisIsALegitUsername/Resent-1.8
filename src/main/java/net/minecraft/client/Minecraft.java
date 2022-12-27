@@ -15,6 +15,7 @@ import org.apache.commons.lang3.Validate;
 
 import com.google.common.collect.Lists;
 
+import dev.resent.ui.mods.ClickGUI;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;
@@ -1463,6 +1464,10 @@ public class Minecraft implements IThreadListener {
 							new C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT));
 					this.displayGuiScreen(new GuiInventory(this.thePlayer));
 				}
+			}
+
+			if(this.gameSettings.keyBindClickGui.isPressed()){
+				this.displayGuiScreen(new ClickGUI());
 			}
 
 			while (this.gameSettings.keyBindDrop.isPressed()) {
