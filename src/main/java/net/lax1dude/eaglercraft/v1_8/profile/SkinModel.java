@@ -26,7 +26,7 @@ public enum SkinModel {
 	public final boolean sanitize;
 	
 	public static final SkinModel[] skinModels = new SkinModel[3];
-	private static final Map<String, SkinModel> skinModelsByName = new HashMap();
+	private static final Map<String, SkinModel> skinModelsByName = new HashMap<>();
 	
 	private SkinModel(int id, int w, int h, String profileSkinType, boolean sanitize) {
 		this.id = id;

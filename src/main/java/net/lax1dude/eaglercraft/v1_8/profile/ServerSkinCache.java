@@ -123,9 +123,9 @@ public class ServerSkinCache {
 
 	private final SkinCacheEntry defaultCacheEntry = new SkinCacheEntry(0);
 	private final SkinCacheEntry defaultSlimCacheEntry = new SkinCacheEntry(1);
-	private final Map<EaglercraftUUID, SkinCacheEntry> skinsCache = new HashMap();
-	private final Map<EaglercraftUUID, WaitingSkin> waitingSkins = new HashMap();
-	private final Map<EaglercraftUUID, Long> evictedSkins = new HashMap();
+	private final Map<EaglercraftUUID, SkinCacheEntry> skinsCache = new HashMap<>();
+	private final Map<EaglercraftUUID, WaitingSkin> waitingSkins = new HashMap<>();
+	private final Map<EaglercraftUUID, Long> evictedSkins = new HashMap<>();
 
 	private final EaglercraftNetworkManager networkManager;
 	protected final TextureManager textureManager;

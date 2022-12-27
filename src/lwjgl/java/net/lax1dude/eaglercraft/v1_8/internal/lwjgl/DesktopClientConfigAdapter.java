@@ -22,7 +22,7 @@ public class DesktopClientConfigAdapter implements IClientConfigAdapter {
 
 	public static final IClientConfigAdapter instance = new DesktopClientConfigAdapter();
 
-	public final List<DefaultServer> defaultServers = new ArrayList();
+	public final List<DefaultServer> defaultServers = new ArrayList<>();
 
 	@Override
 	public String getDefaultLocale() {

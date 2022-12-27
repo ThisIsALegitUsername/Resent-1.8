@@ -36,7 +36,7 @@ public class EaglerProfile {
 	public static int presetSkinId;
 	public static int customSkinId;
 	
-	public static final List<CustomSkin> customSkins = new ArrayList();
+	public static final List<CustomSkin> customSkins = new ArrayList<>();
 	
 	public static final EaglercraftRandom rand;
 	

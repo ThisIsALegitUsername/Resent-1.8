@@ -21,8 +21,8 @@ public class RateLimitTracker {
 
 	private static long lastTickUpdate = 0l;
 
-	private static final Map<String, Long> blocks = new HashMap();
-	private static final Map<String, Long> lockout = new HashMap();
+	private static final Map<String, Long> blocks = new HashMap<>();
+	private static final Map<String, Long> lockout = new HashMap<>();
 
 	public static boolean isLockedOut(String addr) {
 		Long lockoutStatus = lockout.get(addr);

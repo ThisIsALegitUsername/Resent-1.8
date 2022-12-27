@@ -323,7 +323,7 @@ public class VirtualFilesystem {
 		
 	}
 
-	private final HashMap<String, VFSFile> fileMap = new HashMap();
+	private final HashMap<String, VFSFile> fileMap = new HashMap<>();
 	
 	public final String database;
 	private final IDBDatabase indexeddb;
@@ -409,7 +409,7 @@ public class VirtualFilesystem {
 	}
 	
 	public List<String> listFiles(String prefix) {
-		final ArrayList<String> list = new ArrayList();
+		final ArrayList<String> list = new ArrayList<>();
 		AsyncHandlers.iterateFiles(indexeddb, this, prefix, false, (v) -> {
 			list.add(v.getPath());
 		});

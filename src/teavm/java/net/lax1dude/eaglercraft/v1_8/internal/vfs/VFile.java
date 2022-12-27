@@ -49,7 +49,7 @@ public class VFile {
 	protected String path;
 	
 	public static String createPath(Object... p) {
-		ArrayList<String> r = new ArrayList();
+		ArrayList<String> r = new ArrayList<>();
 		for(int i = 0; i < p.length; ++i) {
 			if(p[i] == null) {
 				continue;

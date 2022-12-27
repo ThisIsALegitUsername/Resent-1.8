@@ -47,7 +47,7 @@ public class PlatformAudio {
 	
 	private static AudioContext audioctx = null;
 	private static MediaStreamAudioDestinationNode recDest = null;
-	private static final Map<String, BrowserAudioResource> soundCache = new HashMap();
+	private static final Map<String, BrowserAudioResource> soundCache = new HashMap<>();
 	
 	private static long cacheFreeTimer = 0l;
 	

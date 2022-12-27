@@ -57,8 +57,8 @@ public class PlatformInput {
 	private static EventListener wheel = null;
 	private static EventListener pointerlock = null;
 
-	private static List<MouseEvent> mouseEvents = new LinkedList();
-	private static List<KeyboardEvent> keyEvents = new LinkedList();
+	private static List<MouseEvent> mouseEvents = new LinkedList<>();
+	private static List<KeyboardEvent> keyEvents = new LinkedList<>();
 
 	private static int mouseX = 0;
 	private static int mouseY = 0;

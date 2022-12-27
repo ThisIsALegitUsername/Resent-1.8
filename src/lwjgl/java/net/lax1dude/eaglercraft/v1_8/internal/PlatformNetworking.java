@@ -79,7 +79,7 @@ public class PlatformNetworking {
 		}
 	}
 	
-	private static final List<byte[]> playPackets = new LinkedList();
+	private static final List<byte[]> playPackets = new LinkedList<>();
 	
 	public static byte[] readPlayPacket() {
 		synchronized(playPackets) {

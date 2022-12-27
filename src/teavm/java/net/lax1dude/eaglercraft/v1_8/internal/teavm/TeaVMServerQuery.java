@@ -36,8 +36,8 @@ public class TeaVMServerQuery implements IServerQuery {
 
 	public static final Logger logger = LogManager.getLogger("WebSocketQuery");
 
-	private final List<QueryResponse> queryResponses = new LinkedList();
-	private final List<byte[]> queryResponsesBytes = new LinkedList();
+	private final List<QueryResponse> queryResponses = new LinkedList<>();
+	private final List<byte[]> queryResponsesBytes = new LinkedList<>();
 
 	protected final String uri;
 	protected final String accept;

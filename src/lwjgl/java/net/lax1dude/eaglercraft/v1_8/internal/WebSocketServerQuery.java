@@ -29,8 +29,8 @@ class WebSocketServerQuery extends WebSocketClient implements IServerQuery {
 
 	public static final Logger logger = LogManager.getLogger("WebSocketQuery");
 
-	private final List<QueryResponse> queryResponses = new LinkedList();
-	private final List<byte[]> queryResponsesBytes = new LinkedList();
+	private final List<QueryResponse> queryResponses = new LinkedList<>();
+	private final List<byte[]> queryResponsesBytes = new LinkedList<>();
 	private final String type;
 	private boolean open = true;
 	private boolean alive = false;

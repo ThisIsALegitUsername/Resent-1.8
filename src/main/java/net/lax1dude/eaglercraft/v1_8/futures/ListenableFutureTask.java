@@ -20,7 +20,7 @@ import java.util.concurrent.Executor;
  */
 public class ListenableFutureTask<V> extends FutureTask<V> implements ListenableFuture<V> {
 	
-	private final List<Runnable> listeners = new ArrayList();
+	private final List<Runnable> listeners = new ArrayList<>();
 
 	public ListenableFutureTask(Callable<V> callable) {
 		super(callable);

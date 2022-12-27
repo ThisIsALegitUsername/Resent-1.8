@@ -244,7 +244,7 @@ public class Minecraft implements IThreadListener {
 	private SoundHandler mcSoundHandler;
 	private MusicTicker mcMusicTicker;
 	private ResourceLocation mojangLogo;
-	private final List<FutureTask<?>> scheduledTasks = new LinkedList();
+	private final List<FutureTask<?>> scheduledTasks = new LinkedList<>();
 	private long field_175615_aJ = 0L;
 	private final Thread mcThread = Thread.currentThread();
 	private ModelManager modelManager;

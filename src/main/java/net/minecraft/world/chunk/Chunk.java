@@ -83,7 +83,7 @@ public class Chunk {
 		this.updateSkylightColumns = new boolean[256];
 		this.chunkTileEntityMap = Maps.newHashMap();
 		this.queuedLightChecks = 4096;
-		this.tileEntityPosQueue = new ArrayList();
+		this.tileEntityPosQueue = new ArrayList<>();
 		this.entityLists = (ClassInheritanceMultiMap[]) (new ClassInheritanceMultiMap[16]);
 		this.worldObj = worldIn;
 		this.xPosition = x;

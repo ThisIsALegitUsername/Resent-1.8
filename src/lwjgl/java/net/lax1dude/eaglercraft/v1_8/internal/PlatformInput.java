@@ -41,7 +41,7 @@ public class PlatformInput {
 	private static int windowWidth = 640;
 	private static int windowHeight = 480;
 	
-	private static final List<KeyboardEvent> keyboardEventList = new LinkedList();
+	private static final List<KeyboardEvent> keyboardEventList = new LinkedList<>();
 	private static KeyboardEvent currentKeyboardEvent = null;
 	
 	private static final char[] keyboardReleaseEventChars = new char[256];
@@ -49,7 +49,7 @@ public class PlatformInput {
 	private static boolean enableRepeatEvents = false;
 	private static int functionKeyModifier = GLFW_KEY_F;
 
-	private static final List<Character> keyboardCharList = new LinkedList();
+	private static final List<Character> keyboardCharList = new LinkedList<>();
 	
 	private static class KeyboardEvent {
 		
@@ -66,7 +66,7 @@ public class PlatformInput {
 		
 	}
 	
-	private static final List<MouseEvent> mouseEventList = new LinkedList();
+	private static final List<MouseEvent> mouseEventList = new LinkedList<>();
 	private static MouseEvent currentMouseEvent = null;
 	
 	private static class MouseEvent {

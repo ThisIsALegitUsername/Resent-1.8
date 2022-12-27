@@ -119,7 +119,7 @@ public class EagRuntime {
 	public static List<String> getResourceLines(String path) {
 		byte[] bytes = PlatformAssets.getResourceBytes(path);
 		if(bytes != null) {
-			List<String> ret = new ArrayList();
+			List<String> ret = new ArrayList<>();
 			try {
 				BufferedReader rd = new BufferedReader(new StringReader(path));
 				String s;
@@ -158,7 +158,7 @@ public class EagRuntime {
 	}
 	
 	public static String[] getStackTraceElements(Throwable t) {
-		List<String> lst = new ArrayList();
+		List<String> lst = new ArrayList<>();
 		PlatformRuntime.getStackTrace(t, (s) -> {
 			lst.add(s);
 		});

@@ -35,7 +35,7 @@ public class ChunkUpdateManager {
 	private int chunkUpdatesQueuedLast = 0;
 	private long chunkUpdatesTotalLastUpdate = 0l;
 	
-	private final List<ChunkCompileTaskGenerator> queue = new LinkedList();
+	private final List<ChunkCompileTaskGenerator> queue = new LinkedList<>();
 
 	public ChunkUpdateManager() {
 		worldVertexUploader = new WorldVertexBufferUploader();
@@ -99,7 +99,7 @@ public class ChunkUpdateManager {
 		}else {
 			boolean flag = false;
 			long millis = System.currentTimeMillis();
-			List<ChunkCompileTaskGenerator> droppedUpdates = new LinkedList();
+			List<ChunkCompileTaskGenerator> droppedUpdates = new LinkedList<>();
 			while(!queue.isEmpty()) {
 				ChunkCompileTaskGenerator generator = queue.remove(0);
 				

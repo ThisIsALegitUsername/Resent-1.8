@@ -51,10 +51,10 @@ import net.minecraft.util.IChatComponent;
  */
 public class JSONTypeProvider {
 
-	private static final Map<Class<?>,JSONTypeSerializer<?,?>> serializers = new HashMap();
-	private static final Map<Class<?>,JSONTypeDeserializer<?,?>> deserializers = new HashMap();
+	private static final Map<Class<?>,JSONTypeSerializer<?,?>> serializers = new HashMap<>();
+	private static final Map<Class<?>,JSONTypeDeserializer<?,?>> deserializers = new HashMap<>();
 	
-	private static final List<JSONDataParserImpl> parsers = new ArrayList();
+	private static final List<JSONDataParserImpl> parsers = new ArrayList<>();
 
 	public static <J> J serialize(Object object) throws JSONException {
 		JSONTypeSerializer<Object,J> ser = (JSONTypeSerializer<Object,J>) serializers.get(object.getClass());

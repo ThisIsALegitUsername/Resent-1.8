@@ -42,7 +42,7 @@ public class PlatformAssets {
 	
 	private static final byte[] MISSING_FILE = new byte[0];
 	
-	static final Map<String,byte[]> assets = new HashMap();
+	static final Map<String,byte[]> assets = new HashMap<>();
 	
 	public static final byte[] getResourceBytes(String path) {
 		if(path.startsWith("/")) {

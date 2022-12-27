@@ -202,7 +202,7 @@ public class EaglercraftGPU {
 		++GlStateManager.stateNormalSerial;
 	}
 	
-	private static final Map<Integer,String> stringCache = new HashMap();
+	private static final Map<Integer,String> stringCache = new HashMap<>();
 
 	public static final String glGetString(int param) {
 		String str = stringCache.get(param);

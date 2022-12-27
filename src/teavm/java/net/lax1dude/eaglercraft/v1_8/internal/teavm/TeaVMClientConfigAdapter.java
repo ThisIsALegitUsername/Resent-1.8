@@ -27,7 +27,7 @@ public class TeaVMClientConfigAdapter implements IClientConfigAdapter {
 
 	private String defaultLocale = "en_US";
 	private boolean hideDownDefaultServers = false;
-	private List<DefaultServer> defaultServers = new ArrayList();
+	private List<DefaultServer> defaultServers = new ArrayList<>();
 	private String serverToJoin = null;   
 
 	void loadJSON(JSONObject eaglercraftOpts) {
