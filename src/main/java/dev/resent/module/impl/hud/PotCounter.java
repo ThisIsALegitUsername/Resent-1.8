@@ -3,8 +3,8 @@ package dev.resent.module.impl.hud;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
-import net.minecraft.src.ItemPotion;
-import net.minecraft.src.ItemStack;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 public class PotCounter extends RenderModule{
     public PotCounter(){
@@ -20,7 +20,7 @@ public class PotCounter extends RenderModule{
     @Override
     public void draw(){
 
-        ItemStack potion = new ItemStack(ItemPotion.potion, 1, 16421);
+        ItemStack potion = new ItemStack(Items.potionitem, 1, 16421);
 
 		potinv = 0;
 		for(int i = 0; i < mc.thePlayer.inventory.getSizeInventory(); i++) {
