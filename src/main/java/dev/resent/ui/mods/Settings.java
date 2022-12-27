@@ -9,7 +9,7 @@ import dev.resent.setting.Setting;
 import dev.resent.util.misc.Keyboard;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+GlStateManager.popMatrix();
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.client.gui.Gui;

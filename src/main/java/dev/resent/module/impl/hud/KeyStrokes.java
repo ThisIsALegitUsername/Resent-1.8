@@ -10,7 +10,7 @@ import dev.resent.setting.ModeSetting;
 import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.render.RainbowUtil;
 import dev.resent.util.render.RenderUtils;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+GlStateManager.popMatrix();
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 

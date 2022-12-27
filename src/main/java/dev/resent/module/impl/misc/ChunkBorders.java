@@ -4,7 +4,7 @@ import dev.resent.Resent;
 import dev.resent.event.impl.RenderWorldEvent;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+GlStateManager.popMatrix();
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.RenderGlobal;
 import net.minecraft.src.RenderManager;

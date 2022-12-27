@@ -6,7 +6,7 @@ import dev.resent.event.impl.EventUpdate;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 import dev.resent.util.misc.W;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.minecraft.client.Minecraft;
 
 @SuppressWarnings("all")
@@ -36,7 +36,7 @@ public class Freelook extends Mod {
                 mc.gameSettings.thirdPersonView = previousePrespective;
             }
 
-    if (EaglerAdapter.getEventKey() == 6 && mc.gameSettings.keyBindFunction.pressed) {
+    if (Keyboard.getEventKey() == 6 && mc.gameSettings.keyBindFunction.pressed) {
         perspectiveToggled = false;
     }
 }

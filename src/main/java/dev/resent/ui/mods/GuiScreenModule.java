@@ -7,7 +7,7 @@ import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.Setting;
 import dev.resent.util.misc.Keyboard;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+GlStateManager.popMatrix();
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.src.GuiButton;

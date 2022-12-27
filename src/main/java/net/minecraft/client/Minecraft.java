@@ -212,7 +212,7 @@ public class Minecraft implements IThreadListener {
 	public GameSettings gameSettings;
 	public MouseHelper mouseHelper;
 	private final String launchedVersion;
-	private static int debugFPS;
+	public static int debugFPS;
 	private int rightClickDelayTimer;
 	private String serverName;
 	private int serverPort;

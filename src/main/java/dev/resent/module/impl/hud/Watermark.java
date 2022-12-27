@@ -4,7 +4,7 @@ import dev.resent.Resent;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.util.render.Color;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+GlStateManager.popMatrix();
 import net.minecraft.src.FontRenderer;
 
 public class Watermark extends RenderModule{
