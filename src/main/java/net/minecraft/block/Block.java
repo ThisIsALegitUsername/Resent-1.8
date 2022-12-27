@@ -54,6 +54,7 @@ public class Block {
 	/**+
 	 * ResourceLocation for the Air block
 	 */
+
 	private static final ResourceLocation AIR_ID = new ResourceLocation("air");
 	public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> blockRegistry = new RegistryNamespacedDefaultedByKey(
 			AIR_ID);
