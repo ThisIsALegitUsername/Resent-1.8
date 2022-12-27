@@ -47,8 +47,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
 	protected Minecraft mc;
 	protected RenderItem itemRender;
-	public int width;
-	public int height;
+	public static int width;
+	public static int height;
 	/**+
 	 * A list of all the buttons in this container.
 	 */

@@ -15,8 +15,8 @@ public class PotCounter extends RenderModule{
     public int potinv = 0;
 	public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
     
-	public int getWidth(){ return mc.fontRenderer.getStringWidth("[" + potinv + " Pots]")+4;}
-	public int getHeight(){ return mc.fontRenderer.FONT_HEIGHT+4; }
+	public int getWidth(){ return mc.fontRendererObj.getStringWidth("[" + potinv + " Pots]")+4;}
+	public int getHeight(){ return mc.fontRendererObj.FONT_HEIGHT+4; }
     @Override
     public void draw(){
 
@@ -29,6 +29,6 @@ public class PotCounter extends RenderModule{
 			}
 		}
 
-		mc.fontRenderer.drawString("[" + potinv + " Pots]", this.x+2, this.y+2, -1, tshadow.getValue());
+		mc.fontRendererObj.drawString("[" + potinv + " Pots]", this.x+2, this.y+2, -1, tshadow.getValue());
     }
 }

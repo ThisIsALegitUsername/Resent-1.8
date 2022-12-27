@@ -7,7 +7,7 @@ import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.util.misc.FuncUtils;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+import net.lax1dude.eaglercraft.v1_8.Mouse;
 
 public class CPS extends RenderModule {
 
@@ -21,12 +21,12 @@ public class CPS extends RenderModule {
     private long lastPressed;
 
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
-    public int getWidth() { return mc.fontRenderer.getStringWidth("[CPS: 00]") + 4; }
-    public int getHeight() { return mc.fontRenderer.FONT_HEIGHT+4; }
+    public int getWidth() { return mc.fontRendererObj.getStringWidth("[CPS: 00]") + 4; }
+    public int getHeight() { return mc.fontRendererObj.FONT_HEIGHT+4; }
 
     @Override
     public void draw() {
-        final boolean pressed = EaglerAdapter.mouseIsButtonDown(0) || EaglerAdapter.mouseIsButtonDown(1);
+        final boolean pressed = Mouse.isButtonDown(0) || Mouse.isButtonDown(1);
 
         if(pressed != wasPressed){
             lastPressed = System.currentTimeMillis();
@@ -39,7 +39,7 @@ public class CPS extends RenderModule {
         final long time = System.currentTimeMillis();
         FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-        mc.fontRenderer.drawString("CPS: " + clicks.size(), this.x+2, this.y+2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("CPS: " + clicks.size(), this.x+2, this.y+2, -1, tshadow.getValue());
     }
 
 }

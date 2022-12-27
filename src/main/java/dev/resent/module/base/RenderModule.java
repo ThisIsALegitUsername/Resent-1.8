@@ -1,5 +1,9 @@
 package dev.resent.module.base;
 
+import net.lax1dude.eaglercraft.v1_8.Mouse;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
+
 public class RenderModule extends Mod {
 
 	public int x, y, width, height;
@@ -61,7 +65,7 @@ public class RenderModule extends Mod {
 			this.y = mouseY + this.lastY;
 			if (ModManager.currentModDragging == null)
 				ModManager.currentModDragging = this.name;
-			if (!EaglerAdapter.mouseIsButtonDown(0))
+			if (!Mouse.isButtonDown(0))
 				this.dragging = false;
 			if (ModManager.currentModDragging == this.name)
 				ModManager.currentModDragging = null;
@@ -88,7 +92,7 @@ public class RenderModule extends Mod {
 		}
 		boolean mouseOverX = (mouseX >= this.x && mouseX <= this.x + this.getWidth());
 		boolean mouseOverY = (mouseY >= this.y && mouseY <= this.y + this.getHeight());
-		boolean drag = (mouseOverX && mouseOverY && EaglerAdapter.mouseIsButtonDown(0));
+		boolean drag = (mouseOverX && mouseOverY && Mouse.isButtonDown(0));
 		draggingFix(mouseX, mouseY);
 
 		if (drag && (ModManager.currentModDragging == null || ModManager.currentModDragging == this.name)) {

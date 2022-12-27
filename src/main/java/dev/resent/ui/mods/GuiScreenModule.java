@@ -9,7 +9,7 @@ import dev.resent.setting.Setting;
 import dev.resent.util.misc.Keyboard;
 import net.lax1dude.eaglercraft.EaglerAdapter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.Gui;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.GuiTextField;

@@ -8,7 +8,7 @@ import net.lax1dude.eaglercraft.TextureLocation;
 import net.lax1dude.eaglercraft.adapter.Tessellator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.FontRenderer;
-import net.minecraft.src.Gui;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.Potion;
 import net.minecraft.src.PotionEffect;
@@ -28,7 +28,7 @@ public class PotionHUD extends RenderModule{
 
     @Override
     public void renderLayout(int mouseX, int mouseY) {
-        fr = mc.fontRenderer;
+        fr = mc.fontRendererObj;
         super.renderLayout(mouseX, mouseY);
         fr.drawStringWithShadow("PotionHUD", getX() + getWidth() / 2 - ((getWidth() - 10) / 2),
                 getY() + (getHeight() / 2 - fr.FONT_HEIGHT / 2), -1);
@@ -36,7 +36,7 @@ public class PotionHUD extends RenderModule{
 
     @Override
     public int getHeight() {
-        fr = mc.fontRenderer;
+        fr = mc.fontRendererObj;
         return fr.FONT_HEIGHT + 3;
     }
 

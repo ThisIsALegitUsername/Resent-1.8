@@ -175,7 +175,7 @@ public class Minecraft implements IThreadListener {
 	private static final ResourceLocation locationMojangPng = new ResourceLocation("textures/gui/title/mojang.png");
 	public static final boolean isRunningOnMac = false;
 	private ServerData currentServerData;
-	private TextureManager renderEngine;
+	public TextureManager renderEngine;
 	private static Minecraft theMinecraft;
 	public PlayerControllerMP playerController;
 	private boolean fullscreen;

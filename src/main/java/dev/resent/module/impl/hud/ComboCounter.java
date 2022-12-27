@@ -32,8 +32,8 @@ public class ComboCounter extends RenderModule {
         });
     }
 
-    public int getWidth(){ return mc.fontRenderer.getStringWidth("[0 Combo]") + 4; }
-    public int getHeight(){ return mc.fontRenderer.FONT_HEIGHT + 4; }
+    public int getWidth(){ return mc.fontRendererObj.getStringWidth("[0 Combo]") + 4; }
+    public int getHeight(){ return mc.fontRendererObj.FONT_HEIGHT + 4; }
 
     @Override
     public void draw() {

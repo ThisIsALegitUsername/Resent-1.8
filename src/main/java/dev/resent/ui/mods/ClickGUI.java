@@ -5,16 +5,16 @@ import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
 import dev.resent.setting.Setting;
-import dev.resent.util.misc.Keyboard;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+import net.lax1dude.eaglercraft.v1_8.Keyboard;
+import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.FontRenderer;
-import net.minecraft.src.Gui;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.ScaledResolution;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.MathHelper;
 
 public class ClickGUI extends GuiScreen {
 
@@ -31,8 +31,8 @@ public class ClickGUI extends GuiScreen {
         int xo = 0;
         int xy = -30;
 
-        sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-        fr = Minecraft.getMinecraft().fontRenderer;
+        sr = new ScaledResolution(mc);
+        fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;
@@ -102,8 +102,8 @@ public class ClickGUI extends GuiScreen {
         int xo = 0;
         int xy = -30;
 
-        sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-        fr = Minecraft.getMinecraft().fontRenderer;
+        sr = new ScaledResolution(mc);
+        fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;
@@ -138,7 +138,6 @@ public class ClickGUI extends GuiScreen {
                 int fh = fr.FONT_HEIGHT;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29
                         && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20){
-                            EaglerAdapter.glClear(EaglerAdapter.GL_DEPTH_BUFFER_BIT);
 
                     // Enabled outline
                     RenderUtils.drawRectOutline(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset,
@@ -231,13 +230,13 @@ public class ClickGUI extends GuiScreen {
 
     public boolean doesGuiPauseGame() { return false; }
     public boolean isMouseInside(int mouseX, int mouseY, int x, int y, int width, int height) { return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height); }
-    public void onGuiClosed() { EaglerAdapter.enableRepeatEvents(false); mc.gameSettings.saveOptions(); }
-    protected void keyTyped(char par1, int par2) { if (par2 == Keyboard.KEY_ESCAPE || par2 == Minecraft.getMinecraft().gameSettings.keyBindClickGui.keyCode) { mc.displayGuiScreen(null); } }
+    public void onGuiClosed() { Keyboard.enableRepeatEvents(false); mc.gameSettings.saveOptions(); }
+    protected void keyTyped(char par1, int par2) { if (par2 == 0x01 || par2 == Minecraft.getMinecraft().gameSettings.keyBindClickGui.keyCode) { mc.displayGuiScreen(null); } }
 
     @Override
     public void handleMouseInput() {
         if (getListMaxScroll() + this.height >= this.height) {
-            int wheel = EaglerAdapter.mouseGetEventDWheel();
+            int wheel = Mouse.getEventDWheel();
             if (wheel < 0) {
                 new Thread(){
                     public void run(){
@@ -265,7 +264,6 @@ public class ClickGUI extends GuiScreen {
             }
             }.start();
             }
-            super.handleMouseInput();
         }
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
     }

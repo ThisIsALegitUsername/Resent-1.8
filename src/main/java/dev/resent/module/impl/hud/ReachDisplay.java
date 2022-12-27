@@ -32,12 +32,12 @@ public class ReachDisplay extends RenderModule {
         });
     }
 
-    public int getWidth(){ return mc.fontRenderer.getStringWidth("[" + df2.format(range) + " Blocks]")+4; }
-    public int getHeight(){ return mc.fontRenderer.FONT_HEIGHT + 4; }
+    public int getWidth(){ return mc.fontRendererObj.getStringWidth("[" + df2.format(range) + " Blocks]")+4; }
+    public int getHeight(){ return mc.fontRendererObj.FONT_HEIGHT + 4; }
 
     @Override
     public void draw() {
-        mc.fontRenderer.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, -1);
+        mc.fontRendererObj.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, -1);
     }
     
 }

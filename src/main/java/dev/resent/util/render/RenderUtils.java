@@ -20,13 +20,13 @@ public class RenderUtils {
             }
 
             if (!hasReachedSS) {
-                mc.fontRenderer.drawString(tmp, xTmp, y, i, shadow);
-                xTmp += mc.fontRenderer.getCharWidth(textChar);
+                mc.fontRendererObj.drawString(tmp, xTmp, y, i, shadow);
+                xTmp += mc.fontRendererObj.getCharWidth(textChar);
 
                 string = string.substring(1);
             } else if (!hasFinished) {
 
-                mc.fontRenderer.drawString(string, xTmp, y, -1, shadow);
+                mc.fontRendererObj.drawString(string, xTmp, y, -1, shadow);
                 hasFinished = true;
             }
         }

@@ -22,7 +22,7 @@ public class ChunkBorders extends Mod{
                     chunkX, 0.0, chunkZ,
                     chunkX + 16.0, 255.0, chunkZ + 16.0);
 
-            EaglerAdapter.glPushMatrix();
+            GlStateManager.pushMatrix();
             EaglerAdapter.glColor3f(1.0f, 1.0f, 0.0f);
             EaglerAdapter.glDisable(EaglerAdapter.GL_TEXTURE_2D);
             EaglerAdapter.glDisable(EaglerAdapter.GL_DEPTH_TEST);
@@ -32,7 +32,7 @@ public class ChunkBorders extends Mod{
             RenderGlobal.drawOutlinedBoundingBox(chunkBB);
             EaglerAdapter.glEnable(EaglerAdapter.GL_DEPTH_TEST);
             EaglerAdapter.glEnable(EaglerAdapter.GL_TEXTURE_2D);
-            EaglerAdapter.glPopMatrix();
+            GlStateManager.popMatrix();
             }
         });
     }

@@ -71,7 +71,7 @@ public class GuiIngame extends Gui {
 	private static final ResourceLocation pumpkinBlurTexPath = new ResourceLocation("textures/misc/pumpkinblur.png");
 	private final EaglercraftRandom rand = new EaglercraftRandom();
 	private final Minecraft mc;
-	private final RenderItem itemRenderer;
+	public final static RenderItem itemRenderer;
 	private final GuiNewChat persistantChatGUI;
 	private int updateCounter;
 	/**+

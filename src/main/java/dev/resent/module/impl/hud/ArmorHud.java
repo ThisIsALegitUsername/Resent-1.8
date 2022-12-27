@@ -3,15 +3,13 @@ package dev.resent.module.impl.hud;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
-import net.lax1dude.eaglercraft.EaglerAdapter;
-import net.minecraft.src.GuiIngame;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.RenderItem;
-import net.minecraft.src.ScaledResolution;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.item.ItemStack;
 
 public class ArmorHud extends RenderModule {
 
-	public static RenderItem renderItem = new RenderItem();
 	public ScaledResolution sr;
 
 	public ArmorHud() {
@@ -25,11 +23,18 @@ public class ArmorHud extends RenderModule {
 	public static BooleanSetting boot = new BooleanSetting("Boots", "", true);
 	public static BooleanSetting item = new BooleanSetting("Item", "", true);
 
+
+	public int getWidth(){
+		return 20;
+	}
+
+	public int getHeight(){
+		return 96;
+	}
+
 	@Override
 	public void draw() {
-		this.setWidth(20);
-		this.setHeight(96);
-		EaglerAdapter.glEnable(EaglerAdapter.GL_LIGHTING);
+		GlStateManager.enableLighting();
 		ItemStack boots = mc.thePlayer.inventory.armorInventory[0];
 		ItemStack legs = mc.thePlayer.inventory.armorInventory[1];
 		ItemStack chest = mc.thePlayer.inventory.armorInventory[2];
@@ -38,50 +43,50 @@ public class ArmorHud extends RenderModule {
 		if (helmet != null && helm.getValue()) {
 			ItemStack displayhelmet = helmet.copy();
 			displayhelmet.stackSize = 1;
-			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, displayhelmet, this.x+3, this.y+2);
+			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(  displayhelmet, this.x+3, this.y+2);
 
-			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, displayhelmet,
-					this.x + 3, this.y + 2);
+			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRendererObj,  displayhelmet,
+					this.x + 3, this.y + 2, "");
 					
 					//16
 		}
 		if (chest != null && chestp.getValue()) {
 			ItemStack displaychest = chest.copy();
 			displaychest.stackSize = 1;
-			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, displaychest,
+			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(  displaychest,
 					this.x + 3, this.y+18);
 
-			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, displaychest,
-					this.x + 3, this.y+18);
+			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRendererObj,  displaychest,
+					this.x + 3, this.y+18, "");
 		}
 		if (legs != null && leg.getValue()) {
 			ItemStack displaylegs = legs.copy();
 			displaylegs.stackSize = 1;
-			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, displaylegs,
+			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(  displaylegs,
 					this.x + 3, this.y+34);
 
-			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, displaylegs, this.x + 3,
-					this.y+34);
+			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRendererObj,  displaylegs, this.x + 3,
+					this.y+34, "");
 		}
 		if (boots != null && boot.getValue()) {
 			ItemStack displayboots = boots.copy();
 			displayboots.stackSize = 1;
-			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, displayboots,
+			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(  displayboots,
 					this.x + 3, this.y + 50);
 
-			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, displayboots, this.x + 3,
-					this.y + 50);
+			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRendererObj,  displayboots, this.x + 3,
+					this.y + 50, "");
 		}
 		if (hand != null && item.getValue()){
 			ItemStack displayhand = hand.copy();
 			displayhand.stackSize = 1;
-			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, displayhand, this.x + 3,
+			GuiIngame.itemRenderer.renderItemAndEffectIntoGUI(  displayhand, this.x + 3,
 					this.y + 66);
-			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, displayhand, this.x + 3,
-					this.y + 66);
+			GuiIngame.itemRenderer.renderItemOverlayIntoGUI(mc.fontRendererObj,  displayhand, this.x + 3,
+					this.y + 66, "");
 		}
 		
-		EaglerAdapter.glDisable(EaglerAdapter.GL_LIGHTING);
+		GlStateManager.disableLighting();
 	}
 
 }

@@ -2,9 +2,9 @@ package dev.resent.ui.mods;
 
 import dev.resent.Resent;
 import dev.resent.module.base.RenderModule;
-import net.lax1dude.eaglercraft.EaglerAdapter;
-import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
+import net.lax1dude.eaglercraft.v1_8.Keyboard;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 
 @SuppressWarnings("all")
 public class HUDConfigScreen extends GuiScreen {
@@ -14,7 +14,7 @@ public class HUDConfigScreen extends GuiScreen {
 	}
 
 	public void onGuiClosed() {
-		EaglerAdapter.enableRepeatEvents(false);
+		Keyboard.enableRepeatEvents(false);
 	}
 
 	public void drawScreen(int mx, int my, float par3) {

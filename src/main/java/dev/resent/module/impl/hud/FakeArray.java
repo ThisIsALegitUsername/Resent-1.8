@@ -7,7 +7,7 @@ import java.util.List;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.util.render.RainbowUtil;
-import net.lax1dude.eaglercraft.EaglerAdapter;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 
 public class FakeArray extends RenderModule{
 
@@ -21,17 +21,17 @@ public class FakeArray extends RenderModule{
         fakemods.add("Velocity");
     }
 
-    public int getWidth(){ return mc.fontRenderer.getStringWidth("Autoclicker "); }
+    public int getWidth(){ return mc.fontRendererObj.getStringWidth("Autoclicker "); }
     public int getHeight(){ return 50; }
 
     public void draw(){
-        fakemods.sort(Comparator.comparingInt(m -> mc.fontRenderer.getStringWidth((String) m)).reversed());
+        fakemods.sort(Comparator.comparingInt(m -> mc.fontRendererObj.getStringWidth((String) m)).reversed());
         int count = 0;
         for (int i = 0; i < fakemods.size(); i++) {
             
-            EaglerAdapter.glPushMatrix();
-            mc.fontRenderer.drawStringWithShadow(fakemods.get(i), x + 2, count * mc.fontRenderer.FONT_HEIGHT + (y) + 4, RainbowUtil.getRainbow1(50));
-            EaglerAdapter.glPopMatrix();
+            GlStateManager.pushMatrix();
+            mc.fontRendererObj.drawStringWithShadow(fakemods.get(i), x + 2, count * mc.fontRendererObj.FONT_HEIGHT + (y) + 4, RainbowUtil.getRainbow1(50));
+            GlStateManager.popMatrix();
             count++;
         }
 

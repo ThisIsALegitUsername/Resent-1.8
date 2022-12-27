@@ -22,8 +22,8 @@ public class Ping extends RenderModule{
             ms = (int)mc.getServerData().pingToServer;
         }
         
-        this.setHeight(mc.fontRenderer.FONT_HEIGHT+4);
-        this.setWidth(mc.fontRenderer.getStringWidth("[" + ms + " ms]")+4);
+        this.setHeight(mc.fontRendererObj.FONT_HEIGHT+4);
+        this.setWidth(mc.fontRendererObj.getStringWidth("[" + ms + " ms]")+4);
         Minecraft.getMinecraft().fontRenderer.drawString("[" + ms + " ms]", this.x+2, this.y+2, -1, tshadow.getValue());
     }
     

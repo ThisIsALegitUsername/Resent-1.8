@@ -13,12 +13,12 @@ public class Health extends RenderModule {
 
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
-    public int getHeight(){ return mc.fontRenderer.FONT_HEIGHT + 4;}
-    public int getWidth(){ return mc.fontRenderer.getStringWidth("[" + mc.thePlayer.getHealth() + " Health]") + 4; }
+    public int getHeight(){ return mc.fontRendererObj.FONT_HEIGHT + 4;}
+    public int getWidth(){ return mc.fontRendererObj.getStringWidth("[" + mc.thePlayer.getHealth() + " Health]") + 4; }
 
     @Override
     public void draw() {
-        mc.fontRenderer.drawString("[" + mc.thePlayer.getHealth() + " Health]", this.x+2, this.y+2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("[" + mc.thePlayer.getHealth() + " Health]", this.x+2, this.y+2, -1, tshadow.getValue());
     }
 
 }

@@ -12,7 +12,7 @@ import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.EaglerAdapter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.FontRenderer;
-import net.minecraft.src.Gui;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.ScaledResolution;

@@ -15,14 +15,14 @@ public class FPS extends RenderModule{
     }
     
     public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
-    public int getWidth(){ return mc.fontRenderer.getStringWidth("[FPS: "+ Minecraft.debugFPS + "]") + 4;}
-    public int getHeight(){ return mc.fontRenderer.FONT_HEIGHT+4;}
+    public int getWidth(){ return mc.fontRendererObj.getStringWidth("[FPS: "+ Minecraft.debugFPS + "]") + 4;}
+    public int getHeight(){ return mc.fontRendererObj.FONT_HEIGHT+4;}
 
     @Override
     public void draw(){
         if (mc.thePlayer != null) {
             if(this.isEnabled()){
-                mc.fontRenderer.drawString("[FPS: " + Minecraft.debugFPS + "]", this.x + 2, this.y + 2, -1, tshadow.getValue());
+                mc.fontRendererObj.drawString("[FPS: " + Minecraft.debugFPS + "]", this.x + 2, this.y + 2, -1, tshadow.getValue());
             }
         }
     }
