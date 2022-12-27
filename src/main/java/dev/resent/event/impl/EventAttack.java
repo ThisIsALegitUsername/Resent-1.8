@@ -1,7 +1,7 @@
 package dev.resent.event.impl;
 
 import net.kyori.event.Cancellable;
-import net.minecraft.src.Entity;
+import net.minecraft.entity.Entity;
 
 public class EventAttack extends Event implements Cancellable{
     public Entity target;
