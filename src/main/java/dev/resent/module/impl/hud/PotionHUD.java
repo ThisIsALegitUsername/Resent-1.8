@@ -4,16 +4,12 @@ import java.util.Collection;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import net.lax1dude.eaglercraft.TextureLocation;
-import net.lax1dude.eaglercraft.adapter.Tessellator;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.Potion;
-import net.minecraft.src.PotionEffect;
-import net.minecraft.src.ScaledResolution;
-import net.minecraft.src.StatCollector;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.StatCollector;
 
 @SuppressWarnings("all")
 public class PotionHUD extends RenderModule{
@@ -45,8 +41,8 @@ public class PotionHUD extends RenderModule{
     @Override
     public void draw(){
         this.setHeight(20);
-    	this.setWidth(Minecraft.getMinecraft().fontRenderer.getStringWidth("Resistance VII") + 2);
-        sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+    	this.setWidth(mc.fontRendererObj.getStringWidth("Resistance VII") + 2);
+        sr = new ScaledResolution(mc);
         Collection<PotionEffect> effects = mc.thePlayer.getActivePotionEffects();
         int potcount = 0;
 
@@ -77,7 +73,7 @@ public class PotionHUD extends RenderModule{
                     guiScreen.drawTexturedModalRect(this.x, this.y+ 4, 0 + var9 % 8 * 18, 198 + var9 / 8 * 18, 18, 18);
                 }*/
 
-                fr = Minecraft.getMinecraft().fontRenderer;
+                fr = mc.fontRendererObj;
                 String toDraw = "§4" + eName + "§r §a" + ampString + " §9" + duration;
                 fr.drawStringWithShadow(toDraw, this.x + 2, this.y + (potcount * 10) -5, -1);
                 this.setHeight((potcount * 10) + 10);

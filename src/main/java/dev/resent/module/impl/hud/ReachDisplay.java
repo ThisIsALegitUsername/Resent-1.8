@@ -6,7 +6,7 @@ import dev.resent.Resent;
 import dev.resent.event.impl.EventAttack;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import net.minecraft.src.Vec3;
+import net.minecraft.util.Vec3;
 
 public class ReachDisplay extends RenderModule {
 
@@ -17,14 +17,8 @@ public class ReachDisplay extends RenderModule {
 
         Resent.INSTANCE.events().subscribe(EventAttack.class, event -> {
             if (this.isEnabled()) {
-                Vec3 vec3 = this.mc.renderViewEntity.getPosition(1.0f);
-                range = range <= 3.0f
-                        ? ((range >= 0.8) ? this.mc.objectMouseOver.hitVec.distanceTo(vec3) - 0.8
-                                : mc.objectMouseOver.hitVec.distanceTo(vec3))
-                        : 3.0;
-                if (mc.playerController.isInCreativeMode() && this.mc.objectMouseOver.hitVec.distanceTo(vec3) >= 6.0f) {
-                    range = 6.0f;
-                }
+                Vec3 vec3 = this.mc.getRenderViewEntity().getPositionEyes(1.0f);
+                range = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
                 if (range > 3.0f && !mc.playerController.isInCreativeMode()) {
                     range = 3.0f;
                 }
