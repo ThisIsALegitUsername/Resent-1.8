@@ -1,5 +1,7 @@
 package net.minecraft.client.entity;
 
+import dev.resent.Resent;
+import dev.resent.event.impl.EventUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -594,6 +596,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
+
+		EventUpdate event = new EventUpdate();
+		Resent.INSTANCE.events().post(event);
+		
 		if (this.sprintingTicksLeft > 0) {
 			--this.sprintingTicksLeft;
 			if (this.sprintingTicksLeft == 0) {

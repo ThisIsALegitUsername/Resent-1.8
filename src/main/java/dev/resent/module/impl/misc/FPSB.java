@@ -5,7 +5,7 @@ import dev.resent.module.base.Mod;
 
 public class FPSB extends Mod{
 
-    public boolean yes = false;
+    public static boolean yes = false;
 
     public FPSB(){
         super("Fps Boost", Category.MISC);

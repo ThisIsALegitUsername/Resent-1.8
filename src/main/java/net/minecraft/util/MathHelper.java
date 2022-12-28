@@ -1,5 +1,6 @@
 package net.minecraft.util;
 
+import dev.resent.module.impl.misc.FPSB;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 
@@ -28,23 +29,25 @@ public class MathHelper {
 	 * (exclusive), with steps of 2*PI / 65536.
 	 */
 	private static final float[] SIN_TABLE = new float[65536];
+	private static final float[] SIN_TABLE_FAST = new float[4096];
 	private static final int[] multiplyDeBruijnBitPosition;
 	private static final double field_181163_d;
 	private static final double[] field_181164_e;
 	private static final double[] field_181165_f;
+	public static boolean fps = FPSB.yes;
 
 	/**+
 	 * sin looked up in a table
 	 */
 	public static float sin(float parFloat1) {
-		return SIN_TABLE[(int) (parFloat1 * 10430.378F) & '\uffff'];
+		return fps ?  SIN_TABLE_FAST[(int) (parFloat1 * 651.8986f) & 4095] : SIN_TABLE[(int) (parFloat1 * 10430.378F) & '\uffff'];
 	}
 
 	/**+
 	 * cos looked up in the sin table with the appropriate offset
 	 */
 	public static float cos(float value) {
-		return SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & '\uffff'];
+		return fps ? SIN_TABLE_FAST[(int)((value + ((float)Math.PI / 2f)) * 651.8986f) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & '\uffff'];
 	}
 
 	public static float sqrt_float(float value) {
@@ -489,6 +492,14 @@ public class MathHelper {
 	static {
 		for (int i = 0; i < 65536; ++i) {
 			SIN_TABLE[i] = (float) Math.sin((double) i * 3.141592653589793D * 2.0D / 65536.0D);
+		}
+
+		for (int j = 0; j < 4096; ++j) {
+			SIN_TABLE_FAST[j] = (float) Math.sin((double) (((float) j + 0.5f) / 4096.0f * ((float) Math.PI * 2f)));
+		}
+
+		for(int l = 0; l < 360; l += 90){
+			SIN_TABLE_FAST[(int)((float)l * 11.377778f) & 4095] = (float)Math.sin((double)((float)l * 0.017453292f));
 		}
 
 		multiplyDeBruijnBitPosition = new int[] { 0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13,
