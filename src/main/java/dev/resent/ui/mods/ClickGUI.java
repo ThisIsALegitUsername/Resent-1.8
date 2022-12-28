@@ -1,5 +1,7 @@
 package dev.resent.ui.mods;
 
+import java.io.IOException;
+
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
@@ -13,12 +15,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
 
 public class ClickGUI extends GuiScreen {
 
-    public ScaledResolution sr;
     public Mod modWatching = null;
     public int x, y, width, height;
     public int offset = 0;
@@ -31,12 +31,11 @@ public class ClickGUI extends GuiScreen {
         int xo = 0;
         int xy = -30;
 
-        sr = new ScaledResolution(mc);
         fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
-        x = sr.getScaledWidth() / 8 + xo;
-        y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
+        x = mc.displayWidth / 8 + xo;
+        y = mc.displayHeight / (int) 1.1 - 10 + xy;
         int off = 0;
 
         for (int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++) {
@@ -102,12 +101,11 @@ public class ClickGUI extends GuiScreen {
         int xo = 0;
         int xy = -30;
 
-        sr = new ScaledResolution(mc);
         fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
-        x = sr.getScaledWidth() / 8 + xo;
-        y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
+        x = mc.displayWidth / 8 + xo;
+        y = mc.displayHeight / (int) 1.1 - 10 + xy;
         int off = 0;
 
         // background
@@ -153,9 +151,8 @@ public class ClickGUI extends GuiScreen {
                                             : new Color(211, 211, 211, 65).getRGB());
 
                     if (Resent.INSTANCE.modManager.modules.get(i).hasSetting) {
-                        //Setting icon
                         fr.drawString("o", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
-                        //RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
+                        RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
                         //fr.drawString("+", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
                         //fr.drawString(" x", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
                         // Gui.drawRect(this.x+90+xo-1+10, height-2-fh*-(off)+51-1-offset,
@@ -264,22 +261,16 @@ public class ClickGUI extends GuiScreen {
             }
             }.start();
             }
+            try {
+                super.handleMouseInput();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
     }
 
     private int getListMaxScroll() {
-        /*
-         * int mods = 0;
-         * int i = 0;
-         * for (int z = 0; z < Resent.INSTANCE.modManager.modules.size(); z++) {
-         * Mod m = Resent.INSTANCE.modManager.modules.get(z);
-         * if (m.name.toLowerCase().contains(this.searchString.toLowerCase())) {
-         * mods++;
-         * i++;
-         * }
-         * }
-         */
         return 60 + 70 - this.height;
     }
 

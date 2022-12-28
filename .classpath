@@ -1,18 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="bin/main" path="src/main/java">
+	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/main" path="src/teavm/java">
+	<classpathentry output="bin/main" kind="src" path="src/teavm/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-classlib/0.6.1/ed928987ac8c74c3279dbc00d777ea87155469bc/teavm-classlib-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-classlib/0.6.1/3b0f0cb8c3d879f6dd9d9d0101e0032d57f5fa8/teavm-classlib-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-platform/0.6.1/69815866360883bc945cc2704e01c2aafc1ce296/teavm-platform-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-platform/0.6.1/18dfcd3bf6c2e379e23cf168549585aae98857f/teavm-platform-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-impl/0.6.1/e39d63686c38ec74d4eaa4d12d5259ac0e8483b9/teavm-jso-impl-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-impl/0.6.1/b5caec1ba7fed15254b9f8b50340549023cce240/teavm-jso-impl-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-apis/0.6.1/55274af88c7746aea55fcfef45dc9397228c8a38/teavm-jso-apis-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-apis/0.6.1/622597700c7debce22e5d0997b649016447d67f7/teavm-jso-apis-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso/0.6.1/78c94b8a7aba6960a5ce43331c66d6c2c5ff968a/teavm-jso-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso/0.6.1/9d86da37b45a9c60644818536959459222083936/teavm-jso-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-impl/0.6.1/aa2d2217e5dd4e612baa393d0a0003a066cd1f16/teavm-metaprogramming-impl-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-impl/0.6.1/5eab0c2ab199d76b004265af824f36f1706b7d62/teavm-metaprogramming-impl-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-api/0.6.1/f103f71f184e676b2d7e6f5872e148f7d794a93c/teavm-metaprogramming-api-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-api/0.6.1/2c3da6a61a58ed2c3d10cf405dffad90488ed6a2/teavm-metaprogramming-api-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/com.jcraft/jzlib/1.1.3/3102d5e0e3e6cdb601b42f7bdcbff13167a2226d/jzlib-1.1.3-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/com.jcraft/jzlib/1.1.3/c01428efa717624f7aabf4df319939dda9646b2d/jzlib-1.1.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.7/1fc633cf2a3f5a1767ef28b81ebc5d0ecfa1ffda/joda-time-2.7-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.7/5599707a3eaad13e889f691b3af78c8c03842195/joda-time-2.7.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-interop/0.6.1/6f27194568262d33bd82a443632e8d1a778c7c1a/teavm-interop-0.6.1-sources.jar" kind="lib" path="/workspace/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-interop/0.6.1/556d85e513f13e867435c34f2128e79d98995c41/teavm-interop-0.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 </classpath>
