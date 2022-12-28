@@ -16,12 +16,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
 
 public class ClickGUI extends GuiScreen {
 
     public Mod modWatching = null;
     public ModManager modManager;
+    public ScaledResolution sr;
     public int x, y, width, height;
     public int offset = 0;
     public float offsety = 20;
@@ -29,16 +31,16 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        modManager = new ModManager();
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
         int xy = -30;
 
+        sr = new ScaledResolution(mc);
         fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
-        x = mc.displayWidth / 8 + xo;
-        y = mc.displayHeight / (int) 1.1 - 10 + xy;
+        x = sr.getScaledWidth() / 8 + xo;
+        y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
         int off = 0;
 
         for (int i = 0; i < modManager.modules.size(); i++) {
@@ -101,6 +103,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float par3) {
         modManager = new ModManager();
+        sr = new ScaledResolution(mc);
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
         int xy = -30;
@@ -108,8 +111,8 @@ public class ClickGUI extends GuiScreen {
         fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
-        x = mc.displayWidth / 8 + xo;
-        y = mc.displayHeight / (int) 1.1 - 10 + xy;
+        x = sr.getScaledWidth() / 8 + xo;
+        y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
         int off = 0;
 
         // background
