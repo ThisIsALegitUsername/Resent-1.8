@@ -43,12 +43,12 @@ public class ClickGUI extends GuiScreen {
         y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
         int off = 0;
 
-        for (int i = 0; i < modManager.modules.size(); i++) {
+        for (Mod m: modManager.modules) {
             int fh = fr.FONT_HEIGHT;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && modManager.modules.get(i).hasSetting) {
+            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.hasSetting) {
                 // Open settings
-                this.modWatching = modManager.modules.get(i);
+                this.modWatching = m;
             } else if (isMouseInside(mouseX, mouseY, x - fr.FONT_HEIGHT + 2, height + 27 + fr.FONT_HEIGHT + 2, x - fr.FONT_HEIGHT + 6 + fr.getStringWidth("<"), height + 33 + fr.FONT_HEIGHT + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
                 // Close settings
                 this.modWatching = null;
@@ -58,7 +58,7 @@ public class ClickGUI extends GuiScreen {
                 this.modWatching = null;
             } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
                 // Toggle mod
-                modManager.modules.get(i).toggle();
+                m.toggle();
             } else if (isMouseInside(mouseX, mouseY, GuiScreen.width/2-fr.getStringWidth("Edit Layout")/2-5, GuiScreen.height-y-fr.FONT_HEIGHT, GuiScreen.width/2-fr.getStringWidth("Edit Layout")/2+5+fr.getStringWidth("Edit Layout"), GuiScreen.height-y+5) && mouseButton == 0){
                 mc.displayGuiScreen(new HUDConfigScreen());
                 this.modWatching = null;
@@ -138,7 +138,7 @@ public class ClickGUI extends GuiScreen {
         // white line
         Gui.drawRect(x - 8, height + 29, width + 33, height + 30, -1);
 
-        for (int i = 0; i < modManager.modules.size(); i++) {
+        for (Mod m : modManager.modules) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29
@@ -147,7 +147,7 @@ public class ClickGUI extends GuiScreen {
                     // Enabled outline
                     RenderUtils.drawRectOutline(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset,
                             this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset,
-                            modManager.modules.get(i).isEnabled() ? Color.GREEN.getRGB()
+                            m.isEnabled() ? Color.GREEN.getRGB()
                                     : Color.RED.getRGB());
                     Gui.drawRect(this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset,
                             this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset,
@@ -157,16 +157,16 @@ public class ClickGUI extends GuiScreen {
                                             ? new Color(105, 105, 105, 65).getRGB()
                                             : new Color(211, 211, 211, 65).getRGB());
 
-                    if (modManager.modules.get(i).hasSetting) {
+                    if (m.hasSetting) {
                         fr.drawString("o", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
-                        RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
+                        //RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
                         //fr.drawString("+", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
                         //fr.drawString(" x", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
                         // Gui.drawRect(this.x+90+xo-1+10, height-2-fh*-(off)+51-1-offset,
                         // this.x+90+xo-1+21, height+30-fh*(-off)+30-1+2-1-offset, -1);
                     }
 
-                    fr.drawStringWithShadow(modManager.modules.get(i).name,
+                    fr.drawStringWithShadow(m.name,
                             this.x + 15 + 7 + xo * (int) 1.5, height - fh * -(off) + 50 - offset, -1);
                 }
             } else if (this.modWatching != null) {
@@ -179,7 +179,7 @@ public class ClickGUI extends GuiScreen {
 
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     BooleanSetting b = null;
-                    ModeSetting m = null;
+                    ModeSetting mo = null;
                     Setting s = this.modWatching.settings.get(amogus);
                     if (s instanceof BooleanSetting) {
                         b = (BooleanSetting) s;
@@ -189,7 +189,7 @@ public class ClickGUI extends GuiScreen {
                     }
                     
                     if (s instanceof ModeSetting) {
-                        m = (ModeSetting) s;
+                        mo = (ModeSetting) s;
                         //RenderUtils.drawRectOutline(this.x+18+6-2, height-fr.FONT_HEIGHT+50+var, this.x+18+6+fr.getStringWidth(this.modWatching.settings.get(amogus).name + ": " + m.getValue() + 2), height-fr.FONT_HEIGHT+50+var+fr.FONT_HEIGHT, -1);
                     }
 
@@ -206,7 +206,7 @@ public class ClickGUI extends GuiScreen {
                                        + 2,
                                this.height - fr.FONT_HEIGHT + 50 + var + fr.FONT_HEIGHT, -1);*/
                         //RenderUtils.drawRectOutline(this.x+24, height-fr.FONT_HEIGHT+50+var, this.x+24+fr.getStringWidth(s.name+": "+m.getValue()), height-fr.FONT_HEIGHT+50+var+fr.FONT_HEIGHT, -1);
-                        fr.drawStringWithShadow(s.name + ": " + m.getValue(),
+                        fr.drawStringWithShadow(s.name + ": " + mo.getValue(),
                                 this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
                     } else {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6,

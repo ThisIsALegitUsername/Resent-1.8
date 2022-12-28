@@ -43,10 +43,11 @@ public class Mod {
 
 	public void toggle() {
 		this.enabled = !this.enabled;
-		if (this.enabled)
+		if (this.enabled){
 			onEnable();
-		else
+		}else{
 			onDisable();
+		}
 	}
 
 	public void setEnabled(boolean state) {
