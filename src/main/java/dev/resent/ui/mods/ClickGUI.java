@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
 import dev.resent.setting.Setting;
@@ -20,6 +21,7 @@ import net.minecraft.util.MathHelper;
 public class ClickGUI extends GuiScreen {
 
     public Mod modWatching = null;
+    public ModManager modManager;
     public int x, y, width, height;
     public int offset = 0;
     public float offsety = 20;
@@ -27,6 +29,7 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        modManager = new ModManager();
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
         int xy = -30;
@@ -38,12 +41,12 @@ public class ClickGUI extends GuiScreen {
         y = mc.displayHeight / (int) 1.1 - 10 + xy;
         int off = 0;
 
-        for (int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++) {
+        for (int i = 0; i < modManager.modules.size(); i++) {
             int fh = fr.FONT_HEIGHT;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && Resent.INSTANCE.modManager.modules.get(i).hasSetting) {
+            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && modManager.modules.get(i).hasSetting) {
                 // Open settings
-                this.modWatching = Resent.INSTANCE.modManager.modules.get(i);
+                this.modWatching = modManager.modules.get(i);
             } else if (isMouseInside(mouseX, mouseY, x - fr.FONT_HEIGHT + 2, height + 27 + fr.FONT_HEIGHT + 2, x - fr.FONT_HEIGHT + 6 + fr.getStringWidth("<"), height + 33 + fr.FONT_HEIGHT + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
                 // Close settings
                 this.modWatching = null;
@@ -53,7 +56,7 @@ public class ClickGUI extends GuiScreen {
                 this.modWatching = null;
             } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
                 // Toggle mod
-                Resent.INSTANCE.modManager.modules.get(i).toggle();
+                modManager.modules.get(i).toggle();
             } else if (isMouseInside(mouseX, mouseY, GuiScreen.width/2-fr.getStringWidth("Edit Layout")/2-5, GuiScreen.height-y-fr.FONT_HEIGHT, GuiScreen.width/2-fr.getStringWidth("Edit Layout")/2+5+fr.getStringWidth("Edit Layout"), GuiScreen.height-y+5) && mouseButton == 0){
                 mc.displayGuiScreen(new HUDConfigScreen());
                 this.modWatching = null;
@@ -131,7 +134,7 @@ public class ClickGUI extends GuiScreen {
         // white line
         Gui.drawRect(x - 8, height + 29, width + 33, height + 30, -1);
 
-        for (int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++) {
+        for (int i = 0; i < modManager.modules.size(); i++) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29
@@ -140,7 +143,7 @@ public class ClickGUI extends GuiScreen {
                     // Enabled outline
                     RenderUtils.drawRectOutline(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset,
                             this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset,
-                            Resent.INSTANCE.modManager.modules.get(i).isEnabled() ? Color.GREEN.getRGB()
+                            modManager.modules.get(i).isEnabled() ? Color.GREEN.getRGB()
                                     : Color.RED.getRGB());
                     Gui.drawRect(this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset,
                             this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset,
@@ -150,7 +153,7 @@ public class ClickGUI extends GuiScreen {
                                             ? new Color(105, 105, 105, 65).getRGB()
                                             : new Color(211, 211, 211, 65).getRGB());
 
-                    if (Resent.INSTANCE.modManager.modules.get(i).hasSetting) {
+                    if (modManager.modules.get(i).hasSetting) {
                         fr.drawString("o", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
                         RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
                         //fr.drawString("+", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
@@ -159,7 +162,7 @@ public class ClickGUI extends GuiScreen {
                         // this.x+90+xo-1+21, height+30-fh*(-off)+30-1+2-1-offset, -1);
                     }
 
-                    fr.drawStringWithShadow(Resent.INSTANCE.modManager.modules.get(i).name,
+                    fr.drawStringWithShadow(modManager.modules.get(i).name,
                             this.x + 15 + 7 + xo * (int) 1.5, height - fh * -(off) + 50 - offset, -1);
                 }
             } else if (this.modWatching != null) {
