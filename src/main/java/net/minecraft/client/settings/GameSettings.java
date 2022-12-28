@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import dev.resent.Resent;
 import net.lax1dude.eaglercraft.v1_8.ArrayUtils;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
@@ -693,7 +694,7 @@ public class GameSettings {
 
 			while ((s = bufferedreader.readLine()) != null) {
 				try {
-					String[] astring = s.split(":");
+					String[] 5astring = s.split(":");
 					if (astring[0].equals("mouseSensitivity")) {
 						this.mouseSensitivity = this.parseFloat(astring[1]);
 					}
@@ -992,6 +993,8 @@ public class GameSettings {
 							this.mapSoundLevels.put(soundcategory, Float.valueOf(this.parseFloat(astring[1])));
 						}
 					}
+
+					Resent.INSTANCE.loadSettings();
 
 					for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
 						if (astring[0].equals("modelPart_" + enumplayermodelparts.getPartName())) {

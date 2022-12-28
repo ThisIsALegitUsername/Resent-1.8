@@ -15,6 +15,7 @@ import org.apache.commons.lang3.Validate;
 
 import com.google.common.collect.Lists;
 
+import dev.resent.Resent;
 import dev.resent.ui.mods.ClickGUI;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
@@ -435,6 +436,8 @@ public class Minecraft implements IThreadListener {
 		SkinPreviewRenderer.initialize();
 		this.checkGLError("Post startup");
 		this.ingameGUI = new GuiIngame(this);
+
+		Resent.INSTANCE.init();
 
 		ServerList.initServerList(this);
 		EaglerProfile.read();

@@ -22,14 +22,14 @@ public class Resent {
     public static Resent INSTANCE;
 
     static {
-         INSTANCE = new Resent();
+        INSTANCE = new Resent();
         eventBus = EventBus.create(Event.class);
     }
 
     public ModManager modManager;
 
-    public static void init() {
-        
+    public void init() {
+        //modManager = new ModManager();
     }
 
 
