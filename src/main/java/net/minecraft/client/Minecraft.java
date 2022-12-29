@@ -24,6 +24,7 @@ import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
 import dev.resent.event.impl.EventKey;
+import dev.resent.module.base.ModManager;
 import dev.resent.ui.mods.ClickGUI;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
@@ -1354,7 +1355,8 @@ public class Minecraft implements IThreadListener {
 						this.currentScreen.handleKeyboardInput();
 					} else {
 
-						Resent.INSTANCE.modManager.onKey(Keyboard.getEventKey());
+						ModManager modManager = new ModManager();
+						modManager.onKey(Keyboard.getEventKey());
 						if(Keyboard.getEventKey() == this.gameSettings.keyBindFreelook.keyCode)
 						W.freelook().smh();
 

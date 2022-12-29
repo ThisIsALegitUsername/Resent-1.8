@@ -593,7 +593,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		}
 
 		this.hurtCameraEffect(partialTicks);
-		if (this.mc.gameSettings.viewBobbing && !Resent.INSTANCE.modManager.minimalViewBobbing.isEnabled()) {
+		if (this.mc.gameSettings.viewBobbing && !ModManager.minimalViewBobbing.isEnabled()) {
 			this.setupViewBobbing(partialTicks);
 		}
 
@@ -656,7 +656,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 			GlStateManager.pushMatrix();
 			this.hurtCameraEffect(partialTicks);
-			if (this.mc.gameSettings.viewBobbing || Resent.INSTANCE.modManager.minimalViewBobbing.isEnabled()) {
+			if (this.mc.gameSettings.viewBobbing || ModManager.minimalViewBobbing.isEnabled()) {
 				this.setupViewBobbing(partialTicks);
 			}
 
@@ -675,7 +675,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.hurtCameraEffect(partialTicks);
 			}
 
-			if (this.mc.gameSettings.viewBobbing || Resent.INSTANCE.modManager.minimalViewBobbing.isEnabled()) {
+			if (this.mc.gameSettings.viewBobbing || ModManager.minimalViewBobbing.isEnabled()) {
 				this.setupViewBobbing(partialTicks);
 			}
 

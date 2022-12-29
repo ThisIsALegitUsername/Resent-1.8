@@ -13,6 +13,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
 import dev.resent.ui.mods.HUDConfigScreen;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -127,6 +128,7 @@ public class GuiIngame extends Gui {
 	}
 
 	public void renderGameOverlay(float partialTicks) {
+		ModManager modManager = new ModManager();
 		ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 		int i = scaledresolution.getScaledWidth();
 		int j = scaledresolution.getScaledHeight();
@@ -318,7 +320,7 @@ public class GuiIngame extends Gui {
 		}
 
 		if(!(mc.currentScreen instanceof HUDConfigScreen)){
-			Resent.INSTANCE.modManager.renderMods();
+			modManager.renderMods();
 		}
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
