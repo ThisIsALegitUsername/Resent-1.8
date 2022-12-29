@@ -67,7 +67,6 @@ public class KeyStrokes extends RenderModule{
 	
     @Override
 	public void draw() {
-		if (!transparent.getValue()) {
 
 		boolean pressed = mc.gameSettings.keyBindAttack.pressed;
         boolean rpressed = mc.gameSettings.keyBindUseItem.pressed;
@@ -90,6 +89,7 @@ public class KeyStrokes extends RenderModule{
 			GlStateManager.scale(getSize(this.size), getSize(this.size), getSize(this.size));
 			GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
 
+			if (!transparent.getValue()) {
 			//W
 			Gui.drawRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3,
 					mc.gameSettings.keyBindForward.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
@@ -113,12 +113,12 @@ public class KeyStrokes extends RenderModule{
 			if(jump.getValue())
 			Gui.drawRect(this.x + 3, this.y+84, this.x+85-3,
 					this.y + 105 - 6, mc.gameSettings.keyBindJump.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
-		}
 		
 		// Sneak
-		if (sneak.getValue() && !transparent.getValue())
+		if (sneak.getValue())
 			Gui.drawRect(this.x + 3, jump.getValue() ? this.y+102 : this.y+84, this.x+85-3,
 					jump.getValue() ? this.y+120-3 : this.y+105-6, mc.gameSettings.keyBindSneak.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+	}
 
 		
 		mc.fontRendererObj.drawString("W", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("W") + 4), this.y+8+3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindForward.pressed ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());

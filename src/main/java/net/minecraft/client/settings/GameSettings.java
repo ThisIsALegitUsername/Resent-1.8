@@ -704,8 +704,6 @@ public class GameSettings {
 				try {
 					String[] astring = s.split(":");
 
-					Resent.INSTANCE.loadSettings(astring);
-
 					if (astring[0].equals("mouseSensitivity")) {
 						this.mouseSensitivity = this.parseFloat(astring[1]);
 					}
@@ -1005,6 +1003,42 @@ public class GameSettings {
 						}
 					}
 
+					for(Mod m : Resent.INSTANCE.modManager.modules){
+
+						List<RenderModule> rmodules = new ArrayList<>();
+						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
+			
+						for(RenderModule rmod : rmodules){
+							if(astring[0].equals(rmod.name+"x")){
+								rmod.x=Integer.parseInt(astring[1]);
+							}
+							if(astring[0].equals(rmod.name+"y")){
+								rmod.y=Integer.parseInt(astring[1]);
+							}
+							if(astring[0].equals(rmod.name+"lastx")){
+								rmod.lastX=Integer.parseInt(astring[1]);
+							}
+							if(astring[0].equals(rmod.name+"lasty")){
+								rmod.lastY=Integer.parseInt(astring[1]);
+							}
+						}
+			
+						for(Setting se : m.settings){
+							if(se instanceof ModeSetting){
+								if(astring[0].equals(m.name+"modesetting"+se.name)){
+									((ModeSetting)se).setValue(astring[1]);
+								}
+								if(astring[0].equals(m.name+"boolsetting"+se.name)){
+									((BooleanSetting)se).setValue(astring[1].equals("true"));
+								}
+							}
+						}
+			
+						if(astring[0].equals(m.name)){
+							m.setEnabled(astring[1].equals("true"));
+						}
+					}
+					
 
 					for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
 						if (astring[0].equals("modelPart_" + enumplayermodelparts.getPartName())) {
@@ -1037,8 +1071,6 @@ public class GameSettings {
 		try {
 			ByteArrayOutputStream bao = new ByteArrayOutputStream();
 			PrintWriter printwriter = new PrintWriter(new OutputStreamWriter(EaglerZLIB.newGZIPOutputStream(bao)));
-
-			Resent.INSTANCE.saveSettings(printwriter);
 
 			printwriter.println("invertYMouse:" + this.invertMouse);
 			printwriter.println("mouseSensitivity:" + this.mouseSensitivity);
@@ -1114,6 +1146,29 @@ public class GameSettings {
 			printwriter.println("hud24h:" + this.hud24h);
 			printwriter.println("chunkFix:" + this.chunkFix);
 			printwriter.println("fog:" + this.fog);
+			for(Mod m : Resent.INSTANCE.modManager.modules){
+
+				List<RenderModule> rmodules = new ArrayList<>();
+				if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
+	
+				for(RenderModule rmod : rmodules){
+					printwriter.println(rmod.name+"x:"+rmod.x);
+					printwriter.println(rmod.name+"y:"+rmod.y);
+					printwriter.println(rmod.name+"lastx:"+rmod.lastX);
+					printwriter.println(rmod.name+"lastx:"+rmod.lastX);
+				}
+	
+				for(Setting s : m.settings){
+					if(s instanceof ModeSetting){
+						printwriter.println(m.name+"modesetting"+s.name+":"+((ModeSetting) s).getValue());
+					}
+					if(s instanceof BooleanSetting){
+						printwriter.println(m.name+"boolsetting"+s.name+":"+((BooleanSetting) s).getValue());
+					}
+				}
+	
+				printwriter.println(m.name + ":" + m.enabled);
+			}
 
 			for (KeyBinding keybinding : this.keyBindings) {
 				printwriter.println("key_" + keybinding.getKeyDescription() + ":" + keybinding.getKeyCode());
