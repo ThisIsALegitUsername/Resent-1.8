@@ -31,7 +31,7 @@ public class Resent {
     public ModManager modManager;
 
     public void init() {
-        //modManager = new ModManager();
+        modManager = new ModManager();
     }
 
     public void saveSettings(PrintWriter printwriter){
@@ -61,7 +61,6 @@ public class Resent {
     }
 
     public void loadSettings(String[] astring){
-        modManager = new ModManager();
         for(Mod m : modManager.modules){
 
             List<RenderModule> rmodules = new ArrayList<>();

@@ -39,7 +39,6 @@ import dev.resent.module.impl.misc.Tooltips;
 import dev.resent.module.impl.movement.AutoJump;
 import dev.resent.module.impl.movement.AutoWalk;
 import dev.resent.module.impl.movement.Sprint;
-import dev.resent.ui.mods.HUDConfigScreen;
 import net.minecraft.client.Minecraft;
 
 public class ModManager {
@@ -73,7 +72,7 @@ public class ModManager {
 	public static Scoreboard scoreboard;
 	public static AutoWalk autoWalk;
 	public static AutoJump autoJump;
-	public static SelfNametag selfNametag;
+	public static SelfNametag selfNametag = new SelfNametag();
 	public static Scoreboard scoreboard2;
 	public static ClearChat clearChat = new ClearChat();
 	public static Tooltips tooltips;
@@ -154,16 +153,6 @@ public class ModManager {
 			}
 		}
 		return modules1;
-	}
-
-	public void renderMods() {
-		for (int i = 0; i < modules.size(); i++) {
-			if (modules.get(i).isEnabled() && (modules.get(i) instanceof RenderModule)) {
-				if (!(mc.currentScreen instanceof HUDConfigScreen)) {
-					((RenderModule) modules.get(i)).draw();
-				}
-			}
-		}
 	}
 
 }

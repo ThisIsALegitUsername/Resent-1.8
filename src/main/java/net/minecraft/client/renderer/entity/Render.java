@@ -69,7 +69,7 @@ public abstract class Render<T extends Entity> {
 	}
 
 	protected boolean canRenderName(T entity) {
-		return entity.getAlwaysRenderNameTagForRender() && entity.hasCustomName() || W.selfNametag().isEnabled();
+		return entity.getAlwaysRenderNameTagForRender() && entity.hasCustomName();
 	}
 
 	protected void renderOffsetLivingLabel(T entityIn, double x, double y, double z, String str, float parFloat1,

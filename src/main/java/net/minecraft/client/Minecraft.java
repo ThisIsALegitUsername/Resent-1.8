@@ -420,6 +420,7 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.loadIdentity();
 		GlStateManager.matrixMode(GL_MODELVIEW);
 		this.checkGLError("Startup");
+		Resent.INSTANCE.init();
 		this.textureMapBlocks = new TextureMap("textures");
 		this.textureMapBlocks.setMipmapLevels(this.gameSettings.mipmapLevels);
 		this.renderEngine.loadTickableTexture(TextureMap.locationBlocksTexture, this.textureMapBlocks);
@@ -444,8 +445,6 @@ public class Minecraft implements IThreadListener {
 		SkinPreviewRenderer.initialize();
 		this.checkGLError("Post startup");
 		this.ingameGUI = new GuiIngame(this);
-
-		Resent.INSTANCE.init();
 
 		ServerList.initServerList(this);
 		EaglerProfile.read();

@@ -14,6 +14,9 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
+import dev.resent.module.base.Mod;
+import dev.resent.module.base.RenderModule;
+import dev.resent.ui.mods.HUDConfigScreen;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
@@ -319,7 +322,15 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
-		Resent.INSTANCE.modManager.renderMods();
+		
+		for (Mod m : Resent.INSTANCE.modManager.modules) {
+			if (m.isEnabled() && (m instanceof RenderModule)) {
+				if (!(mc.currentScreen instanceof HUDConfigScreen)) {
+					((RenderModule) m).draw();
+				}
+			}
+		}
+		
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
 		GlStateManager.enableAlpha();
