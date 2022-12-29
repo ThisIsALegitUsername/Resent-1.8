@@ -80,7 +80,7 @@ public class ModManager {
 	public static SmoothCamera smoothCamera;
 	public FPSB fpsb = new FPSB();
 	public static FakeArray fakeArray;
-	public static Animations animations;
+	public static Animations animations = new Animations();
 	public MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
 	public static Watermark watermark;
 	public static NoSwingDelay noSwingDelay;
@@ -130,7 +130,7 @@ public class ModManager {
 		register(clearChat = new ClearChat());
 		register(tooltips = new Tooltips());
 		register(smoothCamera = new SmoothCamera());
-		register(animations = new Animations());
+		register(animations);
 
 	}
 
