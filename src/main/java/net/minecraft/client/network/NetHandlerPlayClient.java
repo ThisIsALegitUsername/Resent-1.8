@@ -10,6 +10,10 @@ import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 
 import com.google.common.collect.Maps;
 
+import dev.resent.Resent;
+import dev.resent.event.impl.ClientChatEvent;
+import dev.resent.module.impl.misc.AutoGG;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.netty.Unpooled;
 import net.lax1dude.eaglercraft.v1_8.profile.ServerSkinCache;
 import net.lax1dude.eaglercraft.v1_8.profile.SkinPackets;
@@ -234,6 +238,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	private final Map<EaglercraftUUID, NetworkPlayerInfo> playerInfoMap = Maps.newHashMap();
 	public int currentServerMaxPlayers = 20;
 	private boolean field_147308_k = false;
+	public static String hasSaid = "hasSaid1";
 	/**+
 	 * Just an ordinary random number generator, used to randomize
 	 * audio pitch of item/orb pickup and randomize both
@@ -754,6 +759,34 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (packetIn.getType() == 2) {
 			this.gameController.ingameGUI.setRecordPlaying(packetIn.getChatComponent(), false);
 		} else {
+
+			ClientChatEvent event = new ClientChatEvent(packetIn.getChatComponent().getUnformattedText());
+			Resent.INSTANCE.events().post(event);
+	
+			if (event.message.toLowerCase().contains("you won the match") && AutoGG.onWin.getValue()
+					|| event.message.toLowerCase().contains("was killed by")
+							&& event.message.contains(Minecraft.getMinecraft().thePlayer.getName()) || event.message.toLowerCase().contains("you lost the") && AutoGG.onLose.getValue()) {
+				if (W.autoGG().isEnabled()) {
+					switch (hasSaid) {
+						case "hasSaid1":
+	
+							Minecraft.getMinecraft().thePlayer.sendChatMessage("gg");
+							hasSaid = "hasSaid2";
+							break;
+	
+						case "hasSaid2":
+							if(AutoGG.rep.getValue()){
+							Minecraft.getMinecraft().thePlayer.sendChatMessage("gf");
+							}else {
+								Minecraft.getMinecraft().thePlayer.sendChatMessage("gg");
+							}
+	
+							hasSaid = "hasSaid1";
+							break;
+					}
+				}
+			}
+
 			this.gameController.ingameGUI.getChatGUI().printChatMessage(packetIn.getChatComponent());
 		}
 
