@@ -1,6 +1,13 @@
 package net.minecraft.client;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_BACK;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_COLOR_BUFFER_BIT;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_DEPTH_BUFFER_BIT;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_GREATER;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_LEQUAL;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_MODELVIEW;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SMOOTH;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +23,9 @@ import org.apache.commons.lang3.Validate;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
+import dev.resent.event.impl.EventKey;
 import dev.resent.ui.mods.ClickGUI;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;
@@ -25,7 +34,6 @@ import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.futures.Executors;
 import net.lax1dude.eaglercraft.v1_8.futures.FutureTask;
-import net.lax1dude.eaglercraft.v1_8.futures.Futures;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFuture;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFutureTask;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumPlatformType;
@@ -106,7 +114,6 @@ import net.minecraft.client.resources.data.TextureMetadataSectionSerializer;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.stream.IStream;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -1322,6 +1329,9 @@ public class Minecraft implements IThreadListener {
 					KeyBinding.onTick(k);
 				}
 
+				EventKey event = new EventKey(k);
+				Resent.INSTANCE.events().post(event);
+
 				if (this.debugCrashKeyPressTime > 0L) {
 					if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L) {
 						throw new ReportedException(new CrashReport("Manually triggered debug crash", new Throwable()));
@@ -1343,6 +1353,11 @@ public class Minecraft implements IThreadListener {
 					if (this.currentScreen != null) {
 						this.currentScreen.handleKeyboardInput();
 					} else {
+
+						Resent.INSTANCE.modManager.onKey(Keyboard.getEventKey());
+						if(Keyboard.getEventKey() == this.gameSettings.keyBindFreelook.keyCode)
+						W.freelook().smh();
+
 						if (k == 1 || (k > -1 && k == this.gameSettings.keyBindClose.getKeyCode())) {
 							this.displayInGameMenu();
 						}
@@ -2116,6 +2131,6 @@ public class Minecraft implements IThreadListener {
 	 * Used in the usage snooper.
 	 */
 	public static int getGLMaximumTextureSize() {
-		return EaglercraftGPU.glGetInteger(GL_MAX_TEXTURE_SIZE);
+		return EaglercraftGPU.glGetInteger(3379);
 	}
 }

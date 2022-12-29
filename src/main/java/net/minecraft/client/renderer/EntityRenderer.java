@@ -11,6 +11,8 @@ import java.util.concurrent.Callable;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
+import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -484,11 +486,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				}
 
 				GlStateManager.rotate(
-						entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F,
-						0.0F, -1.0F, 0.0F);
+					ModManager.freelook.getCameraYaw() + (ModManager.freelook.getCameraYaw() - ModManager.freelook.getCameraYaw()) * partialTicks + 180.0F,
+					0.0F, -1.0F, 0.0F);
 				GlStateManager.rotate(
-						entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks,
-						-1.0F, 0.0F, 0.0F);
+					ModManager.freelook.getCameraPitch() + (ModManager.freelook.getCameraPitch() - ModManager.freelook.getCameraPitch()) * partialTicks,
+					-1.0F, 0.0F, 0.0F);
 			}
 		} else if (this.mc.gameSettings.thirdPersonView > 0) {
 			double d3 = (double) (this.thirdPersonDistanceTemp
@@ -496,8 +498,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			if (this.mc.gameSettings.debugCamEnable) {
 				GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
 			} else {
-				float f1 = entity.rotationYaw;
-				float f2 = entity.rotationPitch;
+				float f1 = ModManager.freelook.getCameraYaw();
+				float f2 = ModManager.freelook.getCameraPitch();
 				if (this.mc.gameSettings.thirdPersonView == 2) {
 					f2 += 180.0F;
 				}
@@ -530,11 +532,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 				}
 
-				GlStateManager.rotate(entity.rotationPitch - f2, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(entity.rotationYaw - f1, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(ModManager.freelook.getCameraPitch() - f2, 1.0F, 0.0F, 0.0F);
+				GlStateManager.rotate(ModManager.freelook.getCameraYaw() - f1, 0.0F, 1.0F, 0.0F);
 				GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
-				GlStateManager.rotate(f1 - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-				GlStateManager.rotate(f2 - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
+				GlStateManager.rotate(f1 - ModManager.freelook.getCameraYaw(), 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(f2 - ModManager.freelook.getCameraPitch(), 1.0F, 0.0F, 0.0F);
 			}
 		} else {
 			GlStateManager.translate(0.0F, 0.0F, -0.1F);
@@ -542,7 +544,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		if (!this.mc.gameSettings.debugCamEnable) {
 			GlStateManager.rotate(
-					entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F,
+				ModManager.freelook.getCameraPitch() + (ModManager.freelook.getCameraPitch() - ModManager.freelook.getCameraPitch()) * partialTicks, 1.0F,
 					0.0F, 0.0F);
 			if (entity instanceof EntityAnimal) {
 				EntityAnimal entityanimal = (EntityAnimal) entity;
@@ -551,7 +553,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						0.0F, 1.0F, 0.0F);
 			} else {
 				GlStateManager.rotate(
-						entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F,
+					ModManager.freelook.getCameraYaw() + (ModManager.freelook.getCameraYaw() - ModManager.freelook.getCameraYaw()) * partialTicks + 180.0F,
 						0.0F, 1.0F, 0.0F);
 			}
 		}
@@ -590,7 +592,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		}
 
 		this.hurtCameraEffect(partialTicks);
-		if (this.mc.gameSettings.viewBobbing) {
+		if (this.mc.gameSettings.viewBobbing && !Resent.INSTANCE.modManager.minimalViewBobbing.isEnabled()) {
 			this.setupViewBobbing(partialTicks);
 		}
 
@@ -653,7 +655,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 			GlStateManager.pushMatrix();
 			this.hurtCameraEffect(partialTicks);
-			if (this.mc.gameSettings.viewBobbing) {
+			if (this.mc.gameSettings.viewBobbing || Resent.INSTANCE.modManager.minimalViewBobbing.isEnabled()) {
 				this.setupViewBobbing(partialTicks);
 			}
 
@@ -672,7 +674,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.hurtCameraEffect(partialTicks);
 			}
 
-			if (this.mc.gameSettings.viewBobbing) {
+			if (this.mc.gameSettings.viewBobbing || Resent.INSTANCE.modManager.minimalViewBobbing.isEnabled()) {
 				this.setupViewBobbing(partialTicks);
 			}
 
@@ -854,7 +856,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		this.mc.mcProfiler.startSection("mouse");
 
-		if (this.mc.inGameHasFocus && flag) {
+		if (this.mc.inGameHasFocus && flag && ModManager.freelook.overriderMouse()) {
 			this.mc.mouseHelper.mouseXYChange();
 			float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
 			if (this.mc.gameSettings.keyBindZoomCamera.isKeyDown()) {

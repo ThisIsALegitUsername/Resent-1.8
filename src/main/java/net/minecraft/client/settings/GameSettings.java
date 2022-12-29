@@ -166,6 +166,7 @@ public class GameSettings {
 	public KeyBinding keyBindFunction = new KeyBinding("key.function", KeyboardConstants.KEY_F, "key.categories.misc");
 	public KeyBinding keyBindClose = new KeyBinding("key.close", KeyboardConstants.KEY_GRAVE, "key.categories.misc");
 	public KeyBinding keyBindClickGui = new KeyBinding("Click Gui", KeyboardConstants.KEY_RSHIFT, "Resent");
+	public KeyBinding keyBindFreelook = new KeyBinding("Freelook", KeyboardConstants.KEY_L, "Resent");
 	public KeyBinding[] keyBindsHotbar = new KeyBinding[] {
 			new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"),
 			new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"),
