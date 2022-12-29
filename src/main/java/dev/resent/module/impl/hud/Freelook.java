@@ -26,38 +26,38 @@ public class Freelook extends Mod {
             if(W.freelook().isEnabled())
             perspectiveToggled = !perspectiveToggled;
 
-            cameraYaw = mc.thePlayer.rotationYaw;
-            cameraPitch = mc.thePlayer.rotationPitch;
+            cameraYaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
+            cameraPitch = Minecraft.getMinecraft().thePlayer.rotationPitch;
 
             if (perspectiveToggled && W.freelook().isEnabled()) {
-                previousePrespective = mc.gameSettings.thirdPersonView;
-                mc.gameSettings.thirdPersonView = 1;
+                previousePrespective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
+                Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
             } else {
-                mc.gameSettings.thirdPersonView = previousePrespective;
+                Minecraft.getMinecraft().gameSettings.thirdPersonView = previousePrespective;
             }
 
-    if (Keyboard.getEventKey() == 6 && mc.gameSettings.keyBindFunction.pressed) {
+    if (Keyboard.getEventKey() == 6 && Minecraft.getMinecraft().gameSettings.keyBindFunction.pressed) {
         perspectiveToggled = false;
     }
 }
 
     public float getCameraYaw() {
-        return perspectiveToggled ? cameraYaw : mc.thePlayer.rotationYaw;
+        return perspectiveToggled ? cameraYaw : Minecraft.getMinecraft().thePlayer.rotationYaw;
     }
 
     public float getCameraPitch() {
-        return perspectiveToggled ? cameraPitch : mc.thePlayer.rotationPitch;
+        return perspectiveToggled ? cameraPitch : Minecraft.getMinecraft().thePlayer.rotationPitch;
     }
 
     public boolean overriderMouse() {
-        if (mc.inGameHasFocus) {
+        if (Minecraft.getMinecraft().inGameHasFocus) {
             if (!perspectiveToggled)
                 return true;
-            mc.mouseHelper.mouseXYChange();
-            float f1 = mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
+            Minecraft.getMinecraft().mouseHelper.mouseXYChange();
+            float f1 = Minecraft.getMinecraft().gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float f2 = f1 * f1 * f1 * 8.0F;
-            float f3 = mc.mouseHelper.deltaX * f2;
-            float f4 = mc.mouseHelper.deltaY * f2;
+            float f3 = Minecraft.getMinecraft().mouseHelper.deltaX * f2;
+            float f4 = Minecraft.getMinecraft().mouseHelper.deltaY * f2;
             cameraYaw += f3 * 0.15F;
             cameraPitch += f4 * 0.15F;
             if (cameraPitch > 90.0F)
