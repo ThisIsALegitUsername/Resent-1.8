@@ -12,6 +12,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import dev.resent.Resent;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
@@ -208,6 +209,7 @@ public class GuiIngame extends Gui {
 			this.renderDemo(scaledresolution);
 		}
 
+
 		this.overlayDebug.renderDebugInfo(scaledresolution, partialTicks);
 
 		if (this.recordPlayingUpFor > 0) {
@@ -313,6 +315,7 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
+		Resent.INSTANCE.modManager.renderMods();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
 		GlStateManager.enableAlpha();
