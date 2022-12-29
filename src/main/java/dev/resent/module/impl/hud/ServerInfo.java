@@ -12,9 +12,14 @@ public class ServerInfo extends RenderModule{
 
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
+    public int getWidth(){
+        return mc.fontRendererObj.getStringWidth(getText())+4;
+    }
+
+    public int getHeight(){
+        return mc.fontRendererObj.FONT_HEIGHT+4;
+    }
     public void draw(){
-        this.setWidth(mc.fontRendererObj.getStringWidth(getText())+4);
-        this.setHeight(mc.fontRendererObj.FONT_HEIGHT+4);
         mc.fontRendererObj.drawString(getText(), this.x+2, this.y+2, -1, tshadow.getValue());
     }
 
