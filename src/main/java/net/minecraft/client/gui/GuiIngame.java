@@ -511,7 +511,9 @@ public class GuiIngame extends Gui {
 			int l = parScaledResolution.getScaledWidth() - b0 + 2;
 			drawRect(k1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
 			this.getFontRenderer().drawString(s1, k1, k, 553648127);
+			if(W.scoreboardNumbers().enabled){
 			this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
+			}
 			if (j == arraylist1.size()) {
 				String s3 = parScoreObjective.getDisplayName();
 				drawRect(k1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
