@@ -20,7 +20,7 @@ public class W {
    
    public static NoRain noRain(){ return ModManager.noRain; }
    public static DynamicFOV dynamicFOV(){ return ModManager.dynamicFOV; }
-   public static NoHurtCam noHurtCam(){ return Resent.INSTANCE.modManager.noHurtCam; }
+   public static NoHurtCam noHurtCam(){ return ModManager.noHurtCam; }
    public static AutoGG autoGG() { return ModManager.autoGG; }
    public static Freelook freelook(){ return ModManager.freelook; }
    public static ComboCounter comboCounter(){ return ModManager.comboCounter; }
@@ -30,6 +30,6 @@ public class W {
    public static Scoreboard scoreboard(){ return ModManager.scoreboard; }
    public static SelfNametag selfNametag(){ return ModManager.selfNametag; }
    public static ClearChat clearChat(){ return ModManager.clearChat; }
-   public static FPSB fpsb() { return Resent.INSTANCE.modManager.fpsb; }
+   public static FPSB fpsb() { return ModManager.fpsb; }
 
 }

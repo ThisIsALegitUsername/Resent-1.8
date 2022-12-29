@@ -57,7 +57,7 @@ public class ModManager {
 	public static NoRain noRain;
 	public static DynamicFOV dynamicFOV;
 	public static PotionHUD potionHud;
-	public NoHurtCam noHurtCam = new NoHurtCam();
+	public static NoHurtCam noHurtCam = new NoHurtCam();
 	public static Info coordinate;
 	public static FPS fps;
 	public static ReachDisplay reachDisplay;
@@ -78,10 +78,10 @@ public class ModManager {
 	public static ClearChat clearChat;
 	public static Tooltips tooltips;
 	public static SmoothCamera smoothCamera;
-	public FPSB fpsb = new FPSB();
+	public static FPSB fpsb = new FPSB();
 	public static FakeArray fakeArray;
 	public static Animations animations = new Animations();
-	public MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
+	public static MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
 	public static Watermark watermark;
 	public static NoSwingDelay noSwingDelay;
 	public static PotCounter potCounter;
