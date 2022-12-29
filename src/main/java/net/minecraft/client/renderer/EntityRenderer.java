@@ -13,6 +13,7 @@ import com.google.common.base.Predicates;
 
 import dev.resent.Resent;
 import dev.resent.module.base.ModManager;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -421,7 +422,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void hurtCameraEffect(float partialTicks) {
-		if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
+		if (this.mc.getRenderViewEntity() instanceof EntityLivingBase && !W.noHurtCam().isEnabled()) {
 			EntityLivingBase entitylivingbase = (EntityLivingBase) this.mc.getRenderViewEntity();
 			float f = (float) entitylivingbase.hurtTime - partialTicks;
 			if (entitylivingbase.getHealth() <= 0.0F) {
@@ -1149,6 +1150,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			RenderHelper.disableStandardItemLighting();
 			this.setupFog(0, partialTicks);
 			this.mc.mcProfiler.endStartSection("particles");
+			
 			effectrenderer.renderParticles(entity, partialTicks);
 			this.disableLightmap();
 		}
