@@ -12,6 +12,7 @@ import com.google.common.collect.Maps;
 
 import dev.resent.Resent;
 import dev.resent.event.impl.ClientChatEvent;
+import dev.resent.event.impl.EntityStatusEvent;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.netty.Unpooled;
@@ -926,6 +927,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 */
 	public void handleEntityStatus(S19PacketEntityStatus packetIn) {
 		Entity entity = packetIn.getEntity(this.clientWorldController);
+
+		EntityStatusEvent event = new EntityStatusEvent(packetIn);
+		Resent.INSTANCE.events().post(event);
+
 		if (entity != null) {
 			if (packetIn.getOpCode() == 21) {
 				this.gameController.getSoundHandler().playSound(new GuardianSound((EntityGuardian) entity));
