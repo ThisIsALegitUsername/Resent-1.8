@@ -13,6 +13,8 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
+import dev.resent.ui.mods.HUDConfigScreen;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
@@ -290,7 +292,7 @@ public class GuiIngame extends Gui {
 
 		ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective
 				: scoreboard.getObjectiveInDisplaySlot(1);
-		if (scoreobjective1 != null) {
+		if (scoreobjective1 != null && W.scoreboard().isEnabled()) {
 			this.renderScoreboard(scoreobjective1, scaledresolution);
 		}
 
@@ -315,7 +317,9 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
-		Resent.INSTANCE.modManager.renderMods();
+		if(!(mc.currentScreen instanceof HUDConfigScreen)){
+			Resent.INSTANCE.modManager.renderMods();
+		}
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
 		GlStateManager.enableAlpha();
