@@ -31,7 +31,7 @@ public class Resent {
     public ModManager modManager;
 
     public void init() {
-        this.modManager = new ModManager();
+        Resent.INSTANCE.modManager = new ModManager();
     }
 
     public EventBus<Event> events() {

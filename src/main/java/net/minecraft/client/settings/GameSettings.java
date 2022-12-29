@@ -1009,26 +1009,26 @@ public class GameSettings {
 						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
 			
 						for(RenderModule rmod : rmodules){
-							if(astring[0].equals(rmod.name+"x")){
+							if(astring[0].equals(rmod.name+"_x")){
 								rmod.x=Integer.parseInt(astring[1]);
 							}
-							if(astring[0].equals(rmod.name+"y")){
+							if(astring[0].equals(rmod.name+"_y")){
 								rmod.y=Integer.parseInt(astring[1]);
 							}
-							if(astring[0].equals(rmod.name+"lastx")){
+							if(astring[0].equals(rmod.name+"_lastx")){
 								rmod.lastX=Integer.parseInt(astring[1]);
 							}
-							if(astring[0].equals(rmod.name+"lasty")){
+							if(astring[0].equals(rmod.name+"_lasty")){
 								rmod.lastY=Integer.parseInt(astring[1]);
 							}
 						}
 			
 						for(Setting se : m.settings){
 							if(se instanceof ModeSetting){
-								if(astring[0].equals(m.name+"modesetting"+se.name)){
+								if(astring[0].equals(m.name+"_modesetting_"+se.name)){
 									((ModeSetting)se).setValue(astring[1]);
 								}
-								if(astring[0].equals(m.name+"boolsetting"+se.name)){
+								if(astring[0].equals(m.name+"_boolsetting_"+se.name)){
 									((BooleanSetting)se).setValue(astring[1].equals("true"));
 								}
 							}
@@ -1038,7 +1038,7 @@ public class GameSettings {
 							m.setEnabled(astring[1].equals("true"));
 						}
 					}
-					
+
 
 					for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
 						if (astring[0].equals("modelPart_" + enumplayermodelparts.getPartName())) {
@@ -1146,28 +1146,29 @@ public class GameSettings {
 			printwriter.println("hud24h:" + this.hud24h);
 			printwriter.println("chunkFix:" + this.chunkFix);
 			printwriter.println("fog:" + this.fog);
+
 			for(Mod m : Resent.INSTANCE.modManager.modules){
 
 				List<RenderModule> rmodules = new ArrayList<>();
 				if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
 	
 				for(RenderModule rmod : rmodules){
-					printwriter.println(rmod.name+"x:"+rmod.x);
-					printwriter.println(rmod.name+"y:"+rmod.y);
-					printwriter.println(rmod.name+"lastx:"+rmod.lastX);
-					printwriter.println(rmod.name+"lastx:"+rmod.lastX);
+					printwriter.println(rmod.name+"_x:"+rmod.x);
+					printwriter.println(rmod.name+"_y:"+rmod.y);
+					printwriter.println(rmod.name+"_lastx:"+rmod.lastX);
+					printwriter.println(rmod.name+"_lastx:"+rmod.lastX);
 				}
 	
 				for(Setting s : m.settings){
 					if(s instanceof ModeSetting){
-						printwriter.println(m.name+"modesetting"+s.name+":"+((ModeSetting) s).getValue());
+						printwriter.println(m.name+"_modesetting_"+s.name+":"+((ModeSetting) s).getValue());
 					}
 					if(s instanceof BooleanSetting){
-						printwriter.println(m.name+"boolsetting"+s.name+":"+((BooleanSetting) s).getValue());
+						printwriter.println(m.name+"_boolsetting_"+s.name+":"+((BooleanSetting) s).getValue());
 					}
 				}
 	
-				printwriter.println(m.name + ":" + m.enabled);
+				printwriter.println(m.name + ":" + m.isEnabled());
 			}
 
 			for (KeyBinding keybinding : this.keyBindings) {
