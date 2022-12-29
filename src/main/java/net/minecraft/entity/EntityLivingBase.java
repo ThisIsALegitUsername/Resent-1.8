@@ -905,7 +905,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public void swingItem() {
 		if (!this.isSwingInProgress || this.swingProgressInt >= this.getArmSwingAnimationEnd() / 2
-				|| this.swingProgressInt < 0) {
+				|| this.swingProgressInt < 0 || ModManager.noSwingDelay.isEnabled()) {
 			this.swingProgressInt = -1;
 			this.isSwingInProgress = true;
 		}
