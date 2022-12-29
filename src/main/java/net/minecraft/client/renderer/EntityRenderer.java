@@ -1150,7 +1150,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			RenderHelper.disableStandardItemLighting();
 			this.setupFog(0, partialTicks);
 			this.mc.mcProfiler.endStartSection("particles");
-			
+			if(!W.noParticles().isEnabled())
 			effectrenderer.renderParticles(entity, partialTicks);
 			this.disableLightmap();
 		}
