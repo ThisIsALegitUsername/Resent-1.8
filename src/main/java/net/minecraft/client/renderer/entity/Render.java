@@ -2,6 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -68,7 +69,7 @@ public abstract class Render<T extends Entity> {
 	}
 
 	protected boolean canRenderName(T entity) {
-		return entity.getAlwaysRenderNameTagForRender() && entity.hasCustomName();
+		return entity.getAlwaysRenderNameTagForRender() && entity.hasCustomName() || W.selfNametag().isEnabled();
 	}
 
 	protected void renderOffsetLivingLabel(T entityIn, double x, double y, double z, String str, float parFloat1,
