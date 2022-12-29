@@ -1,21 +1,22 @@
 package net.minecraft.client.gui;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_DST_COLOR;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
-import dev.resent.module.base.ModManager;
-import dev.resent.ui.mods.HUDConfigScreen;
 import dev.resent.util.misc.W;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
@@ -128,7 +129,6 @@ public class GuiIngame extends Gui {
 	}
 
 	public void renderGameOverlay(float partialTicks) {
-		ModManager modManager = new ModManager();
 		ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 		int i = scaledresolution.getScaledWidth();
 		int j = scaledresolution.getScaledHeight();
@@ -319,9 +319,7 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
-		if(!(mc.currentScreen instanceof HUDConfigScreen)){
-			modManager.renderMods();
-		}
+		Resent.INSTANCE.modManager.renderMods();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
 		GlStateManager.enableAlpha();

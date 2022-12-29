@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
-import dev.resent.module.base.ModManager;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
 import dev.resent.setting.Setting;
@@ -22,7 +21,6 @@ import net.minecraft.util.MathHelper;
 public class ClickGUI extends GuiScreen {
 
     public Mod modWatching = null;
-    public ModManager modManager;
     public ScaledResolution sr;
     public int x, y, width, height;
     public int offset = 0;
@@ -43,7 +41,7 @@ public class ClickGUI extends GuiScreen {
         y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
         int off = 0;
 
-        for (Mod m: modManager.modules) {
+        for (Mod m: Resent.INSTANCE.modManager.modules) {
             int fh = fr.FONT_HEIGHT;
 
             if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.hasSetting) {
@@ -102,7 +100,6 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float par3) {
-        modManager = new ModManager();
         sr = new ScaledResolution(mc);
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
@@ -138,7 +135,7 @@ public class ClickGUI extends GuiScreen {
         // white line
         Gui.drawRect(x - 8, height + 29, width + 33, height + 30, -1);
 
-        for (Mod m : modManager.modules) {
+        for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29

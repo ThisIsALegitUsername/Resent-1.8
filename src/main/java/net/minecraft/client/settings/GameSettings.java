@@ -17,8 +17,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import dev.resent.Resent;
 import dev.resent.module.base.Mod;
-import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
@@ -683,14 +683,12 @@ public class GameSettings {
 		}
 	}
 
-	public ModManager modManager;
 
 	/**+
 	 * Loads the options from the options file. It appears that this
 	 * has replaced the previous 'loadOptions'
 	 */
 	public void loadOptions() {
-		modManager = new ModManager();
 		try {
 			byte[] options = EagRuntime.getStorage("g");
 			if (options == null) {
@@ -706,41 +704,7 @@ public class GameSettings {
 				try {
 					String[] astring = s.split(":");
 
-					for(Mod m : modManager.modules){
-
-						List<RenderModule> rmodules = new ArrayList<>();
-						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
-		
-						for(RenderModule rmod : rmodules){
-							if(astring[0].equals(rmod.name+"x")){
-								rmod.x=Integer.parseInt(astring[1]);
-							}
-							if(astring[0].equals(rmod.name+"y")){
-								rmod.y=Integer.parseInt(astring[1]);
-							}
-							if(astring[0].equals(rmod.name+"lastx")){
-								rmod.lastX=Integer.parseInt(astring[1]);
-							}
-							if(astring[0].equals(rmod.name+"lasty")){
-								rmod.lastY=Integer.parseInt(astring[1]);
-							}
-						}
-		
-						for(Setting se : m.settings){
-							if(se instanceof ModeSetting){
-								if(astring[0].equals(m.name+"modesetting"+se.name)){
-									((ModeSetting)se).setValue(astring[1]);
-								}
-								if(astring[0].equals(m.name+"boolsetting"+se.name)){
-									((BooleanSetting)se).setValue(astring[1].equals("true"));
-								}
-							}
-						}
-		
-						if(astring[0].equals(m.name)){
-							m.setEnabled(astring[1].equals("true"));
-						}
-					}
+					Resent.INSTANCE.loadSettings(astring);
 
 					if (astring[0].equals("mouseSensitivity")) {
 						this.mouseSensitivity = this.parseFloat(astring[1]);
@@ -1074,29 +1038,7 @@ public class GameSettings {
 			ByteArrayOutputStream bao = new ByteArrayOutputStream();
 			PrintWriter printwriter = new PrintWriter(new OutputStreamWriter(EaglerZLIB.newGZIPOutputStream(bao)));
 
-			for(Mod m : modManager.modules){
-
-				List<RenderModule> rmodules = new ArrayList<>();
-				if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
-
-				for(RenderModule rmod : rmodules){
-					printwriter.println(rmod.name+"x:"+rmod.x);
-					printwriter.println(rmod.name+"y:"+rmod.y);
-					printwriter.println(rmod.name+"lastx:"+rmod.lastX);
-					printwriter.println(rmod.name+"lastx:"+rmod.lastX);
-				}
-
-				for(Setting s : m.settings){
-					if(s instanceof ModeSetting){
-						printwriter.println(m.name+"modesetting"+s.name+":"+((ModeSetting) s).getValue());
-					}
-					if(s instanceof BooleanSetting){
-						printwriter.println(m.name+"boolsetting"+s.name+":"+((BooleanSetting) s).getValue());
-					}
-				}
-
-				printwriter.println(m.name + ":" + m.enabled);
-			}
+			Resent.INSTANCE.saveSettings(printwriter);
 
 			printwriter.println("invertYMouse:" + this.invertMouse);
 			printwriter.println("mouseSensitivity:" + this.mouseSensitivity);

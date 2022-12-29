@@ -1355,8 +1355,7 @@ public class Minecraft implements IThreadListener {
 						this.currentScreen.handleKeyboardInput();
 					} else {
 
-						ModManager modManager = new ModManager();
-						modManager.onKey(Keyboard.getEventKey());
+						Resent.INSTANCE.modManager.onKey(Keyboard.getEventKey());
 						if(Keyboard.getEventKey() == this.gameSettings.keyBindFreelook.keyCode)
 						W.freelook().smh();
 
