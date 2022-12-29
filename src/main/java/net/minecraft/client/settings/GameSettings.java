@@ -19,6 +19,7 @@ import com.google.common.collect.Sets;
 
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
@@ -213,7 +214,7 @@ public class GameSettings {
 				this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat,
 				this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot,
 				this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindZoomCamera, this.keyBindFunction,
-				this.keyBindClose, this.keyBindClickGui }, this.keyBindsHotbar);
+				this.keyBindClose, this.keyBindClickGui, this.keyBindFreelook }, this.keyBindsHotbar);
 		this.difficulty = EnumDifficulty.NORMAL;
 		this.lastServer = "";
 		this.fovSetting = 70.0F;
@@ -708,6 +709,7 @@ public class GameSettings {
 						this.mouseSensitivity = this.parseFloat(astring[1]);
 					}
 
+
 					if (astring[0].equals("fov")) {
 						this.fovSetting = this.parseFloat(astring[1]) * 40.0F + 70.0F;
 					}
@@ -1005,15 +1007,19 @@ public class GameSettings {
 
 					for(Mod m : Resent.INSTANCE.modManager.modules){
 
+						if(astring[0].equals(m.name)){
+							m.enabled = astring[1].equals("true");
+						}
+
 						List<RenderModule> rmodules = new ArrayList<>();
 						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
 			
 						for(RenderModule rmod : rmodules){
 							if(astring[0].equals(rmod.name+"_x")){
-								rmod.x=Integer.parseInt(astring[1]);
+								rmod.setX(Integer.parseInt(astring[1]));
 							}
 							if(astring[0].equals(rmod.name+"_y")){
-								rmod.y=Integer.parseInt(astring[1]);
+								rmod.setY(Integer.parseInt(astring[1]));
 							}
 							if(astring[0].equals(rmod.name+"_lastx")){
 								rmod.lastX=Integer.parseInt(astring[1]);
@@ -1028,14 +1034,12 @@ public class GameSettings {
 								if(astring[0].equals(m.name+"_modesetting_"+se.name)){
 									((ModeSetting)se).setValue(astring[1]);
 								}
+							}
+							if(se instanceof BooleanSetting){
 								if(astring[0].equals(m.name+"_boolsetting_"+se.name)){
 									((BooleanSetting)se).setValue(astring[1].equals("true"));
 								}
 							}
-						}
-			
-						if(astring[0].equals(m.name)){
-							m.setEnabled(astring[1].equals("true"));
 						}
 					}
 
@@ -1087,6 +1091,7 @@ public class GameSettings {
 			printwriter.println("difficulty:" + this.difficulty.getDifficultyId());
 			printwriter.println("fancyGraphics:" + this.fancyGraphics);
 			printwriter.println("ao:" + this.ambientOcclusion);
+			printwriter.println("keystrokes:" + ModManager.keyStrokes.isEnabled());
 			switch (this.clouds) {
 			case 0:
 				printwriter.println("renderClouds:false");
@@ -1149,12 +1154,14 @@ public class GameSettings {
 
 			for(Mod m : Resent.INSTANCE.modManager.modules){
 
+				printwriter.println(m.name + ":" + m.isEnabled());
+
 				List<RenderModule> rmodules = new ArrayList<>();
 				if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
 	
 				for(RenderModule rmod : rmodules){
-					printwriter.println(rmod.name+"_x:"+rmod.x);
-					printwriter.println(rmod.name+"_y:"+rmod.y);
+					printwriter.println(rmod.name+"_x:"+rmod.getX());
+					printwriter.println(rmod.name+"_y:"+rmod.getY());
 					printwriter.println(rmod.name+"_lastx:"+rmod.lastX);
 					printwriter.println(rmod.name+"_lastx:"+rmod.lastX);
 				}
@@ -1167,8 +1174,7 @@ public class GameSettings {
 						printwriter.println(m.name+"_boolsetting_"+s.name+":"+((BooleanSetting) s).getValue());
 					}
 				}
-	
-				printwriter.println(m.name + ":" + m.isEnabled());
+
 			}
 
 			for (KeyBinding keybinding : this.keyBindings) {

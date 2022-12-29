@@ -231,7 +231,9 @@ public class ClickGUI extends GuiScreen {
 
     public boolean doesGuiPauseGame() { return false; }
     public boolean isMouseInside(int mouseX, int mouseY, int x, int y, int width, int height) { return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height); }
-    public void onGuiClosed() { Keyboard.enableRepeatEvents(false); mc.gameSettings.saveOptions(); }
+    public void onGuiClosed() { Keyboard.enableRepeatEvents(true); mc.gameSettings.saveOptions(); }
+    @Override
+    public void initGui(){ mc.gameSettings.loadOptions(); }
     protected void keyTyped(char par1, int par2) { if (par2 == 0x01 || par2 == Minecraft.getMinecraft().gameSettings.keyBindClickGui.keyCode) { mc.displayGuiScreen(null); } }
 
     @Override
