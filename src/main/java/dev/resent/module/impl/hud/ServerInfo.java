@@ -19,8 +19,8 @@ public class ServerInfo extends RenderModule{
     }
 
     public String getText(){
-        if(mc.getNetHandler() != null){
-        return "[Playing on: " + "Placeholder" + "]";
+        if(mc.getCurrentServerData() != null){
+            return "[Playing on: " + mc.getCurrentServerData().serverIP + "]";
         }
         return "[Playing on: Not connected]";
     }
