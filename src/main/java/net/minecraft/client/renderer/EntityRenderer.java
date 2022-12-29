@@ -1215,6 +1215,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void addRainParticles() {
+		if(!W.noRain().isEnabled()){
 		float f = this.mc.theWorld.getRainStrength(1.0F);
 		if (!this.mc.gameSettings.fancyGraphics) {
 			f /= 2.0F;
@@ -1278,7 +1279,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					this.mc.theWorld.playSound(d0, d1, d2, "ambient.weather.rain", 0.2F, 1.0F, false);
 				}
 			}
-
+		}
 		}
 	}
 
@@ -1286,6 +1287,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Render rain and snow
 	 */
 	protected void renderRainSnow(float partialTicks) {
+		if(!W.noRain().isEnabled()){
 		float f = this.mc.theWorld.getRainStrength(partialTicks);
 		if (f > 0.0F) {
 			this.enableLightmap();
@@ -1433,6 +1435,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			this.disableLightmap();
 		}
 	}
+}
 
 	/**+
 	 * Setup orthogonal projection for rendering GUI screen overlays
