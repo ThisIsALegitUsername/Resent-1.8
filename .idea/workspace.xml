@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c16cb29-fd95-4a14-bee8-e94e1bc0dd58" name="Changes" comment="Code cleanup and remove renderworldevent." />
+    <list default="true" id="7c16cb29-fd95-4a14-bee8-e94e1bc0dd58" name="Changes" comment="compile" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -219,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672597610833</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="compile">
+      <created>1672598190790</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672598190790</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +250,7 @@
     <MESSAGE value="Code cleanup and remove renderworldevent" />
     <MESSAGE value="Code cleanup and remove renderworldevent. Reformat code." />
     <MESSAGE value="Code cleanup and remove renderworldevent." />
-    <option name="LAST_COMMIT_MESSAGE" value="Code cleanup and remove renderworldevent." />
+    <MESSAGE value="compile" />
+    <option name="LAST_COMMIT_MESSAGE" value="compile" />
   </component>
 </project>
