@@ -1,6 +1,7 @@
 package dev.resent.module.base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import dev.resent.setting.Setting;
@@ -16,7 +17,7 @@ public class Mod {
 	public boolean enabled = false;
 	public boolean hasSetting;
 
-	public List<Setting> settings = new ArrayList<Setting>();
+	public List<Setting> settings = new ArrayList<>();
 
 	public Mod(String name, Category cat) {
 		this.name = name;
@@ -30,9 +31,7 @@ public class Mod {
 	}
 
 	public void addSetting(Setting... settings) {
-		for (Setting s : settings) {
-			this.settings.add(s);
-		}
+		this.settings.addAll(Arrays.asList(settings));
 	}
 
 	public void onEnable() {

@@ -4,6 +4,8 @@ import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
+import java.util.Objects;
+
 public class RenderModule extends Mod {
 
 	public int x, y, width, height;
@@ -60,23 +62,23 @@ public class RenderModule extends Mod {
 	}
 
 	private void draggingFix(int mouseX, int mouseY) {
-		if (this.dragging && (ModManager.currentModDragging == this.name || ModManager.currentModDragging == null)) {
+		if (this.dragging && (Objects.equals(ModManager.currentModDragging, this.name) || ModManager.currentModDragging == null)) {
 			this.x = mouseX + this.lastX;
 			this.y = mouseY + this.lastY;
 			if (ModManager.currentModDragging == null)
 				ModManager.currentModDragging = this.name;
 			if (!Mouse.isButtonDown(0))
 				this.dragging = false;
-			if (ModManager.currentModDragging == this.name)
+			if (Objects.equals(ModManager.currentModDragging, this.name))
 				ModManager.currentModDragging = null;
 			if (this.x >= GuiScreen.width - getWidth()) {
 				this.dragging = false;
-				if (ModManager.currentModDragging == this.name)
+				if (Objects.equals(ModManager.currentModDragging, this.name))
 					ModManager.currentModDragging = null;
 			}
 			if (this.y >= GuiScreen.height - getHeight()) {
 				this.dragging = false;
-				if (ModManager.currentModDragging == this.name)
+				if (Objects.equals(ModManager.currentModDragging, this.name))
 					ModManager.currentModDragging = null;
 			}
 		}
@@ -87,15 +89,12 @@ public class RenderModule extends Mod {
 		boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth()
 				&& mouseY < getY() + this.getHeight();
 
-		if (hovered) {
-			
-		}
 		boolean mouseOverX = (mouseX >= this.x && mouseX <= this.x + this.getWidth());
 		boolean mouseOverY = (mouseY >= this.y && mouseY <= this.y + this.getHeight());
 		boolean drag = (mouseOverX && mouseOverY && Mouse.isButtonDown(0));
 		draggingFix(mouseX, mouseY);
 
-		if (drag && (ModManager.currentModDragging == null || ModManager.currentModDragging == this.name)) {
+		if (drag && (ModManager.currentModDragging == null || ModManager.currentModDragging.equals(this.name))) {
 			if (!this.dragging) {
 				this.lastX = x - mouseX;
 				this.lastY = y - mouseY;

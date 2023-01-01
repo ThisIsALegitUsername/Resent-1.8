@@ -43,7 +43,7 @@ import net.minecraft.client.Minecraft;
 
 public class ModManager {
 	
-	public List<Mod> modules = new ArrayList<Mod>();
+	public List<Mod> modules = new ArrayList<>();
 	public Minecraft mc = Minecraft.getMinecraft();
 
 	public static String currentModDragging = null;
@@ -73,7 +73,6 @@ public class ModManager {
 	public static AutoWalk autoWalk;
 	public static AutoJump autoJump;
 	public static SelfNametag selfNametag = new SelfNametag();
-	public static Scoreboard scoreboard2;
 	public static ClearChat clearChat = new ClearChat();
 	public static Tooltips tooltips;
 	public static SmoothCamera smoothCamera;
@@ -147,9 +146,9 @@ public class ModManager {
 
 	public List<Mod> getModulesByCategory(Category c) {
 		List<Mod> modules1 = new ArrayList<Mod>();
-		for(int i = 0; i < modules.size(); i++){
-			if (modules.get(i).category == c) {
-				modules1.add(modules.get(i));
+		for (Mod module : modules) {
+			if (module.category == c) {
+				modules1.add(module);
 			}
 		}
 		return modules1;

@@ -1,16 +1,7 @@
 package dev.resent;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.resent.event.impl.Event;
-import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
-import dev.resent.module.base.RenderModule;
-import dev.resent.setting.BooleanSetting;
-import dev.resent.setting.ModeSetting;
-import dev.resent.setting.Setting;
 import net.kyori.event.EventBus;
 import net.minecraft.client.Minecraft;
 
