@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c16cb29-fd95-4a14-bee8-e94e1bc0dd58" name="Changes" comment="compile" />
+    <list default="true" id="7c16cb29-fd95-4a14-bee8-e94e1bc0dd58" name="Changes" comment="Maybe fix settings stuff" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,10 +54,12 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="ThisIsALegitUsername &lt;andrewsouchien@gmail.com&gt;" />
         <option value="Nitwit" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
   "lastFilter": {
@@ -94,6 +96,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -226,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672598190790</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Maybe fix settings stuff">
+      <created>1672598920646</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1672598920646</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,6 +261,7 @@
     <MESSAGE value="Code cleanup and remove renderworldevent. Reformat code." />
     <MESSAGE value="Code cleanup and remove renderworldevent." />
     <MESSAGE value="compile" />
-    <option name="LAST_COMMIT_MESSAGE" value="compile" />
+    <MESSAGE value="Maybe fix settings stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Maybe fix settings stuff" />
   </component>
 </project>

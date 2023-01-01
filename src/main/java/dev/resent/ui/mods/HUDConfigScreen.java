@@ -14,7 +14,7 @@ public class HUDConfigScreen extends GuiScreen {
 	}
 
 	public void onGuiClosed() {
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.enableRepeatEvents(false); mc.gameSettings.saveOptions();
 	}
 
 	public void drawScreen(int mx, int my, float par3) {
