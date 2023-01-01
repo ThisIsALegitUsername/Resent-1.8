@@ -1,9 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -52,11 +50,10 @@ public class BlockReed extends Block {
 			if (world.isAirBlock(blockpos.up())) {
 				int i;
 				for (i = 1; world.getBlockState(blockpos.down(i)).getBlock() == this; ++i) {
-					;
-				}
+                }
 
 				if (i < 3) {
-					int j = ((Integer) iblockstate.getValue(AGE)).intValue();
+					int j = iblockstate.getValue(AGE).intValue();
 					if (j == 15) {
 						world.setBlockState(blockpos.up(), this.getDefaultState());
 						world.setBlockState(blockpos, iblockstate.withProperty(AGE, Integer.valueOf(0)), 4);
@@ -154,10 +151,10 @@ public class BlockReed extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(AGE)).intValue();
+		return iblockstate.getValue(AGE).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE });
+		return new BlockState(this, AGE);
 	}
 }

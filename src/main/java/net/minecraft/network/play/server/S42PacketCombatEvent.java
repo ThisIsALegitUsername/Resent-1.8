@@ -56,7 +56,7 @@ public class S42PacketCombatEvent implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-		this.eventType = (S42PacketCombatEvent.Event) parPacketBuffer.readEnumValue(S42PacketCombatEvent.Event.class);
+		this.eventType = parPacketBuffer.readEnumValue(Event.class);
 		if (this.eventType == S42PacketCombatEvent.Event.END_COMBAT) {
 			this.field_179772_d = parPacketBuffer.readVarIntFromBuffer();
 			this.field_179775_c = parPacketBuffer.readInt();
@@ -82,16 +82,17 @@ public class S42PacketCombatEvent implements Packet<INetHandlerPlayClient> {
 			parPacketBuffer.writeString(this.deathMessage);
 		}
 
-	}
+    }
 
-	/**+
-	 * Passes this Packet on to the NetHandler for processing.
-	 */
-	public void processPacket(INetHandlerPlayClient inethandlerplayclient) {
-		inethandlerplayclient.handleCombatEvent(this);
-	}
+    /**
+     * +
+     * Passes this Packet on to the NetHandler for processing.
+     */
+    public void processPacket(INetHandlerPlayClient inethandlerplayclient) {
+        inethandlerplayclient.handleCombatEvent(this);
+    }
 
-	public static enum Event {
-		ENTER_COMBAT, END_COMBAT, ENTITY_DIED;
-	}
+    public enum Event {
+        ENTER_COMBAT, END_COMBAT, ENTITY_DIED
+    }
 }

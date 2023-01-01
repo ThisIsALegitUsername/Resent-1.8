@@ -38,9 +38,9 @@ public class SpectatorDetails {
 	}
 
 	public ISpectatorMenuObject func_178680_a(int parInt1) {
-		return parInt1 >= 0 && parInt1 < this.field_178682_b.size() ? (ISpectatorMenuObject) Objects
-				.firstNonNull(this.field_178682_b.get(parInt1), SpectatorMenu.field_178657_a)
-				: SpectatorMenu.field_178657_a;
+		return parInt1 >= 0 && parInt1 < this.field_178682_b.size() ? Objects
+                .firstNonNull(this.field_178682_b.get(parInt1), SpectatorMenu.field_178657_a)
+                : SpectatorMenu.field_178657_a;
 	}
 
 	public int func_178681_b() {

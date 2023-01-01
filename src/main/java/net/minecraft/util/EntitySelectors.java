@@ -1,7 +1,6 @@
 package net.minecraft.util;
 
 import com.google.common.base.Predicate;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -53,12 +52,10 @@ public final class EntitySelectors {
 			} else if (!(entity instanceof EntityLivingBase)) {
 				return false;
 			} else {
-				EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
-				return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) != null ? false
-						: (entitylivingbase instanceof EntityLiving ? ((EntityLiving) entitylivingbase).canPickUpLoot()
-								: (entitylivingbase instanceof EntityArmorStand ? true
-										: entitylivingbase instanceof EntityPlayer));
-			}
+                EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) == null && (entitylivingbase instanceof EntityLiving ? ((EntityLiving) entitylivingbase).canPickUpLoot()
+                        : (entitylivingbase instanceof EntityArmorStand || entitylivingbase instanceof EntityPlayer));
+            }
 		}
 	}
 }

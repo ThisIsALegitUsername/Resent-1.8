@@ -43,7 +43,7 @@ public class ModelBlockDefinition {
 	private final Map<String, ModelBlockDefinition.Variants> mapVariants = Maps.newHashMap();
 
 	public static ModelBlockDefinition parseFromReader(Reader parReader) {
-		return (ModelBlockDefinition) JSONTypeProvider.deserialize(parReader, ModelBlockDefinition.class);
+		return JSONTypeProvider.deserialize(parReader, ModelBlockDefinition.class);
 	}
 
 	public ModelBlockDefinition(Collection<ModelBlockDefinition.Variants> parCollection) {
@@ -61,8 +61,8 @@ public class ModelBlockDefinition {
 	}
 
 	public ModelBlockDefinition.Variants getVariants(String parString1) {
-		ModelBlockDefinition.Variants modelblockdefinition$variants = (ModelBlockDefinition.Variants) this.mapVariants
-				.get(parString1);
+        ModelBlockDefinition.Variants modelblockdefinition$variants = this.mapVariants
+                .get(parString1);
 		if (modelblockdefinition$variants == null) {
 			throw new ModelBlockDefinition.MissingVariantException();
 		} else {
@@ -230,8 +230,7 @@ public class ModelBlockDefinition {
 				return false;
 			} else {
 				ModelBlockDefinition.Variants modelblockdefinition$variants = (ModelBlockDefinition.Variants) object;
-				return !this.name.equals(modelblockdefinition$variants.name) ? false
-						: this.listVariants.equals(modelblockdefinition$variants.listVariants);
+                return this.name.equals(modelblockdefinition$variants.name) && this.listVariants.equals(modelblockdefinition$variants.listVariants);
 			}
 		}
 

@@ -49,7 +49,7 @@ import com.google.common.base.Objects;
 // TODO(gak): make serializable
 public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V> {
 	private static final ImmutableTable<Object, Object, Object> EMPTY = new SparseImmutableTable<Object, Object, Object>(
-			ImmutableList.<Cell<Object, Object, Object>>of(), ImmutableSet.of(), ImmutableSet.of());
+            ImmutableList.of(), ImmutableSet.of(), ImmutableSet.of());
 
 	/** Returns an empty immutable table. */
 	@SuppressWarnings("unchecked")
@@ -90,7 +90,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V> {
 				return of();
 			case 1:
 				Cell<? extends R, ? extends C, ? extends V> onlyCell = Iterables.getOnlyElement(table.cellSet());
-				return ImmutableTable.<R, C, V>of(onlyCell.getRowKey(), onlyCell.getColumnKey(), onlyCell.getValue());
+                return ImmutableTable.of(onlyCell.getRowKey(), onlyCell.getColumnKey(), onlyCell.getValue());
 			default:
 				ImmutableSet.Builder<Cell<R, C, V>> cellSetBuilder = ImmutableSet.builder();
 				for (Cell<? extends R, ? extends C, ? extends V> cell : table.cellSet()) {
@@ -98,7 +98,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V> {
 					 * Must cast to be able to create a Cell<R, C, V> rather than a Cell<? extends
 					 * R, ? extends C, ? extends V>
 					 */
-					cellSetBuilder.add(cellOf((R) cell.getRowKey(), (C) cell.getColumnKey(), (V) cell.getValue()));
+                    cellSetBuilder.add(cellOf(cell.getRowKey(), cell.getColumnKey(), cell.getValue()));
 				}
 				return RegularImmutableTable.forCells(cellSetBuilder.build());
 			}
@@ -276,7 +276,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V> {
 	@Override
 	public ImmutableMap<R, V> column(C columnKey) {
 		checkNotNull(columnKey);
-		return Objects.firstNonNull((ImmutableMap<R, V>) columnMap().get(columnKey), ImmutableMap.<R, V>of());
+        return Objects.firstNonNull((ImmutableMap<R, V>) columnMap().get(columnKey), ImmutableMap.of());
 	}
 
 	@Override
@@ -302,7 +302,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V> {
 	@Override
 	public ImmutableMap<C, V> row(R rowKey) {
 		checkNotNull(rowKey);
-		return Objects.firstNonNull((ImmutableMap<C, V>) rowMap().get(rowKey), ImmutableMap.<C, V>of());
+        return Objects.firstNonNull((ImmutableMap<C, V>) rowMap().get(rowKey), ImmutableMap.of());
 	}
 
 	@Override

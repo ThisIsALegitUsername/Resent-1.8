@@ -38,9 +38,9 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		if (minecraft.theWorld != null && minecraft.thePlayer != null) {
 			this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ,
-					(double) minecraft.thePlayer.rotationYaw, false, false);
+                    minecraft.thePlayer.rotationYaw, false, false);
 		} else {
-			this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false);
+            this.updateCompass(null, 0.0D, 0.0D, 0.0D, true, false);
 		}
 
 	}
@@ -69,8 +69,7 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 			} else {
 				double d3;
 				for (d3 = d0 - this.currentAngle; d3 < -3.141592653589793D; d3 += 6.283185307179586D) {
-					;
-				}
+                }
 
 				while (d3 >= 3.141592653589793D) {
 					d3 -= 6.283185307179586D;
@@ -86,8 +85,7 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 			for (i = (int) ((this.currentAngle / 6.283185307179586D + 1.0D) * (double) this.framesTextureData.size())
 					% this.framesTextureData
 							.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
-				;
-			}
+            }
 
 			if (i != this.frameCounter) {
 				this.frameCounter = i;

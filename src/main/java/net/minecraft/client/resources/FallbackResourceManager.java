@@ -54,7 +54,7 @@ public class FallbackResourceManager implements IResourceManager {
 		ResourceLocation resourcelocation = getLocationMcmeta(location);
 
 		for (int i = this.resourcePacks.size() - 1; i >= 0; --i) {
-			IResourcePack iresourcepack1 = (IResourcePack) this.resourcePacks.get(i);
+			IResourcePack iresourcepack1 = this.resourcePacks.get(i);
 			if (iresourcepack == null && iresourcepack1.resourceExists(resourcelocation)) {
 				iresourcepack = iresourcepack1;
 			}

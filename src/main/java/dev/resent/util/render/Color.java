@@ -169,14 +169,14 @@ public class Color {
 	            rangeError = true;
 	            badComponentString = badComponentString + " Green";
 	        }
-	        if ( b < 0 || b > 255) {
-	            rangeError = true;
-	            badComponentString = badComponentString + " Blue";
-	        }
-	        if ( rangeError == true ) {
-	        throw new IllegalArgumentException("Color parameter outside of expected range:"
-	                                           + badComponentString);
-	        }
+	        if (b < 0 || b > 255) {
+				rangeError = true;
+				badComponentString = badComponentString + " Blue";
+			}
+		 if (rangeError) {
+			 throw new IllegalArgumentException("Color parameter outside of expected range:"
+					 + badComponentString);
+		 }
 	    }
 	 
 	 public static int HSBtoRGB(float hue, float saturation, float brightness) {

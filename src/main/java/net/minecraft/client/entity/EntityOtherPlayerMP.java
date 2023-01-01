@@ -53,13 +53,13 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
 	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements,
 			boolean parFlag) {
-		this.otherPlayerMPX = x;
-		this.otherPlayerMPY = y;
-		this.otherPlayerMPZ = z;
-		this.otherPlayerMPYaw = (double) yaw;
-		this.otherPlayerMPPitch = (double) pitch;
-		this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
-	}
+        this.otherPlayerMPX = x;
+        this.otherPlayerMPY = y;
+        this.otherPlayerMPZ = z;
+        this.otherPlayerMPYaw = yaw;
+        this.otherPlayerMPPitch = pitch;
+        this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
+    }
 
 	/**+
 	 * Called to update the entity's position/logic.
@@ -105,8 +105,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
 			double d3;
 			for (d3 = this.otherPlayerMPYaw - (double) this.rotationYaw; d3 < -180.0D; d3 += 360.0D) {
-				;
-			}
+            }
 
 			while (d3 >= 180.0D) {
 				d3 -= 360.0D;

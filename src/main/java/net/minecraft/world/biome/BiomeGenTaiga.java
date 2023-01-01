@@ -1,7 +1,6 @@
 package net.minecraft.world.biome;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.BlockDirt;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
@@ -27,7 +26,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
  * 
  */
 public class BiomeGenTaiga extends BiomeGenBase {
-	private int field_150644_aH;
+	private final int field_150644_aH;
 
 	public BiomeGenTaiga(int parInt1, int parInt2) {
 		super(parInt1);

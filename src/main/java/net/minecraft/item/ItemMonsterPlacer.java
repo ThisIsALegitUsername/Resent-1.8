@@ -50,8 +50,8 @@ public class ItemMonsterPlacer extends Item {
 	}
 
 	public int getColorFromItemStack(ItemStack itemstack, int i) {
-		EntityList.EntityEggInfo entitylist$entityegginfo = (EntityList.EntityEggInfo) EntityList.entityEggs
-				.get(Integer.valueOf(itemstack.getMetadata()));
+		EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs
+                .get(Integer.valueOf(itemstack.getMetadata()));
 		return entitylist$entityegginfo != null
 				? (i == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor)
 				: 16777215;
@@ -83,10 +83,10 @@ public class ItemMonsterPlacer extends Item {
 					entity.setLocationAndAngles(x, y, z,
 							MathHelper.wrapAngleTo180_float(worldIn.rand.nextFloat() * 360.0F), 0.0F);
 					entityliving.rotationYawHead = entityliving.rotationYaw;
-					entityliving.renderYawOffset = entityliving.rotationYaw;
-					entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)),
-							(IEntityLivingData) null);
-					worldIn.spawnEntityInWorld(entity);
+                    entityliving.renderYawOffset = entityliving.rotationYaw;
+                    entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)),
+                            null);
+                    worldIn.spawnEntityInWorld(entity);
 					entityliving.playLivingSound();
 				}
 			}

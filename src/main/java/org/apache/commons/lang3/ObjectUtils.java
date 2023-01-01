@@ -863,19 +863,18 @@ public class ObjectUtils {
 	 * @return the default toString text, or {@code null} if {@code null} passed in
 	 */
 	public static String identityToString(final Object object) {
-		if (object == null) {
-			return null;
-		}
-		final String name = object.getClass().getName();
-		final String hexString = Integer.toHexString(System.identityHashCode(object));
-		final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
-		// @formatter:off
-        builder.append(name)
-              .append(AT_SIGN)
-              .append(hexString);
+        if (object == null) {
+            return null;
+        }
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        // @formatter:off
+        String builder = name +
+                AT_SIGN +
+                hexString;
         // @formatter:on
-		return builder.toString();
-	}
+        return builder;
+    }
 
 	/**
 	 * <p>

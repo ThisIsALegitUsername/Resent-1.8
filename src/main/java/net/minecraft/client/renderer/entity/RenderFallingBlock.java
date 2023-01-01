@@ -57,27 +57,27 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 			World world = entityfallingblock.getWorldObj();
 			if (iblockstate != world.getBlockState(blockpos) && block.getRenderType() != -1) {
 				if (block.getRenderType() == 3) {
-					GlStateManager.pushMatrix();
-					GlStateManager.translate((float) d0, (float) d1, (float) d2);
-					GlStateManager.disableLighting();
-					Tessellator tessellator = Tessellator.getInstance();
-					WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-					worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
-					int i = blockpos.getX();
-					int j = blockpos.getY();
-					int k = blockpos.getZ();
-					worldrenderer.setTranslation((double) ((float) (-i) - 0.5F), (double) (-j),
-							(double) ((float) (-k) - 0.5F));
-					BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft()
-							.getBlockRendererDispatcher();
-					IBakedModel ibakedmodel = blockrendererdispatcher.getModelFromBlockState(iblockstate, world,
-							(BlockPos) null);
-					blockrendererdispatcher.getBlockModelRenderer().renderModel(world, ibakedmodel, iblockstate,
-							blockpos, worldrenderer, false);
-					worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
-					tessellator.draw();
-					GlStateManager.enableLighting();
-					GlStateManager.popMatrix();
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate((float) d0, (float) d1, (float) d2);
+                    GlStateManager.disableLighting();
+                    Tessellator tessellator = Tessellator.getInstance();
+                    WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                    worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
+                    int i = blockpos.getX();
+                    int j = blockpos.getY();
+                    int k = blockpos.getZ();
+                    worldrenderer.setTranslation((float) (-i) - 0.5F, -j,
+                            (float) (-k) - 0.5F);
+                    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft()
+                            .getBlockRendererDispatcher();
+                    IBakedModel ibakedmodel = blockrendererdispatcher.getModelFromBlockState(iblockstate, world,
+                            null);
+                    blockrendererdispatcher.getBlockModelRenderer().renderModel(world, ibakedmodel, iblockstate,
+                            blockpos, worldrenderer, false);
+                    worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
+                    tessellator.draw();
+                    GlStateManager.enableLighting();
+                    GlStateManager.popMatrix();
 					super.doRender(entityfallingblock, d0, d1, d2, f, f1);
 				}
 			}

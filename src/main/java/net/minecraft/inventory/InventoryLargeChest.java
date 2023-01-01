@@ -21,26 +21,26 @@ import net.minecraft.world.LockCode;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class InventoryLargeChest implements ILockableContainer {
-	private String name;
-	private ILockableContainer upperChest;
-	private ILockableContainer lowerChest;
+    private final String name;
+    private final ILockableContainer upperChest;
+    private final ILockableContainer lowerChest;
 
-	public InventoryLargeChest(String nameIn, ILockableContainer upperChestIn, ILockableContainer lowerChestIn) {
-		this.name = nameIn;
-		if (upperChestIn == null) {
-			upperChestIn = lowerChestIn;
-		}
+    public InventoryLargeChest(String nameIn, ILockableContainer upperChestIn, ILockableContainer lowerChestIn) {
+        this.name = nameIn;
+        if (upperChestIn == null) {
+            upperChestIn = lowerChestIn;
+        }
 
-		if (lowerChestIn == null) {
-			lowerChestIn = upperChestIn;
-		}
+        if (lowerChestIn == null) {
+            lowerChestIn = upperChestIn;
+        }
 
 		this.upperChest = upperChestIn;
 		this.lowerChest = lowerChestIn;
@@ -88,9 +88,9 @@ public class InventoryLargeChest implements ILockableContainer {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatComponentTranslation(this.getName(), new Object[0]));
-	}
+        return this.hasCustomName() ? new ChatComponentText(this.getName())
+                : new ChatComponentTranslation(this.getName(), new Object[0]);
+    }
 
 	/**+
 	 * Returns the stack in the given slot.

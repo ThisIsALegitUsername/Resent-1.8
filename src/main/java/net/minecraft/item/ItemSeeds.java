@@ -19,25 +19,26 @@ import net.minecraft.world.World;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class ItemSeeds extends Item {
-	private Block crops;
-	private Block soilBlockID;
+    private final Block crops;
+    private final Block soilBlockID;
 
-	public ItemSeeds(Block crops, Block soil) {
-		this.crops = crops;
-		this.soilBlockID = soil;
-		this.setCreativeTab(CreativeTabs.tabMaterials);
-	}
+    public ItemSeeds(Block crops, Block soil) {
+        this.crops = crops;
+        this.soilBlockID = soil;
+        this.setCreativeTab(CreativeTabs.tabMaterials);
+    }
 
-	/**+
-	 * Called when a Block is right-clicked with this Item
-	 */
+    /**
+     * +
+     * Called when a Block is right-clicked with this Item
+     */
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos blockpos,
 			EnumFacing enumfacing, float var6, float var7, float var8) {
 		if (enumfacing != EnumFacing.UP) {

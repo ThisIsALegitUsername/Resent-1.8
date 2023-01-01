@@ -48,16 +48,16 @@ public enum EnumParticleTypes {
 	private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
 	private static final String[] PARTICLE_NAMES;
 
-	private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag, int argumentCountIn) {
-		this.particleName = particleNameIn;
-		this.particleID = particleIDIn;
-		this.shouldIgnoreRange = parFlag;
-		this.argumentCount = argumentCountIn;
-	}
+	EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag, int argumentCountIn) {
+        this.particleName = particleNameIn;
+        this.particleID = particleIDIn;
+        this.shouldIgnoreRange = parFlag;
+        this.argumentCount = argumentCountIn;
+    }
 
-	private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag) {
-		this(particleNameIn, particleIDIn, parFlag, 0);
-	}
+    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag) {
+        this(particleNameIn, particleIDIn, parFlag, 0);
+    }
 
 	public static String[] getParticleNames() {
 		return PARTICLE_NAMES;
@@ -87,7 +87,7 @@ public enum EnumParticleTypes {
 	 * Gets the relative EnumParticleTypes by id.
 	 */
 	public static EnumParticleTypes getParticleFromId(int particleId) {
-		return (EnumParticleTypes) PARTICLES.get(Integer.valueOf(particleId));
+        return PARTICLES.get(Integer.valueOf(particleId));
 	}
 
 	static {

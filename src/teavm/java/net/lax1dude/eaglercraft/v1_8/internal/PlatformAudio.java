@@ -49,12 +49,12 @@ public class PlatformAudio {
 	private static MediaStreamAudioDestinationNode recDest = null;
 	private static final Map<String, BrowserAudioResource> soundCache = new HashMap<>();
 	
-	private static long cacheFreeTimer = 0l;
+	private static long cacheFreeTimer = 0L;
 	
 	protected static class BrowserAudioResource implements IAudioResource {
-		
-		protected AudioBuffer buffer;
-		protected long cacheHit = 0l;
+
+        protected AudioBuffer buffer;
+        protected long cacheHit = 0L;
 		
 		protected BrowserAudioResource(AudioBuffer buffer) {
 			this.buffer = buffer;
@@ -248,17 +248,17 @@ public class PlatformAudio {
 
 	public static void clearAudioCache() {
 		long millis = System.currentTimeMillis();
-		if(millis - cacheFreeTimer > 30000l) {
-			cacheFreeTimer = millis;
-			synchronized(soundCache) {
-				Iterator<BrowserAudioResource> itr = soundCache.values().iterator();
-				while(itr.hasNext()) {
-					if(millis - itr.next().cacheHit > 600000l) { // 10 minutes
-						itr.remove();
-					}
-				}
-			}
-		}
+        if (millis - cacheFreeTimer > 30000L) {
+            cacheFreeTimer = millis;
+            synchronized (soundCache) {
+                Iterator<BrowserAudioResource> itr = soundCache.values().iterator();
+                while (itr.hasNext()) {
+                    if (millis - itr.next().cacheHit > 600000L) { // 10 minutes
+                        itr.remove();
+                    }
+                }
+            }
+        }
 	}
 	
 	public static boolean available() {

@@ -165,8 +165,7 @@ public class InventoryPlayer implements IInventory {
 		}
 
 		for (this.currentItem -= parInt1; this.currentItem < 0; this.currentItem += 9) {
-			;
-		}
+        }
 
 		while (this.currentItem >= 9) {
 			this.currentItem -= 9;
@@ -556,9 +555,9 @@ public class InventoryPlayer implements IInventory {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatComponentTranslation(this.getName(), new Object[0]));
-	}
+        return this.hasCustomName() ? new ChatComponentText(this.getName())
+                : new ChatComponentTranslation(this.getName(), new Object[0]);
+    }
 
 	/**+
 	 * Returns the maximum stack size for a inventory slot. Seems to
@@ -573,7 +572,7 @@ public class InventoryPlayer implements IInventory {
 			return true;
 		} else {
 			ItemStack itemstack = this.getStackInSlot(this.currentItem);
-			return itemstack != null ? itemstack.canHarvestBlock(blockIn) : false;
+            return itemstack != null && itemstack.canHarvestBlock(blockIn);
 		}
 	}
 
@@ -670,7 +669,7 @@ public class InventoryPlayer implements IInventory {
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return this.player.isDead ? false : entityplayer.getDistanceSqToEntity(this.player) <= 64.0D;
+        return !this.player.isDead && entityplayer.getDistanceSqToEntity(this.player) <= 64.0D;
 	}
 
 	/**+

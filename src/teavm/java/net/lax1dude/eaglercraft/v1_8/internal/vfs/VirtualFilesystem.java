@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -679,12 +680,12 @@ public class VirtualFilesystem {
 	
 	public static byte[] utf8(String str) {
 		if(str == null) return null;
-		return str.getBytes(Charset.forName("UTF-8"));
+        return str.getBytes(StandardCharsets.UTF_8);
 	}
 	
 	public static String utf8(byte[] str) {
 		if(str == null) return null;
-		return new String(str, Charset.forName("UTF-8"));
+        return new String(str, StandardCharsets.UTF_8);
 	}
 	
 	public static String CRLFtoLF(String str) {

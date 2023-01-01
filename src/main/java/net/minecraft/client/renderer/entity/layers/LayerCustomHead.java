@@ -94,9 +94,9 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 					} else if (nbttagcompound.hasKey("SkullOwner", 8)) {
 						String s = nbttagcompound.getString("SkullOwner");
 						if (!StringUtils.isNullOrEmpty(s)) {
-							gameprofile = TileEntitySkull.updateGameprofile(new GameProfile((EaglercraftUUID) null, s));
-							nbttagcompound.setTag("SkullOwner",
-									NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
+							gameprofile = TileEntitySkull.updateGameprofile(new GameProfile(null, s));
+                            nbttagcompound.setTag("SkullOwner",
+                                    NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
 						}
 					}
 				}

@@ -42,17 +42,17 @@ public class JsonException extends IOException {
 	}
 
 	public void func_151380_a(String parString1) {
-		((JsonException.Entry) this.field_151383_a.get(0)).func_151373_a(parString1);
+		this.field_151383_a.get(0).func_151373_a(parString1);
 	}
 
 	public void func_151381_b(String parString1) {
-		((JsonException.Entry) this.field_151383_a.get(0)).field_151376_a = parString1;
-		this.field_151383_a.add(0, new JsonException.Entry());
+        this.field_151383_a.get(0).field_151376_a = parString1;
+        this.field_151383_a.add(0, new JsonException.Entry());
 	}
 
 	public String getMessage() {
-		return "Invalid " + ((JsonException.Entry) this.field_151383_a.get(this.field_151383_a.size() - 1)).toString()
-				+ ": " + this.field_151382_b;
+        return "Invalid " + this.field_151383_a.get(this.field_151383_a.size() - 1).toString()
+                + ": " + this.field_151382_b;
 	}
 
 	public static JsonException func_151379_a(Exception parException) {

@@ -1,19 +1,11 @@
 package net.minecraft.nbt;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import net.lax1dude.eaglercraft.v1_8.EaglerZLIB;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
+
+import java.io.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -59,7 +51,7 @@ public class CompressedStreamTools {
 				new BufferedOutputStream(EaglerZLIB.newGZIPOutputStream(parOutputStream)));
 
 		try {
-			write(outputStream, (DataOutput) dataoutputstream);
+			write(outputStream, dataoutputstream);
 		} finally {
 			dataoutputstream.close();
 		}

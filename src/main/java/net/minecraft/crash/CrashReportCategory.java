@@ -1,15 +1,14 @@
 package net.minecraft.crash;
 
-import java.util.List;
-import java.util.concurrent.Callable;
-
 import com.google.common.collect.Lists;
-
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
+
+import java.util.List;
+import java.util.concurrent.Callable;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -41,8 +40,8 @@ public class CrashReportCategory {
 	}
 
 	public static String getCoordinateInfo(double x, double y, double z) {
-		return HString.format("%.2f,%.2f,%.2f - %s", new Object[] { Double.valueOf(x), Double.valueOf(y),
-				Double.valueOf(z), getCoordinateInfo(new BlockPos(x, y, z)) });
+		return HString.format("%.2f,%.2f,%.2f - %s", Double.valueOf(x), Double.valueOf(y),
+				Double.valueOf(z), getCoordinateInfo(new BlockPos(x, y, z)));
 	}
 
 	public static String getCoordinateInfo(BlockPos pos) {
@@ -53,7 +52,7 @@ public class CrashReportCategory {
 
 		try {
 			stringbuilder.append(HString.format("World: (%d,%d,%d)",
-					new Object[] { Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(k) }));
+					Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(k)));
 		} catch (Throwable var17) {
 			stringbuilder.append("(Error finding world loc)");
 		}
@@ -71,9 +70,9 @@ public class CrashReportCategory {
 			int k2 = (l + 1 << 4) - 1;
 			int l2 = (i1 + 1 << 4) - 1;
 			stringbuilder.append(HString.format("Chunk: (at %d,%d,%d in %d,%d; contains blocks %d,0,%d to %d,255,%d)",
-					new Object[] { Integer.valueOf(j1), Integer.valueOf(k1), Integer.valueOf(l1), Integer.valueOf(l),
-							Integer.valueOf(i1), Integer.valueOf(i2), Integer.valueOf(j2), Integer.valueOf(k2),
-							Integer.valueOf(l2) }));
+					Integer.valueOf(j1), Integer.valueOf(k1), Integer.valueOf(l1), Integer.valueOf(l),
+					Integer.valueOf(i1), Integer.valueOf(i2), Integer.valueOf(j2), Integer.valueOf(k2),
+					Integer.valueOf(l2)));
 		} catch (Throwable var16) {
 			stringbuilder.append("(Error finding chunk loc)");
 		}
@@ -93,9 +92,9 @@ public class CrashReportCategory {
 			int i3 = (k3 + 1 << 9) - 1;
 			stringbuilder.append(
 					HString.format("Region: (%d,%d; contains chunks %d,%d to %d,%d, blocks %d,0,%d to %d,255,%d)",
-							new Object[] { Integer.valueOf(j3), Integer.valueOf(k3), Integer.valueOf(l3),
-									Integer.valueOf(i4), Integer.valueOf(j4), Integer.valueOf(k4), Integer.valueOf(l4),
-									Integer.valueOf(i5), Integer.valueOf(j5), Integer.valueOf(i3) }));
+							Integer.valueOf(j3), Integer.valueOf(k3), Integer.valueOf(l3),
+							Integer.valueOf(i4), Integer.valueOf(j4), Integer.valueOf(k4), Integer.valueOf(l4),
+							Integer.valueOf(i5), Integer.valueOf(j5), Integer.valueOf(i3)));
 		} catch (Throwable var15) {
 			stringbuilder.append("(Error finding world loc)");
 		}
@@ -157,7 +156,7 @@ public class CrashReportCategory {
 		if (this.stackTrace.length != 0 && s1 != null) {
 			String stacktraceelement = this.stackTrace[0];
 			if (s1.equals(stacktraceelement)) {
-				if (s2 != null != this.stackTrace.length > 1) {
+				if (s2 == null == this.stackTrace.length > 1) {
 					return false;
 				} else if (s2 != null && !this.stackTrace[1].equals(s2)) {
 					return false;
@@ -215,8 +214,8 @@ public class CrashReportCategory {
 		category.addCrashSectionCallable("Block type", new Callable<String>() {
 			public String call() throws Exception {
 				try {
-					return HString.format("ID #%d (%s // %s)", new Object[] { Integer.valueOf(i),
-							blockIn.getUnlocalizedName(), blockIn.getClass().getName() });
+					return HString.format("ID #%d (%s // %s)", Integer.valueOf(i),
+							blockIn.getUnlocalizedName(), blockIn.getClass().getName());
 				} catch (Throwable var2) {
 					return "ID #" + i;
 				}
@@ -227,9 +226,9 @@ public class CrashReportCategory {
 				if (blockData < 0) {
 					return "Unknown? (Got " + blockData + ")";
 				} else {
-					String s = HString.format("%4s", new Object[] { Integer.toBinaryString(blockData) }).replace(" ",
+					String s = HString.format("%4s", Integer.toBinaryString(blockData)).replace(" ",
 							"0");
-					return HString.format("%1$d / 0x%1$X / 0b%2$s", new Object[] { Integer.valueOf(blockData), s });
+					return HString.format("%1$d / 0x%1$X / 0b%2$s", Integer.valueOf(blockData), s);
 				}
 			}
 		});

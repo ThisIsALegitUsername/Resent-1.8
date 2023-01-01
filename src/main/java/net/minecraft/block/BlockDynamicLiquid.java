@@ -1,15 +1,15 @@
 package net.minecraft.block;
 
-import java.util.EnumSet;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import java.util.Set;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -43,7 +43,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
-		int i = ((Integer) iblockstate.getValue(LEVEL)).intValue();
+		int i = iblockstate.getValue(LEVEL).intValue();
 		byte b0 = 1;
 		if (this.blockMaterial == Material.lava && !world.provider.doesWaterVaporize()) {
 			b0 = 2;
@@ -77,7 +77,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 				if (iblockstate2.getBlock().getMaterial().isSolid()) {
 					l = 0;
 				} else if (iblockstate2.getBlock().getMaterial() == this.blockMaterial
-						&& ((Integer) iblockstate2.getValue(LEVEL)).intValue() == 0) {
+						&& iblockstate2.getValue(LEVEL).intValue() == 0) {
 					l = 0;
 				}
 			}
@@ -160,7 +160,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 				IBlockState iblockstate = worldIn.getBlockState(blockpos);
 				if (!this.isBlocked(worldIn, blockpos, iblockstate)
 						&& (iblockstate.getBlock().getMaterial() != this.blockMaterial
-								|| ((Integer) iblockstate.getValue(LEVEL)).intValue() > 0)) {
+						|| iblockstate.getValue(LEVEL).intValue() > 0)) {
 					if (!this.isBlocked(worldIn, blockpos.down(), iblockstate)) {
 						return distance;
 					}
@@ -190,7 +190,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 			IBlockState iblockstate = worldIn.getBlockState(blockpos);
 			if (!this.isBlocked(worldIn, blockpos, iblockstate)
 					&& (iblockstate.getBlock().getMaterial() != this.blockMaterial
-							|| ((Integer) iblockstate.getValue(LEVEL)).intValue() > 0)) {
+					|| iblockstate.getValue(LEVEL).intValue() > 0)) {
 				int j;
 				if (this.isBlocked(worldIn, blockpos.down(), worldIn.getBlockState(blockpos.down()))) {
 					j = this.func_176374_a(worldIn, blockpos, 1, enumfacing.getOpposite());
@@ -214,10 +214,8 @@ public class BlockDynamicLiquid extends BlockLiquid {
 
 	private boolean isBlocked(World worldIn, BlockPos pos, IBlockState state) {
 		Block block = worldIn.getBlockState(pos).getBlock();
-		return !(block instanceof BlockDoor) && block != Blocks.standing_sign && block != Blocks.ladder
-				&& block != Blocks.reeds
-						? (block.blockMaterial == Material.portal ? true : block.blockMaterial.blocksMovement())
-						: true;
+		return block instanceof BlockDoor || block == Blocks.standing_sign || block == Blocks.ladder
+				|| block == Blocks.reeds || (block.blockMaterial == Material.portal || block.blockMaterial.blocksMovement());
 	}
 
 	protected int checkAdjacentBlock(World worldIn, BlockPos pos, int currentMinLevel) {

@@ -82,9 +82,9 @@ public class InventoryCrafting implements IInventory {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatComponentTranslation(this.getName(), new Object[0]));
-	}
+        return this.hasCustomName() ? new ChatComponentText(this.getName())
+                : new ChatComponentTranslation(this.getName(), new Object[0]);
+    }
 
 	/**+
 	 * Removes a stack from the given slot and returns it.

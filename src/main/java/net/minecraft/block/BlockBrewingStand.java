@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -18,13 +15,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBrewingStand;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -131,10 +125,10 @@ public class BlockBrewingStand extends BlockContainer {
 	}
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState var3, EaglercraftRandom random) {
-		double d0 = (double) ((float) blockpos.getX() + 0.4F + random.nextFloat() * 0.2F);
-		double d1 = (double) ((float) blockpos.getY() + 0.7F + random.nextFloat() * 0.3F);
-		double d2 = (double) ((float) blockpos.getZ() + 0.4F + random.nextFloat() * 0.2F);
-		world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+		double d0 = (float) blockpos.getX() + 0.4F + random.nextFloat() * 0.2F;
+		double d1 = (float) blockpos.getY() + 0.7F + random.nextFloat() * 0.3F;
+		double d2 = (float) blockpos.getZ() + 0.4F + random.nextFloat() * 0.2F;
+		world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState iblockstate) {
@@ -189,7 +183,7 @@ public class BlockBrewingStand extends BlockContainer {
 		int i = 0;
 
 		for (int j = 0; j < 3; ++j) {
-			if (((Boolean) iblockstate.getValue(HAS_BOTTLE[j])).booleanValue()) {
+			if (iblockstate.getValue(HAS_BOTTLE[j]).booleanValue()) {
 				i |= 1 << j;
 			}
 		}
@@ -198,6 +192,6 @@ public class BlockBrewingStand extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { HAS_BOTTLE[0], HAS_BOTTLE[1], HAS_BOTTLE[2] });
+		return new BlockState(this, HAS_BOTTLE[0], HAS_BOTTLE[1], HAS_BOTTLE[2]);
 	}
 }

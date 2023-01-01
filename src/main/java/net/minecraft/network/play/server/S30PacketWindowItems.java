@@ -38,7 +38,7 @@ public class S30PacketWindowItems implements Packet<INetHandlerPlayClient> {
 		this.itemStacks = new ItemStack[parList.size()];
 
 		for (int i = 0; i < this.itemStacks.length; ++i) {
-			ItemStack itemstack = (ItemStack) parList.get(i);
+			ItemStack itemstack = parList.get(i);
 			this.itemStacks[i] = itemstack == null ? null : itemstack.copy();
 		}
 

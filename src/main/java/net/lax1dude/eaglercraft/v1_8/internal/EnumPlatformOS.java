@@ -22,10 +22,10 @@ public enum EnumPlatformOS {
 	private final String name;
 	private final Util.EnumOS minecraftEnum;
 	
-	private EnumPlatformOS(String name, Util.EnumOS minecraftEnum) {
-		this.name = name;
-		this.minecraftEnum = minecraftEnum;
-	}
+	EnumPlatformOS(String name, Util.EnumOS minecraftEnum) {
+        this.name = name;
+        this.minecraftEnum = minecraftEnum;
+    }
 	
 	public String getName() {
 		return name;

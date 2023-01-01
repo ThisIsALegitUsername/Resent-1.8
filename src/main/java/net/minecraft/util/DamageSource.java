@@ -200,9 +200,9 @@ public class DamageSource {
 		String s = "death.attack." + this.damageType;
 		String s1 = s + ".player";
 		return entitylivingbase != null && StatCollector.canTranslate(s1)
-				? new ChatComponentTranslation(s1,
-						new Object[] { parEntityLivingBase.getDisplayName(), entitylivingbase.getDisplayName() })
-				: new ChatComponentTranslation(s, new Object[] { parEntityLivingBase.getDisplayName() });
+                ? new ChatComponentTranslation(s1,
+                parEntityLivingBase.getDisplayName(), entitylivingbase.getDisplayName())
+                : new ChatComponentTranslation(s, parEntityLivingBase.getDisplayName());
 	}
 
 	/**+

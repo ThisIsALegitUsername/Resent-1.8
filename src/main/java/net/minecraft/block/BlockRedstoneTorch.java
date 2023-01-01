@@ -1,14 +1,9 @@
 package net.minecraft.block;
 
-import java.util.List;
-import java.util.Map;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
@@ -16,6 +11,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Map;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -36,7 +34,7 @@ import net.minecraft.world.World;
  * 
  */
 public class BlockRedstoneTorch extends BlockTorch {
-	private static Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
+	private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
 	private final boolean isOn;
 
 	private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
@@ -44,7 +42,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 			toggles.put(worldIn, Lists.newArrayList());
 		}
 
-		List list = (List) toggles.get(worldIn);
+		List list = toggles.get(worldIn);
 		if (turnOff) {
 			list.add(new BlockRedstoneTorch.Toggle(pos, worldIn.getTotalWorldTime()));
 		}
@@ -67,7 +65,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 	protected BlockRedstoneTorch(boolean isOn) {
 		this.isOn = isOn;
 		this.setTickRandomly(true);
-		this.setCreativeTab((CreativeTabs) null);
+		this.setCreativeTab(null);
 	}
 
 	/**+
@@ -100,7 +98,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 	}
 
 	private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state) {
-		EnumFacing enumfacing = ((EnumFacing) state.getValue(FACING)).getOpposite();
+		EnumFacing enumfacing = state.getValue(FACING).getOpposite();
 		return worldIn.isSidePowered(pos.offset(enumfacing), enumfacing);
 	}
 
@@ -113,7 +111,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
 	public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
 		boolean flag = this.shouldBeOff(world, blockpos, iblockstate);
-		List list = (List) toggles.get(world);
+		List list = toggles.get(world);
 
 		while (list != null && !list.isEmpty()
 				&& world.getTotalWorldTime() - ((BlockRedstoneTorch.Toggle) list.get(0)).time > 60L) {
@@ -125,15 +123,15 @@ public class BlockRedstoneTorch extends BlockTorch {
 				world.setBlockState(blockpos, Blocks.unlit_redstone_torch.getDefaultState().withProperty(FACING,
 						iblockstate.getValue(FACING)), 3);
 				if (this.isBurnedOut(world, blockpos, true)) {
-					world.playSoundEffect((double) ((float) blockpos.getX() + 0.5F),
-							(double) ((float) blockpos.getY() + 0.5F), (double) ((float) blockpos.getZ() + 0.5F),
+					world.playSoundEffect((float) blockpos.getX() + 0.5F,
+							(float) blockpos.getY() + 0.5F, (float) blockpos.getZ() + 0.5F,
 							"random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
 					for (int i = 0; i < 5; ++i) {
 						double d0 = (double) blockpos.getX() + random.nextDouble() * 0.6D + 0.2D;
 						double d1 = (double) blockpos.getY() + random.nextDouble() * 0.6D + 0.2D;
 						double d2 = (double) blockpos.getZ() + random.nextDouble() * 0.6D + 0.2D;
-						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 					}
 
 					world.scheduleUpdate(blockpos, world.getBlockState(blockpos).getBlock(), 160);
@@ -183,7 +181,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 			double d0 = (double) blockpos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
 			double d1 = (double) blockpos.getY() + 0.7D + (random.nextDouble() - 0.5D) * 0.2D;
 			double d2 = (double) blockpos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
-			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+			EnumFacing enumfacing = iblockstate.getValue(FACING);
 			if (enumfacing.getAxis().isHorizontal()) {
 				EnumFacing enumfacing1 = enumfacing.getOpposite();
 				double d3 = 0.27D;
@@ -192,7 +190,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 				d2 += 0.27D * (double) enumfacing1.getFrontOffsetZ();
 			}
 
-			world.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+			world.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 		}
 	}
 

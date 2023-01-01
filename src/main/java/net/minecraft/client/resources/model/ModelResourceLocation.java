@@ -26,8 +26,8 @@ public class ModelResourceLocation extends ResourceLocation {
 	private final String variant;
 
 	protected ModelResourceLocation(int parInt1, String... parArrayOfString) {
-		super(0, new String[] { parArrayOfString[0], parArrayOfString[1] });
-		this.variant = StringUtils.isEmpty(parArrayOfString[2]) ? "normal" : parArrayOfString[2].toLowerCase();
+		super(0, parArrayOfString[0], parArrayOfString[1]);
+        this.variant = StringUtils.isEmpty(parArrayOfString[2]) ? "normal" : parArrayOfString[2].toLowerCase();
 	}
 
 	public ModelResourceLocation(String parString1) {
@@ -47,7 +47,7 @@ public class ModelResourceLocation extends ResourceLocation {
 		int i = parString1.indexOf(35);
 		String s = parString1;
 		if (i >= 0) {
-			astring[2] = parString1.substring(i + 1, parString1.length());
+            astring[2] = parString1.substring(i + 1);
 			if (i > 1) {
 				s = parString1.substring(0, i);
 			}

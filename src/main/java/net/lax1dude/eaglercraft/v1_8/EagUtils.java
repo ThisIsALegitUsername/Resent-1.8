@@ -51,7 +51,7 @@ public class EagUtils {
 	public static String toASCIIEagler(String str) {
 		char[] ascii = new char[str.length()];
 		for(int i = 0; i < ascii.length; ++i) {
-			int c = (int)str.charAt(i);
+			int c = str.charAt(i);
 			if(c < 32 || c > 126) {
 				ascii[i] = '_';
 			}else {
@@ -63,7 +63,7 @@ public class EagUtils {
 	
 	public static void validateASCIIEagler(String str) {
 		for(int i = 0, l = str.length(); i < l; ++i) {
-			int c = (int)str.charAt(i);
+            int c = str.charAt(i);
 			if(c < 32 || c > 126) {
 				throw new IllegalArgumentException("invalid ascii");
 			}

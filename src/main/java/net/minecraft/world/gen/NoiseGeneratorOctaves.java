@@ -16,25 +16,25 @@ import net.minecraft.util.MathHelper;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class NoiseGeneratorOctaves extends NoiseGenerator {
-	private NoiseGeneratorImproved[] generatorCollection;
-	private int octaves;
+    private final NoiseGeneratorImproved[] generatorCollection;
+    private final int octaves;
 
-	public NoiseGeneratorOctaves(EaglercraftRandom parRandom, int parInt1) {
-		this.octaves = parInt1;
-		this.generatorCollection = new NoiseGeneratorImproved[parInt1];
+    public NoiseGeneratorOctaves(EaglercraftRandom parRandom, int parInt1) {
+        this.octaves = parInt1;
+        this.generatorCollection = new NoiseGeneratorImproved[parInt1];
 
-		for (int i = 0; i < parInt1; ++i) {
-			this.generatorCollection[i] = new NoiseGeneratorImproved(parRandom);
-		}
+        for (int i = 0; i < parInt1; ++i) {
+            this.generatorCollection[i] = new NoiseGeneratorImproved(parRandom);
+        }
 
-	}
+    }
 
 	/**+
 	 * Bouncer function to the main one with some default arguments.

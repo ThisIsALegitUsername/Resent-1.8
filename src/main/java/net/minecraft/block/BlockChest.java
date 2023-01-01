@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -188,7 +187,7 @@ public class BlockChest extends BlockContainer {
 		if (enumfacing != null) {
 			return state.withProperty(FACING, enumfacing.getOpposite());
 		} else {
-			EnumFacing enumfacing2 = (EnumFacing) state.getValue(FACING);
+			EnumFacing enumfacing2 = state.getValue(FACING);
 			if (worldIn.getBlockState(pos.offset(enumfacing2)).getBlock().isFullBlock()) {
 				enumfacing2 = enumfacing2.getOpposite();
 			}
@@ -292,7 +291,7 @@ public class BlockChest extends BlockContainer {
 		if (!(tileentity instanceof TileEntityChest)) {
 			return null;
 		} else {
-			Object object = (TileEntityChest) tileentity;
+			Object object = tileentity;
 			if (this.isBlocked(worldIn, pos)) {
 				return null;
 			} else {
@@ -367,8 +366,8 @@ public class BlockChest extends BlockContainer {
 
 	private boolean isOcelotSittingOnChest(World worldIn, BlockPos pos) {
 		for (Entity entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class,
-				new AxisAlignedBB((double) pos.getX(), (double) (pos.getY() + 1), (double) pos.getZ(),
-						(double) (pos.getX() + 1), (double) (pos.getY() + 2), (double) (pos.getZ() + 1)))) {
+				new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(),
+						pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1))) {
 			EntityOcelot entityocelot = (EntityOcelot) entity;
 			if (entityocelot.isSitting()) {
 				return true;
@@ -402,10 +401,10 @@ public class BlockChest extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+		return iblockstate.getValue(FACING).getIndex();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING });
+		return new BlockState(this, FACING);
 	}
 }

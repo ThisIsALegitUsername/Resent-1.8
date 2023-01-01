@@ -16,19 +16,6 @@
 
 package com.google.common.io;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Iterator;
-
 import com.google.common.annotations.Beta;
 import com.google.common.base.Ascii;
 import com.google.common.collect.ImmutableList;
@@ -36,8 +23,15 @@ import com.google.common.hash.Funnels;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hasher;
-
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Iterator;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A readable source of bytes, such as a file. Unlike an {@link InputStream}, a
@@ -464,7 +458,7 @@ public abstract class ByteSource implements InputSupplier<InputStream> {
 
 		@Override
 		public String toString() {
-			return ByteSource.this.toString() + ".asCharSource(" + charset + ")";
+			return ByteSource.this + ".asCharSource(" + charset + ")";
 		}
 	}
 
@@ -525,7 +519,7 @@ public abstract class ByteSource implements InputSupplier<InputStream> {
 
 		@Override
 		public String toString() {
-			return ByteSource.this.toString() + ".slice(" + offset + ", " + length + ")";
+            return ByteSource.this + ".slice(" + offset + ", " + length + ")";
 		}
 	}
 

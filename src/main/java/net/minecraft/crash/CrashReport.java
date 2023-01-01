@@ -1,21 +1,17 @@
 package net.minecraft.crash;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Callable;
-
 import com.google.common.collect.Lists;
-
 import net.lax1dude.eaglercraft.v1_8.ArrayUtils;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
-import net.lax1dude.eaglercraft.v1_8.IOUtils;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumPlatformType;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.util.ReportedException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -121,8 +117,8 @@ public class CrashReport {
 	 */
 	public void getSectionsInStringBuilder(StringBuilder builder) {
 		if ((this.stacktrace == null || this.stacktrace.length <= 0) && this.crashReportSections.size() > 0) {
-			this.stacktrace = (String[]) ArrayUtils
-					.subarray(((CrashReportCategory) this.crashReportSections.get(0)).getStackTrace(), 0, 1);
+			this.stacktrace = ArrayUtils
+					.subarray(this.crashReportSections.get(0).getStackTrace(), 0, 1);
 		}
 
 		if (this.stacktrace != null && this.stacktrace.length > 0) {
@@ -130,7 +126,7 @@ public class CrashReport {
 			builder.append("Stacktrace:\n");
 
 			for (String stacktraceelement : this.stacktrace) {
-				builder.append("\t").append("at ").append(stacktraceelement.toString());
+				builder.append("\t").append("at ").append(stacktraceelement);
 				builder.append("\n");
 			}
 
@@ -158,7 +154,7 @@ public class CrashReport {
 			stackTrace.append(this.cause.getClass().getName()).append(": ");
 			stackTrace.append(this.description).append('\n');
 		} else {
-			stackTrace.append(this.cause.toString()).append('\n');
+			stackTrace.append(this.cause).append('\n');
 		}
 
 		EagRuntime.getStackTrace(this.cause, (s) -> {
@@ -234,7 +230,7 @@ public class CrashReport {
 			this.field_85059_f = crashreportcategory.firstTwoElementsOfStackTraceMatch(stacktraceelement,
 					stacktraceelement1);
 			if (i > 0 && !this.crashReportSections.isEmpty()) {
-				CrashReportCategory crashreportcategory1 = (CrashReportCategory) this.crashReportSections
+				CrashReportCategory crashreportcategory1 = this.crashReportSections
 						.get(this.crashReportSections.size() - 1);
 				crashreportcategory1.trimStackTraceEntriesFromBottom(i);
 			} else if (astacktraceelement != null && astacktraceelement.length >= i && 0 <= j

@@ -1,7 +1,6 @@
 package net.minecraft.world.biome;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.BlockPos;
@@ -26,7 +25,7 @@ import net.minecraft.util.MathHelper;
  * 
  */
 public class BiomeGenForest extends BiomeGenBase {
-	private int field_150632_aF;
+	private final int field_150632_aF;
 
 	public BiomeGenForest(int parInt1, int parInt2) {
 		super(parInt1);
@@ -89,9 +88,7 @@ public class BiomeGenForest extends BiomeGenBase {
 			biomegenforest.setFillerBlockMetadata(8233509);
 			return biomegenforest;
 		} else {
-			return this.biomeID != BiomeGenBase.birchForest.biomeID
-					&& this.biomeID != BiomeGenBase.birchForestHills.biomeID ? new BiomeGenMutated(i, this)
-							: new BiomeGenMutated(i, this);
+            return new BiomeGenMutated(i, this);
 		}
 	}
 }

@@ -51,7 +51,7 @@ public interface ByteBuffer extends Buffer {
 
 	ByteBuffer putChar(int index, char value);
 
-	public abstract short getShort();
+	short getShort();
 
 	ByteBuffer putShort(short value);
 

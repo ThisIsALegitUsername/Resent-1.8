@@ -1,11 +1,11 @@
 package dev.resent.module.impl.hud;
 
 import dev.resent.Resent;
-import dev.resent.event.impl.EntityStatusEvent;
 import dev.resent.event.impl.EventAttack;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
+import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class ComboCounter extends RenderModule {
 
@@ -17,27 +17,33 @@ public class ComboCounter extends RenderModule {
     public ComboCounter() {
         super("ComboCounter", Category.HUD, 4, 4, true);
         addSetting(tshadow);
-        Resent.INSTANCE.events().subscribe(EntityStatusEvent.class, event -> {
-            if(this.isEnabled() && attacked && event.status == 2){
-                combo++;
-                attacked = false;
-            }
-        }); 
 
         Resent.INSTANCE.events().subscribe(EventAttack.class, event -> {
-            if(this.isEnabled()){
+            if (this.isEnabled()) {
                 attacked = true;
                 lastAttack = System.nanoTime();
             }
         });
     }
 
-    public int getWidth(){ return mc.fontRendererObj.getStringWidth("[0 Combo]") + 4; }
-    public int getHeight(){ return mc.fontRendererObj.FONT_HEIGHT + 4; }
+    public void onEntityHit(S19PacketEntityStatus event) {
+        if (this.isEnabled() && attacked && event.logicOpcode == 2) {
+            combo++;
+            attacked = false;
+        }
+    }
+
+    public int getWidth() {
+        return mc.fontRendererObj.getStringWidth("[0 Combo]") + 4;
+    }
+
+    public int getHeight() {
+        return mc.fontRendererObj.FONT_HEIGHT + 4;
+    }
 
     @Override
     public void draw() {
-        if(mc.thePlayer.hurtTime > 3 || System.nanoTime() - lastAttack >= 3.0E9 && this.enabled){
+        if (mc.thePlayer.hurtTime > 3 || System.nanoTime() - lastAttack >= 3.0E9 && this.enabled) {
             combo = 0;
         }
 

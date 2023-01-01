@@ -128,7 +128,7 @@ public final class Predicates {
 	 * evaluation will be "short-circuited" as soon as a false predicate is found.
 	 */
 	public static <T> Predicate<T> and(Predicate<? super T> first, Predicate<? super T> second) {
-		return new AndPredicate<T>(Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
+		return new AndPredicate<T>(Predicates.asList(checkNotNull(first), checkNotNull(second)));
 	}
 
 	/**
@@ -164,7 +164,7 @@ public final class Predicates {
 	 * found.
 	 */
 	public static <T> Predicate<T> or(Predicate<? super T> first, Predicate<? super T> second) {
-		return new OrPredicate<T>(Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
+        return new OrPredicate<T>(Predicates.asList(checkNotNull(first), checkNotNull(second)));
 	}
 
 	/**
@@ -172,7 +172,7 @@ public final class Predicates {
 	 * {@code equals()} the given target or both are null.
 	 */
 	public static <T> Predicate<T> equalTo(@Nullable T target) {
-		return (target == null) ? Predicates.<T>isNull() : new IsEqualToPredicate<T>(target);
+        return (target == null) ? Predicates.isNull() : new IsEqualToPredicate<T>(target);
 	}
 
 	/**
@@ -693,7 +693,7 @@ public final class Predicates {
 
 	private static <T> List<Predicate<? super T>> asList(Predicate<? super T> first, Predicate<? super T> second) {
 		// TODO(kevinb): understand why we still get a warning despite @SafeVarargs!
-		return Arrays.<Predicate<? super T>>asList(first, second);
+        return Arrays.asList(first, second);
 	}
 
 	private static <T> List<T> defensiveCopy(T... array) {

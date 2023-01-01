@@ -34,28 +34,28 @@ import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
  */
 public class TeaVMServerQuery implements IServerQuery {
 
-	public static final Logger logger = LogManager.getLogger("WebSocketQuery");
+    public static final Logger logger = LogManager.getLogger("WebSocketQuery");
 
-	private final List<QueryResponse> queryResponses = new LinkedList<>();
-	private final List<byte[]> queryResponsesBytes = new LinkedList<>();
+    private final List<QueryResponse> queryResponses = new LinkedList<>();
+    private final List<byte[]> queryResponsesBytes = new LinkedList<>();
 
-	protected final String uri;
-	protected final String accept;
-	protected final WebSocket sock;
-	protected boolean open = true;
-	protected boolean alive = false;
-	protected long pingStart = -1l;
-	protected long pingTimer = -1l;
-	private EnumServerRateLimit rateLimit = EnumServerRateLimit.OK;
+    protected final String uri;
+    protected final String accept;
+    protected final WebSocket sock;
+    protected boolean open = true;
+    protected boolean alive = false;
+    protected long pingStart = -1L;
+    protected long pingTimer = -1L;
+    private EnumServerRateLimit rateLimit = EnumServerRateLimit.OK;
 
-	public TeaVMServerQuery(String uri, String accept) {
-		this.uri = uri;
-		this.accept = accept;
-		this.sock = WebSocket.create(uri);
-		initHandlers();
-	}
+    public TeaVMServerQuery(String uri, String accept) {
+        this.uri = uri;
+        this.accept = accept;
+        this.sock = WebSocket.create(uri);
+        initHandlers();
+    }
 
-	@JSBody(params = { "obj" }, script = "return typeof obj === \"string\";")
+    @JSBody(params = {"obj"}, script = "return typeof obj === \"string\";")
 	private static native boolean isString(JSObject obj);
 
 	protected void initHandlers() {

@@ -45,9 +45,9 @@ import net.minecraft.world.World;
  * 
  */
 public class TileEntityRendererDispatcher {
-	private Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<? extends TileEntity>> mapSpecialRenderers = Maps
-			.newHashMap();
-	public static TileEntityRendererDispatcher instance = new TileEntityRendererDispatcher();
+	private final Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<? extends TileEntity>> mapSpecialRenderers = Maps
+            .newHashMap();
+    public static TileEntityRendererDispatcher instance = new TileEntityRendererDispatcher();
 	private FontRenderer fontRenderer;
 	public static double staticPlayerX;
 	public static double staticPlayerY;
@@ -81,8 +81,8 @@ public class TileEntityRendererDispatcher {
 
 	public <T extends TileEntity> TileEntitySpecialRenderer<T> getSpecialRendererByClass(
 			Class<? extends TileEntity> teClass) {
-		TileEntitySpecialRenderer tileentityspecialrenderer = (TileEntitySpecialRenderer) this.mapSpecialRenderers
-				.get(teClass);
+        TileEntitySpecialRenderer tileentityspecialrenderer = this.mapSpecialRenderers
+                .get(teClass);
 		if (tileentityspecialrenderer == null && teClass != TileEntity.class) {
 			tileentityspecialrenderer = this
 					.getSpecialRendererByClass((Class<? extends TileEntity>) teClass.getSuperclass());
@@ -119,8 +119,8 @@ public class TileEntityRendererDispatcher {
 			int i = this.worldObj.getCombinedLight(tileentityIn.getPos(), 0);
 			int j = i % 65536;
 			int k = i / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			BlockPos blockpos = tileentityIn.getPos();
 			this.renderTileEntityAt(tileentityIn, (double) blockpos.getX() - staticPlayerX,
 					(double) blockpos.getY() - staticPlayerY, (double) blockpos.getZ() - staticPlayerZ, partialTicks,

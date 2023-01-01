@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -15,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -35,7 +34,7 @@ import net.minecraft.world.World;
  * 
  */
 public class BlockStainedGlassPane extends BlockPane {
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color",
 			EnumDyeColor.class);
 
 	public BlockStainedGlassPane() {
@@ -53,7 +52,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
+		return iblockstate.getValue(COLOR).getMetadata();
 	}
 
 	/**+
@@ -71,7 +70,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMapColor();
+		return iblockstate.getValue(COLOR).getMapColor();
 	}
 
 	public EnumWorldBlockLayer getBlockLayer() {
@@ -89,11 +88,11 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
+		return iblockstate.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { NORTH, EAST, WEST, SOUTH, COLOR });
+		return new BlockState(this, NORTH, EAST, WEST, SOUTH, COLOR);
 	}
 
 	public void onBlockAdded(World world, BlockPos blockpos, IBlockState var3) {

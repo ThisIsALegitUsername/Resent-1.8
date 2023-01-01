@@ -1,15 +1,11 @@
 package net.minecraft.util;
 
-import java.util.AbstractSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
+import java.util.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -67,7 +63,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 
 			return parClass1;
 		} else {
-			throw new IllegalArgumentException("Don\'t know how to search for " + parClass1);
+			throw new IllegalArgumentException("Don't know how to search for " + parClass1);
 		}
 	}
 
@@ -82,7 +78,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	private void func_181743_a(T parObject, Class<?> parClass1) {
-		List list = (List) this.map.get(parClass1);
+		List list = this.map.get(parClass1);
 		if (list == null) {
 			this.map.put(parClass1, (List<T>) Lists.newArrayList(new Object[] { parObject }));
 		} else {
@@ -97,7 +93,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 
 		for (Class oclass : this.knownKeys) {
 			if (oclass.isAssignableFrom(object.getClass())) {
-				List list = (List) this.map.get(oclass);
+				List list = this.map.get(oclass);
 				if (list != null && list.remove(object)) {
 					flag = true;
 				}
@@ -114,7 +110,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	public <S> Iterable<S> getByClass(final Class<S> clazz) {
 		return new Iterable<S>() {
 			public Iterator<S> iterator() {
-				List list = (List) ClassInheritanceMultiMap.this.map
+				List list = ClassInheritanceMultiMap.this.map
 						.get(ClassInheritanceMultiMap.this.func_181157_b(clazz));
 				if (list == null) {
 					return Iterators.emptyIterator();

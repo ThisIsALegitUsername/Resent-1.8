@@ -1,8 +1,6 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -74,21 +72,21 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	}
 
 	protected int getDelay(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(DELAY)).intValue() * 2;
+		return iblockstate.getValue(DELAY).intValue() * 2;
 	}
 
 	protected IBlockState getPoweredState(IBlockState iblockstate) {
-		Integer integer = (Integer) iblockstate.getValue(DELAY);
-		Boolean obool = (Boolean) iblockstate.getValue(LOCKED);
-		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+		Integer integer = iblockstate.getValue(DELAY);
+		Boolean obool = iblockstate.getValue(LOCKED);
+		EnumFacing enumfacing = iblockstate.getValue(FACING);
 		return Blocks.powered_repeater.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer)
 				.withProperty(LOCKED, obool);
 	}
 
 	protected IBlockState getUnpoweredState(IBlockState iblockstate) {
-		Integer integer = (Integer) iblockstate.getValue(DELAY);
-		Boolean obool = (Boolean) iblockstate.getValue(LOCKED);
-		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+		Integer integer = iblockstate.getValue(DELAY);
+		Boolean obool = iblockstate.getValue(LOCKED);
+		EnumFacing enumfacing = iblockstate.getValue(FACING);
 		return Blocks.unpowered_repeater.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer)
 				.withProperty(LOCKED, obool);
 	}
@@ -114,19 +112,19 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
 		if (this.isRepeaterPowered) {
-			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+			EnumFacing enumfacing = iblockstate.getValue(FACING);
 			double d0 = (double) ((float) blockpos.getX() + 0.5F) + (double) (random.nextFloat() - 0.5F) * 0.2D;
 			double d1 = (double) ((float) blockpos.getY() + 0.4F) + (double) (random.nextFloat() - 0.5F) * 0.2D;
 			double d2 = (double) ((float) blockpos.getZ() + 0.5F) + (double) (random.nextFloat() - 0.5F) * 0.2D;
 			float f = -5.0F;
 			if (random.nextBoolean()) {
-				f = (float) (((Integer) iblockstate.getValue(DELAY)).intValue() * 2 - 1);
+				f = (float) (iblockstate.getValue(DELAY).intValue() * 2 - 1);
 			}
 
 			f = f / 16.0F;
-			double d3 = (double) (f * (float) enumfacing.getFrontOffsetX());
-			double d4 = (double) (f * (float) enumfacing.getFrontOffsetZ());
-			world.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+			double d3 = f * (float) enumfacing.getFrontOffsetX();
+			double d4 = f * (float) enumfacing.getFrontOffsetZ();
+			world.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -148,12 +146,12 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getHorizontalIndex();
-		i = i | ((Integer) iblockstate.getValue(DELAY)).intValue() - 1 << 2;
+		i = i | iblockstate.getValue(FACING).getHorizontalIndex();
+		i = i | iblockstate.getValue(DELAY).intValue() - 1 << 2;
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING, DELAY, LOCKED });
+		return new BlockState(this, FACING, DELAY, LOCKED);
 	}
 }

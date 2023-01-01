@@ -40,8 +40,8 @@ class TrieParser {
 		int encodedLen = encoded.length();
 		int idx = 0;
 		while (idx < encodedLen) {
-			idx += doParseTrieToBuilder(Lists.<CharSequence>newLinkedList(), encoded.subSequence(idx, encodedLen),
-					builder);
+			idx += doParseTrieToBuilder(Lists.newLinkedList(), encoded.subSequence(idx, encodedLen),
+                    builder);
 		}
 		return builder.build();
 	}

@@ -1,15 +1,7 @@
 package net.minecraft.entity;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.ObjectUtils;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.item.ItemStack;
@@ -17,6 +9,12 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.Rotations;
+import org.apache.commons.lang3.ObjectUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -52,7 +50,7 @@ public class DataWatcher {
 	}
 
 	public <T> void addObject(int id, T object) {
-		Integer integer = (Integer) dataTypes.get(object.getClass());
+		Integer integer = dataTypes.get(object.getClass());
 		if (integer == null) {
 			throw new IllegalArgumentException("Unknown data type: " + object.getClass());
 		} else if (id > 31) {
@@ -73,7 +71,7 @@ public class DataWatcher {
 	 */
 	public void addObjectByDataType(int id, int type) {
 		DataWatcher.WatchableObject datawatcher$watchableobject = new DataWatcher.WatchableObject(type, id,
-				(Object) null);
+				null);
 		this.watchedObjects.put(Integer.valueOf(id), datawatcher$watchableobject);
 		this.isBlank = false;
 	}
@@ -120,7 +118,7 @@ public class DataWatcher {
 	private DataWatcher.WatchableObject getWatchedObject(int id) {
 		DataWatcher.WatchableObject datawatcher$watchableobject;
 		try {
-			datawatcher$watchableobject = (DataWatcher.WatchableObject) this.watchedObjects.get(Integer.valueOf(id));
+			datawatcher$watchableobject = this.watchedObjects.get(Integer.valueOf(id));
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Synched entity data");
@@ -315,7 +313,7 @@ public class DataWatcher {
 	public void updateWatchedObjectsFromList(List<DataWatcher.WatchableObject> parList) {
 
 		for (DataWatcher.WatchableObject datawatcher$watchableobject : parList) {
-			DataWatcher.WatchableObject datawatcher$watchableobject1 = (DataWatcher.WatchableObject) this.watchedObjects
+			DataWatcher.WatchableObject datawatcher$watchableobject1 = this.watchedObjects
 					.get(Integer.valueOf(datawatcher$watchableobject.getDataValueId()));
 			if (datawatcher$watchableobject1 != null) {
 				datawatcher$watchableobject1.setObject(datawatcher$watchableobject.getObject());

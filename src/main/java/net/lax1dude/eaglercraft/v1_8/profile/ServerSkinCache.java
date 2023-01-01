@@ -275,39 +275,39 @@ public class ServerSkinCache {
 	
 	public void flush() {
 		long millis = System.currentTimeMillis();
-		if(millis - lastFlushReq > 5000l) {
-			lastFlushReq = millis;
-			if(!waitingSkins.isEmpty()) {
-				Iterator<WaitingSkin> waitingItr = waitingSkins.values().iterator();
-				while(waitingItr.hasNext()) {
-					if(millis - waitingItr.next().timeout > 30000l) {
-						waitingItr.remove();
-					}
-				}
-			}
-		}
-		if(millis - lastFlushEvict > 1000l) {
-			lastFlushEvict = millis;
-			if(!evictedSkins.isEmpty()) {
-				Iterator<Long> evictItr = evictedSkins.values().iterator();
-				while(evictItr.hasNext()) {
-					if(millis - evictItr.next().longValue() > 3000l) {
-						evictItr.remove();
-					}
-				}
-			}
-		}
-		if(millis - lastFlush > 60000l) {
-			lastFlush = millis;
-			if(!skinsCache.isEmpty()) {
-				Iterator<SkinCacheEntry> entryItr = skinsCache.values().iterator();
-				while(entryItr.hasNext()) {
-					SkinCacheEntry etr = entryItr.next();
-					if(millis - etr.lastCacheHit > 900000l) { // 15 minutes
-						entryItr.remove();
-						etr.free();
-					}
-				}
+		if (millis - lastFlushReq > 5000L) {
+            lastFlushReq = millis;
+            if (!waitingSkins.isEmpty()) {
+                Iterator<WaitingSkin> waitingItr = waitingSkins.values().iterator();
+                while (waitingItr.hasNext()) {
+                    if (millis - waitingItr.next().timeout > 30000L) {
+                        waitingItr.remove();
+                    }
+                }
+            }
+        }
+        if (millis - lastFlushEvict > 1000L) {
+            lastFlushEvict = millis;
+            if (!evictedSkins.isEmpty()) {
+                Iterator<Long> evictItr = evictedSkins.values().iterator();
+                while (evictItr.hasNext()) {
+                    if (millis - evictItr.next().longValue() > 3000L) {
+                        evictItr.remove();
+                    }
+                }
+            }
+        }
+        if (millis - lastFlush > 60000L) {
+            lastFlush = millis;
+            if (!skinsCache.isEmpty()) {
+                Iterator<SkinCacheEntry> entryItr = skinsCache.values().iterator();
+                while (entryItr.hasNext()) {
+                    SkinCacheEntry etr = entryItr.next();
+                    if (millis - etr.lastCacheHit > 900000L) { // 15 minutes
+                        entryItr.remove();
+                        etr.free();
+                    }
+                }
 			}
 		}
 	}

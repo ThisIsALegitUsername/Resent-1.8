@@ -21,8 +21,8 @@ import net.minecraft.util.MathHelper;
  * 
  */
 public class EntityBodyHelper {
-	private EntityLivingBase theLiving;
-	private int rotationTickCounter;
+	private final EntityLivingBase theLiving;
+    private int rotationTickCounter;
 	private float prevRenderYawHead;
 
 	public EntityBodyHelper(EntityLivingBase parEntityLivingBase) {

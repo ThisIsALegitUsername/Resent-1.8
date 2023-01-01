@@ -32,8 +32,7 @@ public class FoliageColorReloadListener implements IResourceManagerReloadListene
 			ColorizerFoliage.setFoliageBiomeColorizer(
 					TextureUtil.convertComponentOrder(TextureUtil.readImageData(iresourcemanager, LOC_FOLIAGE_PNG)));
 		} catch (IOException var3) {
-			;
-		}
+        }
 
 	}
 }

@@ -1,15 +1,14 @@
 package net.minecraft.util;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -85,10 +84,10 @@ public class CombatTracker {
 
 	public IChatComponent getDeathMessage() {
 		if (this.combatEntries.size() == 0) {
-			return new ChatComponentTranslation("death.attack.generic", new Object[] { this.fighter.getDisplayName() });
+			return new ChatComponentTranslation("death.attack.generic", this.fighter.getDisplayName());
 		} else {
 			CombatEntry combatentry = this.func_94544_f();
-			CombatEntry combatentry1 = (CombatEntry) this.combatEntries.get(this.combatEntries.size() - 1);
+			CombatEntry combatentry1 = this.combatEntries.get(this.combatEntries.size() - 1);
 			IChatComponent ichatcomponent = combatentry1.getDamageSrcDisplayName();
 			Entity entity = combatentry1.getDamageSrc().getEntity();
 			Object object;
@@ -97,36 +96,34 @@ public class CombatTracker {
 				if (combatentry.getDamageSrc() != DamageSource.fall
 						&& combatentry.getDamageSrc() != DamageSource.outOfWorld) {
 					if (ichatcomponent1 != null
-							&& (ichatcomponent == null || !ichatcomponent1.equals(ichatcomponent))) {
+							&& (!ichatcomponent1.equals(ichatcomponent))) {
 						Entity entity1 = combatentry.getDamageSrc().getEntity();
 						ItemStack itemstack1 = entity1 instanceof EntityLivingBase
 								? ((EntityLivingBase) entity1).getHeldItem()
 								: null;
 						if (itemstack1 != null && itemstack1.hasDisplayName()) {
-							object = new ChatComponentTranslation("death.fell.assist.item", new Object[] {
-									this.fighter.getDisplayName(), ichatcomponent1, itemstack1.getChatComponent() });
+							object = new ChatComponentTranslation("death.fell.assist.item", this.fighter.getDisplayName(), ichatcomponent1, itemstack1.getChatComponent());
 						} else {
 							object = new ChatComponentTranslation("death.fell.assist",
-									new Object[] { this.fighter.getDisplayName(), ichatcomponent1 });
+									this.fighter.getDisplayName(), ichatcomponent1);
 						}
 					} else if (ichatcomponent != null) {
 						ItemStack itemstack = entity instanceof EntityLivingBase
 								? ((EntityLivingBase) entity).getHeldItem()
 								: null;
 						if (itemstack != null && itemstack.hasDisplayName()) {
-							object = new ChatComponentTranslation("death.fell.finish.item", new Object[] {
-									this.fighter.getDisplayName(), ichatcomponent, itemstack.getChatComponent() });
+							object = new ChatComponentTranslation("death.fell.finish.item", this.fighter.getDisplayName(), ichatcomponent, itemstack.getChatComponent());
 						} else {
 							object = new ChatComponentTranslation("death.fell.finish",
-									new Object[] { this.fighter.getDisplayName(), ichatcomponent });
+									this.fighter.getDisplayName(), ichatcomponent);
 						}
 					} else {
 						object = new ChatComponentTranslation("death.fell.killer",
-								new Object[] { this.fighter.getDisplayName() });
+								this.fighter.getDisplayName());
 					}
 				} else {
 					object = new ChatComponentTranslation("death.fell.accident." + this.func_94548_b(combatentry),
-							new Object[] { this.fighter.getDisplayName() });
+							this.fighter.getDisplayName());
 				}
 			} else {
 				object = combatentry1.getDamageSrc().getDeathMessage(this.fighter);
@@ -170,8 +167,8 @@ public class CombatTracker {
 		float f = 0.0F;
 
 		for (int i = 0; i < this.combatEntries.size(); ++i) {
-			CombatEntry combatentry2 = (CombatEntry) this.combatEntries.get(i);
-			CombatEntry combatentry3 = i > 0 ? (CombatEntry) this.combatEntries.get(i - 1) : null;
+			CombatEntry combatentry2 = this.combatEntries.get(i);
+			CombatEntry combatentry3 = i > 0 ? this.combatEntries.get(i - 1) : null;
 			if ((combatentry2.getDamageSrc() == DamageSource.fall
 					|| combatentry2.getDamageSrc() == DamageSource.outOfWorld) && combatentry2.getDamageAmount() > 0.0F
 					&& (combatentry == null || combatentry2.getDamageAmount() > f)) {

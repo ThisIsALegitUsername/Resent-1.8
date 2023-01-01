@@ -29,10 +29,10 @@ public class GuiSleepMP extends GuiChat {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-		super.initGui();
-		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40,
-				I18n.format("multiplayer.stopSleeping", new Object[0])));
-	}
+        super.initGui();
+        this.buttonList.add(new GuiButton(1, width / 2 - 100, height - 40,
+                I18n.format("multiplayer.stopSleeping")));
+    }
 
 	/**+
 	 * Fired when a key is typed (except F11 which toggles full

@@ -69,18 +69,18 @@ public class Stitcher {
 	}
 
 	public void doStitch() {
-		Stitcher.Holder[] astitcher$holder = (Stitcher.Holder[]) this.setStitchHolders
-				.toArray(new Stitcher.Holder[this.setStitchHolders.size()]);
-		Arrays.sort(astitcher$holder);
+        Stitcher.Holder[] astitcher$holder = this.setStitchHolders
+                .toArray(new Holder[this.setStitchHolders.size()]);
+        Arrays.sort(astitcher$holder);
 
-		for (Stitcher.Holder stitcher$holder : astitcher$holder) {
-			if (!this.allocateSlot(stitcher$holder)) {
-				String s = HString.format("Unable to fit: %s - size: %dx%d - Maybe try a lowerresolution resourcepack?",
-						new Object[] { stitcher$holder.getAtlasSprite().getIconName(),
-								Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()),
-								Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()) });
-				throw new StitcherException(stitcher$holder, s);
-			}
+        for (Stitcher.Holder stitcher$holder : astitcher$holder) {
+            if (!this.allocateSlot(stitcher$holder)) {
+                String s = HString.format("Unable to fit: %s - size: %dx%d - Maybe try a lowerresolution resourcepack?",
+                        stitcher$holder.getAtlasSprite().getIconName(),
+                        Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()),
+                        Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()));
+                throw new StitcherException(stitcher$holder, s);
+            }
 		}
 
 		if (this.forcePowerOf2) {
@@ -119,14 +119,14 @@ public class Stitcher {
 	 */
 	private boolean allocateSlot(Stitcher.Holder parHolder) {
 		for (int i = 0; i < this.stitchSlots.size(); ++i) {
-			if (((Stitcher.Slot) this.stitchSlots.get(i)).addSlot(parHolder)) {
-				return true;
-			}
+            if (this.stitchSlots.get(i).addSlot(parHolder)) {
+                return true;
+            }
 
 			parHolder.rotate();
-			if (((Stitcher.Slot) this.stitchSlots.get(i)).addSlot(parHolder)) {
-				return true;
-			}
+            if (this.stitchSlots.get(i).addSlot(parHolder)) {
+                return true;
+            }
 
 			parHolder.rotate();
 		}

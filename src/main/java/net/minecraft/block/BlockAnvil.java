@@ -1,9 +1,6 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -25,6 +22,8 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -86,11 +85,11 @@ public class BlockAnvil extends BlockFalling {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState state) {
-		return ((Integer) state.getValue(DAMAGE)).intValue();
+		return state.getValue(DAMAGE).intValue();
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		EnumFacing enumfacing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+		EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
 		if (enumfacing.getAxis() == EnumFacing.Axis.X) {
 			this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
 		} else {
@@ -147,13 +146,13 @@ public class BlockAnvil extends BlockFalling {
 	 */
 	public int getMetaFromState(IBlockState state) {
 		int i = 0;
-		i = i | ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
-		i = i | ((Integer) state.getValue(DAMAGE)).intValue() << 2;
+		i = i | state.getValue(FACING).getHorizontalIndex();
+		i = i | state.getValue(DAMAGE).intValue() << 2;
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING, DAMAGE });
+		return new BlockState(this, FACING, DAMAGE);
 	}
 
 	public static class Anvil implements IInteractionObject {
@@ -174,7 +173,7 @@ public class BlockAnvil extends BlockFalling {
 		}
 
 		public IChatComponent getDisplayName() {
-			return new ChatComponentTranslation(Blocks.anvil.getUnlocalizedName() + ".name", new Object[0]);
+			return new ChatComponentTranslation(Blocks.anvil.getUnlocalizedName() + ".name");
 		}
 
 		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {

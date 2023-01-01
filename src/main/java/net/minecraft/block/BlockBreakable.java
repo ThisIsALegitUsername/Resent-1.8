@@ -27,7 +27,7 @@ import net.minecraft.world.IBlockAccess;
  * 
  */
 public class BlockBreakable extends Block {
-	private boolean ignoreSimilarity;
+	private final boolean ignoreSimilarity;
 
 	protected BlockBreakable(Material materialIn, boolean ignoreSimilarityIn) {
 		this(materialIn, ignoreSimilarityIn, materialIn.getMaterialMapColor());
@@ -59,7 +59,6 @@ public class BlockBreakable extends Block {
 			}
 		}
 
-		return !this.ignoreSimilarity && block == this ? false
-				: super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
+        return (this.ignoreSimilarity || block != this) && super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
 	}
 }

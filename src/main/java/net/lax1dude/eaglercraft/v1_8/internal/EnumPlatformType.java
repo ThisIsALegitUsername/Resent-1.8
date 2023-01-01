@@ -18,9 +18,9 @@ public enum EnumPlatformType {
 	
 	private final String name;
 	
-	private EnumPlatformType(String name) {
-		this.name = name;
-	}
+	EnumPlatformType(String name) {
+        this.name = name;
+    }
 	
 	public String getName() {
 		return name;

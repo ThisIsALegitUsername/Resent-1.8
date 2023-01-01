@@ -243,8 +243,8 @@ public class GuiPlayerTabOverlay extends Gui {
 		}
 
 		this.zLevel += 100.0F;
-		this.drawTexturedModalRect(parInt2 + networkPlayerInfoIn - 11, parInt3, 0 + b0 * 10, 176 + b1 * 8, 10, 8);
-		this.zLevel -= 100.0F;
+        this.drawTexturedModalRect(parInt2 + networkPlayerInfoIn - 11, parInt3, b0 * 10, 176 + b1 * 8, 10, 8);
+        this.zLevel -= 100.0F;
 	}
 
 	private void drawScoreboardValues(ScoreObjective parScoreObjective, int parInt1, String parString1, int parInt2,
@@ -254,11 +254,11 @@ public class GuiPlayerTabOverlay extends Gui {
 			this.mc.getTextureManager().bindTexture(icons);
 			if (this.lastTimeOpened == parNetworkPlayerInfo.func_178855_p()) {
 				if (i < parNetworkPlayerInfo.func_178835_l()) {
-					parNetworkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
-					parNetworkPlayerInfo.func_178844_b((long) (this.guiIngame.getUpdateCounter() + 20));
+                    parNetworkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
+                    parNetworkPlayerInfo.func_178844_b(this.guiIngame.getUpdateCounter() + 20);
 				} else if (i > parNetworkPlayerInfo.func_178835_l()) {
-					parNetworkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
-					parNetworkPlayerInfo.func_178844_b((long) (this.guiIngame.getUpdateCounter() + 10));
+                    parNetworkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
+                    parNetworkPlayerInfo.func_178844_b(this.guiIngame.getUpdateCounter() + 10);
 				}
 			}
 

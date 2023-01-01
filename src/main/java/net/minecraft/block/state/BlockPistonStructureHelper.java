@@ -1,10 +1,6 @@
 package net.minecraft.block.state;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -12,6 +8,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -75,7 +74,7 @@ public class BlockPistonStructureHelper {
 			return false;
 		} else {
 			for (int i = 0; i < this.toMove.size(); ++i) {
-				BlockPos blockpos = (BlockPos) this.toMove.get(i);
+				BlockPos blockpos = this.toMove.get(i);
 				if (this.world.getBlockState(blockpos).getBlock() == Blocks.slime_block
 						&& !this.func_177250_b(blockpos)) {
 					return false;
@@ -132,7 +131,7 @@ public class BlockPistonStructureHelper {
 						this.func_177255_a(i1, k);
 
 						for (int l = 0; l <= k + i1; ++l) {
-							BlockPos blockpos2 = (BlockPos) this.toMove.get(l);
+                            BlockPos blockpos2 = this.toMove.get(l);
 							if (this.world.getBlockState(blockpos2).getBlock() == Blocks.slime_block
 									&& !this.func_177250_b(blockpos2)) {
 								return false;

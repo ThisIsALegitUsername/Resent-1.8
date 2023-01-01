@@ -18,24 +18,24 @@ import net.minecraft.world.IInteractionObject;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class LocalBlockIntercommunication implements IInteractionObject {
-	private String guiID;
-	private IChatComponent displayName;
+    private final String guiID;
+    private final IChatComponent displayName;
 
-	public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn) {
-		this.guiID = guiIdIn;
-		this.displayName = displayNameIn;
-	}
+    public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn) {
+        this.guiID = guiIdIn;
+        this.displayName = displayNameIn;
+    }
 
-	public Container createContainer(InventoryPlayer var1, EntityPlayer var2) {
-		throw new UnsupportedOperationException();
-	}
+    public Container createContainer(InventoryPlayer var1, EntityPlayer var2) {
+        throw new UnsupportedOperationException();
+    }
 
 	/**+
 	 * Gets the name of this command sender (usually username, but

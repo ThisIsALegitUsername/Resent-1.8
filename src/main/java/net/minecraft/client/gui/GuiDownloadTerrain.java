@@ -23,8 +23,8 @@ import net.minecraft.network.play.client.C00PacketKeepAlive;
  * 
  */
 public class GuiDownloadTerrain extends GuiScreen {
-	private NetHandlerPlayClient netHandlerPlayClient;
-	private int progress;
+	private final NetHandlerPlayClient netHandlerPlayClient;
+    private int progress;
 
 	public GuiDownloadTerrain(NetHandlerPlayClient netHandler) {
 		this.netHandlerPlayClient = netHandler;
@@ -64,11 +64,11 @@ public class GuiDownloadTerrain extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-		this.drawBackground(0);
-		this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingTerrain", new Object[0]),
-				this.width / 2, this.height / 2 - 50, 16777215);
-		super.drawScreen(i, j, f);
-	}
+        this.drawBackground(0);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingTerrain"),
+                width / 2, height / 2 - 50, 16777215);
+        super.drawScreen(i, j, f);
+    }
 
 	/**+
 	 * Returns true if this GUI should pause the game when it is

@@ -590,7 +590,7 @@ public final class HashBiMap<K, V> extends AbstractMap<K, V> implements BiMap<K,
 						}
 
 						class InverseEntry extends AbstractMapEntry<V, K> {
-							BiEntry<K, V> delegate;
+							final BiEntry<K, V> delegate;
 
 							InverseEntry(BiEntry<K, V> entry) {
 								this.delegate = entry;

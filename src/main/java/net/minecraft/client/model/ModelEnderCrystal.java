@@ -22,12 +22,13 @@ import net.minecraft.entity.Entity;
  * 
  */
 public class ModelEnderCrystal extends ModelBase {
-	private ModelRenderer cube;
-	/**+
-	 * The glass model for the Ender Crystal.
-	 */
-	private ModelRenderer glass = new ModelRenderer(this, "glass");
-	private ModelRenderer base;
+	private final ModelRenderer cube;
+    /**
+     * +
+     * The glass model for the Ender Crystal.
+     */
+    private final ModelRenderer glass = new ModelRenderer(this, "glass");
+    private ModelRenderer base;
 
 	public ModelEnderCrystal(float parFloat1, boolean parFlag) {
 		this.glass.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);

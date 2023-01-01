@@ -16,12 +16,11 @@
 
 package com.google.common.collect;
 
-import java.util.Collection;
-import java.util.Set;
+import com.google.common.annotations.GwtCompatible;
 
 import javax.annotation.Nullable;
-
-import com.google.common.annotations.GwtCompatible;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * An empty immutable set.
@@ -85,7 +84,7 @@ final class EmptyImmutableSet extends ImmutableSet<Object> {
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		return 0;
 	}
 

@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -36,13 +35,9 @@ public class EntityMinecartEmpty extends EntityMinecart {
 	 */
 	public boolean interactFirst(EntityPlayer entityplayer) {
 		if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer
-				&& this.riddenByEntity != entityplayer) {
-			return true;
-		} else if (this.riddenByEntity != null && this.riddenByEntity != entityplayer) {
-			return false;
-		} else {
-			return true;
-		}
+                && this.riddenByEntity != entityplayer) {
+            return true;
+        } else return this.riddenByEntity == null || this.riddenByEntity == entityplayer;
 	}
 
 	/**+
@@ -52,7 +47,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
 	public void onActivatorRailPass(int var1, int var2, int var3, boolean flag) {
 		if (flag) {
 			if (this.riddenByEntity != null) {
-				this.riddenByEntity.mountEntity((Entity) null);
+                this.riddenByEntity.mountEntity(null);
 			}
 
 			if (this.getRollingAmplitude() == 0) {

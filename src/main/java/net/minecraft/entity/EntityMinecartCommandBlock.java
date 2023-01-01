@@ -143,8 +143,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
 				this.commandBlockLogic.setLastOutput(
 						IChatComponent.Serializer.jsonToComponent(this.getDataWatcher().getWatchableObjectString(24)));
 			} catch (Throwable var3) {
-				;
-			}
+            }
 		} else if (i == 23) {
 			this.commandBlockLogic.setCommand(this.getDataWatcher().getWatchableObjectString(23));
 		}

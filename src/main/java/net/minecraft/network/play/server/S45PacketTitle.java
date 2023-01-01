@@ -40,7 +40,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
 	}
 
 	public S45PacketTitle(int fadeInTime, int displayTime, int fadeOutTime) {
-		this(S45PacketTitle.Type.TIMES, (IChatComponent) null, fadeInTime, displayTime, fadeOutTime);
+		this(S45PacketTitle.Type.TIMES, null, fadeInTime, displayTime, fadeOutTime);
 	}
 
 	public S45PacketTitle(S45PacketTitle.Type type, IChatComponent message, int fadeInTime, int displayTime,
@@ -56,7 +56,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-		this.type = (S45PacketTitle.Type) parPacketBuffer.readEnumValue(S45PacketTitle.Type.class);
+        this.type = parPacketBuffer.readEnumValue(Type.class);
 		if (this.type == S45PacketTitle.Type.TITLE || this.type == S45PacketTitle.Type.SUBTITLE) {
 			this.message = parPacketBuffer.readChatComponent();
 		}
@@ -113,17 +113,17 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
 		return this.fadeOutTime;
 	}
 
-	public static enum Type {
-		TITLE, SUBTITLE, TIMES, CLEAR, RESET;
+    public enum Type {
+        TITLE, SUBTITLE, TIMES, CLEAR, RESET;
 
-		public static S45PacketTitle.Type byName(String name) {
-			for (S45PacketTitle.Type s45packettitle$type : values()) {
-				if (s45packettitle$type.name().equalsIgnoreCase(name)) {
-					return s45packettitle$type;
-				}
-			}
+        public static S45PacketTitle.Type byName(String name) {
+            for (S45PacketTitle.Type s45packettitle$type : values()) {
+                if (s45packettitle$type.name().equalsIgnoreCase(name)) {
+                    return s45packettitle$type;
+                }
+            }
 
-			return TITLE;
+            return TITLE;
 		}
 
 		public static String[] getNames() {

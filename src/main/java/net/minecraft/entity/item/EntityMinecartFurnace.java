@@ -7,11 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 /**+
@@ -51,7 +47,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 
 	protected void entityInit() {
 		super.entityInit();
-		this.dataWatcher.addObject(16, new Byte((byte) 0));
+        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
 
 	/**+
@@ -69,8 +65,8 @@ public class EntityMinecartFurnace extends EntityMinecart {
 
 		this.setMinecartPowered(this.fuel > 0);
 		if (this.isMinecartPowered() && this.rand.nextInt(4) == 0) {
-			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D,
-					0.0D, 0.0D, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D,
+                    0.0D, 0.0D);
 		}
 
 	}
@@ -94,8 +90,8 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		super.func_180460_a(blockpos, iblockstate);
 		double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 		if (d0 > 1.0E-4D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D) {
-			d0 = (double) MathHelper.sqrt_double(d0);
-			this.pushX /= d0;
+            d0 = MathHelper.sqrt_double(d0);
+            this.pushX /= d0;
 			this.pushZ /= d0;
 			if (this.pushX * this.motionX + this.pushZ * this.motionZ < 0.0D) {
 				this.pushX = 0.0D;
@@ -112,8 +108,8 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	protected void applyDrag() {
 		double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 		if (d0 > 1.0E-4D) {
-			d0 = (double) MathHelper.sqrt_double(d0);
-			this.pushX /= d0;
+            d0 = MathHelper.sqrt_double(d0);
+            this.pushX /= d0;
 			this.pushZ /= d0;
 			double d1 = 1.0D;
 			this.motionX *= 0.800000011920929D;
@@ -137,7 +133,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 		if (itemstack != null && itemstack.getItem() == Items.coal) {
 			if (!entityplayer.capabilities.isCreativeMode && --itemstack.stackSize == 0) {
-				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
+                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 			}
 
 			this.fuel += 3600;

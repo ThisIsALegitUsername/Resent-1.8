@@ -71,15 +71,15 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 	public void drawScreen(int i, int j, float f) {
 		if (this.doneWorking) {
 			if (!this.mc.func_181540_al()) {
-				this.mc.displayGuiScreen((GuiScreen) null);
+				this.mc.displayGuiScreen(null);
 			}
 
 		} else {
-			this.drawDefaultBackground();
-			this.drawCenteredString(this.fontRendererObj, this.field_146591_a, this.width / 2, 70, 16777215);
-			this.drawCenteredString(this.fontRendererObj, this.field_146589_f + " " + this.progress + "%",
-					this.width / 2, 90, 16777215);
-			super.drawScreen(i, j, f);
+            this.drawDefaultBackground();
+            this.drawCenteredString(this.fontRendererObj, this.field_146591_a, width / 2, 70, 16777215);
+            this.drawCenteredString(this.fontRendererObj, this.field_146589_f + " " + this.progress + "%",
+                    width / 2, 90, 16777215);
+            super.drawScreen(i, j, f);
 		}
 	}
 }

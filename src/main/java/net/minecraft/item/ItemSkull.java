@@ -64,12 +64,8 @@ public class ItemSkull extends Item {
 			}
 
 			if (!entityplayer.canPlayerEdit(blockpos, enumfacing, itemstack)) {
-				return false;
-			} else if (!Blocks.skull.canPlaceBlockAt(world, blockpos)) {
-				return false;
-			} else {
-				return true;
-			}
+                return false;
+            } else return Blocks.skull.canPlaceBlockAt(world, blockpos);
 		}
 	}
 
@@ -110,15 +106,15 @@ public class ItemSkull extends Item {
 	public String getItemStackDisplayName(ItemStack itemstack) {
 		if (itemstack.getMetadata() == 3 && itemstack.hasTagCompound()) {
 			if (itemstack.getTagCompound().hasKey("SkullOwner", 8)) {
-				return StatCollector.translateToLocalFormatted("item.skull.player.name",
-						new Object[] { itemstack.getTagCompound().getString("SkullOwner") });
+                return StatCollector.translateToLocalFormatted("item.skull.player.name",
+                        itemstack.getTagCompound().getString("SkullOwner"));
 			}
 
 			if (itemstack.getTagCompound().hasKey("SkullOwner", 10)) {
 				NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("SkullOwner");
 				if (nbttagcompound.hasKey("Name", 8)) {
-					return StatCollector.translateToLocalFormatted("item.skull.player.name",
-							new Object[] { nbttagcompound.getString("Name") });
+                    return StatCollector.translateToLocalFormatted("item.skull.player.name",
+                            nbttagcompound.getString("Name"));
 				}
 			}
 		}
@@ -133,7 +129,7 @@ public class ItemSkull extends Item {
 	public boolean updateItemStackNBT(NBTTagCompound nbt) {
 		super.updateItemStackNBT(nbt);
 		if (nbt.hasKey("SkullOwner", 8) && nbt.getString("SkullOwner").length() > 0) {
-			GameProfile gameprofile = new GameProfile((EaglercraftUUID) null, nbt.getString("SkullOwner"));
+            GameProfile gameprofile = new GameProfile(null, nbt.getString("SkullOwner"));
 			gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
 			nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
 			return true;

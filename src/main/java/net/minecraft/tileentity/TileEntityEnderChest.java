@@ -103,8 +103,7 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 	}
 
 	public boolean canBeUsed(EntityPlayer parEntityPlayer) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false
-				: parEntityPlayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-						(double) this.pos.getZ() + 0.5D) <= 64.0D;
-	}
+        return this.worldObj.getTileEntity(this.pos) == this && parEntityPlayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+                (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
 }

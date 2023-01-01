@@ -30,13 +30,13 @@ public class ItemPickaxe extends ItemTool {
 	private static Set<Block> EFFECTIVE_ON;
 
 	public static void bootstrap() {
-		EFFECTIVE_ON = Sets.newHashSet(new Block[] { Blocks.activator_rail, Blocks.coal_ore, Blocks.cobblestone,
-				Blocks.detector_rail, Blocks.diamond_block, Blocks.diamond_ore, Blocks.double_stone_slab,
-				Blocks.golden_rail, Blocks.gold_block, Blocks.gold_ore, Blocks.ice, Blocks.iron_block, Blocks.iron_ore,
-				Blocks.lapis_block, Blocks.lapis_ore, Blocks.lit_redstone_ore, Blocks.mossy_cobblestone,
-				Blocks.netherrack, Blocks.packed_ice, Blocks.rail, Blocks.redstone_ore, Blocks.sandstone,
-				Blocks.red_sandstone, Blocks.stone, Blocks.stone_slab });
-	}
+        EFFECTIVE_ON = Sets.newHashSet(Blocks.activator_rail, Blocks.coal_ore, Blocks.cobblestone,
+                Blocks.detector_rail, Blocks.diamond_block, Blocks.diamond_ore, Blocks.double_stone_slab,
+                Blocks.golden_rail, Blocks.gold_block, Blocks.gold_ore, Blocks.ice, Blocks.iron_block, Blocks.iron_ore,
+                Blocks.lapis_block, Blocks.lapis_ore, Blocks.lit_redstone_ore, Blocks.mossy_cobblestone,
+                Blocks.netherrack, Blocks.packed_ice, Blocks.rail, Blocks.redstone_ore, Blocks.sandstone,
+                Blocks.red_sandstone, Blocks.stone, Blocks.stone_slab);
+    }
 
 	protected ItemPickaxe(Item.ToolMaterial material) {
 		super(2.0F, material, EFFECTIVE_ON);
@@ -53,14 +53,11 @@ public class ItemPickaxe extends ItemTool {
 										? (blockIn != Blocks.iron_block && blockIn != Blocks.iron_ore
 												? (blockIn != Blocks.lapis_block && blockIn != Blocks.lapis_ore
 														? (blockIn != Blocks.redstone_ore
-																&& blockIn != Blocks.lit_redstone_ore
-																		? (blockIn.getMaterial() == Material.rock ? true
-																				: (blockIn
-																						.getMaterial() == Material.iron
-																								? true
-																								: blockIn
-																										.getMaterial() == Material.anvil))
-																		: this.toolMaterial.getHarvestLevel() >= 2)
+                && blockIn != Blocks.lit_redstone_ore
+                ? (blockIn.getMaterial() == Material.rock || (blockIn
+                .getMaterial() == Material.iron || blockIn
+                .getMaterial() == Material.anvil))
+                : this.toolMaterial.getHarvestLevel() >= 2)
 														: this.toolMaterial.getHarvestLevel() >= 1)
 												: this.toolMaterial.getHarvestLevel() >= 1)
 										: this.toolMaterial.getHarvestLevel() >= 2)

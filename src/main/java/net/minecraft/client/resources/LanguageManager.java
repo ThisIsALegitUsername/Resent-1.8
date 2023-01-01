@@ -39,7 +39,7 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	private final IMetadataSerializer theMetadataSerializer;
 	private String currentLanguage;
 	protected static final Locale currentLocale = new Locale();
-	private Map<String, Language> languageMap = Maps.newHashMap();
+    private final Map<String, Language> languageMap = Maps.newHashMap();
 
 	public LanguageManager(IMetadataSerializer theMetadataSerializerIn, String currentLanguageIn) {
 		this.theMetadataSerializer = theMetadataSerializerIn;
@@ -52,8 +52,8 @@ public class LanguageManager implements IResourceManagerReloadListener {
 
 		for (IResourcePack iresourcepack : parList) {
 			try {
-				LanguageMetadataSection languagemetadatasection = (LanguageMetadataSection) iresourcepack
-						.getPackMetadata(this.theMetadataSerializer, "language");
+                LanguageMetadataSection languagemetadatasection = iresourcepack
+                        .getPackMetadata(this.theMetadataSerializer, "language");
 				if (languagemetadatasection != null) {
 					for (Language language : languagemetadatasection.getLanguages()) {
 						if (!this.languageMap.containsKey(language.getLanguageCode())) {
@@ -73,7 +73,7 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	}
 
 	public void onResourceManagerReload(IResourceManager iresourcemanager) {
-		ArrayList arraylist = Lists.newArrayList(new String[] { "en_US" });
+        ArrayList arraylist = Lists.newArrayList("en_US");
 		if (!"en_US".equals(this.currentLanguage)) {
 			arraylist.add(this.currentLanguage);
 		}
@@ -95,9 +95,9 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	}
 
 	public Language getCurrentLanguage() {
-		return this.languageMap.containsKey(this.currentLanguage)
-				? (Language) this.languageMap.get(this.currentLanguage)
-				: (Language) this.languageMap.get("en_US");
+        return this.languageMap.containsKey(this.currentLanguage)
+                ? this.languageMap.get(this.currentLanguage)
+                : this.languageMap.get("en_US");
 	}
 
 	public SortedSet<Language> getLanguages() {

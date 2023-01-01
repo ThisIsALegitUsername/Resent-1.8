@@ -19,10 +19,10 @@ public enum EnumEaglerConnectionState {
 	private final boolean typeClosed;
 	private final boolean typeOpen;
 	
-	private EnumEaglerConnectionState(boolean typeClosed, boolean typeOpen) {
-		this.typeClosed = typeClosed;
-		this.typeOpen = typeOpen;
-	}
+	EnumEaglerConnectionState(boolean typeClosed, boolean typeOpen) {
+        this.typeClosed = typeClosed;
+        this.typeOpen = typeOpen;
+    }
 	
 	public boolean isClosed() {
 		return typeClosed;

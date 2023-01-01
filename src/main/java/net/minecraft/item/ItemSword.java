@@ -32,8 +32,8 @@ import net.minecraft.world.World;
  * 
  */
 public class ItemSword extends Item {
-	private float attackDamage;
-	private final Item.ToolMaterial material;
+	private final float attackDamage;
+    private final Item.ToolMaterial material;
 
 	public ItemSword(Item.ToolMaterial material) {
 		this.material = material;
@@ -141,13 +141,13 @@ public class ItemSword extends Item {
 	 * Return whether this item is repairable in an anvil.
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return this.material.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
+        return this.material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
 	}
 
 	public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
 		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
-				new AttributeModifier(itemModifierUUID, "Weapon modifier", (double) this.attackDamage, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
+                new AttributeModifier(itemModifierUUID, "Weapon modifier", this.attackDamage, 0));
 		return multimap;
 	}
 }

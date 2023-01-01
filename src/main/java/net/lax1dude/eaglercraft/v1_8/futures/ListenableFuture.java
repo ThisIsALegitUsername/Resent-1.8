@@ -20,7 +20,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
  */
 public interface ListenableFuture<V> extends Future<V> {
 	
-	static final Logger futureExceptionLogger = LogManager.getLogger("ListenableFuture");
+	Logger futureExceptionLogger = LogManager.getLogger("ListenableFuture");
 
 	void addListener(Runnable listener, Executor executor);
 

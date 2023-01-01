@@ -1,11 +1,8 @@
 package net.minecraft.block;
 
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +15,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -100,7 +99,7 @@ public class BlockCauldron extends Block {
 	public void fillWithRain(World world, BlockPos blockpos) {
 		if (world.rand.nextInt(20) == 1) {
 			IBlockState iblockstate = world.getBlockState(blockpos);
-			if (((Integer) iblockstate.getValue(LEVEL)).intValue() < 3) {
+			if (iblockstate.getValue(LEVEL).intValue() < 3) {
 				world.setBlockState(blockpos, iblockstate.cycleProperty(LEVEL), 2);
 			}
 
@@ -123,7 +122,7 @@ public class BlockCauldron extends Block {
 	}
 
 	public int getComparatorInputOverride(World world, BlockPos blockpos) {
-		return ((Integer) world.getBlockState(blockpos).getValue(LEVEL)).intValue();
+		return world.getBlockState(blockpos).getValue(LEVEL).intValue();
 	}
 
 	/**+
@@ -137,10 +136,10 @@ public class BlockCauldron extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(LEVEL)).intValue();
+		return iblockstate.getValue(LEVEL).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { LEVEL });
+		return new BlockState(this, LEVEL);
 	}
 }

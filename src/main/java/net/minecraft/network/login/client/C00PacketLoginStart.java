@@ -1,12 +1,11 @@
 package net.minecraft.network.login.client;
 
-import java.io.IOException;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
-
 import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.login.INetHandlerLoginServer;
+
+import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -40,7 +39,7 @@ public class C00PacketLoginStart implements Packet<INetHandlerLoginServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-		this.profile = new GameProfile((EaglercraftUUID) null, parPacketBuffer.readStringFromBuffer(16));
+		this.profile = new GameProfile(null, parPacketBuffer.readStringFromBuffer(16));
 	}
 
 	/**+

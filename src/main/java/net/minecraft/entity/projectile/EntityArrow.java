@@ -1,7 +1,5 @@
 package net.minecraft.entity.projectile;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,15 +10,10 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -82,7 +75,7 @@ public class EntityArrow extends Entity implements IProjectile {
 		double d1 = parEntityLivingBase.getEntityBoundingBox().minY + (double) (parEntityLivingBase.height / 3.0F)
 				- this.posY;
 		double d2 = parEntityLivingBase.posZ - shooter.posZ;
-		double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+		double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 		if (d3 >= 1.0E-7D) {
 			float f = (float) (MathHelper.func_181159_b(d2, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
 			float f1 = (float) (-(MathHelper.func_181159_b(d1, d3) * 180.0D / 3.1415927410125732D));
@@ -105,15 +98,15 @@ public class EntityArrow extends Entity implements IProjectile {
 		this.setSize(0.5F, 0.5F);
 		this.setLocationAndAngles(shooter.posX, shooter.posY + (double) shooter.getEyeHeight(), shooter.posZ,
 				shooter.rotationYaw, shooter.rotationPitch);
-		this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+		this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
 		this.posY -= 0.10000000149011612D;
-		this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+		this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
 		this.setPosition(this.posX, this.posY, this.posZ);
-		this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F)
-				* MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F));
-		this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F)
-				* MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F));
-		this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F));
+		this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F)
+				* MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F);
+		this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F)
+				* MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F);
+		this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F);
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, velocity * 1.5F, 1.0F);
 	}
 
@@ -145,7 +138,7 @@ public class EntityArrow extends Entity implements IProjectile {
 		float f1 = MathHelper.sqrt_double(x * x + z * z);
 		this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(x, z) * 180.0D
 				/ 3.1415927410125732D);
-		this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(y, (double) f1) * 180.0D
+		this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(y, f1) * 180.0D
 				/ 3.1415927410125732D);
 		this.ticksInGround = 0;
 	}
@@ -166,7 +159,7 @@ public class EntityArrow extends Entity implements IProjectile {
 			float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 			this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D
 					/ 3.1415927410125732D);
-			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D
+			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, f) * 180.0D
 					/ 3.1415927410125732D);
 			this.prevRotationPitch = this.rotationPitch;
 			this.prevRotationYaw = this.rotationYaw;
@@ -185,7 +178,7 @@ public class EntityArrow extends Entity implements IProjectile {
 			float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 			this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ)
 					* 180.0D / 3.1415927410125732D);
-			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f)
+			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, f)
 					* 180.0D / 3.1415927410125732D);
 		}
 
@@ -213,9 +206,9 @@ public class EntityArrow extends Entity implements IProjectile {
 				}
 			} else {
 				this.inGround = false;
-				this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-				this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-				this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+				this.motionX *= this.rand.nextFloat() * 0.2F;
+				this.motionY *= this.rand.nextFloat() * 0.2F;
+				this.motionZ *= this.rand.nextFloat() * 0.2F;
 				this.ticksInGround = 0;
 				this.ticksInAir = 0;
 			}
@@ -241,8 +234,8 @@ public class EntityArrow extends Entity implements IProjectile {
 				Entity entity1 = (Entity) list.get(i);
 				if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5)) {
 					float f1 = 0.3F;
-					AxisAlignedBB axisalignedbb1 = entity1.getEntityBoundingBox().expand((double) f1, (double) f1,
-							(double) f1);
+					AxisAlignedBB axisalignedbb1 = entity1.getEntityBoundingBox().expand(f1, f1,
+							f1);
 					MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(vec31, vec3);
 					if (movingobjectposition1 != null) {
 						double d1 = vec31.squareDistanceTo(movingobjectposition1.hitVec);
@@ -329,9 +322,9 @@ public class EntityArrow extends Entity implements IProjectile {
 					IBlockState iblockstate1 = this.worldObj.getBlockState(blockpos1);
 					this.inTile = iblockstate1.getBlock();
 					this.inData = this.inTile.getMetaFromState(iblockstate1);
-					this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
-					this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));
-					this.motionZ = (double) ((float) (movingobjectposition.hitVec.zCoord - this.posZ));
+					this.motionX = (float) (movingobjectposition.hitVec.xCoord - this.posX);
+					this.motionY = (float) (movingobjectposition.hitVec.yCoord - this.posY);
+					this.motionZ = (float) (movingobjectposition.hitVec.zCoord - this.posZ);
 					float f5 = MathHelper.sqrt_double(
 							this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
 					this.posX -= this.motionX / (double) f5 * 0.05000000074505806D;
@@ -351,7 +344,7 @@ public class EntityArrow extends Entity implements IProjectile {
 				for (int k = 0; k < 4; ++k) {
 					this.worldObj.spawnParticle(EnumParticleTypes.CRIT, this.posX + this.motionX * (double) k / 4.0D,
 							this.posY + this.motionY * (double) k / 4.0D, this.posZ + this.motionZ * (double) k / 4.0D,
-							-this.motionX, -this.motionY + 0.2D, -this.motionZ, new int[0]);
+							-this.motionX, -this.motionY + 0.2D, -this.motionZ);
 				}
 			}
 
@@ -362,10 +355,9 @@ public class EntityArrow extends Entity implements IProjectile {
 			this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D
 					/ 3.1415927410125732D);
 
-			for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f3) * 180.0D
+			for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, f3) * 180.0D
 					/ 3.1415927410125732D); this.rotationPitch
-							- this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-				;
+						 - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
 			}
 
 			while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -389,7 +381,7 @@ public class EntityArrow extends Entity implements IProjectile {
 					float f8 = 0.25F;
 					this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f8,
 							this.posY - this.motionY * (double) f8, this.posZ - this.motionZ * (double) f8,
-							this.motionX, this.motionY, this.motionZ, new int[0]);
+							this.motionX, this.motionY, this.motionZ);
 				}
 
 				f4 = 0.6F;
@@ -399,10 +391,10 @@ public class EntityArrow extends Entity implements IProjectile {
 				this.extinguish();
 			}
 
-			this.motionX *= (double) f4;
-			this.motionY *= (double) f4;
-			this.motionZ *= (double) f4;
-			this.motionY -= (double) f6;
+			this.motionX *= f4;
+			this.motionY *= f4;
+			this.motionZ *= f4;
+			this.motionY -= f6;
 			this.setPosition(this.posX, this.posY, this.posZ);
 			this.doBlockCollisions();
 		}
@@ -417,7 +409,7 @@ public class EntityArrow extends Entity implements IProjectile {
 		nbttagcompound.setShort("yTile", (short) this.yTile);
 		nbttagcompound.setShort("zTile", (short) this.zTile);
 		nbttagcompound.setShort("life", (short) this.ticksInGround);
-		ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry.getNameForObject(this.inTile);
+		ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(this.inTile);
 		nbttagcompound.setString("inTile", resourcelocation == null ? "" : resourcelocation.toString());
 		nbttagcompound.setByte("inData", (byte) this.inData);
 		nbttagcompound.setByte("shake", (byte) this.arrowShake);

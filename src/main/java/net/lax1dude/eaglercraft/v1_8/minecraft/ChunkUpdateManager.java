@@ -1,10 +1,5 @@
 package net.lax1dude.eaglercraft.v1_8.minecraft;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
@@ -20,6 +15,11 @@ import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumWorldBlockLayer;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_COMPILE;
+
 public class ChunkUpdateManager {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -33,7 +33,7 @@ public class ChunkUpdateManager {
 	private int chunkUpdatesTotalImmediateLast = 0;
 	private int chunkUpdatesQueued = 0;
 	private int chunkUpdatesQueuedLast = 0;
-	private long chunkUpdatesTotalLastUpdate = 0l;
+	private long chunkUpdatesTotalLastUpdate = 0L;
 	
 	private final List<ChunkCompileTaskGenerator> queue = new LinkedList<>();
 
@@ -104,7 +104,7 @@ public class ChunkUpdateManager {
 				ChunkCompileTaskGenerator generator = queue.remove(0);
 				
 				if(!generator.canExecuteYet()) {
-					if(millis - generator.goddamnFuckingTimeout < 60000l) {
+					if (millis - generator.goddamnFuckingTimeout < 60000L) {
 						droppedUpdates.add(generator);
 					}
 					continue;
@@ -210,8 +210,8 @@ public class ChunkUpdateManager {
 
 	public String getDebugInfo() {
 		long millis = System.currentTimeMillis();
-		
-		if(millis - chunkUpdatesTotalLastUpdate > 500l) {
+
+		if (millis - chunkUpdatesTotalLastUpdate > 500L) {
 			chunkUpdatesTotalLastUpdate = millis;
 			chunkUpdatesTotalLast = chunkUpdatesTotal;
 			chunkUpdatesTotalImmediateLast = chunkUpdatesTotalImmediate;
@@ -219,7 +219,7 @@ public class ChunkUpdateManager {
 			chunkUpdatesTotal = 0;
 			chunkUpdatesQueuedLast = chunkUpdatesQueued;
 			chunkUpdatesQueued -= chunkUpdatesTotalLast;
-			if(chunkUpdatesQueued < 0) {
+			if (chunkUpdatesQueued < 0) {
 				chunkUpdatesQueued = 0;
 			}
 		}

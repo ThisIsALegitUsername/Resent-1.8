@@ -80,7 +80,7 @@ public class JSONTypeProvider {
 	public static <O> O deserializeNoCast(Object object, Class<O> clazz) throws JSONException {
 		JSONTypeDeserializer<Object,O> ser = (JSONTypeDeserializer<Object,O>) deserializers.get(clazz);
 		if(ser != null) {
-			return (O)ser.deserializeFromJson(object);
+			return ser.deserializeFromJson(object);
 		}else {
 			throw new JSONException("Could not find a deserializer for " + object.getClass().getSimpleName());
 		}

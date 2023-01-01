@@ -1,13 +1,13 @@
 package dev.resent.module.impl.hud;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.util.misc.FuncUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CPS extends RenderModule {
 
@@ -16,7 +16,7 @@ public class CPS extends RenderModule {
         addSetting(tshadow);
     }
 
-    private List<Long> clicks = new ArrayList<>();
+    private final List<Long> clicks = new ArrayList<>();
     private boolean wasPressed;
     private long lastPressed;
 

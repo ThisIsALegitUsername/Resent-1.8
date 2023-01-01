@@ -1,11 +1,10 @@
 package net.minecraft.client.renderer.chunk;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.util.EnumWorldBlockLayer;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -33,8 +32,8 @@ public class ChunkCompileTaskGenerator {
 	private CompiledChunk compiledChunk;
 	private ChunkCompileTaskGenerator.Status status = ChunkCompileTaskGenerator.Status.PENDING;
 	private boolean finished;
-	public long goddamnFuckingTimeout = 0l;
-	public long time = 0;
+    public long goddamnFuckingTimeout = 0L;
+    public long time = 0;
 
 	public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn) {
 		this.renderChunk = renderChunkIn;
@@ -96,21 +95,21 @@ public class ChunkCompileTaskGenerator {
 
 	public boolean isFinished() {
 		return this.finished;
-	}
+    }
 
-	public boolean canExecuteYet() {
-		if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-			return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
-		} else {
-			return true;
-		}
-	}
+    public boolean canExecuteYet() {
+        if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
+            return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
+        } else {
+            return true;
+        }
+    }
 
-	public static enum Status {
-		PENDING, COMPILING, UPLOADING, DONE;
-	}
+    public enum Status {
+        PENDING, COMPILING, UPLOADING, DONE
+    }
 
-	public static enum Type {
-		REBUILD_CHUNK, RESORT_TRANSPARENCY;
-	}
+    public enum Type {
+        REBUILD_CHUNK, RESORT_TRANSPARENCY
+    }
 }

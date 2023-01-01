@@ -1,86 +1,31 @@
 package net.lax1dude.eaglercraft.v1_8;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public abstract class BaseNCodec {
 
-	static enum CodecPolicy {
-		STRICT, LENIANT;
+	/**
+	 * Decodes a String containing characters in the Base-N alphabet.
+	 *
+	 * @param pArray A String containing Base-N character data
+	 * @return a byte array containing binary data
+	 */
+	public byte[] decode(final String pArray) {
+		return decode(pArray.getBytes(StandardCharsets.UTF_8));
 	}
 
 	/**
-	 * Holds thread context so classes can be thread-safe.
+	 * Encodes a byte[] containing binary data, into a String containing characters
+	 * in the appropriate alphabet. Uses UTF8 encoding.
 	 *
-	 * This class is not itself thread-safe; each thread must allocate its own copy.
-	 *
-	 * @since 1.7
+	 * @param pArray a byte array containing binary data
+	 * @return String containing only character data in the appropriate alphabet.
+	 * @since 1.5 This is a duplicate of {@link #encodeToString(byte[])}; it was
+	 *        merged during refactoring.
 	 */
-	static class Context {
-
-		/**
-		 * Place holder for the bytes we're dealing with for our based logic. Bitwise
-		 * operations store and extract the encoding or decoding from this variable.
-		 */
-		int ibitWorkArea;
-
-		/**
-		 * Place holder for the bytes we're dealing with for our based logic. Bitwise
-		 * operations store and extract the encoding or decoding from this variable.
-		 */
-		long lbitWorkArea;
-
-		/**
-		 * Buffer for streaming.
-		 */
-		byte[] buffer;
-
-		/**
-		 * Position where next character should be written in the buffer.
-		 */
-		int pos;
-
-		/**
-		 * Position where next character should be read from the buffer.
-		 */
-		int readPos;
-
-		/**
-		 * Boolean flag to indicate the EOF has been reached. Once EOF has been reached,
-		 * this object becomes useless, and must be thrown away.
-		 */
-		boolean eof;
-
-		/**
-		 * Variable tracks how many characters have been written to the current line.
-		 * Only used when encoding. We use it to make sure each encoded line never goes
-		 * beyond lineLength (if lineLength &gt; 0).
-		 */
-		int currentLinePos;
-
-		/**
-		 * Writes to the buffer only occur after every 3/5 reads when encoding, and
-		 * every 4/8 reads when decoding. This variable helps track that.
-		 */
-		int modulus;
-
-		Context() {
-		}
-
-		/**
-		 * Returns a String useful for debugging (especially within a debugger.)
-		 *
-		 * @return a String useful for debugging.
-		 */
-		@SuppressWarnings("boxing") // OK to ignore boxing here
-		@Override
-		public String toString() {
-			return HString.format(
-					"%s[buffer=%s, currentLinePos=%s, eof=%s, ibitWorkArea=%s, lbitWorkArea=%s, "
-							+ "modulus=%s, pos=%s, readPos=%s]",
-					this.getClass().getSimpleName(), Arrays.toString(buffer), currentLinePos, eof, ibitWorkArea,
-					lbitWorkArea, modulus, pos, readPos);
-		}
+	public String encodeAsString(final byte[] pArray) {
+		return new String(encode(pArray), StandardCharsets.UTF_8);
 	}
 
 	/**
@@ -440,13 +385,14 @@ public abstract class BaseNCodec {
 	}
 
 	/**
-	 * Decodes a String containing characters in the Base-N alphabet.
+	 * Encodes a byte[] containing binary data, into a String containing characters
+	 * in the Base-N alphabet. Uses UTF8 encoding.
 	 *
-	 * @param pArray A String containing Base-N character data
-	 * @return a byte array containing binary data
+	 * @param pArray a byte array containing binary data
+	 * @return A String containing only Base-N character data
 	 */
-	public byte[] decode(final String pArray) {
-		return decode(pArray.getBytes(Charset.forName("UTF-8")));
+	public String encodeToString(final byte[] pArray) {
+		return new String(encode(pArray), StandardCharsets.UTF_8);
 	}
 
 	/**
@@ -503,27 +449,20 @@ public abstract class BaseNCodec {
 	}
 
 	/**
-	 * Encodes a byte[] containing binary data, into a String containing characters
-	 * in the appropriate alphabet. Uses UTF8 encoding.
+	 * Tests a given String to see if it contains only valid characters within the
+	 * alphabet. The method treats whitespace and PAD as valid.
 	 *
-	 * @param pArray a byte array containing binary data
-	 * @return String containing only character data in the appropriate alphabet.
-	 * @since 1.5 This is a duplicate of {@link #encodeToString(byte[])}; it was
-	 *        merged during refactoring.
+	 * @param basen String to test
+	 * @return {@code true} if all characters in the String are valid characters in
+	 *         the alphabet or if the String is empty; {@code false}, otherwise
+	 * @see #isInAlphabet(byte[], boolean)
 	 */
-	public String encodeAsString(final byte[] pArray) {
-		return new String(encode(pArray), Charset.forName("UTF-8"));
+	public boolean isInAlphabet(final String basen) {
+		return isInAlphabet(basen.getBytes(StandardCharsets.UTF_8), true);
 	}
 
-	/**
-	 * Encodes a byte[] containing binary data, into a String containing characters
-	 * in the Base-N alphabet. Uses UTF8 encoding.
-	 *
-	 * @param pArray a byte array containing binary data
-	 * @return A String containing only Base-N character data
-	 */
-	public String encodeToString(final byte[] pArray) {
-		return new String(encode(pArray), Charset.forName("UTF-8"));
+	enum CodecPolicy {
+		STRICT, LENIANT
 	}
 
 	/**
@@ -633,16 +572,77 @@ public abstract class BaseNCodec {
 	}
 
 	/**
-	 * Tests a given String to see if it contains only valid characters within the
-	 * alphabet. The method treats whitespace and PAD as valid.
+	 * Holds thread context so classes can be thread-safe.
+	 * <p>
+	 * This class is not itself thread-safe; each thread must allocate its own copy.
 	 *
-	 * @param basen String to test
-	 * @return {@code true} if all characters in the String are valid characters in
-	 *         the alphabet or if the String is empty; {@code false}, otherwise
-	 * @see #isInAlphabet(byte[], boolean)
+	 * @since 1.7
 	 */
-	public boolean isInAlphabet(final String basen) {
-		return isInAlphabet(basen.getBytes(Charset.forName("UTF-8")), true);
+	static class Context {
+
+		/**
+		 * Place holder for the bytes we're dealing with for our based logic. Bitwise
+		 * operations store and extract the encoding or decoding from this variable.
+		 */
+		int ibitWorkArea;
+
+		/**
+		 * Place holder for the bytes we're dealing with for our based logic. Bitwise
+		 * operations store and extract the encoding or decoding from this variable.
+		 */
+		long lbitWorkArea;
+
+		/**
+		 * Buffer for streaming.
+		 */
+		byte[] buffer;
+
+		/**
+		 * Position where next character should be written in the buffer.
+		 */
+		int pos;
+
+		/**
+		 * Position where next character should be read from the buffer.
+		 */
+		int readPos;
+
+		/**
+		 * Boolean flag to indicate the EOF has been reached. Once EOF has been reached,
+		 * this object becomes useless, and must be thrown away.
+		 */
+		boolean eof;
+
+		/**
+		 * Variable tracks how many characters have been written to the current line.
+		 * Only used when encoding. We use it to make sure each encoded line never goes
+		 * beyond lineLength (if lineLength &gt; 0).
+		 */
+		int currentLinePos;
+
+		/**
+		 * Writes to the buffer only occur after every 3/5 reads when encoding, and
+		 * every 4/8 reads when decoding. This variable helps track that.
+		 */
+		int modulus;
+
+		Context() {
+		}
+
+		/**
+		 * Returns a String useful for debugging (especially within a debugger.)
+		 *
+		 * @return a String useful for debugging.
+		 */
+		@SuppressWarnings("boxing") // OK to ignore boxing here
+		@Override
+		public String toString() {
+			return HString.format(
+					"%s[buffer=%s, currentLinePos=%s, eof=%s, ibitWorkArea=%s, lbitWorkArea=%s, "
+							+ "modulus=%s, pos=%s, readPos=%s]",
+					this.getClass().getSimpleName(), Arrays.toString(buffer), currentLinePos, eof, ibitWorkArea,
+					lbitWorkArea, modulus, pos, readPos);
+		}
 	}
 
 	/**

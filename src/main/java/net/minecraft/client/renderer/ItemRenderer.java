@@ -247,7 +247,7 @@ public class ItemRenderer {
 		}
 
 		GlStateManager.translate(0.0F, f2, 0.0F);
-		float f3 = 1.0F - (float) Math.pow((double) f1, 27.0D);
+		float f3 = 1.0F - (float) Math.pow(f1, 27.0D);
 		GlStateManager.translate(f3 * 0.6F, f3 * -0.5F, f3 * 0.0F);
 		GlStateManager.rotate(f3 * 90.0F, 0.0F, 1.0F, 0.0F);
 		GlStateManager.rotate(f3 * 10.0F, 1.0F, 0.0F, 0.0F);
@@ -315,9 +315,9 @@ public class ItemRenderer {
 		float f3 = entityplayersp.prevRotationYaw
 				+ (entityplayersp.rotationYaw - entityplayersp.prevRotationYaw) * partialTicks;
 		this.func_178101_a(f2, f3);
-		this.func_178109_a(entityplayersp);
-		this.func_178110_a((EntityPlayerSP) entityplayersp, partialTicks);
-		GlStateManager.enableRescaleNormal();
+        this.func_178109_a(entityplayersp);
+        this.func_178110_a(entityplayersp, partialTicks);
+        GlStateManager.enableRescaleNormal();
 		GlStateManager.pushMatrix();
 		if (this.itemToRender != null) {
 			if (this.itemToRender.getItem() == Items.filled_map) {
@@ -405,24 +405,24 @@ public class ItemRenderer {
 		float f = 0.1F;
 		GlStateManager.color(0.1F, 0.1F, 0.1F, 0.5F);
 		GlStateManager.pushMatrix();
-		float f1 = -1.0F;
-		float f2 = 1.0F;
-		float f3 = -1.0F;
-		float f4 = 1.0F;
-		float f5 = -0.5F;
-		float f6 = parTextureAtlasSprite.getMinU();
-		float f7 = parTextureAtlasSprite.getMaxU();
-		float f8 = parTextureAtlasSprite.getMinV();
-		float f9 = parTextureAtlasSprite.getMaxV();
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex((double) f7, (double) f9).endVertex();
-		worldrenderer.pos(1.0D, -1.0D, -0.5D).tex((double) f6, (double) f9).endVertex();
-		worldrenderer.pos(1.0D, 1.0D, -0.5D).tex((double) f6, (double) f8).endVertex();
-		worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex((double) f7, (double) f8).endVertex();
-		tessellator.draw();
-		GlStateManager.popMatrix();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-	}
+        float f1 = -1.0F;
+        float f2 = 1.0F;
+        float f3 = -1.0F;
+        float f4 = 1.0F;
+        float f5 = -0.5F;
+        float f6 = parTextureAtlasSprite.getMinU();
+        float f7 = parTextureAtlasSprite.getMaxU();
+        float f8 = parTextureAtlasSprite.getMinV();
+        float f9 = parTextureAtlasSprite.getMaxV();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(f7, f9).endVertex();
+        worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(f6, f9).endVertex();
+        worldrenderer.pos(1.0D, 1.0D, -0.5D).tex(f6, f8).endVertex();
+        worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex(f7, f8).endVertex();
+        tessellator.draw();
+        GlStateManager.popMatrix();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    }
 
 	/**+
 	 * Renders a texture that warps around based on the direction
@@ -437,25 +437,25 @@ public class ItemRenderer {
 		GlStateManager.color(f, f, f, 0.5F);
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-		GlStateManager.pushMatrix();
-		float f1 = 4.0F;
-		float f2 = -1.0F;
-		float f3 = 1.0F;
-		float f4 = -1.0F;
-		float f5 = 1.0F;
-		float f6 = -0.5F;
-		float f7 = -this.mc.thePlayer.rotationYaw / 64.0F;
-		float f8 = this.mc.thePlayer.rotationPitch / 64.0F;
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex((double) (4.0F + f7), (double) (4.0F + f8)).endVertex();
-		worldrenderer.pos(1.0D, -1.0D, -0.5D).tex((double) (0.0F + f7), (double) (4.0F + f8)).endVertex();
-		worldrenderer.pos(1.0D, 1.0D, -0.5D).tex((double) (0.0F + f7), (double) (0.0F + f8)).endVertex();
-		worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex((double) (4.0F + f7), (double) (0.0F + f8)).endVertex();
-		tessellator.draw();
-		GlStateManager.popMatrix();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.disableBlend();
-	}
+        GlStateManager.pushMatrix();
+        float f1 = 4.0F;
+        float f2 = -1.0F;
+        float f3 = 1.0F;
+        float f4 = -1.0F;
+        float f5 = 1.0F;
+        float f6 = -0.5F;
+        float f7 = -this.mc.thePlayer.rotationYaw / 64.0F;
+        float f8 = this.mc.thePlayer.rotationPitch / 64.0F;
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(4.0F + f7, 4.0F + f8).endVertex();
+        worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(0.0F + f7, 4.0F + f8).endVertex();
+        worldrenderer.pos(1.0D, 1.0D, -0.5D).tex(0.0F + f7, 0.0F + f8).endVertex();
+        worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex(4.0F + f7, 0.0F + f8).endVertex();
+        tessellator.draw();
+        GlStateManager.popMatrix();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.disableBlend();
+    }
 
 	/**+
 	 * Renders the fire on the screen for first person mode. Arg:
@@ -478,23 +478,23 @@ public class ItemRenderer {
 			this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 			float f1 = textureatlassprite.getMinU();
 			float f2 = textureatlassprite.getMaxU();
-			float f3 = textureatlassprite.getMinV();
-			float f4 = textureatlassprite.getMaxV();
-			float f5 = (0.0F - f) / 2.0F;
-			float f6 = f5 + f;
-			float f7 = 0.0F - f / 2.0F;
-			float f8 = f7 + f;
-			float f9 = -0.5F;
-			GlStateManager.translate((float) (-(i * 2 - 1)) * 0.24F, -0.3F, 0.0F);
-			GlStateManager.rotate((float) (i * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
-			worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-			worldrenderer.pos((double) f5, (double) f7, (double) f9).tex((double) f2, (double) f4).endVertex();
-			worldrenderer.pos((double) f6, (double) f7, (double) f9).tex((double) f1, (double) f4).endVertex();
-			worldrenderer.pos((double) f6, (double) f8, (double) f9).tex((double) f1, (double) f3).endVertex();
-			worldrenderer.pos((double) f5, (double) f8, (double) f9).tex((double) f2, (double) f3).endVertex();
-			tessellator.draw();
-			GlStateManager.popMatrix();
-		}
+            float f3 = textureatlassprite.getMinV();
+            float f4 = textureatlassprite.getMaxV();
+            float f5 = (0.0F - f) / 2.0F;
+            float f6 = f5 + f;
+            float f7 = 0.0F - f / 2.0F;
+            float f8 = f7 + f;
+            float f9 = -0.5F;
+            GlStateManager.translate((float) (-(i * 2 - 1)) * 0.24F, -0.3F, 0.0F);
+            GlStateManager.rotate((float) (i * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
+            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.pos(f5, f7, f9).tex(f2, f4).endVertex();
+            worldrenderer.pos(f6, f7, f9).tex(f1, f4).endVertex();
+            worldrenderer.pos(f6, f8, f9).tex(f1, f3).endVertex();
+            worldrenderer.pos(f5, f8, f9).tex(f2, f3).endVertex();
+            tessellator.draw();
+            GlStateManager.popMatrix();
+        }
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableBlend();
@@ -507,15 +507,11 @@ public class ItemRenderer {
 		EntityPlayerSP entityplayersp = this.mc.thePlayer;
 		ItemStack itemstack = entityplayersp.inventory.getCurrentItem();
 		boolean flag = false;
-		if (this.itemToRender != null && itemstack != null) {
-			if (!this.itemToRender.getIsItemStackEqual(itemstack)) {
-				flag = true;
-			}
-		} else if (this.itemToRender == null && itemstack == null) {
-			flag = false;
-		} else {
-			flag = true;
-		}
+        if (this.itemToRender != null && itemstack != null) {
+            if (!this.itemToRender.getIsItemStackEqual(itemstack)) {
+                flag = true;
+            }
+        } else flag = this.itemToRender != null || itemstack != null;
 
 		float f = 0.4F;
 		float f1 = flag ? 0.0F : 1.0F;

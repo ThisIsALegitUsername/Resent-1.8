@@ -168,7 +168,7 @@ public class Material {
 	 * Indicate if the material is opaque
 	 */
 	public boolean isOpaque() {
-		return this.isTranslucent ? false : this.blocksMovement();
+		return !this.isTranslucent && this.blocksMovement();
 	}
 
 	/**+

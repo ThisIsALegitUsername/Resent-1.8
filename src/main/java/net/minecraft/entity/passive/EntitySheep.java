@@ -1,10 +1,7 @@
 package net.minecraft.entity.passive;
 
-import java.util.Map;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.collect.Maps;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -23,6 +20,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+
+import java.util.Map;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -57,7 +56,7 @@ public class EntitySheep extends EntityAnimal {
 	private int sheepTimer;
 
 	public static float[] func_175513_a(EnumDyeColor dyeColor) {
-		return (float[]) DYE_TO_RGB.get(dyeColor);
+		return DYE_TO_RGB.get(dyeColor);
 	}
 
 	public EntitySheep(World worldIn) {
@@ -84,8 +83,8 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(16, new Byte((byte) 0));
+        super.entityInit();
+        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
 
 	/**+
@@ -286,9 +285,9 @@ public class EntitySheep extends EntityAnimal {
 		int j = ((EntitySheep) mother).getFleeceColor().getDyeDamage();
 		this.inventoryCrafting.getStackInSlot(0).setItemDamage(i);
 		this.inventoryCrafting.getStackInSlot(1).setItemDamage(j);
-		ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting,
-				((EntitySheep) father).worldObj);
-		int k;
+        ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting,
+                father.worldObj);
+        int k;
 		if (itemstack != null && itemstack.getItem() == Items.dye) {
 			k = itemstack.getMetadata();
 		} else {

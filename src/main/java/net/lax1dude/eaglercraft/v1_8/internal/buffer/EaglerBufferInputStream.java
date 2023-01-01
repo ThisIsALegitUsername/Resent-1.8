@@ -33,17 +33,17 @@ public class EaglerBufferInputStream extends InputStream {
 	}
 
 	@Override
-	public int read(byte b[], int off, int len) throws IOException {
-		int p = buffer.position();
-		int l = buffer.limit();
-		int r = l - p;
-		if(r < len) {
-			len = r;
-		}
-		if(len > 0) {
-			buffer.get(b, off, len);
-		}
-		return len;
+    public int read(byte[] b, int off, int len) throws IOException {
+        int p = buffer.position();
+        int l = buffer.limit();
+        int r = l - p;
+        if (r < len) {
+            len = r;
+        }
+        if (len > 0) {
+            buffer.get(b, off, len);
+        }
+        return len;
 	}
 
 	@Override

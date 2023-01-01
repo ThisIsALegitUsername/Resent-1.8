@@ -39,7 +39,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 	}
 
 	public V getObject(K object) {
-		return (V) this.registryObjects.get(object);
+		return this.registryObjects.get(object);
 	}
 
 	/**+
@@ -49,7 +49,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 		Validate.notNull(object);
 		Validate.notNull(object1);
 		if (this.registryObjects.containsKey(object)) {
-			logger.debug("Adding duplicate key \'" + object + "\' to registry");
+            logger.debug("Adding duplicate key '" + object + "' to registry");
 		}
 
 		this.registryObjects.put(object, object1);

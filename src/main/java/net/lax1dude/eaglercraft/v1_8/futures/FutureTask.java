@@ -21,7 +21,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
 	private boolean cancelled;
 	private boolean completed;
 	private V result;
-	private Callable<V> callable;
+    private final Callable<V> callable;
 	
 	public FutureTask(Callable<V> callable) {
 		this.callable = callable;

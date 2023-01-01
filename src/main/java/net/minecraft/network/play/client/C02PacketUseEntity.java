@@ -1,13 +1,13 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -50,10 +50,10 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
 		this.entityId = parPacketBuffer.readVarIntFromBuffer();
-		this.action = (C02PacketUseEntity.Action) parPacketBuffer.readEnumValue(C02PacketUseEntity.Action.class);
+		this.action = parPacketBuffer.readEnumValue(Action.class);
 		if (this.action == C02PacketUseEntity.Action.INTERACT_AT) {
-			this.hitVec = new Vec3((double) parPacketBuffer.readFloat(), (double) parPacketBuffer.readFloat(),
-					(double) parPacketBuffer.readFloat());
+			this.hitVec = new Vec3(parPacketBuffer.readFloat(), parPacketBuffer.readFloat(),
+					parPacketBuffer.readFloat());
 		}
 
 	}
@@ -91,7 +91,7 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
 		return this.hitVec;
 	}
 
-	public static enum Action {
-		INTERACT, ATTACK, INTERACT_AT;
+	public enum Action {
+		INTERACT, ATTACK, INTERACT_AT
 	}
 }

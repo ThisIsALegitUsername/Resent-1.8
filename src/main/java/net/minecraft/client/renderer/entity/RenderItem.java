@@ -122,7 +122,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	private void renderModel(IBakedModel model, int color) {
-		this.renderModel(model, color, (ItemStack) null);
+		this.renderModel(model, color, null);
 	}
 
 	private void renderModel(IBakedModel model, int color, ItemStack stack) {
@@ -205,8 +205,8 @@ public class RenderItem implements IResourceManagerReloadListener {
 		int i = 0;
 
 		for (int j = quads.size(); i < j; ++i) {
-			BakedQuad bakedquad = (BakedQuad) quads.get(i);
-			int k = color;
+            BakedQuad bakedquad = quads.get(i);
+            int k = color;
 			if (flag && bakedquad.hasTintIndex()) {
 				k = stack.getItem().getColorFromItemStack(stack, bakedquad.getTintIndex());
 				if (EntityRenderer.anaglyphEnable) {
@@ -223,7 +223,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 
 	public boolean shouldRenderItemIn3D(ItemStack stack) {
 		IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
-		return ibakedmodel == null ? false : ibakedmodel.isGui3d();
+        return ibakedmodel != null && ibakedmodel.isGui3d();
 	}
 
 	private void preTransform(ItemStack stack) {
@@ -383,7 +383,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public void renderItemOverlays(FontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
-		this.renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, (String) null);
+        this.renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, null);
 	}
 
 	/**+
@@ -435,13 +435,13 @@ public class RenderItem implements IResourceManagerReloadListener {
 	private void func_181565_a(WorldRenderer parWorldRenderer, int parInt1, int parInt2, int parInt3, int parInt4,
 			int parInt5, int parInt6, int parInt7, int parInt8) {
 		parWorldRenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-		parWorldRenderer.pos((double) (parInt1 + 0), (double) (parInt2 + 0), 0.0D)
+        parWorldRenderer.pos(parInt1, parInt2, 0.0D)
 				.color(parInt5, parInt6, parInt7, parInt8).endVertex();
-		parWorldRenderer.pos((double) (parInt1 + 0), (double) (parInt2 + parInt4), 0.0D)
+        parWorldRenderer.pos(parInt1, parInt2 + parInt4, 0.0D)
 				.color(parInt5, parInt6, parInt7, parInt8).endVertex();
-		parWorldRenderer.pos((double) (parInt1 + parInt3), (double) (parInt2 + parInt4), 0.0D)
+        parWorldRenderer.pos(parInt1 + parInt3, parInt2 + parInt4, 0.0D)
 				.color(parInt5, parInt6, parInt7, parInt8).endVertex();
-		parWorldRenderer.pos((double) (parInt1 + parInt3), (double) (parInt2 + 0), 0.0D)
+        parWorldRenderer.pos(parInt1 + parInt3, parInt2, 0.0D)
 				.color(parInt5, parInt6, parInt7, parInt8).endVertex();
 		Tessellator.getInstance().draw();
 	}

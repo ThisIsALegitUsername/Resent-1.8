@@ -34,7 +34,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class RenderEntityItem extends Render<EntityItem> {
 	private final RenderItem itemRenderer;
-	private EaglercraftRandom field_177079_e = new EaglercraftRandom();
+    private final EaglercraftRandom field_177079_e = new EaglercraftRandom();
 
 	public RenderEntityItem(RenderManager renderManagerIn, RenderItem parRenderItem) {
 		super(renderManagerIn);

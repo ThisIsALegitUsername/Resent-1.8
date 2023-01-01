@@ -16,32 +16,20 @@
 
 package com.google.common.io;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkPositionIndex;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
-import java.util.Arrays;
-
 import com.google.common.annotations.Beta;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
-
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
+
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
+import java.util.Arrays;
+
+import static com.google.common.base.Preconditions.*;
 
 /**
  * Provides utility methods for working with byte arrays and I/O streams.
@@ -320,7 +308,7 @@ public final class ByteStreams {
 		}
 
 		@Override
-		public void readFully(byte b[]) {
+		public void readFully(byte[] b) {
 			try {
 				input.readFully(b);
 			} catch (IOException e) {
@@ -329,7 +317,7 @@ public final class ByteStreams {
 		}
 
 		@Override
-		public void readFully(byte b[], int off, int len) {
+		public void readFully(byte[] b, int off, int len) {
 			try {
 				input.readFully(b, off, len);
 			} catch (IOException e) {

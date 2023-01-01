@@ -28,13 +28,13 @@ public enum SkinModel {
 	public static final SkinModel[] skinModels = new SkinModel[3];
 	private static final Map<String, SkinModel> skinModelsByName = new HashMap<>();
 	
-	private SkinModel(int id, int w, int h, String profileSkinType, boolean sanitize) {
-		this.id = id;
-		this.width = w;
-		this.height = h;
-		this.profileSkinType = profileSkinType;
-		this.sanitize = sanitize;
-	}
+	SkinModel(int id, int w, int h, String profileSkinType, boolean sanitize) {
+        this.id = id;
+        this.width = w;
+        this.height = h;
+        this.profileSkinType = profileSkinType;
+        this.sanitize = sanitize;
+    }
 
 	public static SkinModel getModelFromId(String str) {
 		SkinModel mdl = skinModelsByName.get(str.toLowerCase());

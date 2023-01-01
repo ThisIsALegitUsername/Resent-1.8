@@ -1,9 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -99,7 +97,7 @@ public class BlockVine extends Block {
 		float f5 = 0.0F;
 		float f6 = 0.0F;
 		boolean flag = false;
-		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(WEST)).booleanValue()) {
+		if (iblockaccess.getBlockState(blockpos).getValue(WEST).booleanValue()) {
 			f4 = Math.max(f4, 0.0625F);
 			f1 = 0.0F;
 			f2 = 0.0F;
@@ -109,7 +107,7 @@ public class BlockVine extends Block {
 			flag = true;
 		}
 
-		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(EAST)).booleanValue()) {
+		if (iblockaccess.getBlockState(blockpos).getValue(EAST).booleanValue()) {
 			f1 = Math.min(f1, 0.9375F);
 			f4 = 1.0F;
 			f2 = 0.0F;
@@ -119,7 +117,7 @@ public class BlockVine extends Block {
 			flag = true;
 		}
 
-		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(NORTH)).booleanValue()) {
+		if (iblockaccess.getBlockState(blockpos).getValue(NORTH).booleanValue()) {
 			f6 = Math.max(f6, 0.0625F);
 			f3 = 0.0F;
 			f1 = 0.0F;
@@ -129,7 +127,7 @@ public class BlockVine extends Block {
 			flag = true;
 		}
 
-		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(SOUTH)).booleanValue()) {
+		if (iblockaccess.getBlockState(blockpos).getValue(SOUTH).booleanValue()) {
 			f3 = Math.min(f3, 0.9375F);
 			f6 = 1.0F;
 			f1 = 0.0F;
@@ -181,11 +179,11 @@ public class BlockVine extends Block {
 
 		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
 			PropertyBool propertybool = getPropertyFor(enumfacing);
-			if (((Boolean) state.getValue(propertybool)).booleanValue()
+			if (state.getValue(propertybool).booleanValue()
 					&& !this.canPlaceOn(worldIn.getBlockState(pos.offset(enumfacing)).getBlock())) {
 				IBlockState iblockstate1 = worldIn.getBlockState(pos.up());
 				if (iblockstate1.getBlock() != this
-						|| !((Boolean) iblockstate1.getValue(propertybool)).booleanValue()) {
+						|| !iblockstate1.getValue(propertybool).booleanValue()) {
 					state = state.withProperty(propertybool, Boolean.valueOf(false));
 				}
 			}
@@ -260,19 +258,19 @@ public class BlockVine extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		if (((Boolean) iblockstate.getValue(SOUTH)).booleanValue()) {
+		if (iblockstate.getValue(SOUTH).booleanValue()) {
 			i |= 1;
 		}
 
-		if (((Boolean) iblockstate.getValue(WEST)).booleanValue()) {
+		if (iblockstate.getValue(WEST).booleanValue()) {
 			i |= 2;
 		}
 
-		if (((Boolean) iblockstate.getValue(NORTH)).booleanValue()) {
+		if (iblockstate.getValue(NORTH).booleanValue()) {
 			i |= 4;
 		}
 
-		if (((Boolean) iblockstate.getValue(EAST)).booleanValue()) {
+		if (iblockstate.getValue(EAST).booleanValue()) {
 			i |= 8;
 		}
 
@@ -280,7 +278,7 @@ public class BlockVine extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { UP, NORTH, EAST, SOUTH, WEST });
+		return new BlockState(this, UP, NORTH, EAST, SOUTH, WEST);
 	}
 
 	public static PropertyBool getPropertyFor(EnumFacing side) {
@@ -304,7 +302,7 @@ public class BlockVine extends Block {
 		int i = 0;
 
 		for (PropertyBool propertybool : ALL_FACES) {
-			if (((Boolean) state.getValue(propertybool)).booleanValue()) {
+			if (state.getValue(propertybool).booleanValue()) {
 				++i;
 			}
 		}

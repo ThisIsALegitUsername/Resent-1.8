@@ -100,8 +100,8 @@ public class SkinPackets {
 		ret.writeByte(PACKET_GET_SKIN_BY_URL);
 		ret.writeUuid(skinId);
 		byte[] url = ArrayUtils.asciiString(skinUrl);
-		ret.writeShort((int)url.length);
-		ret.writeBytes(url);
+		ret.writeShort(url.length);
+        ret.writeBytes(url);
 		return ret;
 	}
 

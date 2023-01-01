@@ -54,8 +54,8 @@ public class TileEntitySkull extends TileEntity {
 			} else if (nbttagcompound.hasKey("ExtraType", 8)) {
 				String s = nbttagcompound.getString("ExtraType");
 				if (!StringUtils.isNullOrEmpty(s)) {
-					this.playerProfile = new GameProfile((EaglercraftUUID) null, s);
-					this.updatePlayerProfile();
+					this.playerProfile = new GameProfile(null, s);
+                    this.updatePlayerProfile();
 				}
 			}
 		}

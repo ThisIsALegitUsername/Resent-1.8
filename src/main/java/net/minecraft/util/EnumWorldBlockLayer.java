@@ -23,9 +23,9 @@ public enum EnumWorldBlockLayer {
 
 	private final String layerName;
 
-	private EnumWorldBlockLayer(String layerNameIn) {
-		this.layerName = layerNameIn;
-	}
+	EnumWorldBlockLayer(String layerNameIn) {
+        this.layerName = layerNameIn;
+    }
 
 	public String toString() {
 		return this.layerName;

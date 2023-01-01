@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,8 +26,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
-		return World.doesBlockHaveSolidTopSurface(world, blockpos.down()) ? super.canPlaceBlockAt(world, blockpos)
-				: false;
+		return World.doesBlockHaveSolidTopSurface(world, blockpos.down()) && super.canPlaceBlockAt(world, blockpos);
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos) {
@@ -123,23 +121,23 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
 	}
 
 	protected int calculateInputStrength(World world, BlockPos blockpos, IBlockState iblockstate) {
-		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
-		BlockPos blockpos1 = blockpos.offset(enumfacing);
+        EnumFacing enumfacing = iblockstate.getValue(FACING);
+        BlockPos blockpos1 = blockpos.offset(enumfacing);
 		int i = world.getRedstonePower(blockpos1, enumfacing);
 		if (i >= 15) {
 			return i;
 		} else {
 			IBlockState iblockstate1 = world.getBlockState(blockpos1);
 			return Math.max(i,
-					iblockstate1.getBlock() == Blocks.redstone_wire
-							? ((Integer) iblockstate1.getValue(BlockRedstoneWire.POWER)).intValue()
-							: 0);
+                    iblockstate1.getBlock() == Blocks.redstone_wire
+                            ? iblockstate1.getValue(BlockRedstoneWire.POWER).intValue()
+                            : 0);
 		}
 	}
 
 	protected int getPowerOnSides(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-		EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-		EnumFacing enumfacing1 = enumfacing.rotateY();
+        EnumFacing enumfacing = state.getValue(FACING);
+        EnumFacing enumfacing1 = enumfacing.rotateY();
 		EnumFacing enumfacing2 = enumfacing.rotateYCCW();
 		return Math.max(this.getPowerOnSide(worldIn, pos.offset(enumfacing1), enumfacing1),
 				this.getPowerOnSide(worldIn, pos.offset(enumfacing2), enumfacing2));
@@ -149,9 +147,9 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 		return this.canPowerSide(block)
-				? (block == Blocks.redstone_wire ? ((Integer) iblockstate.getValue(BlockRedstoneWire.POWER)).intValue()
-						: worldIn.getStrongPower(pos, side))
-				: 0;
+                ? (block == Blocks.redstone_wire ? iblockstate.getValue(BlockRedstoneWire.POWER).intValue()
+                : worldIn.getStrongPower(pos, side))
+                : 0;
 	}
 
 	/**+
@@ -188,8 +186,8 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
 	}
 
 	protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state) {
-		EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
+        EnumFacing enumfacing = state.getValue(FACING);
+        BlockPos blockpos = pos.offset(enumfacing.getOpposite());
 		worldIn.notifyBlockOfStateChange(blockpos, this);
 		worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
 	}
@@ -233,11 +231,9 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
 	}
 
 	public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state) {
-		EnumFacing enumfacing = ((EnumFacing) state.getValue(FACING)).getOpposite();
-		BlockPos blockpos = pos.offset(enumfacing);
-		return isRedstoneRepeaterBlockID(worldIn.getBlockState(blockpos).getBlock())
-				? worldIn.getBlockState(blockpos).getValue(FACING) != enumfacing
-				: false;
+        EnumFacing enumfacing = state.getValue(FACING).getOpposite();
+        BlockPos blockpos = pos.offset(enumfacing);
+        return isRedstoneRepeaterBlockID(worldIn.getBlockState(blockpos).getBlock()) && worldIn.getBlockState(blockpos).getValue(FACING) != enumfacing;
 	}
 
 	protected int getTickDelay(IBlockState state) {

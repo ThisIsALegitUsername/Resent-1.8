@@ -10,12 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.Vec3;
-import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.WeightedRandomFishable;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 /**+
@@ -267,10 +262,10 @@ public class EntityGuardian extends EntityMob {
 
 			for (int i = 0; i < 2; ++i) {
 				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE,
-						this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width - vec3.xCoord * 1.5D,
-						this.posY + this.rand.nextDouble() * (double) this.height - vec3.yCoord * 1.5D,
-						this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width - vec3.zCoord * 1.5D, 0.0D,
-						0.0D, 0.0D, new int[0]);
+                        this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width - vec3.xCoord * 1.5D,
+                        this.posY + this.rand.nextDouble() * (double) this.height - vec3.yCoord * 1.5D,
+                        this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width - vec3.zCoord * 1.5D, 0.0D,
+                        0.0D, 0.0D);
 			}
 		}
 
@@ -281,8 +276,8 @@ public class EntityGuardian extends EntityMob {
 
 			EntityLivingBase entitylivingbase = this.getTargetedEntity();
 			if (entitylivingbase != null) {
-				double d5 = (double) this.func_175477_p(0.0F);
-				double d0 = entitylivingbase.posX - this.posX;
+                double d5 = this.func_175477_p(0.0F);
+                double d0 = entitylivingbase.posX - this.posX;
 				double d1 = entitylivingbase.posY + (double) (entitylivingbase.height * 0.5F)
 						- (this.posY + (double) this.getEyeHeight());
 				double d2 = entitylivingbase.posZ - this.posZ;
@@ -293,10 +288,10 @@ public class EntityGuardian extends EntityMob {
 				double d4 = this.rand.nextDouble();
 
 				while (d4 < d3) {
-					d4 += 1.8D - d5 + this.rand.nextDouble() * (1.7D - d5);
-					this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + d0 * d4,
-							this.posY + d1 * d4 + (double) this.getEyeHeight(), this.posZ + d2 * d4, 0.0D, 0.0D, 0.0D,
-							new int[0]);
+                    d4 += 1.8D - d5 + this.rand.nextDouble() * (1.7D - d5);
+                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + d0 * d4,
+                            this.posY + d1 * d4 + (double) this.getEyeHeight(), this.posZ + d2 * d4, 0.0D, 0.0D, 0.0D
+                    );
 				}
 			}
 		}
@@ -304,13 +299,13 @@ public class EntityGuardian extends EntityMob {
 		if (this.inWater) {
 			this.setAir(300);
 		} else if (this.onGround) {
-			this.motionY += 0.5D;
-			this.motionX += (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.4F);
-			this.motionZ += (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.4F);
-			this.rotationYaw = this.rand.nextFloat() * 360.0F;
-			this.onGround = false;
-			this.isAirBorne = true;
-		}
+            this.motionY += 0.5D;
+            this.motionX += (this.rand.nextFloat() * 2.0F - 1.0F) * 0.4F;
+            this.motionZ += (this.rand.nextFloat() * 2.0F - 1.0F) * 0.4F;
+            this.rotationYaw = this.rand.nextFloat() * 360.0F;
+            this.onGround = false;
+            this.isAirBorne = true;
+        }
 
 		if (this.hasTargetedEntity()) {
 			this.rotationYaw = this.rotationYawHead;
@@ -356,10 +351,10 @@ public class EntityGuardian extends EntityMob {
 	 * Causes this Entity to drop a random item.
 	 */
 	protected void addRandomDrop() {
-		ItemStack itemstack = ((WeightedRandomFishable) WeightedRandom.getRandomItem(this.rand,
-				EntityFishHook.func_174855_j())).getItemStack(this.rand);
-		this.entityDropItem(itemstack, 1.0F);
-	}
+        ItemStack itemstack = WeightedRandom.getRandomItem(this.rand,
+                EntityFishHook.func_174855_j()).getItemStack(this.rand);
+        this.entityDropItem(itemstack, 1.0F);
+    }
 
 	/**+
 	 * Checks to make sure the light is not too bright where the mob

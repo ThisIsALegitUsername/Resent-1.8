@@ -251,31 +251,31 @@ public enum EnumConnectionState {
 		}
 	},
 	LOGIN(2) {
-		{
-			this.registerPacket(EnumPacketDirection.CLIENTBOUND, S00PacketDisconnect.class);
-			this.registerPacket(EnumPacketDirection.CLIENTBOUND, S01PacketEncryptionRequest.class);
-			this.registerPacket(EnumPacketDirection.CLIENTBOUND, S02PacketLoginSuccess.class);
-			this.registerPacket(EnumPacketDirection.CLIENTBOUND, S03PacketEnableCompression.class);
-			this.registerPacket(EnumPacketDirection.SERVERBOUND, C00PacketLoginStart.class);
-			this.registerPacket(EnumPacketDirection.SERVERBOUND, C01PacketEncryptionResponse.class);
-		}
-	};
+        {
+            this.registerPacket(EnumPacketDirection.CLIENTBOUND, S00PacketDisconnect.class);
+            this.registerPacket(EnumPacketDirection.CLIENTBOUND, S01PacketEncryptionRequest.class);
+            this.registerPacket(EnumPacketDirection.CLIENTBOUND, S02PacketLoginSuccess.class);
+            this.registerPacket(EnumPacketDirection.CLIENTBOUND, S03PacketEnableCompression.class);
+            this.registerPacket(EnumPacketDirection.SERVERBOUND, C00PacketLoginStart.class);
+            this.registerPacket(EnumPacketDirection.SERVERBOUND, C01PacketEncryptionResponse.class);
+        }
+    };
 
-	private static int field_181136_e = -1;
-	private static int field_181137_f = 2;
-	private static final EnumConnectionState[] STATES_BY_ID = new EnumConnectionState[field_181137_f - field_181136_e
-			+ 1];
-	private static final Map<Class<? extends Packet>, EnumConnectionState> STATES_BY_CLASS = Maps.newHashMap();
-	private final int id;
-	private final Map<EnumPacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
+    private static final int field_181136_e = -1;
+    private static final int field_181137_f = 2;
+    private static final EnumConnectionState[] STATES_BY_ID = new EnumConnectionState[field_181137_f - field_181136_e
+            + 1];
+    private static final Map<Class<? extends Packet>, EnumConnectionState> STATES_BY_CLASS = Maps.newHashMap();
+    private final int id;
+    private final Map<EnumPacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
 
-	private EnumConnectionState(int protocolId) {
-		this.directionMaps = Maps.newEnumMap(EnumPacketDirection.class);
-		this.id = protocolId;
-	}
+    EnumConnectionState(int protocolId) {
+        this.directionMaps = Maps.newEnumMap(EnumPacketDirection.class);
+        this.id = protocolId;
+    }
 
 	protected EnumConnectionState registerPacket(EnumPacketDirection direction, Class<? extends Packet> packetClass) {
-		Object object = (BiMap) this.directionMaps.get(direction);
+        Object object = this.directionMaps.get(direction);
 		if (object == null) {
 			object = HashBiMap.create();
 			this.directionMaps.put(direction, (BiMap<Integer, Class<? extends Packet>>) object);
@@ -311,14 +311,14 @@ public enum EnumConnectionState {
 	}
 
 	public static EnumConnectionState getFromPacket(Packet packetIn) {
-		return (EnumConnectionState) STATES_BY_CLASS.get(packetIn.getClass());
+        return STATES_BY_CLASS.get(packetIn.getClass());
 	}
 
 	static {
 		for (EnumConnectionState enumconnectionstate : values()) {
 			int i = enumconnectionstate.getId();
 			if (i < field_181136_e || i > field_181137_f) {
-				throw new Error("Invalid protocol ID " + Integer.toString(i));
+                throw new Error("Invalid protocol ID " + i);
 			}
 
 			STATES_BY_ID[i - field_181136_e] = enumconnectionstate;
@@ -327,8 +327,8 @@ public enum EnumConnectionState {
 				for (Class oclass : (Collection<Class>) ((BiMap) enumconnectionstate.directionMaps
 						.get(enumpacketdirection)).values()) {
 					if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != enumconnectionstate) {
-						throw new Error("Packet " + oclass + " is already assigned to protocol "
-								+ STATES_BY_CLASS.get(oclass) + " - can\'t reassign to " + enumconnectionstate);
+                        throw new Error("Packet " + oclass + " is already assigned to protocol "
+                                + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + enumconnectionstate);
 					}
 
 					try {

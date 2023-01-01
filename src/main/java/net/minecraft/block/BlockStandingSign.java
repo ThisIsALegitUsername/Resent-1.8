@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -55,10 +54,10 @@ public class BlockStandingSign extends BlockSign {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(ROTATION)).intValue();
+		return iblockstate.getValue(ROTATION).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { ROTATION });
+		return new BlockState(this, ROTATION);
 	}
 }

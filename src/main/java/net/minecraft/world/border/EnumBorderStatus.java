@@ -23,9 +23,9 @@ public enum EnumBorderStatus {
 
 	private final int id;
 
-	private EnumBorderStatus(int id) {
-		this.id = id;
-	}
+	EnumBorderStatus(int id) {
+        this.id = id;
+    }
 
 	/**+
 	 * Returns an integer that represents the state of the world

@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +9,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -32,8 +31,8 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class BlockColored extends Block {
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
-			EnumDyeColor.class);
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color",
+            EnumDyeColor.class);
 
 	public BlockColored(Material materialIn) {
 		super(materialIn);
@@ -48,7 +47,7 @@ public class BlockColored extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
+        return iblockstate.getValue(COLOR).getMetadata();
 	}
 
 	/**+
@@ -66,7 +65,7 @@ public class BlockColored extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMapColor();
+        return iblockstate.getValue(COLOR).getMapColor();
 	}
 
 	/**+
@@ -80,10 +79,10 @@ public class BlockColored extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
+        return iblockstate.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { COLOR });
+        return new BlockState(this, COLOR);
 	}
 }

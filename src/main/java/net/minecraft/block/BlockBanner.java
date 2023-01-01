@@ -1,9 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -142,7 +140,7 @@ public class BlockBanner extends BlockContainer {
 			itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
 			spawnAsEntity(worldIn, pos, itemstack);
 		} else {
-			super.harvestBlock(worldIn, player, pos, state, (TileEntity) null);
+			super.harvestBlock(worldIn, player, pos, state, null);
 		}
 
 	}
@@ -153,7 +151,7 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
-			EnumFacing enumfacing = (EnumFacing) iblockaccess.getBlockState(blockpos).getValue(FACING);
+			EnumFacing enumfacing = iblockaccess.getBlockState(blockpos).getValue(FACING);
 			float f = 0.0F;
 			float f1 = 0.78125F;
 			float f2 = 0.0F;
@@ -178,7 +176,7 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
-			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+			EnumFacing enumfacing = iblockstate.getValue(FACING);
 			if (!world.getBlockState(blockpos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid()) {
 				this.dropBlockAsItem(world, blockpos, iblockstate, 0);
 				world.setBlockToAir(blockpos);
@@ -197,11 +195,11 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public int getMetaFromState(IBlockState iblockstate) {
-			return ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+			return iblockstate.getValue(FACING).getIndex();
 		}
 
 		protected BlockState createBlockState() {
-			return new BlockState(this, new IProperty[] { FACING });
+			return new BlockState(this, FACING);
 		}
 	}
 
@@ -224,11 +222,11 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public int getMetaFromState(IBlockState iblockstate) {
-			return ((Integer) iblockstate.getValue(ROTATION)).intValue();
+			return iblockstate.getValue(ROTATION).intValue();
 		}
 
 		protected BlockState createBlockState() {
-			return new BlockState(this, new IProperty[] { ROTATION });
+			return new BlockState(this, ROTATION);
 		}
 	}
 }

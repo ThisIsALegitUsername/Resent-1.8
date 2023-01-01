@@ -61,10 +61,10 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 			}
 
 			worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
-			worldrenderer.setTranslation(
-					(double) ((float) d0 - (float) blockpos.getX() + tileentitypiston.getOffsetX(f)),
-					(double) ((float) d1 - (float) blockpos.getY() + tileentitypiston.getOffsetY(f)),
-					(double) ((float) d2 - (float) blockpos.getZ() + tileentitypiston.getOffsetZ(f)));
+            worldrenderer.setTranslation(
+                    (float) d0 - (float) blockpos.getX() + tileentitypiston.getOffsetX(f),
+                    (float) d1 - (float) blockpos.getY() + tileentitypiston.getOffsetY(f),
+                    (float) d2 - (float) blockpos.getZ() + tileentitypiston.getOffsetZ(f));
 			World world = this.getWorld();
 			if (block == Blocks.piston_head && tileentitypiston.getProgress(f) < 0.5F) {
 				iblockstate = iblockstate.withProperty(BlockPistonExtension.SHORT, Boolean.valueOf(true));
@@ -73,24 +73,24 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 						worldrenderer, true);
 			} else if (tileentitypiston.shouldPistonHeadBeRendered() && !tileentitypiston.isExtending()) {
 				BlockPistonExtension.EnumPistonType blockpistonextension$enumpistontype = block == Blocks.sticky_piston
-						? BlockPistonExtension.EnumPistonType.STICKY
-						: BlockPistonExtension.EnumPistonType.DEFAULT;
-				IBlockState iblockstate1 = Blocks.piston_head.getDefaultState()
-						.withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype)
-						.withProperty(BlockPistonExtension.FACING, iblockstate.getValue(BlockPistonBase.FACING));
-				iblockstate1 = iblockstate1.withProperty(BlockPistonExtension.SHORT,
-						Boolean.valueOf(tileentitypiston.getProgress(f) >= 0.5F));
-				this.blockRenderer.getBlockModelRenderer().renderModel(world,
-						this.blockRenderer.getModelFromBlockState(iblockstate1, world, blockpos), iblockstate1,
-						blockpos, worldrenderer, true);
-				worldrenderer.setTranslation((double) ((float) d0 - (float) blockpos.getX()),
-						(double) ((float) d1 - (float) blockpos.getY()),
-						(double) ((float) d2 - (float) blockpos.getZ()));
-				iblockstate.withProperty(BlockPistonBase.EXTENDED, Boolean.valueOf(true));
-				this.blockRenderer.getBlockModelRenderer().renderModel(world,
-						this.blockRenderer.getModelFromBlockState(iblockstate, world, blockpos), iblockstate, blockpos,
-						worldrenderer, true);
-			} else {
+                        ? BlockPistonExtension.EnumPistonType.STICKY
+                        : BlockPistonExtension.EnumPistonType.DEFAULT;
+                IBlockState iblockstate1 = Blocks.piston_head.getDefaultState()
+                        .withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype)
+                        .withProperty(BlockPistonExtension.FACING, iblockstate.getValue(BlockPistonBase.FACING));
+                iblockstate1 = iblockstate1.withProperty(BlockPistonExtension.SHORT,
+                        Boolean.valueOf(tileentitypiston.getProgress(f) >= 0.5F));
+                this.blockRenderer.getBlockModelRenderer().renderModel(world,
+                        this.blockRenderer.getModelFromBlockState(iblockstate1, world, blockpos), iblockstate1,
+                        blockpos, worldrenderer, true);
+                worldrenderer.setTranslation((float) d0 - (float) blockpos.getX(),
+                        (float) d1 - (float) blockpos.getY(),
+                        (float) d2 - (float) blockpos.getZ());
+                iblockstate.withProperty(BlockPistonBase.EXTENDED, Boolean.valueOf(true));
+                this.blockRenderer.getBlockModelRenderer().renderModel(world,
+                        this.blockRenderer.getModelFromBlockState(iblockstate, world, blockpos), iblockstate, blockpos,
+                        worldrenderer, true);
+            } else {
 				this.blockRenderer.getBlockModelRenderer().renderModel(world,
 						this.blockRenderer.getModelFromBlockState(iblockstate, world, blockpos), iblockstate, blockpos,
 						worldrenderer, false);

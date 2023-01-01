@@ -35,10 +35,10 @@ import java.io.IOException;
  */
 public interface ByteArrayDataInput extends DataInput {
 	@Override
-	void readFully(byte b[]);
+    void readFully(byte[] b);
 
-	@Override
-	void readFully(byte b[], int off, int len);
+    @Override
+    void readFully(byte[] b, int off, int len);
 
 	@Override
 	int skipBytes(int n);

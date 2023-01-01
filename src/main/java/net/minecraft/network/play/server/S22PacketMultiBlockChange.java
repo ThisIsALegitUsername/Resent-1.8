@@ -55,7 +55,7 @@ public class S22PacketMultiBlockChange implements Packet<INetHandlerPlayClient> 
 
 		for (int i = 0; i < this.changedBlocks.length; ++i) {
 			this.changedBlocks[i] = new S22PacketMultiBlockChange.BlockUpdateData(parPacketBuffer.readShort(),
-					(IBlockState) Block.BLOCK_STATE_IDS.getByValue(parPacketBuffer.readVarIntFromBuffer()));
+                    Block.BLOCK_STATE_IDS.getByValue(parPacketBuffer.readVarIntFromBuffer()));
 		}
 
 	}

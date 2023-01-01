@@ -42,12 +42,11 @@ public class Language implements Comparable<Language> {
 	}
 
 	public String toString() {
-		return HString.format("%s (%s)", new Object[] { this.name, this.region });
+		return HString.format("%s (%s)", this.name, this.region);
 	}
 
 	public boolean equals(Object object) {
-		return this == object ? true
-				: (!(object instanceof Language) ? false : this.languageCode.equals(((Language) object).languageCode));
+        return this == object || (object instanceof Language && this.languageCode.equals(((Language) object).languageCode));
 	}
 
 	public int hashCode() {

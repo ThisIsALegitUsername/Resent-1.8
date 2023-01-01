@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.inventory;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerBrewingStand;
 import net.minecraft.inventory.IInventory;
@@ -27,8 +28,8 @@ import net.minecraft.util.ResourceLocation;
 public class GuiBrewingStand extends GuiContainer {
 	private static final ResourceLocation brewingStandGuiTextures = new ResourceLocation(
 			"textures/gui/container/brewing_stand.png");
-	private final InventoryPlayer playerInventory;
-	private IInventory tileBrewingStand;
+    private final InventoryPlayer playerInventory;
+    private final IInventory tileBrewingStand;
 
 	public GuiBrewingStand(InventoryPlayer playerInv, IInventory parIInventory) {
 		super(new ContainerBrewingStand(playerInv, parIInventory));
@@ -51,20 +52,20 @@ public class GuiBrewingStand extends GuiContainer {
 	 * Args : renderPartialTicks, mouseX, mouseY
 	 */
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(brewingStandGuiTextures);
-		int i = (this.width - this.xSize) / 2;
-		int j = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-		int k = this.tileBrewingStand.getField(0);
-		if (k > 0) {
-			int l = (int) (28.0F * (1.0F - (float) k / 400.0F));
-			if (l > 0) {
-				this.drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, l);
-			}
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        this.mc.getTextureManager().bindTexture(brewingStandGuiTextures);
+        int i = (width - this.xSize) / 2;
+        int j = (height - this.ySize) / 2;
+        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+        int k = this.tileBrewingStand.getField(0);
+        if (k > 0) {
+            int l = (int) (28.0F * (1.0F - (float) k / 400.0F));
+            if (l > 0) {
+                this.drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, l);
+            }
 
-			int i1 = k / 2 % 7;
-			switch (i1) {
+            int i1 = k / 2 % 7;
+            switch (i1) {
 			case 0:
 				l = 29;
 				break;

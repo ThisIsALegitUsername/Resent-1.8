@@ -1,9 +1,6 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,6 +11,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -35,7 +34,7 @@ import net.minecraft.world.World;
  */
 public class BlockNote extends BlockContainer {
 	private static final List<String> INSTRUMENTS = Lists
-			.newArrayList(new String[] { "harp", "bd", "snare", "hat", "bassattack" });
+			.newArrayList("harp", "bd", "snare", "hat", "bassattack");
 
 	public BlockNote() {
 		super(Material.wood);
@@ -79,7 +78,7 @@ public class BlockNote extends BlockContainer {
 			id = 0;
 		}
 
-		return (String) INSTRUMENTS.get(id);
+		return INSTRUMENTS.get(id);
 	}
 
 	/**+
@@ -91,7 +90,7 @@ public class BlockNote extends BlockContainer {
 		world.playSoundEffect((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D,
 				(double) blockpos.getZ() + 0.5D, "note." + this.getInstrument(i), 3.0F, f);
 		world.spawnParticle(EnumParticleTypes.NOTE, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 1.2D,
-				(double) blockpos.getZ() + 0.5D, (double) j / 24.0D, 0.0D, 0.0D, new int[0]);
+				(double) blockpos.getZ() + 0.5D, (double) j / 24.0D, 0.0D, 0.0D);
 		return true;
 	}
 

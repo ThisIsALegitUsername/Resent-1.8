@@ -1,7 +1,6 @@
 package net.minecraft.enchantment;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -58,7 +57,7 @@ public class EnchantmentDurability extends Enchantment {
 	 * ItemStack.
 	 */
 	public boolean canApply(ItemStack itemstack) {
-		return itemstack.isItemStackDamageable() ? true : super.canApply(itemstack);
+		return itemstack.isItemStackDamageable() || super.canApply(itemstack);
 	}
 
 	/**+
@@ -70,7 +69,6 @@ public class EnchantmentDurability extends Enchantment {
 	 * negated.
 	 */
 	public static boolean negateDamage(ItemStack parItemStack, int parInt1, EaglercraftRandom parRandom) {
-		return parItemStack.getItem() instanceof ItemArmor && parRandom.nextFloat() < 0.6F ? false
-				: parRandom.nextInt(parInt1 + 1) > 0;
+        return (!(parItemStack.getItem() instanceof ItemArmor) || !(parRandom.nextFloat() < 0.6F)) && parRandom.nextInt(parInt1 + 1) > 0;
 	}
 }

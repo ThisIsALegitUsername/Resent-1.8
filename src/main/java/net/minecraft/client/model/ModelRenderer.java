@@ -49,8 +49,8 @@ public class ModelRenderer {
 	public List<ModelBox> cubeList;
 	public List<ModelRenderer> childModels;
 	public final String boxName;
-	private ModelBase baseModel;
-	public float offsetX;
+    private final ModelBase baseModel;
+    public float offsetX;
 	public float offsetY;
 	public float offsetZ;
 
@@ -66,7 +66,7 @@ public class ModelRenderer {
 	}
 
 	public ModelRenderer(ModelBase model) {
-		this(model, (String) null);
+        this(model, null);
 	}
 
 	public ModelRenderer(ModelBase model, int texOffX, int texOffY) {
@@ -155,7 +155,7 @@ public class ModelRenderer {
 						GlStateManager.callList(this.displayList);
 						if (this.childModels != null) {
 							for (int k = 0; k < this.childModels.size(); ++k) {
-								((ModelRenderer) this.childModels.get(k)).render(parFloat1);
+                                this.childModels.get(k).render(parFloat1);
 							}
 						}
 					} else {
@@ -164,7 +164,7 @@ public class ModelRenderer {
 						GlStateManager.callList(this.displayList);
 						if (this.childModels != null) {
 							for (int j = 0; j < this.childModels.size(); ++j) {
-								((ModelRenderer) this.childModels.get(j)).render(parFloat1);
+                                this.childModels.get(j).render(parFloat1);
 							}
 						}
 
@@ -190,7 +190,7 @@ public class ModelRenderer {
 					GlStateManager.callList(this.displayList);
 					if (this.childModels != null) {
 						for (int i = 0; i < this.childModels.size(); ++i) {
-							((ModelRenderer) this.childModels.get(i)).render(parFloat1);
+                            this.childModels.get(i).render(parFloat1);
 						}
 					}
 
@@ -274,7 +274,7 @@ public class ModelRenderer {
 		WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
 
 		for (int i = 0; i < this.cubeList.size(); ++i) {
-			((ModelBox) this.cubeList.get(i)).render(worldrenderer, scale);
+            this.cubeList.get(i).render(worldrenderer, scale);
 		}
 
 		EaglercraftGPU.glEndList();

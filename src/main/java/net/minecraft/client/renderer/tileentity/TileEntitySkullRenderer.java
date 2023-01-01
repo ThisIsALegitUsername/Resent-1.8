@@ -124,8 +124,8 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 		GlStateManager.enableAlpha();
-		modelskeletonhead.render((Entity) null, 0.0F, 0.0F, 0.0F, parFloat4, 0.0F, f);
-		GlStateManager.popMatrix();
+        modelskeletonhead.render(null, 0.0F, 0.0F, 0.0F, parFloat4, 0.0F, f);
+        GlStateManager.popMatrix();
 		if (parInt2 >= 0) {
 			GlStateManager.matrixMode(GL_TEXTURE);
 			GlStateManager.popMatrix();

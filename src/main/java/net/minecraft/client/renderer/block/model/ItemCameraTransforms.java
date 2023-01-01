@@ -115,17 +115,17 @@ public class ItemCameraTransforms {
 			ItemTransformVec3f itemtransformvec3f4 = this.func_181683_a(jsonobject, "ground");
 			ItemTransformVec3f itemtransformvec3f5 = this.func_181683_a(jsonobject, "fixed");
 			return new ItemCameraTransforms(itemtransformvec3f, itemtransformvec3f1, itemtransformvec3f2,
-					itemtransformvec3f3, itemtransformvec3f4, itemtransformvec3f5);
-		}
+                    itemtransformvec3f3, itemtransformvec3f4, itemtransformvec3f5);
+        }
 
-		private ItemTransformVec3f func_181683_a(JSONObject parJsonObject, String parString1) {
-			return parJsonObject.has(parString1)
-					? JSONTypeProvider.deserialize(parJsonObject.get(parString1), ItemTransformVec3f.class)
-					: ItemTransformVec3f.DEFAULT;
-		}
-	}
+        private ItemTransformVec3f func_181683_a(JSONObject parJsonObject, String parString1) {
+            return parJsonObject.has(parString1)
+                    ? JSONTypeProvider.deserialize(parJsonObject.get(parString1), ItemTransformVec3f.class)
+                    : ItemTransformVec3f.DEFAULT;
+        }
+    }
 
-	public static enum TransformType {
-		NONE, THIRD_PERSON, FIRST_PERSON, HEAD, GUI, GROUND, FIXED;
-	}
+    public enum TransformType {
+        NONE, THIRD_PERSON, FIRST_PERSON, HEAD, GUI, GROUND, FIXED
+    }
 }

@@ -86,7 +86,7 @@ public class FlatGeneratorInfo {
 				stringbuilder.append(",");
 			}
 
-			stringbuilder.append(((FlatLayerInfo) this.flatLayers.get(i)).toString());
+			stringbuilder.append(this.flatLayers.get(i).toString());
 		}
 
 		stringbuilder.append(";");

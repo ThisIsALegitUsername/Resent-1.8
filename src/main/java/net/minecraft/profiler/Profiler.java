@@ -76,24 +76,24 @@ public class Profiler {
 	public void endSection() {
 		if (this.profilingEnabled) {
 			long i = System.nanoTime();
-			long j = ((Long) this.timestampList.remove(this.timestampList.size() - 1)).longValue();
+            long j = this.timestampList.remove(this.timestampList.size() - 1).longValue();
 			this.sectionList.remove(this.sectionList.size() - 1);
 			long k = i - j;
 			if (this.profilingMap.containsKey(this.profilingSection)) {
-				this.profilingMap.put(this.profilingSection,
-						Long.valueOf(((Long) this.profilingMap.get(this.profilingSection)).longValue() + k));
+                this.profilingMap.put(this.profilingSection,
+                        Long.valueOf(this.profilingMap.get(this.profilingSection).longValue() + k));
 			} else {
 				this.profilingMap.put(this.profilingSection, Long.valueOf(k));
 			}
 
 			if (k > 100000000L) {
-				logger.warn("Something\'s taking too long! \'" + this.profilingSection + "\' took aprox "
-						+ (double) k / 1000000.0D + " ms");
+                logger.warn("Something's taking too long! '" + this.profilingSection + "' took aprox "
+                        + (double) k / 1000000.0D + " ms");
 			}
 
 			this.profilingSection = !this.sectionList.isEmpty()
-					? (String) this.sectionList.get(this.sectionList.size() - 1)
-					: "";
+                    ? this.sectionList.get(this.sectionList.size() - 1)
+                    : "";
 		}
 	}
 
@@ -104,20 +104,20 @@ public class Profiler {
 		if (!this.profilingEnabled) {
 			return null;
 		} else {
-			long i = this.profilingMap.containsKey("root") ? ((Long) this.profilingMap.get("root")).longValue() : 0L;
-			long j = this.profilingMap.containsKey(parString1) ? ((Long) this.profilingMap.get(parString1)).longValue()
-					: -1L;
-			ArrayList arraylist = Lists.newArrayList();
-			if (parString1.length() > 0) {
-				parString1 = parString1 + ".";
-			}
+            long i = this.profilingMap.containsKey("root") ? this.profilingMap.get("root").longValue() : 0L;
+            long j = this.profilingMap.containsKey(parString1) ? this.profilingMap.get(parString1).longValue()
+                    : -1L;
+            ArrayList arraylist = Lists.newArrayList();
+            if (parString1.length() > 0) {
+                parString1 = parString1 + ".";
+            }
 
-			long k = 0L;
+            long k = 0L;
 
-			for (String s : this.profilingMap.keySet()) {
-				if (s.length() > parString1.length() && s.startsWith(parString1)
+            for (String s : this.profilingMap.keySet()) {
+                if (s.length() > parString1.length() && s.startsWith(parString1)
 						&& s.indexOf(".", parString1.length() + 1) < 0) {
-					k += ((Long) this.profilingMap.get(s)).longValue();
+                    k += this.profilingMap.get(s).longValue();
 				}
 			}
 
@@ -133,8 +133,8 @@ public class Profiler {
 			for (String s1 : this.profilingMap.keySet()) {
 				if (s1.length() > parString1.length() && s1.startsWith(parString1)
 						&& s1.indexOf(".", parString1.length() + 1) < 0) {
-					long l = ((Long) this.profilingMap.get(s1)).longValue();
-					double d0 = (double) l * 100.0D / (double) k;
+                    long l = this.profilingMap.get(s1).longValue();
+                    double d0 = (double) l * 100.0D / (double) k;
 					double d1 = (double) l * 100.0D / (double) i;
 					String s2 = s1.substring(parString1.length());
 					arraylist.add(new Profiler.Result(s2, d0, d1));
@@ -142,7 +142,7 @@ public class Profiler {
 			}
 
 			for (String s3 : this.profilingMap.keySet()) {
-				this.profilingMap.put(s3, Long.valueOf(((Long) this.profilingMap.get(s3)).longValue() * 999L / 1000L));
+                this.profilingMap.put(s3, Long.valueOf(this.profilingMap.get(s3).longValue() * 999L / 1000L));
 			}
 
 			if ((float) k > f) {
@@ -165,7 +165,7 @@ public class Profiler {
 	}
 
 	public String getNameOfLastSection() {
-		return this.sectionList.size() == 0 ? "[UNKNOWN]" : (String) this.sectionList.get(this.sectionList.size() - 1);
+        return this.sectionList.size() == 0 ? "[UNKNOWN]" : this.sectionList.get(this.sectionList.size() - 1);
 	}
 
 	public static final class Result implements Comparable<Profiler.Result> {

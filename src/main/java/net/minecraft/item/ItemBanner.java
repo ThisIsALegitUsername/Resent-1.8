@@ -52,12 +52,8 @@ public class ItemBanner extends ItemBlock {
 		} else {
 			blockpos = blockpos.offset(enumfacing);
 			if (!entityplayer.canPlayerEdit(blockpos, enumfacing, itemstack)) {
-				return false;
-			} else if (!Blocks.standing_banner.canPlaceBlockAt(world, blockpos)) {
-				return false;
-			} else {
-				return true;
-			}
+                return false;
+            } else return Blocks.standing_banner.canPlaceBlockAt(world, blockpos);
 		}
 	}
 
@@ -108,7 +104,7 @@ public class ItemBanner extends ItemBlock {
 	public void getSubItems(Item item, CreativeTabs var2, List<ItemStack> list) {
 		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
-			TileEntityBanner.func_181020_a(nbttagcompound, enumdyecolor.getDyeDamage(), (NBTTagList) null);
+            TileEntityBanner.func_181020_a(nbttagcompound, enumdyecolor.getDyeDamage(), null);
 			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 			nbttagcompound1.setTag("BlockEntityTag", nbttagcompound);
 			ItemStack itemstack = new ItemStack(item, 1, enumdyecolor.getDyeDamage());

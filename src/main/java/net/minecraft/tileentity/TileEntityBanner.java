@@ -195,7 +195,7 @@ public class TileEntityBanner extends TileEntity {
 				if (nbttaglist.hasNoTags()) {
 					stack.getTagCompound().removeTag("BlockEntityTag");
 					if (stack.getTagCompound().hasNoTags()) {
-						stack.setTagCompound((NBTTagCompound) null);
+						stack.setTagCompound(null);
 					}
 				}
 
@@ -203,17 +203,17 @@ public class TileEntityBanner extends TileEntity {
 		}
 	}
 
-	public static enum EnumBannerPattern {
-		BASE("base", "b"), SQUARE_BOTTOM_LEFT("square_bottom_left", "bl", "   ", "   ", "#  "),
-		SQUARE_BOTTOM_RIGHT("square_bottom_right", "br", "   ", "   ", "  #"),
-		SQUARE_TOP_LEFT("square_top_left", "tl", "#  ", "   ", "   "),
-		SQUARE_TOP_RIGHT("square_top_right", "tr", "  #", "   ", "   "),
-		STRIPE_BOTTOM("stripe_bottom", "bs", "   ", "   ", "###"), STRIPE_TOP("stripe_top", "ts", "###", "   ", "   "),
-		STRIPE_LEFT("stripe_left", "ls", "#  ", "#  ", "#  "), STRIPE_RIGHT("stripe_right", "rs", "  #", "  #", "  #"),
-		STRIPE_CENTER("stripe_center", "cs", " # ", " # ", " # "),
-		STRIPE_MIDDLE("stripe_middle", "ms", "   ", "###", "   "),
-		STRIPE_DOWNRIGHT("stripe_downright", "drs", "#  ", " # ", "  #"),
-		STRIPE_DOWNLEFT("stripe_downleft", "dls", "  #", " # ", "#  "),
+    public enum EnumBannerPattern {
+        BASE("base", "b"), SQUARE_BOTTOM_LEFT("square_bottom_left", "bl", "   ", "   ", "#  "),
+        SQUARE_BOTTOM_RIGHT("square_bottom_right", "br", "   ", "   ", "  #"),
+        SQUARE_TOP_LEFT("square_top_left", "tl", "#  ", "   ", "   "),
+        SQUARE_TOP_RIGHT("square_top_right", "tr", "  #", "   ", "   "),
+        STRIPE_BOTTOM("stripe_bottom", "bs", "   ", "   ", "###"), STRIPE_TOP("stripe_top", "ts", "###", "   ", "   "),
+        STRIPE_LEFT("stripe_left", "ls", "#  ", "#  ", "#  "), STRIPE_RIGHT("stripe_right", "rs", "  #", "  #", "  #"),
+        STRIPE_CENTER("stripe_center", "cs", " # ", " # ", " # "),
+        STRIPE_MIDDLE("stripe_middle", "ms", "   ", "###", "   "),
+        STRIPE_DOWNRIGHT("stripe_downright", "drs", "#  ", " # ", "  #"),
+        STRIPE_DOWNLEFT("stripe_downleft", "dls", "  #", " # ", "#  "),
 		STRIPE_SMALL("small_stripes", "ss", "# #", "# #", "   "), CROSS("cross", "cr", "# #", " # ", "# #"),
 		STRAIGHT_CROSS("straight_cross", "sc", " # ", "###", " # "),
 		TRIANGLE_BOTTOM("triangle_bottom", "bt", "   ", " # ", "# #"),
@@ -229,39 +229,39 @@ public class TileEntityBanner extends TileEntity {
 		HALF_HORIZONTAL("half_horizontal", "hh", "###", "###", "   "),
 		HALF_VERTICAL_MIRROR("half_vertical_right", "vhr", " ##", " ##", " ##"),
 		HALF_HORIZONTAL_MIRROR("half_horizontal_bottom", "hhb", "   ", "###", "###"),
-		BORDER("border", "bo", "###", "# #", "###"),
-		CURLY_BORDER("curly_border", "cbo", () -> new ItemStack(Blocks.vine)),
-		CREEPER("creeper", "cre", () -> new ItemStack(Items.skull, 1, 4)),
-		GRADIENT("gradient", "gra", "# #", " # ", " # "), GRADIENT_UP("gradient_up", "gru", " # ", " # ", "# #"),
-		BRICKS("bricks", "bri", () -> new ItemStack(Blocks.brick_block)),
-		SKULL("skull", "sku", () -> new ItemStack(Items.skull, 1, 1)),
-		FLOWER("flower", "flo",
-				() -> new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.OXEYE_DAISY.getMeta())),
-		MOJANG("mojang", "moj", () -> new ItemStack(Items.golden_apple, 1, 1));
+        BORDER("border", "bo", "###", "# #", "###"),
+        CURLY_BORDER("curly_border", "cbo", () -> new ItemStack(Blocks.vine)),
+        CREEPER("creeper", "cre", () -> new ItemStack(Items.skull, 1, 4)),
+        GRADIENT("gradient", "gra", "# #", " # ", " # "), GRADIENT_UP("gradient_up", "gru", " # ", " # ", "# #"),
+        BRICKS("bricks", "bri", () -> new ItemStack(Blocks.brick_block)),
+        SKULL("skull", "sku", () -> new ItemStack(Items.skull, 1, 1)),
+        FLOWER("flower", "flo",
+                () -> new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.OXEYE_DAISY.getMeta())),
+        MOJANG("mojang", "moj", () -> new ItemStack(Items.golden_apple, 1, 1));
 
-		private String patternName;
-		private String patternID;
-		private String[] craftingLayers;
-		private Supplier<ItemStack> patternCraftingStackSupplier;
-		private ItemStack patternCraftingStack;
+        private final String patternName;
+        private final String patternID;
+        private final String[] craftingLayers;
+        private Supplier<ItemStack> patternCraftingStackSupplier;
+        private ItemStack patternCraftingStack;
 
-		private EnumBannerPattern(String name, String id) {
-			this.craftingLayers = new String[3];
-			this.patternName = name;
-			this.patternID = id;
-		}
+        EnumBannerPattern(String name, String id) {
+            this.craftingLayers = new String[3];
+            this.patternName = name;
+            this.patternID = id;
+        }
 
-		private EnumBannerPattern(String name, String id, Supplier<ItemStack> craftingItem) {
-			this(name, id);
-			this.patternCraftingStackSupplier = craftingItem;
-		}
+        EnumBannerPattern(String name, String id, Supplier<ItemStack> craftingItem) {
+            this(name, id);
+            this.patternCraftingStackSupplier = craftingItem;
+        }
 
-		private EnumBannerPattern(String name, String id, String craftingTop, String craftingMid, String craftingBot) {
-			this(name, id);
-			this.craftingLayers[0] = craftingTop;
-			this.craftingLayers[1] = craftingMid;
-			this.craftingLayers[2] = craftingBot;
-		}
+        EnumBannerPattern(String name, String id, String craftingTop, String craftingMid, String craftingBot) {
+            this(name, id);
+            this.craftingLayers[0] = craftingTop;
+            this.craftingLayers[1] = craftingMid;
+            this.craftingLayers[2] = craftingBot;
+        }
 
 		public String getPatternName() {
 			return this.patternName;

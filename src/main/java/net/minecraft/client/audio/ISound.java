@@ -39,17 +39,17 @@ public interface ISound {
 
 	ISound.AttenuationType getAttenuationType();
 
-	public static enum AttenuationType {
-		NONE(0), LINEAR(2);
+	enum AttenuationType {
+        NONE(0), LINEAR(2);
 
-		private final int type;
+        private final int type;
 
-		private AttenuationType(int typeIn) {
-			this.type = typeIn;
-		}
+        AttenuationType(int typeIn) {
+            this.type = typeIn;
+        }
 
-		public int getTypeInt() {
-			return this.type;
+        public int getTypeInt() {
+            return this.type;
 		}
 	}
 }

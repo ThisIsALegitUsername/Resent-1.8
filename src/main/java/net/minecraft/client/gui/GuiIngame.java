@@ -117,8 +117,8 @@ public class GuiIngame extends Gui {
 
 	public GuiIngame(Minecraft mcIn) {
 		this.mc = mcIn;
-		this.itemRenderer = mcIn.getRenderItem();
-		this.overlayDebug = new GuiOverlayDebug(mcIn);
+        itemRenderer = mcIn.getRenderItem();
+        this.overlayDebug = new GuiOverlayDebug(mcIn);
 		this.spectatorGui = new GuiSpectator(mcIn);
 		this.persistantChatGUI = new GuiNewChat(mcIn);
 		this.overlayPlayerList = new GuiPlayerTabOverlay(mcIn, this);
@@ -448,10 +448,9 @@ public class GuiIngame extends Gui {
 		this.mc.mcProfiler.startSection("demo");
 		String s = "";
 		if (this.mc.theWorld.getTotalWorldTime() >= 120500L) {
-			s = I18n.format("demo.demoExpired", new Object[0]);
+            s = I18n.format("demo.demoExpired");
 		} else {
-			s = I18n.format("demo.remainingTime", new Object[] {
-					StringUtils.ticksToElapsedTime((int) (120500L - this.mc.theWorld.getTotalWorldTime())) });
+            s = I18n.format("demo.remainingTime", StringUtils.ticksToElapsedTime((int) (120500L - this.mc.theWorld.getTotalWorldTime())));
 		}
 
 		int i = this.getFontRenderer().getStringWidth(s);
@@ -471,9 +470,7 @@ public class GuiIngame extends Gui {
 				if (this.mc.objectMouseOver != null
 						&& this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 					BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
-					if (this.mc.theWorld.getTileEntity(blockpos) instanceof IInventory) {
-						return true;
-					}
+                    return this.mc.theWorld.getTileEntity(blockpos) instanceof IInventory;
 				}
 
 				return false;
@@ -543,11 +540,11 @@ public class GuiIngame extends Gui {
 			boolean flag = this.healthUpdateCounter > (long) this.updateCounter
 					&& (this.healthUpdateCounter - (long) this.updateCounter) / 3L % 2L == 1L;
 			if (i < this.playerHealth && entityplayer.hurtResistantTime > 0) {
-				this.lastSystemTime = Minecraft.getSystemTime();
-				this.healthUpdateCounter = (long) (this.updateCounter + 20);
+                this.lastSystemTime = Minecraft.getSystemTime();
+                this.healthUpdateCounter = this.updateCounter + 20;
 			} else if (i > this.playerHealth && entityplayer.hurtResistantTime > 0) {
-				this.lastSystemTime = Minecraft.getSystemTime();
-				this.healthUpdateCounter = (long) (this.updateCounter + 10);
+                this.lastSystemTime = Minecraft.getSystemTime();
+                this.healthUpdateCounter = this.updateCounter + 10;
 			}
 
 			if (Minecraft.getSystemTime() - this.lastSystemTime > 1000L) {
@@ -558,7 +555,7 @@ public class GuiIngame extends Gui {
 
 			this.playerHealth = i;
 			int j = this.lastPlayerHealth;
-			this.rand.setSeed((long) (this.updateCounter * 312871));
+            this.rand.setSeed(this.updateCounter * 312871L);
 			boolean flag1 = false;
 			FoodStats foodstats = entityplayer.getFoodStats();
 			int k = foodstats.getFoodLevel();
@@ -703,9 +700,9 @@ public class GuiIngame extends Gui {
 				}
 			} else if (entity instanceof EntityLivingBase) {
 				this.mc.mcProfiler.endStartSection("mountHealth");
-				EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
-				int j6 = (int) Math.ceil((double) entitylivingbase.getHealth());
-				float f3 = entitylivingbase.getMaxHealth();
+                EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+                int j6 = (int) Math.ceil(entitylivingbase.getHealth());
+                float f3 = entitylivingbase.getMaxHealth();
 				int j7 = (int) (f3 + 0.5F) / 2;
 				if (j7 > 30) {
 					j7 = 30;
@@ -786,26 +783,26 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderPumpkinOverlay(ScaledResolution parScaledResolution) {
-		GlStateManager.disableDepth();
-		GlStateManager.depthMask(false);
-		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.disableAlpha();
-		this.mc.getTextureManager().bindTexture(pumpkinBlurTexPath);
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(0.0D, (double) parScaledResolution.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), (double) parScaledResolution.getScaledHeight(),
-				-90.0D).tex(1.0D, 1.0D).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
-		worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
-		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableDepth();
-		GlStateManager.enableAlpha();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-	}
+        GlStateManager.disableDepth();
+        GlStateManager.depthMask(false);
+        GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.disableAlpha();
+        this.mc.getTextureManager().bindTexture(pumpkinBlurTexPath);
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(0.0D, parScaledResolution.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+        worldrenderer.pos(parScaledResolution.getScaledWidth(), parScaledResolution.getScaledHeight(),
+                -90.0D).tex(1.0D, 1.0D).endVertex();
+        worldrenderer.pos(parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
+        tessellator.draw();
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableAlpha();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    }
 
 	/**+
 	 * Renders a Vignette arount the entire screen that changes with
@@ -816,9 +813,9 @@ public class GuiIngame extends Gui {
 		parFloat1 = MathHelper.clamp_float(parFloat1, 0.0F, 1.0F);
 		WorldBorder worldborder = this.mc.theWorld.getWorldBorder();
 		float f = (float) worldborder.getClosestDistance(this.mc.thePlayer);
-		double d0 = Math.min(worldborder.getResizeSpeed() * (double) worldborder.getWarningTime() * 1000.0D,
-				Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));
-		double d1 = Math.max((double) worldborder.getWarningDistance(), d0);
+        double d0 = Math.min(worldborder.getResizeSpeed() * (double) worldborder.getWarningTime() * 1000.0D,
+                Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));
+        double d1 = Math.max(worldborder.getWarningDistance(), d0);
 		if ((double) f < d1) {
 			f = 1.0F - (float) ((double) f / d1);
 		} else {
@@ -831,27 +828,27 @@ public class GuiIngame extends Gui {
 		GlStateManager.depthMask(false);
 		GlStateManager.tryBlendFuncSeparate(0, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 		if (f > 0.0F) {
-			GlStateManager.color(0.0F, f, f, 1.0F);
-		} else {
-			GlStateManager.color(this.prevVignetteBrightness, this.prevVignetteBrightness, this.prevVignetteBrightness,
-					1.0F);
-		}
+            GlStateManager.color(0.0F, f, f, 1.0F);
+        } else {
+            GlStateManager.color(this.prevVignetteBrightness, this.prevVignetteBrightness, this.prevVignetteBrightness,
+                    1.0F);
+        }
 
-		this.mc.getTextureManager().bindTexture(vignetteTexPath);
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(0.0D, (double) parScaledResolution.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), (double) parScaledResolution.getScaledHeight(),
-				-90.0D).tex(1.0D, 1.0D).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
-		worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
-		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableDepth();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-	}
+        this.mc.getTextureManager().bindTexture(vignetteTexPath);
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(0.0D, parScaledResolution.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+        worldrenderer.pos(parScaledResolution.getScaledWidth(), parScaledResolution.getScaledHeight(),
+                -90.0D).tex(1.0D, 1.0D).endVertex();
+        worldrenderer.pos(parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
+        tessellator.draw();
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+    }
 
 	private void func_180474_b(float parFloat1, ScaledResolution parScaledResolution) {
 		if (parFloat1 < 1.0F) {
@@ -867,27 +864,27 @@ public class GuiIngame extends Gui {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, parFloat1);
 		this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 		EaglerTextureAtlasSprite textureatlassprite = this.mc.getBlockRendererDispatcher().getBlockModelShapes()
-				.getTexture(Blocks.portal.getDefaultState());
-		float f = textureatlassprite.getMinU();
-		float f1 = textureatlassprite.getMinV();
-		float f2 = textureatlassprite.getMaxU();
-		float f3 = textureatlassprite.getMaxV();
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(0.0D, (double) parScaledResolution.getScaledHeight(), -90.0D).tex((double) f, (double) f3)
-				.endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), (double) parScaledResolution.getScaledHeight(),
-				-90.0D).tex((double) f2, (double) f3).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex((double) f2, (double) f1)
-				.endVertex();
-		worldrenderer.pos(0.0D, 0.0D, -90.0D).tex((double) f, (double) f1).endVertex();
-		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableDepth();
-		GlStateManager.enableAlpha();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-	}
+                .getTexture(Blocks.portal.getDefaultState());
+        float f = textureatlassprite.getMinU();
+        float f1 = textureatlassprite.getMinV();
+        float f2 = textureatlassprite.getMaxU();
+        float f3 = textureatlassprite.getMaxV();
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(0.0D, parScaledResolution.getScaledHeight(), -90.0D).tex(f, f3)
+                .endVertex();
+        worldrenderer.pos(parScaledResolution.getScaledWidth(), parScaledResolution.getScaledHeight(),
+                -90.0D).tex(f2, f3).endVertex();
+        worldrenderer.pos(parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex(f2, f1)
+                .endVertex();
+        worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(f, f1).endVertex();
+        tessellator.draw();
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableAlpha();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    }
 
 	private void renderHotbarItem(int index, int xPos, int yPos, float partialTicks, EntityPlayer parEntityPlayer) {
 		ItemStack itemstack = parEntityPlayer.inventory.mainInventory[index];
@@ -901,12 +898,12 @@ public class GuiIngame extends Gui {
 				GlStateManager.translate((float) (-(xPos + 8)), (float) (-(yPos + 12)), 0.0F);
 			}
 
-			this.itemRenderer.renderItemAndEffectIntoGUI(itemstack, xPos, yPos);
+            itemRenderer.renderItemAndEffectIntoGUI(itemstack, xPos, yPos);
 			if (f > 0.0F) {
 				GlStateManager.popMatrix();
 			}
 
-			this.itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
+            itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
 		}
 	}
 
@@ -948,7 +945,7 @@ public class GuiIngame extends Gui {
 	}
 
 	public void setRecordPlayingMessage(String parString1) {
-		this.setRecordPlaying(I18n.format("record.nowPlaying", new Object[] { parString1 }), true);
+        this.setRecordPlaying(I18n.format("record.nowPlaying", parString1), true);
 	}
 
 	public void setRecordPlaying(String parString1, boolean parFlag) {

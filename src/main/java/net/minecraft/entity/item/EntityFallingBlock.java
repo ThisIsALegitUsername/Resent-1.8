@@ -1,10 +1,6 @@
 package net.minecraft.entity.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.material.Material;
@@ -18,6 +14,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -128,7 +127,7 @@ public class EntityFallingBlock extends Entity {
 				}
 
 				if (flag && (double) this.rand.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {
-					int j = ((Integer) this.fallTile.getValue(BlockAnvil.DAMAGE)).intValue();
+					int j = this.fallTile.getValue(BlockAnvil.DAMAGE).intValue();
 					++j;
 					if (j > 2) {
 						this.canSetAsBlock = true;
@@ -146,8 +145,8 @@ public class EntityFallingBlock extends Entity {
 	 * data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-		Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.air;
-		ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry.getNameForObject(block);
+        Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.air;
+        ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(block);
 		nbttagcompound.setString("Block", resourcelocation == null ? "" : resourcelocation.toString());
 		nbttagcompound.setByte("Data", (byte) block.getMetaFromState(this.fallTile));
 		nbttagcompound.setByte("Time", (byte) this.fallTime);

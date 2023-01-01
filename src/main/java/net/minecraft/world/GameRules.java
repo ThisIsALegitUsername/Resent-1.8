@@ -24,7 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
  * 
  */
 public class GameRules {
-	private TreeMap<String, GameRules.Value> theGameRules = new TreeMap();
+	private final TreeMap<String, GameRules.Value> theGameRules = new TreeMap();
 
 	public GameRules() {
 		this.addGameRule("doFireTick", "true", GameRules.ValueType.BOOLEAN_VALUE);
@@ -49,7 +49,7 @@ public class GameRules {
 	}
 
 	public void setOrCreateGameRule(String key, String ruleValue) {
-		GameRules.Value gamerules$value = (GameRules.Value) this.theGameRules.get(key);
+        GameRules.Value gamerules$value = this.theGameRules.get(key);
 		if (gamerules$value != null) {
 			gamerules$value.setValue(ruleValue);
 		} else {
@@ -62,7 +62,7 @@ public class GameRules {
 	 * Gets the string Game Rule value.
 	 */
 	public String getString(String name) {
-		GameRules.Value gamerules$value = (GameRules.Value) this.theGameRules.get(name);
+        GameRules.Value gamerules$value = this.theGameRules.get(name);
 		return gamerules$value != null ? gamerules$value.getString() : "";
 	}
 
@@ -70,12 +70,12 @@ public class GameRules {
 	 * Gets the boolean Game Rule value.
 	 */
 	public boolean getBoolean(String name) {
-		GameRules.Value gamerules$value = (GameRules.Value) this.theGameRules.get(name);
-		return gamerules$value != null ? gamerules$value.getBoolean() : false;
-	}
+        GameRules.Value gamerules$value = this.theGameRules.get(name);
+        return gamerules$value != null && gamerules$value.getBoolean();
+    }
 
 	public int getInt(String name) {
-		GameRules.Value gamerules$value = (GameRules.Value) this.theGameRules.get(name);
+        GameRules.Value gamerules$value = this.theGameRules.get(name);
 		return gamerules$value != null ? gamerules$value.getInt() : 0;
 	}
 
@@ -86,7 +86,7 @@ public class GameRules {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 		for (String s : this.theGameRules.keySet()) {
-			GameRules.Value gamerules$value = (GameRules.Value) this.theGameRules.get(s);
+            GameRules.Value gamerules$value = this.theGameRules.get(s);
 			nbttagcompound.setString(s, gamerules$value.getString());
 		}
 
@@ -120,7 +120,7 @@ public class GameRules {
 	}
 
 	public boolean areSameType(String key, GameRules.ValueType otherValue) {
-		GameRules.Value gamerules$value = (GameRules.Value) this.theGameRules.get(key);
+        GameRules.Value gamerules$value = this.theGameRules.get(key);
 		return gamerules$value != null
 				&& (gamerules$value.getType() == otherValue || otherValue == GameRules.ValueType.ANY_VALUE);
 	}
@@ -145,14 +145,12 @@ public class GameRules {
 			try {
 				this.valueInteger = Integer.parseInt(value);
 			} catch (NumberFormatException var4) {
-				;
-			}
+            }
 
 			try {
 				this.valueDouble = Double.parseDouble(value);
 			} catch (NumberFormatException var3) {
-				;
-			}
+            }
 
 		}
 
@@ -170,16 +168,16 @@ public class GameRules {
 			return this.valueBoolean;
 		}
 
-		public int getInt() {
-			return this.valueInteger;
-		}
+        public int getInt() {
+            return this.valueInteger;
+        }
 
-		public GameRules.ValueType getType() {
-			return this.type;
-		}
-	}
+        public GameRules.ValueType getType() {
+            return this.type;
+        }
+    }
 
-	public static enum ValueType {
-		ANY_VALUE, BOOLEAN_VALUE, NUMERICAL_VALUE;
-	}
+    public enum ValueType {
+        ANY_VALUE, BOOLEAN_VALUE, NUMERICAL_VALUE
+    }
 }

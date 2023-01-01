@@ -44,12 +44,12 @@ public class EntitySpider extends EntityMob {
 	 * entity riding this one.
 	 */
 	public double getMountedYOffset() {
-		return (double) (this.height * 0.5F);
+		return this.height * 0.5F;
 	}
 
 	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(16, new Byte((byte) 0));
+        super.entityInit();
+        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
 
 	protected void applyEntityAttributes() {
@@ -119,7 +119,7 @@ public class EntitySpider extends EntityMob {
 	}
 
 	public boolean isPotionApplicable(PotionEffect potioneffect) {
-		return potioneffect.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(potioneffect);
+        return potioneffect.getPotionID() != Potion.poison.id && super.isPotionApplicable(potioneffect);
 	}
 
 	/**+
@@ -157,9 +157,9 @@ public class EntitySpider extends EntityMob {
 		ientitylivingdata = super.onInitialSpawn(difficultyinstance, ientitylivingdata);
 		if (this.worldObj.rand.nextInt(100) == 0) {
 			EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
-			entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-			entityskeleton.onInitialSpawn(difficultyinstance, (IEntityLivingData) null);
-			this.worldObj.spawnEntityInWorld(entityskeleton);
+            entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+            entityskeleton.onInitialSpawn(difficultyinstance, null);
+            this.worldObj.spawnEntityInWorld(entityskeleton);
 			entityskeleton.mountEntity(this);
 		}
 

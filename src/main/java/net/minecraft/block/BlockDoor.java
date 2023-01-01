@@ -1,9 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -13,14 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -57,8 +48,8 @@ public class BlockDoor extends Block {
 	}
 
 	public static void bootstrapStates() {
-		HINGE = PropertyEnum.<BlockDoor.EnumHingePosition>create("hinge", BlockDoor.EnumHingePosition.class);
-		HALF = PropertyEnum.<BlockDoor.EnumDoorHalf>create("half", BlockDoor.EnumDoorHalf.class);
+		HINGE = PropertyEnum.create("hinge", BlockDoor.EnumHingePosition.class);
+		HALF = PropertyEnum.create("half", BlockDoor.EnumDoorHalf.class);
 	}
 
 	/**+
@@ -158,7 +149,7 @@ public class BlockDoor extends Block {
 				world.setBlockState(blockpos1, iblockstate, 2);
 				world.markBlockRangeForRenderUpdate(blockpos1, blockpos);
 				world.playAuxSFXAtEntity(entityplayer,
-						((Boolean) iblockstate.getValue(OPEN)).booleanValue() ? 1003 : 1006, blockpos, 0);
+						iblockstate.getValue(OPEN).booleanValue() ? 1003 : 1006, blockpos, 0);
 				return true;
 			}
 		}
@@ -169,10 +160,10 @@ public class BlockDoor extends Block {
 		if (iblockstate.getBlock() == this) {
 			BlockPos blockpos = iblockstate.getValue(HALF) == BlockDoor.EnumDoorHalf.LOWER ? pos : pos.down();
 			IBlockState iblockstate1 = pos == blockpos ? iblockstate : worldIn.getBlockState(blockpos);
-			if (iblockstate1.getBlock() == this && ((Boolean) iblockstate1.getValue(OPEN)).booleanValue() != open) {
+			if (iblockstate1.getBlock() == this && iblockstate1.getValue(OPEN).booleanValue() != open) {
 				worldIn.setBlockState(blockpos, iblockstate1.withProperty(OPEN, Boolean.valueOf(open)), 2);
 				worldIn.markBlockRangeForRenderUpdate(blockpos, pos);
-				worldIn.playAuxSFXAtEntity((EntityPlayer) null, open ? 1003 : 1006, pos, 0);
+				worldIn.playAuxSFXAtEntity(null, open ? 1003 : 1006, pos, 0);
 			}
 
 		}
@@ -210,12 +201,12 @@ public class BlockDoor extends Block {
 			if (!flag1) {
 				boolean flag = world.isBlockPowered(blockpos) || world.isBlockPowered(blockpos2);
 				if ((flag || block.canProvidePower()) && block != this
-						&& flag != ((Boolean) iblockstate2.getValue(POWERED)).booleanValue()) {
+						&& flag != iblockstate2.getValue(POWERED).booleanValue()) {
 					world.setBlockState(blockpos2, iblockstate2.withProperty(POWERED, Boolean.valueOf(flag)), 2);
-					if (flag != ((Boolean) iblockstate.getValue(OPEN)).booleanValue()) {
+					if (flag != iblockstate.getValue(OPEN).booleanValue()) {
 						world.setBlockState(blockpos, iblockstate.withProperty(OPEN, Boolean.valueOf(flag)), 2);
 						world.markBlockRangeForRenderUpdate(blockpos, blockpos);
-						world.playAuxSFXAtEntity((EntityPlayer) null, flag ? 1003 : 1006, blockpos, 0);
+						world.playAuxSFXAtEntity(null, flag ? 1003 : 1006, blockpos, 0);
 					}
 				}
 			}
@@ -240,9 +231,8 @@ public class BlockDoor extends Block {
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
-		return blockpos.getY() >= 255 ? false
-				: World.doesBlockHaveSolidTopSurface(world, blockpos.down()) && super.canPlaceBlockAt(world, blockpos)
-						&& super.canPlaceBlockAt(world, blockpos.up());
+		return blockpos.getY() < 255 && World.doesBlockHaveSolidTopSurface(world, blockpos.down()) && super.canPlaceBlockAt(world, blockpos)
+				&& super.canPlaceBlockAt(world, blockpos.up());
 	}
 
 	public int getMobilityFlag() {
@@ -339,12 +329,12 @@ public class BlockDoor extends Block {
 				i |= 1;
 			}
 
-			if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
+			if (iblockstate.getValue(POWERED).booleanValue()) {
 				i |= 2;
 			}
 		} else {
-			i = i | ((EnumFacing) iblockstate.getValue(FACING)).rotateY().getHorizontalIndex();
-			if (((Boolean) iblockstate.getValue(OPEN)).booleanValue()) {
+			i = i | iblockstate.getValue(FACING).rotateY().getHorizontalIndex();
+			if (iblockstate.getValue(OPEN).booleanValue()) {
 				i |= 4;
 			}
 		}
@@ -381,10 +371,10 @@ public class BlockDoor extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { HALF, FACING, OPEN, HINGE, POWERED });
+		return new BlockState(this, HALF, FACING, OPEN, HINGE, POWERED);
 	}
 
-	public static enum EnumDoorHalf implements IStringSerializable {
+	public enum EnumDoorHalf implements IStringSerializable {
 		UPPER, LOWER;
 
 		public String toString() {
@@ -396,7 +386,7 @@ public class BlockDoor extends Block {
 		}
 	}
 
-	public static enum EnumHingePosition implements IStringSerializable {
+	public enum EnumHingePosition implements IStringSerializable {
 		LEFT, RIGHT;
 
 		public String toString() {

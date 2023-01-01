@@ -81,7 +81,7 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 	}
 
 	public boolean receiveClientEvent(int i, int j) {
-		return this.spawnerLogic.setDelayToMin(i) ? true : super.receiveClientEvent(i, j);
+		return this.spawnerLogic.setDelayToMin(i) || super.receiveClientEvent(i, j);
 	}
 
 	public boolean func_183000_F() {

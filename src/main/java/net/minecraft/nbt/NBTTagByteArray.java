@@ -45,8 +45,8 @@ public class NBTTagByteArray extends NBTBase {
 	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
 		sizeTracker.read(192L);
 		int i = input.readInt();
-		sizeTracker.read((long) (8 * i));
-		this.data = new byte[i];
+		sizeTracker.read(8L * i);
+        this.data = new byte[i];
 		input.readFully(this.data);
 	}
 
@@ -71,7 +71,7 @@ public class NBTTagByteArray extends NBTBase {
 	}
 
 	public boolean equals(Object object) {
-		return super.equals(object) ? Arrays.equals(this.data, ((NBTTagByteArray) object).data) : false;
+        return super.equals(object) && Arrays.equals(this.data, ((NBTTagByteArray) object).data);
 	}
 
 	public int hashCode() {

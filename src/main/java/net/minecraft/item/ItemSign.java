@@ -43,12 +43,8 @@ public class ItemSign extends Item {
 		} else {
 			blockpos = blockpos.offset(enumfacing);
 			if (!entityplayer.canPlayerEdit(blockpos, enumfacing, itemstack)) {
-				return false;
-			} else if (!Blocks.standing_sign.canPlaceBlockAt(world, blockpos)) {
-				return false;
-			} else {
-				return true;
-			}
+                return false;
+            } else return Blocks.standing_sign.canPlaceBlockAt(world, blockpos);
 		}
 	}
 }

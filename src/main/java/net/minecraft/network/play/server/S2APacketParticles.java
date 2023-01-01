@@ -118,21 +118,21 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the x coordinate to spawn the particle.
 	 */
 	public double getXCoordinate() {
-		return (double) this.xCoord;
+		return this.xCoord;
 	}
 
 	/**+
 	 * Gets the y coordinate to spawn the particle.
 	 */
 	public double getYCoordinate() {
-		return (double) this.yCoord;
+        return this.yCoord;
 	}
 
 	/**+
 	 * Gets the z coordinate to spawn the particle.
 	 */
 	public double getZCoordinate() {
-		return (double) this.zCoord;
+        return this.zCoord;
 	}
 
 	/**+

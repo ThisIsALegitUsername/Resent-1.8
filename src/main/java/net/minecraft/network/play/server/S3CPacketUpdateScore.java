@@ -61,8 +61,8 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
 		this.name = parPacketBuffer.readStringFromBuffer(40);
-		this.action = (S3CPacketUpdateScore.Action) parPacketBuffer.readEnumValue(S3CPacketUpdateScore.Action.class);
-		this.objective = parPacketBuffer.readStringFromBuffer(16);
+        this.action = parPacketBuffer.readEnumValue(Action.class);
+        this.objective = parPacketBuffer.readStringFromBuffer(16);
 		if (this.action != S3CPacketUpdateScore.Action.REMOVE) {
 			this.value = parPacketBuffer.readVarIntFromBuffer();
 		}
@@ -95,17 +95,17 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 
 	public String getObjectiveName() {
 		return this.objective;
-	}
+    }
 
-	public int getScoreValue() {
-		return this.value;
-	}
+    public int getScoreValue() {
+        return this.value;
+    }
 
-	public S3CPacketUpdateScore.Action getScoreAction() {
-		return this.action;
-	}
+    public S3CPacketUpdateScore.Action getScoreAction() {
+        return this.action;
+    }
 
-	public static enum Action {
-		CHANGE, REMOVE;
-	}
+    public enum Action {
+        CHANGE, REMOVE
+    }
 }

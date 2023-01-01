@@ -1,9 +1,9 @@
 package net.lax1dude.eaglercraft.v1_8.internal.teavm;
 
-import java.io.InputStream;
-
 import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.Uint8Array;
+
+import java.io.InputStream;
 
 /**
  * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
@@ -21,7 +21,7 @@ import org.teavm.jso.typedarrays.Uint8Array;
 public class ArrayBufferInputStream extends InputStream {
 	
 	private int position;
-	private int limit;
+	private final int limit;
 	private final ArrayBuffer buffer;
 	private final Uint8Array typed;
 	
@@ -49,14 +49,14 @@ public class ArrayBufferInputStream extends InputStream {
 	}
 
 	@Override
-	public int read(byte b[], int off, int len) {
-		if(off + len > b.length) {
+	public int read(byte[] b, int off, int len) {
+		if (off + len > b.length) {
 			throw new ArrayIndexOutOfBoundsException("offset " + off + " and length " + len
 					+ " are out of bounds for a " + b.length + " array");
 		}
-		
+
 		int avail = limit - position;
-		if(len > avail) {
+		if (len > avail) {
 			len = avail;
 		}
 		

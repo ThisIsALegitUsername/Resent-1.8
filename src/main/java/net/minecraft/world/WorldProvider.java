@@ -79,7 +79,7 @@ public abstract class WorldProvider {
 		}
 
 		f = 1.0F - (float) ((Math.cos((double) f * 3.141592653589793D) + 1.0D) / 2.0D);
-		f = f + (f - f) / 3.0F;
+        f = f + (0.0f) / 3.0F;
 		return f;
 	}
 
@@ -128,7 +128,7 @@ public abstract class WorldProvider {
 		f1 = f1 * (f * 0.94F + 0.06F);
 		f2 = f2 * (f * 0.94F + 0.06F);
 		f3 = f3 * (f * 0.91F + 0.09F);
-		return new Vec3((double) f1, (double) f2, (double) f3);
+        return new Vec3(f1, f2, f3);
 	}
 
 	/**+
@@ -140,9 +140,9 @@ public abstract class WorldProvider {
 	}
 
 	public static WorldProvider getProviderForDimension(int dimension) {
-		return (WorldProvider) (dimension == -1 ? new WorldProviderHell()
-				: (dimension == 0 ? new WorldProviderSurface() : (dimension == 1 ? new WorldProviderEnd() : null)));
-	}
+        return dimension == -1 ? new WorldProviderHell()
+                : (dimension == 0 ? new WorldProviderSurface() : (dimension == 1 ? new WorldProviderEnd() : null));
+    }
 
 	/**+
 	 * the y level at which clouds are rendered.

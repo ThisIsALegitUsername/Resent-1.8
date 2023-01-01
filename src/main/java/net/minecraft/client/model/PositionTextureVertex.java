@@ -26,7 +26,7 @@ public class PositionTextureVertex {
 	public float texturePositionY;
 
 	public PositionTextureVertex(float parFloat1, float parFloat2, float parFloat3, float parFloat4, float parFloat5) {
-		this(new Vec3((double) parFloat1, (double) parFloat2, (double) parFloat3), parFloat4, parFloat5);
+		this(new Vec3(parFloat1, parFloat2, parFloat3), parFloat4, parFloat5);
 	}
 
 	public PositionTextureVertex setTexturePosition(float parFloat1, float parFloat2) {

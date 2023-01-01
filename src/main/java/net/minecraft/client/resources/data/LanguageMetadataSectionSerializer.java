@@ -37,15 +37,15 @@ public class LanguageMetadataSectionSerializer extends BaseMetadataSectionSerial
 			String s2 = jsonobject1.getString("name");
 			boolean flag = jsonobject1.optBoolean("bidirectional", false);
 			if (s1.isEmpty()) {
-				throw new JSONException("Invalid language->\'" + s + "\'->region: empty value");
+				throw new JSONException("Invalid language->'" + s + "'->region: empty value");
 			}
 
 			if (s2.isEmpty()) {
-				throw new JSONException("Invalid language->\'" + s + "\'->name: empty value");
+                throw new JSONException("Invalid language->'" + s + "'->name: empty value");
 			}
 
 			if (!hashset.add(new Language(s, s1, s2, flag))) {
-				throw new JSONException("Duplicate language->\'" + s + "\' defined");
+                throw new JSONException("Duplicate language->'" + s + "' defined");
 			}
 		}
 

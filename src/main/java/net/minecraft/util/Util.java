@@ -31,17 +31,17 @@ public class Util {
 	public static <V> V func_181617_a(FutureTask<V> parFutureTask, Logger parLogger) {
 		try {
 			parFutureTask.run();
-			return (V) parFutureTask.get();
-		} catch (ExecutionException executionexception) {
-			parLogger.fatal("Error executing task", executionexception);
-		} catch (InterruptedException interruptedexception) {
-			parLogger.fatal("Error executing task", interruptedexception);
-		}
+            return parFutureTask.get();
+        } catch (ExecutionException executionexception) {
+            parLogger.fatal("Error executing task", executionexception);
+        } catch (InterruptedException interruptedexception) {
+            parLogger.fatal("Error executing task", interruptedexception);
+        }
 
-		return (V) null;
-	}
+        return null;
+    }
 
-	public static enum EnumOS {
-		LINUX, SOLARIS, WINDOWS, OSX, UNKNOWN;
-	}
+    public enum EnumOS {
+        LINUX, SOLARIS, WINDOWS, OSX, UNKNOWN
+    }
 }

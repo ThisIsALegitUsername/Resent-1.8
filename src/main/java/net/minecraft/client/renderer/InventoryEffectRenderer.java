@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import java.util.Collection;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
@@ -28,11 +29,11 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 
 	protected void updateActivePotionEffects() {
 		if (!this.mc.thePlayer.getActivePotionEffects().isEmpty()) {
-			this.guiLeft = 160 + (this.width - this.xSize - 200) / 2;
-			this.hasActivePotionEffects = true;
+            this.guiLeft = 160 + (width - this.xSize - 200) / 2;
+            this.hasActivePotionEffects = true;
 		} else {
-			this.guiLeft = (this.width - this.xSize) / 2;
-			this.hasActivePotionEffects = false;
+            this.guiLeft = (width - this.xSize) / 2;
+            this.hasActivePotionEffects = false;
 		}
 
 	}
@@ -73,16 +74,16 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 				this.drawTexturedModalRect(i, j, 0, 166, 140, 32);
 				if (potion.hasStatusIcon()) {
 					int l = potion.getStatusIconIndex();
-					this.drawTexturedModalRect(i + 6, j + 7, 0 + l % 8 * 18, 198 + l / 8 * 18, 18, 18);
+                    this.drawTexturedModalRect(i + 6, j + 7, l % 8 * 18, 198 + l / 8 * 18, 18, 18);
 				}
 
-				String s1 = I18n.format(potion.getName(), new Object[0]);
+                String s1 = I18n.format(potion.getName());
 				if (potioneffect.getAmplifier() == 1) {
-					s1 = s1 + " " + I18n.format("enchantment.level.2", new Object[0]);
+                    s1 = s1 + " " + I18n.format("enchantment.level.2");
 				} else if (potioneffect.getAmplifier() == 2) {
-					s1 = s1 + " " + I18n.format("enchantment.level.3", new Object[0]);
+                    s1 = s1 + " " + I18n.format("enchantment.level.3");
 				} else if (potioneffect.getAmplifier() == 3) {
-					s1 = s1 + " " + I18n.format("enchantment.level.4", new Object[0]);
+                    s1 = s1 + " " + I18n.format("enchantment.level.4");
 				}
 
 				this.fontRendererObj.drawStringWithShadow(s1, (float) (i + 10 + 18), (float) (j + 6), 16777215);

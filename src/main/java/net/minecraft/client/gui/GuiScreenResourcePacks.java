@@ -56,19 +56,19 @@ public class GuiScreenResourcePacks extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-		GuiButton btn;
-		this.buttonList.add(btn = new GuiOptionButton(2, this.width / 2 - 154, this.height - 48,
-				I18n.format("resourcePack.openFolder", new Object[0])));
-		btn.enabled = SYS.VFS != null;
-		this.buttonList.add(
-				new GuiOptionButton(1, this.width / 2 + 4, this.height - 48, I18n.format("gui.done", new Object[0])));
-		if (!this.changed) {
-			this.availableResourcePacks = Lists.newArrayList();
-			this.selectedResourcePacks = Lists.newArrayList();
-			ResourcePackRepository resourcepackrepository = this.mc.getResourcePackRepository();
-			resourcepackrepository.updateRepositoryEntriesAll();
-			ArrayList arraylist = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
-			arraylist.removeAll(resourcepackrepository.getRepositoryEntries());
+        GuiButton btn;
+        this.buttonList.add(btn = new GuiOptionButton(2, width / 2 - 154, height - 48,
+                I18n.format("resourcePack.openFolder")));
+        btn.enabled = SYS.VFS != null;
+        this.buttonList.add(
+                new GuiOptionButton(1, width / 2 + 4, height - 48, I18n.format("gui.done")));
+        if (!this.changed) {
+            this.availableResourcePacks = Lists.newArrayList();
+            this.selectedResourcePacks = Lists.newArrayList();
+            ResourcePackRepository resourcepackrepository = this.mc.getResourcePackRepository();
+            resourcepackrepository.updateRepositoryEntriesAll();
+            ArrayList arraylist = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
+            arraylist.removeAll(resourcepackrepository.getRepositoryEntries());
 
 			for (ResourcePackRepository.Entry resourcepackrepository$entry : (List<ResourcePackRepository.Entry>) arraylist) {
 				this.availableResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry));
@@ -82,14 +82,14 @@ public class GuiScreenResourcePacks extends GuiScreen {
 			this.selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
 		}
 
-		this.availableResourcePacksList = new GuiResourcePackAvailable(this.mc, 200, this.height,
-				this.availableResourcePacks);
-		this.availableResourcePacksList.setSlotXBoundsFromLeft(this.width / 2 - 4 - 200);
-		this.availableResourcePacksList.registerScrollButtons(7, 8);
-		this.selectedResourcePacksList = new GuiResourcePackSelected(this.mc, 200, this.height,
-				this.selectedResourcePacks);
-		this.selectedResourcePacksList.setSlotXBoundsFromLeft(this.width / 2 + 4);
-		this.selectedResourcePacksList.registerScrollButtons(7, 8);
+        this.availableResourcePacksList = new GuiResourcePackAvailable(this.mc, 200, height,
+                this.availableResourcePacks);
+        this.availableResourcePacksList.setSlotXBoundsFromLeft(width / 2 - 4 - 200);
+        this.availableResourcePacksList.registerScrollButtons(7, 8);
+        this.selectedResourcePacksList = new GuiResourcePackSelected(this.mc, 200, height,
+                this.selectedResourcePacks);
+        this.selectedResourcePacksList.setSlotXBoundsFromLeft(width / 2 + 4);
+        this.selectedResourcePacksList.registerScrollButtons(7, 8);
 	}
 
 	/**+
@@ -234,15 +234,15 @@ public class GuiScreenResourcePacks extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-		this.drawBackground(0);
-		this.availableResourcePacksList.drawScreen(i, j, f);
-		this.selectedResourcePacksList.drawScreen(i, j, f);
-		this.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.title", new Object[0]), this.width / 2,
-				16, 16777215);
-		this.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.folderInfo", new Object[0]),
-				this.width / 2 - 77, this.height - 26, 8421504);
-		super.drawScreen(i, j, f);
-	}
+        this.drawBackground(0);
+        this.availableResourcePacksList.drawScreen(i, j, f);
+        this.selectedResourcePacksList.drawScreen(i, j, f);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.title"), width / 2,
+                16, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.folderInfo"),
+                width / 2 - 77, height - 26, 8421504);
+        super.drawScreen(i, j, f);
+    }
 
 	/**+
 	 * Marks the selected resource packs list as changed to trigger

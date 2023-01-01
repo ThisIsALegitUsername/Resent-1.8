@@ -163,8 +163,8 @@ public class ItemMap extends ItemMapBase {
 									b0 = 0;
 								}
 
-								MapColor mapcolor = (MapColor) Iterables
-										.getFirst(Multisets.copyHighestCountFirst(hashmultiset), MapColor.airColor);
+								MapColor mapcolor = Iterables
+                                        .getFirst(Multisets.copyHighestCountFirst(hashmultiset), MapColor.airColor);
 								if (mapcolor == MapColor.waterColor) {
 									d2 = (double) k3 * 0.1D + (double) (k1 + l1 & 1) * 0.2D;
 									b0 = 1;
@@ -214,8 +214,8 @@ public class ItemMap extends ItemMapBase {
 				mapdata1.scale = 4;
 			}
 
-			mapdata1.calculateMapCenter((double) mapdata.xCenter, (double) mapdata.zCenter, mapdata1.scale);
-			mapdata1.dimension = mapdata.dimension;
+            mapdata1.calculateMapCenter(mapdata.xCenter, mapdata.zCenter, mapdata1.scale);
+            mapdata1.dimension = mapdata.dimension;
 			mapdata1.markDirty();
 			worldIn.setItemData("map_" + stack.getMetadata(), mapdata1);
 		}

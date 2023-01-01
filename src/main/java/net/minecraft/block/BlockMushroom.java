@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -78,12 +77,10 @@ public class BlockMushroom extends BlockBush implements IGrowable {
 
 	public boolean canBlockStay(World world, BlockPos blockpos, IBlockState var3) {
 		if (blockpos.getY() >= 0 && blockpos.getY() < 256) {
-			IBlockState iblockstate = world.getBlockState(blockpos.down());
-			return iblockstate.getBlock() == Blocks.mycelium ? true
-					: (iblockstate.getBlock() == Blocks.dirt
-							&& iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL ? true
-									: world.getLight(blockpos) < 13 && this.canPlaceBlockOn(iblockstate.getBlock()));
-		} else {
+            IBlockState iblockstate = world.getBlockState(blockpos.down());
+            return iblockstate.getBlock() == Blocks.mycelium || (iblockstate.getBlock() == Blocks.dirt
+                    && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || world.getLight(blockpos) < 13 && this.canPlaceBlockOn(iblockstate.getBlock()));
+        } else {
 			return false;
 		}
 	}

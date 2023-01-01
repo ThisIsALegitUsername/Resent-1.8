@@ -14,26 +14,27 @@ import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class EnchantmentNameParts {
-	private static final EnchantmentNameParts instance = new EnchantmentNameParts();
-	private EaglercraftRandom rand = new EaglercraftRandom();
-	private String[] namePartsArray = "the elder scrolls klaatu berata niktu xyzzy bless curse light darkness fire air earth water hot dry cold wet ignite snuff embiggen twist shorten stretch fiddle destroy imbue galvanize enchant free limited range of towards inside sphere cube self other ball mental physical grow shrink demon elemental spirit animal creature beast humanoid undead fresh stale "
-			.split(" ");
+    private static final EnchantmentNameParts instance = new EnchantmentNameParts();
+    private final EaglercraftRandom rand = new EaglercraftRandom();
+    private final String[] namePartsArray = "the elder scrolls klaatu berata niktu xyzzy bless curse light darkness fire air earth water hot dry cold wet ignite snuff embiggen twist shorten stretch fiddle destroy imbue galvanize enchant free limited range of towards inside sphere cube self other ball mental physical grow shrink demon elemental spirit animal creature beast humanoid undead fresh stale "
+            .split(" ");
 
-	public static EnchantmentNameParts getInstance() {
-		return instance;
-	}
+    public static EnchantmentNameParts getInstance() {
+        return instance;
+    }
 
-	/**+
-	 * Randomly generates a new name built up of 3 or 4 randomly
-	 * selected words.
-	 */
+    /**
+     * +
+     * Randomly generates a new name built up of 3 or 4 randomly
+     * selected words.
+     */
 	public String generateNewRandomName() {
 		int i = this.rand.nextInt(2) + 3;
 		String s = "";

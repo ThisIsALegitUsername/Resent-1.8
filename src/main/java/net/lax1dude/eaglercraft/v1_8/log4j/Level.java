@@ -25,11 +25,11 @@ public enum Level {
 	public final String levelName;
 	public final PrintStream stdout;
 	
-	private Level(int levelInt, String levelName, boolean stderr) {
-		this.levelInt = levelInt;
-		this.levelName = levelName;
-		this.stdout = stderr ? System.err : System.out;
-	}
+	Level(int levelInt, String levelName, boolean stderr) {
+        this.levelInt = levelInt;
+        this.levelName = levelName;
+        this.stdout = stderr ? System.err : System.out;
+    }
 	
 	PrintStream getPrintStream() {
 		return stdout;

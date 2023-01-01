@@ -38,8 +38,8 @@ public class FolderResourcePack extends AbstractResourcePack {
 	}
 
 	public Set<String> getResourceDomains() {
-		Set<String> set = Sets.<String>newHashSet();
-		String pfx = prefix + this.resourcePackFile + "/assets/";
+		Set<String> set = Sets.newHashSet();
+        String pfx = prefix + this.resourcePackFile + "/assets/";
 		List<String> files = SYS.VFS.listFiles(pfx);
 
 		for (String file : files) {

@@ -21,7 +21,7 @@ import net.minecraft.init.Blocks;
  * 
  */
 public class BiomeGenSnow extends BiomeGenBase {
-	private boolean field_150615_aC;
+	private final boolean field_150615_aC;
 
 	public BiomeGenSnow(int parInt1, boolean parFlag) {
 		super(parInt1);

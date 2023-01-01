@@ -118,14 +118,14 @@ public class GlStateManager {
 	
 	static float clearDepth = -999.0f;
 	
-	public static enum TexGen {
-		S, T, R, Q;
+	public enum TexGen {
+        S, T, R, Q;
 
-		int source = GL_OBJECT_LINEAR;
-		int plane = GL_OBJECT_PLANE;
-		Vector4f vector = new Vector4f();
-		
-	}
+        int source = GL_OBJECT_LINEAR;
+        int plane = GL_OBJECT_PLANE;
+        Vector4f vector = new Vector4f();
+
+    }
 	
 	static int stateTexGenSerial = 0;
 

@@ -95,17 +95,17 @@ public enum VertexFormat {
 	
 	public final int eaglercraftAttribBits;
 
-	private VertexFormat(boolean texture, boolean color, boolean normal, boolean lightmap) {
-		
-		int index = 0;
-		int bytes = 0;
-		int bitfield = 0;
-		
-		attribPositionEnabled = true;
-		attribPositionIndex = index++;
-		attribPositionOffset = bytes;
-		attribPositionFormat = COMPONENT_POSITION_FORMAT;
-		attribPositionNormalized = false;
+	VertexFormat(boolean texture, boolean color, boolean normal, boolean lightmap) {
+
+        int index = 0;
+        int bytes = 0;
+        int bitfield = 0;
+
+        attribPositionEnabled = true;
+        attribPositionIndex = index++;
+        attribPositionOffset = bytes;
+        attribPositionFormat = COMPONENT_POSITION_FORMAT;
+        attribPositionNormalized = false;
 		attribPositionSize = COMPONENT_POSITION_SIZE;
 		attribPositionStride = COMPONENT_POSITION_STRIDE;
 		bytes += COMPONENT_POSITION_STRIDE;

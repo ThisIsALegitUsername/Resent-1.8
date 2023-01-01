@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -229,7 +230,7 @@ public class VFile {
 	
 	public List<String> list() {
 		if(isRelative()) {
-			return Arrays.asList(path);
+            return Collections.singletonList(path);
 		}
 		return SYS.VFS.listFiles(path);
 	}

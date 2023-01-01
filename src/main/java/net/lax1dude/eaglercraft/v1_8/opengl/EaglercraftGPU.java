@@ -1,23 +1,16 @@
 package net.lax1dude.eaglercraft.v1_8.opengl;
 
+import net.lax1dude.eaglercraft.v1_8.EagRuntime;
+import net.lax1dude.eaglercraft.v1_8.internal.*;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.IntBuffer;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import net.lax1dude.eaglercraft.v1_8.EagRuntime;
-import net.lax1dude.eaglercraft.v1_8.internal.GLObjectMap;
-import net.lax1dude.eaglercraft.v1_8.internal.IBufferArrayGL;
-import net.lax1dude.eaglercraft.v1_8.internal.IBufferGL;
-import net.lax1dude.eaglercraft.v1_8.internal.IProgramGL;
-import net.lax1dude.eaglercraft.v1_8.internal.IQueryGL;
-import net.lax1dude.eaglercraft.v1_8.internal.ITextureGL;
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformBufferFunctions;
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformOpenGL;
-
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 import static net.lax1dude.eaglercraft.v1_8.internal.PlatformOpenGL.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 /**
  * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
@@ -102,7 +95,7 @@ public class EaglercraftGPU {
 		if(displayListBuffer.capacity() < wantSize) {
 			int newSize = (wantSize & 0xFFFE0000) + 0x40000;
 			ByteBuffer newBuffer = EagRuntime.allocateByteBuffer(newSize);
-			PlatformBufferFunctions.put(newBuffer, (ByteBuffer)displayListBuffer.flip());
+			PlatformBufferFunctions.put(newBuffer, displayListBuffer.flip());
 			EagRuntime.freeByteBuffer(displayListBuffer);
 			displayListBuffer = newBuffer;
 		}
@@ -214,14 +207,12 @@ public class EaglercraftGPU {
 	}
 
 	public static final void glGetInteger(int param, int[] values) {
-		switch(param) {
-		case GL_VIEWPORT:
+		if (param == GL_VIEWPORT) {
 			values[0] = GlStateManager.viewportX;
 			values[1] = GlStateManager.viewportY;
 			values[2] = GlStateManager.viewportW;
 			values[3] = GlStateManager.viewportH;
-			break;
-		default:
+		} else {
 			throw new UnsupportedOperationException("glGetInteger only accepts GL_VIEWPORT as a parameter");
 		}
 	}
@@ -246,15 +237,13 @@ public class EaglercraftGPU {
 
 	public static final void glFog(int param, FloatBuffer valueBuffer) {
 		int pos = valueBuffer.position();
-		switch(param) {
-		case GL_FOG_COLOR:
+		if (param == GL_FOG_COLOR) {
 			GlStateManager.stateFogColorR = valueBuffer.get();
 			GlStateManager.stateFogColorG = valueBuffer.get();
 			GlStateManager.stateFogColorB = valueBuffer.get();
 			GlStateManager.stateFogColorA = valueBuffer.get();
 			++GlStateManager.stateFogSerial;
-			break;
-		default:
+		} else {
 			throw new UnsupportedOperationException("Only GL_FOG_COLOR is configurable!");
 		}
 		valueBuffer.position(pos);

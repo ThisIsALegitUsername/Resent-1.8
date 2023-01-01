@@ -26,12 +26,13 @@ import net.minecraft.util.ResourceLocation;
  * 
  */
 public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRenderer<TileEntityEnchantmentTable> {
-	/**+
-	 * The texture for the book above the enchantment table.
-	 */
-	private static final ResourceLocation TEXTURE_BOOK = new ResourceLocation(
-			"textures/entity/enchanting_table_book.png");
-	private ModelBook field_147541_c = new ModelBook();
+	/**
+     * +
+     * The texture for the book above the enchantment table.
+     */
+    private static final ResourceLocation TEXTURE_BOOK = new ResourceLocation(
+            "textures/entity/enchanting_table_book.png");
+    private final ModelBook field_147541_c = new ModelBook();
 
 	public void renderTileEntityAt(TileEntityEnchantmentTable tileentityenchantmenttable, double d0, double d1,
 			double d2, float f, int var9) {
@@ -43,32 +44,31 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 		float f2;
 		for (f2 = tileentityenchantmenttable.bookRotation
 				- tileentityenchantmenttable.bookRotationPrev; f2 >= 3.1415927F; f2 -= 6.2831855F) {
-			;
-		}
+        }
 
 		while (f2 < -3.1415927F) {
 			f2 += 6.2831855F;
-		}
+        }
 
-		float f3 = tileentityenchantmenttable.bookRotationPrev + f2 * f;
-		GlStateManager.rotate(-f3 * 180.0F / 3.1415927F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(80.0F, 0.0F, 0.0F, 1.0F);
-		this.bindTexture(TEXTURE_BOOK);
-		float f4 = tileentityenchantmenttable.pageFlipPrev
-				+ (tileentityenchantmenttable.pageFlip - tileentityenchantmenttable.pageFlipPrev) * f + 0.25F;
-		float f5 = tileentityenchantmenttable.pageFlipPrev
-				+ (tileentityenchantmenttable.pageFlip - tileentityenchantmenttable.pageFlipPrev) * f + 0.75F;
-		f4 = (f4 - (float) MathHelper.truncateDoubleToInt((double) f4)) * 1.6F - 0.3F;
-		f5 = (f5 - (float) MathHelper.truncateDoubleToInt((double) f5)) * 1.6F - 0.3F;
-		if (f4 < 0.0F) {
-			f4 = 0.0F;
-		}
+        float f3 = tileentityenchantmenttable.bookRotationPrev + f2 * f;
+        GlStateManager.rotate(-f3 * 180.0F / 3.1415927F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(80.0F, 0.0F, 0.0F, 1.0F);
+        this.bindTexture(TEXTURE_BOOK);
+        float f4 = tileentityenchantmenttable.pageFlipPrev
+                + (tileentityenchantmenttable.pageFlip - tileentityenchantmenttable.pageFlipPrev) * f + 0.25F;
+        float f5 = tileentityenchantmenttable.pageFlipPrev
+                + (tileentityenchantmenttable.pageFlip - tileentityenchantmenttable.pageFlipPrev) * f + 0.75F;
+        f4 = (f4 - (float) MathHelper.truncateDoubleToInt(f4)) * 1.6F - 0.3F;
+        f5 = (f5 - (float) MathHelper.truncateDoubleToInt(f5)) * 1.6F - 0.3F;
+        if (f4 < 0.0F) {
+            f4 = 0.0F;
+        }
 
-		if (f5 < 0.0F) {
-			f5 = 0.0F;
-		}
+        if (f5 < 0.0F) {
+            f5 = 0.0F;
+        }
 
-		if (f4 > 1.0F) {
+        if (f4 > 1.0F) {
 			f4 = 1.0F;
 		}
 
@@ -78,8 +78,8 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 
 		float f6 = tileentityenchantmenttable.bookSpreadPrev
 				+ (tileentityenchantmenttable.bookSpread - tileentityenchantmenttable.bookSpreadPrev) * f;
-		GlStateManager.enableCull();
-		this.field_147541_c.render((Entity) null, f1, f4, f5, f6, 0.0F, 0.0625F);
-		GlStateManager.popMatrix();
+        GlStateManager.enableCull();
+        this.field_147541_c.render(null, f1, f4, f5, f6, 0.0F, 0.0625F);
+        GlStateManager.popMatrix();
 	}
 }

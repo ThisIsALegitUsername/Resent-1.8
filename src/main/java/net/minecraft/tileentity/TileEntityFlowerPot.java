@@ -38,7 +38,7 @@ public class TileEntityFlowerPot extends TileEntity {
 
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
-		ResourceLocation resourcelocation = (ResourceLocation) Item.itemRegistry.getNameForObject(this.flowerPotItem);
+		ResourceLocation resourcelocation = Item.itemRegistry.getNameForObject(this.flowerPotItem);
 		nbttagcompound.setString("Item", resourcelocation == null ? "" : resourcelocation.toString());
 		nbttagcompound.setInteger("Data", this.flowerPotData);
 	}

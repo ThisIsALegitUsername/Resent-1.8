@@ -45,8 +45,8 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 		char c0 = '\uf0f0';
 		int i = c0 % 65536;
 		int j = c0 / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
-		GlStateManager.enableLighting();
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
+        GlStateManager.enableLighting();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.dragonRenderer.getMainModel().render(entitydragon, f, f1, f3, f4, f5, f6);
 		this.dragonRenderer.func_177105_a(entitydragon, f2);

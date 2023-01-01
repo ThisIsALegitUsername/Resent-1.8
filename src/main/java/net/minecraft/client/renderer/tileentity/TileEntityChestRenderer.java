@@ -31,27 +31,27 @@ import net.minecraft.util.ResourceLocation;
  * 
  */
 public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntityChest> {
-	private static final ResourceLocation textureTrappedDouble = new ResourceLocation(
-			"textures/entity/chest/trapped_double.png");
-	private static final ResourceLocation textureChristmasDouble = new ResourceLocation(
-			"textures/entity/chest/christmas_double.png");
-	private static final ResourceLocation textureNormalDouble = new ResourceLocation(
-			"textures/entity/chest/normal_double.png");
-	private static final ResourceLocation textureTrapped = new ResourceLocation("textures/entity/chest/trapped.png");
-	private static final ResourceLocation textureChristmas = new ResourceLocation(
-			"textures/entity/chest/christmas.png");
-	private static final ResourceLocation textureNormal = new ResourceLocation("textures/entity/chest/normal.png");
-	private ModelChest simpleChest = new ModelChest();
-	private ModelChest largeChest = new ModelLargeChest();
-	private boolean isChristams;
+    private static final ResourceLocation textureTrappedDouble = new ResourceLocation(
+            "textures/entity/chest/trapped_double.png");
+    private static final ResourceLocation textureChristmasDouble = new ResourceLocation(
+            "textures/entity/chest/christmas_double.png");
+    private static final ResourceLocation textureNormalDouble = new ResourceLocation(
+            "textures/entity/chest/normal_double.png");
+    private static final ResourceLocation textureTrapped = new ResourceLocation("textures/entity/chest/trapped.png");
+    private static final ResourceLocation textureChristmas = new ResourceLocation(
+            "textures/entity/chest/christmas.png");
+    private static final ResourceLocation textureNormal = new ResourceLocation("textures/entity/chest/normal.png");
+    private final ModelChest simpleChest = new ModelChest();
+    private final ModelChest largeChest = new ModelLargeChest();
+    private boolean isChristams;
 
-	public TileEntityChestRenderer() {
-		Calendar calendar = Calendar.getInstance();
-		if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
-			this.isChristams = true;
-		}
+    public TileEntityChestRenderer() {
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
+            this.isChristams = true;
+        }
 
-	}
+    }
 
 	public void renderTileEntityAt(TileEntityChest tileentitychest, double d0, double d1, double d2, float f, int i) {
 		GlStateManager.enableDepth();
@@ -143,8 +143,8 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 				GlStateManager.translate(0.0F, 0.0F, -1.0F);
 			}
 
-			GlStateManager.rotate((float) short1, 0.0F, 1.0F, 0.0F);
-			GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+            GlStateManager.rotate(short1, 0.0F, 1.0F, 0.0F);
+            GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 			float f1 = tileentitychest.prevLidAngle + (tileentitychest.lidAngle - tileentitychest.prevLidAngle) * f;
 			if (tileentitychest.adjacentChestZNeg != null) {
 				float f2 = tileentitychest.adjacentChestZNeg.prevLidAngle

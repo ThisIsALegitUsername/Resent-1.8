@@ -16,25 +16,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class LayerArmorBase<T extends ModelBase> implements LayerRenderer<EntityLivingBase> {
-	protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation(
-			"textures/misc/enchanted_item_glint.png");
-	protected T field_177189_c;
-	protected T field_177186_d;
-	private final RendererLivingEntity<?> renderer;
-	private float alpha = 1.0F;
-	private float colorR = 1.0F;
-	private float colorG = 1.0F;
-	private float colorB = 1.0F;
-	private boolean field_177193_i;
-	private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
+    protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation(
+            "textures/misc/enchanted_item_glint.png");
+    protected T field_177189_c;
+    protected T field_177186_d;
+    private final RendererLivingEntity<?> renderer;
+    private final float alpha = 1.0F;
+    private final float colorR = 1.0F;
+    private final float colorG = 1.0F;
+    private final float colorB = 1.0F;
+    private boolean field_177193_i;
+    private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
 
-	public LayerArmorBase(RendererLivingEntity<?> rendererIn) {
-		this.renderer = rendererIn;
-		this.initArmor();
-	}
+    public LayerArmorBase(RendererLivingEntity<?> rendererIn) {
+        this.renderer = rendererIn;
+        this.initArmor();
+    }
 
-	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float partialTicks, float scale, float parFloat3,
-			float parFloat4, float parFloat5, float parFloat6, float parFloat7) {
+    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float partialTicks, float scale, float parFloat3,
+                              float parFloat4, float parFloat5, float parFloat6, float parFloat7) {
 		this.renderLayer(entitylivingbaseIn, partialTicks, scale, parFloat3, parFloat4, parFloat5, parFloat6, parFloat7,
 				4);
 		this.renderLayer(entitylivingbaseIn, partialTicks, scale, parFloat3, parFloat4, parFloat5, parFloat6, parFloat7,
@@ -90,7 +90,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 	}
 
 	public T func_177175_a(int parInt1) {
-		return (T) (this.isSlotForLeggings(parInt1) ? this.field_177189_c : this.field_177186_d);
+        return this.isSlotForLeggings(parInt1) ? this.field_177189_c : this.field_177186_d;
 	}
 
 	private boolean isSlotForLeggings(int armorSlot) {
@@ -132,21 +132,21 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 	}
 
 	private ResourceLocation getArmorResource(ItemArmor parItemArmor, boolean parFlag) {
-		return this.getArmorResource(parItemArmor, parFlag, (String) null);
+        return this.getArmorResource(parItemArmor, parFlag, null);
 	}
 
 	private ResourceLocation getArmorResource(ItemArmor parItemArmor, boolean parFlag, String parString1) {
-		String s = HString.format("textures/models/armor/%s_layer_%d%s.png",
-				new Object[] { parItemArmor.getArmorMaterial().getName(), Integer.valueOf(parFlag ? 2 : 1),
-						parString1 == null ? "" : HString.format("_%s", new Object[] { parString1 }) });
-		ResourceLocation resourcelocation = (ResourceLocation) ARMOR_TEXTURE_RES_MAP.get(s);
-		if (resourcelocation == null) {
-			resourcelocation = new ResourceLocation(s);
-			ARMOR_TEXTURE_RES_MAP.put(s, resourcelocation);
-		}
+        String s = HString.format("textures/models/armor/%s_layer_%d%s.png",
+                parItemArmor.getArmorMaterial().getName(), Integer.valueOf(parFlag ? 2 : 1),
+                parString1 == null ? "" : HString.format("_%s", parString1));
+        ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s);
+        if (resourcelocation == null) {
+            resourcelocation = new ResourceLocation(s);
+            ARMOR_TEXTURE_RES_MAP.put(s, resourcelocation);
+        }
 
-		return resourcelocation;
-	}
+        return resourcelocation;
+    }
 
 	protected abstract void initArmor();
 

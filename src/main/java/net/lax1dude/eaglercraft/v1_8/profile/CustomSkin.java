@@ -22,8 +22,8 @@ public class CustomSkin {
 	public final byte[] texture;
 	public SkinModel model;
 
-	private EaglerSkinTexture textureInstance;
-	private ResourceLocation resourceLocation;
+	private final EaglerSkinTexture textureInstance;
+    private ResourceLocation resourceLocation;
 
 	private static int texId = 0;
 

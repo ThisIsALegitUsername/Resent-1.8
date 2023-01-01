@@ -37,7 +37,7 @@ public class InventoryEnderChest extends InventoryBasic {
 
 	public void loadInventoryFromNBT(NBTTagList parNBTTagList) {
 		for (int i = 0; i < this.getSizeInventory(); ++i) {
-			this.setInventorySlotContents(i, (ItemStack) null);
+			this.setInventorySlotContents(i, null);
 		}
 
 		for (int k = 0; k < parNBTTagList.tagCount(); ++k) {
@@ -71,8 +71,7 @@ public class InventoryEnderChest extends InventoryBasic {
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return this.associatedChest != null && !this.associatedChest.canBeUsed(entityplayer) ? false
-				: super.isUseableByPlayer(entityplayer);
+        return (this.associatedChest == null || this.associatedChest.canBeUsed(entityplayer)) && super.isUseableByPlayer(entityplayer);
 	}
 
 	public void openInventory(EntityPlayer entityplayer) {

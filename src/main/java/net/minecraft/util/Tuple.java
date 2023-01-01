@@ -12,25 +12,26 @@ package net.minecraft.util;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class Tuple<A, B> {
-	private A a;
-	private B b;
+    private final A a;
+    private final B b;
 
-	public Tuple(A aIn, B bIn) {
-		this.a = aIn;
-		this.b = bIn;
-	}
+    public Tuple(A aIn, B bIn) {
+        this.a = aIn;
+        this.b = bIn;
+    }
 
-	/**+
-	 * Get the first Object in the Tuple
-	 */
-	public A getFirst() {
+    /**
+     * +
+     * Get the first Object in the Tuple
+     */
+    public A getFirst() {
 		return this.a;
 	}
 

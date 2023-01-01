@@ -750,7 +750,7 @@ public final class Iterators {
 	 */
 	public static <T> Optional<T> tryFind(Iterator<T> iterator, Predicate<? super T> predicate) {
 		UnmodifiableIterator<T> filteredIterator = filter(iterator, predicate);
-		return filteredIterator.hasNext() ? Optional.of(filteredIterator.next()) : Optional.<T>absent();
+		return filteredIterator.hasNext() ? Optional.of(filteredIterator.next()) : Optional.absent();
 	}
 
 	/**

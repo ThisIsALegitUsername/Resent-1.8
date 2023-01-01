@@ -49,12 +49,12 @@ public enum DefaultSkins {
 	public final ResourceLocation location;
 	public final SkinModel model;
 	
-	private DefaultSkins(int id, String name, ResourceLocation location, SkinModel model) {
-		this.id = id;
-		this.name = name;
-		this.location = location;
-		this.model = model;
-	}
+	DefaultSkins(int id, String name, ResourceLocation location, SkinModel model) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.model = model;
+    }
 	
 	public static DefaultSkins getSkinFromId(int id) {
 		DefaultSkins e = null;

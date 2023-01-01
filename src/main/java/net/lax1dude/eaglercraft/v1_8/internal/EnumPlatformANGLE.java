@@ -26,11 +26,11 @@ public enum EnumPlatformANGLE {
 	public final String id;
 	public final String name;
 
-	private EnumPlatformANGLE(int eglEnum, String id, String name) {
-		this.eglEnum = eglEnum;
-		this.id = id;
-		this.name = name;
-	}
+	EnumPlatformANGLE(int eglEnum, String id, String name) {
+        this.eglEnum = eglEnum;
+        this.id = id;
+        this.name = name;
+    }
 	
 	public String toString() {
 		return id;

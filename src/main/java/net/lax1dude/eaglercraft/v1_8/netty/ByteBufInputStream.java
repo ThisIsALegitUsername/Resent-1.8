@@ -15,11 +15,7 @@
  */
 package net.lax1dude.eaglercraft.v1_8.netty;
 
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * An {@link InputStream} which reads data from a {@link ByteBuf}.
@@ -41,14 +37,14 @@ public class ByteBufInputStream extends InputStream implements DataInput {
 	private final ByteBuf buffer;
 	private final int startIndex;
 	private final int endIndex;
-	/**
-	 * To preserve backwards compatibility (which didn't transfer ownership) we
-	 * support a conditional flag which indicates if {@link #buffer} should be
-	 * released when this {@link InputStream} is closed. However in future releases
-	 * ownership should always be transferred and callers of this class should call
-	 * {@link ReferenceCounted#retain()} if necessary.
-	 */
-	private boolean releaseOnClose;
+    /**
+     * To preserve backwards compatibility (which didn't transfer ownership) we
+     * support a conditional flag which indicates if {@link #buffer} should be
+     * released when this {@link InputStream} is closed. However in future releases
+     * ownership should always be transferred and callers of this class should call
+     * {@link ReferenceCounted#retain()} if necessary.
+     */
+    private final boolean releaseOnClose;
 
 	/**
 	 * Creates a new stream which reads data from the specified {@code buffer}

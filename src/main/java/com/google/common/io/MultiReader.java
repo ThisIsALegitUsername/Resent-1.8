@@ -50,17 +50,17 @@ class MultiReader extends Reader {
 	}
 
 	@Override
-	public int read(@Nullable char cbuf[], int off, int len) throws IOException {
-		if (current == null) {
-			return -1;
-		}
-		int result = current.read(cbuf, off, len);
-		if (result == -1) {
-			advance();
-			return read(cbuf, off, len);
-		}
-		return result;
-	}
+    public int read(@Nullable char[] cbuf, int off, int len) throws IOException {
+        if (current == null) {
+            return -1;
+        }
+        int result = current.read(cbuf, off, len);
+        if (result == -1) {
+            advance();
+            return read(cbuf, off, len);
+        }
+        return result;
+    }
 
 	@Override
 	public long skip(long n) throws IOException {

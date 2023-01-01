@@ -65,7 +65,7 @@ public class FactoryBlockPattern {
 
 					for (char c0 : s.toCharArray()) {
 						if (!this.symbolMap.containsKey(Character.valueOf(c0))) {
-							this.symbolMap.put(Character.valueOf(c0), (Predicate<BlockWorldState>) null);
+							this.symbolMap.put(Character.valueOf(c0), null);
 						}
 					}
 				}
@@ -92,18 +92,18 @@ public class FactoryBlockPattern {
 	}
 
 	private Predicate<BlockWorldState>[][][] makePredicateArray() {
-		this.checkMissingPredicates();
-		Predicate[][][] apredicate = (Predicate[][][]) ((Predicate[][][]) Array.newInstance(Predicate.class,
-				new int[] { this.depth.size(), this.aisleHeight, this.rowWidth }));
+        this.checkMissingPredicates();
+        Predicate[][][] apredicate = (Predicate[][][]) Array.newInstance(Predicate.class,
+                new int[]{this.depth.size(), this.aisleHeight, this.rowWidth});
 
-		for (int i = 0; i < this.depth.size(); ++i) {
-			for (int j = 0; j < this.aisleHeight; ++j) {
-				for (int k = 0; k < this.rowWidth; ++k) {
-					apredicate[i][j][k] = (Predicate) this.symbolMap
-							.get(Character.valueOf(((String[]) this.depth.get(i))[j].charAt(k)));
-				}
-			}
-		}
+        for (int i = 0; i < this.depth.size(); ++i) {
+            for (int j = 0; j < this.aisleHeight; ++j) {
+                for (int k = 0; k < this.rowWidth; ++k) {
+                    apredicate[i][j][k] = this.symbolMap
+                            .get(Character.valueOf(((String[]) this.depth.get(i))[j].charAt(k)));
+                }
+            }
+        }
 
 		return apredicate;
 	}

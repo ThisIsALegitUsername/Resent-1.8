@@ -25,11 +25,12 @@ import net.minecraft.util.IChatComponent;
  * 
  */
 public class InventoryCraftResult implements IInventory {
-	/**+
-	 * A list of one item containing the result of the crafting
-	 * formula
-	 */
-	private ItemStack[] stackResult = new ItemStack[1];
+	/**
+     * +
+     * A list of one item containing the result of the crafting
+     * formula
+     */
+    private final ItemStack[] stackResult = new ItemStack[1];
 
 	/**+
 	 * Returns the number of slots in the inventory.
@@ -65,8 +66,8 @@ public class InventoryCraftResult implements IInventory {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName())
+                : new ChatComponentTranslation(this.getName(), new Object[0]);
 	}
 
 	/**+

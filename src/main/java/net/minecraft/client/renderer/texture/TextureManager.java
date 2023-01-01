@@ -42,7 +42,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
 	private final List<ITickable> listTickables = Lists.newArrayList();
 	private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();
-	private IResourceManager theResourceManager;
+    private final IResourceManager theResourceManager;
 
 	public TextureManager(IResourceManager resourceManager) {
 		this.theResourceManager = resourceManager;
@@ -52,7 +52,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		if (resource.cachedPointer != null) {
 			TextureUtil.bindTexture(((ITextureObject) resource.cachedPointer).getGlTextureId()); // unsafe, lol
 		} else {
-			Object object = (ITextureObject) this.mapTextureObjects.get(resource);
+            Object object = this.mapTextureObjects.get(resource);
 			if (object == null) {
 				object = new SimpleTexture(resource);
 				this.loadTexture(resource, (ITextureObject) object);
@@ -76,7 +76,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		boolean flag = true;
 
 		try {
-			((ITextureObject) textureObj).loadTexture(this.theResourceManager);
+            textureObj.loadTexture(this.theResourceManager);
 		} catch (IOException ioexception) {
 			logger.warn("Failed to load texture: " + textureLocation, ioexception);
 			textureObj = TextureUtil.missingTexture;
@@ -109,7 +109,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public ResourceLocation getDynamicTextureLocation(String name, DynamicTexture texture) {
-		Integer integer = (Integer) this.mapTextureCounters.get(name);
+        Integer integer = this.mapTextureCounters.get(name);
 		if (integer == null) {
 			integer = Integer.valueOf(1);
 		} else {
@@ -117,8 +117,8 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		}
 
 		this.mapTextureCounters.put(name, integer);
-		ResourceLocation resourcelocation = new ResourceLocation(
-				HString.format("dynamic/%s_%d", new Object[] { name, integer }));
+        ResourceLocation resourcelocation = new ResourceLocation(
+                HString.format("dynamic/%s_%d", name, integer));
 		this.loadTexture(resourcelocation, texture);
 		return resourcelocation;
 	}

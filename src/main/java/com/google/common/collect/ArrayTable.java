@@ -16,25 +16,17 @@
 
 package com.google.common.collect;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkElementIndex;
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.base.Objects;
+
+import javax.annotation.Nullable;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.*;
+
+import static com.google.common.base.Preconditions.*;
 
 /**
  * Fixed-size {@link Table} implementation backed by a two-dimensional array.
@@ -614,7 +606,7 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
 	public Map<R, V> column(C columnKey) {
 		checkNotNull(columnKey);
 		Integer columnIndex = columnKeyToIndex.get(columnKey);
-		return (columnIndex == null) ? ImmutableMap.<R, V>of() : new Column(columnIndex);
+		return (columnIndex == null) ? ImmutableMap.of() : new Column(columnIndex);
 	}
 
 	private class Column extends ArrayMap<R, V> {
@@ -702,7 +694,7 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
 	public Map<C, V> row(R rowKey) {
 		checkNotNull(rowKey);
 		Integer rowIndex = rowKeyToIndex.get(rowKey);
-		return (rowIndex == null) ? ImmutableMap.<C, V>of() : new Row(rowIndex);
+		return (rowIndex == null) ? ImmutableMap.of() : new Row(rowIndex);
 	}
 
 	private class Row extends ArrayMap<C, V> {

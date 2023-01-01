@@ -39,16 +39,18 @@ public class StringTranslate {
 	 * resource string, such as "%d", "%3$d", "%.2f"
 	 */
 	private static final Pattern numericVariablePattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
-	/**+
-	 * A Splitter that splits a string on the first "=". For
-	 * example, "a=b=c" would split into ["a", "b=c"].
-	 */
-	private static final Splitter equalSignSplitter = Splitter.on('=').limit(2);
-	/**+
-	 * Is the private singleton instance of StringTranslate.
-	 */
-	private static StringTranslate instance = new StringTranslate();
-	private final Map<String, String> languageList = Maps.newHashMap();
+	/**
+     * +
+     * A Splitter that splits a string on the first "=". For
+     * example, "a=b=c" would split into ["a", "b=c"].
+     */
+    private static final Splitter equalSignSplitter = Splitter.on('=').limit(2);
+    /**
+     * +
+     * Is the private singleton instance of StringTranslate.
+     */
+    private static final StringTranslate instance = new StringTranslate();
+    private final Map<String, String> languageList = Maps.newHashMap();
 	private long lastUpdateTimeInMilliseconds;
 
 	public StringTranslate() {
@@ -59,7 +61,7 @@ public class StringTranslate {
 		InputStream inputstream = EagRuntime.getResourceStream("/assets/minecraft/lang/en_US.lang");
 		for (String s : IOUtils.readLines(inputstream, Charsets.UTF_8)) {
 			if (!s.isEmpty() && s.charAt(0) != 35) {
-				String[] astring = (String[]) Iterables.toArray(equalSignSplitter.split(s), String.class);
+                String[] astring = Iterables.toArray(equalSignSplitter.split(s), String.class);
 				if (astring != null && astring.length == 2) {
 					String s1 = astring[0];
 					String s2 = numericVariablePattern.matcher(astring[1]).replaceAll("%s"); // TODO: originally "%$1s"
@@ -116,7 +118,7 @@ public class StringTranslate {
 	 * the key if no result was found.
 	 */
 	private String tryTranslateKey(String key) {
-		String s = (String) this.languageList.get(key);
+        String s = this.languageList.get(key);
 		return s == null ? key : s;
 	}
 

@@ -46,7 +46,7 @@ public class StateMap extends StateMapperBase {
 		LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap(iblockstate.getProperties());
 		String s;
 		if (this.name == null) {
-			s = ((ResourceLocation) Block.blockRegistry.getNameForObject(iblockstate.getBlock())).toString();
+			s = Block.blockRegistry.getNameForObject(iblockstate.getBlock()).toString();
 		} else {
 			s = this.name.getName(linkedhashmap.remove(this.name));
 		}

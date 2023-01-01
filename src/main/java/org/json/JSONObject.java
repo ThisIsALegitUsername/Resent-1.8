@@ -96,7 +96,7 @@ public class JSONObject {
          * @return NULL.
          */
         @Override
-        protected final Object clone() {
+        protected Object clone() {
             return this;
         }
 
@@ -1185,7 +1185,7 @@ public class JSONObject {
                 return defaultValue;
             }
             if (exact) {
-                return new BigDecimal(((Number)val).doubleValue());
+                return BigDecimal.valueOf(((Number) val).doubleValue());
             }
             // use the string constructor so that we maintain "nice" values for doubles and floats
             // the double constructor will translate doubles to "exact" values instead of the likely
@@ -1240,7 +1240,7 @@ public class JSONObject {
             if (!numberIsFinite((Number)val)) {
                 return defaultValue;
             }
-            return new BigDecimal(((Number) val).doubleValue()).toBigInteger();
+            return BigDecimal.valueOf(((Number) val).doubleValue()).toBigInteger();
         }
         if (val instanceof Long || val instanceof Integer
                 || val instanceof Short || val instanceof Byte){
@@ -2184,10 +2184,7 @@ public class JSONObject {
     private static boolean numberIsFinite(Number n) {
         if (n instanceof Double && (((Double) n).isInfinite() || ((Double) n).isNaN())) {
             return false;
-        } else if (n instanceof Float && (((Float) n).isInfinite() || ((Float) n).isNaN())) {
-            return false;
-        }
-        return true;
+        } else return !(n instanceof Float) || (!((Float) n).isInfinite() && !((Float) n).isNaN());
     }
 
     /**

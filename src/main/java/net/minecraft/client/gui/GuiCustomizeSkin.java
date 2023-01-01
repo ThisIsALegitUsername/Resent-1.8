@@ -36,22 +36,22 @@ public class GuiCustomizeSkin extends GuiScreen {
 	 */
 	public void initGui() {
 		int i = 0;
-		this.title = I18n.format("options.skinCustomisation.title", new Object[0]);
+		this.title = I18n.format("options.skinCustomisation.title");
 
 		for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
-			this.buttonList.add(new GuiCustomizeSkin.ButtonPart(enumplayermodelparts.getPartId(),
-					this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), 150, 20,
-					enumplayermodelparts));
-			++i;
-		}
+            this.buttonList.add(new GuiCustomizeSkin.ButtonPart(enumplayermodelparts.getPartId(),
+                    width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), 150, 20,
+                    enumplayermodelparts));
+            ++i;
+        }
 
-		if (i % 2 == 1) {
-			++i;
-		}
+        if (i % 2 == 1) {
+            ++i;
+        }
 
-		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 24 * (i >> 1),
-				I18n.format("gui.done", new Object[0])));
-	}
+        this.buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 24 * (i >> 1),
+                I18n.format("gui.done")));
+    }
 
 	/**+
 	 * Called by the controls from the buttonList when activated.
@@ -76,17 +76,17 @@ public class GuiCustomizeSkin extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 20, 16777215);
-		super.drawScreen(i, j, f);
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, this.title, width / 2, 20, 16777215);
+        super.drawScreen(i, j, f);
 	}
 
 	private String func_175358_a(EnumPlayerModelParts playerModelParts) {
 		String s;
 		if (this.mc.gameSettings.getModelParts().contains(playerModelParts)) {
-			s = I18n.format("options.on", new Object[0]);
+            s = I18n.format("options.on");
 		} else {
-			s = I18n.format("options.off", new Object[0]);
+            s = I18n.format("options.off");
 		}
 
 		return playerModelParts.func_179326_d().getFormattedText() + ": " + s;

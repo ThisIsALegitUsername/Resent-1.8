@@ -18,7 +18,7 @@ import net.minecraft.client.gui.Gui;
 public class KeyStrokes extends RenderModule{
 
     public static KeyStrokes INSTANCE = new KeyStrokes();
-	private Minecraft mc = Minecraft.getMinecraft();
+	private final Minecraft mc = Minecraft.getMinecraft();
 
     public KeyStrokes(){
 		super("Keystrokes", Category.HUD, 25, 4, true);
@@ -39,9 +39,9 @@ public class KeyStrokes extends RenderModule{
 	public ModeSetting gcolorp = new ModeSetting("Unpressed button color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
 	public List<Long> clicks = new ArrayList<>();
     public boolean wasPressed;
-    public long lastPressed;
-    private List<Long> clicks2 = new ArrayList<>();
-    public boolean wasPressed2;
+	public long lastPressed;
+	private final List<Long> clicks2 = new ArrayList<>();
+	public boolean wasPressed2;
     public long lastPressed2;
 
 	public float getSize(ModeSetting size) {

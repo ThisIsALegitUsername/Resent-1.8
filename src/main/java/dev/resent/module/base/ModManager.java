@@ -63,7 +63,7 @@ public class ModManager {
 	public static AutoGG autoGG;
 	public static AutoRespawn autoRespawn;
 	public static Freelook freelook;
-	public static ComboCounter comboCounter;
+	public static ComboCounter comboCounter = new ComboCounter();
 	public static Hitboxes hitboxes = new Hitboxes();
 	public static Health health;
 	//public static ChunkBorders chunkBorders;
@@ -100,7 +100,7 @@ public class ModManager {
 		register(cps = new CPS());
 		register(potionHud = new PotionHUD());
 		register(reachDisplay = new ReachDisplay());
-		register(comboCounter = new ComboCounter());
+		register(comboCounter);
 		register(coordinate = new Info());
 		register(fps = new FPS());
 		register(health = new Health());

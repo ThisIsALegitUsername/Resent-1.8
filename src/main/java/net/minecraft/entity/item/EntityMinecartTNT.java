@@ -57,8 +57,8 @@ public class EntityMinecartTNT extends EntityMinecart {
 		super.onUpdate();
 		if (this.minecartTNTFuse > 0) {
 			--this.minecartTNTFuse;
-			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
-					0.0D, 0.0D, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
+                    0.0D, 0.0D);
 		} else if (this.minecartTNTFuse == 0) {
 			this.explodeCart(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		}
@@ -111,7 +111,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 	public void fall(float f, float f1) {
 		if (f >= 3.0F) {
 			float f2 = f / 10.0F;
-			this.explodeCart((double) (f2 * f2));
+            this.explodeCart(f2 * f2);
 		}
 
 		super.fall(f, f1);
@@ -170,11 +170,9 @@ public class EntityMinecartTNT extends EntityMinecart {
 
 	public boolean verifyExplosion(Explosion explosion, World world, BlockPos blockpos, IBlockState iblockstate,
 			float f) {
-		return !this.isIgnited()
-				|| !BlockRailBase.isRailBlock(iblockstate) && !BlockRailBase.isRailBlock(world, blockpos.up())
-						? super.verifyExplosion(explosion, world, blockpos, iblockstate, f)
-						: false;
-	}
+        return (!this.isIgnited()
+                || !BlockRailBase.isRailBlock(iblockstate) && !BlockRailBase.isRailBlock(world, blockpos.up())) && super.verifyExplosion(explosion, world, blockpos, iblockstate, f);
+    }
 
 	/**+
 	 * (abstract) Protected helper method to read subclass entity

@@ -1,15 +1,13 @@
 package net.minecraft.client.resources.data;
 
-import java.util.ArrayList;
-
+import com.google.common.collect.Lists;
+import net.lax1dude.eaglercraft.v1_8.json.JSONTypeSerializer;
 import org.apache.commons.lang3.Validate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.common.collect.Lists;
-
-import net.lax1dude.eaglercraft.v1_8.json.JSONTypeSerializer;
+import java.util.ArrayList;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -35,7 +33,7 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 		ArrayList arraylist = Lists.newArrayList();
 		int i = jsonobject.optInt("frametime", 1);
 		if (i != 1) {
-			Validate.inclusiveBetween(1L, 2147483647L, (long) i, "Invalid default frame time");
+			Validate.inclusiveBetween(1L, 2147483647L, i, "Invalid default frame time");
 		}
 
 		if (jsonobject.has("frames")) {
@@ -57,11 +55,11 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 		int k = jsonobject.optInt("width", -1);
 		int l = jsonobject.optInt("height", -1);
 		if (k != -1) {
-			Validate.inclusiveBetween(1L, 2147483647L, (long) k, "Invalid width");
+			Validate.inclusiveBetween(1L, 2147483647L, k, "Invalid width");
 		}
 
 		if (l != -1) {
-			Validate.inclusiveBetween(1L, 2147483647L, (long) l, "Invalid height");
+			Validate.inclusiveBetween(1L, 2147483647L, l, "Invalid height");
 		}
 
 		boolean flag = jsonobject.optBoolean("interpolate", false);
@@ -75,11 +73,11 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 			JSONObject jsonobject = (JSONObject) parJsonElement;
 			int i = jsonobject.optInt("time", -1);
 			if (jsonobject.has("time")) {
-				Validate.inclusiveBetween(1L, 2147483647L, (long) i, "Invalid frame time");
+				Validate.inclusiveBetween(1L, 2147483647L, i, "Invalid frame time");
 			}
 
 			int j = jsonobject.getInt(getSectionName());
-			Validate.inclusiveBetween(0L, 2147483647L, (long) j, "Invalid frame index");
+			Validate.inclusiveBetween(0L, 2147483647L, j, "Invalid frame index");
 			return new AnimationFrame(j, i);
 		} else {
 			return null;

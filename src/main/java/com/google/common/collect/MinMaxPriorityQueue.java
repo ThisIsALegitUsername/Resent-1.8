@@ -108,7 +108,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 	 * and initially containing the given elements.
 	 */
 	public static <E extends Comparable<E>> MinMaxPriorityQueue<E> create(Iterable<? extends E> initialContents) {
-		return new Builder<E>(Ordering.<E>natural()).create(initialContents);
+		return new Builder<E>(Ordering.natural()).create(initialContents);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 		 * and having no initial contents.
 		 */
 		public <T extends B> MinMaxPriorityQueue<T> create() {
-			return create(Collections.<T>emptySet());
+            return create(Collections.emptySet());
 		}
 
 		/**
@@ -706,20 +706,17 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 		}
 
 		private boolean verifyIndex(int i) {
-			if ((getLeftChildIndex(i) < size) && (compareElements(i, getLeftChildIndex(i)) > 0)) {
-				return false;
-			}
-			if ((getRightChildIndex(i) < size) && (compareElements(i, getRightChildIndex(i)) > 0)) {
-				return false;
-			}
-			if ((i > 0) && (compareElements(i, getParentIndex(i)) > 0)) {
-				return false;
-			}
-			if ((i > 2) && (compareElements(getGrandparentIndex(i), i) > 0)) {
-				return false;
-			}
-			return true;
-		}
+            if ((getLeftChildIndex(i) < size) && (compareElements(i, getLeftChildIndex(i)) > 0)) {
+                return false;
+            }
+            if ((getRightChildIndex(i) < size) && (compareElements(i, getRightChildIndex(i)) > 0)) {
+                return false;
+            }
+            if ((i > 0) && (compareElements(i, getParentIndex(i)) > 0)) {
+                return false;
+            }
+            return (i <= 2) || (compareElements(getGrandparentIndex(i), i) <= 0);
+        }
 
 		// These would be static if inner classes could have static members.
 

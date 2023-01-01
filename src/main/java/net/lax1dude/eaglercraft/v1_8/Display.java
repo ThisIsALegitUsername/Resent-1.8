@@ -4,7 +4,7 @@ import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 
 public class Display {
 
-	private static long lastSwap = 0l;
+	private static long lastSwap = 0L;
 
 	public static int getWidth() {
 		return PlatformInput.getWindowWidth();
@@ -38,12 +38,12 @@ public class Display {
 		boolean limitFPS = limitFramerate > 0 && limitFramerate < 1000;
 		
 		if(limitFPS) {
-			long millis = System.currentTimeMillis();
-			long frameMillis = (1000l / limitFramerate) - (millis - lastSwap);
-			if(frameMillis > 0l) {
-				EagUtils.sleep(frameMillis);
-			}
-		}
+            long millis = System.currentTimeMillis();
+            long frameMillis = (1000L / limitFramerate) - (millis - lastSwap);
+            if (frameMillis > 0L) {
+                EagUtils.sleep(frameMillis);
+            }
+        }
 		
 		lastSwap = System.currentTimeMillis();
 	}

@@ -29,9 +29,9 @@ public class ItemSpade extends ItemTool {
 	private static Set<Block> EFFECTIVE_ON;
 
 	public static void bootstrap() {
-		EFFECTIVE_ON = Sets.newHashSet(new Block[] { Blocks.clay, Blocks.dirt, Blocks.farmland, Blocks.grass,
-				Blocks.gravel, Blocks.mycelium, Blocks.sand, Blocks.snow, Blocks.snow_layer, Blocks.soul_sand });
-	}
+        EFFECTIVE_ON = Sets.newHashSet(Blocks.clay, Blocks.dirt, Blocks.farmland, Blocks.grass,
+                Blocks.gravel, Blocks.mycelium, Blocks.sand, Blocks.snow, Blocks.snow_layer, Blocks.soul_sand);
+    }
 
 	public ItemSpade(Item.ToolMaterial material) {
 		super(1.0F, material, EFFECTIVE_ON);
@@ -41,6 +41,6 @@ public class ItemSpade extends ItemTool {
 	 * Check whether this Item can harvest the given Block
 	 */
 	public boolean canHarvestBlock(Block block) {
-		return block == Blocks.snow_layer ? true : block == Blocks.snow;
+        return block == Blocks.snow_layer || block == Blocks.snow;
 	}
 }

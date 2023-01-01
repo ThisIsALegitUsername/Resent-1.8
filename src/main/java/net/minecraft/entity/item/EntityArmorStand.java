@@ -1,7 +1,5 @@
 package net.minecraft.entity.item;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,6 +12,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Rotations;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -314,11 +314,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * on where precisely the player targeted.
 	 */
 	public boolean interactAt(EntityPlayer entityplayer, Vec3 vec3) {
-		if (this.func_181026_s()) {
-			return false;
-		} else {
-			return true;
-		}
+        return !this.func_181026_s();
 	}
 
 	/**+

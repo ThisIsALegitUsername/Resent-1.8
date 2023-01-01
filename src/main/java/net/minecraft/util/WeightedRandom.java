@@ -56,7 +56,7 @@ public class WeightedRandom {
 			}
 		}
 
-		return (T) null;
+		return null;
 	}
 
 	public static <T extends WeightedRandom.Item> T getRandomItem(EaglercraftRandom random, Collection<T> collection) {

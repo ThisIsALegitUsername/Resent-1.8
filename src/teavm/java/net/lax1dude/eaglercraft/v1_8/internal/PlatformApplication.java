@@ -61,9 +61,9 @@ public class PlatformApplication {
 	}
 
 	@JSFunctor
-	private static interface StupidFunctionResolveString extends JSObject {
-		void resolveStr(String s);
-	}
+    private interface StupidFunctionResolveString extends JSObject {
+        void resolveStr(String s);
+    }
 	
 	@Async
 	private static native String getClipboard0();
@@ -73,9 +73,9 @@ public class PlatformApplication {
 		getClipboard1(new StupidFunctionResolveString() {
 			@Override
 			public void resolveStr(String s) {
-				if(System.currentTimeMillis() - start > 500l) {
-					PlatformInput.unpressCTRL = true;
-				}
+                if (System.currentTimeMillis() - start > 500L) {
+                    PlatformInput.unpressCTRL = true;
+                }
 				cb.complete(s);
 			}
 		});
@@ -118,8 +118,8 @@ public class PlatformApplication {
 	private static final DateFormat dateFormatSS = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
 	
 	public static String saveScreenshot() {
-		String name = "screenshot_" + dateFormatSS.format(new Date()).toString() + ".png";
-		int w = PlatformRuntime.canvas.getWidth();
+        String name = "screenshot_" + dateFormatSS.format(new Date()) + ".png";
+        int w = PlatformRuntime.canvas.getWidth();
 		int h = PlatformRuntime.canvas.getHeight();
 		HTMLCanvasElement copyCanvas = (HTMLCanvasElement) Window.current().getDocument().createElement("canvas");
 		copyCanvas.setWidth(w);
@@ -142,10 +142,10 @@ public class PlatformApplication {
 		}, 1);
 	}
 
-	@JSFunctor
-	private static interface FileChooserCallback extends JSObject {
-		void accept(String name, ArrayBuffer buffer);
-	}
+    @JSFunctor
+    private interface FileChooserCallback extends JSObject {
+        void accept(String name, ArrayBuffer buffer);
+    }
 
 	private static class FileChooserCallbackImpl implements FileChooserCallback {
 

@@ -16,31 +16,31 @@ import net.minecraft.world.World;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class EntityPortalFX extends EntityFX {
-	private float portalParticleScale;
-	private double portalPosX;
-	private double portalPosY;
-	private double portalPosZ;
+    private final float portalParticleScale;
+    private final double portalPosX;
+    private final double portalPosY;
+    private final double portalPosZ;
 
-	protected EntityPortalFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
-			double ySpeedIn, double zSpeedIn) {
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-		this.motionX = xSpeedIn;
-		this.motionY = ySpeedIn;
-		this.motionZ = zSpeedIn;
-		this.portalPosX = this.posX = xCoordIn;
-		this.portalPosY = this.posY = yCoordIn;
-		this.portalPosZ = this.posZ = zCoordIn;
+    protected EntityPortalFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
+                             double ySpeedIn, double zSpeedIn) {
+        super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+        this.motionX = xSpeedIn;
+        this.motionY = ySpeedIn;
+        this.motionZ = zSpeedIn;
+        this.portalPosX = this.posX = xCoordIn;
+        this.portalPosY = this.posY = yCoordIn;
+        this.portalPosZ = this.posZ = zCoordIn;
 		float f = this.rand.nextFloat() * 0.6F + 0.4F;
-		this.portalParticleScale = this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
-		this.particleRed = this.particleGreen = this.particleBlue = 1.0F * f;
-		this.particleGreen *= 0.3F;
+        this.portalParticleScale = this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
+        this.particleRed = this.particleGreen = this.particleBlue = f;
+        this.particleGreen *= 0.3F;
 		this.particleRed *= 0.9F;
 		this.particleMaxAge = (int) (Math.random() * 10.0D) + 40;
 		this.noClip = true;

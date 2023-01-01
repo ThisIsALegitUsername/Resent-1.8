@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -20,6 +17,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -54,13 +53,13 @@ public class BlockPistonExtension extends Block {
 	}
 
 	public static void bootstrapStates() {
-		TYPE = PropertyEnum.<BlockPistonExtension.EnumPistonType>create("type",
+		TYPE = PropertyEnum.create("type",
 				BlockPistonExtension.EnumPistonType.class);
 	}
 
 	public void onBlockHarvested(World world, BlockPos blockpos, IBlockState iblockstate, EntityPlayer entityplayer) {
 		if (entityplayer.capabilities.isCreativeMode) {
-			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+			EnumFacing enumfacing = iblockstate.getValue(FACING);
 			if (enumfacing != null) {
 				BlockPos blockpos1 = blockpos.offset(enumfacing.getOpposite());
 				Block block = world.getBlockState(blockpos1).getBlock();
@@ -75,11 +74,11 @@ public class BlockPistonExtension extends Block {
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState iblockstate) {
 		super.breakBlock(world, blockpos, iblockstate);
-		EnumFacing enumfacing = ((EnumFacing) iblockstate.getValue(FACING)).getOpposite();
+		EnumFacing enumfacing = iblockstate.getValue(FACING).getOpposite();
 		blockpos = blockpos.offset(enumfacing);
 		IBlockState iblockstate1 = world.getBlockState(blockpos);
 		if ((iblockstate1.getBlock() == Blocks.piston || iblockstate1.getBlock() == Blocks.sticky_piston)
-				&& ((Boolean) iblockstate1.getValue(BlockPistonBase.EXTENDED)).booleanValue()) {
+				&& iblockstate1.getValue(BlockPistonBase.EXTENDED).booleanValue()) {
 			iblockstate1.getBlock().dropBlockAsItem(world, blockpos, iblockstate1, 0);
 			world.setBlockToAir(blockpos);
 		}
@@ -135,17 +134,17 @@ public class BlockPistonExtension extends Block {
 		float f2 = 0.625F;
 		float f3 = 0.25F;
 		float f4 = 0.75F;
-		switch ((EnumFacing) state.getValue(FACING)) {
-		case DOWN:
-			this.setBlockBounds(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
-			break;
-		case UP:
-			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
-			break;
-		case NORTH:
-			this.setBlockBounds(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
-			break;
-		case SOUTH:
+		switch (state.getValue(FACING)) {
+			case DOWN:
+				this.setBlockBounds(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
+				break;
+			case UP:
+				this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
+				break;
+			case NORTH:
+				this.setBlockBounds(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
+				break;
+			case SOUTH:
 			this.setBlockBounds(0.25F, 0.375F, 0.0F, 0.75F, 0.625F, 0.75F);
 			break;
 		case WEST:
@@ -163,7 +162,7 @@ public class BlockPistonExtension extends Block {
 
 	public void applyHeadBounds(IBlockState state) {
 		float f = 0.25F;
-		EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+		EnumFacing enumfacing = state.getValue(FACING);
 		if (enumfacing != null) {
 			switch (enumfacing) {
 			case DOWN:
@@ -192,7 +191,7 @@ public class BlockPistonExtension extends Block {
 	 * Called when a neighboring block changes.
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
-		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+		EnumFacing enumfacing = iblockstate.getValue(FACING);
 		BlockPos blockpos1 = blockpos.offset(enumfacing.getOpposite());
 		IBlockState iblockstate1 = world.getBlockState(blockpos1);
 		if (iblockstate1.getBlock() != Blocks.piston && iblockstate1.getBlock() != Blocks.sticky_piston) {
@@ -231,7 +230,7 @@ public class BlockPistonExtension extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+		i = i | iblockstate.getValue(FACING).getIndex();
 		if (iblockstate.getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY) {
 			i |= 8;
 		}
@@ -240,15 +239,15 @@ public class BlockPistonExtension extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING, TYPE, SHORT });
+		return new BlockState(this, FACING, TYPE, SHORT);
 	}
 
-	public static enum EnumPistonType implements IStringSerializable {
+	public enum EnumPistonType implements IStringSerializable {
 		DEFAULT("normal"), STICKY("sticky");
 
 		private final String VARIANT;
 
-		private EnumPistonType(String name) {
+		EnumPistonType(String name) {
 			this.VARIANT = name;
 		}
 

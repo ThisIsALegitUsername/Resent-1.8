@@ -33,14 +33,14 @@ import net.minecraft.util.ResourceLocation;
  */
 public class ItemModelGenerator {
 	public static final List<String> LAYERS = Lists
-			.newArrayList(new String[] { "layer0", "layer1", "layer2", "layer3", "layer4" });
+            .newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
 
 	public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
 		HashMap hashmap = Maps.newHashMap();
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (int i = 0; i < LAYERS.size(); ++i) {
-			String s = (String) LAYERS.get(i);
+            String s = LAYERS.get(i);
 			if (!blockModel.isTexturePresent(s)) {
 				break;
 			}
@@ -55,8 +55,8 @@ public class ItemModelGenerator {
 		if (arraylist.isEmpty()) {
 			return null;
 		} else {
-			hashmap.put("particle", blockModel.isTexturePresent("particle") ? blockModel.resolveTextureName("particle")
-					: (String) hashmap.get("layer0"));
+            hashmap.put("particle", blockModel.isTexturePresent("particle") ? blockModel.resolveTextureName("particle")
+                    : hashmap.get("layer0"));
 			return new ModelBlock(arraylist, hashmap, false, false, blockModel.func_181682_g());
 		}
 	}
@@ -64,14 +64,14 @@ public class ItemModelGenerator {
 	private List<BlockPart> func_178394_a(int parInt1, String parString1,
 			EaglerTextureAtlasSprite parTextureAtlasSprite) {
 		HashMap hashmap = Maps.newHashMap();
-		hashmap.put(EnumFacing.SOUTH, new BlockPartFace((EnumFacing) null, parInt1, parString1,
-				new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0)));
-		hashmap.put(EnumFacing.NORTH, new BlockPartFace((EnumFacing) null, parInt1, parString1,
-				new BlockFaceUV(new float[] { 16.0F, 0.0F, 0.0F, 16.0F }, 0)));
+        hashmap.put(EnumFacing.SOUTH, new BlockPartFace(null, parInt1, parString1,
+                new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0)));
+        hashmap.put(EnumFacing.NORTH, new BlockPartFace(null, parInt1, parString1,
+                new BlockFaceUV(new float[]{16.0F, 0.0F, 0.0F, 16.0F}, 0)));
 		ArrayList arraylist = Lists.newArrayList();
-		arraylist.add(new BlockPart(new Vector3f(0.0F, 0.0F, 7.5F), new Vector3f(16.0F, 16.0F, 8.5F), hashmap,
-				(BlockPartRotation) null, true));
-		arraylist.addAll(this.func_178397_a(parTextureAtlasSprite, parString1, parInt1));
+        arraylist.add(new BlockPart(new Vector3f(0.0F, 0.0F, 7.5F), new Vector3f(16.0F, 16.0F, 8.5F), hashmap,
+                null, true));
+        arraylist.addAll(this.func_178397_a(parTextureAtlasSprite, parString1, parInt1));
 		return arraylist;
 	}
 
@@ -155,24 +155,24 @@ public class ItemModelGenerator {
 			f8 = f8 * f11;
 			f9 = f9 * f11;
 			HashMap hashmap = Maps.newHashMap();
-			hashmap.put(itemmodelgenerator$spanfacing.getFacing(), new BlockPartFace((EnumFacing) null, parInt1,
-					parString1, new BlockFaceUV(new float[] { f6, f8, f7, f9 }, 0)));
+            hashmap.put(itemmodelgenerator$spanfacing.getFacing(), new BlockPartFace(null, parInt1,
+                    parString1, new BlockFaceUV(new float[]{f6, f8, f7, f9}, 0)));
 			switch (itemmodelgenerator$spanfacing) {
 			case UP:
-				arraylist.add(new BlockPart(new Vector3f(f2, f3, 7.5F), new Vector3f(f4, f3, 8.5F), hashmap,
-						(BlockPartRotation) null, true));
+                arraylist.add(new BlockPart(new Vector3f(f2, f3, 7.5F), new Vector3f(f4, f3, 8.5F), hashmap,
+                        null, true));
 				break;
 			case DOWN:
-				arraylist.add(new BlockPart(new Vector3f(f2, f5, 7.5F), new Vector3f(f4, f5, 8.5F), hashmap,
-						(BlockPartRotation) null, true));
+                arraylist.add(new BlockPart(new Vector3f(f2, f5, 7.5F), new Vector3f(f4, f5, 8.5F), hashmap,
+                        null, true));
 				break;
 			case LEFT:
-				arraylist.add(new BlockPart(new Vector3f(f2, f3, 7.5F), new Vector3f(f2, f5, 8.5F), hashmap,
-						(BlockPartRotation) null, true));
+                arraylist.add(new BlockPart(new Vector3f(f2, f3, 7.5F), new Vector3f(f2, f5, 8.5F), hashmap,
+                        null, true));
 				break;
 			case RIGHT:
-				arraylist.add(new BlockPart(new Vector3f(f4, f3, 7.5F), new Vector3f(f4, f5, 8.5F), hashmap,
-						(BlockPartRotation) null, true));
+                arraylist.add(new BlockPart(new Vector3f(f4, f3, 7.5F), new Vector3f(f4, f5, 8.5F), hashmap,
+                        null, true));
 			}
 		}
 
@@ -236,9 +236,7 @@ public class ItemModelGenerator {
 	}
 
 	private boolean func_178391_a(int[] parArrayOfInt, int parInt1, int parInt2, int parInt3, int parInt4) {
-		return parInt1 >= 0 && parInt2 >= 0 && parInt1 < parInt3 && parInt2 < parInt4
-				? (parArrayOfInt[parInt2 * parInt3 + parInt1] >> 24 & 255) == 0
-				: true;
+        return parInt1 < 0 || parInt2 < 0 || parInt1 >= parInt3 || parInt2 >= parInt4 || (parArrayOfInt[parInt2 * parInt3 + parInt1] >> 24 & 255) == 0;
 	}
 
 	static class Span {
@@ -280,19 +278,19 @@ public class ItemModelGenerator {
 		}
 	}
 
-	static enum SpanFacing {
-		UP(EnumFacing.UP, 0, -1), DOWN(EnumFacing.DOWN, 0, 1), LEFT(EnumFacing.EAST, -1, 0),
-		RIGHT(EnumFacing.WEST, 1, 0);
+    enum SpanFacing {
+        UP(EnumFacing.UP, 0, -1), DOWN(EnumFacing.DOWN, 0, 1), LEFT(EnumFacing.EAST, -1, 0),
+        RIGHT(EnumFacing.WEST, 1, 0);
 
-		private final EnumFacing facing;
-		private final int field_178373_f;
-		private final int field_178374_g;
+        private final EnumFacing facing;
+        private final int field_178373_f;
+        private final int field_178374_g;
 
-		private SpanFacing(EnumFacing facing, int parInt2, int parInt3) {
-			this.facing = facing;
-			this.field_178373_f = parInt2;
-			this.field_178374_g = parInt3;
-		}
+        SpanFacing(EnumFacing facing, int parInt2, int parInt3) {
+            this.facing = facing;
+            this.field_178373_f = parInt2;
+            this.field_178374_g = parInt3;
+        }
 
 		public EnumFacing getFacing() {
 			return this.facing;

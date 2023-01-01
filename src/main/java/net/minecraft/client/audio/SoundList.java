@@ -103,17 +103,17 @@ public class SoundList {
 			this.streaming = isStreaming;
 		}
 
-		public static enum Type {
-			FILE("file"), SOUND_EVENT("event");
+		public enum Type {
+            FILE("file"), SOUND_EVENT("event");
 
-			private final String field_148583_c;
+            private final String field_148583_c;
 
-			private Type(String parString2) {
-				this.field_148583_c = parString2;
-			}
+            Type(String parString2) {
+                this.field_148583_c = parString2;
+            }
 
-			public static SoundList.SoundEntry.Type getType(String parString1) {
-				for (SoundList.SoundEntry.Type soundlist$soundentry$type : values()) {
+            public static SoundList.SoundEntry.Type getType(String parString1) {
+                for (SoundList.SoundEntry.Type soundlist$soundentry$type : values()) {
 					if (soundlist$soundentry$type.field_148583_c.equals(parString1)) {
 						return soundlist$soundentry$type;
 					}

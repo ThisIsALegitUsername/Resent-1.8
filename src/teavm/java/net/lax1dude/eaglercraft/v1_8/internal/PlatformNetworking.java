@@ -38,8 +38,8 @@ public class PlatformNetworking {
 	private static boolean sockIsConnected = false;
 	private static boolean sockIsAlive = false;
 	private static boolean sockIsFailed = false;
-	private static LinkedList<byte[]> readPackets = new LinkedList<>();
-	private static String currentSockURI = null;
+    private static final LinkedList<byte[]> readPackets = new LinkedList<>();
+    private static String currentSockURI = null;
 	private static EnumServerRateLimit serverRateLimit = null;
 	
 	private static final Logger logger = LogManager.getLogger("PlatformNetworking");

@@ -1,11 +1,5 @@
 package net.lax1dude.eaglercraft.v1_8.socket;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
 import net.lax1dude.eaglercraft.v1_8.ArrayUtils;
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
@@ -23,6 +17,12 @@ import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
  * 
@@ -38,7 +38,7 @@ import net.minecraft.util.EnumChatFormatting;
  */
 public class ConnectionHandshake {
 
-	private static final long baseTimeout = 15000l;
+	private static final long baseTimeout = 15000L;
 	
 	private static final int baseVersion = 2; // ProtocolVersions.V_02
 	
@@ -337,7 +337,7 @@ public class ConnectionHandshake {
 				return null;
 			}
 			try {
-				Thread.sleep(50l);
+				Thread.sleep(50L);
 			} catch (InterruptedException e) {
 			}
 			if(System.currentTimeMillis() - millis > timeout) {

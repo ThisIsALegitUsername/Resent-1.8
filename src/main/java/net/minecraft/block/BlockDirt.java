@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -17,6 +14,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -48,14 +47,14 @@ public class BlockDirt extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.<BlockDirt.DirtType>create("variant", BlockDirt.DirtType.class);
+		VARIANT = PropertyEnum.create("variant", BlockDirt.DirtType.class);
 	}
 
 	/**+
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-		return ((BlockDirt.DirtType) iblockstate.getValue(VARIANT)).func_181066_d();
+		return iblockstate.getValue(VARIANT).func_181066_d();
 	}
 
 	/**+
@@ -85,7 +84,7 @@ public class BlockDirt extends Block {
 
 	public int getDamageValue(World world, BlockPos blockpos) {
 		IBlockState iblockstate = world.getBlockState(blockpos);
-		return iblockstate.getBlock() != this ? 0 : ((BlockDirt.DirtType) iblockstate.getValue(VARIANT)).getMetadata();
+		return iblockstate.getBlock() != this ? 0 : iblockstate.getValue(VARIANT).getMetadata();
 	}
 
 	/**+
@@ -99,11 +98,11 @@ public class BlockDirt extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((BlockDirt.DirtType) iblockstate.getValue(VARIANT)).getMetadata();
+		return iblockstate.getValue(VARIANT).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { VARIANT, SNOWY });
+		return new BlockState(this, VARIANT, SNOWY);
 	}
 
 	/**+
@@ -113,7 +112,7 @@ public class BlockDirt extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		BlockDirt.DirtType blockdirt$dirttype = (BlockDirt.DirtType) iblockstate.getValue(VARIANT);
+		BlockDirt.DirtType blockdirt$dirttype = iblockstate.getValue(VARIANT);
 		if (blockdirt$dirttype == BlockDirt.DirtType.PODZOL) {
 			blockdirt$dirttype = BlockDirt.DirtType.DIRT;
 		}
@@ -121,7 +120,7 @@ public class BlockDirt extends Block {
 		return blockdirt$dirttype.getMetadata();
 	}
 
-	public static enum DirtType implements IStringSerializable {
+	public enum DirtType implements IStringSerializable {
 		DIRT(0, "dirt", "default", MapColor.dirtColor), COARSE_DIRT(1, "coarse_dirt", "coarse", MapColor.dirtColor),
 		PODZOL(2, "podzol", MapColor.obsidianColor);
 
@@ -131,11 +130,11 @@ public class BlockDirt extends Block {
 		private final String unlocalizedName;
 		private final MapColor field_181067_h;
 
-		private DirtType(int parInt2, String parString2, MapColor parMapColor) {
+		DirtType(int parInt2, String parString2, MapColor parMapColor) {
 			this(parInt2, parString2, parString2, parMapColor);
 		}
 
-		private DirtType(int parInt2, String parString2, String parString3, MapColor parMapColor) {
+		DirtType(int parInt2, String parString2, String parString3, MapColor parMapColor) {
 			this.metadata = parInt2;
 			this.name = parString2;
 			this.unlocalizedName = parString3;

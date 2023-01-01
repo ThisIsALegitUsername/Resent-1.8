@@ -1,20 +1,14 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 /**+
@@ -50,11 +44,10 @@ public class BlockCactus extends Block {
 		if (world.isAirBlock(blockpos1)) {
 			int i;
 			for (i = 1; world.getBlockState(blockpos.down(i)).getBlock() == this; ++i) {
-				;
-			}
+            }
 
 			if (i < 3) {
-				int j = ((Integer) iblockstate.getValue(AGE)).intValue();
+				int j = iblockstate.getValue(AGE).intValue();
 				if (j == 15) {
 					world.setBlockState(blockpos1, this.getDefaultState());
 					IBlockState iblockstate1 = iblockstate.withProperty(AGE, Integer.valueOf(0));
@@ -70,16 +63,16 @@ public class BlockCactus extends Block {
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState var3) {
 		float f = 0.0625F;
-		return new AxisAlignedBB((double) ((float) blockpos.getX() + f), (double) blockpos.getY(),
-				(double) ((float) blockpos.getZ() + f), (double) ((float) (blockpos.getX() + 1) - f),
-				(double) ((float) (blockpos.getY() + 1) - f), (double) ((float) (blockpos.getZ() + 1) - f));
+		return new AxisAlignedBB((float) blockpos.getX() + f, blockpos.getY(),
+				(float) blockpos.getZ() + f, (float) (blockpos.getX() + 1) - f,
+				(float) (blockpos.getY() + 1) - f, (float) (blockpos.getZ() + 1) - f);
 	}
 
 	public AxisAlignedBB getSelectedBoundingBox(World var1, BlockPos blockpos) {
 		float f = 0.0625F;
-		return new AxisAlignedBB((double) ((float) blockpos.getX() + f), (double) blockpos.getY(),
-				(double) ((float) blockpos.getZ() + f), (double) ((float) (blockpos.getX() + 1) - f),
-				(double) (blockpos.getY() + 1), (double) ((float) (blockpos.getZ() + 1) - f));
+		return new AxisAlignedBB((float) blockpos.getX() + f, blockpos.getY(),
+				(float) blockpos.getZ() + f, (float) (blockpos.getX() + 1) - f,
+				blockpos.getY() + 1, (float) (blockpos.getZ() + 1) - f);
 	}
 
 	public boolean isFullCube() {
@@ -95,7 +88,7 @@ public class BlockCactus extends Block {
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
-		return super.canPlaceBlockAt(world, blockpos) ? this.canBlockStay(world, blockpos) : false;
+		return super.canPlaceBlockAt(world, blockpos) && this.canBlockStay(world, blockpos);
 	}
 
 	/**+
@@ -141,10 +134,10 @@ public class BlockCactus extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(AGE)).intValue();
+		return iblockstate.getValue(AGE).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE });
+		return new BlockState(this, AGE);
 	}
 }

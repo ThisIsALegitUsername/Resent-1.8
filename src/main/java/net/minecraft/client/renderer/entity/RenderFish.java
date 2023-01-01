@@ -88,34 +88,34 @@ public class RenderFish extends Render<EntityFishHook> {
 			double d4 = entityfishhook.angler.prevPosY
 					+ (entityfishhook.angler.posY - entityfishhook.angler.prevPosY) * (double) f1 + vec3.yCoord;
 			double d5 = entityfishhook.angler.prevPosZ
-					+ (entityfishhook.angler.posZ - entityfishhook.angler.prevPosZ) * (double) f1 + vec3.zCoord;
-			double d6 = (double) entityfishhook.angler.getEyeHeight();
+                    + (entityfishhook.angler.posZ - entityfishhook.angler.prevPosZ) * (double) f1 + vec3.zCoord;
+            double d6 = entityfishhook.angler.getEyeHeight();
 			if (this.renderManager.options != null && this.renderManager.options.thirdPersonView > 0
 					|| entityfishhook.angler != Minecraft.getMinecraft().thePlayer) {
-				float f11 = (entityfishhook.angler.prevRenderYawOffset
-						+ (entityfishhook.angler.renderYawOffset - entityfishhook.angler.prevRenderYawOffset) * f1)
-						* 3.1415927F / 180.0F;
-				double d7 = (double) MathHelper.sin(f11);
-				double d9 = (double) MathHelper.cos(f11);
-				double d11 = 0.35D;
-				double d13 = 0.8D;
-				d3 = entityfishhook.angler.prevPosX
-						+ (entityfishhook.angler.posX - entityfishhook.angler.prevPosX) * (double) f1 - d9 * 0.35D
-						- d7 * 0.8D;
-				d4 = entityfishhook.angler.prevPosY + d6
-						+ (entityfishhook.angler.posY - entityfishhook.angler.prevPosY) * (double) f1 - 0.45D;
-				d5 = entityfishhook.angler.prevPosZ
-						+ (entityfishhook.angler.posZ - entityfishhook.angler.prevPosZ) * (double) f1 - d7 * 0.35D
-						+ d9 * 0.8D;
+                float f11 = (entityfishhook.angler.prevRenderYawOffset
+                        + (entityfishhook.angler.renderYawOffset - entityfishhook.angler.prevRenderYawOffset) * f1)
+                        * 3.1415927F / 180.0F;
+                double d7 = MathHelper.sin(f11);
+                double d9 = MathHelper.cos(f11);
+                double d11 = 0.35D;
+                double d13 = 0.8D;
+                d3 = entityfishhook.angler.prevPosX
+                        + (entityfishhook.angler.posX - entityfishhook.angler.prevPosX) * (double) f1 - d9 * 0.35D
+                        - d7 * 0.8D;
+                d4 = entityfishhook.angler.prevPosY + d6
+                        + (entityfishhook.angler.posY - entityfishhook.angler.prevPosY) * (double) f1 - 0.45D;
+                d5 = entityfishhook.angler.prevPosZ
+                        + (entityfishhook.angler.posZ - entityfishhook.angler.prevPosZ) * (double) f1 - d7 * 0.35D
+                        + d9 * 0.8D;
 				d6 = entityfishhook.angler.isSneaking() ? -0.1875D : 0.0D;
 			}
 
 			double d16 = entityfishhook.prevPosX + (entityfishhook.posX - entityfishhook.prevPosX) * (double) f1;
 			double d8 = entityfishhook.prevPosY + (entityfishhook.posY - entityfishhook.prevPosY) * (double) f1 + 0.25D;
-			double d10 = entityfishhook.prevPosZ + (entityfishhook.posZ - entityfishhook.prevPosZ) * (double) f1;
-			double d12 = (double) ((float) (d3 - d16));
-			double d14 = (double) ((float) (d4 - d8)) + d6;
-			double d15 = (double) ((float) (d5 - d10));
+            double d10 = entityfishhook.prevPosZ + (entityfishhook.posZ - entityfishhook.prevPosZ) * (double) f1;
+            double d12 = (float) (d3 - d16);
+            double d14 = (double) ((float) (d4 - d8)) + d6;
+            double d15 = (float) (d5 - d10);
 			GlStateManager.disableTexture2D();
 			GlStateManager.disableLighting();
 			worldrenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);

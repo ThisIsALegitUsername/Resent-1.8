@@ -1,18 +1,17 @@
 package net.minecraft.client.resources;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
-
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Set;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -72,7 +71,7 @@ public class DefaultResourcePack implements IResourcePack {
 			return AbstractResourcePack.readMetadata(parIMetadataSerializer,
 					EagRuntime.getResourceStream("pack.mcmeta"), parString1);
 		} catch (RuntimeException var4) {
-			return (T) null;
+			return null;
 		}
 	}
 

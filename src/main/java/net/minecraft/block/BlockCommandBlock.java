@@ -1,10 +1,8 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -71,9 +69,7 @@ public class BlockCommandBlock extends BlockContainer {
 	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState var3, EntityPlayer entityplayer,
 			EnumFacing var5, float var6, float var7, float var8) {
 		TileEntity tileentity = world.getTileEntity(blockpos);
-		return tileentity instanceof TileEntityCommandBlock
-				? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().tryOpenEditCommandBlock(entityplayer)
-				: false;
+		return tileentity instanceof TileEntityCommandBlock && ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().tryOpenEditCommandBlock(entityplayer);
 	}
 
 	public boolean hasComparatorInputOverride() {
@@ -130,7 +126,7 @@ public class BlockCommandBlock extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		if (((Boolean) iblockstate.getValue(TRIGGERED)).booleanValue()) {
+		if (iblockstate.getValue(TRIGGERED).booleanValue()) {
 			i |= 1;
 		}
 
@@ -138,7 +134,7 @@ public class BlockCommandBlock extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { TRIGGERED });
+		return new BlockState(this, TRIGGERED);
 	}
 
 	/**+

@@ -2,7 +2,6 @@ package net.minecraft.block.state.pattern;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
-
 import net.lax1dude.eaglercraft.v1_8.cache.EaglerCacheProvider;
 import net.lax1dude.eaglercraft.v1_8.cache.EaglerLoadingCache;
 import net.minecraft.block.state.BlockWorldState;
@@ -191,8 +190,8 @@ public class BlockPattern {
 		 * BlockPos offset in the facing directions
 		 */
 		public BlockWorldState translateOffset(int palmOffset, int thumbOffset, int fingerOffset) {
-			return (BlockWorldState) this.lcache.get(BlockPattern.translateOffset(this.pos, this.getFinger(),
-					this.getThumb(), palmOffset, thumbOffset, fingerOffset));
+			return this.lcache.get(BlockPattern.translateOffset(this.pos, this.getFinger(),
+                    this.getThumb(), palmOffset, thumbOffset, fingerOffset));
 		}
 
 		public String toString() {

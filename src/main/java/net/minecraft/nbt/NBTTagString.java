@@ -47,7 +47,7 @@ public class NBTTagString extends NBTBase {
 	void read(DataInput parDataInput, int parInt1, NBTSizeTracker parNBTSizeTracker) throws IOException {
 		parNBTSizeTracker.read(288L);
 		this.data = parDataInput.readUTF();
-		parNBTSizeTracker.read((long) (16 * this.data.length()));
+        parNBTSizeTracker.read(16L * this.data.length());
 	}
 
 	/**+

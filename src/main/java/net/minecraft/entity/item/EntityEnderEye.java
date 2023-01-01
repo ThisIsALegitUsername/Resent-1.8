@@ -63,10 +63,10 @@ public class EntityEnderEye extends Entity {
 	}
 
 	public void moveTowards(BlockPos parBlockPos) {
-		double d0 = (double) parBlockPos.getX();
-		int i = parBlockPos.getY();
-		double d1 = (double) parBlockPos.getZ();
-		double d2 = d0 - this.posX;
+		double d0 = parBlockPos.getX();
+        int i = parBlockPos.getY();
+        double d1 = parBlockPos.getZ();
+        double d2 = d0 - this.posX;
 		double d3 = d1 - this.posZ;
 		float f = MathHelper.sqrt_double(d2 * d2 + d3 * d3);
 		if (f > 12.0F) {
@@ -74,9 +74,9 @@ public class EntityEnderEye extends Entity {
 			this.targetZ = this.posZ + d3 / (double) f * 12.0D;
 			this.targetY = this.posY + 8.0D;
 		} else {
-			this.targetX = d0;
-			this.targetY = (double) i;
-			this.targetZ = d1;
+            this.targetX = d0;
+            this.targetY = i;
+            this.targetZ = d1;
 		}
 
 		this.despawnTimer = 0;
@@ -94,8 +94,8 @@ public class EntityEnderEye extends Entity {
 			float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 			this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D
 					/ 3.1415927410125732D);
-			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D
-					/ 3.1415927410125732D);
+            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, f) * 180.0D
+                    / 3.1415927410125732D);
 		}
 
 	}
@@ -115,11 +115,10 @@ public class EntityEnderEye extends Entity {
 		this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D
 				/ 3.1415927410125732D);
 
-		for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f) * 180.0D
-				/ 3.1415927410125732D); this.rotationPitch
-						- this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-			;
-		}
+        for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, f) * 180.0D
+                / 3.1415927410125732D); this.rotationPitch
+                     - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+        }
 
 		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			this.prevRotationPitch += 360.0F;
@@ -139,16 +138,16 @@ public class EntityEnderEye extends Entity {
 		float f3 = 0.25F;
 		if (this.isInWater()) {
 			for (int i = 0; i < 4; ++i) {
-				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f3,
-						this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3, this.motionX,
-						this.motionY, this.motionZ, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f3,
+                        this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3, this.motionX,
+                        this.motionY, this.motionZ);
 			}
 		} else {
-			this.worldObj.spawnParticle(EnumParticleTypes.PORTAL,
-					this.posX - this.motionX * (double) f3 + this.rand.nextDouble() * 0.6D - 0.3D,
-					this.posY - this.motionY * (double) f3 - 0.5D,
-					this.posZ - this.motionZ * (double) f3 + this.rand.nextDouble() * 0.6D - 0.3D, this.motionX,
-					this.motionY, this.motionZ, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.PORTAL,
+                    this.posX - this.motionX * (double) f3 + this.rand.nextDouble() * 0.6D - 0.3D,
+                    this.posY - this.motionY * (double) f3 - 0.5D,
+                    this.posZ - this.motionZ * (double) f3 + this.rand.nextDouble() * 0.6D - 0.3D, this.motionX,
+                    this.motionY, this.motionZ);
 		}
 
 	}

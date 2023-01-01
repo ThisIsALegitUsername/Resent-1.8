@@ -1,8 +1,5 @@
 package net.minecraft.client.renderer;
 
-import java.util.BitSet;
-import java.util.List;
-
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.Block;
@@ -14,12 +11,11 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
+
+import java.util.BitSet;
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -117,7 +113,7 @@ public class BlockModelRenderer {
 
 		List list1 = modelIn.getGeneralQuads();
 		if (list1.size() > 0) {
-			this.renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, (EnumFacing) null, -1, true,
+			this.renderModelStandardQuads(blockAccessIn, blockIn, blockPosIn, null, -1, true,
 					worldRendererIn, list1, bitset);
 			flag = true;
 		}
@@ -128,9 +124,9 @@ public class BlockModelRenderer {
 	private void renderModelAmbientOcclusionQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn,
 			WorldRenderer worldRendererIn, List<BakedQuad> listQuadsIn, float[] quadBounds, BitSet boundsFlags,
 			BlockModelRenderer.AmbientOcclusionFace aoFaceIn) {
-		double d0 = (double) blockPosIn.getX();
-		double d1 = (double) blockPosIn.getY();
-		double d2 = (double) blockPosIn.getZ();
+		double d0 = blockPosIn.getX();
+		double d1 = blockPosIn.getY();
+		double d2 = blockPosIn.getZ();
 		Block.EnumOffsetType block$enumoffsettype = blockIn.getOffsetType();
 		if (block$enumoffsettype != Block.EnumOffsetType.NONE) {
 			long i = MathHelper.getPositionRandom(blockPosIn);
@@ -250,14 +246,14 @@ public class BlockModelRenderer {
 	private void renderModelStandardQuads(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn,
 			EnumFacing faceIn, int brightnessIn, boolean ownBrightness, WorldRenderer worldRendererIn,
 			List<BakedQuad> listQuadsIn, BitSet boundsFlags) {
-		double d0 = (double) blockPosIn.getX();
-		double d1 = (double) blockPosIn.getY();
-		double d2 = (double) blockPosIn.getZ();
+		double d0 = blockPosIn.getX();
+		double d1 = blockPosIn.getY();
+		double d2 = blockPosIn.getZ();
 		Block.EnumOffsetType block$enumoffsettype = blockIn.getOffsetType();
 		if (block$enumoffsettype != Block.EnumOffsetType.NONE) {
 			int i = blockPosIn.getX();
 			int j = blockPosIn.getZ();
-			long k = (long) (i * 3129871) ^ (long) j * 116129781L;
+			long k = (long) (i * 3129871L) ^ (long) j * 116129781L;
 			k = k * k * 42317861L + k * 11L;
 			d0 += ((double) ((float) (k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
 			d2 += ((double) ((float) (k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
@@ -268,7 +264,7 @@ public class BlockModelRenderer {
 
 		for (BakedQuad bakedquad : listQuadsIn) {
 			if (ownBrightness) {
-				this.fillQuadBounds(blockIn, bakedquad.getVertexData(), bakedquad.getFace(), (float[]) null,
+				this.fillQuadBounds(blockIn, bakedquad.getVertexData(), bakedquad.getFace(), null,
 						boundsFlags);
 				brightnessIn = boundsFlags.get(0)
 						? blockIn.getMixedBrightnessForBlock(blockAccessIn, blockPosIn.offset(bakedquad.getFace()))
@@ -532,15 +528,15 @@ public class BlockModelRenderer {
 		}
 	}
 
-	public static enum EnumNeighborInfo {
-		DOWN(new EnumFacing[] { EnumFacing.WEST, EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.SOUTH }, 0.5F, false,
+	public enum EnumNeighborInfo {
+		DOWN(new EnumFacing[]{EnumFacing.WEST, EnumFacing.EAST, EnumFacing.NORTH, EnumFacing.SOUTH}, 0.5F, false,
 				new BlockModelRenderer.Orientation[0], new BlockModelRenderer.Orientation[0],
 				new BlockModelRenderer.Orientation[0], new BlockModelRenderer.Orientation[0]),
-		UP(new EnumFacing[] { EnumFacing.EAST, EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.SOUTH }, 1.0F, false,
+		UP(new EnumFacing[]{EnumFacing.EAST, EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.SOUTH}, 1.0F, false,
 				new BlockModelRenderer.Orientation[0], new BlockModelRenderer.Orientation[0],
 				new BlockModelRenderer.Orientation[0], new BlockModelRenderer.Orientation[0]),
-		NORTH(new EnumFacing[] { EnumFacing.UP, EnumFacing.DOWN, EnumFacing.EAST, EnumFacing.WEST }, 0.8F, true,
-				new BlockModelRenderer.Orientation[] { BlockModelRenderer.Orientation.UP,
+		NORTH(new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN, EnumFacing.EAST, EnumFacing.WEST}, 0.8F, true,
+				new BlockModelRenderer.Orientation[]{BlockModelRenderer.Orientation.UP,
 						BlockModelRenderer.Orientation.FLIP_WEST, BlockModelRenderer.Orientation.UP,
 						BlockModelRenderer.Orientation.WEST, BlockModelRenderer.Orientation.FLIP_UP,
 						BlockModelRenderer.Orientation.WEST, BlockModelRenderer.Orientation.FLIP_UP,
@@ -617,27 +613,27 @@ public class BlockModelRenderer {
 						BlockModelRenderer.Orientation.NORTH, BlockModelRenderer.Orientation.FLIP_UP,
 						BlockModelRenderer.Orientation.FLIP_NORTH, BlockModelRenderer.Orientation.UP,
 						BlockModelRenderer.Orientation.FLIP_NORTH, BlockModelRenderer.Orientation.UP,
-						BlockModelRenderer.Orientation.NORTH },
-				new BlockModelRenderer.Orientation[] { BlockModelRenderer.Orientation.FLIP_UP,
+						BlockModelRenderer.Orientation.NORTH},
+				new BlockModelRenderer.Orientation[]{BlockModelRenderer.Orientation.FLIP_UP,
 						BlockModelRenderer.Orientation.SOUTH, BlockModelRenderer.Orientation.FLIP_UP,
 						BlockModelRenderer.Orientation.FLIP_SOUTH, BlockModelRenderer.Orientation.UP,
 						BlockModelRenderer.Orientation.FLIP_SOUTH, BlockModelRenderer.Orientation.UP,
-						BlockModelRenderer.Orientation.SOUTH });
+						BlockModelRenderer.Orientation.SOUTH});
 
-		protected final EnumFacing[] field_178276_g;
-		protected final float field_178288_h;
-		protected final boolean field_178289_i;
-		protected final BlockModelRenderer.Orientation[] field_178286_j;
-		protected final BlockModelRenderer.Orientation[] field_178287_k;
-		protected final BlockModelRenderer.Orientation[] field_178284_l;
-		protected final BlockModelRenderer.Orientation[] field_178285_m;
+		private final EnumFacing[] field_178276_g;
+		private final float field_178288_h;
+		private final boolean field_178289_i;
+		private final BlockModelRenderer.Orientation[] field_178286_j;
+		private final BlockModelRenderer.Orientation[] field_178287_k;
+		private final BlockModelRenderer.Orientation[] field_178284_l;
+		private final BlockModelRenderer.Orientation[] field_178285_m;
 		private static final BlockModelRenderer.EnumNeighborInfo[] field_178282_n = new BlockModelRenderer.EnumNeighborInfo[6];
 
-		private EnumNeighborInfo(EnumFacing[] parArrayOfEnumFacing, float parFloat1, boolean parFlag,
-				BlockModelRenderer.Orientation[] parArrayOfOrientation,
-				BlockModelRenderer.Orientation[] parArrayOfOrientation_2,
-				BlockModelRenderer.Orientation[] parArrayOfOrientation_3,
-				BlockModelRenderer.Orientation[] parArrayOfOrientation_4) {
+		EnumNeighborInfo(EnumFacing[] parArrayOfEnumFacing, float parFloat1, boolean parFlag,
+						 BlockModelRenderer.Orientation[] parArrayOfOrientation,
+						 BlockModelRenderer.Orientation[] parArrayOfOrientation_2,
+						 BlockModelRenderer.Orientation[] parArrayOfOrientation_3,
+						 BlockModelRenderer.Orientation[] parArrayOfOrientation_4) {
 			this.field_178276_g = parArrayOfEnumFacing;
 			this.field_178288_h = parFloat1;
 			this.field_178289_i = parFlag;
@@ -661,20 +657,20 @@ public class BlockModelRenderer {
 		}
 	}
 
-	public static enum Orientation {
+	public enum Orientation {
 		DOWN(EnumFacing.DOWN, false), UP(EnumFacing.UP, false), NORTH(EnumFacing.NORTH, false),
 		SOUTH(EnumFacing.SOUTH, false), WEST(EnumFacing.WEST, false), EAST(EnumFacing.EAST, false),
 		FLIP_DOWN(EnumFacing.DOWN, true), FLIP_UP(EnumFacing.UP, true), FLIP_NORTH(EnumFacing.NORTH, true),
 		FLIP_SOUTH(EnumFacing.SOUTH, true), FLIP_WEST(EnumFacing.WEST, true), FLIP_EAST(EnumFacing.EAST, true);
 
-		protected final int field_178229_m;
+		private final int field_178229_m;
 
-		private Orientation(EnumFacing parEnumFacing, boolean parFlag) {
+		Orientation(EnumFacing parEnumFacing, boolean parFlag) {
 			this.field_178229_m = parEnumFacing.getIndex() + (parFlag ? EnumFacing.values().length : 0);
 		}
 	}
 
-	static enum VertexTranslations {
+	enum VertexTranslations {
 		DOWN(0, 1, 2, 3), UP(2, 3, 0, 1), NORTH(3, 0, 1, 2), SOUTH(0, 1, 2, 3), WEST(3, 0, 1, 2), EAST(1, 2, 3, 0);
 
 		private final int field_178191_g;
@@ -683,7 +679,7 @@ public class BlockModelRenderer {
 		private final int field_178198_j;
 		private static final BlockModelRenderer.VertexTranslations[] field_178199_k = new BlockModelRenderer.VertexTranslations[6];
 
-		private VertexTranslations(int parInt2, int parInt3, int parInt4, int parInt5) {
+		VertexTranslations(int parInt2, int parInt3, int parInt4, int parInt5) {
 			this.field_178191_g = parInt2;
 			this.field_178200_h = parInt3;
 			this.field_178201_i = parInt4;

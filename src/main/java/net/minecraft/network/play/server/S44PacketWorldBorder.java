@@ -55,7 +55,7 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-		this.action = (S44PacketWorldBorder.Action) parPacketBuffer.readEnumValue(S44PacketWorldBorder.Action.class);
+		this.action = parPacketBuffer.readEnumValue(Action.class);
 		switch (this.action) {
 		case SET_SIZE:
 			this.targetSize = parPacketBuffer.readDouble();
@@ -154,17 +154,17 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
 			if (this.timeUntilTarget > 0L) {
 				border.setTransition(this.diameter, this.targetSize, this.timeUntilTarget);
 			} else {
-				border.setTransition(this.targetSize);
-			}
+                border.setTransition(this.targetSize);
+            }
 
-			border.setSize(this.size);
-			border.setWarningDistance(this.warningDistance);
-			border.setWarningTime(this.warningTime);
-		}
+            border.setSize(this.size);
+            border.setWarningDistance(this.warningDistance);
+            border.setWarningTime(this.warningTime);
+        }
 
-	}
+    }
 
-	public static enum Action {
-		SET_SIZE, LERP_SIZE, SET_CENTER, INITIALIZE, SET_WARNING_TIME, SET_WARNING_BLOCKS;
-	}
+    public enum Action {
+        SET_SIZE, LERP_SIZE, SET_CENTER, INITIALIZE, SET_WARNING_TIME, SET_WARNING_BLOCKS
+    }
 }

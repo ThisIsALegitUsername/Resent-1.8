@@ -36,8 +36,8 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
 	private String field_149316_d = "";
 	private String field_179816_e;
 	private int field_179815_f;
-	private Collection<String> field_149317_e;
-	private int field_149314_f;
+    private final Collection<String> field_149317_e;
+    private int field_149314_f;
 	private int field_149315_g;
 
 	public S3EPacketTeams() {

@@ -30,7 +30,7 @@ import net.minecraft.util.ResourceLocation;
  * 
  */
 public class RenderFireball extends Render<EntityFireball> {
-	private float scale;
+	private final float scale;
 
 	public RenderFireball(RenderManager renderManagerIn, float scaleIn) {
 		super(renderManagerIn);
@@ -56,25 +56,25 @@ public class RenderFireball extends Render<EntityFireball> {
 				.getParticleIcon(Items.fire_charge);
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-		float f2 = textureatlassprite.getMinU();
-		float f3 = textureatlassprite.getMaxU();
-		float f4 = textureatlassprite.getMinV();
-		float f5 = textureatlassprite.getMaxV();
-		float f6 = 1.0F;
-		float f7 = 0.5F;
-		float f8 = 0.25F;
-		GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-		worldrenderer.pos(-0.5D, -0.25D, 0.0D).tex((double) f2, (double) f5).normal(0.0F, 1.0F, 0.0F).endVertex();
-		worldrenderer.pos(0.5D, -0.25D, 0.0D).tex((double) f3, (double) f5).normal(0.0F, 1.0F, 0.0F).endVertex();
-		worldrenderer.pos(0.5D, 0.75D, 0.0D).tex((double) f3, (double) f4).normal(0.0F, 1.0F, 0.0F).endVertex();
-		worldrenderer.pos(-0.5D, 0.75D, 0.0D).tex((double) f2, (double) f4).normal(0.0F, 1.0F, 0.0F).endVertex();
-		tessellator.draw();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
-		super.doRender(entityfireball, d0, d1, d2, f, f1);
-	}
+        float f2 = textureatlassprite.getMinU();
+        float f3 = textureatlassprite.getMaxU();
+        float f4 = textureatlassprite.getMinV();
+        float f5 = textureatlassprite.getMaxV();
+        float f6 = 1.0F;
+        float f7 = 0.5F;
+        float f8 = 0.25F;
+        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        worldrenderer.pos(-0.5D, -0.25D, 0.0D).tex(f2, f5).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(0.5D, -0.25D, 0.0D).tex(f3, f5).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(0.5D, 0.75D, 0.0D).tex(f3, f4).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(-0.5D, 0.75D, 0.0D).tex(f2, f4).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.draw();
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.popMatrix();
+        super.doRender(entityfireball, d0, d1, d2, f, f1);
+    }
 
 	/**+
 	 * Returns the location of an entity's texture. Doesn't seem to

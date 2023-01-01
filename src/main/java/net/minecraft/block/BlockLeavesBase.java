@@ -40,7 +40,6 @@ public class BlockLeavesBase extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
-		return !this.fancyGraphics && iblockaccess.getBlockState(blockpos).getBlock() == this ? false
-				: super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
+		return (this.fancyGraphics || iblockaccess.getBlockState(blockpos).getBlock() != this) && super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
 	}
 }

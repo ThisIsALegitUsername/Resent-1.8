@@ -16,14 +16,10 @@
  */
 package org.apache.commons.lang3.time;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+
+import java.util.*;
 
 /**
  * <p>
@@ -503,7 +499,7 @@ public class DurationFormatUtils {
 			final Object value = token.getValue();
 			final int count = token.getCount();
 			if (value instanceof StringBuilder) {
-				buffer.append(value.toString());
+				buffer.append(value);
 			} else if (value.equals(y)) {
 				buffer.append(paddedValue(years, padWithZeros, count));
 				lastOutputSeconds = false;

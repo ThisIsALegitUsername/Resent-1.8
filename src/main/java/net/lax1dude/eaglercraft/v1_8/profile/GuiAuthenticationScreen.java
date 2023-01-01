@@ -61,25 +61,25 @@ public class GuiAuthenticationScreen extends GuiScreen {
 
 	public void initGui() {
 		if(authTypeForWarning != Integer.MAX_VALUE) {
-			GuiScreen scr = ConnectionHandshake.displayAuthProtocolConfirm(authTypeForWarning, parent, this);
-			authTypeForWarning = Integer.MAX_VALUE;
-			if(scr != null) {
-				mc.displayGuiScreen(scr);
-				allowPlaintext = true;
-				return;
-			}
-		}
-		Keyboard.enableRepeatEvents(true);
-		this.buttonList.clear();
-		this.buttonList.add(continueButton = new GuiButton(1, this.width / 2 - 100, this.height / 4 + 80 + 12,
-				I18n.format("auth.continue", new Object[0])));
-		continueButton.enabled = false;
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 80 + 37,
-				I18n.format("gui.cancel", new Object[0])));
-		this.password = new GuiPasswordTextField(2, this.fontRendererObj, this.width / 2 - 100, this.height / 4 + 40, 200, 20); // 116
-		this.password.setFocused(true);
-		this.password.setCanLoseFocus(false);
-	}
+            GuiScreen scr = ConnectionHandshake.displayAuthProtocolConfirm(authTypeForWarning, parent, this);
+            authTypeForWarning = Integer.MAX_VALUE;
+            if (scr != null) {
+                mc.displayGuiScreen(scr);
+                allowPlaintext = true;
+                return;
+            }
+        }
+        Keyboard.enableRepeatEvents(true);
+        this.buttonList.clear();
+        this.buttonList.add(continueButton = new GuiButton(1, width / 2 - 100, height / 4 + 80 + 12,
+                I18n.format("auth.continue")));
+        continueButton.enabled = false;
+        this.buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 80 + 37,
+                I18n.format("gui.cancel")));
+        this.password = new GuiPasswordTextField(2, this.fontRendererObj, width / 2 - 100, height / 4 + 40, 200, 20); // 116
+        this.password.setFocused(true);
+        this.password.setCanLoseFocus(false);
+    }
 
 	public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
@@ -97,13 +97,13 @@ public class GuiAuthenticationScreen extends GuiScreen {
 	}
 
 	public void drawScreen(int i, int j, float var3) {
-		drawBackground(0);
-		this.password.drawTextBox();
-		this.drawCenteredString(this.fontRendererObj, I18n.format("auth.required", new Object[0]), this.width / 2,
-				this.height / 4 - 5, 16777215);
-		this.drawCenteredString(this.fontRendererObj, message, this.width / 2, this.height / 4 + 15, 0xAAAAAA);
-		super.drawScreen(i, j, var3);
-	}
+        drawBackground(0);
+        this.password.drawTextBox();
+        this.drawCenteredString(this.fontRendererObj, I18n.format("auth.required"), width / 2,
+                height / 4 - 5, 16777215);
+        this.drawCenteredString(this.fontRendererObj, message, width / 2, height / 4 + 15, 0xAAAAAA);
+        super.drawScreen(i, j, var3);
+    }
 
 	protected void keyTyped(char parChar1, int parInt1) {
 		String pass = password.getText();

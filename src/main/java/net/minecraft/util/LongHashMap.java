@@ -1,13 +1,15 @@
 package net.minecraft.util;
 
+import java.util.Objects;
+
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
@@ -84,7 +86,7 @@ public class LongHashMap<V> {
 			}
 		}
 
-		return (V) null;
+        return null;
 	}
 
 	public boolean containsItem(long parLong1) {
@@ -244,13 +246,11 @@ public class LongHashMap<V> {
 				LongHashMap.Entry longhashmap$entry = (LongHashMap.Entry) object;
 				Long olong = Long.valueOf(this.getKey());
 				Long olong1 = Long.valueOf(longhashmap$entry.getKey());
-				if (olong == olong1 || olong != null && olong.equals(olong1)) {
-					Object object1 = this.getValue();
-					Object object2 = longhashmap$entry.getValue();
-					if (object1 == object2 || object1 != null && object1.equals(object2)) {
-						return true;
-					}
-				}
+                if (Objects.equals(olong, olong1)) {
+                    Object object1 = this.getValue();
+                    Object object2 = longhashmap$entry.getValue();
+                    return Objects.equals(object1, object2);
+                }
 
 				return false;
 			}

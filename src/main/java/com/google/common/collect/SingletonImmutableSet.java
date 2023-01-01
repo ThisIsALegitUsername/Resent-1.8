@@ -97,14 +97,14 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
 	}
 
 	@Override
-	public final int hashCode() {
-		// Racy single-check.
-		int code = cachedHashCode;
-		if (code == 0) {
-			cachedHashCode = code = element.hashCode();
-		}
-		return code;
-	}
+    public int hashCode() {
+        // Racy single-check.
+        int code = cachedHashCode;
+        if (code == 0) {
+            cachedHashCode = code = element.hashCode();
+        }
+        return code;
+    }
 
 	@Override
 	boolean isHashCodeFast() {
@@ -114,7 +114,6 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
 	@Override
 	public String toString() {
 		String elementToString = element.toString();
-		return new StringBuilder(elementToString.length() + 2).append('[').append(elementToString).append(']')
-				.toString();
+        return '[' + elementToString + ']';
 	}
 }

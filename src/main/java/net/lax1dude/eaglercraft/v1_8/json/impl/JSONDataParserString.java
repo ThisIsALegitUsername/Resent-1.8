@@ -37,10 +37,10 @@ public class JSONDataParserString implements JSONDataParserImpl {
 					|| (s.indexOf('\'') == 0 && s.lastIndexOf('\'') == s.length() - 1)) {
 				return (new JSONObject("{\"E\":" + s + "}")).getString("E");
 			}else {
-				return (String)data;
+				return data;
 			}
 		}catch(JSONException ex) {
-			return (String)data;
+            return data;
 		}
 	}
 

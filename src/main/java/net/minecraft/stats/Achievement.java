@@ -3,11 +3,7 @@ package net.minecraft.stats;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.IJsonSerializable;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -46,7 +42,7 @@ public class Achievement extends StatBase {
 
 	public Achievement(String parString1, String parString2, int column, int row, ItemStack parItemStack,
 			Achievement parent) {
-		super(parString1, new ChatComponentTranslation("achievement." + parString2, new Object[0]));
+		super(parString1, new ChatComponentTranslation("achievement." + parString2));
 		this.theItemStack = parItemStack;
 		this.achievementDescription = "achievement." + parString2 + ".desc";
 		this.displayColumn = column;

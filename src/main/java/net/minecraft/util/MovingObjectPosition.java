@@ -53,16 +53,16 @@ public class MovingObjectPosition {
 		this.hitVec = hitVecIn;
 	}
 
-	public BlockPos getBlockPos() {
-		return this.blockPos;
-	}
+    public BlockPos getBlockPos() {
+        return this.blockPos;
+    }
 
-	public String toString() {
-		return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos="
-				+ this.hitVec + ", entity=" + this.entityHit + '}';
-	}
+    public String toString() {
+        return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos="
+                + this.hitVec + ", entity=" + this.entityHit + '}';
+    }
 
-	public static enum MovingObjectType {
-		MISS, BLOCK, ENTITY;
-	}
+    public enum MovingObjectType {
+        MISS, BLOCK, ENTITY
+    }
 }

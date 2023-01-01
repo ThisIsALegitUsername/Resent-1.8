@@ -16,10 +16,10 @@
 
 package com.google.common.collect;
 
+import com.google.common.annotations.GwtCompatible;
+
 import java.io.Serializable;
 import java.util.Comparator;
-
-import com.google.common.annotations.GwtCompatible;
 
 /** An ordering that tries several comparators in order. */
 @GwtCompatible(serializable = true)
@@ -27,7 +27,7 @@ final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
 	final ImmutableList<Comparator<? super T>> comparators;
 
 	CompoundOrdering(Comparator<? super T> primary, Comparator<? super T> secondary) {
-		this.comparators = ImmutableList.<Comparator<? super T>>of(primary, secondary);
+		this.comparators = ImmutableList.of(primary, secondary);
 	}
 
 	CompoundOrdering(Iterable<? extends Comparator<? super T>> comparators) {

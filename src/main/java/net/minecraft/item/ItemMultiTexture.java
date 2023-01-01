@@ -62,6 +62,6 @@ public class ItemMultiTexture extends ItemBlock {
 	 * names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack itemstack) {
-		return super.getUnlocalizedName() + "." + (String) this.nameFunction.apply(itemstack);
+		return super.getUnlocalizedName() + "." + this.nameFunction.apply(itemstack);
 	}
 }

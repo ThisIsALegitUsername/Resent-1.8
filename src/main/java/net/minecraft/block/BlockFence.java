@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +14,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -165,13 +164,8 @@ public class BlockFence extends Block {
 
 	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
 		Block block = worldIn.getBlockState(pos).getBlock();
-		return block == Blocks.barrier ? false
-				: ((!(block instanceof BlockFence) || block.blockMaterial != this.blockMaterial)
-						&& !(block instanceof BlockFenceGate)
-								? (block.blockMaterial.isOpaque() && block.isFullCube()
-										? block.blockMaterial != Material.gourd
-										: false)
-								: true);
+		return block != Blocks.barrier && ((block instanceof BlockFence && block.blockMaterial == this.blockMaterial)
+				|| block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.gourd));
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, BlockPos var2, EnumFacing var3) {
@@ -203,6 +197,6 @@ public class BlockFence extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { NORTH, EAST, WEST, SOUTH });
+		return new BlockState(this, NORTH, EAST, WEST, SOUTH);
 	}
 }

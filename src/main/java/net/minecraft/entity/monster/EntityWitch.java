@@ -100,9 +100,9 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 		if (b0 == 15) {
 			for (int i = 0; i < this.rand.nextInt(35) + 10; ++i) {
 				this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH,
-						this.posX + this.rand.nextGaussian() * 0.12999999523162842D,
-						this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D,
-						this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D, new int[0]);
+                        this.posX + this.rand.nextGaussian() * 0.12999999523162842D,
+                        this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D,
+                        this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
 			}
 		} else {
 			super.handleStatusUpdate(b0);

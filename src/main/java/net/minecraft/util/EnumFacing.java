@@ -51,16 +51,16 @@ public enum EnumFacing implements IStringSerializable {
 	private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
 	private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.newHashMap();
 
-	private EnumFacing(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn,
-			EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn, Vec3i directionVecIn) {
-		this.index = indexIn;
-		this.horizontalIndex = horizontalIndexIn;
-		this.opposite = oppositeIn;
-		this.name = nameIn;
-		this.axis = axisIn;
-		this.axisDirection = axisDirectionIn;
-		this.directionVec = directionVecIn;
-	}
+	EnumFacing(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn,
+               EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn, Vec3i directionVecIn) {
+        this.index = indexIn;
+        this.horizontalIndex = horizontalIndexIn;
+        this.opposite = oppositeIn;
+        this.name = nameIn;
+        this.axis = axisIn;
+        this.axisDirection = axisDirectionIn;
+        this.directionVec = directionVecIn;
+    }
 
 	/**+
 	 * Get the Index of this Facing (0-5). The order is D-U-N-S-W-E
@@ -239,7 +239,7 @@ public enum EnumFacing implements IStringSerializable {
 	 * Get the facing specified by the given name
 	 */
 	public static EnumFacing byName(String name) {
-		return name == null ? null : (EnumFacing) NAME_LOOKUP.get(name.toLowerCase());
+        return name == null ? null : NAME_LOOKUP.get(name.toLowerCase());
 	}
 
 	/**+
@@ -332,23 +332,23 @@ public enum EnumFacing implements IStringSerializable {
 
 	}
 
-	public static enum Axis implements Predicate<EnumFacing>, IStringSerializable {
-		X("x", EnumFacing.Plane.HORIZONTAL), Y("y", EnumFacing.Plane.VERTICAL), Z("z", EnumFacing.Plane.HORIZONTAL);
+    public enum Axis implements Predicate<EnumFacing>, IStringSerializable {
+        X("x", EnumFacing.Plane.HORIZONTAL), Y("y", EnumFacing.Plane.VERTICAL), Z("z", EnumFacing.Plane.HORIZONTAL);
 
-		private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = Maps.newHashMap();
-		private final String name;
-		private final EnumFacing.Plane plane;
+        private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = Maps.newHashMap();
+        private final String name;
+        private final EnumFacing.Plane plane;
 
-		private Axis(String name, EnumFacing.Plane plane) {
-			this.name = name;
-			this.plane = plane;
-		}
+        Axis(String name, EnumFacing.Plane plane) {
+            this.name = name;
+            this.plane = plane;
+        }
 
 		/**+
 		 * Get the facing specified by the given name
 		 */
 		public static EnumFacing.Axis byName(String name) {
-			return name == null ? null : (EnumFacing.Axis) NAME_LOOKUP.get(name.toLowerCase());
+            return name == null ? null : NAME_LOOKUP.get(name.toLowerCase());
 		}
 
 		/**+
@@ -390,16 +390,16 @@ public enum EnumFacing implements IStringSerializable {
 		}
 	}
 
-	public static enum AxisDirection {
-		POSITIVE(1, "Towards positive"), NEGATIVE(-1, "Towards negative");
+    public enum AxisDirection {
+        POSITIVE(1, "Towards positive"), NEGATIVE(-1, "Towards negative");
 
-		private final int offset;
-		private final String description;
+        private final int offset;
+        private final String description;
 
-		private AxisDirection(int offset, String description) {
-			this.offset = offset;
-			this.description = description;
-		}
+        AxisDirection(int offset, String description) {
+            this.offset = offset;
+            this.description = description;
+        }
 
 		public int getOffset() {
 			return this.offset;
@@ -410,17 +410,17 @@ public enum EnumFacing implements IStringSerializable {
 		}
 	}
 
-	public static enum Plane implements Predicate<EnumFacing>, Iterable<EnumFacing> {
-		HORIZONTAL, VERTICAL;
+    public enum Plane implements Predicate<EnumFacing>, Iterable<EnumFacing> {
+        HORIZONTAL, VERTICAL;
 
-		public EnumFacing[] facings() {
-			switch (this) {
-			case HORIZONTAL:
-				return new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST };
-			case VERTICAL:
-				return new EnumFacing[] { EnumFacing.UP, EnumFacing.DOWN };
-			default:
-				throw new Error("Someone\'s been tampering with the universe!");
+        public EnumFacing[] facings() {
+            switch (this) {
+                case HORIZONTAL:
+                    return new EnumFacing[]{EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST};
+                case VERTICAL:
+                    return new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN};
+                default:
+                    throw new Error("Someone's been tampering with the universe!");
 			}
 		}
 

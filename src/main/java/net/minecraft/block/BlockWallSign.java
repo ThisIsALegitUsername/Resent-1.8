@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -35,8 +34,8 @@ public class BlockWallSign extends BlockSign {
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
-		EnumFacing enumfacing = (EnumFacing) iblockaccess.getBlockState(blockpos).getValue(FACING);
-		float f = 0.28125F;
+		EnumFacing enumfacing = iblockaccess.getBlockState(blockpos).getValue(FACING);
+        float f = 0.28125F;
 		float f1 = 0.78125F;
 		float f2 = 0.0F;
 		float f3 = 1.0F;
@@ -62,7 +61,7 @@ public class BlockWallSign extends BlockSign {
 	 * Called when a neighboring block changes.
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
-		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+        EnumFacing enumfacing = iblockstate.getValue(FACING);
 		if (!world.getBlockState(blockpos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid()) {
 			this.dropBlockAsItem(world, blockpos, iblockstate, 0);
 			world.setBlockToAir(blockpos);
@@ -87,10 +86,10 @@ public class BlockWallSign extends BlockSign {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+        return iblockstate.getValue(FACING).getIndex();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING });
+        return new BlockState(this, FACING);
 	}
 }

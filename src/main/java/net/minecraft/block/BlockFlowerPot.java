@@ -1,9 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -17,11 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFlowerPot;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -55,7 +49,7 @@ public class BlockFlowerPot extends BlockContainer {
 	}
 
 	public static void bootstrapStates() {
-		CONTENTS = PropertyEnum.<BlockFlowerPot.EnumFlowerType>create("contents", BlockFlowerPot.EnumFlowerType.class);
+		CONTENTS = PropertyEnum.create("contents", BlockFlowerPot.EnumFlowerType.class);
 	}
 
 	/**+
@@ -127,7 +121,7 @@ public class BlockFlowerPot extends BlockContainer {
 					entityplayer.triggerAchievement(StatList.field_181736_T);
 					if (!entityplayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0) {
 						entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem,
-								(ItemStack) null);
+								null);
 					}
 
 					return true;
@@ -139,11 +133,9 @@ public class BlockFlowerPot extends BlockContainer {
 	}
 
 	private boolean canNotContain(Block blockIn, int meta) {
-		return blockIn != Blocks.yellow_flower && blockIn != Blocks.red_flower && blockIn != Blocks.cactus
-				&& blockIn != Blocks.brown_mushroom && blockIn != Blocks.red_mushroom && blockIn != Blocks.sapling
-				&& blockIn != Blocks.deadbush
-						? blockIn == Blocks.tallgrass && meta == BlockTallGrass.EnumType.FERN.getMeta()
-						: true;
+		return blockIn == Blocks.yellow_flower || blockIn == Blocks.red_flower || blockIn == Blocks.cactus
+				|| blockIn == Blocks.brown_mushroom || blockIn == Blocks.red_mushroom || blockIn == Blocks.sapling
+				|| blockIn == Blocks.deadbush || blockIn == Blocks.tallgrass && meta == BlockTallGrass.EnumType.FERN.getMeta();
 	}
 
 	public Item getItem(World world, BlockPos blockpos) {
@@ -197,7 +189,7 @@ public class BlockFlowerPot extends BlockContainer {
 		if (entityplayer.capabilities.isCreativeMode) {
 			TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(world, blockpos);
 			if (tileentityflowerpot != null) {
-				tileentityflowerpot.setFlowerPotData((Item) null, 0);
+				tileentityflowerpot.setFlowerPotData(null, 0);
 			}
 		}
 
@@ -275,14 +267,14 @@ public class BlockFlowerPot extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { CONTENTS, LEGACY_DATA });
+		return new BlockState(this, CONTENTS, LEGACY_DATA);
 	}
 
 	/**+
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(LEGACY_DATA)).intValue();
+		return iblockstate.getValue(LEGACY_DATA).intValue();
 	}
 
 	/**+
@@ -386,7 +378,7 @@ public class BlockFlowerPot extends BlockContainer {
 		return EnumWorldBlockLayer.CUTOUT;
 	}
 
-	public static enum EnumFlowerType implements IStringSerializable {
+	public enum EnumFlowerType implements IStringSerializable {
 		EMPTY("empty"), POPPY("rose"), BLUE_ORCHID("blue_orchid"), ALLIUM("allium"), HOUSTONIA("houstonia"),
 		RED_TULIP("red_tulip"), ORANGE_TULIP("orange_tulip"), WHITE_TULIP("white_tulip"), PINK_TULIP("pink_tulip"),
 		OXEYE_DAISY("oxeye_daisy"), DANDELION("dandelion"), OAK_SAPLING("oak_sapling"),
@@ -396,7 +388,7 @@ public class BlockFlowerPot extends BlockContainer {
 
 		private final String name;
 
-		private EnumFlowerType(String name) {
+		EnumFlowerType(String name) {
 			this.name = name;
 		}
 

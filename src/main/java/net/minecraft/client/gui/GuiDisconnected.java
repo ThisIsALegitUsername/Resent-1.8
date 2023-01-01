@@ -18,24 +18,24 @@ import net.minecraft.util.IChatComponent;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class GuiDisconnected extends GuiScreen {
-	private String reason;
-	private IChatComponent message;
-	private List<String> multilineMessage;
-	private final GuiScreen parentScreen;
-	private int field_175353_i;
+    private final String reason;
+    private final IChatComponent message;
+    private List<String> multilineMessage;
+    private final GuiScreen parentScreen;
+    private int field_175353_i;
 
-	public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, IChatComponent chatComp) {
-		this.parentScreen = screen;
-		this.reason = I18n.format(reasonLocalizationKey, new Object[0]);
-		this.message = chatComp;
-	}
+    public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, IChatComponent chatComp) {
+        this.parentScreen = screen;
+        this.reason = I18n.format(reasonLocalizationKey);
+        this.message = chatComp;
+    }
 
 	/**+
 	 * Fired when a key is typed (except F11 which toggles full
@@ -52,14 +52,14 @@ public class GuiDisconnected extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-		this.buttonList.clear();
-		this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(),
-				this.width - 50);
-		this.field_175353_i = this.multilineMessage.size() * this.fontRendererObj.FONT_HEIGHT;
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100,
-				this.height / 2 + this.field_175353_i / 2 + this.fontRendererObj.FONT_HEIGHT,
-				I18n.format("gui.toMenu", new Object[0])));
-	}
+        this.buttonList.clear();
+        this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(),
+                width - 50);
+        this.field_175353_i = this.multilineMessage.size() * this.fontRendererObj.FONT_HEIGHT;
+        this.buttonList.add(new GuiButton(0, width / 2 - 100,
+                height / 2 + this.field_175353_i / 2 + this.fontRendererObj.FONT_HEIGHT,
+                I18n.format("gui.toMenu")));
+    }
 
 	/**+
 	 * Called by the controls from the buttonList when activated.
@@ -77,19 +77,19 @@ public class GuiDisconnected extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRendererObj, this.reason, this.width / 2,
-				this.height / 2 - this.field_175353_i / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);
-		int k = this.height / 2 - this.field_175353_i / 2;
-		if (this.multilineMessage != null) {
-			for (String s : this.multilineMessage) {
-				this.drawCenteredString(this.fontRendererObj, s, this.width / 2, k, 16777215);
-				k += this.fontRendererObj.FONT_HEIGHT;
-			}
-		}
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, this.reason, width / 2,
+                height / 2 - this.field_175353_i / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);
+        int k = height / 2 - this.field_175353_i / 2;
+        if (this.multilineMessage != null) {
+            for (String s : this.multilineMessage) {
+                this.drawCenteredString(this.fontRendererObj, s, width / 2, k, 16777215);
+                k += this.fontRendererObj.FONT_HEIGHT;
+            }
+        }
 
-		super.drawScreen(i, j, f);
-	}
+        super.drawScreen(i, j, f);
+    }
 
 	public static GuiScreen createRateLimitKick(GuiScreen prev) {
 		return new GuiDisconnected(prev, "connect.failed", new ChatComponentTranslation("disconnect.tooManyRequests"));

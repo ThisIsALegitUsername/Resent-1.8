@@ -1,10 +1,10 @@
 package net.minecraft.client.resources.data;
 
+import com.google.common.collect.Sets;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.google.common.collect.Sets;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -61,7 +61,7 @@ public class AnimationMetadataSection implements IMetadataSection {
 	}
 
 	private AnimationFrame getAnimationFrame(int parInt1) {
-		return (AnimationFrame) this.animationFrames.get(parInt1);
+		return this.animationFrames.get(parInt1);
 	}
 
 	public int getFrameTimeSingle(int parInt1) {
@@ -70,11 +70,11 @@ public class AnimationMetadataSection implements IMetadataSection {
 	}
 
 	public boolean frameHasTime(int parInt1) {
-		return !((AnimationFrame) this.animationFrames.get(parInt1)).hasNoTime();
+		return !this.animationFrames.get(parInt1).hasNoTime();
 	}
 
 	public int getFrameIndex(int parInt1) {
-		return ((AnimationFrame) this.animationFrames.get(parInt1)).getFrameIndex();
+		return this.animationFrames.get(parInt1).getFrameIndex();
 	}
 
 	public Set<Integer> getFrameIndexSet() {

@@ -49,9 +49,9 @@ public class GuiOptionsRowList extends GuiListExtended {
 			return null;
 		} else {
 			int i = parOptions.returnEnumOrdinal();
-			return (GuiButton) (parOptions.getEnumFloat() ? new GuiOptionSlider(i, parInt1, parInt2, parOptions)
-					: new GuiOptionButton(i, parInt1, parInt2, parOptions,
-							mcIn.gameSettings.getKeyBinding(parOptions)));
+			return parOptions.getEnumFloat() ? new GuiOptionSlider(i, parInt1, parInt2, parOptions)
+                    : new GuiOptionButton(i, parInt1, parInt2, parOptions,
+                    mcIn.gameSettings.getKeyBinding(parOptions));
 		}
 	}
 
@@ -59,7 +59,7 @@ public class GuiOptionsRowList extends GuiListExtended {
 	 * Gets the IGuiListEntry object for the given index
 	 */
 	public GuiOptionsRowList.Row getListEntry(int i) {
-		return (GuiOptionsRowList.Row) this.field_148184_k.get(i);
+        return this.field_148184_k.get(i);
 	}
 
 	protected int getSize() {

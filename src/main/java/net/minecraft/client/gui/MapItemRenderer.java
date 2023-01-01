@@ -61,8 +61,8 @@ public class MapItemRenderer {
 	 * MapItemRenderer.Instance} with given map data
 	 */
 	private MapItemRenderer.Instance getMapRendererInstance(MapData mapdataIn) {
-		MapItemRenderer.Instance mapitemrenderer$instance = (MapItemRenderer.Instance) this.loadedMaps
-				.get(mapdataIn.mapName);
+		MapItemRenderer.Instance mapitemrenderer$instance = this.loadedMaps
+                .get(mapdataIn.mapName);
 		if (mapitemrenderer$instance == null) {
 			mapitemrenderer$instance = new MapItemRenderer.Instance(mapdataIn);
 			this.loadedMaps.put(mapdataIn.mapName, mapitemrenderer$instance);
@@ -131,16 +131,16 @@ public class MapItemRenderer {
 			GlStateManager.tryBlendFuncSeparate(1, GL_ONE_MINUS_SRC_ALPHA, 0, 1);
 			GlStateManager.disableAlpha();
 			worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-			worldrenderer
-					.pos((double) ((float) (b0 + 0) + f), (double) ((float) (b1 + 128) - f), -0.009999999776482582D)
+            worldrenderer
+                    .pos((float) (b0) + f, (float) (b1 + 128) - f, -0.009999999776482582D)
 					.tex(0.0D, 1.0D).endVertex();
-			worldrenderer
-					.pos((double) ((float) (b0 + 128) - f), (double) ((float) (b1 + 128) - f), -0.009999999776482582D)
+            worldrenderer
+                    .pos((float) (b0 + 128) - f, (float) (b1 + 128) - f, -0.009999999776482582D)
 					.tex(1.0D, 1.0D).endVertex();
-			worldrenderer
-					.pos((double) ((float) (b0 + 128) - f), (double) ((float) (b1 + 0) + f), -0.009999999776482582D)
+            worldrenderer
+                    .pos((float) (b0 + 128) - f, (float) (b1) + f, -0.009999999776482582D)
 					.tex(1.0D, 0.0D).endVertex();
-			worldrenderer.pos((double) ((float) (b0 + 0) + f), (double) ((float) (b1 + 0) + f), -0.009999999776482582D)
+            worldrenderer.pos((float) (b0) + f, (float) (b1) + f, -0.009999999776482582D)
 					.tex(0.0D, 0.0D).endVertex();
 			tessellator.draw();
 			GlStateManager.enableAlpha();
@@ -150,26 +150,26 @@ public class MapItemRenderer {
 
 			for (Vec4b vec4b : this.mapData.mapDecorations.values()) {
 				if (!noOverlayRendering || vec4b.func_176110_a() == 1) {
-					GlStateManager.pushMatrix();
-					GlStateManager.translate((float) b0 + (float) vec4b.func_176112_b() / 2.0F + 64.0F,
-							(float) b1 + (float) vec4b.func_176113_c() / 2.0F + 64.0F, -0.02F);
-					GlStateManager.rotate((float) (vec4b.func_176111_d() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
-					GlStateManager.scale(4.0F, 4.0F, 3.0F);
-					GlStateManager.translate(-0.125F, 0.125F, 0.0F);
-					byte b2 = vec4b.func_176110_a();
-					float f1 = (float) (b2 % 4 + 0) / 4.0F;
-					float f2 = (float) (b2 / 4 + 0) / 4.0F;
-					float f3 = (float) (b2 % 4 + 1) / 4.0F;
-					float f4 = (float) (b2 / 4 + 1) / 4.0F;
-					worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-					float f5 = -0.001F;
-					worldrenderer.pos(-1.0D, 1.0D, (double) ((float) i * -0.001F)).tex((double) f1, (double) f2)
-							.endVertex();
-					worldrenderer.pos(1.0D, 1.0D, (double) ((float) i * -0.001F)).tex((double) f3, (double) f2)
-							.endVertex();
-					worldrenderer.pos(1.0D, -1.0D, (double) ((float) i * -0.001F)).tex((double) f3, (double) f4)
-							.endVertex();
-					worldrenderer.pos(-1.0D, -1.0D, (double) ((float) i * -0.001F)).tex((double) f1, (double) f4)
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate((float) b0 + (float) vec4b.func_176112_b() / 2.0F + 64.0F,
+                            (float) b1 + (float) vec4b.func_176113_c() / 2.0F + 64.0F, -0.02F);
+                    GlStateManager.rotate((float) (vec4b.func_176111_d() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
+                    GlStateManager.scale(4.0F, 4.0F, 3.0F);
+                    GlStateManager.translate(-0.125F, 0.125F, 0.0F);
+                    byte b2 = vec4b.func_176110_a();
+                    float f1 = (float) (b2 % 4) / 4.0F;
+                    float f2 = (float) (b2 / 4) / 4.0F;
+                    float f3 = (float) (b2 % 4 + 1) / 4.0F;
+                    float f4 = (float) (b2 / 4 + 1) / 4.0F;
+                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+                    float f5 = -0.001F;
+                    worldrenderer.pos(-1.0D, 1.0D, (float) i * -0.001F).tex(f1, f2)
+                            .endVertex();
+                    worldrenderer.pos(1.0D, 1.0D, (float) i * -0.001F).tex(f3, f2)
+                            .endVertex();
+                    worldrenderer.pos(1.0D, -1.0D, (float) i * -0.001F).tex(f3, f4)
+                            .endVertex();
+                    worldrenderer.pos(-1.0D, -1.0D, (float) i * -0.001F).tex(f1, f4)
 							.endVertex();
 					tessellator.draw();
 					GlStateManager.popMatrix();

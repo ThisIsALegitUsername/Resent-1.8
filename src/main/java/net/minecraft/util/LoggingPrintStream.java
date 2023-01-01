@@ -55,9 +55,9 @@ public class LoggingPrintStream extends PrintStream {
 			}
 		} else {
 			if (err) {
-				logger.error("@({}): {}", new Object[] { callingClass, string });
+				logger.error("@({}): {}", callingClass, string);
 			} else {
-				logger.info("@({}): {}", new Object[] { callingClass, string });
+                logger.info("@({}): {}", callingClass, string);
 			}
 		}
 	}

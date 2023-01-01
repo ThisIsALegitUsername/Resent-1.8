@@ -1,26 +1,20 @@
 package net.minecraft.block;
 
-import java.util.Map;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.collect.Maps;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
+
+import java.util.Map;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -179,7 +173,7 @@ public class BlockFire extends Block {
 			if (!flag && world.isRaining() && this.canDie(world, blockpos)) {
 				world.setBlockToAir(blockpos);
 			} else {
-				int i = ((Integer) iblockstate.getValue(AGE)).intValue();
+				int i = iblockstate.getValue(AGE).intValue();
 				if (i < 15) {
 					iblockstate = iblockstate.withProperty(AGE, Integer.valueOf(i + random.nextInt(3) / 2));
 					world.setBlockState(blockpos, iblockstate, 4);
@@ -262,12 +256,12 @@ public class BlockFire extends Block {
 	}
 
 	private int getFlammability(Block blockIn) {
-		Integer integer = (Integer) this.flammabilities.get(blockIn);
+		Integer integer = this.flammabilities.get(blockIn);
 		return integer == null ? 0 : integer.intValue();
 	}
 
 	private int getEncouragement(Block blockIn) {
-		Integer integer = (Integer) this.encouragements.get(blockIn);
+		Integer integer = this.encouragements.get(blockIn);
 		return integer == null ? 0 : integer.intValue();
 	}
 
@@ -361,8 +355,8 @@ public class BlockFire extends Block {
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState var3, EaglercraftRandom random) {
 		if (random.nextInt(24) == 0) {
-			world.playSound((double) ((float) blockpos.getX() + 0.5F), (double) ((float) blockpos.getY() + 0.5F),
-					(double) ((float) blockpos.getZ() + 0.5F), "fire.fire", 1.0F + random.nextFloat(),
+			world.playSound((float) blockpos.getX() + 0.5F, (float) blockpos.getY() + 0.5F,
+					(float) blockpos.getZ() + 0.5F, "fire.fire", 1.0F + random.nextFloat(),
 					random.nextFloat() * 0.7F + 0.3F, false);
 		}
 
@@ -373,7 +367,7 @@ public class BlockFire extends Block {
 					double d3 = (double) blockpos.getX() + random.nextDouble() * 0.10000000149011612D;
 					double d8 = (double) blockpos.getY() + random.nextDouble();
 					double d13 = (double) blockpos.getZ() + random.nextDouble();
-					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d3, d8, d13, 0.0D, 0.0D, 0.0D, new int[0]);
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
 				}
 			}
 
@@ -382,7 +376,7 @@ public class BlockFire extends Block {
 					double d4 = (double) (blockpos.getX() + 1) - random.nextDouble() * 0.10000000149011612D;
 					double d9 = (double) blockpos.getY() + random.nextDouble();
 					double d14 = (double) blockpos.getZ() + random.nextDouble();
-					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d4, d9, d14, 0.0D, 0.0D, 0.0D, new int[0]);
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d4, d9, d14, 0.0D, 0.0D, 0.0D);
 				}
 			}
 
@@ -391,7 +385,7 @@ public class BlockFire extends Block {
 					double d5 = (double) blockpos.getX() + random.nextDouble();
 					double d10 = (double) blockpos.getY() + random.nextDouble();
 					double d15 = (double) blockpos.getZ() + random.nextDouble() * 0.10000000149011612D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d5, d10, d15, 0.0D, 0.0D, 0.0D, new int[0]);
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d5, d10, d15, 0.0D, 0.0D, 0.0D);
 				}
 			}
 
@@ -400,7 +394,7 @@ public class BlockFire extends Block {
 					double d6 = (double) blockpos.getX() + random.nextDouble();
 					double d11 = (double) blockpos.getY() + random.nextDouble();
 					double d16 = (double) (blockpos.getZ() + 1) - random.nextDouble() * 0.10000000149011612D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d6, d11, d16, 0.0D, 0.0D, 0.0D, new int[0]);
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d6, d11, d16, 0.0D, 0.0D, 0.0D);
 				}
 			}
 
@@ -409,7 +403,7 @@ public class BlockFire extends Block {
 					double d7 = (double) blockpos.getX() + random.nextDouble();
 					double d12 = (double) (blockpos.getY() + 1) - random.nextDouble() * 0.10000000149011612D;
 					double d17 = (double) blockpos.getZ() + random.nextDouble();
-					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d7, d12, d17, 0.0D, 0.0D, 0.0D, new int[0]);
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d7, d12, d17, 0.0D, 0.0D, 0.0D);
 				}
 			}
 		} else {
@@ -417,7 +411,7 @@ public class BlockFire extends Block {
 				double d0 = (double) blockpos.getX() + random.nextDouble();
 				double d1 = (double) blockpos.getY() + random.nextDouble() * 0.5D + 0.5D;
 				double d2 = (double) blockpos.getZ() + random.nextDouble();
-				world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+				world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -445,10 +439,10 @@ public class BlockFire extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(AGE)).intValue();
+		return iblockstate.getValue(AGE).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE, NORTH, EAST, SOUTH, WEST, UPPER, FLIP, ALT });
+		return new BlockState(this, AGE, NORTH, EAST, SOUTH, WEST, UPPER, FLIP, ALT);
 	}
 }

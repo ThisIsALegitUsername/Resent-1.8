@@ -22,28 +22,29 @@ import net.minecraft.world.World;
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
  * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class ContainerWorkbench extends Container {
-	/**+
-	 * The crafting matrix inventory (3x3).
-	 */
-	public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
-	public IInventory craftResult = new InventoryCraftResult();
-	private World worldObj;
-	private BlockPos pos;
+    /**
+     * +
+     * The crafting matrix inventory (3x3).
+     */
+    public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
+    public IInventory craftResult = new InventoryCraftResult();
+    private final World worldObj;
+    private final BlockPos pos;
 
-	public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn) {
-		this.worldObj = worldIn;
-		this.pos = posIn;
-		this.addSlotToContainer(
-				new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+    public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn) {
+        this.worldObj = worldIn;
+        this.pos = posIn;
+        this.addSlotToContainer(
+                new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
 
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				this.addSlotToContainer(new Slot(this.craftMatrix, j + i * 3, 30 + j * 18, 17 + i * 18));
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                this.addSlotToContainer(new Slot(this.craftMatrix, j + i * 3, 30 + j * 18, 17 + i * 18));
 			}
 		}
 
@@ -69,17 +70,16 @@ public class ContainerWorkbench extends Container {
 	}
 
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return this.worldObj.getBlockState(this.pos).getBlock() != Blocks.crafting_table ? false
-				: entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-						(double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getBlockState(this.pos).getBlock() == Blocks.crafting_table && entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+                (double) this.pos.getZ() + 0.5D) <= 64.0D;
 	}
 
 	/**+
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(i);
+        ItemStack itemstack = null;
+        Slot slot = this.inventorySlots.get(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
@@ -102,7 +102,7 @@ public class ContainerWorkbench extends Container {
 			}
 
 			if (itemstack1.stackSize == 0) {
-				slot.putStack((ItemStack) null);
+                slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}

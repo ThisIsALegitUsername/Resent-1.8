@@ -1,14 +1,11 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -42,7 +39,7 @@ public class BlockNetherWart extends BlockBush {
 		this.setTickRandomly(true);
 		float f = 0.5F;
 		this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-		this.setCreativeTab((CreativeTabs) null);
+		this.setCreativeTab(null);
 	}
 
 	/**+
@@ -57,7 +54,7 @@ public class BlockNetherWart extends BlockBush {
 	}
 
 	public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
-		int i = ((Integer) iblockstate.getValue(AGE)).intValue();
+		int i = iblockstate.getValue(AGE).intValue();
 		if (i < 3 && random.nextInt(10) == 0) {
 			iblockstate = iblockstate.withProperty(AGE, Integer.valueOf(i + 1));
 			world.setBlockState(blockpos, iblockstate, 2);
@@ -95,10 +92,10 @@ public class BlockNetherWart extends BlockBush {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(AGE)).intValue();
+		return iblockstate.getValue(AGE).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE });
+		return new BlockState(this, AGE);
 	}
 }

@@ -67,9 +67,9 @@ public class SpectatorMenu {
 				: (parInt1 == 7 ? (i < this.field_178659_h.func_178669_a().size() ? field_178653_d : field_178654_e)
 						: (parInt1 == 8 ? field_178655_b
 								: (i >= 0 && i < this.field_178659_h.func_178669_a().size()
-										? (ISpectatorMenuObject) Objects.firstNonNull(
-												this.field_178659_h.func_178669_a().get(i), field_178657_a)
-										: field_178657_a)));
+                ? Objects.firstNonNull(
+                this.field_178659_h.func_178669_a().get(i), field_178657_a)
+                : field_178657_a)));
 	}
 
 	public List<ISpectatorMenuObject> func_178642_a() {

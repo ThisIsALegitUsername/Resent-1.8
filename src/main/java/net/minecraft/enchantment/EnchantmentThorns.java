@@ -1,7 +1,6 @@
 package net.minecraft.enchantment;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemArmor;
@@ -61,7 +60,7 @@ public class EnchantmentThorns extends Enchantment {
 	 * ItemStack.
 	 */
 	public boolean canApply(ItemStack itemstack) {
-		return itemstack.getItem() instanceof ItemArmor ? true : super.canApply(itemstack);
+		return itemstack.getItem() instanceof ItemArmor || super.canApply(itemstack);
 	}
 
 	/**+
@@ -88,7 +87,7 @@ public class EnchantmentThorns extends Enchantment {
 	}
 
 	public static boolean func_92094_a(int parInt1, EaglercraftRandom parRandom) {
-		return parInt1 <= 0 ? false : parRandom.nextFloat() < 0.15F * (float) parInt1;
+        return parInt1 > 0 && parRandom.nextFloat() < 0.15F * (float) parInt1;
 	}
 
 	public static int func_92095_b(int parInt1, EaglercraftRandom parRandom) {

@@ -54,18 +54,18 @@ public class ItemArmorStand extends Item {
 				if (flag1) {
 					return false;
 				} else {
-					double d0 = (double) blockpos1.getX();
-					double d1 = (double) blockpos1.getY();
-					double d2 = (double) blockpos1.getZ();
-					List list = world.getEntitiesWithinAABBExcludingEntity((Entity) null,
-							AxisAlignedBB.fromBounds(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
-					if (list.size() > 0) {
-						return false;
-					} else {
-						--itemstack.stackSize;
-						return true;
-					}
-				}
+                    double d0 = blockpos1.getX();
+                    double d1 = blockpos1.getY();
+                    double d2 = blockpos1.getZ();
+                    List list = world.getEntitiesWithinAABBExcludingEntity(null,
+                            AxisAlignedBB.fromBounds(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
+                    if (list.size() > 0) {
+                        return false;
+                    } else {
+                        --itemstack.stackSize;
+                        return true;
+                    }
+                }
 			}
 		}
 	}

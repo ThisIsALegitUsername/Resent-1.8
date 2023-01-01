@@ -1,8 +1,6 @@
 package net.minecraft.block;
 
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,6 +14,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -55,7 +55,7 @@ public class BlockEndPortal extends BlockContainer {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
-		return enumfacing == EnumFacing.DOWN ? super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing) : false;
+		return enumfacing == EnumFacing.DOWN && super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
 	}
 
 	/**+
@@ -86,14 +86,14 @@ public class BlockEndPortal extends BlockContainer {
 	}
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState var3, EaglercraftRandom random) {
-		double d0 = (double) ((float) blockpos.getX() + random.nextFloat());
-		double d1 = (double) ((float) blockpos.getY() + 0.8F);
-		double d2 = (double) ((float) blockpos.getZ() + random.nextFloat());
-		double d3 = 0.0D;
-		double d4 = 0.0D;
-		double d5 = 0.0D;
-		world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
-	}
+        double d0 = (float) blockpos.getX() + random.nextFloat();
+        double d1 = (float) blockpos.getY() + 0.8F;
+        double d2 = (float) blockpos.getZ() + random.nextFloat();
+        double d3 = 0.0D;
+        double d4 = 0.0D;
+        double d5 = 0.0D;
+        world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
+    }
 
 	public Item getItem(World var1, BlockPos var2) {
 		return null;

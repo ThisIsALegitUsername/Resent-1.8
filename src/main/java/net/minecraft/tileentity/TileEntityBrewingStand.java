@@ -279,10 +279,9 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false
-				: entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-						(double) this.pos.getZ() + 0.5D) <= 64.0D;
-	}
+        return this.worldObj.getTileEntity(this.pos) == this && entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+                (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
 
 	public void openInventory(EntityPlayer var1) {
 	}
@@ -340,21 +339,17 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 	}
 
 	public int getField(int i) {
-		switch (i) {
-		case 0:
-			return this.brewTime;
-		default:
-			return 0;
-		}
-	}
+        if (i == 0) {
+            return this.brewTime;
+        }
+        return 0;
+    }
 
 	public void setField(int i, int j) {
-		switch (i) {
-		case 0:
-			this.brewTime = j;
-		default:
-		}
-	}
+        if (i == 0) {
+            this.brewTime = j;
+        }
+    }
 
 	public int getFieldCount() {
 		return 1;

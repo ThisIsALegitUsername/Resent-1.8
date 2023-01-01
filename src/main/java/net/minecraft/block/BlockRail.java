@@ -35,7 +35,7 @@ public class BlockRail extends BlockRailBase {
 	}
 
 	public static void bootstrapStates() {
-		SHAPE = PropertyEnum.<BlockRailBase.EnumRailDirection>create("shape", BlockRailBase.EnumRailDirection.class);
+		SHAPE = PropertyEnum.create("shape", BlockRailBase.EnumRailDirection.class);
 	}
 
 	protected void onNeighborChangedInternal(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
@@ -61,10 +61,10 @@ public class BlockRail extends BlockRailBase {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((BlockRailBase.EnumRailDirection) iblockstate.getValue(SHAPE)).getMetadata();
+        return iblockstate.getValue(SHAPE).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { SHAPE });
+        return new BlockState(this, SHAPE);
 	}
 }

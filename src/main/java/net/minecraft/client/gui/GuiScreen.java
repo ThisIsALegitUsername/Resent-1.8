@@ -43,8 +43,8 @@ import net.minecraft.util.IChatComponent;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Set<String> PROTOCOLS = Sets.newHashSet(new String[] { "http", "https" });
-	private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
+    private static final Set<String> PROTOCOLS = Sets.newHashSet("http", "https");
+    private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
 	protected Minecraft mc;
 	protected RenderItem itemRender;
 	public static int width;
@@ -72,41 +72,41 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 */
 	public void drawScreen(int i, int j, float var3) {
 		for (int k = 0; k < this.buttonList.size(); ++k) {
-			((GuiButton) this.buttonList.get(k)).drawButton(this.mc, i, j);
+            this.buttonList.get(k).drawButton(this.mc, i, j);
 		}
 
 		for (int l = 0; l < this.labelList.size(); ++l) {
-			((GuiLabel) this.labelList.get(l)).drawLabel(this.mc, i, j);
+            this.labelList.get(l).drawLabel(this.mc, i, j);
 		}
 
 		long millis = System.currentTimeMillis();
 		long closeKeyTimeout = millis - showingCloseKey;
-		if (closeKeyTimeout < 3000l) {
-			int alpha1 = 0xC0000000;
-			int alpha2 = 0xFF000000;
-			if (closeKeyTimeout > 2500l) {
-				float f = (float) (3000l - closeKeyTimeout) * 0.002f;
-				if (f < 0.03f)
-					f = 0.03f;
-				alpha1 = (int) (f * 192.0f) << 24;
-				alpha2 = (int) (f * 255.0f) << 24;
-			}
-			String str;
-			int k = getCloseKey();
-			if (k == KeyboardConstants.KEY_GRAVE) {
-				str = I18n.format("gui.exitKeyRetarded");
-			} else {
+        if (closeKeyTimeout < 3000L) {
+            int alpha1 = 0xC0000000;
+            int alpha2 = 0xFF000000;
+            if (closeKeyTimeout > 2500L) {
+                float f = (float) (3000L - closeKeyTimeout) * 0.002f;
+                if (f < 0.03f)
+                    f = 0.03f;
+                alpha1 = (int) (f * 192.0f) << 24;
+                alpha2 = (int) (f * 255.0f) << 24;
+            }
+            String str;
+            int k = getCloseKey();
+            if (k == KeyboardConstants.KEY_GRAVE) {
+                str = I18n.format("gui.exitKeyRetarded");
+            } else {
 				str = I18n.format("gui.exitKey", Keyboard.getKeyName(k));
 			}
 			int w = fontRendererObj.getStringWidth(str);
 			int x = (width - w - 4) / 2;
 			int y = 10;
 			drawRect(x, y, x + w + 4, y + 12, alpha1);
-			if (closeKeyTimeout > 2500l)
-				GlStateManager.enableBlend();
+            if (closeKeyTimeout > 2500L)
+                GlStateManager.enableBlend();
 			fontRendererObj.drawStringWithShadow(str, x + 2, y + 2, 0xFFAAAA | alpha2);
-			if (closeKeyTimeout > 2500l)
-				GlStateManager.disableBlend();
+            if (closeKeyTimeout > 2500L)
+                GlStateManager.disableBlend();
 		}
 
 	}
@@ -129,7 +129,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 		if (((this.mc.theWorld == null || this.mc.thePlayer.getHealth() <= 0.0F) && parInt1 == 1)
 				|| parInt1 == this.mc.gameSettings.keyBindClose.getKeyCode()
 				|| (parInt1 == 1 && this.mc.gameSettings.keyBindClose.getKeyCode() == 0)) {
-			this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
 			if (this.mc.currentScreen == null) {
 				this.mc.setIngameFocus();
 			}
@@ -174,7 +174,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 * position, current mouse y position.
 	 */
 	protected void drawCreativeTabHoveringText(String s, int i, int j) {
-		this.drawHoveringText(Arrays.asList(new String[] { s }), i, j);
+        this.drawHoveringText(Arrays.asList(s), i, j);
 	}
 
 	/**+
@@ -197,28 +197,28 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			}
 
 			int j2 = i + 12;
-			int k2 = j - 12;
-			int i1 = 8;
-			if (list.size() > 1) {
-				i1 += 2 + (list.size() - 1) * 10;
-			}
+            int k2 = j - 12;
+            int i1 = 8;
+            if (list.size() > 1) {
+                i1 += 2 + (list.size() - 1) * 10;
+            }
 
-			if (j2 + k > this.width) {
-				j2 -= 28 + k;
-			}
+            if (j2 + k > width) {
+                j2 -= 28 + k;
+            }
 
-			if (k2 + i1 + 6 > this.height) {
-				k2 = this.height - i1 - 6;
-			}
+            if (k2 + i1 + 6 > height) {
+                k2 = height - i1 - 6;
+            }
 
-			this.zLevel = 300.0F;
-			this.itemRender.zLevel = 300.0F;
-			int j1 = -267386864;
-			this.drawGradientRect(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j1, j1);
-			this.drawGradientRect(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j1, j1);
-			this.drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 + i1 + 3, j1, j1);
-			this.drawGradientRect(j2 - 4, k2 - 3, j2 - 3, k2 + i1 + 3, j1, j1);
-			this.drawGradientRect(j2 + k + 3, k2 - 3, j2 + k + 4, k2 + i1 + 3, j1, j1);
+            this.zLevel = 300.0F;
+            this.itemRender.zLevel = 300.0F;
+            int j1 = -267386864;
+            this.drawGradientRect(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j1, j1);
+            this.drawGradientRect(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j1, j1);
+            this.drawGradientRect(j2 - 3, k2 - 3, j2 + k + 3, k2 + i1 + 3, j1, j1);
+            this.drawGradientRect(j2 - 4, k2 - 3, j2 - 3, k2 + i1 + 3, j1, j1);
+            this.drawGradientRect(j2 + k + 3, k2 - 3, j2 + k + 4, k2 + i1 + 3, j1, j1);
 			int k1 = 1347420415;
 			int l1 = (k1 & 16711422) >> 1 | k1 & -16777216;
 			this.drawGradientRect(j2 - 3, k2 - 3 + 1, j2 - 3 + 1, k2 + i1 + 3 - 1, k1, l1);
@@ -227,7 +227,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			this.drawGradientRect(j2 - 3, k2 + i1 + 2, j2 + k + 3, k2 + i1 + 3, l1, l1);
 
 			for (int i2 = 0; i2 < list.size(); ++i2) {
-				String s1 = (String) list.get(i2);
+                String s1 = list.get(i2);
 				this.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
 				if (i2 == 0) {
 					k2 += 2;
@@ -258,11 +258,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					NBTTagCompound nbttagcompound = JsonToNBT
 							.getTagFromJson(hoverevent.getValue().getUnformattedText());
 					if (nbttagcompound instanceof NBTTagCompound) {
-						itemstack = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbttagcompound);
+                        itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
 					}
 				} catch (NBTException var11) {
-					;
-				}
+                }
 
 				if (itemstack != null) {
 					this.renderToolTip(itemstack, parInt1, parInt2);
@@ -275,8 +274,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 						NBTTagCompound nbttagcompound2 = JsonToNBT
 								.getTagFromJson(hoverevent.getValue().getUnformattedText());
 						if (nbttagcompound2 instanceof NBTTagCompound) {
-							ArrayList arraylist1 = Lists.newArrayList();
-							NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttagcompound2;
+                            ArrayList arraylist1 = Lists.newArrayList();
+                            NBTTagCompound nbttagcompound1 = nbttagcompound2;
 							arraylist1.add(nbttagcompound1.getString("name"));
 							if (nbttagcompound1.hasKey("type", 8)) {
 								String s = nbttagcompound1.getString("type");
@@ -299,20 +298,20 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			} else if (hoverevent.getAction() == HoverEvent.Action.SHOW_ACHIEVEMENT) {
 				StatBase statbase = StatList.getOneShotStat(hoverevent.getValue().getUnformattedText());
 				if (statbase != null) {
-					IChatComponent ichatcomponent = statbase.getStatName();
-					ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(
-							"stats.tooltip.type." + (statbase.isAchievement() ? "achievement" : "statistic"),
-							new Object[0]);
-					chatcomponenttranslation.getChatStyle().setItalic(Boolean.valueOf(true));
-					String s1 = statbase instanceof Achievement ? ((Achievement) statbase).getDescription() : null;
-					ArrayList arraylist = Lists.newArrayList(new String[] { ichatcomponent.getFormattedText(),
-							chatcomponenttranslation.getFormattedText() });
-					if (s1 != null) {
-						arraylist.addAll(this.fontRendererObj.listFormattedStringToWidth(s1, 150));
-					}
+                    IChatComponent ichatcomponent = statbase.getStatName();
+                    ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(
+                            "stats.tooltip.type." + (statbase.isAchievement() ? "achievement" : "statistic")
+                    );
+                    chatcomponenttranslation.getChatStyle().setItalic(Boolean.valueOf(true));
+                    String s1 = statbase instanceof Achievement ? ((Achievement) statbase).getDescription() : null;
+                    ArrayList arraylist = Lists.newArrayList(ichatcomponent.getFormattedText(),
+                            chatcomponenttranslation.getFormattedText());
+                    if (s1 != null) {
+                        arraylist.addAll(this.fontRendererObj.listFormattedStringToWidth(s1, 150));
+                    }
 
-					this.drawHoveringText(arraylist, parInt1, parInt2);
-				} else {
+                    this.drawHoveringText(arraylist, parInt1, parInt2);
+                } else {
 					this.drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid statistic/achievement!", parInt1,
 							parInt2);
 				}
@@ -367,9 +366,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					 * (chatuserinfo != null) { this.mc.displayGuiScreen(new
 					 * GuiTwitchUserMode(this.mc.getTwitchStream(), chatuserinfo)); } else { }
 					 */
-					LOGGER.error("Tried to handle twitch user but couldn\'t find them!");
+                    LOGGER.error("Tried to handle twitch user but couldn't find them!");
 				} else {
-					LOGGER.error("Don\'t know how to handle " + clickevent);
+                    LOGGER.error("Don't know how to handle " + clickevent);
 				}
 
 				return true;
@@ -398,7 +397,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	protected void mouseClicked(int parInt1, int parInt2, int parInt3) {
 		if (parInt3 == 0) {
 			for (int i = 0; i < this.buttonList.size(); ++i) {
-				GuiButton guibutton = (GuiButton) this.buttonList.get(i);
+                GuiButton guibutton = this.buttonList.get(i);
 				if (guibutton.mousePressed(this.mc, parInt1, parInt2)) {
 					this.selectedButton = guibutton;
 					guibutton.playPressSound(this.mc.getSoundHandler());
@@ -441,14 +440,14 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 * the equivalent of the Java call Container.validate()
 	 */
 	public void setWorldAndResolution(Minecraft mc, int width, int height) {
-		this.mc = mc;
-		this.itemRender = mc.getRenderItem();
-		this.fontRendererObj = mc.fontRendererObj;
-		this.width = width;
-		this.height = height;
-		this.buttonList.clear();
-		this.initGui();
-	}
+        this.mc = mc;
+        this.itemRender = mc.getRenderItem();
+        this.fontRendererObj = mc.fontRendererObj;
+        GuiScreen.width = width;
+        GuiScreen.height = height;
+        this.buttonList.clear();
+        this.initGui();
+    }
 
 	/**+
 	 * Adds the buttons (and other controls) to the screen in
@@ -480,18 +479,18 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 * Handles mouse input.
 	 */
 	public void handleMouseInput() throws IOException {
-		int i = Mouse.getEventX() * this.width / this.mc.displayWidth;
-		int j = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-		int k = Mouse.getEventButton();
-		if (Mouse.getEventButtonState()) {
-			if (this.mc.gameSettings.touchscreen && this.touchValue++ > 0) {
-				return;
-			}
+        int i = Mouse.getEventX() * width / this.mc.displayWidth;
+        int j = height - Mouse.getEventY() * height / this.mc.displayHeight - 1;
+        int k = Mouse.getEventButton();
+        if (Mouse.getEventButtonState()) {
+            if (this.mc.gameSettings.touchscreen && this.touchValue++ > 0) {
+                return;
+            }
 
-			this.eventButton = k;
-			this.lastMouseEvent = Minecraft.getSystemTime();
-			this.mouseClicked(i, j, this.eventButton);
-		} else if (k != -1) {
+            this.eventButton = k;
+            this.lastMouseEvent = Minecraft.getSystemTime();
+            this.mouseClicked(i, j, this.eventButton);
+        } else if (k != -1) {
 			if (this.mc.gameSettings.touchscreen && --this.touchValue > 0) {
 				return;
 			}
@@ -539,7 +538,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
 	public void drawWorldBackground(int i) {
 		if (this.mc.theWorld != null) {
-			this.drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
+            this.drawGradientRect(0, 0, width, height, -1072689136, -804253680);
 		} else {
 			this.drawBackground(i);
 		}
@@ -550,24 +549,24 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 * Draws the background (i is always 0 as of 1.2.2)
 	 */
 	public void drawBackground(int tint) {
-		GlStateManager.disableLighting();
-		GlStateManager.disableFog();
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-		this.mc.getTextureManager().bindTexture(optionsBackground);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		float f = 32.0F;
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		worldrenderer.pos(0.0D, (double) this.height, 0.0D)
-				.tex(0.0D, (double) ((float) this.height / 32.0F + (float) tint)).color(64, 64, 64, 255).endVertex();
-		worldrenderer.pos((double) this.width, (double) this.height, 0.0D)
-				.tex((double) ((float) this.width / 32.0F), (double) ((float) this.height / 32.0F + (float) tint))
-				.color(64, 64, 64, 255).endVertex();
-		worldrenderer.pos((double) this.width, 0.0D, 0.0D).tex((double) ((float) this.width / 32.0F), (double) tint)
-				.color(64, 64, 64, 255).endVertex();
-		worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, (double) tint).color(64, 64, 64, 255).endVertex();
-		tessellator.draw();
-	}
+        GlStateManager.disableLighting();
+        GlStateManager.disableFog();
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        this.mc.getTextureManager().bindTexture(optionsBackground);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        float f = 32.0F;
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        worldrenderer.pos(0.0D, height, 0.0D)
+                .tex(0.0D, (float) height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(width, height, 0.0D)
+                .tex((float) width / 32.0F, (float) height / 32.0F + (float) tint)
+                .color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(width, 0.0D, 0.0D).tex((float) width / 32.0F, tint)
+                .color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
+        tessellator.draw();
+    }
 
 	/**+
 	 * Returns true if this GUI should pause the game when it is

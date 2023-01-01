@@ -1,22 +1,21 @@
 package net.minecraft.client.resources;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import net.lax1dude.eaglercraft.v1_8.vfs.SYS;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import net.lax1dude.eaglercraft.v1_8.IOUtils;
 import net.lax1dude.eaglercraft.v1_8.HString;
+import net.lax1dude.eaglercraft.v1_8.IOUtils;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
+import net.lax1dude.eaglercraft.v1_8.vfs.SYS;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractResourcePack implements IResourcePack {
 	private static final Logger resourceLog = LogManager.getLogger();
@@ -28,7 +27,7 @@ public abstract class AbstractResourcePack implements IResourcePack {
 
 	private static String locationToName(ResourceLocation location) {
 		return HString.format("%s/%s/%s",
-				new Object[] { "assets", location.getResourceDomain(), location.getResourcePath() });
+                "assets", location.getResourceDomain(), location.getResourcePath());
 	}
 
 	public InputStream getInputStream(ResourceLocation location) throws IOException {
@@ -44,8 +43,8 @@ public abstract class AbstractResourcePack implements IResourcePack {
 	protected abstract boolean hasResourceName(String var1);
 
 	protected void logNameNotLowercase(String parString1) {
-		resourceLog.warn("ResourcePack: ignored non-lowercase namespace: %s in %s",
-				new Object[] { parString1, this.resourcePackFile });
+        resourceLog.warn("ResourcePack: ignored non-lowercase namespace: %s in %s",
+                parString1, this.resourcePackFile);
 	}
 
 	public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer parIMetadataSerializer, String parString1)

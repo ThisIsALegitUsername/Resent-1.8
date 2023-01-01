@@ -1,9 +1,6 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +9,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -42,7 +41,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	}
 
 	protected int getRedstoneStrength(IBlockState iblockstate) {
-		return ((Boolean) iblockstate.getValue(POWERED)).booleanValue() ? 15 : 0;
+		return iblockstate.getValue(POWERED).booleanValue() ? 15 : 0;
 	}
 
 	protected IBlockState setRedstoneStrength(IBlockState iblockstate, int i) {
@@ -54,7 +53,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 		List<Entity> list;
 		switch (this.sensitivity) {
 		case EVERYTHING:
-			list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, axisalignedbb);
+			list = world.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 			break;
 		case MOBS:
 			list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
@@ -85,14 +84,14 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Boolean) iblockstate.getValue(POWERED)).booleanValue() ? 1 : 0;
+		return iblockstate.getValue(POWERED).booleanValue() ? 1 : 0;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { POWERED });
+		return new BlockState(this, POWERED);
 	}
 
-	public static enum Sensitivity {
-		EVERYTHING, MOBS;
+	public enum Sensitivity {
+		EVERYTHING, MOBS
 	}
 }

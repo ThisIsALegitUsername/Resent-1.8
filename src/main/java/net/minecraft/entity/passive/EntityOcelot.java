@@ -170,7 +170,7 @@ public class EntityOcelot extends EntityTameable {
 			return false;
 		} else {
 			EntityOcelot entityocelot = (EntityOcelot) entityanimal;
-			return !entityocelot.isTamed() ? false : this.isInLove() && entityocelot.isInLove();
+			return entityocelot.isTamed() && this.isInLove() && entityocelot.isInLove();
 		}
 	}
 
@@ -204,9 +204,7 @@ public class EntityOcelot extends EntityTameable {
 			}
 
 			Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
-			if (block == Blocks.grass || block.getMaterial() == Material.leaves) {
-				return true;
-			}
+            return block == Blocks.grass || block.getMaterial() == Material.leaves;
 		}
 
 		return false;

@@ -1,13 +1,8 @@
 package net.lax1dude.eaglercraft.v1_8.internal.teavm;
 
-import net.lax1dude.eaglercraft.v1_8.internal.IBufferArrayGL;
-import net.lax1dude.eaglercraft.v1_8.internal.IBufferGL;
-import net.lax1dude.eaglercraft.v1_8.internal.IProgramGL;
-import net.lax1dude.eaglercraft.v1_8.internal.IShaderGL;
-import net.lax1dude.eaglercraft.v1_8.internal.ITextureGL;
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformAssets;
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
+import net.lax1dude.eaglercraft.v1_8.Base64;
+import net.lax1dude.eaglercraft.v1_8.EagUtils;
+import net.lax1dude.eaglercraft.v1_8.internal.*;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.IntBuffer;
@@ -15,9 +10,6 @@ import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
 
 import static net.lax1dude.eaglercraft.v1_8.internal.PlatformOpenGL.*;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
-
-import net.lax1dude.eaglercraft.v1_8.Base64;
-import net.lax1dude.eaglercraft.v1_8.EagUtils;
 
 /**
  * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
@@ -123,7 +115,7 @@ public class EarlyLoadScreen {
 		_wglDisableVertexAttribArray(0);
 		
 		PlatformInput.update();
-		EagUtils.sleep(50l); // allow webgl to flush
+        EagUtils.sleep(50L); // allow webgl to flush
 
 		_wglUseProgram(null);
 		_wglBindBuffer(GL_ARRAY_BUFFER, null);
@@ -178,9 +170,9 @@ public class EarlyLoadScreen {
 		_wglVertexAttribPointer(0, 2, GL_FLOAT, false, 8, 0);
 		_wglDrawArrays(GL_TRIANGLES, 0, 6);
 		_wglDisableVertexAttribArray(0);
-		
-		PlatformInput.update();
-		EagUtils.sleep(50l); // allow webgl to flush
+
+        PlatformInput.update();
+        EagUtils.sleep(50L); // allow webgl to flush
 
 		_wglUseProgram(null);
 		_wglBindBuffer(GL_ARRAY_BUFFER, null);
@@ -235,9 +227,9 @@ public class EarlyLoadScreen {
 		_wglVertexAttribPointer(0, 2, GL_FLOAT, false, 8, 0);
 		_wglDrawArrays(GL_TRIANGLES, 0, 6);
 		_wglDisableVertexAttribArray(0);
-		
-		PlatformInput.update();
-		EagUtils.sleep(50l); // allow webgl to flush
+
+        PlatformInput.update();
+        EagUtils.sleep(50L); // allow webgl to flush
 
 		_wglUseProgram(null);
 		_wglBindBuffer(GL_ARRAY_BUFFER, null);

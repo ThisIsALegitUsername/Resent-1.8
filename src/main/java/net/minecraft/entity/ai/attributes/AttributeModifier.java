@@ -1,11 +1,9 @@
 package net.minecraft.entity.ai.attributes;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
-
-import org.apache.commons.lang3.Validate;
-
 import net.lax1dude.eaglercraft.v1_8.ThreadLocalRandom;
 import net.minecraft.util.MathHelper;
+import org.apache.commons.lang3.Validate;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -42,8 +40,8 @@ public class AttributeModifier {
 		this.name = nameIn;
 		this.amount = amountIn;
 		this.operation = operationIn;
-		Validate.notEmpty(nameIn, "Modifier name cannot be empty", new Object[0]);
-		Validate.inclusiveBetween(0L, 2L, (long) operationIn, "Invalid operation");
+		Validate.notEmpty(nameIn, "Modifier name cannot be empty");
+		Validate.inclusiveBetween(0L, 2L, operationIn, "Invalid operation");
 	}
 
 	public EaglercraftUUID getID() {
@@ -83,14 +81,8 @@ public class AttributeModifier {
 		} else if (object != null && this.getClass() == object.getClass()) {
 			AttributeModifier attributemodifier = (AttributeModifier) object;
 			if (this.id != null) {
-				if (!this.id.equals(attributemodifier.id)) {
-					return false;
-				}
-			} else if (attributemodifier.id != null) {
-				return false;
-			}
-
-			return true;
+				return this.id.equals(attributemodifier.id);
+			} else return attributemodifier.id == null;
 		} else {
 			return false;
 		}
@@ -101,7 +93,7 @@ public class AttributeModifier {
 	}
 
 	public String toString() {
-		return "AttributeModifier{amount=" + this.amount + ", operation=" + this.operation + ", name=\'" + this.name
+		return "AttributeModifier{amount=" + this.amount + ", operation=" + this.operation + ", name='" + this.name
 				+ '\'' + ", id=" + this.id + ", serialize=" + this.isSaved + '}';
 	}
 }

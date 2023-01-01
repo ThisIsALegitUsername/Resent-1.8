@@ -66,8 +66,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 	protected float interpolateRotation(float par1, float par2, float par3) {
 		float f;
 		for (f = par2 - par1; f < -180.0F; f += 360.0F) {
-			;
-		}
+        }
 
 		while (f >= 180.0F) {
 			f -= 360.0F;
@@ -166,7 +165,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
 			GlStateManager.disableRescaleNormal();
 		} catch (Exception exception) {
-			logger.error("Couldn\'t render entity", exception);
+            logger.error("Couldn't render entity", exception);
 		}
 
 		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -369,29 +368,29 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 					GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
 					GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 					GlStateManager.scale(-0.02666667F, -0.02666667F, 0.02666667F);
-					GlStateManager.translate(0.0F, 9.374999F, 0.0F);
-					GlStateManager.disableLighting();
-					GlStateManager.depthMask(false);
-					GlStateManager.enableBlend();
-					GlStateManager.disableTexture2D();
-					GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-					int i = fontrenderer.getStringWidth(s) / 2;
-					Tessellator tessellator = Tessellator.getInstance();
-					WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-					worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-					worldrenderer.pos((double) (-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					worldrenderer.pos((double) (-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					worldrenderer.pos((double) (i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					worldrenderer.pos((double) (i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					tessellator.draw();
-					GlStateManager.enableTexture2D();
-					GlStateManager.depthMask(true);
-					fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
-					GlStateManager.enableLighting();
-					GlStateManager.disableBlend();
-					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-					GlStateManager.popMatrix();
-				} else {
+                    GlStateManager.translate(0.0F, 9.374999F, 0.0F);
+                    GlStateManager.disableLighting();
+                    GlStateManager.depthMask(false);
+                    GlStateManager.enableBlend();
+                    GlStateManager.disableTexture2D();
+                    GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+                    int i = fontrenderer.getStringWidth(s) / 2;
+                    Tessellator tessellator = Tessellator.getInstance();
+                    WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                    worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    tessellator.draw();
+                    GlStateManager.enableTexture2D();
+                    GlStateManager.depthMask(true);
+                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
+                    GlStateManager.enableLighting();
+                    GlStateManager.disableBlend();
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.popMatrix();
+                } else {
 					this.renderOffsetLivingLabel(entitylivingbase, d0,
 							d1 - (entitylivingbase.isChild() ? (double) (entitylivingbase.height / 2.0F) : 0.0D), d2, s,
 							0.02666667F, d3);

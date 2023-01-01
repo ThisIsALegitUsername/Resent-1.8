@@ -31,7 +31,7 @@ public class InventoryHelper {
 	private static final EaglercraftRandom RANDOM = new EaglercraftRandom();
 
 	public static void dropInventoryItems(World worldIn, BlockPos pos, IInventory parIInventory) {
-		func_180174_a(worldIn, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), parIInventory);
+		func_180174_a(worldIn, pos.getX(), pos.getY(), pos.getZ(), parIInventory);
 	}
 
 	public static void func_180176_a(World worldIn, Entity parEntity, IInventory parIInventory) {

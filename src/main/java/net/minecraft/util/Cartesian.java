@@ -1,17 +1,12 @@
 package net.minecraft.util;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -33,7 +28,7 @@ import com.google.common.collect.UnmodifiableIterator;
  */
 public class Cartesian {
 	public static <T> Iterable<T[]> cartesianProduct(Class<T> clazz, Iterable<? extends Iterable<? extends T>> sets) {
-		return new Cartesian.Product(clazz, (Iterable[]) toArray(Iterable.class, sets));
+		return new Cartesian.Product(clazz, toArray(Iterable.class, sets));
 	}
 
 	public static <T> Iterable<List<T>> cartesianProduct(Iterable<? extends Iterable<? extends T>> sets) {
@@ -55,11 +50,11 @@ public class Cartesian {
 			arraylist.add(object);
 		}
 
-		return (T[]) ((Object[]) arraylist.toArray(createArray(clazz, arraylist.size())));
+		return (T[]) arraylist.toArray(createArray(clazz, arraylist.size()));
 	}
 
 	private static <T> T[] createArray(Class<? super T> parClass1, int parInt1) {
-		return (T[]) ((Object[]) ((Object[]) Array.newInstance(parClass1, parInt1)));
+		return (T[]) Array.newInstance(parClass1, parInt1);
 	}
 
 	static class GetList<T> implements Function<Object[], List<T>> {
@@ -67,7 +62,7 @@ public class Cartesian {
 		}
 
 		public List<T> apply(Object[] aobject) {
-			return (List<T>) Arrays.asList((Object[]) aobject);
+			return (List<T>) Arrays.asList(aobject);
 		}
 	}
 
@@ -82,7 +77,7 @@ public class Cartesian {
 
 		public Iterator<T[]> iterator() {
 			return (Iterator<T[]>) (this.iterables.length <= 0
-					? Collections.singletonList((T[]) Cartesian.createArray(this.clazz, 0)).iterator()
+					? Collections.singletonList(Cartesian.createArray(this.clazz, 0)).iterator()
 					: new Cartesian.Product.ProductIterator(this.clazz, this.iterables));
 		}
 
@@ -95,7 +90,7 @@ public class Cartesian {
 			private ProductIterator(Class<T> clazz, Iterable<? extends T>[] iterables) {
 				this.index = -2;
 				this.iterables = iterables;
-				this.iterators = (Iterator[]) Cartesian.createArray(Iterator.class, this.iterables.length);
+				this.iterators = Cartesian.createArray(Iterator.class, this.iterables.length);
 
 				for (int i = 0; i < this.iterables.length; ++i) {
 					this.iterators[i] = iterables[i].iterator();
@@ -106,8 +101,8 @@ public class Cartesian {
 
 			private void endOfData() {
 				this.index = -1;
-				Arrays.fill(this.iterators, (Object) null);
-				Arrays.fill(this.results, (Object) null);
+				Arrays.fill(this.iterators, null);
+				Arrays.fill(this.results, null);
 			}
 
 			public boolean hasNext() {
@@ -157,7 +152,7 @@ public class Cartesian {
 						++this.index;
 					}
 
-					return (T[]) ((Object[]) this.results.clone());
+					return this.results.clone();
 				}
 			}
 		}

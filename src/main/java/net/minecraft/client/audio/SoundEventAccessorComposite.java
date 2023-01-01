@@ -23,28 +23,29 @@ import net.minecraft.util.ResourceLocation;
  * NOT FOR COMMERCIAL OR MALICIOUS USE
  * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class SoundEventAccessorComposite implements ISoundEventAccessor<SoundPoolEntry> {
-	/**+
-	 * A composite (List) of ISoundEventAccessors
-	 */
-	private final List<ISoundEventAccessor<SoundPoolEntry>> soundPool = Lists.newArrayList();
-	private final EaglercraftRandom rnd = new EaglercraftRandom();
-	private final ResourceLocation soundLocation;
-	private final SoundCategory category;
-	private double eventPitch;
-	private double eventVolume;
+    /**
+     * +
+     * A composite (List) of ISoundEventAccessors
+     */
+    private final List<ISoundEventAccessor<SoundPoolEntry>> soundPool = Lists.newArrayList();
+    private final EaglercraftRandom rnd = new EaglercraftRandom();
+    private final ResourceLocation soundLocation;
+    private final SoundCategory category;
+    private final double eventPitch;
+    private final double eventVolume;
 
-	public SoundEventAccessorComposite(ResourceLocation soundLocation, double pitch, double volume,
-			SoundCategory category) {
-		this.soundLocation = soundLocation;
-		this.eventVolume = volume;
-		this.eventPitch = pitch;
-		this.category = category;
-	}
+    public SoundEventAccessorComposite(ResourceLocation soundLocation, double pitch, double volume,
+                                       SoundCategory category) {
+        this.soundLocation = soundLocation;
+        this.eventVolume = volume;
+        this.eventPitch = pitch;
+        this.category = category;
+    }
 
-	public int getWeight() {
+    public int getWeight() {
 		int i = 0;
 
 		for (ISoundEventAccessor isoundeventaccessor : this.soundPool) {

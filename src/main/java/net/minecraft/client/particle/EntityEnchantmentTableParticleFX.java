@@ -14,34 +14,34 @@ import net.minecraft.world.World;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class EntityEnchantmentTableParticleFX extends EntityFX {
-	private float field_70565_a;
-	private double coordX;
-	private double coordY;
-	private double coordZ;
+    private final float field_70565_a;
+    private final double coordX;
+    private final double coordY;
+    private final double coordZ;
 
-	protected EntityEnchantmentTableParticleFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
-			double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-		this.motionX = xSpeedIn;
-		this.motionY = ySpeedIn;
-		this.motionZ = zSpeedIn;
-		this.coordX = xCoordIn;
-		this.coordY = yCoordIn;
-		this.coordZ = zCoordIn;
+    protected EntityEnchantmentTableParticleFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
+                                               double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+        super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+        this.motionX = xSpeedIn;
+        this.motionY = ySpeedIn;
+        this.motionZ = zSpeedIn;
+        this.coordX = xCoordIn;
+        this.coordY = yCoordIn;
+        this.coordZ = zCoordIn;
 		this.posX = this.prevPosX = xCoordIn + xSpeedIn;
 		this.posY = this.prevPosY = yCoordIn + ySpeedIn;
 		this.posZ = this.prevPosZ = zCoordIn + zSpeedIn;
 		float f = this.rand.nextFloat() * 0.6F + 0.4F;
-		this.field_70565_a = this.particleScale = this.rand.nextFloat() * 0.5F + 0.2F;
-		this.particleRed = this.particleGreen = this.particleBlue = 1.0F * f;
-		this.particleGreen *= 0.9F;
+        this.field_70565_a = this.particleScale = this.rand.nextFloat() * 0.5F + 0.2F;
+        this.particleRed = this.particleGreen = this.particleBlue = f;
+        this.particleGreen *= 0.9F;
 		this.particleRed *= 0.9F;
 		this.particleMaxAge = (int) (Math.random() * 10.0D) + 30;
 		this.noClip = true;

@@ -1,10 +1,8 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -57,9 +55,9 @@ public class BlockMycelium extends Block {
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
 		super.randomDisplayTick(world, blockpos, iblockstate, random);
 		if (random.nextInt(10) == 0) {
-			world.spawnParticle(EnumParticleTypes.TOWN_AURA, (double) ((float) blockpos.getX() + random.nextFloat()),
-					(double) ((float) blockpos.getY() + 1.1F), (double) ((float) blockpos.getZ() + random.nextFloat()),
-					0.0D, 0.0D, 0.0D, new int[0]);
+			world.spawnParticle(EnumParticleTypes.TOWN_AURA, (float) blockpos.getX() + random.nextFloat(),
+					(float) blockpos.getY() + 1.1F, (float) blockpos.getZ() + random.nextFloat(),
+					0.0D, 0.0D, 0.0D);
 		}
 
 	}
@@ -80,6 +78,6 @@ public class BlockMycelium extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { SNOWY });
+		return new BlockState(this, SNOWY);
 	}
 }

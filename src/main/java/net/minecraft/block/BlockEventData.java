@@ -14,17 +14,17 @@ import net.minecraft.util.BlockPos;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class BlockEventData {
-	private BlockPos position;
-	private Block blockType;
-	private int eventID;
-	private int eventParameter;
+	private final BlockPos position;
+	private final Block blockType;
+	private final int eventID;
+	private final int eventParameter;
 
 	public BlockEventData(BlockPos pos, Block blockType, int eventId, int parInt1) {
 		this.position = pos;

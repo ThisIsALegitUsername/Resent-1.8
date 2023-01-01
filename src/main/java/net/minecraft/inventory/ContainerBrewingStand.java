@@ -25,8 +25,8 @@ import net.minecraft.stats.AchievementList;
  * 
  */
 public class ContainerBrewingStand extends Container {
-	private IInventory tileBrewingStand;
-	private final Slot theSlot;
+	private final IInventory tileBrewingStand;
+    private final Slot theSlot;
 	private int brewTime;
 
 	public ContainerBrewingStand(InventoryPlayer playerInventory, IInventory tileBrewingStandIn) {
@@ -64,7 +64,7 @@ public class ContainerBrewingStand extends Container {
 		super.detectAndSendChanges();
 
 		for (int i = 0; i < this.crafters.size(); ++i) {
-			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            ICrafting icrafting = this.crafters.get(i);
 			if (this.brewTime != this.tileBrewingStand.getField(0)) {
 				icrafting.sendProgressBarUpdate(this, 0, this.tileBrewingStand.getField(0));
 			}
@@ -85,8 +85,8 @@ public class ContainerBrewingStand extends Container {
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(i);
+        ItemStack itemstack = null;
+        Slot slot = this.inventorySlots.get(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
@@ -119,7 +119,7 @@ public class ContainerBrewingStand extends Container {
 			}
 
 			if (itemstack1.stackSize == 0) {
-				slot.putStack((ItemStack) null);
+                slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
@@ -140,7 +140,7 @@ public class ContainerBrewingStand extends Container {
 		}
 
 		public boolean isItemValid(ItemStack itemstack) {
-			return itemstack != null ? itemstack.getItem().isPotionIngredient(itemstack) : false;
+            return itemstack != null && itemstack.getItem().isPotionIngredient(itemstack);
 		}
 
 		public int getSlotStackLimit() {
@@ -149,7 +149,7 @@ public class ContainerBrewingStand extends Container {
 	}
 
 	static class Potion extends Slot {
-		private EntityPlayer player;
+        private final EntityPlayer player;
 
 		public Potion(EntityPlayer playerIn, IInventory inventoryIn, int index, int xPosition, int yPosition) {
 			super(inventoryIn, index, xPosition, yPosition);

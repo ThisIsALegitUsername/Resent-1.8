@@ -33,7 +33,7 @@ import net.minecraft.world.World;
  * 
  */
 public class ItemBucket extends Item {
-	private Block isFull;
+	private final Block isFull;
 
 	public ItemBucket(Block containedBlock) {
 		this.maxStackSize = 1;
@@ -65,19 +65,19 @@ public class ItemBucket extends Item {
 
 					IBlockState iblockstate = world.getBlockState(blockpos);
 					Material material = iblockstate.getBlock().getMaterial();
-					if (material == Material.water
-							&& ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0) {
-						world.setBlockToAir(blockpos);
-						entityplayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-						return this.fillBucket(itemstack, entityplayer, Items.water_bucket);
-					}
+                    if (material == Material.water
+                            && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
+                        world.setBlockToAir(blockpos);
+                        entityplayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+                        return this.fillBucket(itemstack, entityplayer, Items.water_bucket);
+                    }
 
-					if (material == Material.lava
-							&& ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0) {
-						world.setBlockToAir(blockpos);
-						entityplayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-						return this.fillBucket(itemstack, entityplayer, Items.lava_bucket);
-					}
+                    if (material == Material.lava
+                            && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
+                        world.setBlockToAir(blockpos);
+                        entityplayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+                        return this.fillBucket(itemstack, entityplayer, Items.lava_bucket);
+                    }
 				} else {
 					if (this.isFull == Blocks.air) {
 						return new ItemStack(Items.bucket);
@@ -123,18 +123,18 @@ public class ItemBucket extends Item {
 				return false;
 			} else {
 				if (worldIn.provider.doesWaterVaporize() && this.isFull == Blocks.flowing_water) {
-					int i = pos.getX();
-					int j = pos.getY();
-					int k = pos.getZ();
-					worldIn.playSoundEffect((double) ((float) i + 0.5F), (double) ((float) j + 0.5F),
-							(double) ((float) k + 0.5F), "random.fizz", 0.5F,
-							2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+                    int i = pos.getX();
+                    int j = pos.getY();
+                    int k = pos.getZ();
+                    worldIn.playSoundEffect((float) i + 0.5F, (float) j + 0.5F,
+                            (float) k + 0.5F, "random.fizz", 0.5F,
+                            2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
-					for (int l = 0; l < 8; ++l) {
-						worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) i + Math.random(),
-								(double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
-					}
-				} else {
+                    for (int l = 0; l < 8; ++l) {
+                        worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double) i + Math.random(),
+                                (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
+                    }
+                } else {
 					worldIn.setBlockState(pos, this.isFull.getDefaultState(), 3);
 				}
 

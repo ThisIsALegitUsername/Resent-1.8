@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -66,7 +65,7 @@ public class BlockTNT extends Block {
 	 * Called when a player destroys this Block
 	 */
 	public void onBlockDestroyedByPlayer(World world, BlockPos blockpos, IBlockState iblockstate) {
-		this.explode(world, blockpos, iblockstate, (EntityLivingBase) null);
+		this.explode(world, blockpos, iblockstate, null);
 	}
 
 	public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
@@ -111,10 +110,10 @@ public class BlockTNT extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Boolean) iblockstate.getValue(EXPLODE)).booleanValue() ? 1 : 0;
+		return iblockstate.getValue(EXPLODE).booleanValue() ? 1 : 0;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { EXPLODE });
+		return new BlockState(this, EXPLODE);
 	}
 }

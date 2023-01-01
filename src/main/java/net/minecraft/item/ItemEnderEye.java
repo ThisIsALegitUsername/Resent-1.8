@@ -37,14 +37,10 @@ public class ItemEnderEye extends Item {
 	 */
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos blockpos,
 			EnumFacing enumfacing, float var6, float var7, float var8) {
-		IBlockState iblockstate = world.getBlockState(blockpos);
-		if (entityplayer.canPlayerEdit(blockpos.offset(enumfacing), enumfacing, itemstack)
-				&& iblockstate.getBlock() == Blocks.end_portal_frame
-				&& !((Boolean) iblockstate.getValue(BlockEndPortalFrame.EYE)).booleanValue()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        IBlockState iblockstate = world.getBlockState(blockpos);
+        return entityplayer.canPlayerEdit(blockpos.offset(enumfacing), enumfacing, itemstack)
+                && iblockstate.getBlock() == Blocks.end_portal_frame
+                && !iblockstate.getValue(BlockEndPortalFrame.EYE).booleanValue();
+    }
 
 }

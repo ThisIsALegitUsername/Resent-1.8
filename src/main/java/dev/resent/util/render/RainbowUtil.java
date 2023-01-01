@@ -2,8 +2,8 @@ package dev.resent.util.render;
 
 public class RainbowUtil {
     public static int getRainbow(float seconds,float saturation, float brightness) {
-		float hue = (System.currentTimeMillis()) % (int)(seconds*1000) / (float)(seconds*1000);
-		int color = Color.HSBtoRGB(hue, saturation, brightness);
+		float hue = (System.currentTimeMillis()) % (int) (seconds * 1000) / (seconds * 1000);
+        int color = Color.HSBtoRGB(hue, saturation, brightness);
 		return color;
 	}
 	

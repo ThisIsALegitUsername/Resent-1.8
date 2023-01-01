@@ -8,14 +8,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 
+import java.util.Objects;
+
 /**
  * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
  * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
@@ -56,17 +58,15 @@ public class GameProfile {
 	}
 
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		GameProfile that = (GameProfile) o;
-		if ((this.id != null) ? !this.id.equals(that.id) : (that.id != null))
-			return false;
-		if ((this.name != null) ? !this.name.equals(that.name) : (that.name != null))
-			return false;
-		return true;
-	}
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        GameProfile that = (GameProfile) o;
+        if (!Objects.equals(this.id, that.id))
+            return false;
+        return Objects.equals(this.name, that.name);
+    }
 
 	public int hashCode() {
 		int result = (this.id != null) ? this.id.hashCode() : 0;

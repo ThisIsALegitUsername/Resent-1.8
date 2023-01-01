@@ -30,8 +30,8 @@ public class MD5Digest extends GeneralDigest {
 
 	private int H1, H2, H3, H4; // IV's
 
-	private int[] X = new int[16];
-	private int xOff;
+	private final int[] X = new int[16];
+    private int xOff;
 
 	/**
 	 * Standard constructor

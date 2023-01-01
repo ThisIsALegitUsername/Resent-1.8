@@ -122,9 +122,7 @@ public interface EventBus<E> {
     static <E> Accepts<E> nonCancelledWhenNotAcceptingCancelled() {
       return (type, event, subscriber) -> {
         if (!subscriber.acceptsCancelled()) {
-          if (event instanceof Cancellable && ((Cancellable) event).isCancelled()) {
-            return false;
-          }
+          return !(event instanceof Cancellable) || !((Cancellable) event).isCancelled();
         }
         return true;
       };

@@ -1,10 +1,7 @@
 package net.minecraft.world.chunk;
 
-import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.base.Predicate;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -13,6 +10,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -161,10 +160,10 @@ public class EmptyChunk extends Chunk {
 	}
 
 	public EaglercraftRandom getRandomWithSeed(long seed) {
-		return new EaglercraftRandom(this.getWorld().getSeed() + (long) (this.xPosition * this.xPosition * 4987142)
-				+ (long) (this.xPosition * 5947611) + (long) (this.zPosition * this.zPosition) * 4392871L
-				+ (long) (this.zPosition * 389711) ^ seed);
-	}
+        return new EaglercraftRandom(this.getWorld().getSeed() + (long) ((long) this.xPosition * this.xPosition * 4987142)
+                + (long) (this.xPosition * 5947611L) + (long) ((long) this.zPosition * this.zPosition) * 4392871L
+                + (long) (this.zPosition * 389711L) ^ seed);
+    }
 
 	public boolean isEmpty() {
 		return true;

@@ -72,17 +72,17 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 	 */
 	IChatComponent createCopy();
 
-	public static class Serializer implements JSONTypeCodec<IChatComponent, Object> {
+	class Serializer implements JSONTypeCodec<IChatComponent, Object> {
 
-		public IChatComponent deserialize(Object parJsonElement) throws JSONException {
-			if (parJsonElement instanceof String) {
-				return new ChatComponentText((String) parJsonElement);
-			} else if (!(parJsonElement instanceof JSONObject)) {
-				if (parJsonElement instanceof JSONArray) {
-					JSONArray jsonarray1 = (JSONArray) parJsonElement;
-					IChatComponent ichatcomponent = null;
+        public IChatComponent deserialize(Object parJsonElement) throws JSONException {
+            if (parJsonElement instanceof String) {
+                return new ChatComponentText((String) parJsonElement);
+            } else if (!(parJsonElement instanceof JSONObject)) {
+                if (parJsonElement instanceof JSONArray) {
+                    JSONArray jsonarray1 = (JSONArray) parJsonElement;
+                    IChatComponent ichatcomponent = null;
 
-					for (Object jsonelement : jsonarray1) {
+                    for (Object jsonelement : jsonarray1) {
 						IChatComponent ichatcomponent1 = this.deserialize(jsonelement);
 						if (ichatcomponent == null) {
 							ichatcomponent = ichatcomponent1;
@@ -93,8 +93,8 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
 					return ichatcomponent;
 				} else {
-					throw new JSONException("Don\'t know how to turn " + parJsonElement.getClass().getSimpleName()
-							+ " into a Component");
+                    throw new JSONException("Don't know how to turn " + parJsonElement.getClass().getSimpleName()
+                            + " into a Component");
 				}
 			} else {
 				JSONObject jsonobject = (JSONObject) parJsonElement;
@@ -120,7 +120,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
 						object = new ChatComponentTranslation(s, aobject);
 					} else {
-						object = new ChatComponentTranslation(s, new Object[0]);
+                        object = new ChatComponentTranslation(s);
 					}
 				} else if (jsonobject.has("score")) {
 					JSONObject jsonobject1 = jsonobject.getJSONObject("score");
@@ -134,8 +134,8 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 					}
 				} else {
 					if (!jsonobject.has("selector")) {
-						throw new JSONException(
-								"Don\'t know how to turn " + parJsonElement.toString() + " into a Component");
+                        throw new JSONException(
+                                "Don't know how to turn " + parJsonElement + " into a Component");
 					}
 
 					object = new ChatComponentSelector(jsonobject.getString("selector"));
@@ -212,8 +212,8 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 					jsonobject.put("score", jsonobject1);
 				} else {
 					if (!(ichatcomponent instanceof ChatComponentSelector)) {
-						throw new IllegalArgumentException(
-								"Don\'t know how to serialize " + ichatcomponent + " as a Component");
+                        throw new IllegalArgumentException(
+                                "Don't know how to serialize " + ichatcomponent + " as a Component");
 					}
 
 					ChatComponentSelector chatcomponentselector = (ChatComponentSelector) ichatcomponent;
@@ -237,23 +237,23 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 		}
 
 		public static IChatComponent jsonToComponent(String json) {
-			return (IChatComponent) JSONTypeProvider.deserialize(json, IChatComponent.class);
+            return JSONTypeProvider.deserialize(json, IChatComponent.class);
 		}
 	}
 
-	public static IChatComponent join(List<IChatComponent> components) {
-		ChatComponentText chatcomponenttext = new ChatComponentText("");
+    static IChatComponent join(List<IChatComponent> components) {
+        ChatComponentText chatcomponenttext = new ChatComponentText("");
 
-		for (int i = 0; i < components.size(); ++i) {
-			if (i > 0) {
-				if (i == components.size() - 1) {
-					chatcomponenttext.appendText(" and ");
-				} else if (i > 0) {
-					chatcomponenttext.appendText(", ");
-				}
-			}
+        for (int i = 0; i < components.size(); ++i) {
+            if (i > 0) {
+                if (i == components.size() - 1) {
+                    chatcomponenttext.appendText(" and ");
+                } else if (i > 0) {
+                    chatcomponenttext.appendText(", ");
+                }
+            }
 
-			chatcomponenttext.appendSibling((IChatComponent) components.get(i));
+            chatcomponenttext.appendSibling(components.get(i));
 		}
 
 		return chatcomponenttext;

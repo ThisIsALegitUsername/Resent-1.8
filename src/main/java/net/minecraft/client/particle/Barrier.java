@@ -57,24 +57,24 @@ public class Barrier extends EntityFX {
 		int j = i >> 16 & '\uffff';
 		int k = i & '\uffff';
 		worldRendererIn
-				.pos((double) (f5 - parFloat2 * 0.5F - parFloat5 * 0.5F), (double) (f6 - parFloat3 * 0.5F),
-						(double) (f7 - parFloat4 * 0.5F - parFloat6 * 0.5F))
-				.tex((double) f1, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+				.pos(f5 - parFloat2 * 0.5F - parFloat5 * 0.5F, f6 - parFloat3 * 0.5F,
+						f7 - parFloat4 * 0.5F - parFloat6 * 0.5F)
+				.tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
 		worldRendererIn
-				.pos((double) (f5 - parFloat2 * 0.5F + parFloat5 * 0.5F), (double) (f6 + parFloat3 * 0.5F),
-						(double) (f7 - parFloat4 * 0.5F + parFloat6 * 0.5F))
-				.tex((double) f1, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+				.pos(f5 - parFloat2 * 0.5F + parFloat5 * 0.5F, f6 + parFloat3 * 0.5F,
+						f7 - parFloat4 * 0.5F + parFloat6 * 0.5F)
+				.tex(f1, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
 		worldRendererIn
-				.pos((double) (f5 + parFloat2 * 0.5F + parFloat5 * 0.5F), (double) (f6 + parFloat3 * 0.5F),
-						(double) (f7 + parFloat4 * 0.5F + parFloat6 * 0.5F))
-				.tex((double) f, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+				.pos(f5 + parFloat2 * 0.5F + parFloat5 * 0.5F, f6 + parFloat3 * 0.5F,
+						f7 + parFloat4 * 0.5F + parFloat6 * 0.5F)
+				.tex(f, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
 		worldRendererIn
-				.pos((double) (f5 + parFloat2 * 0.5F - parFloat5 * 0.5F), (double) (f6 - parFloat3 * 0.5F),
-						(double) (f7 + parFloat4 * 0.5F - parFloat6 * 0.5F))
-				.tex((double) f, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+				.pos(f5 + parFloat2 * 0.5F - parFloat5 * 0.5F, f6 - parFloat3 * 0.5F,
+						f7 + parFloat4 * 0.5F - parFloat6 * 0.5F)
+				.tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
 	}
 

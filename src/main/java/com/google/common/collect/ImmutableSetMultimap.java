@@ -271,7 +271,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V> implemen
 			if (keyComparator != null) {
 				Multimap<K, V> sortedCopy = new BuilderMultimap<K, V>();
 				List<Map.Entry<K, Collection<V>>> entries = Lists.newArrayList(builderMultimap.asMap().entrySet());
-				Collections.sort(entries, Ordering.from(keyComparator).<K>onKeys());
+				Collections.sort(entries, Ordering.from(keyComparator).onKeys());
 				for (Map.Entry<K, Collection<V>> entry : entries) {
 					sortedCopy.putAll(entry.getKey(), entry.getValue());
 				}
@@ -459,7 +459,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V> implemen
 	}
 
 	private static <V> ImmutableSet<V> emptySet(@Nullable Comparator<? super V> valueComparator) {
-		return (valueComparator == null) ? ImmutableSet.<V>of() : ImmutableSortedSet.<V>emptySet(valueComparator);
+        return (valueComparator == null) ? ImmutableSet.of() : ImmutableSortedSet.emptySet(valueComparator);
 	}
 
 	/**

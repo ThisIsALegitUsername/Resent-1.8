@@ -58,7 +58,7 @@ public class S3FPacketCustomPayload implements Packet<INetHandlerPlayClient> {
 	 */
 	public void writePacketData(PacketBuffer parPacketBuffer) throws IOException {
 		parPacketBuffer.writeString(this.channel);
-		parPacketBuffer.writeBytes((ByteBuf) this.data);
+        parPacketBuffer.writeBytes(this.data);
 	}
 
 	/**+

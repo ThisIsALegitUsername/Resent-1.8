@@ -16,16 +16,16 @@ package net.lax1dude.eaglercraft.v1_8.internal.vfs;
 
 public interface VFSIterator {
 	
-	public static class BreakLoop extends RuntimeException {
-		public BreakLoop() {
-			super("iterator loop break request");
-		}
-	}
-	
-	public default void end() {
-		throw new BreakLoop();
-	}
-	
-	public void next(VIteratorFile entry);
+	class BreakLoop extends RuntimeException {
+        public BreakLoop() {
+            super("iterator loop break request");
+        }
+    }
+
+    default void end() {
+        throw new BreakLoop();
+    }
+
+    void next(VIteratorFile entry);
 	
 }

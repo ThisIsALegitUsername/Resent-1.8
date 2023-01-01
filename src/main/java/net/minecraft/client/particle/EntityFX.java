@@ -76,9 +76,9 @@ public class EntityFX extends Entity {
 	}
 
 	public EntityFX multiplyVelocity(float multiplier) {
-		this.motionX *= (double) multiplier;
-		this.motionY = (this.motionY - 0.10000000149011612D) * (double) multiplier + 0.10000000149011612D;
-		this.motionZ *= (double) multiplier;
+		this.motionX *= multiplier;
+        this.motionY = (this.motionY - 0.10000000149011612D) * (double) multiplier + 0.10000000149011612D;
+        this.motionZ *= multiplier;
 		return this;
 	}
 
@@ -181,28 +181,28 @@ public class EntityFX extends Entity {
 		int i = this.getBrightnessForRender(f);
 		int j = i >> 16 & '\uffff';
 		int k = i & '\uffff';
-		worldrenderer
-				.pos((double) (f11 - f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
-						(double) (f13 - f3 * f10 - f5 * f10))
-				.tex((double) f7, (double) f9)
+        worldrenderer
+                .pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10,
+                        f13 - f3 * f10 - f5 * f10)
+                .tex(f7, f9)
 				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 				.endVertex();
-		worldrenderer
-				.pos((double) (f11 - f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
-						(double) (f13 - f3 * f10 + f5 * f10))
-				.tex((double) f7, (double) f8)
+        worldrenderer
+                .pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10,
+                        f13 - f3 * f10 + f5 * f10)
+                .tex(f7, f8)
 				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 				.endVertex();
-		worldrenderer
-				.pos((double) (f11 + f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
-						(double) (f13 + f3 * f10 + f5 * f10))
-				.tex((double) f6, (double) f8)
+        worldrenderer
+                .pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10,
+                        f13 + f3 * f10 + f5 * f10)
+                .tex(f6, f8)
 				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 				.endVertex();
-		worldrenderer
-				.pos((double) (f11 + f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
-						(double) (f13 + f3 * f10 - f5 * f10))
-				.tex((double) f6, (double) f9)
+        worldrenderer
+                .pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10,
+                        f13 + f3 * f10 - f5 * f10)
+                .tex(f6, f9)
 				.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 				.endVertex();
 	}

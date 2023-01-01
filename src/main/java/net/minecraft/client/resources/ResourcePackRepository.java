@@ -50,7 +50,7 @@ public class ResourcePackRepository {
 	private IResourcePack resourcePackInstance;
 	private ListenableFuture<Object> field_177322_i;
 	private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
-	private List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
+    private final List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
 
 	public ResourcePackRepository(IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn,
 			GameSettings settings) {
@@ -64,16 +64,16 @@ public class ResourcePackRepository {
 
 			for (ResourcePackRepository.Entry resourcepackrepository$entry : this.repositoryEntriesAll) {
 				if (resourcepackrepository$entry.getResourcePackName().equals(s)) {
-					if (resourcepackrepository$entry.func_183027_f() == 1
-							|| settings.field_183018_l.contains(resourcepackrepository$entry.getResourcePackName())) {
-						this.repositoryEntries.add(resourcepackrepository$entry);
-						break;
-					}
+                    if (resourcepackrepository$entry.func_183027_f() == 1
+                            || settings.field_183018_l.contains(resourcepackrepository$entry.getResourcePackName())) {
+                        this.repositoryEntries.add(resourcepackrepository$entry);
+                        break;
+                    }
 
-					iterator.remove();
-					logger.warn("Removed selected resource pack {} because it\'s no longer compatible",
-							new Object[] { resourcepackrepository$entry.getResourcePackName() });
-				}
+                    iterator.remove();
+                    logger.warn("Removed selected resource pack {} because it's no longer compatible",
+                            resourcepackrepository$entry.getResourcePackName());
+                }
 			}
 		}
 
@@ -83,7 +83,7 @@ public class ResourcePackRepository {
 		if (SYS.VFS == null)
 			return;
 
-		List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
+        List<ResourcePackRepository.Entry> list = Lists.newArrayList();
 
 		for (String file1 : SYS.getResourcePackNames()) {
 			ResourcePackRepository.Entry resourcepackrepository$entry = new ResourcePackRepository.Entry(file1);
@@ -174,20 +174,20 @@ public class ResourcePackRepository {
 		}
 
 		public void updateResourcePack() throws IOException {
-			if (SYS.VFS == null)
-				return;
-			this.reResourcePack = (IResourcePack) new FolderResourcePack(this.resourcePackFile, "resourcepacks/");
-			this.rePackMetadataSection = (PackMetadataSection) this.reResourcePack
-					.getPackMetadata(ResourcePackRepository.this.rprMetadataSerializer, "pack");
+            if (SYS.VFS == null)
+                return;
+            this.reResourcePack = new FolderResourcePack(this.resourcePackFile, "resourcepacks/");
+            this.rePackMetadataSection = this.reResourcePack
+                    .getPackMetadata(ResourcePackRepository.this.rprMetadataSerializer, "pack");
 
-			try {
-				this.texturePackIcon = this.reResourcePack.getPackImage();
-			} catch (IOException var2) {
-				logger.error("Failed to load resource pack icon for \"{}\"!", resourcePackFile);
-				logger.error(var2);
-			}
+            try {
+                this.texturePackIcon = this.reResourcePack.getPackImage();
+            } catch (IOException var2) {
+                logger.error("Failed to load resource pack icon for \"{}\"!", resourcePackFile);
+                logger.error(var2);
+            }
 
-			if (this.texturePackIcon == null) {
+            if (this.texturePackIcon == null) {
 				this.texturePackIcon = ResourcePackRepository.this.rprDefaultResourcePack.getPackImage();
 			}
 
@@ -225,8 +225,8 @@ public class ResourcePackRepository {
 
 		public String getTexturePackDescription() {
 			return this.rePackMetadataSection == null
-					? EnumChatFormatting.RED + "Invalid pack.mcmeta (or missing \'pack\' section)"
-					: this.rePackMetadataSection.getPackDescription().getFormattedText();
+                    ? EnumChatFormatting.RED + "Invalid pack.mcmeta (or missing 'pack' section)"
+                    : this.rePackMetadataSection.getPackDescription().getFormattedText();
 		}
 
 		public int func_183027_f() {
@@ -234,9 +234,7 @@ public class ResourcePackRepository {
 		}
 
 		public boolean equals(Object object) {
-			return this == object ? true
-					: (object instanceof ResourcePackRepository.Entry ? this.toString().equals(object.toString())
-							: false);
+            return this == object || (object instanceof Entry && this.toString().equals(object.toString()));
 		}
 
 		public int hashCode() {

@@ -28,7 +28,7 @@ import net.minecraft.init.Blocks;
  * 
  */
 public class BiomeGenJungle extends BiomeGenBase {
-	private boolean field_150614_aC;
+	private final boolean field_150614_aC;
 	private final IBlockState field_181620_aE;
 	private final IBlockState field_181621_aF;
 	private final IBlockState field_181622_aG;

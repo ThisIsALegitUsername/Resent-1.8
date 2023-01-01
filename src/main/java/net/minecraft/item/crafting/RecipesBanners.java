@@ -35,9 +35,9 @@ public class RecipesBanners {
 	void addRecipes(CraftingManager parCraftingManager) {
 		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
 			parCraftingManager.addRecipe(new ItemStack(Items.banner, 1, enumdyecolor.getDyeDamage()),
-					new Object[] { "###", "###", " | ", Character.valueOf('#'),
-							new ItemStack(Blocks.wool, 1, enumdyecolor.getMetadata()), Character.valueOf('|'),
-							Items.stick });
+                    "###", "###", " | ", Character.valueOf('#'),
+                    new ItemStack(Blocks.wool, 1, enumdyecolor.getMetadata()), Character.valueOf('|'),
+                    Items.stick);
 		}
 
 		parCraftingManager.addRecipe(new RecipesBanners.RecipeDuplicatePattern());

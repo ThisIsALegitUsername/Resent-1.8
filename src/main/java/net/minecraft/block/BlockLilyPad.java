@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,6 +10,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -80,7 +80,7 @@ public class BlockLilyPad extends BlockBush {
 		if (blockpos.getY() >= 0 && blockpos.getY() < 256) {
 			IBlockState iblockstate = world.getBlockState(blockpos.down());
 			return iblockstate.getBlock().getMaterial() == Material.water
-					&& ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0;
+                    && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0;
 		} else {
 			return false;
 		}

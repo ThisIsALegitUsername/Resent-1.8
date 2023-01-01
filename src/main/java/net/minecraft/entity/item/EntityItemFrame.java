@@ -131,7 +131,7 @@ public class EntityItemFrame extends EntityHanging {
 				mapdata.mapDecorations.remove("frame-" + this.getEntityId());
 			}
 
-			parItemStack.setItemFrame((EntityItemFrame) null);
+			parItemStack.setItemFrame(null);
 		}
 	}
 

@@ -23,7 +23,7 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class EntityDamageSourceIndirect extends EntityDamageSource {
-	private Entity indirectEntity;
+	private final Entity indirectEntity;
 
 	public EntityDamageSourceIndirect(String parString1, Entity parEntity, Entity indirectEntityIn) {
 		super(parString1, parEntity);
@@ -49,10 +49,10 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 				: null;
 		String s = "death.attack." + this.damageType;
 		String s1 = s + ".item";
-		return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1)
-				? new ChatComponentTranslation(s1,
-						new Object[] { entitylivingbase.getDisplayName(), ichatcomponent,
-								itemstack.getChatComponent() })
-				: new ChatComponentTranslation(s, new Object[] { entitylivingbase.getDisplayName(), ichatcomponent });
+        return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1)
+                ? new ChatComponentTranslation(s1,
+                entitylivingbase.getDisplayName(), ichatcomponent,
+                itemstack.getChatComponent())
+                : new ChatComponentTranslation(s, entitylivingbase.getDisplayName(), ichatcomponent);
 	}
 }

@@ -27,11 +27,11 @@ public class NextTickListEntry implements Comparable<NextTickListEntry> {
 	public final BlockPos position;
 	public long scheduledTime;
 	public int priority;
-	private long tickEntryID;
+    private final long tickEntryID;
 
 	public NextTickListEntry(BlockPos parBlockPos, Block parBlock) {
-		this.tickEntryID = (long) (nextTickEntryID++);
-		this.position = parBlockPos;
+        this.tickEntryID = nextTickEntryID++;
+        this.position = parBlockPos;
 		this.block = parBlock;
 	}
 

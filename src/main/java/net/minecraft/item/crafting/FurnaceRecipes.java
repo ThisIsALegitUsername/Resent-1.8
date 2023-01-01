@@ -26,26 +26,27 @@ import net.minecraft.item.ItemStack;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class FurnaceRecipes {
-	private static FurnaceRecipes smeltingBase;
-	private Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
-	private Map<ItemStack, Float> experienceList = Maps.newHashMap();
+    private static FurnaceRecipes smeltingBase;
+    private final Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
+    private final Map<ItemStack, Float> experienceList = Maps.newHashMap();
 
-	/**+
-	 * Returns an instance of FurnaceRecipes.
-	 */
-	public static FurnaceRecipes instance() {
-		if (smeltingBase == null) {
-			smeltingBase = new FurnaceRecipes();
-		}
-		return smeltingBase;
-	}
+    /**
+     * +
+     * Returns an instance of FurnaceRecipes.
+     */
+    public static FurnaceRecipes instance() {
+        if (smeltingBase == null) {
+            smeltingBase = new FurnaceRecipes();
+        }
+        return smeltingBase;
+    }
 
 	private FurnaceRecipes() {
 		this.addSmeltingRecipeForBlock(Blocks.iron_ore, new ItemStack(Items.iron_ingot), 0.7F);

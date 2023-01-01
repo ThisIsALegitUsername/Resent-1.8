@@ -37,19 +37,19 @@ public class IMetadataSerializer {
 		if (parString1 == null) {
 			throw new IllegalArgumentException("Metadata section name cannot be null");
 		} else if (!parJsonObject.has(parString1)) {
-			return (T) null;
+			return null;
 		} else if (parJsonObject.optJSONObject(parString1) == null) {
-			throw new IllegalArgumentException("Invalid metadata for \'" + parString1 + "\' - expected object, found "
-					+ parJsonObject.get(parString1));
+            throw new IllegalArgumentException("Invalid metadata for '" + parString1 + "' - expected object, found "
+                    + parJsonObject.get(parString1));
 		} else {
-			IMetadataSerializer.Registration imetadataserializer$registration = (IMetadataSerializer.Registration) this.metadataSectionSerializerRegistry
-					.getObject(parString1);
+            IMetadataSerializer.Registration imetadataserializer$registration = this.metadataSectionSerializerRegistry
+                    .getObject(parString1);
 			if (imetadataserializer$registration == null) {
-				throw new IllegalArgumentException("Don\'t know how to handle metadata section \'" + parString1 + "\'");
+                throw new IllegalArgumentException("Don't know how to handle metadata section '" + parString1 + "'");
 			} else {
-				return (T) ((IMetadataSection) JSONTypeProvider.deserialize(parJsonObject.getJSONObject(parString1),
-						imetadataserializer$registration.field_110500_b));
-			}
+                return (T) JSONTypeProvider.deserialize(parJsonObject.getJSONObject(parString1),
+                        imetadataserializer$registration.field_110500_b);
+            }
 		}
 	}
 

@@ -1,8 +1,6 @@
 package net.minecraft.block;
 
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -17,6 +15,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public abstract class BlockSlab extends Block {
 	public static PropertyEnum<BlockSlab.EnumBlockHalf> HALF;
@@ -33,7 +33,7 @@ public abstract class BlockSlab extends Block {
 	}
 
 	public static void bootstrapStates() {
-		HALF = PropertyEnum.<BlockSlab.EnumBlockHalf>create("half", BlockSlab.EnumBlockHalf.class);
+		HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
 	}
 
 	protected boolean canSilkHarvest() {
@@ -123,15 +123,11 @@ public abstract class BlockSlab extends Block {
 			boolean flag = isSlab(iblockstate.getBlock()) && iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
 			boolean flag1 = isSlab(iblockstate1.getBlock())
 					&& iblockstate1.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
-			return flag1
-					? (enumfacing == EnumFacing.DOWN ? true
-							: (enumfacing == EnumFacing.UP
-									&& super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing) ? true
-											: !isSlab(iblockstate.getBlock()) || !flag))
-					: (enumfacing == EnumFacing.UP ? true
-							: (enumfacing == EnumFacing.DOWN
-									&& super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing) ? true
-											: !isSlab(iblockstate.getBlock()) || flag));
+            return flag1
+                    ? (enumfacing == EnumFacing.DOWN || (enumfacing == EnumFacing.UP
+                    && super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing) || !isSlab(iblockstate.getBlock()) || !flag))
+                    : (enumfacing == EnumFacing.UP || (enumfacing == EnumFacing.DOWN
+                    && super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing) || !isSlab(iblockstate.getBlock()) || flag));
 		}
 	}
 
@@ -151,17 +147,17 @@ public abstract class BlockSlab extends Block {
 
 	public abstract Object getVariant(ItemStack var1);
 
-	public static enum EnumBlockHalf implements IStringSerializable {
-		TOP("top"), BOTTOM("bottom");
+    public enum EnumBlockHalf implements IStringSerializable {
+        TOP("top"), BOTTOM("bottom");
 
-		private final String name;
+        private final String name;
 
-		private EnumBlockHalf(String name) {
-			this.name = name;
-		}
+        EnumBlockHalf(String name) {
+            this.name = name;
+        }
 
-		public String toString() {
-			return this.name;
+        public String toString() {
+            return this.name;
 		}
 
 		public String getName() {

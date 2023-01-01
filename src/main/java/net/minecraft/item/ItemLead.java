@@ -40,11 +40,7 @@ public class ItemLead extends Item {
 	public boolean onItemUse(ItemStack var1, EntityPlayer entityplayer, World world, BlockPos blockpos, EnumFacing var5,
 			float var6, float var7, float var8) {
 		Block block = world.getBlockState(blockpos).getBlock();
-		if (block instanceof BlockFence) {
-			return true;
-		} else {
-			return false;
-		}
+        return block instanceof BlockFence;
 	}
 
 	public static boolean attachToFence(EntityPlayer player, World worldIn, BlockPos fence) {

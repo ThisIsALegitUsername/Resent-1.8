@@ -96,11 +96,11 @@ public class EntityIronGolem extends EntityGolem {
 			Block block = iblockstate.getBlock();
 			if (block.getMaterial() != Material.air) {
 				this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK,
-						this.posX + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width,
-						this.getEntityBoundingBox().minY + 0.1D,
-						this.posZ + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width,
-						4.0D * ((double) this.rand.nextFloat() - 0.5D), 0.5D,
-						((double) this.rand.nextFloat() - 0.5D) * 4.0D, new int[] { Block.getStateId(iblockstate) });
+                        this.posX + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width,
+                        this.getEntityBoundingBox().minY + 0.1D,
+                        this.posZ + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width,
+                        4.0D * ((double) this.rand.nextFloat() - 0.5D), 0.5D,
+                        ((double) this.rand.nextFloat() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
 			}
 		}
 
@@ -111,8 +111,7 @@ public class EntityIronGolem extends EntityGolem {
 	 * specified class.
 	 */
 	public boolean canAttackClass(Class<? extends EntityLivingBase> oclass) {
-		return this.isPlayerCreated() && EntityPlayer.class.isAssignableFrom(oclass) ? false
-				: (oclass == EntityCreeper.class ? false : super.canAttackClass(oclass));
+        return (!this.isPlayerCreated() || !EntityPlayer.class.isAssignableFrom(oclass)) && (oclass != EntityCreeper.class && super.canAttackClass(oclass));
 	}
 
 	/**+

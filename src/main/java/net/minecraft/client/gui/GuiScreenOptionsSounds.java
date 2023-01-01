@@ -45,25 +45,25 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-		int i = 0;
-		this.field_146507_a = I18n.format("options.sounds.title", new Object[0]);
-		this.field_146508_h = I18n.format("options.off", new Object[0]);
-		this.buttonList.add(new GuiScreenOptionsSounds.Button(SoundCategory.MASTER.getCategoryId(),
-				this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), SoundCategory.MASTER, true));
-		i = i + 2;
+        int i = 0;
+        this.field_146507_a = I18n.format("options.sounds.title");
+        this.field_146508_h = I18n.format("options.off");
+        this.buttonList.add(new GuiScreenOptionsSounds.Button(SoundCategory.MASTER.getCategoryId(),
+                width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), SoundCategory.MASTER, true));
+        i = i + 2;
 
-		for (SoundCategory soundcategory : SoundCategory.values()) {
-			if (soundcategory != SoundCategory.MASTER) {
-				this.buttonList.add(new GuiScreenOptionsSounds.Button(soundcategory.getCategoryId(),
-						this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), soundcategory,
-						false));
-				++i;
-			}
-		}
+        for (SoundCategory soundcategory : SoundCategory.values()) {
+            if (soundcategory != SoundCategory.MASTER) {
+                this.buttonList.add(new GuiScreenOptionsSounds.Button(soundcategory.getCategoryId(),
+                        width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), soundcategory,
+                        false));
+                ++i;
+            }
+        }
 
-		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168,
-				I18n.format("gui.done", new Object[0])));
-	}
+        this.buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168,
+                I18n.format("gui.done")));
+    }
 
 	/**+
 	 * Called by the controls from the buttonList when activated.
@@ -84,9 +84,9 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRendererObj, this.field_146507_a, this.width / 2, 15, 16777215);
-		super.drawScreen(i, j, f);
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, this.field_146507_a, width / 2, 15, 16777215);
+        super.drawScreen(i, j, f);
 	}
 
 	protected String getSoundVolume(SoundCategory parSoundCategory) {
@@ -102,10 +102,10 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 
 		public Button(int parInt1, int parInt2, int parInt3, SoundCategory parSoundCategory, boolean parFlag) {
 			super(parInt1, parInt2, parInt3, parFlag ? 310 : 150, 20, "");
-			this.field_146153_r = parSoundCategory;
-			this.field_146152_s = I18n.format("soundCategory." + parSoundCategory.getCategoryName(), new Object[0]);
-			this.displayString = this.field_146152_s + ": "
-					+ GuiScreenOptionsSounds.this.getSoundVolume(parSoundCategory);
+            this.field_146153_r = parSoundCategory;
+            this.field_146152_s = I18n.format("soundCategory." + parSoundCategory.getCategoryName());
+            this.displayString = this.field_146152_s + ": "
+                    + GuiScreenOptionsSounds.this.getSoundVolume(parSoundCategory);
 			this.field_146156_o = GuiScreenOptionsSounds.this.game_settings_4.getSoundLevel(parSoundCategory);
 		}
 

@@ -76,8 +76,8 @@ public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, 
 
 	private EnumHashBiMap(Class<K> keyType) {
 		super(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-				Maps.<V, K>newHashMapWithExpectedSize(keyType.getEnumConstants().length));
-		this.keyType = keyType;
+                Maps.newHashMapWithExpectedSize(keyType.getEnumConstants().length));
+        this.keyType = keyType;
 	}
 
 	// Overriding these 3 methods to show that values may be null (but not keys)

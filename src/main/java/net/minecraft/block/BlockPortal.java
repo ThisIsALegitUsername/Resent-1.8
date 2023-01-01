@@ -2,9 +2,7 @@ package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.cache.EaglerLoadingCache;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.BlockWorldState;
@@ -14,11 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMonsterPlacer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -42,7 +36,7 @@ import net.minecraft.world.World;
  */
 public class BlockPortal extends BlockBreakable {
 	public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class,
-			new EnumFacing.Axis[] { EnumFacing.Axis.X, EnumFacing.Axis.Z });
+			EnumFacing.Axis.X, EnumFacing.Axis.Z);
 
 	public BlockPortal() {
 		super(Material.portal, false);
@@ -59,7 +53,6 @@ public class BlockPortal extends BlockBreakable {
 			BlockPos blockpos1;
 			for (blockpos1 = blockpos; !World.doesBlockHaveSolidTopSurface(world, blockpos1)
 					&& blockpos1.getY() > 0; blockpos1 = blockpos1.down()) {
-				;
 			}
 
 			if (i > 0 && !world.getBlockState(blockpos1.up()).getBlock().isNormalCube()) {
@@ -78,7 +71,7 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
-		EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) iblockaccess.getBlockState(blockpos).getValue(AXIS);
+		EnumFacing.Axis enumfacing$axis = iblockaccess.getBlockState(blockpos).getValue(AXIS);
 		float f = 0.125F;
 		float f1 = 0.125F;
 		if (enumfacing$axis == EnumFacing.Axis.X) {
@@ -120,7 +113,7 @@ public class BlockPortal extends BlockBreakable {
 	 * Called when a neighboring block changes.
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
-		EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) iblockstate.getValue(AXIS);
+		EnumFacing.Axis enumfacing$axis = iblockstate.getValue(AXIS);
 		if (enumfacing$axis == EnumFacing.Axis.X) {
 			BlockPortal.Size blockportal$size = new BlockPortal.Size(world, blockpos, EnumFacing.Axis.X);
 			if (!blockportal$size.func_150860_b() || blockportal$size.field_150864_e < blockportal$size.field_150868_h
@@ -142,7 +135,7 @@ public class BlockPortal extends BlockBreakable {
 		EnumFacing.Axis enumfacing$axis = null;
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
 		if (iblockaccess.getBlockState(blockpos).getBlock() == this) {
-			enumfacing$axis = (EnumFacing.Axis) iblockstate.getValue(AXIS);
+			enumfacing$axis = iblockstate.getValue(AXIS);
 			if (enumfacing$axis == null) {
 				return false;
 			}
@@ -168,9 +161,7 @@ public class BlockPortal extends BlockBreakable {
 				&& iblockaccess.getBlockState(blockpos.south(2)).getBlock() != this;
 		boolean flag4 = flag || flag1 || enumfacing$axis == EnumFacing.Axis.X;
 		boolean flag5 = flag2 || flag3 || enumfacing$axis == EnumFacing.Axis.Z;
-		return flag4 && enumfacing == EnumFacing.WEST ? true
-				: (flag4 && enumfacing == EnumFacing.EAST ? true
-						: (flag5 && enumfacing == EnumFacing.NORTH ? true : flag5 && enumfacing == EnumFacing.SOUTH));
+		return flag4 && enumfacing == EnumFacing.WEST || (flag4 && enumfacing == EnumFacing.EAST || (flag5 && enumfacing == EnumFacing.NORTH || flag5 && enumfacing == EnumFacing.SOUTH));
 	}
 
 	/**+
@@ -201,9 +192,9 @@ public class BlockPortal extends BlockBreakable {
 		}
 
 		for (int i = 0; i < 4; ++i) {
-			double d0 = (double) ((float) blockpos.getX() + random.nextFloat());
-			double d1 = (double) ((float) blockpos.getY() + random.nextFloat());
-			double d2 = (double) ((float) blockpos.getZ() + random.nextFloat());
+			double d0 = (float) blockpos.getX() + random.nextFloat();
+			double d1 = (float) blockpos.getY() + random.nextFloat();
+			double d2 = (float) blockpos.getZ() + random.nextFloat();
 			double d3 = ((double) random.nextFloat() - 0.5D) * 0.5D;
 			double d4 = ((double) random.nextFloat() - 0.5D) * 0.5D;
 			double d5 = ((double) random.nextFloat() - 0.5D) * 0.5D;
@@ -211,13 +202,13 @@ public class BlockPortal extends BlockBreakable {
 			if (world.getBlockState(blockpos.west()).getBlock() != this
 					&& world.getBlockState(blockpos.east()).getBlock() != this) {
 				d0 = (double) blockpos.getX() + 0.5D + 0.25D * (double) j;
-				d3 = (double) (random.nextFloat() * 2.0F * (float) j);
+				d3 = random.nextFloat() * 2.0F * (float) j;
 			} else {
 				d2 = (double) blockpos.getZ() + 0.5D + 0.25D * (double) j;
-				d5 = (double) (random.nextFloat() * 2.0F * (float) j);
+				d5 = random.nextFloat() * 2.0F * (float) j;
 			}
 
-			world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5, new int[0]);
+			world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
 		}
 
 	}
@@ -237,11 +228,11 @@ public class BlockPortal extends BlockBreakable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return getMetaForAxis((EnumFacing.Axis) iblockstate.getValue(AXIS));
+		return getMetaForAxis(iblockstate.getValue(AXIS));
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AXIS });
+		return new BlockState(this, AXIS);
 	}
 
 	public BlockPattern.PatternHelper func_181089_f(World parWorld, BlockPos parBlockPos) {
@@ -319,7 +310,6 @@ public class BlockPortal extends BlockBreakable {
 			for (BlockPos blockpos = parBlockPos; parBlockPos.getY() > blockpos.getY() - 21 && parBlockPos.getY() > 0
 					&& this.func_150857_a(
 							worldIn.getBlockState(parBlockPos.down()).getBlock()); parBlockPos = parBlockPos.down()) {
-				;
 			}
 
 			int i = this.func_180120_a(parBlockPos, this.field_150863_d) - 1;

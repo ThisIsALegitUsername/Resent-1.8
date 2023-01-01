@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +15,8 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -48,7 +47,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	}
 
 	public static void bootstrapStates() {
-		TYPE = PropertyEnum.<BlockTallGrass.EnumType>create("type", BlockTallGrass.EnumType.class);
+		TYPE = PropertyEnum.create("type", BlockTallGrass.EnumType.class);
 	}
 
 	public int getBlockColor() {
@@ -71,7 +70,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 		if (iblockstate.getBlock() != this) {
 			return super.getRenderColor(iblockstate);
 		} else {
-			BlockTallGrass.EnumType blocktallgrass$enumtype = (BlockTallGrass.EnumType) iblockstate.getValue(TYPE);
+            BlockTallGrass.EnumType blocktallgrass$enumtype = iblockstate.getValue(TYPE);
 			return blocktallgrass$enumtype == BlockTallGrass.EnumType.DEAD_BUSH ? 16777215
 					: ColorizerGrass.getGrassColor(0.5D, 1.0D);
 		}
@@ -145,11 +144,11 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((BlockTallGrass.EnumType) iblockstate.getValue(TYPE)).getMeta();
+        return iblockstate.getValue(TYPE).getMeta();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { TYPE });
+        return new BlockState(this, TYPE);
 	}
 
 	/**+
@@ -160,17 +159,17 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 		return Block.EnumOffsetType.XYZ;
 	}
 
-	public static enum EnumType implements IStringSerializable {
-		DEAD_BUSH(0, "dead_bush"), GRASS(1, "tall_grass"), FERN(2, "fern");
+    public enum EnumType implements IStringSerializable {
+        DEAD_BUSH(0, "dead_bush"), GRASS(1, "tall_grass"), FERN(2, "fern");
 
-		private static final BlockTallGrass.EnumType[] META_LOOKUP = new BlockTallGrass.EnumType[values().length];
-		private final int meta;
-		private final String name;
+        private static final BlockTallGrass.EnumType[] META_LOOKUP = new BlockTallGrass.EnumType[values().length];
+        private final int meta;
+        private final String name;
 
-		private EnumType(int meta, String name) {
-			this.meta = meta;
-			this.name = name;
-		}
+        EnumType(int meta, String name) {
+            this.meta = meta;
+            this.name = name;
+        }
 
 		public int getMeta() {
 			return this.meta;

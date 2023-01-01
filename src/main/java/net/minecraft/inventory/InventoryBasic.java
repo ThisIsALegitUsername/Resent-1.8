@@ -22,25 +22,25 @@ import net.minecraft.util.IChatComponent;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class InventoryBasic implements IInventory {
-	private String inventoryTitle;
-	private int slotsCount;
-	private ItemStack[] inventoryContents;
-	private List<IInvBasic> field_70480_d;
-	private boolean hasCustomName;
+    private String inventoryTitle;
+    private final int slotsCount;
+    private final ItemStack[] inventoryContents;
+    private List<IInvBasic> field_70480_d;
+    private boolean hasCustomName;
 
-	public InventoryBasic(String title, boolean customName, int slotCount) {
-		this.inventoryTitle = title;
-		this.hasCustomName = customName;
-		this.slotsCount = slotCount;
-		this.inventoryContents = new ItemStack[slotCount];
-	}
+    public InventoryBasic(String title, boolean customName, int slotCount) {
+        this.inventoryTitle = title;
+        this.hasCustomName = customName;
+        this.slotsCount = slotCount;
+        this.inventoryContents = new ItemStack[slotCount];
+    }
 
 	public InventoryBasic(IChatComponent title, int slotCount) {
 		this(title.getUnformattedText(), true, slotCount);
@@ -184,9 +184,9 @@ public class InventoryBasic implements IInventory {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatComponentTranslation(this.getName(), new Object[0]));
-	}
+        return this.hasCustomName() ? new ChatComponentText(this.getName())
+                : new ChatComponentTranslation(this.getName(), new Object[0]);
+    }
 
 	/**+
 	 * Returns the maximum stack size for a inventory slot. Seems to
@@ -204,7 +204,7 @@ public class InventoryBasic implements IInventory {
 	public void markDirty() {
 		if (this.field_70480_d != null) {
 			for (int i = 0; i < this.field_70480_d.size(); ++i) {
-				((IInvBasic) this.field_70480_d.get(i)).onInventoryChanged(this);
+                this.field_70480_d.get(i).onInventoryChanged(this);
 			}
 		}
 

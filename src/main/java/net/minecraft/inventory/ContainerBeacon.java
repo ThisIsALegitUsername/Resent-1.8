@@ -23,8 +23,8 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class ContainerBeacon extends Container {
-	private IInventory tileBeacon;
-	private final ContainerBeacon.BeaconSlot beaconSlot;
+	private final IInventory tileBeacon;
+    private final ContainerBeacon.BeaconSlot beaconSlot;
 
 	public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn) {
 		this.tileBeacon = tileBeaconIn;
@@ -65,8 +65,8 @@ public class ContainerBeacon extends Container {
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(i);
+        ItemStack itemstack = null;
+        Slot slot = this.inventorySlots.get(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
@@ -94,7 +94,7 @@ public class ContainerBeacon extends Container {
 			}
 
 			if (itemstack1.stackSize == 0) {
-				slot.putStack((ItemStack) null);
+                slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
@@ -115,10 +115,9 @@ public class ContainerBeacon extends Container {
 		}
 
 		public boolean isItemValid(ItemStack itemstack) {
-			return itemstack == null ? false
-					: itemstack.getItem() == Items.emerald || itemstack.getItem() == Items.diamond
-							|| itemstack.getItem() == Items.gold_ingot || itemstack.getItem() == Items.iron_ingot;
-		}
+            return itemstack != null && (itemstack.getItem() == Items.emerald || itemstack.getItem() == Items.diamond
+                    || itemstack.getItem() == Items.gold_ingot || itemstack.getItem() == Items.iron_ingot);
+        }
 
 		public int getSlotStackLimit() {
 			return 1;

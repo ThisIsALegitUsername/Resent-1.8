@@ -180,20 +180,20 @@ public class ServerStatusResponse {
 		public ServerStatusResponse deserialize(JSONObject jsonobject) throws JSONException {
 			ServerStatusResponse serverstatusresponse = new ServerStatusResponse();
 			if (jsonobject.has("description")) {
-				serverstatusresponse.setServerDescription((IChatComponent) JSONTypeProvider
-						.deserialize(jsonobject.get("description"), IChatComponent.class));
+				serverstatusresponse.setServerDescription(JSONTypeProvider
+                        .deserialize(jsonobject.get("description"), IChatComponent.class));
 			}
 
 			if (jsonobject.has("players")) {
-				serverstatusresponse.setPlayerCountData((ServerStatusResponse.PlayerCountData) JSONTypeProvider
-						.deserialize(jsonobject.get("players"), ServerStatusResponse.PlayerCountData.class));
-			}
+                serverstatusresponse.setPlayerCountData(JSONTypeProvider
+                        .deserialize(jsonobject.get("players"), PlayerCountData.class));
+            }
 
 			if (jsonobject.has("version")) {
-				serverstatusresponse.setProtocolVersionInfo(
-						(ServerStatusResponse.MinecraftProtocolVersionIdentifier) JSONTypeProvider.deserialize(
-								jsonobject.get("version"),
-								ServerStatusResponse.MinecraftProtocolVersionIdentifier.class));
+                serverstatusresponse.setProtocolVersionInfo(
+                        JSONTypeProvider.deserialize(
+                                jsonobject.get("version"),
+                                MinecraftProtocolVersionIdentifier.class));
 			}
 
 			if (jsonobject.has("favicon")) {

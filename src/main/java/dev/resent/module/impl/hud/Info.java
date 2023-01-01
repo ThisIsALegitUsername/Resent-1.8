@@ -17,8 +17,13 @@ public class Info extends RenderModule{
     public BooleanSetting direction = new BooleanSetting("Direction", "", true);
     public static int yes = 6;
 
-    public int getWidth(){ return mc.fontRendererObj.getStringWidth("X: -99999999       +   "); }
-    public int getHeight() { return mc.fontRendererObj.FONT_HEIGHT * yes; };
+    public int getWidth() {
+        return mc.fontRendererObj.getStringWidth("X: -99999999       +   ");
+    }
+
+    public int getHeight() {
+        return mc.fontRendererObj.FONT_HEIGHT * yes;
+    }
 
     @Override
     public void draw() {

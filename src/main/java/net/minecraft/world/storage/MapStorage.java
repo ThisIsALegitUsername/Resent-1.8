@@ -22,32 +22,33 @@ import net.minecraft.world.WorldSavedData;
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
  * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class MapStorage {
-	private ISaveHandler saveHandler;
-	protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
-	/**+
-	 * List of loaded MapDataBases.
-	 */
-	private List<WorldSavedData> loadedDataList = Lists.newArrayList();
-	private Map<String, Short> idCounts = Maps.newHashMap();
+    private final ISaveHandler saveHandler;
+    protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
+    /**
+     * +
+     * List of loaded MapDataBases.
+     */
+    private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
+    private final Map<String, Short> idCounts = Maps.newHashMap();
 
-	public MapStorage(ISaveHandler saveHandlerIn) {
-		this.saveHandler = saveHandlerIn;
-		this.loadIdCounts();
-	}
+    public MapStorage(ISaveHandler saveHandlerIn) {
+        this.saveHandler = saveHandlerIn;
+        this.loadIdCounts();
+    }
 
-	/**+
-	 * Loads an existing MapDataBase corresponding to the given
-	 * String id from disk, instantiating the given Class, or
-	 * returns null if none such file exists. args: Class to
+    /**+
+     * Loads an existing MapDataBase corresponding to the given
+     * String id from disk, instantiating the given Class, or
+     * returns null if none such file exists. args: Class to
 	 * instantiate, String dataid
 	 */
 	public WorldSavedData loadData(Class<? extends WorldSavedData> oclass, String s) {
-		return (WorldSavedData) this.loadedDataMap.get(s);
+        return this.loadedDataMap.get(s);
 	}
 
 	/**+
@@ -68,7 +69,7 @@ public class MapStorage {
 	 */
 	public void saveAllData() {
 		for (int i = 0; i < this.loadedDataList.size(); ++i) {
-			((WorldSavedData) this.loadedDataList.get(i)).setDirty(false);
+            this.loadedDataList.get(i).setDirty(false);
 		}
 
 	}
@@ -85,7 +86,7 @@ public class MapStorage {
 	 * the idCounts map to the 'idcounts' file.
 	 */
 	public int getUniqueDataId(String s) {
-		Short oshort = (Short) this.idCounts.get(s);
+        Short oshort = this.idCounts.get(s);
 		if (oshort == null) {
 			oshort = Short.valueOf((short) 0);
 		} else {

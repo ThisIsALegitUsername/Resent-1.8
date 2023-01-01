@@ -67,44 +67,44 @@ public class ItemBoat extends Item {
 			Vec3 vec32 = entityplayer.getLook(f);
 			boolean flag = false;
 			float f9 = 1.0F;
-			List list = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
-					entityplayer.getEntityBoundingBox()
-							.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
-							.expand((double) f9, (double) f9, (double) f9));
+            List list = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
+                    entityplayer.getEntityBoundingBox()
+                            .addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
+                            .expand(f9, f9, f9));
 
 			for (int i = 0; i < list.size(); ++i) {
 				Entity entity = (Entity) list.get(i);
 				if (entity.canBeCollidedWith()) {
-					float f10 = entity.getCollisionBorderSize();
-					AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand((double) f10, (double) f10,
-							(double) f10);
-					if (axisalignedbb.isVecInside(vec3)) {
-						flag = true;
-					}
-				}
+                    float f10 = entity.getCollisionBorderSize();
+                    AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand(f10, f10,
+                            f10);
+                    if (axisalignedbb.isVecInside(vec3)) {
+                        flag = true;
+                    }
+                }
 			}
 
 			if (flag) {
 				return itemstack;
 			} else {
 				if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-					BlockPos blockpos = movingobjectposition.getBlockPos();
-					if (world.getBlockState(blockpos).getBlock() == Blocks.snow_layer) {
-						blockpos = blockpos.down();
-					}
+                    BlockPos blockpos = movingobjectposition.getBlockPos();
+                    if (world.getBlockState(blockpos).getBlock() == Blocks.snow_layer) {
+                        blockpos = blockpos.down();
+                    }
 
-					EntityBoat entityboat = new EntityBoat(world, (double) ((float) blockpos.getX() + 0.5F),
-							(double) ((float) blockpos.getY() + 1.0F), (double) ((float) blockpos.getZ() + 0.5F));
-					entityboat.rotationYaw = (float) (((MathHelper
-							.floor_double((double) (entityplayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90);
-					if (!world.getCollidingBoundingBoxes(entityboat,
-							entityboat.getEntityBoundingBox().expand(-0.1D, -0.1D, -0.1D)).isEmpty()) {
-						return itemstack;
-					}
+                    EntityBoat entityboat = new EntityBoat(world, (float) blockpos.getX() + 0.5F,
+                            (float) blockpos.getY() + 1.0F, (float) blockpos.getZ() + 0.5F);
+                    entityboat.rotationYaw = (float) (((MathHelper
+                            .floor_double((double) (entityplayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90);
+                    if (!world.getCollidingBoundingBoxes(entityboat,
+                            entityboat.getEntityBoundingBox().expand(-0.1D, -0.1D, -0.1D)).isEmpty()) {
+                        return itemstack;
+                    }
 
-					if (!entityplayer.capabilities.isCreativeMode) {
-						--itemstack.stackSize;
-					}
+                    if (!entityplayer.capabilities.isCreativeMode) {
+                        --itemstack.stackSize;
+                    }
 
 					entityplayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 				}

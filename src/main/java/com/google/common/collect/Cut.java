@@ -14,15 +14,14 @@
 
 package com.google.common.collect;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.primitives.Booleans;
 
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nullable;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.primitives.Booleans;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Implementation detail for the internal structure of {@link Range} instances.
@@ -175,7 +174,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 		@Override
 		Cut<Comparable<?>> canonical(DiscreteDomain<Comparable<?>> domain) {
 			try {
-				return Cut.<Comparable<?>>belowValue(domain.minValue());
+				return Cut.belowValue(domain.minValue());
 			} catch (NoSuchElementException e) {
 				return this;
 			}
@@ -313,7 +312,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 			case OPEN:
 				@Nullable
 				C previous = domain.previous(endpoint);
-				return (previous == null) ? Cut.<C>belowAll() : new AboveValue<C>(previous);
+				return (previous == null) ? Cut.belowAll() : new AboveValue<C>(previous);
 			default:
 				throw new AssertionError();
 			}
@@ -325,7 +324,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 			case CLOSED:
 				@Nullable
 				C previous = domain.previous(endpoint);
-				return (previous == null) ? Cut.<C>aboveAll() : new AboveValue<C>(previous);
+				return (previous == null) ? Cut.aboveAll() : new AboveValue<C>(previous);
 			case OPEN:
 				return this;
 			default:
@@ -398,7 +397,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 			case CLOSED:
 				@Nullable
 				C next = domain.next(endpoint);
-				return (next == null) ? Cut.<C>belowAll() : belowValue(next);
+				return (next == null) ? Cut.belowAll() : belowValue(next);
 			default:
 				throw new AssertionError();
 			}
@@ -410,7 +409,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 			case OPEN:
 				@Nullable
 				C next = domain.next(endpoint);
-				return (next == null) ? Cut.<C>aboveAll() : belowValue(next);
+				return (next == null) ? Cut.aboveAll() : belowValue(next);
 			case CLOSED:
 				return this;
 			default:
@@ -441,7 +440,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 		@Override
 		Cut<C> canonical(DiscreteDomain<C> domain) {
 			C next = leastValueAbove(domain);
-			return (next != null) ? belowValue(next) : Cut.<C>aboveAll();
+			return (next != null) ? belowValue(next) : Cut.aboveAll();
 		}
 
 		@Override

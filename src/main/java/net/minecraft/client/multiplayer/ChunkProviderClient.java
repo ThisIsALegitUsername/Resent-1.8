@@ -1,9 +1,6 @@
 package net.minecraft.client.multiplayer;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.entity.EnumCreatureType;
@@ -16,6 +13,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.EmptyChunk;
 import net.minecraft.world.chunk.IChunkProvider;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -37,27 +36,30 @@ import net.minecraft.world.chunk.IChunkProvider;
  */
 public class ChunkProviderClient implements IChunkProvider {
 	private static final Logger logger = LogManager.getLogger();
-	private Chunk blankChunk;
-	/**+
+	private final Chunk blankChunk;
+	/**
+	 * +
 	 * The mapping between ChunkCoordinates and Chunks that
 	 * ChunkProviderClient maintains.
 	 */
-	private LongHashMap<Chunk> chunkMapping = new LongHashMap();
-	/**+
+	private final LongHashMap<Chunk> chunkMapping = new LongHashMap();
+	/**
+	 * +
 	 * This may have been intended to be an iterable version of all
 	 * currently loaded chunks (MultiplayerChunkCache), with
 	 * identical contents to chunkMapping's values. However it is
 	 * never actually added to.
 	 */
-	private List<Chunk> chunkListing = Lists.newArrayList();
-	private World worldObj;
+	private final List<Chunk> chunkListing = Lists.newArrayList();
+	private final World worldObj;
 
 	public ChunkProviderClient(World worldIn) {
 		this.blankChunk = new EmptyChunk(worldIn, 0, 0);
 		this.worldObj = worldIn;
 	}
 
-	/**+
+	/**
+	 * +
 	 * Checks to see if a chunk exists at x, z
 	 */
 	public boolean chunkExists(int var1, int var2) {
@@ -96,7 +98,7 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * chunk from the map seed and chunk seed
 	 */
 	public Chunk provideChunk(int i, int j) {
-		Chunk chunk = (Chunk) this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(i, j));
+		Chunk chunk = this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(i, j));
 		return chunk == null ? this.blankChunk : chunk;
 	}
 
@@ -130,7 +132,7 @@ public class ChunkProviderClient implements IChunkProvider {
 
 		if (System.currentTimeMillis() - i > 100L) {
 			logger.info("Warning: Clientside chunk ticking took {} ms",
-					new Object[] { Long.valueOf(System.currentTimeMillis() - i) });
+					Long.valueOf(System.currentTimeMillis() - i));
 		}
 
 		return false;

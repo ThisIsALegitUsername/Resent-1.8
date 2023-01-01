@@ -175,7 +175,7 @@ public class Potion {
 	}
 
 	public static Potion getPotionFromResourceLocation(String location) {
-		return (Potion) field_180150_I.get(new ResourceLocation(location));
+		return field_180150_I.get(new ResourceLocation(location));
 	}
 
 	public static Set<ResourceLocation> func_181168_c() {
@@ -260,13 +260,13 @@ public class Potion {
 	public boolean isReady(int i, int j) {
 		if (this.id == regeneration.id) {
 			int i1 = 50 >> j;
-			return i1 > 0 ? i % i1 == 0 : true;
+            return i1 <= 0 || i % i1 == 0;
 		} else if (this.id == poison.id) {
 			int l = 25 >> j;
-			return l > 0 ? i % l == 0 : true;
+            return l <= 0 || i % l == 0;
 		} else if (this.id == wither.id) {
 			int k = 40 >> j;
-			return k > 0 ? i % k == 0 : true;
+            return k <= 0 || i % k == 0;
 		} else {
 			return this.id == hunger.id;
 		}

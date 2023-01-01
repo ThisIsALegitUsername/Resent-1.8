@@ -1,9 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -47,7 +45,7 @@ public class BlockCake extends Block {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		float f = 0.0625F;
-		float f1 = (float) (1 + ((Integer) iblockaccess.getBlockState(blockpos).getValue(BITES)).intValue() * 2)
+		float f1 = (float) (1 + iblockaccess.getBlockState(blockpos).getValue(BITES).intValue() * 2)
 				/ 16.0F;
 		float f2 = 0.5F;
 		this.setBlockBounds(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
@@ -64,11 +62,11 @@ public class BlockCake extends Block {
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState iblockstate) {
 		float f = 0.0625F;
-		float f1 = (float) (1 + ((Integer) iblockstate.getValue(BITES)).intValue() * 2) / 16.0F;
+		float f1 = (float) (1 + iblockstate.getValue(BITES).intValue() * 2) / 16.0F;
 		float f2 = 0.5F;
-		return new AxisAlignedBB((double) ((float) blockpos.getX() + f1), (double) blockpos.getY(),
-				(double) ((float) blockpos.getZ() + f), (double) ((float) (blockpos.getX() + 1) - f),
-				(double) ((float) blockpos.getY() + f2), (double) ((float) (blockpos.getZ() + 1) - f));
+		return new AxisAlignedBB((float) blockpos.getX() + f1, blockpos.getY(),
+				(float) blockpos.getZ() + f, (float) (blockpos.getX() + 1) - f,
+				(float) blockpos.getY() + f2, (float) (blockpos.getZ() + 1) - f);
 	}
 
 	public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos blockpos) {
@@ -101,7 +99,7 @@ public class BlockCake extends Block {
 		if (player.canEat(false)) {
 			player.triggerAchievement(StatList.field_181724_H);
 			player.getFoodStats().addStats(2, 0.1F);
-			int i = ((Integer) state.getValue(BITES)).intValue();
+			int i = state.getValue(BITES).intValue();
 			if (i < 6) {
 				worldIn.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
 			} else {
@@ -112,7 +110,7 @@ public class BlockCake extends Block {
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
-		return super.canPlaceBlockAt(world, blockpos) ? this.canBlockStay(world, blockpos) : false;
+		return super.canPlaceBlockAt(world, blockpos) && this.canBlockStay(world, blockpos);
 	}
 
 	/**+
@@ -162,15 +160,15 @@ public class BlockCake extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Integer) iblockstate.getValue(BITES)).intValue();
+		return iblockstate.getValue(BITES).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { BITES });
+		return new BlockState(this, BITES);
 	}
 
 	public int getComparatorInputOverride(World world, BlockPos blockpos) {
-		return (7 - ((Integer) world.getBlockState(blockpos).getValue(BITES)).intValue()) * 2;
+		return (7 - world.getBlockState(blockpos).getValue(BITES).intValue()) * 2;
 	}
 
 	public boolean hasComparatorInputOverride() {

@@ -102,17 +102,17 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		return this.field_179835_f;
 	}
 
-	public static enum EnumFlags {
-		X(0), Y(1), Z(2), Y_ROT(3), X_ROT(4);
+	public enum EnumFlags {
+        X(0), Y(1), Z(2), Y_ROT(3), X_ROT(4);
 
-		private int field_180058_f;
+        private final int field_180058_f;
 
-		private EnumFlags(int parInt2) {
-			this.field_180058_f = parInt2;
-		}
+        EnumFlags(int parInt2) {
+            this.field_180058_f = parInt2;
+        }
 
-		private int func_180055_a() {
-			return 1 << this.field_180058_f;
+        private int func_180055_a() {
+            return 1 << this.field_180058_f;
 		}
 
 		private boolean func_180054_b(int parInt1) {

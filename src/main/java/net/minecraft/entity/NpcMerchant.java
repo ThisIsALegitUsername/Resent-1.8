@@ -20,25 +20,25 @@ import net.minecraft.village.MerchantRecipeList;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class NpcMerchant implements IMerchant {
-	private InventoryMerchant theMerchantInventory;
-	private EntityPlayer customer;
-	private MerchantRecipeList recipeList;
-	private IChatComponent field_175548_d;
+    private final InventoryMerchant theMerchantInventory;
+    private final EntityPlayer customer;
+    private MerchantRecipeList recipeList;
+    private final IChatComponent field_175548_d;
 
-	public NpcMerchant(EntityPlayer parEntityPlayer, IChatComponent parIChatComponent) {
-		this.customer = parEntityPlayer;
-		this.field_175548_d = parIChatComponent;
-		this.theMerchantInventory = new InventoryMerchant(parEntityPlayer, this);
-	}
+    public NpcMerchant(EntityPlayer parEntityPlayer, IChatComponent parIChatComponent) {
+        this.customer = parEntityPlayer;
+        this.field_175548_d = parIChatComponent;
+        this.theMerchantInventory = new InventoryMerchant(parEntityPlayer, this);
+    }
 
-	public EntityPlayer getCustomer() {
+    public EntityPlayer getCustomer() {
 		return this.customer;
 	}
 
@@ -70,7 +70,7 @@ public class NpcMerchant implements IMerchant {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.field_175548_d != null ? this.field_175548_d
-				: new ChatComponentTranslation("entity.Villager.name", new Object[0]));
-	}
+        return this.field_175548_d != null ? this.field_175548_d
+                : new ChatComponentTranslation("entity.Villager.name", new Object[0]);
+    }
 }

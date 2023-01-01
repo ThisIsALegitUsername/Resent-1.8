@@ -16,20 +16,16 @@
 
 package com.google.common.collect;
 
-import static com.google.common.collect.CollectPreconditions.checkNonnegative;
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.annotations.GwtIncompatible;
+import com.google.common.annotations.VisibleForTesting;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.VisibleForTesting;
+import static com.google.common.collect.CollectPreconditions.checkNonnegative;
 
 /**
  * Implementation of {@code Multimap} that uses an {@code ArrayList} to store
@@ -114,7 +110,7 @@ public final class ArrayListMultimap<K, V> extends AbstractListMultimap<K, V> {
 	}
 
 	private ArrayListMultimap(int expectedKeys, int expectedValuesPerKey) {
-		super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(expectedKeys));
+		super(Maps.newHashMapWithExpectedSize(expectedKeys));
 		checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
 		this.expectedValuesPerKey = expectedValuesPerKey;
 	}

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -65,16 +64,16 @@ public class BlockOre extends Block {
 	 */
 	public int quantityDroppedWithBonus(int i, EaglercraftRandom random) {
 		if (i > 0 && Item.getItemFromBlock(this) != this
-				.getItemDropped((IBlockState) this.getBlockState().getValidStates().iterator().next(), random, i)) {
-			int j = random.nextInt(i + 2) - 1;
-			if (j < 0) {
-				j = 0;
-			}
+                .getItemDropped(this.getBlockState().getValidStates().iterator().next(), random, i)) {
+            int j = random.nextInt(i + 2) - 1;
+            if (j < 0) {
+                j = 0;
+            }
 
-			return this.quantityDropped(random) * (j + 1);
-		} else {
-			return this.quantityDropped(random);
-		}
+            return this.quantityDropped(random) * (j + 1);
+        } else {
+            return this.quantityDropped(random);
+        }
 	}
 
 	/**+

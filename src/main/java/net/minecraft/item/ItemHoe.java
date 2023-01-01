@@ -56,13 +56,13 @@ public class ItemHoe extends Item {
 				}
 
 				if (block == Blocks.dirt) {
-					switch ((BlockDirt.DirtType) iblockstate.getValue(BlockDirt.VARIANT)) {
-					case DIRT:
-						return this.useHoe(itemstack, entityplayer, world, blockpos, Blocks.farmland.getDefaultState());
-					case COARSE_DIRT:
-						return this.useHoe(itemstack, entityplayer, world, blockpos,
-								Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
-					}
+					switch (iblockstate.getValue(BlockDirt.VARIANT)) {
+                        case DIRT:
+                            return this.useHoe(itemstack, entityplayer, world, blockpos, Blocks.farmland.getDefaultState());
+                        case COARSE_DIRT:
+                            return this.useHoe(itemstack, entityplayer, world, blockpos,
+                                    Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                    }
 				}
 			}
 
@@ -72,12 +72,12 @@ public class ItemHoe extends Item {
 
 	protected boolean useHoe(ItemStack stack, EntityPlayer player, World worldIn, BlockPos target,
 			IBlockState newState) {
-		worldIn.playSoundEffect((double) ((float) target.getX() + 0.5F), (double) ((float) target.getY() + 0.5F),
-				(double) ((float) target.getZ() + 0.5F), newState.getBlock().stepSound.getStepSound(),
-				(newState.getBlock().stepSound.getVolume() + 1.0F) / 2.0F,
-				newState.getBlock().stepSound.getFrequency() * 0.8F);
-		return true;
-	}
+        worldIn.playSoundEffect((float) target.getX() + 0.5F, (float) target.getY() + 0.5F,
+                (float) target.getZ() + 0.5F, newState.getBlock().stepSound.getStepSound(),
+                (newState.getBlock().stepSound.getVolume() + 1.0F) / 2.0F,
+                newState.getBlock().stepSound.getFrequency() * 0.8F);
+        return true;
+    }
 
 	/**+
 	 * Returns True is the item is renderer in full 3D when hold.

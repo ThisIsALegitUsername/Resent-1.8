@@ -1,14 +1,8 @@
 package net.minecraft.block;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.collect.Lists;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -16,12 +10,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Tuple;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -65,7 +59,7 @@ public class BlockSponge extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return ((Boolean) iblockstate.getValue(WET)).booleanValue() ? 1 : 0;
+		return iblockstate.getValue(WET).booleanValue() ? 1 : 0;
 	}
 
 	public void onBlockAdded(World world, BlockPos blockpos, IBlockState iblockstate) {
@@ -81,7 +75,7 @@ public class BlockSponge extends Block {
 	}
 
 	protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
-		if (!((Boolean) state.getValue(WET)).booleanValue() && this.absorb(worldIn, pos)) {
+		if (!state.getValue(WET).booleanValue() && this.absorb(worldIn, pos)) {
 			worldIn.setBlockState(pos, state.withProperty(WET, Boolean.valueOf(true)), 2);
 			worldIn.playAuxSFX(2001, pos, Block.getIdFromBlock(Blocks.water));
 		}
@@ -143,21 +137,21 @@ public class BlockSponge extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Boolean) iblockstate.getValue(WET)).booleanValue() ? 1 : 0;
+		return iblockstate.getValue(WET).booleanValue() ? 1 : 0;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { WET });
+		return new BlockState(this, WET);
 	}
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
-		if (((Boolean) iblockstate.getValue(WET)).booleanValue()) {
+		if (iblockstate.getValue(WET).booleanValue()) {
 			EnumFacing enumfacing = EnumFacing.random(random);
 			if (enumfacing != EnumFacing.UP
 					&& !World.doesBlockHaveSolidTopSurface(world, blockpos.offset(enumfacing))) {
-				double d0 = (double) blockpos.getX();
-				double d1 = (double) blockpos.getY();
-				double d2 = (double) blockpos.getZ();
+				double d0 = blockpos.getX();
+				double d1 = blockpos.getY();
+				double d2 = blockpos.getZ();
 				if (enumfacing == EnumFacing.DOWN) {
 					d1 = d1 - 0.05D;
 					d0 += random.nextDouble();
@@ -181,7 +175,7 @@ public class BlockSponge extends Block {
 					}
 				}
 
-				world.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+				world.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

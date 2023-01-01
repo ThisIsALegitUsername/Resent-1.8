@@ -1,8 +1,6 @@
 package net.minecraft.world.biome;
 
-import java.util.Arrays;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockSand;
@@ -14,6 +12,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
+
+import java.util.Arrays;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -29,9 +29,9 @@ import net.minecraft.world.gen.NoiseGeneratorPerlin;
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
  * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class BiomeGenMesa extends BiomeGenBase {
 	private IBlockState[] field_150621_aC;
@@ -39,8 +39,8 @@ public class BiomeGenMesa extends BiomeGenBase {
 	private NoiseGeneratorPerlin field_150623_aE;
 	private NoiseGeneratorPerlin field_150624_aF;
 	private NoiseGeneratorPerlin field_150625_aG;
-	private boolean field_150626_aH;
-	private boolean field_150620_aI;
+	private final boolean field_150626_aH;
+	private final boolean field_150620_aI;
 
 	public BiomeGenMesa(int parInt1, boolean parFlag, boolean parFlag2) {
 		super(parInt1);
@@ -254,7 +254,7 @@ public class BiomeGenMesa extends BiomeGenBase {
 
 	private IBlockState func_180629_a(int parInt1, int parInt2, int parInt3) {
 		int i = (int) Math.round(
-				this.field_150625_aG.func_151601_a((double) parInt1 * 1.0D / 512.0D, (double) parInt1 * 1.0D / 512.0D)
+				this.field_150625_aG.func_151601_a((double) parInt1 / 512.0D, (double) parInt1 / 512.0D)
 						* 2.0D);
 		return this.field_150621_aC[(parInt2 + i + 64) % 64];
 	}

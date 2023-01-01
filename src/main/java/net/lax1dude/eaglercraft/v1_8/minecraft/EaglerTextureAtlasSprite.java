@@ -1,13 +1,6 @@
 package net.lax1dude.eaglercraft.v1_8.minecraft;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.Callable;
-
 import com.google.common.collect.Lists;
-
 import net.lax1dude.eaglercraft.v1_8.HString;
 import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
 import net.minecraft.client.renderer.texture.TextureClock;
@@ -19,6 +12,12 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
@@ -61,8 +60,8 @@ public class EaglerTextureAtlasSprite {
 
 	public static EaglerTextureAtlasSprite makeAtlasSprite(ResourceLocation spriteResourceLocation) {
 		String s = spriteResourceLocation.toString();
-		return (EaglerTextureAtlasSprite) (locationNameClock.equals(s) ? new TextureClock(s)
-				: (locationNameCompass.equals(s) ? new TextureCompass(s) : new EaglerTextureAtlasSprite(s)));
+		return locationNameClock.equals(s) ? new TextureClock(s)
+				: (locationNameCompass.equals(s) ? new TextureCompass(s) : new EaglerTextureAtlasSprite(s));
 	}
 
 	public static void setLocationNameClock(String clockName) {
@@ -171,7 +170,7 @@ public class EaglerTextureAtlasSprite {
 	}
 
 	public int[][] getFrameTextureData(int index) {
-		return (int[][]) this.framesTextureData.get(index);
+		return this.framesTextureData.get(index);
 	}
 
 	public int getFrameCount() {
@@ -200,9 +199,9 @@ public class EaglerTextureAtlasSprite {
 				if (k > 0 && (bufferedimage.width) != i >> k || bufferedimage.height != j >> k) {
 					throw new RuntimeException(
 							HString.format("Unable to load miplevel: %d, image is size: %dx%d, expected %dx%d",
-									new Object[] { Integer.valueOf(k), Integer.valueOf(bufferedimage.width),
-											Integer.valueOf(bufferedimage.height), Integer.valueOf(i >> k),
-											Integer.valueOf(j >> k) }));
+									Integer.valueOf(k), Integer.valueOf(bufferedimage.width),
+									Integer.valueOf(bufferedimage.height), Integer.valueOf(i >> k),
+									Integer.valueOf(j >> k)));
 				}
 
 				aint[k] = new int[bufferedimage.width * bufferedimage.height];
@@ -254,7 +253,7 @@ public class EaglerTextureAtlasSprite {
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (int i = 0; i < this.framesTextureData.size(); ++i) {
-			final int[][] aint = (int[][]) this.framesTextureData.get(i);
+			final int[][] aint = this.framesTextureData.get(i);
 			if (aint != null) {
 				try {
 					arraylist.add(TextureUtil.generateMipmapData(level, this.width, aint));
@@ -299,7 +298,7 @@ public class EaglerTextureAtlasSprite {
 	private void allocateFrameTextureData(int index) {
 		if (this.framesTextureData.size() <= index) {
 			for (int i = this.framesTextureData.size(); i <= index; ++i) {
-				this.framesTextureData.add((int[][]) null);
+				this.framesTextureData.add(null);
 			}
 
 		}
@@ -347,7 +346,7 @@ public class EaglerTextureAtlasSprite {
 	}
 
 	public String toString() {
-		return "TextureAtlasSprite{name=\'" + this.iconName + '\'' + ", frameCount=" + this.framesTextureData.size()
+		return "TextureAtlasSprite{name='" + this.iconName + '\'' + ", frameCount=" + this.framesTextureData.size()
 				+ ", rotated=" + this.rotated + ", x=" + this.originX + ", y=" + this.originY + ", height="
 				+ this.height + ", width=" + this.width + ", u0=" + this.minU + ", u1=" + this.maxU + ", v0="
 				+ this.minV + ", v1=" + this.maxV + '}';

@@ -52,7 +52,7 @@ public class ItemModelMesher {
 		Item item = stack.getItem();
 		IBakedModel ibakedmodel = this.getItemModel(item, this.getMetadata(stack));
 		if (ibakedmodel == null) {
-			ItemMeshDefinition itemmeshdefinition = (ItemMeshDefinition) this.shapers.get(item);
+			ItemMeshDefinition itemmeshdefinition = this.shapers.get(item);
 			if (itemmeshdefinition != null) {
 				ibakedmodel = this.modelManager.getModel(itemmeshdefinition.getModelLocation(stack));
 			}
@@ -70,7 +70,7 @@ public class ItemModelMesher {
 	}
 
 	protected IBakedModel getItemModel(Item item, int meta) {
-		return (IBakedModel) this.simpleShapesCache.get(Integer.valueOf(this.getIndex(item, meta)));
+        return this.simpleShapesCache.get(Integer.valueOf(this.getIndex(item, meta)));
 	}
 
 	private int getIndex(Item item, int meta) {

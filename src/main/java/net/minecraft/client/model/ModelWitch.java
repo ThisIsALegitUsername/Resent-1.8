@@ -15,26 +15,26 @@ import net.minecraft.util.MathHelper;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class ModelWitch extends ModelVillager {
-	public boolean field_82900_g;
-	private ModelRenderer field_82901_h = (new ModelRenderer(this)).setTextureSize(64, 128);
-	private ModelRenderer witchHat;
+    public boolean field_82900_g;
+    private final ModelRenderer field_82901_h = (new ModelRenderer(this)).setTextureSize(64, 128);
+    private final ModelRenderer witchHat;
 
-	public ModelWitch(float parFloat1) {
-		super(parFloat1, 0.0F, 64, 128);
-		this.field_82901_h.setRotationPoint(0.0F, -2.0F, 0.0F);
-		this.field_82901_h.setTextureOffset(0, 0).addBox(0.0F, 3.0F, -6.75F, 1, 1, 1, -0.25F);
-		this.villagerNose.addChild(this.field_82901_h);
-		this.witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
-		this.witchHat.setRotationPoint(-5.0F, -10.03125F, -5.0F);
-		this.witchHat.setTextureOffset(0, 64).addBox(0.0F, 0.0F, 0.0F, 10, 2, 10);
-		this.villagerHead.addChild(this.witchHat);
+    public ModelWitch(float parFloat1) {
+        super(parFloat1, 0.0F, 64, 128);
+        this.field_82901_h.setRotationPoint(0.0F, -2.0F, 0.0F);
+        this.field_82901_h.setTextureOffset(0, 0).addBox(0.0F, 3.0F, -6.75F, 1, 1, 1, -0.25F);
+        this.villagerNose.addChild(this.field_82901_h);
+        this.witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
+        this.witchHat.setRotationPoint(-5.0F, -10.03125F, -5.0F);
+        this.witchHat.setTextureOffset(0, 64).addBox(0.0F, 0.0F, 0.0F, 10, 2, 10);
+        this.villagerHead.addChild(this.witchHat);
 		ModelRenderer modelrenderer = (new ModelRenderer(this)).setTextureSize(64, 128);
 		modelrenderer.setRotationPoint(1.75F, -4.0F, 2.0F);
 		modelrenderer.setTextureOffset(0, 76).addBox(0.0F, 0.0F, 0.0F, 7, 4, 7);

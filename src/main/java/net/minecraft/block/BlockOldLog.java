@@ -1,17 +1,15 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import com.google.common.base.Predicate;
-
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -51,18 +49,18 @@ public class BlockOldLog extends BlockLog {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-		BlockPlanks.EnumType blockplanks$enumtype = (BlockPlanks.EnumType) iblockstate.getValue(VARIANT);
-		switch ((BlockLog.EnumAxis) iblockstate.getValue(LOG_AXIS)) {
-		case X:
-		case Z:
-		case NONE:
-		default:
-			switch (blockplanks$enumtype) {
-			case OAK:
+		BlockPlanks.EnumType blockplanks$enumtype = iblockstate.getValue(VARIANT);
+		switch (iblockstate.getValue(LOG_AXIS)) {
+			case X:
+			case Z:
+			case NONE:
 			default:
-				return BlockPlanks.EnumType.SPRUCE.func_181070_c();
-			case SPRUCE:
-				return BlockPlanks.EnumType.DARK_OAK.func_181070_c();
+				switch (blockplanks$enumtype) {
+					case OAK:
+					default:
+						return BlockPlanks.EnumType.SPRUCE.func_181070_c();
+					case SPRUCE:
+						return BlockPlanks.EnumType.DARK_OAK.func_181070_c();
 			case BIRCH:
 				return MapColor.quartzColor;
 			case JUNGLE:
@@ -112,28 +110,28 @@ public class BlockOldLog extends BlockLog {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | ((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
-		switch ((BlockLog.EnumAxis) iblockstate.getValue(LOG_AXIS)) {
-		case X:
-			i |= 4;
-			break;
-		case Z:
-			i |= 8;
-			break;
-		case NONE:
-			i |= 12;
+		i = i | iblockstate.getValue(VARIANT).getMetadata();
+		switch (iblockstate.getValue(LOG_AXIS)) {
+			case X:
+				i |= 4;
+				break;
+			case Z:
+				i |= 8;
+				break;
+			case NONE:
+				i |= 12;
 		}
 
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { VARIANT, LOG_AXIS });
+		return new BlockState(this, VARIANT, LOG_AXIS);
 	}
 
 	protected ItemStack createStackedBlock(IBlockState iblockstate) {
 		return new ItemStack(Item.getItemFromBlock(this), 1,
-				((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata());
+				iblockstate.getValue(VARIANT).getMetadata());
 	}
 
 	/**+
@@ -143,6 +141,6 @@ public class BlockOldLog extends BlockLog {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return ((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
+		return iblockstate.getValue(VARIANT).getMetadata();
 	}
 }

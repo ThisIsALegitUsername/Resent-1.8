@@ -83,9 +83,9 @@ public enum EnumFaceDirection {
 		return facings[facing.getIndex()];
 	}
 
-	private EnumFaceDirection(EnumFaceDirection.VertexInformation[] vertexInfosIn) {
-		this.vertexInfos = vertexInfosIn;
-	}
+	EnumFaceDirection(EnumFaceDirection.VertexInformation[] vertexInfosIn) {
+        this.vertexInfos = vertexInfosIn;
+    }
 
 	public EnumFaceDirection.VertexInformation func_179025_a(int parInt1) {
 		return this.vertexInfos[parInt1];

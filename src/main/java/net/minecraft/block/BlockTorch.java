@@ -1,24 +1,15 @@
 package net.minecraft.block;
 
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.base.Predicate;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 /**+
@@ -130,7 +121,7 @@ public class BlockTorch extends Block {
 		if (!this.checkForDrop(worldIn, pos, state)) {
 			return true;
 		} else {
-			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+			EnumFacing enumfacing = state.getValue(FACING);
 			EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
 			EnumFacing enumfacing1 = enumfacing.getOpposite();
 			boolean flag = false;
@@ -151,7 +142,7 @@ public class BlockTorch extends Block {
 	}
 
 	protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-		if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing) state.getValue(FACING))) {
+		if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, state.getValue(FACING))) {
 			return true;
 		} else {
 			if (worldIn.getBlockState(pos).getBlock() == this) {
@@ -168,7 +159,7 @@ public class BlockTorch extends Block {
 	 * end vector returning a ray trace hit.
 	 */
 	public MovingObjectPosition collisionRayTrace(World world, BlockPos blockpos, Vec3 vec3, Vec3 vec31) {
-		EnumFacing enumfacing = (EnumFacing) world.getBlockState(blockpos).getValue(FACING);
+		EnumFacing enumfacing = world.getBlockState(blockpos).getValue(FACING);
 		float f = 0.15F;
 		if (enumfacing == EnumFacing.EAST) {
 			this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
@@ -187,7 +178,7 @@ public class BlockTorch extends Block {
 	}
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom var4) {
-		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+		EnumFacing enumfacing = iblockstate.getValue(FACING);
 		double d0 = (double) blockpos.getX() + 0.5D;
 		double d1 = (double) blockpos.getY() + 0.7D;
 		double d2 = (double) blockpos.getZ() + 0.5D;
@@ -196,12 +187,12 @@ public class BlockTorch extends Block {
 		if (enumfacing.getAxis().isHorizontal()) {
 			EnumFacing enumfacing1 = enumfacing.getOpposite();
 			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4 * (double) enumfacing1.getFrontOffsetX(),
-					d1 + d3, d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D, new int[0]);
+					d1 + d3, d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
 			world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4 * (double) enumfacing1.getFrontOffsetX(), d1 + d3,
-					d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D, new int[0]);
+					d2 + d4 * (double) enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
 		} else {
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
-			world.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 		}
 
 	}
@@ -241,17 +232,17 @@ public class BlockTorch extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		switch ((EnumFacing) iblockstate.getValue(FACING)) {
-		case EAST:
-			i = i | 1;
-			break;
-		case WEST:
-			i = i | 2;
-			break;
-		case SOUTH:
-			i = i | 3;
-			break;
-		case NORTH:
+		switch (iblockstate.getValue(FACING)) {
+			case EAST:
+				i = i | 1;
+				break;
+			case WEST:
+				i = i | 2;
+				break;
+			case SOUTH:
+				i = i | 3;
+				break;
+			case NORTH:
 			i = i | 4;
 			break;
 		case DOWN:
@@ -264,6 +255,6 @@ public class BlockTorch extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING });
+		return new BlockState(this, FACING);
 	}
 }

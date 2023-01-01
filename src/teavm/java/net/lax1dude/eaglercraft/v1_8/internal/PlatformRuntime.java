@@ -376,15 +376,15 @@ public class PlatformRuntime {
 	}
 
 	public static long maxMemory() {
-		return 1073741824l;
+		return 1073741824L;
 	}
 
 	public static long totalMemory() {
-		return 1073741824l;
+        return 1073741824L;
 	}
 
 	public static long freeMemory() {
-		return 1073741824l;
+        return 1073741824L;
 	}
 	
 	public static String getCallingClass(int backTrace) {
@@ -437,10 +437,10 @@ public class PlatformRuntime {
 	@JSBody(params = { }, script = "return \"MediaRecorder\" in window;")
 	private static native boolean canRec();
 
-	@JSFunctor
-	private static interface RecUrlHandler extends JSObject {
-		void onUrl(String url);
-	}
+    @JSFunctor
+    private interface RecUrlHandler extends JSObject {
+        void onUrl(String url);
+    }
 
 	@JSBody(params = { "e", "duration", "cb" }, script = "if (\"ysFixWebmDuration\" in window) { ysFixWebmDuration(e.data, duration, function(b) { cb(URL.createObjectURL(b)); }); } else { cb(URL.createObjectURL(e.data)); }")
 	private static native void getRecUrl(Event e, int duration, RecUrlHandler cb);
@@ -483,10 +483,10 @@ public class PlatformRuntime {
 		}
 	}
 
-	@JSFunctor
-	private static interface MediaHandler extends JSObject {
-		void onMedia(MediaStream stream);
-	}
+    @JSFunctor
+    private interface MediaHandler extends JSObject {
+        void onMedia(MediaStream stream);
+    }
 
 	@JSBody(params = { "cb" }, script = "if (\"navigator\" in window && \"mediaDevices\" in window.navigator && \"getUserMedia\" in window.navigator.mediaDevices) { try { window.navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function(stream) { cb(stream); }).catch(function(err) { console.error(err); cb(null); }); } catch(e) { console.error(\"getUserMedia Error!\"); cb(null); } } else { console.error(\"No getUserMedia!\"); cb(null); }")
 	private static native void getMic0(MediaHandler cb);

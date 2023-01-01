@@ -25,8 +25,8 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class PotionEffect {
 	private static final Logger LOGGER = LogManager.getLogger();
-	private int potionID;
-	private int duration;
+    private final int potionID;
+    private int duration;
 	private int amplifier;
 	private boolean isSplashPotion;
 	private boolean isAmbient;

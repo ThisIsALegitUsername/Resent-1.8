@@ -1,81 +1,27 @@
 package net.minecraft.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.item.EntityEnderEye;
-import net.minecraft.entity.item.EntityEnderPearl;
-import net.minecraft.entity.item.EntityExpBottle;
-import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.item.EntityFireworkRocket;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.item.EntityMinecartChest;
-import net.minecraft.entity.item.EntityMinecartEmpty;
-import net.minecraft.entity.item.EntityMinecartFurnace;
-import net.minecraft.entity.item.EntityMinecartHopper;
-import net.minecraft.entity.item.EntityMinecartTNT;
-import net.minecraft.entity.item.EntityPainting;
-import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityEndermite;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityGiantZombie;
-import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.item.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityEgg;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.EntityPotion;
-import net.minecraft.entity.projectile.EntitySmallFireball;
-import net.minecraft.entity.projectile.EntitySnowball;
-import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.entity.projectile.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -217,12 +163,12 @@ public class EntityList {
 	 * gets the entityID of a specific entity
 	 */
 	public static int getEntityID(Entity entityIn) {
-		Integer integer = (Integer) classToIDMapping.get(entityIn.getClass());
+		Integer integer = classToIDMapping.get(entityIn.getClass());
 		return integer == null ? 0 : integer.intValue();
 	}
 
 	public static Class<? extends Entity> getClassFromID(int entityID) {
-		return (Class) idToClassMapping.get(Integer.valueOf(entityID));
+        return idToClassMapping.get(Integer.valueOf(entityID));
 	}
 
 	public static EntityConstructor<? extends Entity> getConstructorFromID(int entityID) {
@@ -233,14 +179,14 @@ public class EntityList {
 	 * Gets the string representation of a specific entity.
 	 */
 	public static String getEntityString(Entity entityIn) {
-		return (String) classToStringMapping.get(entityIn.getClass());
+        return classToStringMapping.get(entityIn.getClass());
 	}
 
 	/**+
 	 * Returns the ID assigned to it's string representation
 	 */
 	public static int getIDFromString(String entityName) {
-		Integer integer = (Integer) stringToIDMapping.get(entityName);
+        Integer integer = stringToIDMapping.get(entityName);
 		return integer == null ? 90 : integer.intValue();
 	}
 
@@ -249,7 +195,7 @@ public class EntityList {
 	 * classToStringMapping
 	 */
 	public static String getStringFromID(int entityID) {
-		return (String) classToStringMapping.get(getClassFromID(entityID));
+        return classToStringMapping.get(getClassFromID(entityID));
 	}
 
 	public static void func_151514_a() {
@@ -260,7 +206,7 @@ public class EntityList {
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (String s : set) {
-			Class oclass = (Class) stringToClassMapping.get(s);
+            Class oclass = stringToClassMapping.get(s);
 			if ((oclass.getModifiers() & 1024) != 1024) {
 				arraylist.add(s);
 			}

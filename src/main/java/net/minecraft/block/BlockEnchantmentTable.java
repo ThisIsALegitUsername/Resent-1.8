@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -67,8 +66,8 @@ public class BlockEnchantmentTable extends BlockContainer {
 							world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) blockpos.getX() + 0.5D,
 									(double) blockpos.getY() + 2.0D, (double) blockpos.getZ() + 0.5D,
 									(double) ((float) i + random.nextFloat()) - 0.5D,
-									(double) ((float) k - random.nextFloat() - 1.0F),
-									(double) ((float) j + random.nextFloat()) - 0.5D, new int[0]);
+									(float) k - random.nextFloat() - 1.0F,
+									(double) ((float) j + random.nextFloat()) - 0.5D);
 						}
 					}
 				}

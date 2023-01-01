@@ -1,11 +1,11 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
+
+import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -48,8 +48,8 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
 		this.entityID = parPacketBuffer.readVarIntFromBuffer();
-		this.action = (C0BPacketEntityAction.Action) parPacketBuffer.readEnumValue(C0BPacketEntityAction.Action.class);
-		this.auxData = parPacketBuffer.readVarIntFromBuffer();
+        this.action = parPacketBuffer.readEnumValue(Action.class);
+        this.auxData = parPacketBuffer.readVarIntFromBuffer();
 	}
 
 	/**+
@@ -66,17 +66,17 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	 */
 	public void processPacket(INetHandlerPlayServer inethandlerplayserver) {
 		inethandlerplayserver.processEntityAction(this);
-	}
+    }
 
-	public C0BPacketEntityAction.Action getAction() {
-		return this.action;
-	}
+    public C0BPacketEntityAction.Action getAction() {
+        return this.action;
+    }
 
-	public int getAuxData() {
-		return this.auxData;
-	}
+    public int getAuxData() {
+        return this.auxData;
+    }
 
-	public static enum Action {
-		START_SNEAKING, STOP_SNEAKING, STOP_SLEEPING, START_SPRINTING, STOP_SPRINTING, RIDING_JUMP, OPEN_INVENTORY;
-	}
+    public enum Action {
+        START_SNEAKING, STOP_SNEAKING, STOP_SLEEPING, START_SPRINTING, STOP_SPRINTING, RIDING_JUMP, OPEN_INVENTORY
+    }
 }

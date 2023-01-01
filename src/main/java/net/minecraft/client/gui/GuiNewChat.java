@@ -71,7 +71,7 @@ public class GuiNewChat extends Gui {
 				GlStateManager.scale(f1, f1, 1.0F);
 
 				for (int i1 = 0; i1 + this.scrollPos < this.field_146253_i.size() && i1 < i; ++i1) {
-					ChatLine chatline = (ChatLine) this.field_146253_i.get(i1 + this.scrollPos);
+					ChatLine chatline = this.field_146253_i.get(i1 + this.scrollPos);
 					if (chatline != null) {
 						int j1 = parInt1 - chatline.getUpdatedCounter();
 						if (j1 < 200 || flag) {
@@ -94,8 +94,8 @@ public class GuiNewChat extends Gui {
 								drawRect(b0, i2 - 9, b0 + l + 4, i2, l1 / 2 << 24);
 								String s = chatline.getChatComponent().getFormattedText();
 								GlStateManager.enableBlend();
-								this.mc.fontRendererObj.drawStringWithShadow(s, (float) b0, (float) (i2 - 8),
-										16777215 + (l1 << 24));
+                                this.mc.fontRendererObj.drawStringWithShadow(s, b0, (float) (i2 - 8),
+                                        16777215 + (l1 << 24));
 								GlStateManager.disableAlpha();
 								GlStateManager.disableBlend();
 							}
@@ -182,7 +182,7 @@ public class GuiNewChat extends Gui {
 		this.resetScroll();
 
 		for (int i = this.chatLines.size() - 1; i >= 0; --i) {
-			ChatLine chatline = (ChatLine) this.chatLines.get(i);
+            ChatLine chatline = this.chatLines.get(i);
 			this.setChatLine(chatline.getChatComponent(), chatline.getChatLineID(), chatline.getUpdatedCounter(), true);
 		}
 
@@ -201,10 +201,10 @@ public class GuiNewChat extends Gui {
 	 * using the up/down arrow keys
 	 */
 	public void addToSentMessages(String parString1) {
-		if (this.sentMessages.isEmpty()
-				|| !((String) this.sentMessages.get(this.sentMessages.size() - 1)).equals(parString1)) {
-			this.sentMessages.add(parString1);
-		}
+        if (this.sentMessages.isEmpty()
+                || !this.sentMessages.get(this.sentMessages.size() - 1).equals(parString1)) {
+            this.sentMessages.add(parString1);
+        }
 
 	}
 
@@ -254,8 +254,8 @@ public class GuiNewChat extends Gui {
 						&& k < this.mc.fontRendererObj.FONT_HEIGHT * l + l) {
 					int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
 					if (i1 >= 0 && i1 < this.field_146253_i.size()) {
-						ChatLine chatline = (ChatLine) this.field_146253_i.get(i1);
-						int j1 = 0;
+                        ChatLine chatline = this.field_146253_i.get(i1);
+                        int j1 = 0;
 
 						for (IChatComponent ichatcomponent : chatline.getChatComponent()) {
 							if (ichatcomponent instanceof ChatComponentText) {

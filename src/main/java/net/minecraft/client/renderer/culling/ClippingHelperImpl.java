@@ -1,13 +1,10 @@
 package net.minecraft.client.renderer.culling;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
-
-import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
-
-import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.util.MathHelper;
+
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_MODELVIEW_MATRIX;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION_MATRIX;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -28,7 +25,7 @@ import net.minecraft.util.MathHelper;
  * 
  */
 public class ClippingHelperImpl extends ClippingHelper {
-	private static ClippingHelperImpl instance = new ClippingHelperImpl();
+	private static final ClippingHelperImpl instance = new ClippingHelperImpl();
 
 	/**+
 	 * Initialises the ClippingHelper object then returns an

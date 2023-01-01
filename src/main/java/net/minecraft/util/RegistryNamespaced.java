@@ -52,7 +52,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
 	 * Gets the name we use to identify the given object.
 	 */
 	public K getNameForObject(V parObject) {
-		return (K) this.inverseObjectRegistry.get(parObject);
+		return this.inverseObjectRegistry.get(parObject);
 	}
 
 	/**+
@@ -73,7 +73,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
 	 * Gets the object identified by the given ID.
 	 */
 	public V getObjectById(int i) {
-		return (V) this.underlyingIntegerMap.getByValue(i);
+        return this.underlyingIntegerMap.getByValue(i);
 	}
 
 	public Iterator<V> iterator() {

@@ -16,12 +16,12 @@
 
 package com.google.common.collect;
 
+import com.google.common.annotations.GwtCompatible;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NavigableSet;
 import java.util.Set;
-
-import com.google.common.annotations.GwtCompatible;
 
 /**
  * A skeleton implementation of a descending multiset. Only needs
@@ -39,7 +39,7 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E> implements So
 	public Comparator<? super E> comparator() {
 		Comparator<? super E> result = comparator;
 		if (result == null) {
-			return comparator = Ordering.from(forwardMultiset().comparator()).<E>reverse();
+			return comparator = Ordering.from(forwardMultiset().comparator()).reverse();
 		}
 		return result;
 	}

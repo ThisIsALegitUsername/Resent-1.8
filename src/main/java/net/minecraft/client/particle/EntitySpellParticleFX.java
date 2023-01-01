@@ -113,7 +113,7 @@ public class EntitySpellParticleFX extends EntityFX {
 		public EntityFX getEntityFX(int var1, World world, double d0, double d1, double d2, double d3, double d4,
 				double d5, int... var15) {
 			EntitySpellParticleFX entityspellparticlefx = new EntitySpellParticleFX(world, d0, d1, d2, d3, d4, d5);
-			((EntitySpellParticleFX) entityspellparticlefx).setBaseSpellTextureIndex(144);
+			entityspellparticlefx.setBaseSpellTextureIndex(144);
 			return entityspellparticlefx;
 		}
 	}
@@ -131,9 +131,9 @@ public class EntitySpellParticleFX extends EntityFX {
 		public EntityFX getEntityFX(int var1, World world, double d0, double d1, double d2, double d3, double d4,
 				double d5, int... var15) {
 			EntitySpellParticleFX entityspellparticlefx = new EntitySpellParticleFX(world, d0, d1, d2, d3, d4, d5);
-			((EntitySpellParticleFX) entityspellparticlefx).setBaseSpellTextureIndex(144);
+            entityspellparticlefx.setBaseSpellTextureIndex(144);
 			float f = world.rand.nextFloat() * 0.5F + 0.35F;
-			entityspellparticlefx.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
+            entityspellparticlefx.setRBGColorF(f, 0.0F * f, f);
 			return entityspellparticlefx;
 		}
 	}

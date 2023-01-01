@@ -39,7 +39,7 @@ import net.minecraft.util.ResourceLocation;
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
 	private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = Maps.newHashMap();
 	private static final ResourceLocation BANNERTEXTURES = new ResourceLocation("textures/entity/banner_base.png");
-	private ModelBanner bannerModel = new ModelBanner();
+    private final ModelBanner bannerModel = new ModelBanner();
 
 	public void renderTileEntityAt(TileEntityBanner te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
@@ -98,17 +98,17 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 		if (s.isEmpty()) {
 			return null;
 		} else {
-			TileEntityBannerRenderer.TimedBannerTexture tileentitybannerrenderer$timedbannertexture = (TileEntityBannerRenderer.TimedBannerTexture) DESIGNS
-					.get(s);
+            TileEntityBannerRenderer.TimedBannerTexture tileentitybannerrenderer$timedbannertexture = DESIGNS
+                    .get(s);
 			if (tileentitybannerrenderer$timedbannertexture == null) {
 				if (DESIGNS.size() >= 256) {
 					long i = System.currentTimeMillis();
 					Iterator iterator = DESIGNS.keySet().iterator();
 
 					while (iterator.hasNext()) {
-						String s1 = (String) iterator.next();
-						TileEntityBannerRenderer.TimedBannerTexture tileentitybannerrenderer$timedbannertexture1 = (TileEntityBannerRenderer.TimedBannerTexture) DESIGNS
-								.get(s1);
+                        String s1 = (String) iterator.next();
+                        TileEntityBannerRenderer.TimedBannerTexture tileentitybannerrenderer$timedbannertexture1 = DESIGNS
+                                .get(s1);
 						if (i - tileentitybannerrenderer$timedbannertexture1.systemTime > 60000L) {
 							Minecraft.getMinecraft().getTextureManager()
 									.deleteTexture(tileentitybannerrenderer$timedbannertexture1.bannerTexture);

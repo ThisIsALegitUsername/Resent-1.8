@@ -40,7 +40,7 @@ public class ServerSelectionList extends GuiListExtended {
 	 * Gets the IGuiListEntry object for the given index
 	 */
 	public GuiListExtended.IGuiListEntry getListEntry(int i) {
-		return (GuiListExtended.IGuiListEntry) this.field_148198_l.get(i);
+		return this.field_148198_l.get(i);
 	}
 
 	protected int getSize() {

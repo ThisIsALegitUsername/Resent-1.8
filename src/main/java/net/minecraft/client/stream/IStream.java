@@ -70,17 +70,18 @@ public interface IStream {
 
 	boolean func_152913_F();
 
-	/**+
-	 * mutes or unmutes the microphone based on the boolean
-	 * parameter passed into the method
-	 */
-	void muteMicrophone(boolean var1);
+    /**
+     * +
+     * mutes or unmutes the microphone based on the boolean
+     * parameter passed into the method
+     */
+    void muteMicrophone(boolean var1);
 
-	boolean func_152929_G();
+    boolean func_152929_G();
 
-	IStream.AuthFailureReason func_152918_H();
+    IStream.AuthFailureReason func_152918_H();
 
-	public static enum AuthFailureReason {
-		ERROR, INVALID_TOKEN;
-	}
+    enum AuthFailureReason {
+        ERROR, INVALID_TOKEN
+    }
 }

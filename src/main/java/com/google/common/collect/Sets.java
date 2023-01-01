@@ -365,7 +365,7 @@ public final class Sets {
 	 * @since 8.0
 	 */
 	public static <E> Set<E> newIdentityHashSet() {
-		return Sets.newSetFromMap(Maps.<E, Boolean>newIdentityHashMap());
+		return Sets.newSetFromMap(Maps.newIdentityHashMap());
 	}
 
 	/**
@@ -731,8 +731,8 @@ public final class Sets {
 		if (unfiltered instanceof FilteredSet) {
 			// Support clear(), removeAll(), and retainAll() when filtering a filtered
 			// collection.
-			FilteredSet<E> filtered = (FilteredSet<E>) unfiltered;
-			Predicate<E> combinedPredicate = Predicates.<E>and(filtered.predicate, predicate);
+            FilteredSet<E> filtered = (FilteredSet<E>) unfiltered;
+            Predicate<E> combinedPredicate = Predicates.and(filtered.predicate, predicate);
 			return new FilteredSet<E>((Set<E>) filtered.unfiltered, combinedPredicate);
 		}
 
@@ -795,8 +795,8 @@ public final class Sets {
 		if (unfiltered instanceof FilteredSet) {
 			// Support clear(), removeAll(), and retainAll() when filtering a filtered
 			// collection.
-			FilteredSet<E> filtered = (FilteredSet<E>) unfiltered;
-			Predicate<E> combinedPredicate = Predicates.<E>and(filtered.predicate, predicate);
+            FilteredSet<E> filtered = (FilteredSet<E>) unfiltered;
+            Predicate<E> combinedPredicate = Predicates.and(filtered.predicate, predicate);
 			return new FilteredSortedSet<E>((SortedSet<E>) filtered.unfiltered, combinedPredicate);
 		}
 
@@ -885,8 +885,8 @@ public final class Sets {
 		if (unfiltered instanceof FilteredSet) {
 			// Support clear(), removeAll(), and retainAll() when filtering a filtered
 			// collection.
-			FilteredSet<E> filtered = (FilteredSet<E>) unfiltered;
-			Predicate<E> combinedPredicate = Predicates.<E>and(filtered.predicate, predicate);
+            FilteredSet<E> filtered = (FilteredSet<E>) unfiltered;
+            Predicate<E> combinedPredicate = Predicates.and(filtered.predicate, predicate);
 			return new FilteredNavigableSet<E>((NavigableSet<E>) filtered.unfiltered, combinedPredicate);
 		}
 

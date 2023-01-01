@@ -27,7 +27,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<TileEntityEnderChest> {
 	private static final ResourceLocation ENDER_CHEST_TEXTURE = new ResourceLocation("textures/entity/chest/ender.png");
-	private ModelChest field_147521_c = new ModelChest();
+    private final ModelChest field_147521_c = new ModelChest();
 
 	public void renderTileEntityAt(TileEntityEnderChest tileentityenderchest, double d0, double d1, double d2, float f,
 			int i) {
@@ -70,8 +70,8 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
 			short1 = -90;
 		}
 
-		GlStateManager.rotate((float) short1, 0.0F, 1.0F, 0.0F);
-		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+        GlStateManager.rotate(short1, 0.0F, 1.0F, 0.0F);
+        GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 		float f1 = tileentityenderchest.prevLidAngle
 				+ (tileentityenderchest.lidAngle - tileentityenderchest.prevLidAngle) * f;
 		f1 = 1.0F - f1;

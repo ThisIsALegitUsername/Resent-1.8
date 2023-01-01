@@ -43,8 +43,8 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	public float bookRotation;
 	public float bookRotationPrev;
 	public float field_145924_q;
-	private static EaglercraftRandom rand = new EaglercraftRandom();
-	private String customName;
+    private static final EaglercraftRandom rand = new EaglercraftRandom();
+    private String customName;
 
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
@@ -66,20 +66,20 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-		this.bookSpreadPrev = this.bookSpread;
-		this.bookRotationPrev = this.bookRotation;
-		EntityPlayer entityplayer = this.worldObj.getClosestPlayer((double) ((float) this.pos.getX() + 0.5F),
-				(double) ((float) this.pos.getY() + 0.5F), (double) ((float) this.pos.getZ() + 0.5F), 3.0D);
-		if (entityplayer != null) {
-			double d0 = entityplayer.posX - (double) ((float) this.pos.getX() + 0.5F);
-			double d1 = entityplayer.posZ - (double) ((float) this.pos.getZ() + 0.5F);
-			this.field_145924_q = (float) MathHelper.func_181159_b(d1, d0);
-			this.bookSpread += 0.1F;
-			if (this.bookSpread < 0.5F || rand.nextInt(40) == 0) {
-				float f1 = this.field_145932_k;
+        this.bookSpreadPrev = this.bookSpread;
+        this.bookRotationPrev = this.bookRotation;
+        EntityPlayer entityplayer = this.worldObj.getClosestPlayer((float) this.pos.getX() + 0.5F,
+                (float) this.pos.getY() + 0.5F, (float) this.pos.getZ() + 0.5F, 3.0D);
+        if (entityplayer != null) {
+            double d0 = entityplayer.posX - (double) ((float) this.pos.getX() + 0.5F);
+            double d1 = entityplayer.posZ - (double) ((float) this.pos.getZ() + 0.5F);
+            this.field_145924_q = (float) MathHelper.func_181159_b(d1, d0);
+            this.bookSpread += 0.1F;
+            if (this.bookSpread < 0.5F || rand.nextInt(40) == 0) {
+                float f1 = this.field_145932_k;
 
-				while (true) {
-					this.field_145932_k += (float) (rand.nextInt(4) - rand.nextInt(4));
+                while (true) {
+                    this.field_145932_k += (float) (rand.nextInt(4) - rand.nextInt(4));
 					if (f1 != this.field_145932_k) {
 						break;
 					}
@@ -108,8 +108,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 
 		float f2;
 		for (f2 = this.field_145924_q - this.bookRotation; f2 >= 3.1415927F; f2 -= 6.2831855F) {
-			;
-		}
+        }
 
 		while (f2 < -3.1415927F) {
 			f2 += 6.2831855F;
@@ -150,9 +149,9 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
-				: new ChatComponentTranslation(this.getName(), new Object[0]));
-	}
+        return this.hasCustomName() ? new ChatComponentText(this.getName())
+                : new ChatComponentTranslation(this.getName(), new Object[0]);
+    }
 
 	public Container createContainer(InventoryPlayer inventoryplayer, EntityPlayer var2) {
 		return new ContainerEnchantment(inventoryplayer, this.worldObj, this.pos);

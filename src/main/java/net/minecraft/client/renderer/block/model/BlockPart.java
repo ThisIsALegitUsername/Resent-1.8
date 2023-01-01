@@ -1,20 +1,18 @@
 package net.minecraft.client.renderer.block.model;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.google.common.collect.Maps;
-
 import net.lax1dude.eaglercraft.v1_8.json.JSONTypeDeserializer;
 import net.lax1dude.eaglercraft.v1_8.json.JSONTypeProvider;
 import net.lax1dude.eaglercraft.v1_8.vector.Vector3f;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -168,7 +166,7 @@ public class BlockPart {
 					&& vector3f.y <= 32.0F && vector3f.z <= 32.0F) {
 				return vector3f;
 			} else {
-				throw new JSONException("\'to\' specifier exceeds the allowed boundaries: " + vector3f);
+				throw new JSONException("'to' specifier exceeds the allowed boundaries: " + vector3f);
 			}
 		}
 
@@ -178,7 +176,7 @@ public class BlockPart {
 					&& vector3f.y <= 32.0F && vector3f.z <= 32.0F) {
 				return vector3f;
 			} else {
-				throw new JSONException("\'from\' specifier exceeds the allowed boundaries: " + vector3f);
+				throw new JSONException("'from' specifier exceeds the allowed boundaries: " + vector3f);
 			}
 		}
 

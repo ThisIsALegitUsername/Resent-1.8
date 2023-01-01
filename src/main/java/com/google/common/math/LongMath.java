@@ -605,38 +605,38 @@ public final class LongMath {
 	/**
 	 * Returns {@code n!}, that is, the product of the first {@code n} positive
 	 * integers, {@code 1} if {@code n == 0}, or {@link Long#MAX_VALUE} if the
-	 * result does not fit in a {@code long}.
-	 *
-	 * @throws IllegalArgumentException if {@code n < 0}
-	 */
-	@GwtIncompatible("TODO")
-	public static long factorial(int n) {
-		checkNonNegative("n", n);
-		return (n < factorials.length) ? factorials[n] : Long.MAX_VALUE;
-	}
+     * result does not fit in a {@code long}.
+     *
+     * @throws IllegalArgumentException if {@code n < 0}
+     */
+    @GwtIncompatible("TODO")
+    public static long factorial(int n) {
+        checkNonNegative("n", n);
+        return (n < factorials.length) ? factorials[n] : Long.MAX_VALUE;
+    }
 
-	static final long[] factorials = { 1L, 1L, 1L * 2, 1L * 2 * 3, 1L * 2 * 3 * 4, 1L * 2 * 3 * 4 * 5,
-			1L * 2 * 3 * 4 * 5 * 6, 1L * 2 * 3 * 4 * 5 * 6 * 7, 1L * 2 * 3 * 4 * 5 * 6 * 7 * 8,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9, 1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11, 1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19,
-			1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19 * 20 };
+    static final long[] factorials = {1L, 1L, (long) 2, (long) 2 * 3, (long) 2 * 3 * 4, (long) 2 * 3 * 4 * 5,
+            (long) 2 * 3 * 4 * 5 * 6, (long) 2 * 3 * 4 * 5 * 6 * 7, (long) 2 * 3 * 4 * 5 * 6 * 7 * 8,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9, (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11, (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19,
+            (long) 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19 * 20};
 
-	/**
-	 * Returns {@code n} choose {@code k}, also known as the binomial coefficient of
-	 * {@code n} and {@code k}, or {@link Long#MAX_VALUE} if the result does not fit
-	 * in a {@code long}.
-	 *
-	 * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0}, or
-	 *                                  {@code k > n}
-	 */
-	public static long binomial(int n, int k) {
+    /**
+     * Returns {@code n} choose {@code k}, also known as the binomial coefficient of
+     * {@code n} and {@code k}, or {@link Long#MAX_VALUE} if the result does not fit
+     * in a {@code long}.
+     *
+     * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0}, or
+     *                                  {@code k > n}
+     */
+    public static long binomial(int n, int k) {
 		checkNonNegative("n", n);
 		checkNonNegative("k", k);
 		checkArgument(k <= n, "k (%s) > n (%s)", k, n);

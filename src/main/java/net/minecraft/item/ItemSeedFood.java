@@ -18,25 +18,26 @@ import net.minecraft.world.World;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class ItemSeedFood extends ItemFood {
-	private Block crops;
-	private Block soilId;
+    private final Block crops;
+    private final Block soilId;
 
-	public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
-		super(healAmount, saturation, false);
-		this.crops = crops;
-		this.soilId = soil;
-	}
+    public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
+        super(healAmount, saturation, false);
+        this.crops = crops;
+        this.soilId = soil;
+    }
 
-	/**+
-	 * Called when a Block is right-clicked with this Item
-	 */
+    /**
+     * +
+     * Called when a Block is right-clicked with this Item
+     */
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos blockpos,
 			EnumFacing enumfacing, float var6, float var7, float var8) {
 		if (enumfacing != EnumFacing.UP) {

@@ -24,7 +24,7 @@ public class GuiOptionButton extends GuiButton {
 	private final GameSettings.Options enumOptions;
 
 	public GuiOptionButton(int parInt1, int parInt2, int parInt3, String parString1) {
-		this(parInt1, parInt2, parInt3, (GameSettings.Options) null, parString1);
+		this(parInt1, parInt2, parInt3, null, parString1);
 	}
 
 	public GuiOptionButton(int parInt1, int parInt2, int parInt3, int parInt4, int parInt5, String parString1) {

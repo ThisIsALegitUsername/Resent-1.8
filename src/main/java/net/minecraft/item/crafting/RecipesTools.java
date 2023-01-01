@@ -24,9 +24,9 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class RecipesTools {
-	private String[][] recipePatterns = new String[][] { { "XXX", " # ", " # " }, { "X", "#", "#" },
-			{ "XX", "X#", " #" }, { "XX", " #", " #" } };
-	private Object[][] recipeItems;
+	private final String[][] recipePatterns = new String[][]{{"XXX", " # ", " # "}, {"X", "#", "#"},
+            {"XX", "X#", " #"}, {"XX", " #", " #"}};
+    private Object[][] recipeItems;
 
 	/**+
 	 * Adds the tool recipes to the CraftingManager.
@@ -44,13 +44,13 @@ public class RecipesTools {
 			Object object = this.recipeItems[0][i];
 
 			for (int j = 0; j < this.recipeItems.length - 1; ++j) {
-				Item item = (Item) this.recipeItems[j + 1][i];
-				parCraftingManager.addRecipe(new ItemStack(item), new Object[] { this.recipePatterns[j],
-						Character.valueOf('#'), Items.stick, Character.valueOf('X'), object });
-			}
+                Item item = (Item) this.recipeItems[j + 1][i];
+                parCraftingManager.addRecipe(new ItemStack(item), this.recipePatterns[j],
+                        Character.valueOf('#'), Items.stick, Character.valueOf('X'), object);
+            }
 		}
 
-		parCraftingManager.addRecipe(new ItemStack(Items.shears),
-				new Object[] { " #", "# ", Character.valueOf('#'), Items.iron_ingot });
+        parCraftingManager.addRecipe(new ItemStack(Items.shears),
+                " #", "# ", Character.valueOf('#'), Items.iron_ingot);
 	}
 }

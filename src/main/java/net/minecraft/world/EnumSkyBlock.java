@@ -23,7 +23,7 @@ public enum EnumSkyBlock {
 
 	public final int defaultLightValue;
 
-	private EnumSkyBlock(int parInt2) {
-		this.defaultLightValue = parInt2;
-	}
+	EnumSkyBlock(int parInt2) {
+        this.defaultLightValue = parInt2;
+    }
 }

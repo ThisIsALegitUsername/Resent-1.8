@@ -20,9 +20,9 @@ public enum EnumPlatformAgent {
 	
 	private final String name;
 	
-	private EnumPlatformAgent(String name) {
-		this.name = name;
-	}
+	EnumPlatformAgent(String name) {
+        this.name = name;
+    }
 	
 	public String getName() {
 		return name;

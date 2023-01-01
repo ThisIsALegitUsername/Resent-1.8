@@ -84,8 +84,8 @@ public class FlatLayerInfo {
 	public String toString() {
 		String s;
 		if (this.field_175902_a >= 3) {
-			ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry
-					.getNameForObject(this.func_151536_b());
+			ResourceLocation resourcelocation = Block.blockRegistry
+                    .getNameForObject(this.func_151536_b());
 			s = resourcelocation == null ? "null" : resourcelocation.toString();
 			if (this.layerCount > 1) {
 				s = this.layerCount + "*" + s;

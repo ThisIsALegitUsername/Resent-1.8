@@ -57,7 +57,7 @@ public final class Objects {
 	 */
 	@CheckReturnValue
 	public static boolean equal(@Nullable Object a, @Nullable Object b) {
-		return a == b || (a != null && a.equals(b));
+		return java.util.Objects.equals(a, b);
 	}
 
 	/**
@@ -212,9 +212,9 @@ public final class Objects {
 	 * @since 2.0
 	 */
 	public static final class ToStringHelper {
-		private final String className;
-		private ValueHolder holderHead = new ValueHolder();
-		private ValueHolder holderTail = holderHead;
+        private final String className;
+        private final ValueHolder holderHead = new ValueHolder();
+        private ValueHolder holderTail = holderHead;
 		private boolean omitNullValues = false;
 
 		/**

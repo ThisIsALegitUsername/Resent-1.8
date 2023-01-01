@@ -17,24 +17,24 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListEntry {
-	private static final ResourceLocation RESOURCE_PACKS_TEXTURE = new ResourceLocation(
-			"textures/gui/resource_packs.png");
-	private static final IChatComponent field_183020_d = new ChatComponentTranslation("resourcePack.incompatible",
-			new Object[0]);
-	private static final IChatComponent field_183021_e = new ChatComponentTranslation("resourcePack.incompatible.old",
-			new Object[0]);
-	private static final IChatComponent field_183022_f = new ChatComponentTranslation("resourcePack.incompatible.new",
-			new Object[0]);
-	protected final Minecraft mc;
-	protected final GuiScreenResourcePacks resourcePacksGUI;
+    private static final ResourceLocation RESOURCE_PACKS_TEXTURE = new ResourceLocation(
+            "textures/gui/resource_packs.png");
+    private static final IChatComponent field_183020_d = new ChatComponentTranslation("resourcePack.incompatible"
+    );
+    private static final IChatComponent field_183021_e = new ChatComponentTranslation("resourcePack.incompatible.old"
+    );
+    private static final IChatComponent field_183022_f = new ChatComponentTranslation("resourcePack.incompatible.new"
+    );
+    protected final Minecraft mc;
+    protected final GuiScreenResourcePacks resourcePacksGUI;
 
-	public ResourcePackListEntry(GuiScreenResourcePacks resourcePacksGUIIn) {
-		this.resourcePacksGUI = resourcePacksGUIIn;
-		this.mc = Minecraft.getMinecraft();
-	}
+    public ResourcePackListEntry(GuiScreenResourcePacks resourcePacksGUIIn) {
+        this.resourcePacksGUI = resourcePacksGUIIn;
+        this.mc = Minecraft.getMinecraft();
+    }
 
-	public void drawEntry(int var1, int i, int j, int k, int l, int i1, int j1, boolean flag) {
-		int k1 = this.func_183019_a();
+    public void drawEntry(int var1, int i, int j, int k, int l, int i1, int j1, boolean flag) {
+        int k1 = this.func_183019_a();
 		if (k1 != 1) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			Gui.drawRect(i - 1, j - 1, i + k - 9, j + l + 1, -8978432);
@@ -142,18 +142,18 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 
 	private void proceedWithBs(int l, boolean deleteInstead) {
 		if (!deleteInstead && l != 1) {
-			String s1 = I18n.format("resourcePack.incompatible.confirm.title", new Object[0]);
-			String s = I18n.format("resourcePack.incompatible.confirm." + (l > 1 ? "new" : "old"), new Object[0]);
-			this.mc.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-				public void confirmClicked(boolean flag, int var2) {
-					List list2 = ResourcePackListEntry.this.resourcePacksGUI
-							.getListContaining(ResourcePackListEntry.this);
-					ResourcePackListEntry.this.mc.displayGuiScreen(ResourcePackListEntry.this.resourcePacksGUI);
-					if (flag) {
-						list2.remove(ResourcePackListEntry.this);
-						ResourcePackListEntry.this.resourcePacksGUI.getSelectedResourcePacks().add(0,
-								ResourcePackListEntry.this);
-					}
+            String s1 = I18n.format("resourcePack.incompatible.confirm.title");
+            String s = I18n.format("resourcePack.incompatible.confirm." + (l > 1 ? "new" : "old"));
+            this.mc.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
+                public void confirmClicked(boolean flag, int var2) {
+                    List list2 = ResourcePackListEntry.this.resourcePacksGUI
+                            .getListContaining(ResourcePackListEntry.this);
+                    ResourcePackListEntry.this.mc.displayGuiScreen(ResourcePackListEntry.this.resourcePacksGUI);
+                    if (flag) {
+                        list2.remove(ResourcePackListEntry.this);
+                        ResourcePackListEntry.this.resourcePacksGUI.getSelectedResourcePacks().add(0,
+                                ResourcePackListEntry.this);
+                    }
 
 				}
 			}, s1, s, 0).withOpaqueBackground());
@@ -181,15 +181,15 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 						|| Keyboard.isKeyDown(KeyboardConstants.KEY_RSHIFT)) {
 					proceedWithBs(l, false);
 				} else {
-					this.mc.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-						public void confirmClicked(boolean flag, int var2) {
-							proceedWithBs(l, flag);
+                    this.mc.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
+                        public void confirmClicked(boolean flag, int var2) {
+                            proceedWithBs(l, flag);
 
-						}
-					}, I18n.format("resourcePack.prompt.title", this.func_148312_b()),
-							I18n.format("resourcePack.prompt.text", new Object[0]),
-							I18n.format("resourcePack.prompt.delete", new Object[0]),
-							I18n.format("resourcePack.prompt.add", new Object[0]), 0).withOpaqueBackground());
+                        }
+                    }, I18n.format("resourcePack.prompt.title", this.func_148312_b()),
+                            I18n.format("resourcePack.prompt.text"),
+                            I18n.format("resourcePack.prompt.delete"),
+                            I18n.format("resourcePack.prompt.add"), 0).withOpaqueBackground());
 				}
 				return true;
 			}

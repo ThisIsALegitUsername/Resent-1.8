@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -46,7 +45,7 @@ public class BlockJukebox extends BlockContainer {
 
 	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState iblockstate, EntityPlayer var4,
 			EnumFacing var5, float var6, float var7, float var8) {
-		if (((Boolean) iblockstate.getValue(HAS_RECORD)).booleanValue()) {
+		if (iblockstate.getValue(HAS_RECORD).booleanValue()) {
 			iblockstate = iblockstate.withProperty(HAS_RECORD, Boolean.valueOf(false));
 			world.setBlockState(blockpos, iblockstate, 2);
 			return true;
@@ -102,11 +101,11 @@ public class BlockJukebox extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((Boolean) iblockstate.getValue(HAS_RECORD)).booleanValue() ? 1 : 0;
+		return iblockstate.getValue(HAS_RECORD).booleanValue() ? 1 : 0;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { HAS_RECORD });
+		return new BlockState(this, HAS_RECORD);
 	}
 
 	public static class TileEntityJukebox extends TileEntity {

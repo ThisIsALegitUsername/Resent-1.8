@@ -1,11 +1,10 @@
 package net.minecraft.network.play.client;
 
-import java.io.IOException;
-
-import net.lax1dude.eaglercraft.v1_8.netty.ByteBuf;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
+
+import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -58,7 +57,7 @@ public class C17PacketCustomPayload implements Packet<INetHandlerPlayServer> {
 	 */
 	public void writePacketData(PacketBuffer parPacketBuffer) throws IOException {
 		parPacketBuffer.writeString(this.channel);
-		parPacketBuffer.writeBytes((ByteBuf) this.data);
+        parPacketBuffer.writeBytes(this.data);
 	}
 
 	/**+

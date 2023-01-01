@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -46,7 +45,7 @@ public class BlockLever extends Block {
 	}
 
 	public static void bootstrapStates() {
-		FACING = PropertyEnum.<BlockLever.EnumOrientation>create("facing", BlockLever.EnumOrientation.class);
+		FACING = PropertyEnum.create("facing", BlockLever.EnumOrientation.class);
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos var2, IBlockState var3) {
@@ -137,7 +136,7 @@ public class BlockLever extends Block {
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
 		if (this.func_181091_e(world, blockpos, iblockstate) && !func_181090_a(world, blockpos,
-				((BlockLever.EnumOrientation) iblockstate.getValue(FACING)).getFacing().getOpposite())) {
+				iblockstate.getValue(FACING).getFacing().getOpposite())) {
 			this.dropBlockAsItem(world, blockpos, iblockstate, 0);
 			world.setBlockToAir(blockpos);
 		}
@@ -156,17 +155,17 @@ public class BlockLever extends Block {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		float f = 0.1875F;
-		switch ((BlockLever.EnumOrientation) iblockaccess.getBlockState(blockpos).getValue(FACING)) {
-		case EAST:
-			this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
-			break;
-		case WEST:
-			this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
-			break;
-		case SOUTH:
-			this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
-			break;
-		case NORTH:
+		switch (iblockaccess.getBlockState(blockpos).getValue(FACING)) {
+			case EAST:
+				this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
+				break;
+			case WEST:
+				this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
+				break;
+			case SOUTH:
+				this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
+				break;
+			case NORTH:
 			this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
 			break;
 		case UP_Z:
@@ -188,9 +187,9 @@ public class BlockLever extends Block {
 	}
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState iblockstate) {
-		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
+		if (iblockstate.getValue(POWERED).booleanValue()) {
 			world.notifyNeighborsOfStateChange(blockpos, this);
-			EnumFacing enumfacing = ((BlockLever.EnumOrientation) iblockstate.getValue(FACING)).getFacing();
+			EnumFacing enumfacing = iblockstate.getValue(FACING).getFacing();
 			world.notifyNeighborsOfStateChange(blockpos.offset(enumfacing.getOpposite()), this);
 		}
 
@@ -198,12 +197,12 @@ public class BlockLever extends Block {
 	}
 
 	public int getWeakPower(IBlockAccess var1, BlockPos var2, IBlockState iblockstate, EnumFacing var4) {
-		return ((Boolean) iblockstate.getValue(POWERED)).booleanValue() ? 15 : 0;
+		return iblockstate.getValue(POWERED).booleanValue() ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockAccess var1, BlockPos var2, IBlockState iblockstate, EnumFacing enumfacing) {
-		return !((Boolean) iblockstate.getValue(POWERED)).booleanValue() ? 0
-				: (((BlockLever.EnumOrientation) iblockstate.getValue(FACING)).getFacing() == enumfacing ? 15 : 0);
+		return !iblockstate.getValue(POWERED).booleanValue() ? 0
+				: (iblockstate.getValue(FACING).getFacing() == enumfacing ? 15 : 0);
 	}
 
 	/**+
@@ -227,8 +226,8 @@ public class BlockLever extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | ((BlockLever.EnumOrientation) iblockstate.getValue(FACING)).getMetadata();
-		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
+		i = i | iblockstate.getValue(FACING).getMetadata();
+		if (iblockstate.getValue(POWERED).booleanValue()) {
 			i |= 8;
 		}
 
@@ -236,10 +235,10 @@ public class BlockLever extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING, POWERED });
+		return new BlockState(this, FACING, POWERED);
 	}
 
-	public static enum EnumOrientation implements IStringSerializable {
+	public enum EnumOrientation implements IStringSerializable {
 		DOWN_X(0, "down_x", EnumFacing.DOWN), EAST(1, "east", EnumFacing.EAST), WEST(2, "west", EnumFacing.WEST),
 		SOUTH(3, "south", EnumFacing.SOUTH), NORTH(4, "north", EnumFacing.NORTH), UP_Z(5, "up_z", EnumFacing.UP),
 		UP_X(6, "up_x", EnumFacing.UP), DOWN_Z(7, "down_z", EnumFacing.DOWN);
@@ -249,7 +248,7 @@ public class BlockLever extends Block {
 		private final String name;
 		private final EnumFacing facing;
 
-		private EnumOrientation(int meta, String name, EnumFacing facing) {
+		EnumOrientation(int meta, String name, EnumFacing facing) {
 			this.meta = meta;
 			this.name = name;
 			this.facing = facing;

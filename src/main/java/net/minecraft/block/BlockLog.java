@@ -21,7 +21,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	}
 
 	public static void bootstrapStates() {
-		LOG_AXIS = PropertyEnum.<BlockLog.EnumAxis>create("axis", BlockLog.EnumAxis.class);
+		LOG_AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis.class);
 	}
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState var3) {
@@ -30,11 +30,11 @@ public abstract class BlockLog extends BlockRotatedPillar {
 		if (world.isAreaLoaded(blockpos.add(-i, -i, -i), blockpos.add(i, i, i))) {
 			for (BlockPos blockpos1 : BlockPos.getAllInBox(blockpos.add(-b0, -b0, -b0), blockpos.add(b0, b0, b0))) {
 				IBlockState iblockstate = world.getBlockState(blockpos1);
-				if (iblockstate.getBlock().getMaterial() == Material.leaves
-						&& !((Boolean) iblockstate.getValue(BlockLeaves.CHECK_DECAY)).booleanValue()) {
-					world.setBlockState(blockpos1,
-							iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(true)), 4);
-				}
+                if (iblockstate.getBlock().getMaterial() == Material.leaves
+                        && !iblockstate.getValue(BlockLeaves.CHECK_DECAY).booleanValue()) {
+                    world.setBlockState(blockpos1,
+                            iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(true)), 4);
+                }
 			}
 
 		}
@@ -50,17 +50,17 @@ public abstract class BlockLog extends BlockRotatedPillar {
 				BlockLog.EnumAxis.fromFacingAxis(enumfacing.getAxis()));
 	}
 
-	public static enum EnumAxis implements IStringSerializable {
-		X("x"), Y("y"), Z("z"), NONE("none");
+    public enum EnumAxis implements IStringSerializable {
+        X("x"), Y("y"), Z("z"), NONE("none");
 
-		private final String name;
+        private final String name;
 
-		private EnumAxis(String name) {
-			this.name = name;
-		}
+        EnumAxis(String name) {
+            this.name = name;
+        }
 
-		public String toString() {
-			return this.name;
+        public String toString() {
+            return this.name;
 		}
 
 		public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis) {

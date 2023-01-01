@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class ContainerDispenser extends Container {
-	private IInventory dispenserInventory;
+	private final IInventory dispenserInventory;
 
 	public ContainerDispenser(IInventory playerInventory, IInventory dispenserInventoryIn) {
 		this.dispenserInventory = dispenserInventoryIn;
@@ -53,8 +53,8 @@ public class ContainerDispenser extends Container {
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(i);
+        ItemStack itemstack = null;
+        Slot slot = this.inventorySlots.get(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
@@ -67,7 +67,7 @@ public class ContainerDispenser extends Container {
 			}
 
 			if (itemstack1.stackSize == 0) {
-				slot.putStack((ItemStack) null);
+                slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}

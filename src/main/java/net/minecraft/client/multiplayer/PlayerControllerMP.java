@@ -307,8 +307,8 @@ public class PlayerControllerMP {
 						.fatal("Unhandled IOException was thrown " + "while processing multiplayer packets!");
 				EaglercraftNetworkManager.logger.fatal(ex);
 				EaglercraftNetworkManager.logger.fatal("Disconnecting...");
-				this.netClientHandler.getNetworkManager()
-						.closeChannel(new ChatComponentText("Exception thrown: " + ex.toString()));
+                this.netClientHandler.getNetworkManager()
+                        .closeChannel(new ChatComponentText("Exception thrown: " + ex));
 			}
 			this.netClientHandler.getSkinCache().flush();
 		} else {

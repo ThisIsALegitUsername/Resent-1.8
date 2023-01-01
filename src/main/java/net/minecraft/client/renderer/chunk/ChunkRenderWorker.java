@@ -32,7 +32,7 @@ public class ChunkRenderWorker {
 	private final RegionRenderCacheBuilder regionRenderCacheBuilder;
 
 	public ChunkRenderWorker(ChunkUpdateManager parChunkRenderDispatcher) {
-		this(parChunkRenderDispatcher, (RegionRenderCacheBuilder) null);
+		this(parChunkRenderDispatcher, null);
 	}
 
 	public ChunkRenderWorker(ChunkUpdateManager chunkRenderDispatcherIn,

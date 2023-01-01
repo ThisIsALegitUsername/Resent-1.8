@@ -156,7 +156,7 @@ public class EaglercraftUUID implements Comparable<EaglercraftUUID> {
 		int ch2 = nibbleValue(name.charAt(pos + 1));
 		int ch3 = nibbleValue(name.charAt(pos + 2));
 		int ch4 = nibbleValue(name.charAt(pos + 3));
-		return (ch1 << 12) | (ch2 << 8) | (ch3 << 4) | ch4;
+		return ((long) ch1 << 12) | ((long) ch2 << 8) | ((long) ch3 << 4) | ch4;
 	}
 
 	public static EaglercraftUUID fromString(String name) {
@@ -189,7 +189,7 @@ public class EaglercraftUUID implements Comparable<EaglercraftUUID> {
 			throw new IllegalArgumentException("UUID string too large");
 		}
 
-		int dash1 = name.indexOf('-', 0);
+		int dash1 = name.indexOf('-');
 		int dash2 = name.indexOf('-', dash1 + 1);
 		int dash3 = name.indexOf('-', dash2 + 1);
 		int dash4 = name.indexOf('-', dash3 + 1);

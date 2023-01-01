@@ -45,7 +45,7 @@ import com.google.common.collect.SortedLists.KeyPresentBehavior;
 public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K, V> {
 
 	private static final ImmutableRangeMap<Comparable<?>, Object> EMPTY = new ImmutableRangeMap<Comparable<?>, Object>(
-			ImmutableList.<Range<Comparable<?>>>of(), ImmutableList.of());
+            ImmutableList.of(), ImmutableList.of());
 
 	/**
 	 * Returns an empty immutable range map.
@@ -162,8 +162,8 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
 	@Override
 	@Nullable
 	public V get(K key) {
-		int index = SortedLists.binarySearch(ranges, Range.<K>lowerBoundFn(), Cut.belowValue(key),
-				KeyPresentBehavior.ANY_PRESENT, KeyAbsentBehavior.NEXT_LOWER);
+        int index = SortedLists.binarySearch(ranges, Range.lowerBoundFn(), Cut.belowValue(key),
+                KeyPresentBehavior.ANY_PRESENT, KeyAbsentBehavior.NEXT_LOWER);
 		if (index == -1) {
 			return null;
 		} else {
@@ -175,8 +175,8 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
 	@Override
 	@Nullable
 	public Map.Entry<Range<K>, V> getEntry(K key) {
-		int index = SortedLists.binarySearch(ranges, Range.<K>lowerBoundFn(), Cut.belowValue(key),
-				KeyPresentBehavior.ANY_PRESENT, KeyAbsentBehavior.NEXT_LOWER);
+        int index = SortedLists.binarySearch(ranges, Range.lowerBoundFn(), Cut.belowValue(key),
+                KeyPresentBehavior.ANY_PRESENT, KeyAbsentBehavior.NEXT_LOWER);
 		if (index == -1) {
 			return null;
 		} else {
@@ -232,10 +232,10 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
 		} else if (ranges.isEmpty() || range.encloses(span())) {
 			return this;
 		}
-		int lowerIndex = SortedLists.binarySearch(ranges, Range.<K>upperBoundFn(), range.lowerBound,
-				KeyPresentBehavior.FIRST_AFTER, KeyAbsentBehavior.NEXT_HIGHER);
-		int upperIndex = SortedLists.binarySearch(ranges, Range.<K>lowerBoundFn(), range.upperBound,
-				KeyPresentBehavior.ANY_PRESENT, KeyAbsentBehavior.NEXT_HIGHER);
+        int lowerIndex = SortedLists.binarySearch(ranges, Range.upperBoundFn(), range.lowerBound,
+                KeyPresentBehavior.FIRST_AFTER, KeyAbsentBehavior.NEXT_HIGHER);
+        int upperIndex = SortedLists.binarySearch(ranges, Range.lowerBoundFn(), range.upperBound,
+                KeyPresentBehavior.ANY_PRESENT, KeyAbsentBehavior.NEXT_HIGHER);
 		if (lowerIndex >= upperIndex) {
 			return ImmutableRangeMap.of();
 		}

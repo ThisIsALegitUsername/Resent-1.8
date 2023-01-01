@@ -49,8 +49,8 @@ public class SimpleTexture extends AbstractTexture {
 			boolean flag1 = false;
 			if (iresource.hasMetadata()) {
 				try {
-					TextureMetadataSection texturemetadatasection = (TextureMetadataSection) iresource
-							.getMetadata("texture");
+					TextureMetadataSection texturemetadatasection = iresource
+                            .getMetadata("texture");
 					if (texturemetadatasection != null) {
 						flag = texturemetadatasection.getTextureBlur();
 						flag1 = texturemetadatasection.getTextureClamp();

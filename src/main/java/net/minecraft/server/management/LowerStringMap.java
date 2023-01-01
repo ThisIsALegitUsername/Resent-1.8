@@ -44,15 +44,15 @@ public class LowerStringMap<V> implements Map<String, V> {
 	}
 
 	public V get(Object parObject) {
-		return (V) this.internalMap.get(parObject.toString().toLowerCase());
+		return this.internalMap.get(parObject.toString().toLowerCase());
 	}
 
 	public V put(String parString1, V parObject) {
-		return (V) this.internalMap.put(parString1.toLowerCase(), parObject);
+        return this.internalMap.put(parString1.toLowerCase(), parObject);
 	}
 
 	public V remove(Object object) {
-		return (V) this.internalMap.remove(object.toString().toLowerCase());
+        return this.internalMap.remove(object.toString().toLowerCase());
 	}
 
 	public void putAll(Map<? extends String, ? extends V> parMap) {

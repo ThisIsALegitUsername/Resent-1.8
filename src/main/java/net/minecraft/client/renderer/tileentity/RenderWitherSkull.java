@@ -41,8 +41,7 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
 	private float func_82400_a(float parFloat1, float parFloat2, float parFloat3) {
 		float f;
 		for (f = parFloat2 - parFloat1; f < -180.0F; f += 360.0F) {
-			;
-		}
+        }
 
 		while (f >= 180.0F) {
 			f -= 360.0F;

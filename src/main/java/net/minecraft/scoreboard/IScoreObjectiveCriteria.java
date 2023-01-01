@@ -74,23 +74,23 @@ public interface IScoreObjectiveCriteria {
 
 	IScoreObjectiveCriteria.EnumRenderType getRenderType();
 
-	public static enum EnumRenderType {
-		INTEGER("integer"), HEARTS("hearts");
+	enum EnumRenderType {
+        INTEGER("integer"), HEARTS("hearts");
 
-		private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = Maps.newHashMap();
-		private final String field_178798_d;
+        private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = Maps.newHashMap();
+        private final String field_178798_d;
 
-		private EnumRenderType(String parString2) {
-			this.field_178798_d = parString2;
-		}
+        EnumRenderType(String parString2) {
+            this.field_178798_d = parString2;
+        }
 
-		public String func_178796_a() {
+        public String func_178796_a() {
 			return this.field_178798_d;
 		}
 
 		public static IScoreObjectiveCriteria.EnumRenderType func_178795_a(String parString1) {
-			IScoreObjectiveCriteria.EnumRenderType iscoreobjectivecriteria$enumrendertype = (IScoreObjectiveCriteria.EnumRenderType) field_178801_c
-					.get(parString1);
+            IScoreObjectiveCriteria.EnumRenderType iscoreobjectivecriteria$enumrendertype = field_178801_c
+                    .get(parString1);
 			return iscoreobjectivecriteria$enumrendertype == null ? INTEGER : iscoreobjectivecriteria$enumrendertype;
 		}
 

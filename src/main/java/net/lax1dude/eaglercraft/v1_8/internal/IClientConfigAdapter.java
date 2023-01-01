@@ -17,17 +17,17 @@ import java.util.List;
  */
 public interface IClientConfigAdapter {
 
-	public static class DefaultServer {
+	class DefaultServer {
 
-		public final String name;
-		public final String addr;
+        public final String name;
+        public final String addr;
 
-		public DefaultServer(String name, String addr) {
-			this.name = name;
-			this.addr = addr;
-		}
+        public DefaultServer(String name, String addr) {
+            this.name = name;
+            this.addr = addr;
+        }
 
-	}
+    }
 
 	String getDefaultLocale();
 

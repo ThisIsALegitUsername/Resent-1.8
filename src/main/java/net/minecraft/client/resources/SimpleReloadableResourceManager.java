@@ -51,8 +51,8 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	public void reloadResourcePack(IResourcePack resourcePack) {
 		for (String s : resourcePack.getResourceDomains()) {
 			this.setResourceDomains.add(s);
-			FallbackResourceManager fallbackresourcemanager = (FallbackResourceManager) this.domainResourceManagers
-					.get(s);
+			FallbackResourceManager fallbackresourcemanager = this.domainResourceManagers
+                    .get(s);
 			if (fallbackresourcemanager == null) {
 				fallbackresourcemanager = new FallbackResourceManager(this.rmMetadataSerializer);
 				this.domainResourceManagers.put(s, fallbackresourcemanager);
@@ -68,8 +68,8 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	}
 
 	public IResource getResource(ResourceLocation parResourceLocation) throws IOException {
-		IResourceManager iresourcemanager = (IResourceManager) this.domainResourceManagers
-				.get(parResourceLocation.getResourceDomain());
+        IResourceManager iresourcemanager = this.domainResourceManagers
+                .get(parResourceLocation.getResourceDomain());
 		if (iresourcemanager != null) {
 			return iresourcemanager.getResource(parResourceLocation);
 		} else {
@@ -78,8 +78,8 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	}
 
 	public List<IResource> getAllResources(ResourceLocation parResourceLocation) throws IOException {
-		IResourceManager iresourcemanager = (IResourceManager) this.domainResourceManagers
-				.get(parResourceLocation.getResourceDomain());
+        IResourceManager iresourcemanager = this.domainResourceManagers
+                .get(parResourceLocation.getResourceDomain());
 		if (iresourcemanager != null) {
 			return iresourcemanager.getAllResources(parResourceLocation);
 		} else {

@@ -47,8 +47,8 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
 		try {
-			this.response = (ServerStatusResponse) JSONTypeProvider.deserialize(
-					new JSONObject(parPacketBuffer.readStringFromBuffer(32767)), ServerStatusResponse.class);
+			this.response = JSONTypeProvider.deserialize(
+                    new JSONObject(parPacketBuffer.readStringFromBuffer(32767)), ServerStatusResponse.class);
 		} catch (JSONException exc) {
 			throw new IOException("Invalid ServerStatusResponse JSON payload", exc);
 		}
@@ -59,7 +59,7 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
 	 */
 	public void writePacketData(PacketBuffer parPacketBuffer) throws IOException {
 		try {
-			parPacketBuffer.writeString(((JSONObject) JSONTypeProvider.serialize(this.response)).toString());
+            parPacketBuffer.writeString(JSONTypeProvider.serialize(this.response).toString());
 		} catch (JSONException exc) {
 			throw new IOException("Invalid ServerStatusResponse JSON payload", exc);
 		}

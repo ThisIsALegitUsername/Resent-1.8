@@ -61,26 +61,26 @@ public class EntityFirework {
 			int j = i >> 16 & '\uffff';
 			int k = i & '\uffff';
 			worldrenderer
-					.pos((double) (f11 - f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
-							(double) (f13 - f3 * f10 - f5 * f10))
+                    .pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10,
+                            f13 - f3 * f10 - f5 * f10)
 					.tex(0.5D, 0.375D)
 					.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 					.endVertex();
-			worldrenderer
-					.pos((double) (f11 - f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
-							(double) (f13 - f3 * f10 + f5 * f10))
+            worldrenderer
+                    .pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10,
+                            f13 - f3 * f10 + f5 * f10)
 					.tex(0.5D, 0.125D)
 					.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 					.endVertex();
-			worldrenderer
-					.pos((double) (f11 + f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
-							(double) (f13 + f3 * f10 + f5 * f10))
+            worldrenderer
+                    .pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10,
+                            f13 + f3 * f10 + f5 * f10)
 					.tex(0.25D, 0.125D)
 					.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 					.endVertex();
-			worldrenderer
-					.pos((double) (f11 + f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
-							(double) (f13 + f3 * f10 - f5 * f10))
+            worldrenderer
+                    .pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10,
+                            f13 + f3 * f10 - f5 * f10)
 					.tex(0.25D, 0.375D)
 					.color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k)
 					.endVertex();
@@ -97,8 +97,8 @@ public class EntityFirework {
 	}
 
 	public static class SparkFX extends EntityFX {
-		private int baseTextureIndex = 160;
-		private boolean trail;
+        private final int baseTextureIndex = 160;
+        private boolean trail;
 		private boolean twinkle;
 		private final EffectRenderer field_92047_az;
 		private float fadeColourRed;

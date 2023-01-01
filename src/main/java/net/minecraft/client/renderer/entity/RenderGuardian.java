@@ -54,13 +54,11 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			if (entityguardian.hasTargetedEntity()) {
 				EntityLivingBase entitylivingbase = entityguardian.getTargetedEntity();
 				if (entitylivingbase != null) {
-					Vec3 vec3 = this.func_177110_a(entitylivingbase, (double) entitylivingbase.height * 0.5D, 1.0F);
-					Vec3 vec31 = this.func_177110_a(entityguardian, (double) entityguardian.getEyeHeight(), 1.0F);
-					if (icamera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord, vec31.yCoord,
-							vec31.zCoord, vec3.xCoord, vec3.yCoord, vec3.zCoord))) {
-						return true;
-					}
-				}
+                    Vec3 vec3 = this.func_177110_a(entitylivingbase, (double) entitylivingbase.height * 0.5D, 1.0F);
+                    Vec3 vec31 = this.func_177110_a(entityguardian, entityguardian.getEyeHeight(), 1.0F);
+                    return icamera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord, vec31.yCoord,
+                            vec31.zCoord, vec3.xCoord, vec3.yCoord, vec3.zCoord));
+                }
 			}
 
 			return false;
@@ -113,9 +111,9 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			float f6 = entityguardian.getEyeHeight();
 			GlStateManager.pushMatrix();
 			GlStateManager.translate((float) d0, (float) d1 + f6, (float) d2);
-			Vec3 vec3 = this.func_177110_a(entitylivingbase, (double) entitylivingbase.height * 0.5D, f1);
-			Vec3 vec31 = this.func_177110_a(entityguardian, (double) f6, f1);
-			Vec3 vec32 = vec3.subtract(vec31);
+            Vec3 vec3 = this.func_177110_a(entitylivingbase, (double) entitylivingbase.height * 0.5D, f1);
+            Vec3 vec31 = this.func_177110_a(entityguardian, f6, f1);
+            Vec3 vec32 = vec3.subtract(vec31);
 			double d3 = vec32.lengthVector() + 1.0D;
 			vec32 = vec32.normalize();
 			float f7 = (float) Math.acos(vec32.yCoord);
@@ -148,9 +146,9 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			double d21 = 0.0D + Math.cos(d4 + 4.71238898038469D) * d5;
 			double d22 = 0.0D + Math.sin(d4 + 4.71238898038469D) * d5;
 			double d23 = 0.0D;
-			double d24 = 0.4999D;
-			double d25 = (double) (-1.0F + f5);
-			double d26 = d3 * (0.5D / d5) + d25;
+            double d24 = 0.4999D;
+            double d25 = -1.0F + f5;
+            double d26 = d3 * (0.5D / d5) + d25;
 			worldrenderer.pos(d15, d3, d16).tex(0.4999D, d26).color(i, j, k, 255).endVertex();
 			worldrenderer.pos(d15, 0.0D, d16).tex(0.4999D, d25).color(i, j, k, 255).endVertex();
 			worldrenderer.pos(d17, 0.0D, d18).tex(0.0D, d25).color(i, j, k, 255).endVertex();

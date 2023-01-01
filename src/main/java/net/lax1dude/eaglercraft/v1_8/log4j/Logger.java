@@ -133,8 +133,8 @@ public class Logger {
 			for(int i = 0; i < args.length; ++i) {
 				int idx = msg.indexOf("{}");
 				if(idx != -1) {
-					builtString.append(msg.substring(0, idx));
-					builtString.append(args[i]);
+					builtString.append(msg, 0, idx);
+                    builtString.append(args[i]);
 					msg = msg.substring(idx + 2);
 				}else {
 					break;

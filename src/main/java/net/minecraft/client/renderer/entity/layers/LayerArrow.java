@@ -41,15 +41,15 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 		int i = entitylivingbase.getArrowCountInEntity();
 		if (i > 0) {
 			EntityArrow entityarrow = new EntityArrow(entitylivingbase.worldObj, entitylivingbase.posX,
-					entitylivingbase.posY, entitylivingbase.posZ);
-			EaglercraftRandom random = new EaglercraftRandom((long) entitylivingbase.getEntityId());
+                    entitylivingbase.posY, entitylivingbase.posZ);
+            EaglercraftRandom random = new EaglercraftRandom(entitylivingbase.getEntityId());
 			RenderHelper.disableStandardItemLighting();
 
 			for (int j = 0; j < i; ++j) {
 				GlStateManager.pushMatrix();
-				ModelRenderer modelrenderer = this.field_177168_a.getMainModel().getRandomModelBox(random);
-				ModelBox modelbox = (ModelBox) modelrenderer.cubeList
-						.get(random.nextInt(modelrenderer.cubeList.size()));
+                ModelRenderer modelrenderer = this.field_177168_a.getMainModel().getRandomModelBox(random);
+                ModelBox modelbox = modelrenderer.cubeList
+                        .get(random.nextInt(modelrenderer.cubeList.size()));
 				modelrenderer.postRender(0.0625F);
 				float f1 = random.nextFloat();
 				float f2 = random.nextFloat();
@@ -57,24 +57,24 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 				float f4 = (modelbox.posX1 + (modelbox.posX2 - modelbox.posX1) * f1) / 16.0F;
 				float f5 = (modelbox.posY1 + (modelbox.posY2 - modelbox.posY1) * f2) / 16.0F;
 				float f6 = (modelbox.posZ1 + (modelbox.posZ2 - modelbox.posZ1) * f3) / 16.0F;
-				GlStateManager.translate(f4, f5, f6);
-				f1 = f1 * 2.0F - 1.0F;
-				f2 = f2 * 2.0F - 1.0F;
-				f3 = f3 * 2.0F - 1.0F;
-				f1 = f1 * -1.0F;
-				f2 = f2 * -1.0F;
-				f3 = f3 * -1.0F;
-				float f7 = MathHelper.sqrt_float(f1 * f1 + f3 * f3);
-				entityarrow.prevRotationYaw = entityarrow.rotationYaw = (float) (Math.atan2((double) f1, (double) f3)
-						* 180.0D / 3.1415927410125732D);
-				entityarrow.prevRotationPitch = entityarrow.rotationPitch = (float) (Math.atan2((double) f2,
-						(double) f7) * 180.0D / 3.1415927410125732D);
-				double d0 = 0.0D;
-				double d1 = 0.0D;
-				double d2 = 0.0D;
-				this.field_177168_a.getRenderManager().renderEntityWithPosYaw(entityarrow, d0, d1, d2, 0.0F, f);
-				GlStateManager.popMatrix();
-			}
+                GlStateManager.translate(f4, f5, f6);
+                f1 = f1 * 2.0F - 1.0F;
+                f2 = f2 * 2.0F - 1.0F;
+                f3 = f3 * 2.0F - 1.0F;
+                f1 = f1 * -1.0F;
+                f2 = f2 * -1.0F;
+                f3 = f3 * -1.0F;
+                float f7 = MathHelper.sqrt_float(f1 * f1 + f3 * f3);
+                entityarrow.prevRotationYaw = entityarrow.rotationYaw = (float) (Math.atan2(f1, f3)
+                        * 180.0D / 3.1415927410125732D);
+                entityarrow.prevRotationPitch = entityarrow.rotationPitch = (float) (Math.atan2(f2,
+                        f7) * 180.0D / 3.1415927410125732D);
+                double d0 = 0.0D;
+                double d1 = 0.0D;
+                double d2 = 0.0D;
+                this.field_177168_a.getRenderManager().renderEntityWithPosYaw(entityarrow, d0, d1, d2, 0.0F, f);
+                GlStateManager.popMatrix();
+            }
 
 			RenderHelper.enableStandardItemLighting();
 		}

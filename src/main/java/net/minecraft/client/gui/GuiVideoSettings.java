@@ -24,10 +24,10 @@ import net.minecraft.client.settings.GameSettings;
  * 
  */
 public class GuiVideoSettings extends GuiScreen {
-	private GuiScreen parentGuiScreen;
-	protected String screenTitle = "Video Settings";
-	private GameSettings guiGameSettings;
-	private GuiListExtended optionsRowList;
+	private final GuiScreen parentGuiScreen;
+    protected String screenTitle = "Video Settings";
+    private final GameSettings guiGameSettings;
+    private GuiListExtended optionsRowList;
 	/**+
 	 * An array of all of GameSettings.Options's video options.
 	 */
@@ -51,10 +51,10 @@ public class GuiVideoSettings extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-		this.screenTitle = I18n.format("options.videoTitle", new Object[0]);
-		this.buttonList.clear();
-		this.buttonList.add(
-				new GuiButton(200, this.width / 2 - 100, this.height - 27, I18n.format("gui.done", new Object[0])));
+        this.screenTitle = I18n.format("options.videoTitle");
+        this.buttonList.clear();
+        this.buttonList.add(
+                new GuiButton(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
 		GameSettings.Options[] agamesettings$options = new GameSettings.Options[videoOptions.length];
 		int i = 0;
 
@@ -63,8 +63,8 @@ public class GuiVideoSettings extends GuiScreen {
 			++i;
 		}
 
-		this.optionsRowList = new GuiOptionsRowList(this.mc, this.width, this.height, 32, this.height - 32, 25,
-				agamesettings$options);
+        this.optionsRowList = new GuiOptionsRowList(this.mc, width, height, 32, height - 32, 25,
+                agamesettings$options);
 
 	}
 
@@ -130,8 +130,8 @@ public class GuiVideoSettings extends GuiScreen {
 	 */
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
-		this.optionsRowList.drawScreen(i, j, f);
-		this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 5, 16777215);
-		super.drawScreen(i, j, f);
+        this.optionsRowList.drawScreen(i, j, f);
+        this.drawCenteredString(this.fontRendererObj, this.screenTitle, width / 2, 5, 16777215);
+        super.drawScreen(i, j, f);
 	}
 }

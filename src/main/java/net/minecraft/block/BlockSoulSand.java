@@ -34,11 +34,11 @@ public class BlockSoulSand extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState var3) {
-		float f = 0.125F;
-		return new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(),
-				(double) (blockpos.getX() + 1), (double) ((float) (blockpos.getY() + 1) - f),
-				(double) (blockpos.getZ() + 1));
-	}
+        float f = 0.125F;
+        return new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(),
+                blockpos.getX() + 1, (float) (blockpos.getY() + 1) - f,
+                blockpos.getZ() + 1);
+    }
 
 	/**+
 	 * Called When an Entity Collided with the Block

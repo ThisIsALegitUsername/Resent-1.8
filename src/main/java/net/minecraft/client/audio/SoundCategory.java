@@ -31,10 +31,10 @@ public enum SoundCategory {
 	private final String categoryName;
 	private final int categoryId;
 
-	private SoundCategory(String name, int id) {
-		this.categoryName = name;
-		this.categoryId = id;
-	}
+	SoundCategory(String name, int id) {
+        this.categoryName = name;
+        this.categoryId = id;
+    }
 
 	public String getCategoryName() {
 		return this.categoryName;
@@ -45,7 +45,7 @@ public enum SoundCategory {
 	}
 
 	public static SoundCategory getCategory(String name) {
-		return (SoundCategory) NAME_CATEGORY_MAP.get(name);
+        return NAME_CATEGORY_MAP.get(name);
 	}
 
 	static {

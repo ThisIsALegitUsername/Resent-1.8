@@ -48,7 +48,7 @@ public class SimpleBakedModel implements IBakedModel {
 	}
 
 	public List<BakedQuad> getFaceQuads(EnumFacing enumfacing) {
-		return (List) this.faceQuads.get(enumfacing.ordinal());
+		return this.faceQuads.get(enumfacing.ordinal());
 	}
 
 	public List<BakedQuad> getGeneralQuads() {
@@ -75,22 +75,22 @@ public class SimpleBakedModel implements IBakedModel {
 		return this.cameraTransforms;
 	}
 
-	public static class Builder {
-		private final List<BakedQuad> builderGeneralQuads;
-		private final List<List<BakedQuad>> builderFaceQuads;
-		private final boolean builderAmbientOcclusion;
-		private EaglerTextureAtlasSprite builderTexture;
-		private boolean builderGui3d;
-		private ItemCameraTransforms builderCameraTransforms;
+    public static class Builder {
+        private final List<BakedQuad> builderGeneralQuads;
+        private final List<List<BakedQuad>> builderFaceQuads;
+        private final boolean builderAmbientOcclusion;
+        private EaglerTextureAtlasSprite builderTexture;
+        private final boolean builderGui3d;
+        private final ItemCameraTransforms builderCameraTransforms;
 
-		public Builder(ModelBlock parModelBlock) {
-			this(parModelBlock.isAmbientOcclusion(), parModelBlock.isGui3d(), parModelBlock.func_181682_g());
-		}
+        public Builder(ModelBlock parModelBlock) {
+            this(parModelBlock.isAmbientOcclusion(), parModelBlock.isGui3d(), parModelBlock.func_181682_g());
+        }
 
-		public Builder(IBakedModel parIBakedModel, EaglerTextureAtlasSprite parTextureAtlasSprite) {
-			this(parIBakedModel.isAmbientOcclusion(), parIBakedModel.isGui3d(),
-					parIBakedModel.getItemCameraTransforms());
-			this.builderTexture = parIBakedModel.getParticleTexture();
+        public Builder(IBakedModel parIBakedModel, EaglerTextureAtlasSprite parTextureAtlasSprite) {
+            this(parIBakedModel.isAmbientOcclusion(), parIBakedModel.isGui3d(),
+                    parIBakedModel.getItemCameraTransforms());
+            this.builderTexture = parIBakedModel.getParticleTexture();
 
 			for (EnumFacing enumfacing : EnumFacing.values()) {
 				this.addFaceBreakingFours(parIBakedModel, parTextureAtlasSprite, enumfacing);
@@ -129,7 +129,7 @@ public class SimpleBakedModel implements IBakedModel {
 		}
 
 		public SimpleBakedModel.Builder addFaceQuad(EnumFacing parEnumFacing, BakedQuad parBakedQuad) {
-			((List) this.builderFaceQuads.get(parEnumFacing.ordinal())).add(parBakedQuad);
+            this.builderFaceQuads.get(parEnumFacing.ordinal()).add(parBakedQuad);
 			return this;
 		}
 

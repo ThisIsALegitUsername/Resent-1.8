@@ -23,26 +23,26 @@ import net.minecraft.world.chunk.Chunk;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class RegionRenderCache extends ChunkCache {
-	private final IBlockState DEFAULT_STATE = Blocks.air.getDefaultState();
-	private final BlockPos position;
-	private int[] combinedLights;
-	private IBlockState[] blockStates;
+    private final IBlockState DEFAULT_STATE = Blocks.air.getDefaultState();
+    private final BlockPos position;
+    private final int[] combinedLights;
+    private final IBlockState[] blockStates;
 
-	public RegionRenderCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn) {
-		super(worldIn, posFromIn, posToIn, subIn);
-		this.position = posFromIn.subtract(new Vec3i(subIn, subIn, subIn));
-		boolean flag = true;
-		this.combinedLights = new int[8000];
-		Arrays.fill(this.combinedLights, -1);
-		this.blockStates = new IBlockState[8000];
-	}
+    public RegionRenderCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn) {
+        super(worldIn, posFromIn, posToIn, subIn);
+        this.position = posFromIn.subtract(new Vec3i(subIn, subIn, subIn));
+        boolean flag = true;
+        this.combinedLights = new int[8000];
+        Arrays.fill(this.combinedLights, -1);
+        this.blockStates = new IBlockState[8000];
+    }
 
 	public TileEntity getTileEntity(BlockPos blockpos) {
 		int i = (blockpos.getX() >> 4) - this.chunkX;

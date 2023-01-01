@@ -21,27 +21,27 @@ import net.minecraft.util.ResourceLocation;
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
+ *
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
  */
 public class RenderEnderman extends RenderLiving<EntityEnderman> {
-	private static final ResourceLocation endermanTextures = new ResourceLocation(
-			"textures/entity/enderman/enderman.png");
-	private ModelEnderman endermanModel;
-	private EaglercraftRandom rnd = new EaglercraftRandom();
+    private static final ResourceLocation endermanTextures = new ResourceLocation(
+            "textures/entity/enderman/enderman.png");
+    private final ModelEnderman endermanModel;
+    private final EaglercraftRandom rnd = new EaglercraftRandom();
 
-	public RenderEnderman(RenderManager renderManagerIn) {
-		super(renderManagerIn, new ModelEnderman(0.0F), 0.5F);
-		this.endermanModel = (ModelEnderman) super.mainModel;
-		this.addLayer(new LayerEndermanEyes(this));
-		this.addLayer(new LayerHeldBlock(this));
-	}
+    public RenderEnderman(RenderManager renderManagerIn) {
+        super(renderManagerIn, new ModelEnderman(0.0F), 0.5F);
+        this.endermanModel = (ModelEnderman) super.mainModel;
+        this.addLayer(new LayerEndermanEyes(this));
+        this.addLayer(new LayerHeldBlock(this));
+    }
 
-	/**+
-	 * Actually renders the given argument. This is a synthetic
+    /**+
+     * Actually renders the given argument. This is a synthetic
 	 * bridge method, always casting down its argument and then
 	 * handing it off to a worker function which does the actual
 	 * work. In all probabilty, the class Render is generic

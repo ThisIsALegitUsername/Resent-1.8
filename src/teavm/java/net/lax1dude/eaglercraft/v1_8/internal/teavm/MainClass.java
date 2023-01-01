@@ -40,7 +40,7 @@ public class MainClass {
 
 	// avoid inlining of constant
 	private static String crashImageWrapper() {
-		return crashImage.substring(0);
+		return crashImage;
 	}
 
 	private static String crashScreenOptsDump = null;
@@ -97,7 +97,7 @@ public class MainClass {
 				systemErr.println("MainClass: [ERROR] the \"window.eaglercraftXOpts\" variable is invalid");
 				EagRuntime.debugPrintStackTraceToSTDERR(t);
 				systemErr.println("MainClass: [ERROR] eaglercraftx cannot start");
-				Window.alert("ERROR: game cannot start, the \"window.eaglercraftXOpts\" variable is invalid: " + t.toString());
+				Window.alert("ERROR: game cannot start, the \"window.eaglercraftXOpts\" variable is invalid: " + t);
 				return;
 			}
 			
@@ -198,9 +198,9 @@ public class MainClass {
 	public static String configRootElement = null;
 	public static EPKFileEntry[] configEPKFiles = null;
 	public static String configLocalesFolder = null;
-	
+
 	@JSFunctor
-	private static interface WindowErrorHandler extends JSObject {
+	private interface WindowErrorHandler extends JSObject {
 		void call(String message, String file, int line, int col, JSError error);
 	}
 	
@@ -269,7 +269,7 @@ public class MainClass {
 			
 			if(el == null) {
 				Window.alert("Root element not found, crash report was printed to console");
-				System.err.println(str.toString());
+				System.err.println(str);
 				return;
 			}
 

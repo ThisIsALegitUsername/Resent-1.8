@@ -234,16 +234,12 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 		if (this.furnaceItemStacks[0] == null) {
 			return false;
 		} else {
-			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks[0]);
-			return itemstack == null ? false
-					: (this.furnaceItemStacks[2] == null ? true
-							: (!this.furnaceItemStacks[2].isItemEqual(itemstack) ? false
-									: (this.furnaceItemStacks[2].stackSize < this.getInventoryStackLimit()
-											&& this.furnaceItemStacks[2].stackSize < this.furnaceItemStacks[2]
-													.getMaxStackSize() ? true
-															: this.furnaceItemStacks[2].stackSize < itemstack
-																	.getMaxStackSize())));
-		}
+            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks[0]);
+            return itemstack != null && (this.furnaceItemStacks[2] == null || (this.furnaceItemStacks[2].isItemEqual(itemstack) && (this.furnaceItemStacks[2].stackSize < this.getInventoryStackLimit()
+                    && this.furnaceItemStacks[2].stackSize < this.furnaceItemStacks[2]
+                    .getMaxStackSize() || this.furnaceItemStacks[2].stackSize < itemstack
+                    .getMaxStackSize())));
+        }
 	}
 
 	/**+
@@ -321,10 +317,9 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false
-				: entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-						(double) this.pos.getZ() + 0.5D) <= 64.0D;
-	}
+        return this.worldObj.getTileEntity(this.pos) == this && entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+                (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
 
 	public void openInventory(EntityPlayer var1) {
 	}
@@ -337,7 +332,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 	 * stack (ignoring stack size) into the given slot.
 	 */
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return i == 2 ? false : (i != 1 ? true : isItemFuel(itemstack) || SlotFurnaceFuel.isBucket(itemstack));
+        return i != 2 && (i != 1 || isItemFuel(itemstack) || SlotFurnaceFuel.isBucket(itemstack));
 	}
 
 	public int[] getSlotsForFace(EnumFacing enumfacing) {
@@ -359,9 +354,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 	public boolean canExtractItem(int i, ItemStack itemstack, EnumFacing enumfacing) {
 		if (enumfacing == EnumFacing.DOWN && i == 1) {
 			Item item = itemstack.getItem();
-			if (item != Items.water_bucket && item != Items.bucket) {
-				return false;
-			}
+            return item == Items.water_bucket || item == Items.bucket;
 		}
 
 		return true;

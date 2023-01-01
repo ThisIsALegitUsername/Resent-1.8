@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.block.model;
 
-import java.util.Arrays;
-
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
+
+import java.util.Arrays;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -62,17 +62,17 @@ public class BreakingFour extends BakedQuad {
 		case SOUTH:
 			f3 = f * 16.0F;
 			f4 = (1.0F - f1) * 16.0F;
-			break;
-		case WEST:
-			f3 = f2 * 16.0F;
-			f4 = (1.0F - f1) * 16.0F;
-			break;
-		case EAST:
-			f3 = (1.0F - f2) * 16.0F;
-			f4 = (1.0F - f1) * 16.0F;
-		}
+            break;
+            case WEST:
+                f3 = f2 * 16.0F;
+                f4 = (1.0F - f1) * 16.0F;
+                break;
+            case EAST:
+                f3 = (1.0F - f2) * 16.0F;
+                f4 = (1.0F - f1) * 16.0F;
+        }
 
-		this.vertexData[i + 4] = Float.floatToRawIntBits(this.texture.getInterpolatedU((double) f3));
-		this.vertexData[i + 4 + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV((double) f4));
-	}
+        this.vertexData[i + 4] = Float.floatToRawIntBits(this.texture.getInterpolatedU(f3));
+        this.vertexData[i + 4 + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV(f4));
+    }
 }

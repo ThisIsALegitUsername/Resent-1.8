@@ -1,16 +1,8 @@
 package net.minecraft.enchantment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -22,6 +14,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandom;
+
+import java.util.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -111,11 +105,11 @@ public class EnchantmentHelper {
 			if (enchantment != null) {
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setShort("id", (short) i);
-				nbttagcompound.setShort("lvl", (short) ((Integer) enchMap.get(Integer.valueOf(i))).intValue());
+				nbttagcompound.setShort("lvl", (short) enchMap.get(Integer.valueOf(i)).intValue());
 				nbttaglist.appendTag(nbttagcompound);
 				if (stack.getItem() == Items.enchanted_book) {
 					Items.enchanted_book.addEnchantment(stack,
-							new EnchantmentData(enchantment, ((Integer) enchMap.get(Integer.valueOf(i))).intValue()));
+							new EnchantmentData(enchantment, enchMap.get(Integer.valueOf(i)).intValue()));
 				}
 			}
 		}

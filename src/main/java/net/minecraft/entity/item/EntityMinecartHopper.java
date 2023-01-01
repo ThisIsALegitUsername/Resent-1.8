@@ -1,7 +1,5 @@
 package net.minecraft.entity.item;
 
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,6 +14,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -42,7 +42,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 */
 	private boolean isBlocked = true;
 	private int transferTicker = -1;
-	private BlockPos field_174900_c = BlockPos.ORIGIN;
+    private final BlockPos field_174900_c = BlockPos.ORIGIN;
 
 	public EntityMinecartHopper(World worldIn) {
 		super(worldIn);

@@ -1,10 +1,7 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -16,6 +13,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -36,8 +35,8 @@ import net.minecraft.world.World;
  * 
  */
 public class BlockCarpet extends Block {
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
-			EnumDyeColor.class);
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color",
+            EnumDyeColor.class);
 
 	protected BlockCarpet() {
 		super(Material.carpet);
@@ -52,7 +51,7 @@ public class BlockCarpet extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMapColor();
+        return iblockstate.getValue(COLOR).getMapColor();
 	}
 
 	/**+
@@ -79,8 +78,8 @@ public class BlockCarpet extends Block {
 	}
 
 	protected void setBlockBoundsFromMeta(int meta) {
-		byte b0 = 0;
-		float f = (float) (1 * (1 + b0)) / 16.0F;
+        byte b0 = 0;
+        float f = (float) ((1 + b0)) / 16.0F;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
 	}
 
@@ -110,7 +109,7 @@ public class BlockCarpet extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
-		return enumfacing == EnumFacing.UP ? true : super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
+        return enumfacing == EnumFacing.UP || super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
 	}
 
 	/**+
@@ -120,7 +119,7 @@ public class BlockCarpet extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
+        return iblockstate.getValue(COLOR).getMetadata();
 	}
 
 	/**+
@@ -145,10 +144,10 @@ public class BlockCarpet extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
+        return iblockstate.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { COLOR });
+        return new BlockState(this, COLOR);
 	}
 }

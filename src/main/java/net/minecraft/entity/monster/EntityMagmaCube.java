@@ -127,13 +127,13 @@ public class EntityMagmaCube extends EntitySlime {
 	 * Causes this entity to do an upwards motion (jumping).
 	 */
 	protected void jump() {
-		this.motionY = (double) (0.42F + (float) this.getSlimeSize() * 0.1F);
-		this.isAirBorne = true;
+		this.motionY = 0.42F + (float) this.getSlimeSize() * 0.1F;
+        this.isAirBorne = true;
 	}
 
 	protected void handleJumpLava() {
-		this.motionY = (double) (0.22F + (float) this.getSlimeSize() * 0.05F);
-		this.isAirBorne = true;
+        this.motionY = 0.22F + (float) this.getSlimeSize() * 0.05F;
+        this.isAirBorne = true;
 	}
 
 	public void fall(float var1, float var2) {

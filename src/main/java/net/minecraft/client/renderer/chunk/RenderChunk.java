@@ -59,7 +59,7 @@ public class RenderChunk {
 	public AxisAlignedBB boundingBox;
 	private int frameIndex = -1;
 	private boolean needsUpdate = true;
-	private EnumMap<EnumFacing, BlockPos> field_181702_p = Maps.newEnumMap(EnumFacing.class);
+    private final EnumMap<EnumFacing, BlockPos> field_181702_p = Maps.newEnumMap(EnumFacing.class);
 
 	public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPos blockPosIn, int indexIn) {
 		this.world = worldIn;
@@ -207,8 +207,8 @@ public class RenderChunk {
 	}
 
 	private void preRenderBlocks(WorldRenderer worldRendererIn, BlockPos pos) {
-		worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
-		worldRendererIn.setTranslation((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+        worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
+        worldRendererIn.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
 	}
 
 	private void postRenderBlocks(EnumWorldBlockLayer layer, float x, float y, float z, WorldRenderer worldRendererIn,
@@ -267,6 +267,6 @@ public class RenderChunk {
 	}
 
 	public BlockPos func_181701_a(EnumFacing parEnumFacing) {
-		return (BlockPos) this.field_181702_p.get(parEnumFacing);
+        return this.field_181702_p.get(parEnumFacing);
 	}
 }

@@ -47,54 +47,54 @@ public class PlatformInput {
 	
 	private static EventListener contextmenu = null;
 	private static EventListener mousedown = null;
-	private static EventListener mouseup = null;
-	private static EventListener mousemove = null;
-	private static EventListener mouseenter = null;
-	private static EventListener mouseleave = null;
-	private static EventListener keydown = null;
-	private static EventListener keyup = null;
-	private static EventListener keypress = null;
-	private static EventListener wheel = null;
-	private static EventListener pointerlock = null;
+    private static EventListener mouseup = null;
+    private static EventListener mousemove = null;
+    private static EventListener mouseenter = null;
+    private static EventListener mouseleave = null;
+    private static EventListener keydown = null;
+    private static EventListener keyup = null;
+    private static EventListener keypress = null;
+    private static EventListener wheel = null;
+    private static EventListener pointerlock = null;
 
-	private static List<MouseEvent> mouseEvents = new LinkedList<>();
-	private static List<KeyboardEvent> keyEvents = new LinkedList<>();
+    private static final List<MouseEvent> mouseEvents = new LinkedList<>();
+    private static final List<KeyboardEvent> keyEvents = new LinkedList<>();
 
-	private static int mouseX = 0;
-	private static int mouseY = 0;
-	private static double mouseDX = 0.0D;
-	private static double mouseDY = 0.0D;
-	private static double mouseDWheel = 0.0D;
-	private static int width = 0;
-	private static int height = 0;
-	private static boolean enableRepeatEvents = true;
-	private static boolean isWindowFocused = true;
-	private static boolean isMouseOverWindow = true;
-	static boolean unpressCTRL = false;
+    private static int mouseX = 0;
+    private static int mouseY = 0;
+    private static double mouseDX = 0.0D;
+    private static double mouseDY = 0.0D;
+    private static double mouseDWheel = 0.0D;
+    private static final int width = 0;
+    private static final int height = 0;
+    private static boolean enableRepeatEvents = true;
+    private static boolean isWindowFocused = true;
+    private static boolean isMouseOverWindow = true;
+    static boolean unpressCTRL = false;
 
-	private static int windowWidth = -1;
-	private static int windowHeight = -1;
-	private static int lastWasResizedWindowWidth = -2;
-	private static int lastWasResizedWindowHeight = -2;
-	
-	private static MouseEvent currentEvent = null;
-	private static KeyboardEvent currentEventK = null;
-	private static boolean[] buttonStates = new boolean[8];
-	private static boolean[] keyStates = new boolean[256];
+    private static int windowWidth = -1;
+    private static int windowHeight = -1;
+    private static int lastWasResizedWindowWidth = -2;
+    private static int lastWasResizedWindowHeight = -2;
 
-	private static int functionKeyModifier = KeyboardConstants.KEY_F;
+    private static MouseEvent currentEvent = null;
+    private static KeyboardEvent currentEventK = null;
+    private static final boolean[] buttonStates = new boolean[8];
+    private static final boolean[] keyStates = new boolean[256];
 
-	private static long mouseUngrabTimer = 0l;
-	private static long mouseGrabTimer = 0l;
-	private static int mouseUngrabTimeout = -1;
-	private static boolean pointerLockFlag = false;
-	
-	@JSBody(params = { }, script = "window.onbeforeunload = () => {return false;};")
-	private static native void onBeforeCloseRegister();
-	
-	static void initHooks(Window window, HTMLCanvasElement canvaz) {
-		win = window;
-		canvas = canvaz;
+    private static int functionKeyModifier = KeyboardConstants.KEY_F;
+
+    private static long mouseUngrabTimer = 0L;
+    private static long mouseGrabTimer = 0L;
+    private static int mouseUngrabTimeout = -1;
+    private static boolean pointerLockFlag = false;
+
+    @JSBody(params = {}, script = "window.onbeforeunload = () => {return false;};")
+    private static native void onBeforeCloseRegister();
+
+    static void initHooks(Window window, HTMLCanvasElement canvaz) {
+        win = window;
+        canvas = canvaz;
 		
 		win.addEventListener("contextmenu", contextmenu = new EventListener<MouseEvent>() {
 			@Override
@@ -272,8 +272,8 @@ public class PlatformInput {
 		if(canvas.getHeight() != h2) {
 			canvas.setHeight(h2);
 		}
-		flipBuffer();
-		EagUtils.sleep(1l);
+        flipBuffer();
+        EagUtils.sleep(1L);
 	}
 	
 	static void initFramebuffer(WebGL2RenderingContext ctx, WebGLFramebuffer fbo, int sw, int sh) {
@@ -347,7 +347,7 @@ public class PlatformInput {
 	}
 
 	public static boolean keyboardGetEventKeyState() {
-		return currentEventK == null? false : !currentEventK.getType().equals("keyup");
+        return currentEventK != null && !currentEventK.getType().equals("keyup");
 	}
 
 	public static int keyboardGetEventKey() {
@@ -358,7 +358,7 @@ public class PlatformInput {
 	public static char keyboardGetEventCharacter() {
 		if(currentEventK == null) return '\0';
 		String s = currentEventK.getKey();
-		return currentEventK == null ? ' ' : (char) (s.length() > 1 ? '\0' : s.charAt(0));
+        return currentEventK == null ? ' ' : (s.length() > 1 ? '\0' : s.charAt(0));
 	}
 
 	public static boolean keyboardIsKeyDown(int key) {
@@ -369,11 +369,11 @@ public class PlatformInput {
 			keyStates[219] = false;
 			keyStates[220] = false;
 		}
-		return key < 0 || key >= keyStates.length ? false : keyStates[key];
+        return key >= 0 && key < keyStates.length && keyStates[key];
 	}
 
 	public static boolean keyboardIsRepeatEvent() {
-		return currentEventK == null ? false : currentEventK.isRepeat();
+        return currentEventK != null && currentEventK.isRepeat();
 	}
 
 	public static void keyboardEnableRepeatEvents(boolean b) {
@@ -386,7 +386,7 @@ public class PlatformInput {
 	}
 
 	public static boolean mouseGetEventButtonState() {
-		return currentEvent == null ? false : currentEvent.getType().equals(MouseEvent.MOUSEDOWN);
+        return currentEvent != null && currentEvent.getType().equals(MouseEvent.MOUSEDOWN);
 	}
 
 	public static int mouseGetEventButton() {
@@ -433,14 +433,14 @@ public class PlatformInput {
 			canvas.requestPointerLock();
 			if(mouseUngrabTimeout != -1) Window.clearTimeout(mouseUngrabTimeout);
 			mouseUngrabTimeout = -1;
-			if(t - mouseUngrabTimer < 3000l) {
-				mouseUngrabTimeout = Window.setTimeout(new TimerHandler() {
-					@Override
-					public void onTimer() {
-						canvas.requestPointerLock();
-					}
-				}, 3100 - (int)(t - mouseUngrabTimer));
-			}
+            if (t - mouseUngrabTimer < 3000L) {
+                mouseUngrabTimeout = Window.setTimeout(new TimerHandler() {
+                    @Override
+                    public void onTimer() {
+                        canvas.requestPointerLock();
+                    }
+                }, 3100 - (int) (t - mouseUngrabTimer));
+            }
 		}else {
 			if(mouseUngrabTimeout != -1) Window.clearTimeout(mouseUngrabTimeout);
 			mouseUngrabTimeout = -1;
@@ -517,7 +517,7 @@ public class PlatformInput {
 			EarlyLoadScreen.paintEnable();
 			
 			while(mouseEvents.isEmpty() && keyEvents.isEmpty()) {
-				EagUtils.sleep(100l);
+                EagUtils.sleep(100L);
 			}
 		}
 	}

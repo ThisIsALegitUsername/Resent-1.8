@@ -42,7 +42,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
 	 * Gets the IGuiListEntry object for the given index
 	 */
 	public ResourcePackListEntry getListEntry(int i) {
-		return (ResourcePackListEntry) this.getList().get(i);
+		return this.getList().get(i);
 	}
 
 	/**+

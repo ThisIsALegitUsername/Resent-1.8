@@ -38,7 +38,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	private boolean shouldHeadBeRendered;
 	private float progress;
 	private float lastProgress;
-	private List<Entity> field_174933_k = Lists.newArrayList();
+    private final List<Entity> field_174933_k = Lists.newArrayList();
 
 	public TileEntityPiston() {
 	}
@@ -112,7 +112,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		AxisAlignedBB axisalignedbb = Blocks.piston_extension.getBoundingBox(this.worldObj, this.pos, this.pistonState,
 				parFloat1, this.pistonFacing);
 		if (axisalignedbb != null) {
-			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity) null, axisalignedbb);
+            List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 			if (!list.isEmpty()) {
 				this.field_174933_k.addAll(list);
 
@@ -120,19 +120,19 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 					if (this.pistonState.getBlock() == Blocks.slime_block && this.extending) {
 						switch (this.pistonFacing.getAxis()) {
 						case X:
-							entity.motionX = (double) this.pistonFacing.getFrontOffsetX();
+                            entity.motionX = this.pistonFacing.getFrontOffsetX();
 							break;
 						case Y:
-							entity.motionY = (double) this.pistonFacing.getFrontOffsetY();
+                            entity.motionY = this.pistonFacing.getFrontOffsetY();
 							break;
 						case Z:
-							entity.motionZ = (double) this.pistonFacing.getFrontOffsetZ();
+                            entity.motionZ = this.pistonFacing.getFrontOffsetZ();
 						}
 					} else {
-						entity.moveEntity((double) (parFloat2 * (float) this.pistonFacing.getFrontOffsetX()),
-								(double) (parFloat2 * (float) this.pistonFacing.getFrontOffsetY()),
-								(double) (parFloat2 * (float) this.pistonFacing.getFrontOffsetZ()));
-					}
+                        entity.moveEntity(parFloat2 * (float) this.pistonFacing.getFrontOffsetX(),
+                                parFloat2 * (float) this.pistonFacing.getFrontOffsetY(),
+                                parFloat2 * (float) this.pistonFacing.getFrontOffsetZ());
+                    }
 				}
 
 				this.field_174933_k.clear();

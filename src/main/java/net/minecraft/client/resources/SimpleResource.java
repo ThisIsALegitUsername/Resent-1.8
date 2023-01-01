@@ -67,7 +67,7 @@ public class SimpleResource implements IResource {
 
 	public <T extends IMetadataSection> T getMetadata(String s) {
 		if (!this.hasMetadata()) {
-			return (T) null;
+			return null;
 		} else {
 			if (this.mcmetaJson == null && !this.mcmetaJsonChecked) {
 				this.mcmetaJsonChecked = true;
@@ -82,7 +82,7 @@ public class SimpleResource implements IResource {
 				}
 			}
 
-			IMetadataSection imetadatasection = (IMetadataSection) this.mapMetadataSections.get(s);
+            IMetadataSection imetadatasection = this.mapMetadataSections.get(s);
 			if (imetadatasection == null) {
 				imetadatasection = this.srMetadataSerializer.parseMetadataSection(s, this.mcmetaJson);
 			}
@@ -101,25 +101,19 @@ public class SimpleResource implements IResource {
 		} else if (!(object instanceof SimpleResource)) {
 			return false;
 		} else {
-			SimpleResource simpleresource = (SimpleResource) object;
-			if (this.srResourceLocation != null) {
-				if (!this.srResourceLocation.equals(simpleresource.srResourceLocation)) {
-					return false;
-				}
-			} else if (simpleresource.srResourceLocation != null) {
-				return false;
-			}
+            SimpleResource simpleresource = (SimpleResource) object;
+            if (this.srResourceLocation != null) {
+                if (!this.srResourceLocation.equals(simpleresource.srResourceLocation)) {
+                    return false;
+                }
+            } else if (simpleresource.srResourceLocation != null) {
+                return false;
+            }
 
-			if (this.resourcePackName != null) {
-				if (!this.resourcePackName.equals(simpleresource.resourcePackName)) {
-					return false;
-				}
-			} else if (simpleresource.resourcePackName != null) {
-				return false;
-			}
-
-			return true;
-		}
+            if (this.resourcePackName != null) {
+                return this.resourcePackName.equals(simpleresource.resourcePackName);
+            } else return simpleresource.resourcePackName == null;
+        }
 	}
 
 	public int hashCode() {

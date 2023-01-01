@@ -56,7 +56,7 @@ public class Locale {
 		this.properties.clear();
 
 		for (String s : parList) {
-			String s1 = HString.format("lang/%s.lang", new Object[] { s });
+			String s1 = HString.format("lang/%s.lang", s);
 
 			for (String s2 : resourceManager.getResourceDomains()) {
 				try {
@@ -125,7 +125,7 @@ public class Locale {
 	private void loadLocaleData(InputStream parInputStream) throws IOException {
 		for (String s : IOUtils.readLines(parInputStream, Charsets.UTF_8)) {
 			if (!s.isEmpty() && s.charAt(0) != 35) {
-				String[] astring = (String[]) Iterables.toArray(splitter.split(s), String.class);
+                String[] astring = Iterables.toArray(splitter.split(s), String.class);
 				if (astring != null && astring.length == 2) {
 					String s1 = astring[0];
 					String s2 = pattern.matcher(astring[1]).replaceAll("%s"); // TODO: originally "%$1s" but must be
@@ -145,7 +145,7 @@ public class Locale {
 	 * not be translated.
 	 */
 	private String translateKeyPrivate(String parString1) {
-		String s = (String) this.properties.get(parString1);
+        String s = this.properties.get(parString1);
 		return s == null ? parString1 : s;
 	}
 

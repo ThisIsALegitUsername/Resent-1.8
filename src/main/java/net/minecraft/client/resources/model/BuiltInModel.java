@@ -1,11 +1,11 @@
 package net.minecraft.client.resources.model;
 
-import java.util.List;
-
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.util.EnumFacing;
+
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -26,7 +26,7 @@ import net.minecraft.util.EnumFacing;
  * 
  */
 public class BuiltInModel implements IBakedModel {
-	private ItemCameraTransforms cameraTransforms;
+	private final ItemCameraTransforms cameraTransforms;
 
 	public BuiltInModel(ItemCameraTransforms parItemCameraTransforms) {
 		this.cameraTransforms = parItemCameraTransforms;

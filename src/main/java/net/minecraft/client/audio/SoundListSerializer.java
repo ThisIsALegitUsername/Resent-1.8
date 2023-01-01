@@ -32,7 +32,7 @@ public class SoundListSerializer implements JSONTypeDeserializer<JSONObject, Sou
 		SoundCategory soundcategory = SoundCategory
 				.getCategory(jsonobject.optString("category", SoundCategory.MASTER.getCategoryName()));
 		soundlist.setSoundCategory(soundcategory);
-		Validate.notNull(soundcategory, "Invalid category", new Object[0]);
+        Validate.notNull(soundcategory, "Invalid category");
 		if (jsonobject.has("sounds")) {
 			JSONArray jsonarray = jsonobject.getJSONArray("sounds");
 
@@ -47,26 +47,26 @@ public class SoundListSerializer implements JSONTypeDeserializer<JSONObject, Sou
 					if (jsonobject1.has("type")) {
 						SoundList.SoundEntry.Type soundlist$soundentry$type = SoundList.SoundEntry.Type
 								.getType(jsonobject1.getString("type"));
-						Validate.notNull(soundlist$soundentry$type, "Invalid type", new Object[0]);
-						soundlist$soundentry.setSoundEntryType(soundlist$soundentry$type);
+                        Validate.notNull(soundlist$soundentry$type, "Invalid type");
+                        soundlist$soundentry.setSoundEntryType(soundlist$soundentry$type);
 					}
 
 					if (jsonobject1.has("volume")) {
 						float f = jsonobject1.getFloat("volume");
-						Validate.isTrue(f > 0.0F, "Invalid volume", new Object[0]);
-						soundlist$soundentry.setSoundEntryVolume(f);
+                        Validate.isTrue(f > 0.0F, "Invalid volume");
+                        soundlist$soundentry.setSoundEntryVolume(f);
 					}
 
 					if (jsonobject1.has("pitch")) {
 						float f1 = jsonobject1.getFloat("pitch");
-						Validate.isTrue(f1 > 0.0F, "Invalid pitch", new Object[0]);
-						soundlist$soundentry.setSoundEntryPitch(f1);
+                        Validate.isTrue(f1 > 0.0F, "Invalid pitch");
+                        soundlist$soundentry.setSoundEntryPitch(f1);
 					}
 
 					if (jsonobject1.has("weight")) {
 						int j = jsonobject1.getInt("weight");
-						Validate.isTrue(j > 0, "Invalid weight", new Object[0]);
-						soundlist$soundentry.setSoundEntryWeight(j);
+                        Validate.isTrue(j > 0, "Invalid weight");
+                        soundlist$soundentry.setSoundEntryWeight(j);
 					}
 
 					if (jsonobject1.has("stream")) {

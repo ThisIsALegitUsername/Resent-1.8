@@ -56,8 +56,8 @@ import net.minecraft.util.ResourceLocation;
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	private static final Logger logger = LogManager.getLogger();
 	private static final EaglercraftRandom RANDOM = new EaglercraftRandom();
-	private float updateCounter;
-	private boolean isDefault;
+    private final float updateCounter;
+    private boolean isDefault;
 	private static final int lendef = 5987;
 	private static final byte[] md5def = new byte[] { -61, -53, -36, 27, 24, 27, 103, -31, -58, -116, 113, -60, -67, -8,
 			-77, 30 };
@@ -66,13 +66,14 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	private String splashText;
 	private GuiButton buttonResetDemo;
 	private int panoramaTimer;
-	/**+
-	 * Texture allocated for the current viewport of the main menu's
-	 * panorama background.
-	 */
-	private static DynamicTexture viewportTexture = null;
-	private boolean field_175375_v = true;
-	private String openGLWarning1;
+    /**
+     * +
+     * Texture allocated for the current viewport of the main menu's
+     * panorama background.
+     */
+    private static DynamicTexture viewportTexture = null;
+    private final boolean field_175375_v = true;
+    private String openGLWarning1;
 	private String openGLWarning2;
 	private static final ResourceLocation splashTexts = new ResourceLocation("texts/splashes.txt");
 	private static final ResourceLocation minecraftTitleTextures = new ResourceLocation(
@@ -110,26 +111,24 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 				s = s.trim();
 				if (!s.isEmpty()) {
 					arraylist.add(s);
-				}
-			}
+                }
+            }
 
-			if (!arraylist.isEmpty()) {
-				while (true) {
-					this.splashText = (String) arraylist.get(RANDOM.nextInt(arraylist.size()));
-					if (this.splashText.hashCode() != 125780783) {
-						break;
-					}
-				}
-			}
-		} catch (IOException var12) {
-			;
-		} finally {
-			if (bufferedreader != null) {
-				try {
-					bufferedreader.close();
-				} catch (IOException var11) {
-					;
-				}
+            if (!arraylist.isEmpty()) {
+                while (true) {
+                    this.splashText = (String) arraylist.get(RANDOM.nextInt(arraylist.size()));
+                    if (this.splashText.hashCode() != 125780783) {
+                        break;
+                    }
+                }
+            }
+        } catch (IOException var12) {
+        } finally {
+            if (bufferedreader != null) {
+                try {
+                    bufferedreader.close();
+                } catch (IOException var11) {
+                }
 			}
 
 		}
@@ -200,36 +199,36 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 			this.splashText = "Happy new year!";
 		} else if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31) {
 			this.splashText = "OOoooOOOoooo! Spooky!";
-		}
+        }
 
-		int i = this.height / 4 + 48;
+        int i = height / 4 + 48;
 
-		boolean isFork = !EaglercraftVersion.projectOriginAuthor.equalsIgnoreCase(EaglercraftVersion.projectForkVendor);
+        boolean isFork = !EaglercraftVersion.projectOriginAuthor.equalsIgnoreCase(EaglercraftVersion.projectForkVendor);
 
-		if (isFork && EaglercraftVersion.mainMenuStringF != null && EaglercraftVersion.mainMenuStringF.length() > 0) {
-			i += 11;
-		}
+        if (isFork && EaglercraftVersion.mainMenuStringF != null && EaglercraftVersion.mainMenuStringF.length() > 0) {
+            i += 11;
+        }
 
-		this.addSingleplayerMultiplayerButtons(i, 24);
+        this.addSingleplayerMultiplayerButtons(i, 24);
 
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, i + 72 + 12, 98, 20,
-				I18n.format("menu.options", new Object[0])));
-		this.buttonList.add(new GuiButton(4, this.width / 2 + 2, i + 72 + 12, 98, 20,
-				I18n.format("menu.editProfile", new Object[0])));
+        this.buttonList.add(new GuiButton(0, width / 2 - 100, i + 72 + 12, 98, 20,
+                I18n.format("menu.options")));
+        this.buttonList.add(new GuiButton(4, width / 2 + 2, i + 72 + 12, 98, 20,
+                I18n.format("menu.editProfile")));
 
-		this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, i + 72 + 12));
+        this.buttonList.add(new GuiButtonLanguage(5, width / 2 - 124, i + 72 + 12));
 
-		if (isFork) {
-			this.openGLWarning1 = EaglercraftVersion.mainMenuStringE;
-			this.openGLWarning2 = EaglercraftVersion.mainMenuStringF;
-			boolean line2 = this.openGLWarning2 != null && this.openGLWarning2.length() > 0;
-			this.field_92023_s = this.fontRendererObj.getStringWidth(this.openGLWarning1);
-			this.field_92024_r = this.fontRendererObj.getStringWidth(this.openGLWarning2);
-			int j = Math.max(this.field_92023_s, this.field_92024_r);
-			this.field_92022_t = (this.width - j) / 2;
-			this.field_92021_u = ((GuiButton) this.buttonList.get(0)).yPosition - (line2 ? 32 : 21);
-			this.field_92020_v = this.field_92022_t + j;
-			this.field_92019_w = this.field_92021_u + (line2 ? 24 : 11);
+        if (isFork) {
+            this.openGLWarning1 = EaglercraftVersion.mainMenuStringE;
+            this.openGLWarning2 = EaglercraftVersion.mainMenuStringF;
+            boolean line2 = this.openGLWarning2 != null && this.openGLWarning2.length() > 0;
+            this.field_92023_s = this.fontRendererObj.getStringWidth(this.openGLWarning1);
+            this.field_92024_r = this.fontRendererObj.getStringWidth(this.openGLWarning2);
+            int j = Math.max(this.field_92023_s, this.field_92024_r);
+            this.field_92022_t = (width - j) / 2;
+            this.field_92021_u = this.buttonList.get(0).yPosition - (line2 ? 32 : 21);
+            this.field_92020_v = this.field_92022_t + j;
+            this.field_92019_w = this.field_92021_u + (line2 ? 24 : 11);
 		}
 
 		this.mc.func_181537_a(false);
@@ -240,15 +239,15 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	 * players who have bought the game.
 	 */
 	private void addSingleplayerMultiplayerButtons(int parInt1, int parInt2) {
-		// this.buttonList
-		// .add(new GuiButton(1, this.width / 2 - 100, parInt1,
-		// I18n.format("menu.singleplayer", new Object[0])));
-		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, parInt1 + parInt2 * 0,
-				I18n.format("menu.multiplayer", new Object[0])));
-		GuiButton btn;
-		this.buttonList.add(btn = new GuiButton(14, this.width / 2 - 100, parInt1 + parInt2 * 1,
-				I18n.format("menu.forkOnGitlab", new Object[0])));
-		btn.enabled = EaglercraftVersion.mainMenuEnableGithubButton;
+        // this.buttonList
+        // .add(new GuiButton(1, this.width / 2 - 100, parInt1,
+        // I18n.format("menu.singleplayer", new Object[0])));
+        this.buttonList.add(new GuiButton(2, width / 2 - 100, parInt1 + 0,
+                I18n.format("menu.multiplayer")));
+        GuiButton btn;
+        this.buttonList.add(btn = new GuiButton(14, width / 2 - 100, parInt1 + parInt2,
+                I18n.format("menu.forkOnGitlab")));
+        btn.enabled = EaglercraftVersion.mainMenuEnableGithubButton;
 	}
 
 	/**+
@@ -382,18 +381,18 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		byte b0 = 3;
 
 		for (int i = 0; i < b0; ++i) {
-			float f = 1.0F / (float) (i + 1);
-			int j = this.width;
-			int k = this.height;
-			float f1 = (float) (i - b0 / 2) / 256.0F;
-			worldrenderer.pos((double) j, (double) k, (double) this.zLevel).tex((double) (0.0F + f1), 1.0D)
-					.color(1.0F, 1.0F, 1.0F, f).endVertex();
-			worldrenderer.pos((double) j, 0.0D, (double) this.zLevel).tex((double) (1.0F + f1), 1.0D)
-					.color(1.0F, 1.0F, 1.0F, f).endVertex();
-			worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex((double) (1.0F + f1), 0.0D)
-					.color(1.0F, 1.0F, 1.0F, f).endVertex();
-			worldrenderer.pos(0.0D, (double) k, (double) this.zLevel).tex((double) (0.0F + f1), 0.0D)
-					.color(1.0F, 1.0F, 1.0F, f).endVertex();
+            float f = 1.0F / (float) (i + 1);
+            int j = width;
+            int k = height;
+            float f1 = (float) (i - b0 / 2) / 256.0F;
+            worldrenderer.pos(j, k, this.zLevel).tex(0.0F + f1, 1.0D)
+                    .color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(j, 0.0D, this.zLevel).tex(1.0F + f1, 1.0D)
+                    .color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(1.0F + f1, 0.0D)
+                    .color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, k, this.zLevel).tex(0.0F + f1, 0.0D)
+                    .color(1.0F, 1.0F, 1.0F, f).endVertex();
 		}
 
 		tessellator.draw();
@@ -405,31 +404,31 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	 * Renders the skybox in the main menu
 	 */
 	private void renderSkybox(int parInt1, int parInt2, float parFloat1) {
-		GlStateManager.viewport(0, 0, 256, 256);
-		this.drawPanorama(parInt1, parInt2, parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		this.rotateAndBlurSkybox(parFloat1);
-		GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
-		float f = this.width > this.height ? 120.0F / (float) this.width : 120.0F / (float) this.height;
-		float f1 = (float) this.height * f / 256.0F;
-		float f2 = (float) this.width * f / 256.0F;
-		int i = this.width;
-		int j = this.height;
-		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		worldrenderer.pos(0.0D, (double) j, (double) this.zLevel).tex((double) (0.5F - f1), (double) (0.5F + f2))
-				.color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		worldrenderer.pos((double) i, (double) j, (double) this.zLevel).tex((double) (0.5F - f1), (double) (0.5F - f2))
-				.color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		worldrenderer.pos((double) i, 0.0D, (double) this.zLevel).tex((double) (0.5F + f1), (double) (0.5F - f2))
-				.color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-		worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex((double) (0.5F + f1), (double) (0.5F + f2))
+        GlStateManager.viewport(0, 0, 256, 256);
+        this.drawPanorama(parInt1, parInt2, parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        this.rotateAndBlurSkybox(parFloat1);
+        GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
+        float f = width > height ? 120.0F / (float) width : 120.0F / (float) height;
+        float f1 = (float) height * f / 256.0F;
+        float f2 = (float) width * f / 256.0F;
+        int i = width;
+        int j = height;
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        worldrenderer.pos(0.0D, j, this.zLevel).tex(0.5F - f1, 0.5F + f2)
+                .color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(i, j, this.zLevel).tex(0.5F - f1, 0.5F - f2)
+                .color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(i, 0.0D, this.zLevel).tex(0.5F + f1, 0.5F - f2)
+                .color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(0.5F + f1, 0.5F + f2)
 				.color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
 		tessellator.draw();
 	}
@@ -439,25 +438,25 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-		GlStateManager.disableAlpha();
-		this.renderSkybox(i, j, f);
-		GlStateManager.enableAlpha();
-		short short1 = 274;
-		int k = this.width / 2 - short1 / 2;
-		byte b0 = 30;
-		this.drawGradientRect(0, 0, this.width, this.height, -2130706433, 16777215);
-		this.drawGradientRect(0, 0, this.width, this.height, 0, Integer.MIN_VALUE);
-		this.mc.getTextureManager().bindTexture(minecraftTitleTextures);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		if (this.isDefault || (double) this.updateCounter < 1.0E-4D) {
-			this.drawTexturedModalRect(k + 0, b0 + 0, 0, 0, 99, 44);
-			this.drawTexturedModalRect(k + 99, b0 + 0, 129, 0, 27, 44);
-			this.drawTexturedModalRect(k + 99 + 26, b0 + 0, 126, 0, 3, 44);
-			this.drawTexturedModalRect(k + 99 + 26 + 3, b0 + 0, 99, 0, 26, 44);
-			this.drawTexturedModalRect(k + 155, b0 + 0, 0, 45, 155, 44);
-		} else {
-			this.drawTexturedModalRect(k + 0, b0 + 0, 0, 0, 155, 44);
-			this.drawTexturedModalRect(k + 155, b0 + 0, 0, 45, 155, 44);
+        GlStateManager.disableAlpha();
+        this.renderSkybox(i, j, f);
+        GlStateManager.enableAlpha();
+        short short1 = 274;
+        int k = width / 2 - short1 / 2;
+        byte b0 = 30;
+        this.drawGradientRect(0, 0, width, height, -2130706433, 16777215);
+        this.drawGradientRect(0, 0, width, height, 0, Integer.MIN_VALUE);
+        this.mc.getTextureManager().bindTexture(minecraftTitleTextures);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        if (this.isDefault || (double) this.updateCounter < 1.0E-4D) {
+            this.drawTexturedModalRect(k, b0, 0, 0, 99, 44);
+            this.drawTexturedModalRect(k + 99, b0, 129, 0, 27, 44);
+            this.drawTexturedModalRect(k + 99 + 26, b0, 126, 0, 3, 44);
+            this.drawTexturedModalRect(k + 99 + 26 + 3, b0, 99, 0, 26, 44);
+            this.drawTexturedModalRect(k + 155, b0, 0, 45, 155, 44);
+        } else {
+            this.drawTexturedModalRect(k, b0, 0, 0, 155, 44);
+            this.drawTexturedModalRect(k + 155, b0, 0, 45, 155, 44);
 		}
 
 		boolean isForkLabel = ((this.openGLWarning1 != null && this.openGLWarning1.length() > 0)
@@ -469,49 +468,49 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 			if (this.openGLWarning1 != null)
 				this.drawString(this.fontRendererObj, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
 			if (this.openGLWarning2 != null)
-				this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2,
-						this.field_92021_u + 12, -1);
-		}
+                this.drawString(this.fontRendererObj, this.openGLWarning2, (width - this.field_92024_r) / 2,
+                        this.field_92021_u + 12, -1);
+        }
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) (this.width / 2 + 90), 70.0F, 0.0F);
-		GlStateManager.rotate(isForkLabel ? -12.0F : -20.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate((float) (width / 2 + 90), 70.0F, 0.0F);
+        GlStateManager.rotate(isForkLabel ? -12.0F : -20.0F, 0.0F, 0.0F, 1.0F);
 		float f1 = 1.8F - MathHelper
 				.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
 		f1 = f1 * 100.0F / (float) (this.fontRendererObj.getStringWidth(this.splashText) + 32);
 		if (isForkLabel) {
-			f1 *= 0.8f;
-		}
-		GlStateManager.scale(f1, f1, f1);
-		this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
-		GlStateManager.popMatrix();
+            f1 *= 0.8f;
+        }
+        GlStateManager.scale(f1, f1, f1);
+        this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
+        GlStateManager.popMatrix();
 
-		String s = EaglercraftVersion.mainMenuStringA;
-		this.drawString(this.fontRendererObj, s, 2, this.height - 20, -1);
-		s = EaglercraftVersion.mainMenuStringB;
-		this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
+        String s = EaglercraftVersion.mainMenuStringA;
+        this.drawString(this.fontRendererObj, s, 2, height - 20, -1);
+        s = EaglercraftVersion.mainMenuStringB;
+        this.drawString(this.fontRendererObj, s, 2, height - 10, -1);
 
-		String s1 = EaglercraftVersion.mainMenuStringC;
-		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2,
-				this.height - 20, -1);
-		s1 = EaglercraftVersion.mainMenuStringD;
-		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2,
-				this.height - 10, -1);
+        String s1 = EaglercraftVersion.mainMenuStringC;
+        this.drawString(this.fontRendererObj, s1, width - this.fontRendererObj.getStringWidth(s1) - 2,
+                height - 20, -1);
+        s1 = EaglercraftVersion.mainMenuStringD;
+        this.drawString(this.fontRendererObj, s1, width - this.fontRendererObj.getStringWidth(s1) - 2,
+                height - 10, -1);
 
-		String lbl = "CREDITS.txt";
-		int w = fontRendererObj.getStringWidth(lbl) * 3 / 4;
+        String lbl = "CREDITS.txt";
+        int w = fontRendererObj.getStringWidth(lbl) * 3 / 4;
 
-		if (i >= (this.width - w - 4) && i <= this.width && j >= 0 && j <= 9) {
-			drawRect((this.width - w - 4), 0, this.width, 10, 0x55000099);
-		} else {
-			drawRect((this.width - w - 4), 0, this.width, 10, 0x55200000);
-		}
+        if (i >= (width - w - 4) && i <= width && j >= 0 && j <= 9) {
+            drawRect((width - w - 4), 0, width, 10, 0x55000099);
+        } else {
+            drawRect((width - w - 4), 0, width, 10, 0x55200000);
+        }
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((this.width - w - 2), 2.0f, 0.0f);
-		GlStateManager.scale(0.75f, 0.75f, 0.75f);
-		drawString(fontRendererObj, lbl, 0, 0, 16777215);
-		GlStateManager.popMatrix();
+        GlStateManager.pushMatrix();
+        GlStateManager.translate((width - w - 2), 2.0f, 0.0f);
+        GlStateManager.scale(0.75f, 0.75f, 0.75f);
+        drawString(fontRendererObj, lbl, 0, 0, 16777215);
+        GlStateManager.popMatrix();
 
 		super.drawScreen(i, j, f);
 	}
@@ -524,13 +523,13 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		if (par3 == 0) {
 			String lbl = "CREDITS.txt";
 			int w = fontRendererObj.getStringWidth(lbl) * 3 / 4;
-			if (par1 >= (this.width - w - 4) && par1 <= this.width && par2 >= 0 && par2 <= 10) {
-				String resStr = EagRuntime.getResourceString("/assets/eagler/CREDITS.txt");
-				if (resStr != null) {
-					EagRuntime.openCreditsPopup(resStr);
-				}
-				mc.getSoundHandler()
-						.playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+            if (par1 >= (width - w - 4) && par1 <= width && par2 >= 0 && par2 <= 10) {
+                String resStr = EagRuntime.getResourceString("/assets/eagler/CREDITS.txt");
+                if (resStr != null) {
+                    EagRuntime.openCreditsPopup(resStr);
+                }
+                mc.getSoundHandler()
+                        .playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
 				return;
 			}
 		}
