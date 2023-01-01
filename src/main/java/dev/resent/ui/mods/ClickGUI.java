@@ -24,7 +24,6 @@ public class ClickGUI extends GuiScreen {
     public ScaledResolution sr;
     public int x, y, width, height;
     public int offset = 0;
-    public float offsety = 20;
     public FontRenderer fr;
 
     @Override
@@ -38,7 +37,7 @@ public class ClickGUI extends GuiScreen {
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;
-        y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
+        y = sr.getScaledHeight() - 10 + xy;
         int off = 0;
 
         for (Mod m: Resent.INSTANCE.modManager.modules) {
@@ -74,8 +73,8 @@ public class ClickGUI extends GuiScreen {
             fr.drawString("<", x - fr.FONT_HEIGHT + 4, height + 29 + fr.FONT_HEIGHT + 2, -1);
             for (int asdf = 0; asdf < this.modWatching.settings.size(); asdf++) {
 
-                BooleanSetting b = null;
-                ModeSetting m = null;
+                BooleanSetting b;
+                ModeSetting m;
                 Setting s = this.modWatching.settings.get(asdf);
 
                 if (s instanceof BooleanSetting) {
@@ -88,7 +87,7 @@ public class ClickGUI extends GuiScreen {
                 if (s instanceof ModeSetting) {
                     m = (ModeSetting) s;
                     if(isMouseInside(mouseX, mouseY, this.x+24, height-fr.FONT_HEIGHT+50+var, this.x+24+fr.getStringWidth(s.name+": "+m.getValue()), height-fr.FONT_HEIGHT+50+var+fr.FONT_HEIGHT) && mouseButton == 0)
-                    m.next();
+                        m.next();
                 }
 
 
@@ -109,7 +108,7 @@ public class ClickGUI extends GuiScreen {
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;
-        y = sr.getScaledHeight() / (int) 1.1 - 10 + xy;
+        y = sr.getScaledHeight() - 10 + xy;
         int off = 0;
 
         // background
@@ -164,7 +163,7 @@ public class ClickGUI extends GuiScreen {
                     }
 
                     fr.drawStringWithShadow(m.name,
-                            this.x + 15 + 7 + xo * (int) 1.5, height - fh * -(off) + 50 - offset, -1);
+                            this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
                 }
             } else if (this.modWatching != null) {
 
@@ -175,7 +174,7 @@ public class ClickGUI extends GuiScreen {
                         height + 29 - fr.FONT_HEIGHT - 2, -1);
 
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
-                    BooleanSetting b = null;
+                    BooleanSetting b;
                     ModeSetting mo = null;
                     Setting s = this.modWatching.settings.get(amogus);
                     if (s instanceof BooleanSetting) {
@@ -241,31 +240,27 @@ public class ClickGUI extends GuiScreen {
         if (getListMaxScroll() + this.height >= this.height) {
             int wheel = Mouse.getEventDWheel();
             if (wheel < 0) {
-                new Thread(){
-                    public void run(){
-                for (int i = 0; i < 20; i++) {
-                    offset = MathHelper.clamp_int(offset + 1, 0, getListMaxScroll());
+                new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                offset = MathHelper.clamp_int(offset + 1, 0, getListMaxScroll());
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }).start();
+            } else if (wheel > 0) {
+                new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                        offset = MathHelper.clamp_int(offset - 1, 0, getListMaxScroll());
                         try {
-                            sleep(1);
+                            Thread.sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                }
             }
-            }.start();
-            } else if (wheel > 0) {
-                new Thread(){
-                    public void run(){
-                for (int i = 0; i < 20; i++) {
-                            offset = MathHelper.clamp_int(offset - 1, 0, getListMaxScroll());
-                            try {
-                                sleep(1);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                }
-            }
-            }.start();
+        }).start();
             }
             try {
                 super.handleMouseInput();

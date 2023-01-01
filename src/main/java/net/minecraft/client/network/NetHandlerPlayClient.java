@@ -11,7 +11,6 @@ import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import com.google.common.collect.Maps;
 
 import dev.resent.Resent;
-import dev.resent.event.impl.ClientChatEvent;
 import dev.resent.event.impl.EntityStatusEvent;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.util.misc.W;
@@ -760,13 +759,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (packetIn.getType() == 2) {
 			this.gameController.ingameGUI.setRecordPlaying(packetIn.getChatComponent(), false);
 		} else {
-
-			ClientChatEvent event = new ClientChatEvent(packetIn.getChatComponent().getUnformattedText());
-			Resent.INSTANCE.events().post(event);
 	
-			if (event.message.toLowerCase().contains("you won the match") && AutoGG.onWin.getValue()
-					|| event.message.toLowerCase().contains("was killed by")
-							&& event.message.contains(Minecraft.getMinecraft().thePlayer.getName()) || event.message.toLowerCase().contains("you lost the") && AutoGG.onLose.getValue()) {
+			if (packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you won the match") && AutoGG.onWin.getValue()
+					|| packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("was killed by")
+							&& packetIn.getChatComponent().getUnformattedText().contains(Minecraft.getMinecraft().thePlayer.getName()) || packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you lost the") && AutoGG.onLose.getValue()) {
 				if (W.autoGG().isEnabled()) {
 					switch (hasSaid) {
 						case "hasSaid1":

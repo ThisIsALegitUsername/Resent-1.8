@@ -1,10 +1,11 @@
 package dev.resent.setting;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ModeSetting extends Setting{
-    public List<String> modes = new ArrayList<String>();
+    public List<String> modes = new ArrayList<>();
 
     public String current;
 
@@ -12,18 +13,11 @@ public class ModeSetting extends Setting{
 
     public ModeSetting(String name, String description, String... modes) {
         super(name, description);
-        for (String s : modes) {
-            this.modes.add(s);
-        }
-        if (curr >= this.modes.size()) {
+        Collections.addAll(this.modes, modes);
+        if (curr == this.modes.size()) {
             curr = 0;
         }
         current = this.modes.get(curr);
-    }
-
-    public ModeSetting FireChange() {
-        onChange();
-        return this;
     }
 
     public void onChange() { }
