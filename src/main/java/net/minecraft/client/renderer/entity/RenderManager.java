@@ -387,20 +387,13 @@ public class RenderManager {
 					}
 				}
 
-				if (W.hitboxes().isEnabled() && !entity.isInvisible()) {
+				if (W.hitboxes().isEnabled() && W.hitboxes().old.getValue() && !entity.isInvisible()) {
 					GlStateManager.disableTexture2D();
 					GlStateManager.disableLighting();
 					GlStateManager.disableCull();
 					GlStateManager.disableBlend();
 					GlStateManager.depthMask(false);
 					GlStateManager.pushMatrix();
-					/*
-					 * int r = RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed();
-					 * int g = RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen();
-					 * int b = RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue();
-					 * var.setColorRGBA(r, g, b, 32);
-					 * EaglerAdapter.glColor3f(r, g, b);
-					 */
 					EaglercraftGPU.glLineWidth(1.0f);
 
 					RenderGlobal.func_181563_a(
@@ -477,7 +470,11 @@ public class RenderManager {
 			RenderGlobal.func_181563_a(new AxisAlignedBB(parDouble1 - (double) f,
 					parDouble2 + (double) entityIn.getEyeHeight() - 0.009999999776482582D, parDouble3 - (double) f,
 					parDouble1 + (double) f, parDouble2 + (double) entityIn.getEyeHeight() + 0.009999999776482582D,
-					parDouble3 + (double) f), 255, 0, 0, 255);
+					parDouble3 + (double) f),
+
+					W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed() : 255,
+					W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen() : 255,
+					W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue() : 255, 255);
 		}
 
 		Tessellator tessellator = Tessellator.getInstance();
