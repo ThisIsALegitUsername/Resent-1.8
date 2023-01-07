@@ -704,44 +704,6 @@ public class GameSettings {
 				try {
 					String[] astring = s.split(":");
 
-					for(Mod m : Resent.INSTANCE.modManager.modules){
-
-						if(astring[0].equals(m.name)){
-							m.enabled = astring[1].equals("true");
-						}
-
-						List<RenderModule> rmodules = new ArrayList<>();
-						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
-
-						for(RenderModule rmod : rmodules){
-							if(astring[0].equals(rmod.name+"_x")){
-								rmod.setX(Integer.parseInt(astring[1]));
-							}
-							if(astring[0].equals(rmod.name+"_y")){
-								rmod.setY(Integer.parseInt(astring[1]));
-							}
-							if(astring[0].equals(rmod.name+"_lastx")){
-								rmod.lastX=Integer.parseInt(astring[1]);
-							}
-							if(astring[0].equals(rmod.name+"_lasty")){
-								rmod.lastY=Integer.parseInt(astring[1]);
-							}
-						}
-
-						for(Setting se : m.settings){
-							if(se instanceof ModeSetting){
-								if(astring[0].equals(m.name+"_modesetting_"+se.name)){
-									((ModeSetting)se).setValue(astring[1]);
-								}
-							}
-							if(se instanceof BooleanSetting){
-								if(astring[0].equals(m.name+"_boolsetting_"+se.name)){
-									((BooleanSetting)se).setValue(astring[1].equals("true"));
-								}
-							}
-						}
-					}
-
 					if (astring[0].equals("mouseSensitivity")) {
 						this.mouseSensitivity = this.parseFloat(astring[1]);
 					}
@@ -1048,6 +1010,45 @@ public class GameSettings {
 							this.setModelPartEnabled(enumplayermodelparts, astring[1].equals("true"));
 						}
 					}
+
+					for(Mod m : Resent.INSTANCE.modManager.modules){
+
+						if(astring[0].equals(m.name)){
+							m.enabled = astring[1].equals("true");
+						}
+
+						List<RenderModule> rmodules = new ArrayList<>();
+						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
+
+						for(RenderModule rmod : rmodules){
+							if(astring[0].equals(rmod.name+"_x")){
+								rmod.setX(Integer.parseInt(astring[1]));
+							}
+							if(astring[0].equals(rmod.name+"_y")){
+								rmod.setY(Integer.parseInt(astring[1]));
+							}
+							if(astring[0].equals(rmod.name+"_lastx")){
+								rmod.lastX=Integer.parseInt(astring[1]);
+							}
+							if(astring[0].equals(rmod.name+"_lasty")){
+								rmod.lastY=Integer.parseInt(astring[1]);
+							}
+						}
+
+						for(Setting se : m.settings){
+							if(se instanceof ModeSetting){
+								if(astring[0].equals(m.name+"_modesetting_"+se.name)){
+									((ModeSetting)se).setValue(astring[1]);
+								}
+							}
+							if(se instanceof BooleanSetting){
+								if(astring[0].equals(m.name+"_boolsetting_"+se.name)){
+									((BooleanSetting)se).setValue(astring[1].equals("true"));
+								}
+							}
+						}
+					}
+					
 				} catch (Exception var8) {
 					logger.warn("Skipping bad option: " + s);
 				}
