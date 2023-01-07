@@ -75,6 +75,8 @@ eaglercraft.options.hud.note=Check 'Video Settings' for the option to hide XYZ
 eaglercraft.options.hud.24h=24h Day
 eaglercraft.options.chunkFix=Chunk Lag Fix
 eaglercraft.options.fog=Fog
+eaglercraft.options.fxaa=FXAA Antialiasing
+eaglercraft.options.fxaa.auto=Auto
 
 eaglercraft.key.function=Function
 eaglercraft.key.zoomCamera=Zoom Camera
