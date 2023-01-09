@@ -166,6 +166,7 @@ public class GuiIngame extends Gui {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(icons);
 		GlStateManager.enableBlend();
+		
 		if (this.showCrosshair()) {
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
@@ -460,8 +461,7 @@ public class GuiIngame extends Gui {
 	}
 
 	protected boolean showCrosshair() {
-		if (this.mc.gameSettings.showDebugInfo && !this.mc.thePlayer.hasReducedDebug()
-				&& !this.mc.gameSettings.reducedDebugInfo) {
+		if (this.mc.gameSettings.showDebugInfo && !this.mc.thePlayer.hasReducedDebug() && !this.mc.gameSettings.reducedDebugInfo) {
 			return false;
 		} else if (this.mc.playerController.isSpectator()) {
 			if (this.mc.pointedEntity != null) {
@@ -519,8 +519,8 @@ public class GuiIngame extends Gui {
 			int l = parScaledResolution.getScaledWidth() - b0 + 2;
 			drawRect(k1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
 			this.getFontRenderer().drawString(s1, k1, k, 553648127);
-			if(W.scoreboardNumbers().enabled){
-			this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
+			if(W.scoreboard().numbers.getValue()){
+				this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 			}
 			if (j == arraylist1.size()) {
 				String s3 = parScoreObjective.getDisplayName();

@@ -32,9 +32,7 @@ import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
-import dev.resent.module.impl.misc.ScoreboardNumbers;
 import dev.resent.module.impl.misc.SelfNametag;
-import dev.resent.module.impl.misc.SmoothCamera;
 import dev.resent.module.impl.misc.Tooltips;
 import dev.resent.module.impl.movement.AutoJump;
 import dev.resent.module.impl.movement.AutoWalk;
@@ -68,14 +66,12 @@ public class ModManager {
 	public static Health health;
 	//public static ChunkBorders chunkBorders;
 	public static NoParticles noParticles = new NoParticles();
-	public static ScoreboardNumbers scoreboardNumbers;
-	public static Scoreboard scoreboard;
+	public static Scoreboard scoreboard = new Scoreboard();
 	public static AutoWalk autoWalk;
 	public static AutoJump autoJump;
 	public static SelfNametag selfNametag = new SelfNametag();
 	public static ClearChat clearChat = new ClearChat();
 	public static Tooltips tooltips;
-	public static SmoothCamera smoothCamera;
 	public static FPSB fpsb = new FPSB();
 	public static FakeArray fakeArray;
 	public static Animations animations = new Animations();
@@ -120,14 +116,12 @@ public class ModManager {
 		register(hitboxes);
 		//register(chunkBorders = new ChunkBorders());
 		register(noParticles);
-		register(scoreboardNumbers = new ScoreboardNumbers());
-		register(scoreboard = new Scoreboard());
+		register(scoreboard );
 		register(autoWalk = new AutoWalk());
 		register(autoJump = new AutoJump());
 		//register(selfNametag = new SelfNametag());
 		register(clearChat);
 		register(tooltips = new Tooltips());
-		register(smoothCamera = new SmoothCamera());
 		register(animations);
 
 	}
