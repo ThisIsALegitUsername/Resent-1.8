@@ -15,9 +15,12 @@ import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderModule;
+import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.ui.mods.HUDConfigScreen;
 import dev.resent.util.misc.W;
+import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -171,11 +174,14 @@ public class GuiIngame extends Gui {
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
 			Minecraft mc = Minecraft.getMinecraft();
-			Entity target = mc.getRenderViewEntity();
+			Entity target = mc.pointedEntity;
 			
-			if(target == null)
+			if(target != null && ModManager.crosshair.isEnabled())
+			GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), 1);
 			this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
 		}
+
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		this.mc.mcProfiler.startSection("bossHealth");

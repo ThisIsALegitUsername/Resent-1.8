@@ -23,6 +23,7 @@ import dev.resent.module.impl.misc.Animations;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
 import dev.resent.module.impl.misc.ClearChat;
+import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.Fullbright;
@@ -81,6 +82,7 @@ public class ModManager {
 	public static PotCounter potCounter;
 	public static Ping ping;
 	public static ServerInfo serverInfo;
+	public static Crosshair crosshair = new Crosshair();
 
 	public ModManager() {
 
@@ -104,6 +106,7 @@ public class ModManager {
 
 
 		//Mechanic
+		register(crosshair);
 		register(fullbright = new Fullbright());
 		register(noSwingDelay = new NoSwingDelay());
 		register(minimalViewBobbing);
