@@ -8,6 +8,7 @@ public class Scoreboard extends Mod {
     public Scoreboard() {
         super("Scoreboard", Category.MISC, true);
         addSetting(numbers);
+
     }
     
     public BooleanSetting numbers = new BooleanSetting("Numbers","", false);

@@ -170,6 +170,10 @@ public class GuiIngame extends Gui {
 		if (this.showCrosshair()) {
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
+			Minecraft mc = Minecraft.getMinecraft();
+			Entity target = mc.getRenderViewEntity();
+			
+			if(target == null)
 			this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
 		}
 
