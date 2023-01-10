@@ -40,7 +40,7 @@ dependencies {
 teavm {
    
    compileScopes = null;
-   minifying = false;
+   minifying = true;
    maxTopLevelNames = 10000;
    properties = null;
    debugInformationGenerated = false;
@@ -71,10 +71,10 @@ teavm {
    targetType = "JAVASCRIPT"; //org.teavm.tooling.TeaVMTargetType.JAVASCRIPT;
    cacheDirectory = null;
    wasmVersion = "V_0x1"; //org.teavm.backend.wasm.render.WasmBinaryVersion.V_0x1;
-   minHeapSize = 4;
+   minHeapSize = 108;
    maxHeapSize = 128;
    outOfProcess = false;
-   processMemory = 512;
+   processMemory = 1024;
    longjmpSupported = true;
    heapDump = false;
    

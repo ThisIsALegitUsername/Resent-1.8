@@ -1014,7 +1014,7 @@ public class GameSettings {
 					for(Mod m : Resent.INSTANCE.modManager.modules){
 
 						if(astring[0].equals(m.name)){
-							m.enabled = astring[1].equals("true");
+							m.setEnabled(astring[1].equals("true"));
 						}
 
 						List<RenderModule> rmodules = new ArrayList<>();

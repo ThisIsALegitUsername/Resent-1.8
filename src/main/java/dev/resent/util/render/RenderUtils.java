@@ -6,23 +6,24 @@ import net.minecraft.client.gui.Gui;
 public class RenderUtils {
     
     public static int getColor(ModeSetting asdf) {
+
         switch (asdf.getValue()) {
             case "Red":
-                return Color.RED.getRGB();
+                return new Color(255, 0, 0, 85).getRGB();
             case "Yellow":
-                return Color.YELLOW.getRGB();
+                return new Color(255, 255, 0, 85).getRGB();
             case "Green":
-                return Color.GREEN.getRGB();
+                return new Color(0, 255, 0, 85).getRGB();
             case "Blue":
-                return Color.BLUE.getRGB();
+                return new Color(0, 0, 255, 85).getRGB();
             case "Orange":
-                return Color.ORANGE.getRGB();
+                return new Color(255, 165, 0, 85).getRGB();
             case "Pink":
                 return new Color(255, 102, 255).getRGB();
             case "Black":
-                return Color.BLACK.getRGB();
+                return new Color(0, 0, 0, 85).getRGB();
             case "White":
-                return -1;
+                return new Color(255, 255, 255, 85).getRGB();
         }
         return -1;
     }

@@ -10,6 +10,6 @@ public class Crosshair extends Mod{
         addSetting(color);
     }
 
-    public static ModeSetting color = new ModeSetting("Hovered crosshair color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
+    public static ModeSetting color = new ModeSetting("Hovered crosshair color", "", "White", "Red", "Yellow", "Green", "Blue", "Black");
     
 }
