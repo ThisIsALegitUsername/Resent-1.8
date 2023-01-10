@@ -4,82 +4,78 @@ import java.util.Collection;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ResourceLocation;
 
 @SuppressWarnings("all")
 public class PotionHUD extends RenderModule{
 
-    public Minecraft mc = Minecraft.getMinecraft();
-    public FontRenderer fr;
-    public ScaledResolution sr;
+    protected float zLevelFloat;
+    
 
     public PotionHUD() {
         super("PotionHUD", Category.HUD, 4, 350);
     }
 
-    @Override
-    public void renderLayout(int mouseX, int mouseY) {
-        fr = mc.fontRendererObj;
-        super.renderLayout(mouseX, mouseY);
-        fr.drawStringWithShadow("PotionHUD", getX() + getWidth() / 2 - ((getWidth() - 10) / 2),
-                getY() + (getHeight() / 2 - fr.FONT_HEIGHT / 2), -1);
+    public int getWidth() {
+        return 100;
     }
-
-    @Override
+    
     public int getHeight() {
-        fr = mc.fontRendererObj;
-        return fr.FONT_HEIGHT + 3;
+        return 90;
     }
 
-
-
-    @Override
-    public void draw(){
-        this.setHeight(20);
-    	this.setWidth(mc.fontRendererObj.getStringWidth("Resistance VII") + 2);
-        sr = new ScaledResolution(mc);
-        Collection<PotionEffect> effects = mc.thePlayer.getActivePotionEffects();
-        int potcount = 0;
-
-        for (PotionEffect e : effects) {
-            if (!effects.isEmpty()) {
-                String eName = StatCollector.translateToLocal(e.getEffectName());
-                String duration = Potion.getDurationString(e);
-                int amp = e.getAmplifier() + 1;
-                String ampString = ("" + amp);
-
-                if (amp == 1) {
-                    ampString = "I";
-                } else if (amp == 2) {
-                    ampString = "II";
-                } else if (amp == 3) {
-                    ampString = "III";
-                } else if (amp == 4) {
-                    ampString = "IV";
-                } else if (amp == 5) {
-                    ampString = "V";
+    public void draw() {
+        int offsetX = 21;
+        int offsetY = 14;
+        int i = 80;
+        int i2 = 16;
+        Collection<PotionEffect> collection = mc.thePlayer.getActivePotionEffects();
+        if (!collection.isEmpty()) {
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.disableLighting();
+            int l = 33;
+            if (collection.size() > 5)
+                l = 132 / (collection.size() - 1); 
+            for (PotionEffect potioneffect : mc.thePlayer.getActivePotionEffects()) {
+                Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                if (potion.hasStatusIcon()) {
+                    GuiIngame guiIngame = new GuiIngame(mc);
+                    GlStateManager.tryBlendFuncSeparate(775, 769, 1, 0);
+                    Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
+                    int i3 = potion.getStatusIconIndex();
+                    
+                    guiIngame.drawTexturedModalRect(getX() + 21 - 20, getY() + i2 - 20, 0 + i3 % 8 * 18, 198 + i3 / 8 * 18, 18, 18);
+                } 
+                String s1 = I18n.format(potion.getName(), new Object[0]);
+                if (potioneffect.getAmplifier() == 1) {
+                    s1 = "I";
+                } else if (potioneffect.getAmplifier() == 2) {
+                    s1 = "II";
+                } else if (potioneffect.getAmplifier() == 3) {
+                    s1 = "III";
+                } else if (potioneffect.getAmplifier() == 4) {
+                    s1 = "IV";
+                } else if (potioneffect.getAmplifier() == 5) {
+                    s1 = "V";
                 } else {
-                    ampString = ("" + amp);
+                    s1 = ("" + potioneffect.getAmplifier());
                 }
 
-                Potion var8 = Potion.potionTypes[e.getPotionID()];
-                /*if (var8.hasStatusIcon()) {
-                    int var9 = var8.getStatusIconIndex();
-                    guiScreen.drawTexturedModalRect(this.x, this.y+ 4, 0 + var9 % 8 * 18, 198 + var9 / 8 * 18, 18, 18);
-                }*/
-
-                fr = mc.fontRendererObj;
-                String toDraw = "§4" + eName + "§r §a" + ampString + " §9" + duration;
-                fr.drawStringWithShadow(toDraw, this.x + 2, this.y + (potcount * 10) -5, -1);
-                this.setHeight((potcount * 10) + 10);
-                potcount++;
-            }
-        }
+                mc.fontRendererObj.drawString(s1, (getX() + 21), (getY() + i2 - 20), 16777215, true);
+                String s2 = Potion.getDurationString(potioneffect);
+                mc.fontRendererObj.drawString(s2, (getX() + 21), (getY() + i2 + 10 - 20), 8355711, true);
+                i2 += l;
+            } 
+        } 
+        super.draw();
     }
+
     
 }
