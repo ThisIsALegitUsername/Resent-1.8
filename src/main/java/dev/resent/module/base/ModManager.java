@@ -7,7 +7,6 @@ import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.CPS;
 import dev.resent.module.impl.hud.ComboCounter;
 import dev.resent.module.impl.hud.FPS;
-import dev.resent.module.impl.hud.FakeArray;
 import dev.resent.module.impl.hud.Freelook;
 import dev.resent.module.impl.hud.Health;
 import dev.resent.module.impl.hud.Hitboxes;
@@ -74,7 +73,6 @@ public class ModManager {
 	public static ClearChat clearChat = new ClearChat();
 	public static Tooltips tooltips;
 	public static FPSB fpsb = new FPSB();
-	public static FakeArray fakeArray;
 	public static Animations animations = new Animations();
 	public static MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
 	public static Watermark watermark;
@@ -92,7 +90,6 @@ public class ModManager {
 		register(watermark = new Watermark());
 		register(freelook = new Freelook());
 		register(fpsb);
-		register(fakeArray = new FakeArray());
 		register(keyStrokes = new KeyStrokes());
 		register(armorHud = new ArmorHud());
 		register(cps = new CPS());
