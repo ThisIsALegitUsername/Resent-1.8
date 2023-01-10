@@ -47,11 +47,15 @@ public class PotionHUD extends RenderModule{
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                 if (potion.hasStatusIcon()) {
                     GuiIngame guiIngame = new GuiIngame(mc);
+                    GlStateManager.enableAlpha();
+                    //GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.enableBlend();
                     GlStateManager.tryBlendFuncSeparate(775, 769, 1, 0);
+                    
                     Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
                     int i3 = potion.getStatusIconIndex();
                     
-                    guiIngame.drawTexturedModalRect(getX() + 21 - 20, getY() + i2 - 20, 0 + i3 % 8 * 18, 198 + i3 / 8 * 18, 18, 18);
+                    guiIngame.drawTexturedModalRect(getX() + 21 - 14, getY() + i2 - 14, 0 + i3 % 8 * 18, 198 + i3 / 8 * 18, 18, 18);
                 } 
                 String s1 = I18n.format(potion.getName(), new Object[0]);
                 if (potioneffect.getAmplifier() == 1) {
@@ -68,9 +72,9 @@ public class PotionHUD extends RenderModule{
                     s1 = ("" + potioneffect.getAmplifier());
                 }
 
-                mc.fontRendererObj.drawString(s1, (getX() + 21), (getY() + i2 - 20), 16777215, true);
+                mc.fontRendererObj.drawString(s1, (getX() + 21), (getY() + i2 - 14), 16777215, true);
                 String s2 = Potion.getDurationString(potioneffect);
-                mc.fontRendererObj.drawString(s2, (getX() + 21), (getY() + i2 + 10 - 20), 8355711, true);
+                mc.fontRendererObj.drawString(s2, (getX() + 21), (getY() + i2 + 10 - 14), 8355711, true);
                 i2 += l;
             } 
         } 
