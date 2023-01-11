@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dev.resent.Resent;
+import dev.resent.event.impl.Event;
 import dev.resent.setting.Setting;
 import net.minecraft.client.Minecraft;
 
@@ -34,11 +36,8 @@ public class Mod {
 		this.settings.addAll(Arrays.asList(settings));
 	}
 
-	public void onEnable() {
-	}
-
-	public void onDisable() {
-	}
+	public void onEnable() { }
+	public void onDisable() { }
 
 	public void toggle() {
 		this.enabled = !this.enabled;
@@ -49,6 +48,14 @@ public class Mod {
 		}
 	}
 
+	public void onEvent(Event e){
+		for(int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++){
+			if(!Resent.INSTANCE.modManager.modules.get(i).isEnabled())
+				continue;
+			
+			Resent.INSTANCE.modManager.modules.get(i).onEvent(e);
+		}
+	}
 	public void setEnabled(boolean state) {
 		this.enabled = state;
 		if (this.enabled)

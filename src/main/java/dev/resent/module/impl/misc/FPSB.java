@@ -8,7 +8,7 @@ public class FPSB extends Mod{
     public static boolean yes = false;
 
     public FPSB(){
-        super("Fps Boost", Category.MISC);
+        super("Fast math", Category.MISC);
     }
 
     @Override

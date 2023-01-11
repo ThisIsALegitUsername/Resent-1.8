@@ -97,41 +97,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	private static ResourceLocation backgroundTexture = null;
 
 	public GuiMainMenu() {
-		this.splashText = "missingno";
-		BufferedReader bufferedreader = null;
-
-		try {
-			ArrayList arraylist = Lists.newArrayList();
-			bufferedreader = new BufferedReader(new InputStreamReader(
-					Minecraft.getMinecraft().getResourceManager().getResource(splashTexts).getInputStream(),
-					Charsets.UTF_8));
-
-			String s;
-			while ((s = bufferedreader.readLine()) != null) {
-				s = s.trim();
-				if (!s.isEmpty()) {
-					arraylist.add(s);
-                }
-            }
-
-            if (!arraylist.isEmpty()) {
-                while (true) {
-                    this.splashText = (String) arraylist.get(RANDOM.nextInt(arraylist.size()));
-                    if (this.splashText.hashCode() != 125780783) {
-                        break;
-                    }
-                }
-            }
-        } catch (IOException var12) {
-        } finally {
-            if (bufferedreader != null) {
-                try {
-                    bufferedreader.close();
-                } catch (IOException var11) {
-                }
-			}
-
-		}
+		this.splashText = (System.currentTimeMillis() - 1672104240000l) / 86400000l + "Days since Resent last merged with Eaglercraft U5";
 
 		this.updateCounter = RANDOM.nextFloat();
 

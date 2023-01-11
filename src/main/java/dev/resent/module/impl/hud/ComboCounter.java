@@ -1,6 +1,6 @@
 package dev.resent.module.impl.hud;
 
-import dev.resent.Resent;
+import dev.resent.event.impl.Event;
 import dev.resent.event.impl.EventAttack;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
@@ -16,12 +16,12 @@ public class ComboCounter extends RenderModule {
     public ComboCounter() {
         super("ComboCounter", Category.HUD, 4, 4, true);
         addSetting(tshadow);
+    }
 
-        Resent.INSTANCE.events().subscribe(EventAttack.class, event -> {
-            if (this.isEnabled()) {
+    public void onEvent(Event e){
+        if(e instanceof EventAttack && isEnabled()){
                 attacked = true;
-            }
-        });
+        }
     }
 
     public void onEntityHit(S19PacketEntityStatus event) {
