@@ -34,8 +34,6 @@ import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Tooltips;
-import dev.resent.module.impl.movement.AutoJump;
-import dev.resent.module.impl.movement.AutoWalk;
 import dev.resent.module.impl.movement.Sprint;
 import net.minecraft.client.Minecraft;
 
@@ -59,16 +57,14 @@ public class ModManager {
 	public static FPS fps;
 	public static ReachDisplay reachDisplay;
 	public static AutoGG autoGG;
-	public static AutoRespawn autoRespawn;
 	public static Freelook freelook;
 	public static ComboCounter comboCounter = new ComboCounter();
 	public static Hitboxes hitboxes = new Hitboxes();
 	public static Health health;
+	public static AutoRespawn autoRespawn;
 	//public static ChunkBorders chunkBorders;
 	public static NoParticles noParticles = new NoParticles();
 	public static Scoreboard scoreboard = new Scoreboard();
-	public static AutoWalk autoWalk;
-	public static AutoJump autoJump;
 	public static SelfNametag selfNametag = new SelfNametag();
 	public static ClearChat clearChat = new ClearChat();
 	public static Tooltips tooltips;
@@ -104,6 +100,7 @@ public class ModManager {
 
 		//Mechanic
 		register(crosshair);
+		register(autoRespawn = new AutoRespawn());
 		register(fullbright = new Fullbright());
 		register(noSwingDelay = new NoSwingDelay());
 		register(minimalViewBobbing);
@@ -112,13 +109,10 @@ public class ModManager {
 		register(sprint = new Sprint());
 		register(noHurtCam);
 		register(autoGG = new AutoGG());
-		register(autoRespawn = new AutoRespawn());
 		register(hitboxes);
 		//register(chunkBorders = new ChunkBorders());
 		register(noParticles);
 		register(scoreboard );
-		register(autoWalk = new AutoWalk());
-		register(autoJump = new AutoJump());
 		//register(selfNametag = new SelfNametag());
 		register(clearChat);
 		register(tooltips = new Tooltips());

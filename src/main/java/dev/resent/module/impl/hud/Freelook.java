@@ -2,7 +2,6 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.Resent;
 import dev.resent.event.impl.EventKey;
-import dev.resent.event.impl.EventUpdate;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 import dev.resent.util.misc.W;
