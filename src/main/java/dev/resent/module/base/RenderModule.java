@@ -42,22 +42,6 @@ public class RenderModule extends Mod {
 		} else if ((getY()) < 0) {
 			this.y = 0;
 			dragging = false;
-		} else if (getX() <= 0 && getY() < 0) {
-			this.y = 0;
-			this.x = 0;
-			dragging = false;
-		} else if (getX() + getWidth() > GuiScreen.width && getY() < 0) {
-			this.x = GuiScreen.width - getWidth();
-			this.y = 0;
-			dragging = false;
-		} else if (getX() + getWidth() > GuiScreen.width && getY() + getHeight() > GuiScreen.height) {
-			this.x = GuiScreen.width - getWidth();
-			this.y = GuiScreen.height - getHeight();
-			dragging = false;
-		} else if (getY() + getHeight() > GuiScreen.height && getX() < 0) {
-			this.x = GuiScreen.width - getWidth();
-			this.y = GuiScreen.height - getHeight();
-			dragging = false;
 		}
 	}
 
