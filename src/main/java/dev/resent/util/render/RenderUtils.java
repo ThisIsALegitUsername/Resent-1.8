@@ -9,21 +9,21 @@ public class RenderUtils {
 
         switch (asdf.getValue()) {
             case "Red":
-                return new Color(255, 0, 0, 85).getRGB();
+                return new Color(255, 0, 0, 95).getRGB();
             case "Yellow":
-                return new Color(255, 255, 0, 85).getRGB();
+                return new Color(255, 255, 0, 95).getRGB();
             case "Green":
-                return new Color(0, 255, 0, 85).getRGB();
+                return new Color(0, 255, 0, 95).getRGB();
             case "Blue":
-                return new Color(0, 0, 255, 85).getRGB();
+                return new Color(0, 0, 255, 95).getRGB();
             case "Orange":
-                return new Color(255, 165, 0, 85).getRGB();
+                return new Color(255, 165, 0, 95).getRGB();
             case "Pink":
-                return new Color(255, 102, 255).getRGB();
+                return new Color(255, 102, 255, 95).getRGB();
             case "Black":
-                return new Color(0, 0, 0, 85).getRGB();
+                return new Color(0, 0, 0, 95).getRGB();
             case "White":
-                return new Color(255, 255, 255, 85).getRGB();
+                return new Color(255, 255, 255, 95).getRGB();
         }
         return -1;
     }
