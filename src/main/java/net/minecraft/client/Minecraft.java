@@ -23,8 +23,6 @@ import org.apache.commons.lang3.Validate;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
-import dev.resent.event.impl.EventKey;
-import dev.resent.module.base.ModManager;
 import dev.resent.ui.mods.ClickGUI;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
@@ -1326,9 +1324,6 @@ public class Minecraft implements IThreadListener {
 				if (Keyboard.getEventKeyState()) {
 					KeyBinding.onTick(k);
 				}
-
-				EventKey event = new EventKey(k);
-				Resent.INSTANCE.events().post(event);
 
 				if (this.debugCrashKeyPressTime > 0L) {
 					if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L) {

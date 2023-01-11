@@ -9,9 +9,8 @@ import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class ComboCounter extends RenderModule {
 
-    private long lastAttack;
     public static boolean attacked = false;
-    public int combo = 0;
+    public static int combo = 0;
     public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
     
     public ComboCounter() {
@@ -21,7 +20,6 @@ public class ComboCounter extends RenderModule {
         Resent.INSTANCE.events().subscribe(EventAttack.class, event -> {
             if (this.isEnabled()) {
                 attacked = true;
-                lastAttack = System.nanoTime();
             }
         });
     }
@@ -43,10 +41,6 @@ public class ComboCounter extends RenderModule {
 
     @Override
     public void draw() {
-        if (mc.thePlayer.hurtTime > 3 || System.nanoTime() - lastAttack >= 3.0E9 && this.enabled) {
-            combo = 0;
-        }
-
         mc.fontRendererObj.drawString(combo + " Combo", this.x + 2, this.y + 2, -1, tshadow.getValue());
     }
 
