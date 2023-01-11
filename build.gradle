@@ -71,7 +71,7 @@ teavm {
    targetType = "JAVASCRIPT"; //org.teavm.tooling.TeaVMTargetType.JAVASCRIPT;
    cacheDirectory = null;
    wasmVersion = "V_0x1"; //org.teavm.backend.wasm.render.WasmBinaryVersion.V_0x1;
-   minHeapSize = 108;
+   minHeapSize = 104;
    maxHeapSize = 128;
    outOfProcess = false;
    processMemory = 1024;
