@@ -97,7 +97,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	private static ResourceLocation backgroundTexture = null;
 
 	public GuiMainMenu() {
-		this.splashText = (System.currentTimeMillis() - 1672104240000l) / 86400000l + "Days since Resent last merged with Eaglercraft U5";
+		this.splashText = (System.currentTimeMillis() - 1672104240000l) / 86400000l + " days since Resent last merged with Eaglercraft U5";
 
 		this.updateCounter = RANDOM.nextFloat();
 
