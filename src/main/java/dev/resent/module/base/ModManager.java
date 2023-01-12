@@ -124,22 +124,4 @@ public class ModManager {
 		this.modules.add(m);
 	}
 
-	public void onKey(int keycode) {
-		for (int i = 0; i < modules.size(); i++) {
-			if (keycode == modules.get(i).keyCode && keycode != 0) {
-				modules.get(i).toggle();
-			}
-		}
-	}
-
-	public List<Mod> getModulesByCategory(Category c) {
-		List<Mod> modules1 = new ArrayList<Mod>();
-		for (Mod module : modules) {
-			if (module.category == c) {
-				modules1.add(module);
-			}
-		}
-		return modules1;
-	}
-
 }

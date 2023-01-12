@@ -4,8 +4,6 @@ import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
-import java.util.Objects;
-
 public class RenderModule extends Mod {
 
 	public int x, y, width, height;
@@ -29,7 +27,7 @@ public class RenderModule extends Mod {
 
 	public void draw() { }
 
-	public void Resize() {
+	public void resize() {
 		if ((getX() + getWidth()) > GuiScreen.width) {
 			this.x = GuiScreen.width - getWidth();
 			dragging = false;
@@ -45,56 +43,40 @@ public class RenderModule extends Mod {
 		}
 	}
 
-	private void draggingFix(int mouseX, int mouseY) {
-		if (this.dragging && (Objects.equals(ModManager.currentModDragging, this.name) || ModManager.currentModDragging == null)) {
-			this.x = mouseX + this.lastX;
-			this.y = mouseY + this.lastY;
-			if (ModManager.currentModDragging == null)
-				ModManager.currentModDragging = this.name;
-			if (!Mouse.isButtonDown(0))
-				this.dragging = false;
-			if (Objects.equals(ModManager.currentModDragging, this.name))
-				ModManager.currentModDragging = null;
-			if (this.x >= GuiScreen.width - getWidth()) {
-				this.dragging = false;
-				if (Objects.equals(ModManager.currentModDragging, this.name))
-					ModManager.currentModDragging = null;
-			}
-			if (this.y >= GuiScreen.height - getHeight()) {
-				this.dragging = false;
-				if (Objects.equals(ModManager.currentModDragging, this.name))
-					ModManager.currentModDragging = null;
-			}
-		}
-	}
+    private void draggingFix(int mouseX, int mouseY) {
+        if (this.dragging) {
+            this.x = mouseX + this.lastX;
+            this.y = mouseY + this.lastY;
+            if(!Mouse.isButtonDown(0)) this.dragging = false;
+        }
+    }
 
 	public void renderLayout(int mouseX, int mouseY) {
-		Resize();
+
+		resize();
+		draw();
+		draggingFix(mouseX, mouseY);
+
 		boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth()
 				&& mouseY < getY() + this.getHeight();
 
-		boolean mouseOverX = (mouseX >= this.x && mouseX <= this.x + this.getWidth());
-		boolean mouseOverY = (mouseY >= this.y && mouseY <= this.y + this.getHeight());
-		boolean drag = (mouseOverX && mouseOverY && Mouse.isButtonDown(0));
-		draggingFix(mouseX, mouseY);
+		Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
+		Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + 1, -1);
+		Gui.drawRect(this.x, this.y, this.x + 1, this.y + getHeight(), -1);
+		Gui.drawRect(this.x + this.getWidth() - 1, this.y, this.x + getWidth(), this.y + this.getHeight(), -1);
+		Gui.drawRect(this.x, this.y + this.getHeight() - 1, this.x + getWidth(), this.y + this.getHeight(), -1);
 
-		if (drag && (ModManager.currentModDragging == null || ModManager.currentModDragging.equals(this.name))) {
-			if (!this.dragging) {
-				this.lastX = x - mouseX;
-				this.lastY = y - mouseY;
-				this.dragging = true;
-				ModManager.currentModDragging = this.name;
-			}
-		}
-
-		draw();
-
-		
-		Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), 0x50FFFFFF);
-		Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + 1, 0xFFFFFFFF);
-		Gui.drawRect(this.x, this.y, this.x + 1, this.y + getHeight(), 0xFFFFFFFF);
-		Gui.drawRect(this.x + this.getWidth() - 1, this.y, this.x + getWidth(), this.y + this.getHeight(), 0xFFFFFFFF);
-		Gui.drawRect(this.x, this.y + this.getHeight() - 1, this.x + getWidth(), this.y + this.getHeight(), 0xFFFFFFFF);
+        boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX()+this.getWidth());
+        boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY()+this.getHeight());
+        if(mouseOverX && mouseOverY){
+            if(Mouse.isButtonDown(0)){
+                if (!this.dragging) {
+                    this.lastX = x - mouseX;
+                    this.lastY = y - mouseY;
+                    this.dragging = true;
+                }
+            }
+        }
 	}
 
 	public int getX() {
