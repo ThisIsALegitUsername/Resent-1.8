@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import dev.resent.Resent;
+import dev.resent.module.base.Mod;
+import dev.resent.module.base.RenderModule;
+import dev.resent.setting.BooleanSetting;
+import dev.resent.setting.ModeSetting;
+import dev.resent.setting.Setting;
 import net.lax1dude.eaglercraft.v1_8.ArrayUtils;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
@@ -158,6 +165,8 @@ public class GameSettings {
 			"key.categories.misc");
 	public KeyBinding keyBindFunction = new KeyBinding("key.function", KeyboardConstants.KEY_F, "key.categories.misc");
 	public KeyBinding keyBindClose = new KeyBinding("key.close", KeyboardConstants.KEY_GRAVE, "key.categories.misc");
+	public KeyBinding keyBindClickGui = new KeyBinding("Click Gui", KeyboardConstants.KEY_RSHIFT, "Resent");
+	public KeyBinding keyBindFreelook = new KeyBinding("Freelook", KeyboardConstants.KEY_L, "Resent");
 	public KeyBinding[] keyBindsHotbar = new KeyBinding[] {
 			new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"),
 			new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"),
@@ -1021,6 +1030,45 @@ public class GameSettings {
 							this.setModelPartEnabled(enumplayermodelparts, astring[1].equals("true"));
 						}
 					}
+
+					for(Mod m : Resent.INSTANCE.modManager.modules){
+
+						if(astring[0].equals(m.name)){
+							m.setEnabled(astring[1].equals("true"));
+						}
+
+						List<RenderModule> rmodules = new ArrayList<>();
+						if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
+
+						for(RenderModule rmod : rmodules){
+							if(astring[0].equals(rmod.name+"_x")){
+								rmod.setX(Integer.parseInt(astring[1]));
+							}
+							if(astring[0].equals(rmod.name+"_y")){
+								rmod.setY(Integer.parseInt(astring[1]));
+							}
+							if(astring[0].equals(rmod.name+"_lastx")){
+								rmod.lastX=Integer.parseInt(astring[1]);
+							}
+							if(astring[0].equals(rmod.name+"_lasty")){
+								rmod.lastY=Integer.parseInt(astring[1]);
+							}
+						}
+
+						for(Setting se : m.settings){
+							if(se instanceof ModeSetting){
+								if(astring[0].equals(m.name+"_modesetting_"+se.name)){
+									((ModeSetting)se).setValue(astring[1]);
+								}
+							}
+							if(se instanceof BooleanSetting){
+								if(astring[0].equals(m.name+"_boolsetting_"+se.name)){
+									((BooleanSetting)se).setValue(astring[1].equals("true"));
+								}
+							}
+						}
+					}
+
 				} catch (Exception var8) {
 					logger.warn("Skipping bad option: " + s);
 				}
@@ -1139,6 +1187,31 @@ public class GameSettings {
 						+ this.setModelParts.contains(enumplayermodelparts));
 			}
 
+			for(Mod m : Resent.INSTANCE.modManager.modules){
+
+				printwriter.println(m.name + ":" + m.isEnabled());
+
+				List<RenderModule> rmodules = new ArrayList<>();
+				if(m instanceof RenderModule){ rmodules.add((RenderModule)m); }
+	
+				for(RenderModule rmod : rmodules){
+					printwriter.println(rmod.name+"_x:"+rmod.getX());
+					printwriter.println(rmod.name+"_y:"+rmod.getY());
+					printwriter.println(rmod.name+"_lastx:"+rmod.lastX);
+					printwriter.println(rmod.name+"_lastx:"+rmod.lastX);
+				}
+	
+				for(Setting s : m.settings){
+					if(s instanceof ModeSetting){
+						printwriter.println(m.name+"_modesetting_"+s.name+":"+((ModeSetting) s).getValue());
+					}
+					if(s instanceof BooleanSetting){
+						printwriter.println(m.name+"_boolsetting_"+s.name+":"+((BooleanSetting) s).getValue());
+					}
+				}
+
+			}
+			
 			printwriter.close();
 
 			EagRuntime.setStorage("g", bao.toByteArray());

@@ -2,6 +2,13 @@ package net.minecraft.client;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_BACK;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_GREATER;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_LEQUAL;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_MODELVIEW;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SMOOTH;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -11,11 +18,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 import org.apache.commons.lang3.Validate;
 
 import com.google.common.collect.Lists;
 
+import dev.resent.Resent;
+import dev.resent.ui.mods.ClickGUI;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;
@@ -27,6 +36,7 @@ import net.lax1dude.eaglercraft.v1_8.futures.FutureTask;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFuture;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFutureTask;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumPlatformType;
+import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
@@ -211,7 +221,7 @@ public class Minecraft implements IThreadListener {
 	public GameSettings gameSettings;
 	public MouseHelper mouseHelper;
 	private final String launchedVersion;
-	private static int debugFPS;
+	public static int debugFPS;
 	private int rightClickDelayTimer;
 	private String serverName;
 	private int serverPort;
@@ -409,6 +419,7 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.loadIdentity();
 		GlStateManager.matrixMode(GL_MODELVIEW);
 		this.checkGLError("Startup");
+		Resent.INSTANCE.init();
 		this.textureMapBlocks = new TextureMap("textures");
 		this.textureMapBlocks.setMipmapLevels(this.gameSettings.mipmapLevels);
 		this.renderEngine.loadTickableTexture(TextureMap.locationBlocksTexture, this.textureMapBlocks);
@@ -1341,6 +1352,10 @@ public class Minecraft implements IThreadListener {
 					if (this.currentScreen != null) {
 						this.currentScreen.handleKeyboardInput();
 					} else {
+
+						if(Keyboard.getEventKey() == this.gameSettings.keyBindFreelook.keyCode)
+						W.freelook().smh();
+						
 						if (k == 1 || (k > -1 && k == this.gameSettings.keyBindClose.getKeyCode())) {
 							this.displayInGameMenu();
 						}
@@ -1465,6 +1480,10 @@ public class Minecraft implements IThreadListener {
 							new C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT));
 					this.displayGuiScreen(new GuiInventory(this.thePlayer));
 				}
+			}
+
+			if(this.gameSettings.keyBindClickGui.isPressed()){
+				this.displayGuiScreen(new ClickGUI());
 			}
 
 			while (this.gameSettings.keyBindDrop.isPressed()) {

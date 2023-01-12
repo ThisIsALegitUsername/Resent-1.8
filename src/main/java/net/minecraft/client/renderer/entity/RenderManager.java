@@ -4,6 +4,10 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
+import dev.resent.module.impl.hud.Hitboxes;
+import dev.resent.util.misc.W;
+import dev.resent.util.render.RenderUtils;
+import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
@@ -382,6 +386,51 @@ public class RenderManager {
 								CrashReport.makeCrashReport(throwable, "Rendering entity hitbox in world"));
 					}
 				}
+
+				if (W.hitboxes().isEnabled() && W.hitboxes().old.getValue() && !entity.isInvisible()) {
+					GlStateManager.disableTexture2D();
+					GlStateManager.disableLighting();
+					GlStateManager.disableCull();
+					GlStateManager.disableBlend();
+					GlStateManager.depthMask(false);
+					GlStateManager.pushMatrix();
+					EaglercraftGPU.glLineWidth(1.0f);
+
+					RenderGlobal.func_181563_a(
+							new AxisAlignedBB(
+									entity.boundingBox.minX-0.05-entity.posX
+											+ (entity.posX - renderPosX),
+									entity.boundingBox.minY
+											- 0.05
+											- entity.posY
+											+ (entity.posY - renderPosY),
+									entity.boundingBox.minZ
+											- 0.05
+											- entity.posZ
+											+ (entity.posZ - renderPosZ),
+									entity.boundingBox.maxX
+											+ 0.05
+											- entity.posX
+											+ (entity.posX - renderPosX),
+									entity.boundingBox.maxY
+											+ 0.1
+											- entity.posY
+											+ (entity.posY - renderPosY),
+									entity.boundingBox.maxZ
+											+ 0.05
+											- entity.posZ
+											+ (entity.posZ - renderPosZ)),
+							RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed(),
+                            RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen(),
+                            RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue(), 255);
+                    GlStateManager.popMatrix();
+                    GlStateManager.enableTexture2D();
+                    GlStateManager.enableLighting();
+                    GlStateManager.enableCull();
+                    GlStateManager.enableBlend();
+                    GlStateManager.depthMask(true);
+                    //EaglerAdapter.glBlendFunc(EaglerAdapter.GL_SRC_ALPHA, EaglerAdapter.GL_ONE_MINUS_SRC_ALPHA);
+                }
 			} else if (this.renderEngine != null) {
 				return false;
 			}
@@ -417,7 +466,9 @@ public class RenderManager {
 				axisalignedbb.minY - entityIn.posY + parDouble2, axisalignedbb.minZ - entityIn.posZ + parDouble3,
 				axisalignedbb.maxX - entityIn.posX + parDouble1, axisalignedbb.maxY - entityIn.posY + parDouble2,
 				axisalignedbb.maxZ - entityIn.posZ + parDouble3);
-		RenderGlobal.func_181563_a(axisalignedbb1, 255, 255, 255, 255);
+		RenderGlobal.func_181563_a(axisalignedbb1, W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed() : 255,
+		W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen() : 255,
+		W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue() : 255, 255);
 		if (entityIn instanceof EntityLivingBase) {
 			float f1 = 0.01F;
 			RenderGlobal.func_181563_a(new AxisAlignedBB(parDouble1 - (double) f,

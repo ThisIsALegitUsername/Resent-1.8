@@ -4,15 +4,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
 
+import dev.resent.module.base.ModManager;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
@@ -886,6 +888,11 @@ public abstract class EntityLivingBase extends Entity {
 	 * account.
 	 */
 	private int getArmSwingAnimationEnd() {
+
+		if(ModManager.animations.isEnabled() && Minecraft.getMinecraft().theWorld != null){
+			return 10;
+		}
+
 		return this.isPotionActive(Potion.digSpeed)
 				? 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1
 				: (this.isPotionActive(Potion.digSlowdown)
@@ -898,7 +905,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public void swingItem() {
 		if (!this.isSwingInProgress || this.swingProgressInt >= this.getArmSwingAnimationEnd() / 2
-				|| this.swingProgressInt < 0) {
+				|| this.swingProgressInt < 0 || ModManager.noSwingDelay.isEnabled()) {
 			this.swingProgressInt = -1;
 			this.isSwingInProgress = true;
 		}

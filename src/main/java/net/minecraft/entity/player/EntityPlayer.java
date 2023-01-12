@@ -2,11 +2,14 @@ package net.minecraft.entity.player;
 
 import java.util.Collection;
 import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
+import dev.resent.Resent;
+import dev.resent.event.impl.Event.EventType;
+import dev.resent.event.impl.EventAttack;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -1018,6 +1021,11 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
 	 * Args: targetEntity
 	 */
 	public void attackTargetEntityWithCurrentItem(Entity entity) {
+
+		EventAttack event = new EventAttack(entity);
+		event.setType(EventType.pre);
+		Resent.onEvent(event);
+		
 		if (entity.canAttackWithItem()) {
 			if (!entity.hitByEntity(this)) {
 				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();

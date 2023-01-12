@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -89,6 +90,7 @@ public class GuiNewChat extends Gui {
 							if (l1 > 3) {
 								byte b0 = 0;
 								int i2 = -i1 * 9;
+								if(!W.clearChat().isEnabled())
 								drawRect(b0, i2 - 9, b0 + l + 4, i2, l1 / 2 << 24);
 								String s = chatline.getChatComponent().getFormattedText();
 								GlStateManager.enableBlend();

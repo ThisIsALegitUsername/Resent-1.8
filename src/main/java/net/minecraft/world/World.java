@@ -14,6 +14,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import dev.resent.util.misc.W;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.BlockLiquid;
@@ -1983,7 +1984,11 @@ public abstract class World implements IBlockAccess {
 	 */
 	protected void calculateInitialWeather() {
 		if (this.worldInfo.isRaining()) {
+			if(W.noRain().isEnabled()){
+				this.rainingStrength = 0;
+			}else {
 			this.rainingStrength = 1.0F;
+			}
 			if (this.worldInfo.isThundering()) {
 				this.thunderingStrength = 1.0F;
 			}

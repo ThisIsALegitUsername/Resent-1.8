@@ -2,16 +2,27 @@ package net.minecraft.client.gui;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import dev.resent.Resent;
+import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
+import dev.resent.module.base.RenderModule;
+import dev.resent.module.impl.misc.Crosshair;
+import dev.resent.ui.mods.HUDConfigScreen;
+import dev.resent.util.misc.W;
+import dev.resent.util.render.RenderUtils;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
@@ -71,7 +82,7 @@ public class GuiIngame extends Gui {
 	private static final ResourceLocation pumpkinBlurTexPath = new ResourceLocation("textures/misc/pumpkinblur.png");
 	private final EaglercraftRandom rand = new EaglercraftRandom();
 	private final Minecraft mc;
-	private final RenderItem itemRenderer;
+	public static RenderItem itemRenderer;
 	private final GuiNewChat persistantChatGUI;
 	private int updateCounter;
 	/**+
@@ -159,8 +170,14 @@ public class GuiIngame extends Gui {
 		this.mc.getTextureManager().bindTexture(icons);
 		GlStateManager.enableBlend();
 		if (this.showCrosshair()) {
+			Minecraft mc = Minecraft.getMinecraft();
+			Entity target = mc.pointedEntity;
+			if(!ModManager.crosshair.isEnabled())
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
+			
+			if(target != null && ModManager.crosshair.isEnabled())
+			GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue());
 			this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
 		}
 
@@ -288,9 +305,9 @@ public class GuiIngame extends Gui {
 
 		ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective
 				: scoreboard.getObjectiveInDisplaySlot(1);
-		if (scoreobjective1 != null) {
-			this.renderScoreboard(scoreobjective1, scaledresolution);
-		}
+				if (scoreobjective1 != null && W.scoreboard().isEnabled()) {
+					this.renderScoreboard(scoreobjective1, scaledresolution);
+				}
 
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
@@ -311,6 +328,14 @@ public class GuiIngame extends Gui {
 		} else {
 			this.overlayPlayerList.updatePlayerList(true);
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
+		}
+
+		for (Mod m : Resent.INSTANCE.modManager.modules) {
+			if (m.isEnabled() && (m instanceof RenderModule)) {
+				if (!(mc.currentScreen instanceof HUDConfigScreen)) {
+					((RenderModule) m).draw();
+				}
+			}
 		}
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -504,6 +529,7 @@ public class GuiIngame extends Gui {
 			int l = parScaledResolution.getScaledWidth() - b0 + 2;
 			drawRect(k1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
 			this.getFontRenderer().drawString(s1, k1, k, 553648127);
+			if(W.scoreboard().numbers.getValue())
 			this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 			if (j == arraylist1.size()) {
 				String s3 = parScoreObjective.getDisplayName();

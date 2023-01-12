@@ -2,17 +2,19 @@ package net.minecraft.client.renderer;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
-import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.HString;
 import java.util.concurrent.Callable;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
+import dev.resent.module.base.ModManager;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.HString;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
@@ -420,7 +422,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void hurtCameraEffect(float partialTicks) {
-		if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
+		if (this.mc.getRenderViewEntity() instanceof EntityLivingBase && !W.noHurtCam().isEnabled()) {
 			EntityLivingBase entitylivingbase = (EntityLivingBase) this.mc.getRenderViewEntity();
 			float f = (float) entitylivingbase.hurtTime - partialTicks;
 			if (entitylivingbase.getHealth() <= 0.0F) {
@@ -479,31 +481,31 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				BlockPos blockpos = new BlockPos(entity);
 				IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
 				Block block = iblockstate.getBlock();
-				if (block == Blocks.bed) {
-					int j = ((EnumFacing) iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                if (block == Blocks.bed) {
+                    int j = ((EnumFacing) iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
 					GlStateManager.rotate((float) (j * 90), 0.0F, 1.0F, 0.0F);
 				}
 
 				GlStateManager.rotate(
-						entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F,
-						0.0F, -1.0F, 0.0F);
+					ModManager.freelook.getCameraYaw() + (ModManager.freelook.getCameraYaw() - ModManager.freelook.getCameraYaw()) * partialTicks + 180.0F,
+					0.0F, -1.0F, 0.0F);
 				GlStateManager.rotate(
-						entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks,
-						-1.0F, 0.0F, 0.0F);
+					ModManager.freelook.getCameraPitch() + (ModManager.freelook.getCameraPitch() - ModManager.freelook.getCameraPitch()) * partialTicks,
+					-1.0F, 0.0F, 0.0F);
 			}
 		} else if (this.mc.gameSettings.thirdPersonView > 0) {
 			double d3 = (double) (this.thirdPersonDistanceTemp
-					+ (this.thirdPersonDistance - this.thirdPersonDistanceTemp) * partialTicks);
-			if (this.mc.gameSettings.debugCamEnable) {
-				GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
-			} else {
-				float f1 = entity.rotationYaw;
-				float f2 = entity.rotationPitch;
-				if (this.mc.gameSettings.thirdPersonView == 2) {
-					f2 += 180.0F;
-				}
+			+ (this.thirdPersonDistance - this.thirdPersonDistanceTemp) * partialTicks);
+            if (this.mc.gameSettings.debugCamEnable) {
+                GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
+            } else {
+                float f1 = ModManager.freelook.getCameraYaw();
+                float f2 = ModManager.freelook.getCameraPitch();
+                if (this.mc.gameSettings.thirdPersonView == 2) {
+                    f2 += 180.0F;
+                }
 
-				double d4 = (double) (-MathHelper.sin(f1 / 180.0F * 3.1415927F)
+                double d4 = (double) (-MathHelper.sin(f1 / 180.0F * 3.1415927F)
 						* MathHelper.cos(f2 / 180.0F * 3.1415927F)) * d3;
 				double d5 = (double) (MathHelper.cos(f1 / 180.0F * 3.1415927F)
 						* MathHelper.cos(f2 / 180.0F * 3.1415927F)) * d3;
@@ -531,11 +533,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 				}
 
-				GlStateManager.rotate(entity.rotationPitch - f2, 1.0F, 0.0F, 0.0F);
-				GlStateManager.rotate(entity.rotationYaw - f1, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(ModManager.freelook.getCameraPitch() - f2, 1.0F, 0.0F, 0.0F);
+				GlStateManager.rotate(ModManager.freelook.getCameraYaw() - f1, 0.0F, 1.0F, 0.0F);
 				GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
-				GlStateManager.rotate(f1 - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-				GlStateManager.rotate(f2 - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
+				GlStateManager.rotate(f1 - ModManager.freelook.getCameraYaw(), 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(f2 - ModManager.freelook.getCameraPitch(), 1.0F, 0.0F, 0.0F);
 			}
 		} else {
 			GlStateManager.translate(0.0F, 0.0F, -0.1F);
@@ -543,7 +545,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		if (!this.mc.gameSettings.debugCamEnable) {
 			GlStateManager.rotate(
-					entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F,
+				ModManager.freelook.getCameraPitch() + (ModManager.freelook.getCameraPitch() - ModManager.freelook.getCameraPitch()) * partialTicks, 1.0F,
 					0.0F, 0.0F);
 			if (entity instanceof EntityAnimal) {
 				EntityAnimal entityanimal = (EntityAnimal) entity;
@@ -552,7 +554,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						0.0F, 1.0F, 0.0F);
 			} else {
 				GlStateManager.rotate(
-						entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F,
+					ModManager.freelook.getCameraYaw() + (ModManager.freelook.getCameraYaw() - ModManager.freelook.getCameraYaw()) * partialTicks + 180.0F,
 						0.0F, 1.0F, 0.0F);
 			}
 		}
@@ -1159,6 +1161,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			RenderHelper.disableStandardItemLighting();
 			this.setupFog(0, partialTicks);
 			this.mc.mcProfiler.endStartSection("particles");
+			if(!W.noParticles().isEnabled())
 			effectrenderer.renderParticles(entity, partialTicks);
 			this.disableLightmap();
 		}
@@ -1294,6 +1297,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Render rain and snow
 	 */
 	protected void renderRainSnow(float partialTicks) {
+		if(!W.noRain().isEnabled()){
 		float f = this.mc.theWorld.getRainStrength(partialTicks);
 		if (f > 0.0F) {
 			this.enableLightmap();
@@ -1439,6 +1443,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GlStateManager.disableBlend();
 			GlStateManager.alphaFunc(GL_GREATER, 0.1F);
 			this.disableLightmap();
+			}
 		}
 	}
 

@@ -5,18 +5,21 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 
 import com.google.common.collect.Maps;
 
+import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.AutoGG;
+import dev.resent.util.misc.W;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
+import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
+import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
+import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.lax1dude.eaglercraft.v1_8.netty.Unpooled;
 import net.lax1dude.eaglercraft.v1_8.profile.ServerSkinCache;
 import net.lax1dude.eaglercraft.v1_8.profile.SkinPackets;
 import net.lax1dude.eaglercraft.v1_8.socket.EaglercraftNetworkManager;
-import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
-import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
-import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -750,10 +753,37 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	/**+
 	 * Prints a chatmessage in the chat GUI
 	 */
+
+	public static String hasSaid = "hasSaid1";
 	public void handleChat(S02PacketChat packetIn) {
 		if (packetIn.getType() == 2) {
 			this.gameController.ingameGUI.setRecordPlaying(packetIn.getChatComponent(), false);
 		} else {
+
+			if (packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you won the match") && AutoGG.onWin.getValue()
+					|| packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("was killed by")
+							&& packetIn.getChatComponent().getUnformattedText().contains(Minecraft.getMinecraft().thePlayer.getName()) || packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you lost the") && AutoGG.onLose.getValue()) {
+				if (W.autoGG().isEnabled()) {
+					switch (hasSaid) {
+						case "hasSaid1":
+	
+							Minecraft.getMinecraft().thePlayer.sendChatMessage("gg");
+							hasSaid = "hasSaid2";
+							break;
+	
+						case "hasSaid2":
+							if(AutoGG.rep.getValue()){
+							Minecraft.getMinecraft().thePlayer.sendChatMessage("gf");
+							}else {
+								Minecraft.getMinecraft().thePlayer.sendChatMessage("gg");
+							}
+	
+							hasSaid = "hasSaid1";
+							break;
+					}
+				}
+			}
+
 			this.gameController.ingameGUI.getChatGUI().printChatMessage(packetIn.getChatComponent());
 		}
 
@@ -892,7 +922,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 * happy), Wolf (...)
 	 */
 	public void handleEntityStatus(S19PacketEntityStatus packetIn) {
+
+		ModManager.comboCounter.onEntityHit(packetIn);
 		Entity entity = packetIn.getEntity(this.clientWorldController);
+		
 		if (entity != null) {
 			if (packetIn.getOpCode() == 21) {
 				this.gameController.getSoundHandler().playSound(new GuardianSound((EntityGuardian) entity));
