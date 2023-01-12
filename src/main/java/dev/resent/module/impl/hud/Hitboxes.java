@@ -15,10 +15,12 @@ public class Hitboxes extends Mod{
     public BooleanSetting old = new BooleanSetting("1.7 Hitboxes", "", true);
 
     public void onEnable(){
+        if(!old.getValue())
         mc.getRenderManager().setDebugBoundingBox(true); 
     }
 
     public void onDisable(){
+        if(!old.getValue())
         mc.getRenderManager().setDebugBoundingBox(false);
     }
 }

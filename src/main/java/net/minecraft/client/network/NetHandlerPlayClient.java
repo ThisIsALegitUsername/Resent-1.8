@@ -6,22 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import dev.resent.module.base.ModManager;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
-
 import com.google.common.collect.Maps;
 
-import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.util.misc.W;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
+import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
+import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
+import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.lax1dude.eaglercraft.v1_8.netty.Unpooled;
 import net.lax1dude.eaglercraft.v1_8.profile.ServerSkinCache;
 import net.lax1dude.eaglercraft.v1_8.profile.SkinPackets;
 import net.lax1dude.eaglercraft.v1_8.socket.EaglercraftNetworkManager;
-import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
-import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
-import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -60,7 +58,6 @@ import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.NpcMerchant;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
-import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
