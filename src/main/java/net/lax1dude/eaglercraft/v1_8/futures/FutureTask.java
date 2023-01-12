@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -21,7 +21,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
 	private boolean cancelled;
 	private boolean completed;
 	private V result;
-    private final Callable<V> callable;
+	private Callable<V> callable;
 	
 	public FutureTask(Callable<V> callable) {
 		this.callable = callable;

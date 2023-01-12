@@ -12,32 +12,31 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class ItemSeedFood extends ItemFood {
-    private final Block crops;
-    private final Block soilId;
+	private Block crops;
+	private Block soilId;
 
-    public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
-        super(healAmount, saturation, false);
-        this.crops = crops;
-        this.soilId = soil;
-    }
+	public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
+		super(healAmount, saturation, false);
+		this.crops = crops;
+		this.soilId = soil;
+	}
 
-    /**
-     * +
-     * Called when a Block is right-clicked with this Item
-     */
+	/**+
+	 * Called when a Block is right-clicked with this Item
+	 */
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos blockpos,
 			EnumFacing enumfacing, float var6, float var7, float var8) {
 		if (enumfacing != EnumFacing.UP) {

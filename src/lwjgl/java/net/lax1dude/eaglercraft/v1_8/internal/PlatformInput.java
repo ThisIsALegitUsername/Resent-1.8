@@ -11,7 +11,7 @@ import org.lwjgl.system.MemoryStack;
 import net.lax1dude.eaglercraft.v1_8.EagUtils;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -41,7 +41,7 @@ public class PlatformInput {
 	private static int windowWidth = 640;
 	private static int windowHeight = 480;
 	
-	private static final List<KeyboardEvent> keyboardEventList = new LinkedList<>();
+	private static final List<KeyboardEvent> keyboardEventList = new LinkedList();
 	private static KeyboardEvent currentKeyboardEvent = null;
 	
 	private static final char[] keyboardReleaseEventChars = new char[256];
@@ -49,7 +49,9 @@ public class PlatformInput {
 	private static boolean enableRepeatEvents = false;
 	private static int functionKeyModifier = GLFW_KEY_F;
 
-	private static final List<Character> keyboardCharList = new LinkedList<>();
+	public static boolean lockKeys = false;
+
+	private static final List<Character> keyboardCharList = new LinkedList();
 	
 	private static class KeyboardEvent {
 		
@@ -66,7 +68,7 @@ public class PlatformInput {
 		
 	}
 	
-	private static final List<MouseEvent> mouseEventList = new LinkedList<>();
+	private static final List<MouseEvent> mouseEventList = new LinkedList();
 	private static MouseEvent currentMouseEvent = null;
 	
 	private static class MouseEvent {
@@ -369,6 +371,14 @@ public class PlatformInput {
 
 	public static void setFunctionKeyModifier(int key) {
 		functionKeyModifier = KeyboardConstants.getGLFWKeyFromEagler(key);
+	}
+
+	public static void toggleFullscreen() {
+		//
+	}
+
+	public static boolean isFullscreen() {
+		return false;
 	}
 	
 }

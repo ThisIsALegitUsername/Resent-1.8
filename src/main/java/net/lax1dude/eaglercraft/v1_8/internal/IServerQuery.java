@@ -3,7 +3,7 @@ package net.lax1dude.eaglercraft.v1_8.internal;
 import org.json.JSONObject;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -17,18 +17,18 @@ import org.json.JSONObject;
  */
 public interface IServerQuery {
 
-	long defaultTimeout = 10000L;
+	public static final long defaultTimeout = 10000l;
 
-    enum QueryReadyState {
-        CONNECTING(true, false), OPEN(true, false), CLOSED(false, true), FAILED(false, true);
-
-        private final boolean open;
-        private final boolean closed;
-
-        QueryReadyState(boolean open, boolean closed) {
-            this.open = open;
-            this.closed = closed;
-        }
+	public static enum QueryReadyState {
+		CONNECTING(true, false), OPEN(true, false), CLOSED(false, true), FAILED(false, true);
+		
+		private final boolean open;
+		private final boolean closed;
+		
+		private QueryReadyState(boolean open, boolean closed) {
+			this.open = open;
+			this.closed = closed;
+		}
 		
 		public boolean isOpen() {
 			return open;
@@ -72,12 +72,12 @@ public interface IServerQuery {
 
 	default boolean awaitResponseAvailable(long timeout) {
 		long start = System.currentTimeMillis();
-        while (isOpen() && responsesAvailable() <= 0 && (timeout <= 0L || System.currentTimeMillis() - start < timeout)) {
-            try {
-                Thread.sleep(0L, 250000);
-            } catch (InterruptedException e) {
-            }
-        }
+		while(isOpen() && responsesAvailable() <= 0 && (timeout <= 0l || System.currentTimeMillis() - start < timeout)) {
+			try {
+				Thread.sleep(0l, 250000);
+			} catch (InterruptedException e) {
+			}
+		}
 		return responsesAvailable() > 0;
 	}
 	
@@ -87,12 +87,12 @@ public interface IServerQuery {
 	
 	default boolean awaitResponseBinaryAvailable(long timeout) {
 		long start = System.currentTimeMillis();
-        while (isOpen() && binaryResponsesAvailable() <= 0 && (timeout <= 0L || System.currentTimeMillis() - start < timeout)) {
-            try {
-                Thread.sleep(0L, 250000);
-            } catch (InterruptedException e) {
-            }
-        }
+		while(isOpen() && binaryResponsesAvailable() <= 0 && (timeout <= 0l || System.currentTimeMillis() - start < timeout)) {
+			try {
+				Thread.sleep(0l, 250000);
+			} catch (InterruptedException e) {
+			}
+		}
 		return binaryResponsesAvailable() > 0;
 	}
 

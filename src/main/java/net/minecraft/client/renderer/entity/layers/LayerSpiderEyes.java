@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,19 +40,23 @@ public class LayerSpiderEyes implements LayerRenderer<EntitySpider> {
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.blendFunc(GL_ONE, GL_ONE);
-        GlStateManager.depthMask(!entityspider.isInvisible());
+		if (entityspider.isInvisible()) {
+			GlStateManager.depthMask(false);
+		} else {
+			GlStateManager.depthMask(true);
+		}
 
 		int i = 61680;
 		int j = i % 65536;
 		int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.spiderRenderer.getMainModel().render(entityspider, f, f1, f3, f4, f5, f6);
 		i = entityspider.getBrightnessForRender(f2);
 		j = i % 65536;
-        k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-        this.spiderRenderer.func_177105_a(entityspider, f2);
+		k = i / 65536;
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+		this.spiderRenderer.func_177105_a(entityspider, f2);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
 	}

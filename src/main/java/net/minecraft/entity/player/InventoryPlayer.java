@@ -23,7 +23,7 @@ import net.minecraft.util.ReportedException;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -165,7 +165,8 @@ public class InventoryPlayer implements IInventory {
 		}
 
 		for (this.currentItem -= parInt1; this.currentItem < 0; this.currentItem += 9) {
-        }
+			;
+		}
 
 		while (this.currentItem >= 9) {
 			this.currentItem -= 9;
@@ -555,9 +556,9 @@ public class InventoryPlayer implements IInventory {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName())
-                : new ChatComponentTranslation(this.getName(), new Object[0]);
-    }
+		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
+				: new ChatComponentTranslation(this.getName(), new Object[0]));
+	}
 
 	/**+
 	 * Returns the maximum stack size for a inventory slot. Seems to
@@ -572,7 +573,7 @@ public class InventoryPlayer implements IInventory {
 			return true;
 		} else {
 			ItemStack itemstack = this.getStackInSlot(this.currentItem);
-            return itemstack != null && itemstack.canHarvestBlock(blockIn);
+			return itemstack != null ? itemstack.canHarvestBlock(blockIn) : false;
 		}
 	}
 
@@ -669,7 +670,7 @@ public class InventoryPlayer implements IInventory {
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-        return !this.player.isDead && entityplayer.getDistanceSqToEntity(this.player) <= 64.0D;
+		return this.player.isDead ? false : entityplayer.getDistanceSqToEntity(this.player) <= 64.0D;
 	}
 
 	/**+

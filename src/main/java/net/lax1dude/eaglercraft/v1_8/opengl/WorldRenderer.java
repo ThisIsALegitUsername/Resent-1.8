@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.util.MathHelper;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -57,9 +57,9 @@ public class WorldRenderer {
 		}
 	}
 	
-	protected void finalize() {
-        free();
-    }
+	public void finalize() {
+		free();
+	}
 
 	private void grow(int parInt1) {
 		int pos = (this.vertexCount * this.vertexFormat.attribStride) >> 2;
@@ -155,23 +155,23 @@ public class WorldRenderer {
 	 */
 	private static float func_181665_a(FloatBuffer parFloatBuffer, float parFloat1, float parFloat2, float parFloat3,
 			int parInt1, int parInt2) {
-        float f = parFloatBuffer.get(parInt2);
-        float f1 = parFloatBuffer.get(parInt2 + 0 + 1);
-        float f2 = parFloatBuffer.get(parInt2 + 0 + 2);
-        float f3 = parFloatBuffer.get(parInt2 + parInt1);
-        float f4 = parFloatBuffer.get(parInt2 + parInt1 + 1);
-        float f5 = parFloatBuffer.get(parInt2 + parInt1 + 2);
-        float f6 = parFloatBuffer.get(parInt2 + parInt1 * 2);
-        float f7 = parFloatBuffer.get(parInt2 + parInt1 * 2 + 1);
-        float f8 = parFloatBuffer.get(parInt2 + parInt1 * 2 + 2);
-        float f9 = parFloatBuffer.get(parInt2 + parInt1 * 3);
-        float f10 = parFloatBuffer.get(parInt2 + parInt1 * 3 + 1);
-        float f11 = parFloatBuffer.get(parInt2 + parInt1 * 3 + 2);
-        float f12 = (f + f3 + f6 + f9) * 0.25F - parFloat1;
-        float f13 = (f1 + f4 + f7 + f10) * 0.25F - parFloat2;
-        float f14 = (f2 + f5 + f8 + f11) * 0.25F - parFloat3;
-        return f12 * f12 + f13 * f13 + f14 * f14;
-    }
+		float f = parFloatBuffer.get(parInt2 + parInt1 * 0 + 0);
+		float f1 = parFloatBuffer.get(parInt2 + parInt1 * 0 + 1);
+		float f2 = parFloatBuffer.get(parInt2 + parInt1 * 0 + 2);
+		float f3 = parFloatBuffer.get(parInt2 + parInt1 * 1 + 0);
+		float f4 = parFloatBuffer.get(parInt2 + parInt1 * 1 + 1);
+		float f5 = parFloatBuffer.get(parInt2 + parInt1 * 1 + 2);
+		float f6 = parFloatBuffer.get(parInt2 + parInt1 * 2 + 0);
+		float f7 = parFloatBuffer.get(parInt2 + parInt1 * 2 + 1);
+		float f8 = parFloatBuffer.get(parInt2 + parInt1 * 2 + 2);
+		float f9 = parFloatBuffer.get(parInt2 + parInt1 * 3 + 0);
+		float f10 = parFloatBuffer.get(parInt2 + parInt1 * 3 + 1);
+		float f11 = parFloatBuffer.get(parInt2 + parInt1 * 3 + 2);
+		float f12 = (f + f3 + f6 + f9) * 0.25F - parFloat1;
+		float f13 = (f1 + f4 + f7 + f10) * 0.25F - parFloat2;
+		float f14 = (f2 + f5 + f8 + f11) * 0.25F - parFloat3;
+		return f12 * f12 + f13 * f13 + f14 * f14;
+	}
 
 	/**
 	 * SLOW AND STUPID COMPANION FUNCTION TO 'func_181672_a'

@@ -1,16 +1,23 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public abstract class BlockRailBase extends Block {
 	protected final boolean isPowered;
@@ -56,7 +63,7 @@ public abstract class BlockRailBase extends Block {
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
 		BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() == this
-				? iblockstate.getValue(this.getShapeProperty())
+				? (BlockRailBase.EnumRailDirection) iblockstate.getValue(this.getShapeProperty())
 				: null;
 		if (blockrailbase$enumraildirection != null && blockrailbase$enumraildirection.isAscending()) {
 			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
@@ -92,7 +99,7 @@ public abstract class BlockRailBase extends Block {
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState iblockstate) {
 		super.breakBlock(world, blockpos, iblockstate);
-		if (iblockstate.getValue(this.getShapeProperty()).isAscending()) {
+		if (((BlockRailBase.EnumRailDirection) iblockstate.getValue(this.getShapeProperty())).isAscending()) {
 			world.notifyNeighborsOfStateChange(blockpos.up(), this);
 		}
 
@@ -105,7 +112,7 @@ public abstract class BlockRailBase extends Block {
 
 	public abstract IProperty<BlockRailBase.EnumRailDirection> getShapeProperty();
 
-	public enum EnumRailDirection implements IStringSerializable {
+	public static enum EnumRailDirection implements IStringSerializable {
 		NORTH_SOUTH(0, "north_south"), EAST_WEST(1, "east_west"), ASCENDING_EAST(2, "ascending_east"),
 		ASCENDING_WEST(3, "ascending_west"), ASCENDING_NORTH(4, "ascending_north"),
 		ASCENDING_SOUTH(5, "ascending_south"), SOUTH_EAST(6, "south_east"), SOUTH_WEST(7, "south_west"),
@@ -115,7 +122,7 @@ public abstract class BlockRailBase extends Block {
 		private final int meta;
 		private final String name;
 
-		EnumRailDirection(int meta, String name) {
+		private EnumRailDirection(int meta, String name) {
 			this.meta = meta;
 			this.name = name;
 		}
@@ -166,7 +173,7 @@ public abstract class BlockRailBase extends Block {
 			this.pos = pos;
 			this.state = state;
 			this.block = (BlockRailBase) state.getBlock();
-			BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state
+			BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = (BlockRailBase.EnumRailDirection) state
 					.getValue(BlockRailBase.this.getShapeProperty());
 			this.isPowered = this.block.isPowered;
 			this.func_180360_a(blockrailbase$enumraildirection);
@@ -220,7 +227,7 @@ public abstract class BlockRailBase extends Block {
 
 		private void func_150651_b() {
 			for (int i = 0; i < this.field_150657_g.size(); ++i) {
-				BlockRailBase.Rail blockrailbase$rail = this.findRailAt(this.field_150657_g.get(i));
+				BlockRailBase.Rail blockrailbase$rail = this.findRailAt((BlockPos) this.field_150657_g.get(i));
 				if (blockrailbase$rail != null && blockrailbase$rail.func_150653_a(this)) {
 					this.field_150657_g.set(i, blockrailbase$rail.pos);
 				} else {
@@ -260,7 +267,7 @@ public abstract class BlockRailBase extends Block {
 
 		private boolean func_180363_c(BlockPos parBlockPos) {
 			for (int i = 0; i < this.field_150657_g.size(); ++i) {
-				BlockPos blockpos = this.field_150657_g.get(i);
+				BlockPos blockpos = (BlockPos) this.field_150657_g.get(i);
 				if (blockpos.getX() == parBlockPos.getX() && blockpos.getZ() == parBlockPos.getZ()) {
 					return true;
 				}
@@ -472,7 +479,7 @@ public abstract class BlockRailBase extends Block {
 				this.world.setBlockState(this.pos, this.state, 3);
 
 				for (int i = 0; i < this.field_150657_g.size(); ++i) {
-					BlockRailBase.Rail blockrailbase$rail = this.findRailAt(this.field_150657_g.get(i));
+					BlockRailBase.Rail blockrailbase$rail = this.findRailAt((BlockPos) this.field_150657_g.get(i));
 					if (blockrailbase$rail != null) {
 						blockrailbase$rail.func_150651_b();
 						if (blockrailbase$rail.func_150649_b(this)) {

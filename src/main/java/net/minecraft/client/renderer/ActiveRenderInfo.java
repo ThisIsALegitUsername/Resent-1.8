@@ -1,5 +1,11 @@
 package net.minecraft.client.renderer;
 
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+
+import net.lax1dude.eaglercraft.v1_8.EagRuntime;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.IntBuffer;
+
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.block.Block;
@@ -12,15 +18,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -67,7 +71,7 @@ public class ActiveRenderInfo {
 		float f = (float) ((VIEWPORT[0] + VIEWPORT[2]) / 2);
 		float f1 = (float) ((VIEWPORT[1] + VIEWPORT[3]) / 2);
 		GlStateManager.gluUnProject(f, f1, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
-		position = new Vec3(OBJECTCOORDS[0], OBJECTCOORDS[1], OBJECTCOORDS[2]);
+		position = new Vec3((double) OBJECTCOORDS[0], (double) OBJECTCOORDS[1], (double) OBJECTCOORDS[2]);
 		int i = parFlag ? 1 : 0;
 		float f2 = entityplayerIn.rotationPitch;
 		float f3 = entityplayerIn.rotationYaw;
@@ -89,14 +93,14 @@ public class ActiveRenderInfo {
 	}
 
 	public static Block getBlockAtEntityViewpoint(World worldIn, Entity parEntity, float parFloat1) {
-		Vec3 vec3 = projectViewFromEntity(parEntity, parFloat1);
+		Vec3 vec3 = projectViewFromEntity(parEntity, (double) parFloat1);
 		BlockPos blockpos = new BlockPos(vec3);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();
 		if (block.getMaterial().isLiquid()) {
 			float f = 0.0F;
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
-				f = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue())
+				f = BlockLiquid.getLiquidHeightPercent(((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue())
 						- 0.11111111F;
 			}
 

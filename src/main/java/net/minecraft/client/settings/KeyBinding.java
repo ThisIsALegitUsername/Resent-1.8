@@ -15,7 +15,7 @@ import net.minecraft.util.IntHashMap;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,13 +34,13 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	private final String keyDescription;
 	private final int keyCodeDefault;
 	private final String keyCategory;
-	public int keyCode;
-	public boolean pressed;
+	private int keyCode;
+	private boolean pressed;
 	private int pressTime;
 
 	public static void onTick(int keyCode) {
 		if (keyCode != 0) {
-			KeyBinding keybinding = hash.lookup(keyCode);
+			KeyBinding keybinding = (KeyBinding) hash.lookup(keyCode);
 			if (keybinding != null) {
 				++keybinding.pressTime;
 			}
@@ -50,7 +50,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
 	public static void setKeyBindState(int keyCode, boolean pressed) {
 		if (keyCode != 0) {
-            KeyBinding keybinding = hash.lookup(keyCode);
+			KeyBinding keybinding = (KeyBinding) hash.lookup(keyCode);
 			if (keybinding != null) {
 				keybinding.pressed = pressed;
 			}
@@ -136,13 +136,13 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	}
 
 	public int compareTo(KeyBinding keybinding) {
-        int i = I18n.format(this.keyCategory)
-                .compareTo(I18n.format(keybinding.keyCategory));
-        if (i == 0) {
-            i = I18n.format(this.keyDescription)
-                    .compareTo(I18n.format(keybinding.keyDescription));
-        }
+		int i = I18n.format(this.keyCategory, new Object[0])
+				.compareTo(I18n.format(keybinding.keyCategory, new Object[0]));
+		if (i == 0) {
+			i = I18n.format(this.keyDescription, new Object[0])
+					.compareTo(I18n.format(keybinding.keyDescription, new Object[0]));
+		}
 
-        return i;
-    }
+		return i;
+	}
 }

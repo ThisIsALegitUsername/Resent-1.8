@@ -23,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -64,8 +64,12 @@ public class ItemSkull extends Item {
 			}
 
 			if (!entityplayer.canPlayerEdit(blockpos, enumfacing, itemstack)) {
-                return false;
-            } else return Blocks.skull.canPlaceBlockAt(world, blockpos);
+				return false;
+			} else if (!Blocks.skull.canPlaceBlockAt(world, blockpos)) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}
 
@@ -106,15 +110,15 @@ public class ItemSkull extends Item {
 	public String getItemStackDisplayName(ItemStack itemstack) {
 		if (itemstack.getMetadata() == 3 && itemstack.hasTagCompound()) {
 			if (itemstack.getTagCompound().hasKey("SkullOwner", 8)) {
-                return StatCollector.translateToLocalFormatted("item.skull.player.name",
-                        itemstack.getTagCompound().getString("SkullOwner"));
+				return StatCollector.translateToLocalFormatted("item.skull.player.name",
+						new Object[] { itemstack.getTagCompound().getString("SkullOwner") });
 			}
 
 			if (itemstack.getTagCompound().hasKey("SkullOwner", 10)) {
 				NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("SkullOwner");
 				if (nbttagcompound.hasKey("Name", 8)) {
-                    return StatCollector.translateToLocalFormatted("item.skull.player.name",
-                            nbttagcompound.getString("Name"));
+					return StatCollector.translateToLocalFormatted("item.skull.player.name",
+							new Object[] { nbttagcompound.getString("Name") });
 				}
 			}
 		}
@@ -129,7 +133,7 @@ public class ItemSkull extends Item {
 	public boolean updateItemStackNBT(NBTTagCompound nbt) {
 		super.updateItemStackNBT(nbt);
 		if (nbt.hasKey("SkullOwner", 8) && nbt.getString("SkullOwner").length() > 0) {
-            GameProfile gameprofile = new GameProfile(null, nbt.getString("SkullOwner"));
+			GameProfile gameprofile = new GameProfile((EaglercraftUUID) null, nbt.getString("SkullOwner"));
 			gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
 			nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
 			return true;

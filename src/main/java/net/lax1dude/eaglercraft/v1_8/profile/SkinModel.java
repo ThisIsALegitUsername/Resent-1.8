@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -26,15 +26,15 @@ public enum SkinModel {
 	public final boolean sanitize;
 	
 	public static final SkinModel[] skinModels = new SkinModel[3];
-	private static final Map<String, SkinModel> skinModelsByName = new HashMap<>();
+	private static final Map<String, SkinModel> skinModelsByName = new HashMap();
 	
-	SkinModel(int id, int w, int h, String profileSkinType, boolean sanitize) {
-        this.id = id;
-        this.width = w;
-        this.height = h;
-        this.profileSkinType = profileSkinType;
-        this.sanitize = sanitize;
-    }
+	private SkinModel(int id, int w, int h, String profileSkinType, boolean sanitize) {
+		this.id = id;
+		this.width = w;
+		this.height = h;
+		this.profileSkinType = profileSkinType;
+		this.sanitize = sanitize;
+	}
 
 	public static SkinModel getModelFromId(String str) {
 		SkinModel mdl = skinModelsByName.get(str.toLowerCase());

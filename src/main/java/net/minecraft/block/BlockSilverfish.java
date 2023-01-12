@@ -1,7 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -13,15 +16,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,7 +45,7 @@ public class BlockSilverfish extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.create("variant", BlockSilverfish.EnumType.class);
+		VARIANT = PropertyEnum.<BlockSilverfish.EnumType>create("variant", BlockSilverfish.EnumType.class);
 	}
 
 	/**+
@@ -61,17 +62,17 @@ public class BlockSilverfish extends Block {
 	}
 
 	protected ItemStack createStackedBlock(IBlockState iblockstate) {
-        switch (iblockstate.getValue(VARIANT)) {
-            case COBBLESTONE:
-                return new ItemStack(Blocks.cobblestone);
-            case STONEBRICK:
-                return new ItemStack(Blocks.stonebrick);
-            case MOSSY_STONEBRICK:
-                return new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.EnumType.MOSSY.getMetadata());
-            case CRACKED_STONEBRICK:
-                return new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.EnumType.CRACKED.getMetadata());
-            case CHISELED_STONEBRICK:
-                return new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.EnumType.CHISELED.getMetadata());
+		switch ((BlockSilverfish.EnumType) iblockstate.getValue(VARIANT)) {
+		case COBBLESTONE:
+			return new ItemStack(Blocks.cobblestone);
+		case STONEBRICK:
+			return new ItemStack(Blocks.stonebrick);
+		case MOSSY_STONEBRICK:
+			return new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.EnumType.MOSSY.getMetadata());
+		case CRACKED_STONEBRICK:
+			return new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.EnumType.CRACKED.getMetadata());
+		case CHISELED_STONEBRICK:
+			return new ItemStack(Blocks.stonebrick, 1, BlockStoneBrick.EnumType.CHISELED.getMetadata());
 		default:
 			return new ItemStack(Blocks.stone);
 		}
@@ -104,24 +105,24 @@ public class BlockSilverfish extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockSilverfish.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, VARIANT);
+		return new BlockState(this, new IProperty[] { VARIANT });
 	}
 
-    public enum EnumType implements IStringSerializable {
-        STONE(0, "stone") {
-            public IBlockState getModelBlock() {
-                return Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE);
-            }
-        },
-        COBBLESTONE(1, "cobblestone", "cobble") {
-            public IBlockState getModelBlock() {
-                return Blocks.cobblestone.getDefaultState();
-            }
-        },
+	public static enum EnumType implements IStringSerializable {
+		STONE(0, "stone") {
+			public IBlockState getModelBlock() {
+				return Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE);
+			}
+		},
+		COBBLESTONE(1, "cobblestone", "cobble") {
+			public IBlockState getModelBlock() {
+				return Blocks.cobblestone.getDefaultState();
+			}
+		},
 		STONEBRICK(2, "stone_brick", "brick") {
 			public IBlockState getModelBlock() {
 				return Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT,
@@ -152,15 +153,15 @@ public class BlockSilverfish extends Block {
 		private final String name;
 		private final String unlocalizedName;
 
-        EnumType(int meta, String name) {
-            this(meta, name, name);
-        }
+		private EnumType(int meta, String name) {
+			this(meta, name, name);
+		}
 
-        EnumType(int meta, String name, String unlocalizedName) {
-            this.meta = meta;
-            this.name = name;
-            this.unlocalizedName = unlocalizedName;
-        }
+		private EnumType(int meta, String name, String unlocalizedName) {
+			this.meta = meta;
+			this.name = name;
+			this.unlocalizedName = unlocalizedName;
+		}
 
 		public int getMetadata() {
 			return this.meta;

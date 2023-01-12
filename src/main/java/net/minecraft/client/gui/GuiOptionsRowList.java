@@ -13,7 +13,7 @@ import net.minecraft.client.settings.GameSettings;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -49,9 +49,9 @@ public class GuiOptionsRowList extends GuiListExtended {
 			return null;
 		} else {
 			int i = parOptions.returnEnumOrdinal();
-			return parOptions.getEnumFloat() ? new GuiOptionSlider(i, parInt1, parInt2, parOptions)
-                    : new GuiOptionButton(i, parInt1, parInt2, parOptions,
-                    mcIn.gameSettings.getKeyBinding(parOptions));
+			return (GuiButton) (parOptions.getEnumFloat() ? new GuiOptionSlider(i, parInt1, parInt2, parOptions)
+					: new GuiOptionButton(i, parInt1, parInt2, parOptions,
+							mcIn.gameSettings.getKeyBinding(parOptions)));
 		}
 	}
 
@@ -59,7 +59,7 @@ public class GuiOptionsRowList extends GuiListExtended {
 	 * Gets the IGuiListEntry object for the given index
 	 */
 	public GuiOptionsRowList.Row getListEntry(int i) {
-        return this.field_148184_k.get(i);
+		return (GuiOptionsRowList.Row) this.field_148184_k.get(i);
 	}
 
 	protected int getSize() {

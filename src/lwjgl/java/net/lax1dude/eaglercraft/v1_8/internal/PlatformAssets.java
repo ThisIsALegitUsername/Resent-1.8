@@ -14,7 +14,7 @@ import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
 import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,8 +45,10 @@ public class PlatformAssets {
 		File loadFile = new File("resources", path);
 		byte[] ret = new byte[(int) loadFile.length()];
 		try(FileInputStream is = new FileInputStream(loadFile)) {
-			is.read(ret);
-			is.close();
+			int i, j = 0;
+			while(j < ret.length && (i = is.read(ret, j, ret.length - j)) != -1) {
+				j += i;
+			}
 			return ret;
 		}catch(IOException ex) {
 			return null;

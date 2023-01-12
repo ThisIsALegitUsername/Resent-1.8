@@ -13,7 +13,7 @@ import net.minecraft.init.Blocks;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -29,9 +29,9 @@ public class ItemSpade extends ItemTool {
 	private static Set<Block> EFFECTIVE_ON;
 
 	public static void bootstrap() {
-        EFFECTIVE_ON = Sets.newHashSet(Blocks.clay, Blocks.dirt, Blocks.farmland, Blocks.grass,
-                Blocks.gravel, Blocks.mycelium, Blocks.sand, Blocks.snow, Blocks.snow_layer, Blocks.soul_sand);
-    }
+		EFFECTIVE_ON = Sets.newHashSet(new Block[] { Blocks.clay, Blocks.dirt, Blocks.farmland, Blocks.grass,
+				Blocks.gravel, Blocks.mycelium, Blocks.sand, Blocks.snow, Blocks.snow_layer, Blocks.soul_sand });
+	}
 
 	public ItemSpade(Item.ToolMaterial material) {
 		super(1.0F, material, EFFECTIVE_ON);
@@ -41,6 +41,6 @@ public class ItemSpade extends ItemTool {
 	 * Check whether this Item can harvest the given Block
 	 */
 	public boolean canHarvestBlock(Block block) {
-        return block == Blocks.snow_layer || block == Blocks.snow;
+		return block == Blocks.snow_layer ? true : block == Blocks.snow;
 	}
 }

@@ -26,7 +26,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,9 +40,9 @@ import net.minecraft.world.World;
  */
 public class GuiRepair extends GuiContainer implements ICrafting {
 	private static final ResourceLocation anvilResource = new ResourceLocation("textures/gui/container/anvil.png");
-    private final ContainerRepair anvil;
-    private GuiTextField nameField;
-    private final InventoryPlayer playerInventory;
+	private ContainerRepair anvil;
+	private GuiTextField nameField;
+	private InventoryPlayer playerInventory;
 
 	public GuiRepair(InventoryPlayer inventoryIn, World worldIn) {
 		super(new ContainerRepair(inventoryIn, worldIn, Minecraft.getMinecraft().thePlayer));
@@ -56,18 +56,18 @@ public class GuiRepair extends GuiContainer implements ICrafting {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        super.initGui();
-        Keyboard.enableRepeatEvents(true);
-        int i = (width - this.xSize) / 2;
-        int j = (height - this.ySize) / 2;
-        this.nameField = new GuiTextField(0, this.fontRendererObj, i + 62, j + 24, 103, 12);
-        this.nameField.setTextColor(-1);
-        this.nameField.setDisabledTextColour(-1);
-        this.nameField.setEnableBackgroundDrawing(false);
-        this.nameField.setMaxStringLength(30);
-        this.inventorySlots.removeCraftingFromCrafters(this);
-        this.inventorySlots.onCraftGuiOpened(this);
-    }
+		super.initGui();
+		Keyboard.enableRepeatEvents(true);
+		int i = (this.width - this.xSize) / 2;
+		int j = (this.height - this.ySize) / 2;
+		this.nameField = new GuiTextField(0, this.fontRendererObj, i + 62, j + 24, 103, 12);
+		this.nameField.setTextColor(-1);
+		this.nameField.setDisabledTextColour(-1);
+		this.nameField.setEnableBackgroundDrawing(false);
+		this.nameField.setMaxStringLength(30);
+		this.inventorySlots.removeCraftingFromCrafters(this);
+		this.inventorySlots.onCraftGuiOpened(this);
+	}
 
 	/**+
 	 * Called when the screen is unloaded. Used to disable keyboard
@@ -85,15 +85,15 @@ public class GuiRepair extends GuiContainer implements ICrafting {
 	 */
 	protected void drawGuiContainerForegroundLayer(int var1, int var2) {
 		GlStateManager.disableLighting();
-        GlStateManager.disableBlend();
-        this.fontRendererObj.drawString(I18n.format("container.repair"), 60, 6, 4210752);
+		GlStateManager.disableBlend();
+		this.fontRendererObj.drawString(I18n.format("container.repair", new Object[0]), 60, 6, 4210752);
 		if (this.anvil.maximumCost > 0) {
 			int i = 8453920;
-            boolean flag = true;
-            String s = I18n.format("container.repair.cost", Integer.valueOf(this.anvil.maximumCost));
+			boolean flag = true;
+			String s = I18n.format("container.repair.cost", new Object[] { Integer.valueOf(this.anvil.maximumCost) });
 			if (this.anvil.maximumCost >= 40 && !this.mc.thePlayer.capabilities.isCreativeMode) {
-                s = I18n.format("container.repair.expensive");
-                i = 16736352;
+				s = I18n.format("container.repair.expensive", new Object[0]);
+				i = 16736352;
 			} else if (!this.anvil.getSlot(2).getHasStack()) {
 				flag = false;
 			} else if (!this.anvil.getSlot(2).canTakeStack(this.playerInventory.player)) {
@@ -172,19 +172,19 @@ public class GuiRepair extends GuiContainer implements ICrafting {
 	 * Args : renderPartialTicks, mouseX, mouseY
 	 */
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(anvilResource);
-        int i = (width - this.xSize) / 2;
-        int j = (height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        this.drawTexturedModalRect(i + 59, j + 20, 0, this.ySize + (this.anvil.getSlot(0).getHasStack() ? 0 : 16), 110,
-                16);
-        if ((this.anvil.getSlot(0).getHasStack() || this.anvil.getSlot(1).getHasStack())
-                && !this.anvil.getSlot(2).getHasStack()) {
-            this.drawTexturedModalRect(i + 99, j + 45, this.xSize, 0, 28, 21);
-        }
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.getTextureManager().bindTexture(anvilResource);
+		int i = (this.width - this.xSize) / 2;
+		int j = (this.height - this.ySize) / 2;
+		this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect(i + 59, j + 20, 0, this.ySize + (this.anvil.getSlot(0).getHasStack() ? 0 : 16), 110,
+				16);
+		if ((this.anvil.getSlot(0).getHasStack() || this.anvil.getSlot(1).getHasStack())
+				&& !this.anvil.getSlot(2).getHasStack()) {
+			this.drawTexturedModalRect(i + 99, j + 45, this.xSize, 0, 28, 21);
+		}
 
-    }
+	}
 
 	/**+
 	 * update the crafting window inventory with the items in the

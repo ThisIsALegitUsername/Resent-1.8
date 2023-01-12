@@ -1,17 +1,18 @@
 package net.minecraft.inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public abstract class Container {
 	/**+
@@ -35,13 +36,12 @@ public abstract class Container {
 	 * distributed
 	 */
 	private final Set<Slot> dragSlots = Sets.newHashSet();
-	/**
-	 * +
+	/**+
 	 * list of all people that need to be notified when this
 	 * craftinventory changes
 	 */
 	protected List<ICrafting> crafters = Lists.newArrayList();
-	private final Set<EntityPlayer> playerList = Sets.newHashSet();
+	private Set<EntityPlayer> playerList = Sets.newHashSet();
 
 	/**+
 	 * Adds an item slot to this container
@@ -49,7 +49,7 @@ public abstract class Container {
 	protected Slot addSlotToContainer(Slot slotIn) {
 		slotIn.slotNumber = this.inventorySlots.size();
 		this.inventorySlots.add(slotIn);
-		this.inventoryItemStacks.add(null);
+		this.inventoryItemStacks.add((ItemStack) null);
 		return slotIn;
 	}
 
@@ -77,7 +77,7 @@ public abstract class Container {
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (int i = 0; i < this.inventorySlots.size(); ++i) {
-			arraylist.add(this.inventorySlots.get(i).getStack());
+			arraylist.add(((Slot) this.inventorySlots.get(i)).getStack());
 		}
 
 		return arraylist;
@@ -89,14 +89,14 @@ public abstract class Container {
 	 */
 	public void detectAndSendChanges() {
 		for (int i = 0; i < this.inventorySlots.size(); ++i) {
-			ItemStack itemstack = this.inventorySlots.get(i).getStack();
-			ItemStack itemstack1 = this.inventoryItemStacks.get(i);
+			ItemStack itemstack = ((Slot) this.inventorySlots.get(i)).getStack();
+			ItemStack itemstack1 = (ItemStack) this.inventoryItemStacks.get(i);
 			if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
 				itemstack1 = itemstack == null ? null : itemstack.copy();
 				this.inventoryItemStacks.set(i, itemstack1);
 
 				for (int j = 0; j < this.crafters.size(); ++j) {
-					this.crafters.get(j).sendSlotContents(this, i, itemstack1);
+					((ICrafting) this.crafters.get(j)).sendSlotContents(this, i, itemstack1);
 				}
 			}
 		}
@@ -113,7 +113,7 @@ public abstract class Container {
 
 	public Slot getSlotFromInventory(IInventory inv, int slotIn) {
 		for (int i = 0; i < this.inventorySlots.size(); ++i) {
-			Slot slot = this.inventorySlots.get(i);
+			Slot slot = (Slot) this.inventorySlots.get(i);
 			if (slot.isHere(inv, slotIn)) {
 				return slot;
 			}
@@ -123,14 +123,14 @@ public abstract class Container {
 	}
 
 	public Slot getSlot(int slotId) {
-		return this.inventorySlots.get(slotId);
+		return (Slot) this.inventorySlots.get(slotId);
 	}
 
 	/**+
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer var1, int i) {
-		Slot slot = this.inventorySlots.get(i);
+		Slot slot = (Slot) this.inventorySlots.get(i);
 		return slot != null ? slot.getStack() : null;
 	}
 
@@ -156,7 +156,7 @@ public abstract class Container {
 					this.resetDrag();
 				}
 			} else if (this.dragEvent == 1) {
-				Slot slot = this.inventorySlots.get(slotId);
+				Slot slot = (Slot) this.inventorySlots.get(slotId);
 				if (slot != null && canAddItemToSlot(slot, inventoryplayer.getItemStack(), true)
 						&& slot.isItemValid(inventoryplayer.getItemStack())
 						&& inventoryplayer.getItemStack().stackSize > this.dragSlots.size()
@@ -208,13 +208,13 @@ public abstract class Container {
 				if (inventoryplayer.getItemStack() != null) {
 					if (clickedButton == 0) {
 						playerIn.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), true);
-						inventoryplayer.setItemStack(null);
+						inventoryplayer.setItemStack((ItemStack) null);
 					}
 
 					if (clickedButton == 1) {
 						playerIn.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack().splitStack(1), true);
 						if (inventoryplayer.getItemStack().stackSize == 0) {
-							inventoryplayer.setItemStack(null);
+							inventoryplayer.setItemStack((ItemStack) null);
 						}
 					}
 				}
@@ -223,7 +223,7 @@ public abstract class Container {
 					return null;
 				}
 
-				Slot slot6 = this.inventorySlots.get(slotId);
+				Slot slot6 = (Slot) this.inventorySlots.get(slotId);
 				if (slot6 != null && slot6.canTakeStack(playerIn)) {
 					ItemStack itemstack8 = this.transferStackInSlot(playerIn, slotId);
 					if (itemstack8 != null) {
@@ -239,7 +239,7 @@ public abstract class Container {
 					return null;
 				}
 
-				Slot slot7 = this.inventorySlots.get(slotId);
+				Slot slot7 = (Slot) this.inventorySlots.get(slotId);
 				if (slot7 != null) {
 					ItemStack itemstack9 = slot7.getStack();
 					ItemStack itemstack10 = inventoryplayer.getItemStack();
@@ -259,7 +259,7 @@ public abstract class Container {
 							}
 
 							if (itemstack10.stackSize == 0) {
-								inventoryplayer.setItemStack(null);
+								inventoryplayer.setItemStack((ItemStack) null);
 							}
 						}
 					} else if (slot7.canTakeStack(playerIn)) {
@@ -268,7 +268,7 @@ public abstract class Container {
 							ItemStack itemstack12 = slot7.decrStackSize(j2);
 							inventoryplayer.setItemStack(itemstack12);
 							if (itemstack9.stackSize == 0) {
-								slot7.putStack(null);
+								slot7.putStack((ItemStack) null);
 							}
 
 							slot7.onPickupFromSlot(playerIn, inventoryplayer.getItemStack());
@@ -287,7 +287,7 @@ public abstract class Container {
 
 								itemstack10.splitStack(i2);
 								if (itemstack10.stackSize == 0) {
-									inventoryplayer.setItemStack(null);
+									inventoryplayer.setItemStack((ItemStack) null);
 								}
 
 								itemstack9.stackSize += i2;
@@ -304,7 +304,7 @@ public abstract class Container {
 								itemstack10.stackSize += l1;
 								itemstack9 = slot7.decrStackSize(l1);
 								if (itemstack9.stackSize == 0) {
-									slot7.putStack(null);
+									slot7.putStack((ItemStack) null);
 								}
 
 								slot7.onPickupFromSlot(playerIn, inventoryplayer.getItemStack());
@@ -316,7 +316,7 @@ public abstract class Container {
 				}
 			}
 		} else if (mode == 2 && clickedButton >= 0 && clickedButton < 9) {
-			Slot slot5 = this.inventorySlots.get(slotId);
+			Slot slot5 = (Slot) this.inventorySlots.get(slotId);
 			if (slot5.canTakeStack(playerIn)) {
 				ItemStack itemstack7 = inventoryplayer.getStackInSlot(clickedButton);
 				boolean flag = itemstack7 == null
@@ -334,7 +334,7 @@ public abstract class Container {
 						if (k1 > -1) {
 							inventoryplayer.addItemStackToInventory(itemstack7);
 							slot5.decrStackSize(itemstack11.stackSize);
-							slot5.putStack(null);
+							slot5.putStack((ItemStack) null);
 							slot5.onPickupFromSlot(playerIn, itemstack11);
 						}
 					} else {
@@ -343,27 +343,27 @@ public abstract class Container {
 						slot5.onPickupFromSlot(playerIn, itemstack11);
 					}
 				} else if (!slot5.getHasStack() && itemstack7 != null && slot5.isItemValid(itemstack7)) {
-					inventoryplayer.setInventorySlotContents(clickedButton, null);
+					inventoryplayer.setInventorySlotContents(clickedButton, (ItemStack) null);
 					slot5.putStack(itemstack7);
 				}
 			}
 		} else if (mode == 3 && playerIn.capabilities.isCreativeMode && inventoryplayer.getItemStack() == null
 				&& slotId >= 0) {
-			Slot slot4 = this.inventorySlots.get(slotId);
+			Slot slot4 = (Slot) this.inventorySlots.get(slotId);
 			if (slot4 != null && slot4.getHasStack()) {
 				ItemStack itemstack6 = slot4.getStack().copy();
 				itemstack6.stackSize = itemstack6.getMaxStackSize();
 				inventoryplayer.setItemStack(itemstack6);
 			}
 		} else if (mode == 4 && inventoryplayer.getItemStack() == null && slotId >= 0) {
-			Slot slot3 = this.inventorySlots.get(slotId);
+			Slot slot3 = (Slot) this.inventorySlots.get(slotId);
 			if (slot3 != null && slot3.getHasStack() && slot3.canTakeStack(playerIn)) {
 				ItemStack itemstack5 = slot3.decrStackSize(clickedButton == 0 ? 1 : slot3.getStack().stackSize);
 				slot3.onPickupFromSlot(playerIn, itemstack5);
 				playerIn.dropPlayerItemWithRandomChoice(itemstack5, true);
 			}
 		} else if (mode == 6 && slotId >= 0) {
-			Slot slot2 = this.inventorySlots.get(slotId);
+			Slot slot2 = (Slot) this.inventorySlots.get(slotId);
 			ItemStack itemstack4 = inventoryplayer.getItemStack();
 			if (itemstack4 != null && (slot2 == null || !slot2.getHasStack() || !slot2.canTakeStack(playerIn))) {
 				int i1 = clickedButton == 0 ? 0 : this.inventorySlots.size() - 1;
@@ -372,7 +372,7 @@ public abstract class Container {
 				for (int l2 = 0; l2 < 2; ++l2) {
 					for (int i3 = i1; i3 >= 0 && i3 < this.inventorySlots.size()
 							&& itemstack4.stackSize < itemstack4.getMaxStackSize(); i3 += j1) {
-						Slot slot8 = this.inventorySlots.get(i3);
+						Slot slot8 = (Slot) this.inventorySlots.get(i3);
 						if (slot8.getHasStack() && canAddItemToSlot(slot8, itemstack4, true)
 								&& slot8.canTakeStack(playerIn) && this.canMergeSlot(itemstack4, slot8)
 								&& (l2 != 0 || slot8.getStack().stackSize != slot8.getStack().getMaxStackSize())) {
@@ -381,7 +381,7 @@ public abstract class Container {
 							ItemStack itemstack2 = slot8.decrStackSize(l);
 							itemstack4.stackSize += l;
 							if (itemstack2.stackSize <= 0) {
-								slot8.putStack(null);
+								slot8.putStack((ItemStack) null);
 							}
 
 							slot8.onPickupFromSlot(playerIn, itemstack2);
@@ -419,7 +419,7 @@ public abstract class Container {
 		InventoryPlayer inventoryplayer = playerIn.inventory;
 		if (inventoryplayer.getItemStack() != null) {
 			playerIn.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), false);
-			inventoryplayer.setItemStack(null);
+			inventoryplayer.setItemStack((ItemStack) null);
 		}
 
 	}
@@ -497,7 +497,7 @@ public abstract class Container {
 
 		if (stack.isStackable()) {
 			while (stack.stackSize > 0 && (!reverseDirection && i < endIndex || reverseDirection && i >= startIndex)) {
-				Slot slot = this.inventorySlots.get(i);
+				Slot slot = (Slot) this.inventorySlots.get(i);
 				ItemStack itemstack = slot.getStack();
 				if (itemstack != null && itemstack.getItem() == stack.getItem()
 						&& (!stack.getHasSubtypes() || stack.getMetadata() == itemstack.getMetadata())
@@ -532,7 +532,7 @@ public abstract class Container {
 			}
 
 			while (!reverseDirection && i < endIndex || reverseDirection && i >= startIndex) {
-				Slot slot1 = this.inventorySlots.get(i);
+				Slot slot1 = (Slot) this.inventorySlots.get(i);
 				ItemStack itemstack1 = slot1.getStack();
 				if (itemstack1 == null) {
 					slot1.putStack(stack.copy());
@@ -574,7 +574,8 @@ public abstract class Container {
 	}
 
 	public static boolean isValidDragMode(int dragModeIn, EntityPlayer player) {
-		return dragModeIn == 0 || (dragModeIn == 1 || dragModeIn == 2 && player.capabilities.isCreativeMode);
+		return dragModeIn == 0 ? true
+				: (dragModeIn == 1 ? true : dragModeIn == 2 && player.capabilities.isCreativeMode);
 	}
 
 	/**+

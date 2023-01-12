@@ -8,7 +8,7 @@ import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -21,8 +21,8 @@ import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
  * 
  */
 public class NoiseGeneratorImproved extends NoiseGenerator {
-	private final int[] permutations;
-    public double xCoord;
+	private int[] permutations;
+	public double xCoord;
 	public double yCoord;
 	public double zCoord;
 	private static final double[] field_152381_e = new double[] { 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D, 1.0D, -1.0D,
@@ -47,7 +47,8 @@ public class NoiseGeneratorImproved extends NoiseGenerator {
 		this.zCoord = parRandom.nextDouble() * 256.0D;
 
 		for (int i = 0; i < 256; this.permutations[i] = i++) {
-        }
+			;
+		}
 
 		for (int l = 0; l < 256; ++l) {
 			int j = parRandom.nextInt(256 - l) + l;
@@ -112,10 +113,10 @@ public class NoiseGeneratorImproved extends NoiseGenerator {
 					int l6 = k6 & 255;
 					d19 = d19 - (double) k6;
 					double d20 = d19 * d19 * d19 * (d19 * (d19 * 6.0D - 15.0D) + 10.0D);
-                    i5 = this.permutations[k2];
-                    j5 = this.permutations[i5] + l6;
-                    j = this.permutations[k2 + 1];
-                    k5 = this.permutations[j] + l6;
+					i5 = this.permutations[k2] + 0;
+					j5 = this.permutations[i5] + l6;
+					j = this.permutations[k2 + 1] + 0;
+					k5 = this.permutations[j] + l6;
 					d14 = this.lerp(d18, this.func_76309_a(this.permutations[j5], d17, d19),
 							this.grad(this.permutations[k5], d17 - 1.0D, 0.0D, d19));
 					d15 = this.lerp(d18, this.grad(this.permutations[j5 + 1], d17, 0.0D, d19 - 1.0D),

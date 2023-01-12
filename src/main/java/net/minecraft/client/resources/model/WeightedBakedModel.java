@@ -18,7 +18,7 @@ import net.minecraft.util.WeightedRandom;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,7 +38,7 @@ public class WeightedBakedModel implements IBakedModel {
 	public WeightedBakedModel(List<WeightedBakedModel.MyWeighedRandomItem> parList) {
 		this.models = parList;
 		this.totalWeight = WeightedRandom.getTotalWeight(parList);
-        this.baseModel = parList.get(0).model;
+		this.baseModel = ((WeightedBakedModel.MyWeighedRandomItem) parList.get(0)).model;
 	}
 
 	public List<BakedQuad> getFaceQuads(EnumFacing enumfacing) {
@@ -70,12 +70,12 @@ public class WeightedBakedModel implements IBakedModel {
 	}
 
 	public IBakedModel getAlternativeModel(long parLong1) {
-        return WeightedRandom.getRandomItem(this.models,
-                Math.abs((int) parLong1 >> 16) % this.totalWeight).model;
-    }
+		return ((WeightedBakedModel.MyWeighedRandomItem) WeightedRandom.getRandomItem(this.models,
+				Math.abs((int) parLong1 >> 16) % this.totalWeight)).model;
+	}
 
 	public static class Builder {
-        private final List<WeightedBakedModel.MyWeighedRandomItem> listItems = Lists.newArrayList();
+		private List<WeightedBakedModel.MyWeighedRandomItem> listItems = Lists.newArrayList();
 
 		public WeightedBakedModel.Builder add(IBakedModel parIBakedModel, int parInt1) {
 			this.listItems.add(new WeightedBakedModel.MyWeighedRandomItem(parIBakedModel, parInt1));
@@ -88,7 +88,7 @@ public class WeightedBakedModel implements IBakedModel {
 		}
 
 		public IBakedModel first() {
-            return this.listItems.get(0).model;
+			return ((WeightedBakedModel.MyWeighedRandomItem) this.listItems.get(0)).model;
 		}
 	}
 

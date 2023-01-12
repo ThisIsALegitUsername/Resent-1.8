@@ -1,8 +1,12 @@
 package net.minecraft.block;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -12,9 +16,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-
-import java.util.Collection;
-import java.util.List;
 
 public abstract class BlockFlower extends BlockBush {
 	protected PropertyEnum<BlockFlower.EnumFlowerType> type;
@@ -32,7 +33,7 @@ public abstract class BlockFlower extends BlockBush {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return iblockstate.getValue(this.getTypeProperty()).getMeta();
+		return ((BlockFlower.EnumFlowerType) iblockstate.getValue(this.getTypeProperty())).getMeta();
 	}
 
 	/**+
@@ -74,11 +75,11 @@ public abstract class BlockFlower extends BlockBush {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(this.getTypeProperty()).getMeta();
+		return ((BlockFlower.EnumFlowerType) iblockstate.getValue(this.getTypeProperty())).getMeta();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, this.getTypeProperty());
+		return new BlockState(this, new IProperty[] { this.getTypeProperty() });
 	}
 
 	/**+
@@ -89,7 +90,7 @@ public abstract class BlockFlower extends BlockBush {
 		return Block.EnumOffsetType.XZ;
 	}
 
-	public enum EnumFlowerColor {
+	public static enum EnumFlowerColor {
 		YELLOW, RED;
 
 		public BlockFlower getBlock() {
@@ -97,7 +98,7 @@ public abstract class BlockFlower extends BlockBush {
 		}
 	}
 
-	public enum EnumFlowerType implements IStringSerializable {
+	public static enum EnumFlowerType implements IStringSerializable {
 		DANDELION(BlockFlower.EnumFlowerColor.YELLOW, 0, "dandelion"),
 		POPPY(BlockFlower.EnumFlowerColor.RED, 0, "poppy"),
 		BLUE_ORCHID(BlockFlower.EnumFlowerColor.RED, 1, "blue_orchid", "blueOrchid"),
@@ -116,11 +117,11 @@ public abstract class BlockFlower extends BlockBush {
 		private final String name;
 		private final String unlocalizedName;
 
-		EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name) {
+		private EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name) {
 			this(blockType, meta, name, name);
 		}
 
-		EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name, String unlocalizedName) {
+		private EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name, String unlocalizedName) {
 			this.blockType = blockType;
 			this.meta = meta;
 			this.name = name;

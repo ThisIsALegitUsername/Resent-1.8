@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -48,7 +48,7 @@ public class EntityBlaze extends EntityMob {
 
 	protected void entityInit() {
 		super.entityInit();
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+		this.dataWatcher.addObject(16, new Byte((byte) 0));
 	}
 
 	/**+
@@ -99,10 +99,10 @@ public class EntityBlaze extends EntityMob {
 		}
 
 		for (int i = 0; i < 2; ++i) {
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE,
-                    this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                    this.posY + this.rand.nextDouble() * (double) this.height,
-                    this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
+			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE,
+					this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
+					this.posY + this.rand.nextDouble() * (double) this.height,
+					this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D, new int[0]);
 		}
 
 		super.onLivingUpdate();

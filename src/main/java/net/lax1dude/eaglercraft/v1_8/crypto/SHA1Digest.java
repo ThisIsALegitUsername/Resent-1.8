@@ -33,8 +33,8 @@ public class SHA1Digest extends GeneralDigest {
 
 	private int H1, H2, H3, H4, H5;
 
-	private final int[] X = new int[80];
-    private int xOff;
+	private int[] X = new int[80];
+	private int xOff;
 
 	/**
 	 * Standard constructor

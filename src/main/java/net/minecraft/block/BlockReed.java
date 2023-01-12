@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,10 +52,11 @@ public class BlockReed extends Block {
 			if (world.isAirBlock(blockpos.up())) {
 				int i;
 				for (i = 1; world.getBlockState(blockpos.down(i)).getBlock() == this; ++i) {
-                }
+					;
+				}
 
 				if (i < 3) {
-					int j = iblockstate.getValue(AGE).intValue();
+					int j = ((Integer) iblockstate.getValue(AGE)).intValue();
 					if (j == 15) {
 						world.setBlockState(blockpos.up(), this.getDefaultState());
 						world.setBlockState(blockpos, iblockstate.withProperty(AGE, Integer.valueOf(0)), 4);
@@ -151,10 +154,10 @@ public class BlockReed extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(AGE).intValue();
+		return ((Integer) iblockstate.getValue(AGE)).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, AGE);
+		return new BlockState(this, new IProperty[] { AGE });
 	}
 }

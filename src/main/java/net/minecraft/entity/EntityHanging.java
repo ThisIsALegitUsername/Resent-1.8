@@ -1,5 +1,7 @@
 package net.minecraft.entity;
 
+import org.apache.commons.lang3.Validate;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneDiode;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +11,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.Validate;
 
 public abstract class EntityHanging extends Entity {
 	private int tickCounter1;
@@ -50,29 +51,29 @@ public abstract class EntityHanging extends Entity {
 			double d2 = (double) this.hangingPosition.getZ() + 0.5D;
 			double d3 = 0.46875D;
 			double d4 = this.func_174858_a(this.getWidthPixels());
-            double d5 = this.func_174858_a(this.getHeightPixels());
-            d0 = d0 - (double) this.facingDirection.getFrontOffsetX() * 0.46875D;
-            d2 = d2 - (double) this.facingDirection.getFrontOffsetZ() * 0.46875D;
-            d1 = d1 + d5;
-            EnumFacing enumfacing = this.facingDirection.rotateYCCW();
-            d0 = d0 + d4 * (double) enumfacing.getFrontOffsetX();
-            d2 = d2 + d4 * (double) enumfacing.getFrontOffsetZ();
-            this.posX = d0;
-            this.posY = d1;
-            this.posZ = d2;
-            double d6 = this.getWidthPixels();
-            double d7 = this.getHeightPixels();
-            double d8 = this.getWidthPixels();
-            if (this.facingDirection.getAxis() == EnumFacing.Axis.Z) {
-                d8 = 1.0D;
-            } else {
-                d6 = 1.0D;
-            }
+			double d5 = this.func_174858_a(this.getHeightPixels());
+			d0 = d0 - (double) this.facingDirection.getFrontOffsetX() * 0.46875D;
+			d2 = d2 - (double) this.facingDirection.getFrontOffsetZ() * 0.46875D;
+			d1 = d1 + d5;
+			EnumFacing enumfacing = this.facingDirection.rotateYCCW();
+			d0 = d0 + d4 * (double) enumfacing.getFrontOffsetX();
+			d2 = d2 + d4 * (double) enumfacing.getFrontOffsetZ();
+			this.posX = d0;
+			this.posY = d1;
+			this.posZ = d2;
+			double d6 = (double) this.getWidthPixels();
+			double d7 = (double) this.getHeightPixels();
+			double d8 = (double) this.getWidthPixels();
+			if (this.facingDirection.getAxis() == EnumFacing.Axis.Z) {
+				d8 = 1.0D;
+			} else {
+				d6 = 1.0D;
+			}
 
-            d6 = d6 / 32.0D;
-            d7 = d7 / 32.0D;
-            d8 = d8 / 32.0D;
-            this.setEntityBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
+			d6 = d6 / 32.0D;
+			d7 = d7 / 32.0D;
+			d8 = d8 / 32.0D;
+			this.setEntityBoundingBox(new AxisAlignedBB(d0 - d6, d1 - d7, d2 - d8, d0 + d6, d1 + d7, d2 + d8));
 		}
 	}
 
@@ -136,7 +137,9 @@ public abstract class EntityHanging extends Entity {
 	 * the attack will not happen.
 	 */
 	public boolean hitByEntity(Entity entity) {
-        return entity instanceof EntityPlayer && this.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entity), 0.0F);
+		return entity instanceof EntityPlayer
+				? this.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entity), 0.0F)
+				: false;
 	}
 
 	public EnumFacing getHorizontalFacing() {

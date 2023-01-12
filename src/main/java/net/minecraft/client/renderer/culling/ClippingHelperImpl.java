@@ -1,10 +1,13 @@
 package net.minecraft.client.renderer.culling;
 
-import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
-import net.minecraft.util.MathHelper;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_MODELVIEW_MATRIX;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION_MATRIX;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
+
+import net.lax1dude.eaglercraft.v1_8.EagRuntime;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.util.MathHelper;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -12,7 +15,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -25,7 +28,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION
  * 
  */
 public class ClippingHelperImpl extends ClippingHelper {
-	private static final ClippingHelperImpl instance = new ClippingHelperImpl();
+	private static ClippingHelperImpl instance = new ClippingHelperImpl();
 
 	/**+
 	 * Initialises the ClippingHelper object then returns an

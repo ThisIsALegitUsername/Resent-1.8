@@ -18,7 +18,7 @@ import net.lax1dude.eaglercraft.v1_8.vector.Matrix4f;
 import net.lax1dude.eaglercraft.v1_8.vector.Vector4f;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -258,7 +258,7 @@ public class InstancedFontRenderer {
 		if(charWidth != charWidthValue || charHeight != charHeightValue) {
 			charWidthValue = charWidth;
 			charHeightValue = charHeight;
-            _wglUniform2f(u_charSize2f, charWidth, charHeight);
+			_wglUniform2f(u_charSize2f, (float)charWidth, (float)charHeight);
 		}
 		
 		if(charCoordWidth != charCoordWidthValue || charCoordHeight != charCoordHeightValue) {
@@ -307,19 +307,19 @@ public class InstancedFontRenderer {
 				stateColorBiasA = 0.0f;
 			}
 		}else {
-            stateColorSerial = -1;
-            Vector4f vec4 = tmpVector;
-            vec4.x = (widthCalcLeast + (widthCalcMost - widthCalcLeast + 1.0f) * 0.5f) * charWidth;
-            vec4.y = (heightCalcLeast + (heightCalcMost - heightCalcLeast + 1.0f) * 0.5f) * charHeight;
-            vec4.z = 0.0f;
-            vec4.w = 1.0f;
+			stateColorSerial = -1;
+			Vector4f vec4 = tmpVector;
+			vec4.x = (float)(widthCalcLeast + (widthCalcMost - widthCalcLeast + 1.0f) * 0.5f) * charWidth;
+			vec4.y = (float)(heightCalcLeast + (heightCalcMost - heightCalcLeast + 1.0f) * 0.5f)* charHeight;
+			vec4.z = 0.0f;
+			vec4.w = 1.0f;
 
-            Matrix4f.transform(GlStateManager.modelMatrixStack[ptr1], vec4, vec4);
+			Matrix4f.transform(GlStateManager.modelMatrixStack[ptr1], vec4, vec4);
 
-            vec4.x /= vec4.w;
-            vec4.y /= vec4.w;
-            vec4.z /= vec4.w;
-            vec4.w = 1.0f;
+			vec4.x /= vec4.w;
+			vec4.y /= vec4.w;
+			vec4.z /= vec4.w;
+			vec4.w = 1.0f;
 
 			vec4.x *= vec4.x;
 			vec4.y *= vec4.y;

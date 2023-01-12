@@ -29,7 +29,7 @@ import net.minecraft.util.EnumChatFormatting;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -99,7 +99,7 @@ public class ServerList {
 			}
 
 		} catch (Exception exception) {
-			logger.error("Couldn't load server list", exception);
+			logger.error("Couldn\'t load server list", exception);
 		} finally {
 			refreshServerPing();
 		}
@@ -129,7 +129,7 @@ public class ServerList {
 			EagRuntime.setStorage("s", bao.toByteArray());
 
 		} catch (Exception exception) {
-            logger.error("Couldn't save server list", exception);
+			logger.error("Couldn\'t save server list", exception);
 		}
 
 	}
@@ -139,7 +139,7 @@ public class ServerList {
 	 * the list.
 	 */
 	public ServerData getServerData(int parInt1) {
-        return this.servers.get(parInt1);
+		return (ServerData) this.servers.get(parInt1);
 	}
 
 	/**+
@@ -219,8 +219,8 @@ public class ServerList {
 				}
 				dat.currentQuery = null;
 			}
-            dat.hasPing = false;
-            dat.pingSentTime = -1L;
+			dat.hasPing = false;
+			dat.pingSentTime = -1l;
 		}
 	}
 
@@ -229,23 +229,23 @@ public class ServerList {
 		Iterator<ServerData> itr = servers.iterator();
 		while (itr.hasNext()) {
 			ServerData dat = itr.next();
-            if (dat.pingSentTime <= 0L) {
-                dat.pingSentTime = System.currentTimeMillis();
-                if (RateLimitTracker.isLockedOut(dat.serverIP)) {
-                    logger.error(
-                            "Server {} locked this client out on a previous connection, will not attempt to reconnect",
-                            dat.serverIP);
-                    dat.serverMOTD = EnumChatFormatting.RED + "Too Many Requests!\nTry again later";
-                    dat.pingToServer = -1L;
-                    dat.hasPing = true;
-                    dat.field_78841_f = true;
-                } else {
-                    dat.pingToServer = -2L;
+			if (dat.pingSentTime <= 0l) {
+				dat.pingSentTime = System.currentTimeMillis();
+				if (RateLimitTracker.isLockedOut(dat.serverIP)) {
+					logger.error(
+							"Server {} locked this client out on a previous connection, will not attempt to reconnect",
+							dat.serverIP);
+					dat.serverMOTD = EnumChatFormatting.RED + "Too Many Requests!\nTry again later";
+					dat.pingToServer = -1l;
+					dat.hasPing = true;
+					dat.field_78841_f = true;
+				} else {
+					dat.pingToServer = -2l;
 					String addr = AddressResolver.resolveURI(dat.serverIP);
 					dat.currentQuery = ServerQueryDispatch.sendServerQuery(addr, "MOTD");
 					if (dat.currentQuery == null) {
-                        dat.pingToServer = -1L;
-                        dat.hasPing = true;
+						dat.pingToServer = -1l;
+						dat.hasPing = true;
 						dat.field_78841_f = true;
 					} else {
 						++total;
@@ -261,9 +261,9 @@ public class ServerList {
 						} else if (rateLimit == EnumServerRateLimit.LOCKED_OUT) {
 							RateLimitTracker.registerLockOut(dat.serverIP);
 						}
-                        dat.serverMOTD = EnumChatFormatting.RED + "Too Many Requests!\nTry again later";
-                        dat.pingToServer = -1L;
-                        dat.hasPing = true;
+						dat.serverMOTD = EnumChatFormatting.RED + "Too Many Requests!\nTry again later";
+						dat.pingToServer = -1l;
+						dat.hasPing = true;
 						return;
 					}
 				}
@@ -277,27 +277,27 @@ public class ServerList {
 						if (!dat.hasPing) {
 							dat.pingToServer = pkt.clientTime - dat.pingSentTime;
 							dat.hasPing = true;
-                        }
-                    }
-                }
-                if (dat.currentQuery.binaryResponsesAvailable() > 0) {
-                    byte[] r;
-                    do {
-                        r = dat.currentQuery.getBinaryResponse();
-                    } while (dat.currentQuery.binaryResponsesAvailable() > 0);
-                    dat.setIconPacket(r);
-                }
-                if (!dat.currentQuery.isOpen() && dat.pingSentTime > 0L
-                        && (System.currentTimeMillis() - dat.pingSentTime) > 2000L && !dat.hasPing) {
-                    if (RateLimitTracker.isProbablyLockedOut(dat.serverIP)) {
-                        logger.error("Server {} ratelimited this client out on a previous connection, assuming lockout",
-                                dat.serverIP);
-                        dat.serverMOTD = EnumChatFormatting.RED + "Too Many Requests!\nTry again later";
-                    }
-                    dat.pingToServer = -1L;
-                    dat.hasPing = true;
-                }
-            }
+						}
+					}
+				}
+				if (dat.currentQuery.binaryResponsesAvailable() > 0) {
+					byte[] r;
+					do {
+						r = dat.currentQuery.getBinaryResponse();
+					} while (dat.currentQuery.binaryResponsesAvailable() > 0);
+					dat.setIconPacket(r);
+				}
+				if (!dat.currentQuery.isOpen() && dat.pingSentTime > 0l
+						&& (System.currentTimeMillis() - dat.pingSentTime) > 2000l && !dat.hasPing) {
+					if (RateLimitTracker.isProbablyLockedOut(dat.serverIP)) {
+						logger.error("Server {} ratelimited this client out on a previous connection, assuming lockout",
+								dat.serverIP);
+						dat.serverMOTD = EnumChatFormatting.RED + "Too Many Requests!\nTry again later";
+					}
+					dat.pingToServer = -1l;
+					dat.hasPing = true;
+				}
+			}
 			if (total >= 4) {
 				break;
 			}

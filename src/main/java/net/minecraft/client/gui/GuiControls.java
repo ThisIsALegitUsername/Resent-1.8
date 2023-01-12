@@ -13,7 +13,7 @@ import net.minecraft.client.settings.KeyBinding;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -26,16 +26,15 @@ import net.minecraft.client.settings.KeyBinding;
  * 
  */
 public class GuiControls extends GuiScreen {
-	private static final GameSettings.Options[] optionsArr = new GameSettings.Options[]{
-            GameSettings.Options.INVERT_MOUSE, GameSettings.Options.SENSITIVITY, GameSettings.Options.TOUCHSCREEN};
-    private final GuiScreen parentScreen;
-    protected String screenTitle = "Controls";
-    private final GameSettings options;
-    /**
-     * +
-     * The ID of the button that has been pressed.
-     */
-    public KeyBinding buttonId = null;
+	private static final GameSettings.Options[] optionsArr = new GameSettings.Options[] {
+			GameSettings.Options.INVERT_MOUSE, GameSettings.Options.SENSITIVITY, GameSettings.Options.TOUCHSCREEN };
+	private GuiScreen parentScreen;
+	protected String screenTitle = "Controls";
+	private GameSettings options;
+	/**+
+	 * The ID of the button that has been pressed.
+	 */
+	public KeyBinding buttonId = null;
 	public long time;
 	private GuiKeyBindingList keyBindingList;
 	private GuiButton buttonReset;
@@ -51,22 +50,22 @@ public class GuiControls extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        this.keyBindingList = new GuiKeyBindingList(this, this.mc);
-        this.buttonList.add(new GuiButton(200, width / 2 - 155, height - 29, 150, 20,
-                I18n.format("gui.done")));
-        this.buttonList.add(this.buttonReset = new GuiButton(201, width / 2 - 155 + 160, height - 29, 150, 20,
-                I18n.format("controls.resetAll")));
-        this.screenTitle = I18n.format("controls.title");
-        int i = 0;
+		this.keyBindingList = new GuiKeyBindingList(this, this.mc);
+		this.buttonList.add(new GuiButton(200, this.width / 2 - 155, this.height - 29, 150, 20,
+				I18n.format("gui.done", new Object[0])));
+		this.buttonList.add(this.buttonReset = new GuiButton(201, this.width / 2 - 155 + 160, this.height - 29, 150, 20,
+				I18n.format("controls.resetAll", new Object[0])));
+		this.screenTitle = I18n.format("controls.title", new Object[0]);
+		int i = 0;
 
-        for (GameSettings.Options gamesettings$options : optionsArr) {
-            if (gamesettings$options.getEnumFloat()) {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(),
-                        width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
-            } else {
-                this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(),
-                        width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options,
-                        this.options.getKeyBinding(gamesettings$options)));
+		for (GameSettings.Options gamesettings$options : optionsArr) {
+			if (gamesettings$options.getEnumFloat()) {
+				this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(),
+						this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
+			} else {
+				this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(),
+						this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options,
+						this.options.getKeyBinding(gamesettings$options)));
 			}
 
 			++i;
@@ -160,8 +159,8 @@ public class GuiControls extends GuiScreen {
 	 */
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
-        this.keyBindingList.drawScreen(i, j, f);
-        this.drawCenteredString(this.fontRendererObj, this.screenTitle, width / 2, 8, 16777215);
+		this.keyBindingList.drawScreen(i, j, f);
+		this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 8, 16777215);
 		boolean flag = true;
 
 		for (KeyBinding keybinding : this.options.keyBindings) {

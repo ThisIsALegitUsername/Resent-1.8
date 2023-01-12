@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -113,7 +113,8 @@ public class EnchantmentProtection extends Enchantment {
 	public boolean canApplyTogether(Enchantment enchantment) {
 		if (enchantment instanceof EnchantmentProtection) {
 			EnchantmentProtection enchantmentprotection = (EnchantmentProtection) enchantment;
-			return enchantmentprotection.protectionType != this.protectionType && (this.protectionType == 2 || enchantmentprotection.protectionType == 2);
+			return enchantmentprotection.protectionType == this.protectionType ? false
+					: this.protectionType == 2 || enchantmentprotection.protectionType == 2;
 		} else {
 			return super.canApplyTogether(enchantment);
 		}
@@ -136,7 +137,7 @@ public class EnchantmentProtection extends Enchantment {
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantment.blastProtection.effectId,
 				parEntity.getInventory());
 		if (i > 0) {
-            parDouble1 -= MathHelper.floor_double(parDouble1 * (double) ((float) i * 0.15F));
+			parDouble1 -= (double) MathHelper.floor_double(parDouble1 * (double) ((float) i * 0.15F));
 		}
 
 		return parDouble1;

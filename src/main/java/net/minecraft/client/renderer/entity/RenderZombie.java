@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,7 +44,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
 
 	public RenderZombie(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelZombie(), 0.5F, 1.0F);
-		LayerRenderer layerrenderer = this.layerRenderers.get(0);
+		LayerRenderer layerrenderer = (LayerRenderer) this.layerRenderers.get(0);
 		this.field_82434_o = this.modelBipedMain;
 		this.zombieVillagerModel = new ModelZombieVillager();
 		this.addLayer(new LayerHeldItem(this));

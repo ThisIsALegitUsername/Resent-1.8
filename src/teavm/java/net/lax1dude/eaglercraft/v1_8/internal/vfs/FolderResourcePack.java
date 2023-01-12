@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,8 +38,8 @@ public class FolderResourcePack extends AbstractResourcePack {
 	}
 
 	public Set<String> getResourceDomains() {
-		Set<String> set = Sets.newHashSet();
-        String pfx = prefix + this.resourcePackFile + "/assets/";
+		Set<String> set = Sets.<String>newHashSet();
+		String pfx = prefix + this.resourcePackFile + "/assets/";
 		List<String> files = SYS.VFS.listFiles(pfx);
 
 		for (String file : files) {

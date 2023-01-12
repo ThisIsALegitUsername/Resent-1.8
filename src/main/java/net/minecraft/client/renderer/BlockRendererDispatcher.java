@@ -23,7 +23,7 @@ import net.minecraft.world.IBlockAccess;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -36,8 +36,8 @@ import net.minecraft.world.IBlockAccess;
  * 
  */
 public class BlockRendererDispatcher implements IResourceManagerReloadListener {
-	private final BlockModelShapes blockModelShapes;
-    private final GameSettings gameSettings;
+	private BlockModelShapes blockModelShapes;
+	private final GameSettings gameSettings;
 	private final BlockModelRenderer blockModelRenderer = new BlockModelRenderer();
 	private final ChestRenderer chestRenderer = new ChestRenderer();
 	private final BlockFluidRenderer fluidRenderer = new BlockFluidRenderer();
@@ -132,7 +132,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 				this.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
 				break;
 			case 3:
-                IBakedModel ibakedmodel = this.getBakedModel(state, null);
+				IBakedModel ibakedmodel = this.getBakedModel(state, (BlockPos) null);
 				this.blockModelRenderer.renderModelBrightness(ibakedmodel, state, brightness, true);
 			}
 
@@ -144,7 +144,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 			return false;
 		} else {
 			int i = parBlock.getRenderType();
-            return i != 3 && i == 2;
+			return i == 3 ? false : i == 2;
 		}
 	}
 

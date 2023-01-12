@@ -3,7 +3,7 @@ package net.lax1dude.eaglercraft.v1_8.internal;
 import java.util.List;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -17,17 +17,17 @@ import java.util.List;
  */
 public interface IClientConfigAdapter {
 
-	class DefaultServer {
+	public static class DefaultServer {
 
-        public final String name;
-        public final String addr;
+		public final String name;
+		public final String addr;
 
-        public DefaultServer(String name, String addr) {
-            this.name = name;
-            this.addr = addr;
-        }
+		public DefaultServer(String name, String addr) {
+			this.name = name;
+			this.addr = addr;
+		}
 
-    }
+	}
 
 	String getDefaultLocale();
 

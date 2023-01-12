@@ -1,6 +1,5 @@
 package net.minecraft.client.entity;
 
-import dev.resent.module.base.ModManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -9,6 +8,7 @@ import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiRepair;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiBeacon;
 import net.minecraft.client.gui.inventory.GuiBrewingStand;
@@ -58,7 +58,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -94,7 +94,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	private float horseJumpPower;
 	public float timeInPortal;
 	public float prevTimeInPortal;
-    private final StatFileWriter statWriter;
+	private StatFileWriter statWriter;
 
 	public EntityPlayerSP(Minecraft mcIn, World worldIn, NetHandlerPlayClient netHandler, StatFileWriter statWriter) {
 		super(worldIn, netHandler.getGameProfile());
@@ -179,21 +179,21 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		}
 
 		if (this.isCurrentViewEntity()) {
-            double d0 = this.posX - this.lastReportedPosX;
-            double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
-            double d2 = this.posZ - this.lastReportedPosZ;
-            double d3 = this.rotationYaw - this.lastReportedYaw;
-            double d4 = this.rotationPitch - this.lastReportedPitch;
-            boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
-            boolean flag3 = d3 != 0.0D || d4 != 0.0D;
-            if (this.ridingEntity == null) {
-                if (flag2 && flag3) {
-                    this.sendQueue.addToSendQueue(
-                            new C03PacketPlayer.C06PacketPlayerPosLook(this.posX, this.getEntityBoundingBox().minY,
-                                    this.posZ, this.rotationYaw, this.rotationPitch, this.onGround));
-                } else if (flag2) {
-                    this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.posX,
-                            this.getEntityBoundingBox().minY, this.posZ, this.onGround));
+			double d0 = this.posX - this.lastReportedPosX;
+			double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
+			double d2 = this.posZ - this.lastReportedPosZ;
+			double d3 = (double) (this.rotationYaw - this.lastReportedYaw);
+			double d4 = (double) (this.rotationPitch - this.lastReportedPitch);
+			boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
+			boolean flag3 = d3 != 0.0D || d4 != 0.0D;
+			if (this.ridingEntity == null) {
+				if (flag2 && flag3) {
+					this.sendQueue.addToSendQueue(
+							new C03PacketPlayer.C06PacketPlayerPosLook(this.posX, this.getEntityBoundingBox().minY,
+									this.posZ, this.rotationYaw, this.rotationPitch, this.onGround));
+				} else if (flag2) {
+					this.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.posX,
+							this.getEntityBoundingBox().minY, this.posZ, this.onGround));
 				} else if (flag3) {
 					this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw,
 							this.rotationPitch, this.onGround));
@@ -280,9 +280,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public void closeScreenAndDropStack() {
-        this.inventory.setItemStack(null);
-        super.closeScreen();
-        this.mc.displayGuiScreen(null);
+		this.inventory.setItemStack((ItemStack) null);
+		super.closeScreen();
+		this.mc.displayGuiScreen((GuiScreen) null);
 	}
 
 	/**+
@@ -394,19 +394,19 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 				float f = 0.1F;
 				if (b0 == 0) {
-                    this.motionX = -f;
+					this.motionX = (double) (-f);
 				}
 
 				if (b0 == 1) {
-                    this.motionX = f;
+					this.motionX = (double) f;
 				}
 
 				if (b0 == 4) {
-                    this.motionZ = -f;
+					this.motionZ = (double) (-f);
 				}
 
 				if (b0 == 5) {
-                    this.motionZ = f;
+					this.motionZ = (double) f;
 				}
 			}
 
@@ -564,7 +564,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Returns if this entity is sneaking.
 	 */
 	public boolean isSneaking() {
-        boolean flag = this.movementInput != null && this.movementInput.sneak;
+		boolean flag = this.movementInput != null ? this.movementInput.sneak : false;
 		return flag && !this.sleeping;
 	}
 
@@ -594,9 +594,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
-		ModManager.autoRespawn.onTick();
-		
 		if (this.sprintingTicksLeft > 0) {
 			--this.sprintingTicksLeft;
 			if (this.sprintingTicksLeft == 0) {
@@ -611,7 +608,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		this.prevTimeInPortal = this.timeInPortal;
 		if (this.inPortal) {
 			if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame()) {
-                this.mc.displayGuiScreen(null);
+				this.mc.displayGuiScreen((GuiScreen) null);
 			}
 
 			if (this.timeInPortal == 0.0F) {
@@ -702,11 +699,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 		if (this.capabilities.isFlying && this.isCurrentViewEntity()) {
 			if (this.movementInput.sneak) {
-                this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
+				this.motionY -= (double) (this.capabilities.getFlySpeed() * 3.0F);
 			}
 
 			if (this.movementInput.jump) {
-                this.motionY += this.capabilities.getFlySpeed() * 3.0F;
+				this.motionY += (double) (this.capabilities.getFlySpeed() * 3.0F);
 			}
 		}
 

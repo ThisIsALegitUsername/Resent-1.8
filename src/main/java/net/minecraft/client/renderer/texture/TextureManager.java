@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -42,7 +42,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
 	private final List<ITickable> listTickables = Lists.newArrayList();
 	private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();
-    private final IResourceManager theResourceManager;
+	private IResourceManager theResourceManager;
 
 	public TextureManager(IResourceManager resourceManager) {
 		this.theResourceManager = resourceManager;
@@ -52,7 +52,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		if (resource.cachedPointer != null) {
 			TextureUtil.bindTexture(((ITextureObject) resource.cachedPointer).getGlTextureId()); // unsafe, lol
 		} else {
-            Object object = this.mapTextureObjects.get(resource);
+			Object object = (ITextureObject) this.mapTextureObjects.get(resource);
 			if (object == null) {
 				object = new SimpleTexture(resource);
 				this.loadTexture(resource, (ITextureObject) object);
@@ -76,7 +76,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		boolean flag = true;
 
 		try {
-            textureObj.loadTexture(this.theResourceManager);
+			((ITextureObject) textureObj).loadTexture(this.theResourceManager);
 		} catch (IOException ioexception) {
 			logger.warn("Failed to load texture: " + textureLocation, ioexception);
 			textureObj = TextureUtil.missingTexture;
@@ -109,7 +109,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public ResourceLocation getDynamicTextureLocation(String name, DynamicTexture texture) {
-        Integer integer = this.mapTextureCounters.get(name);
+		Integer integer = (Integer) this.mapTextureCounters.get(name);
 		if (integer == null) {
 			integer = Integer.valueOf(1);
 		} else {
@@ -117,8 +117,8 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		}
 
 		this.mapTextureCounters.put(name, integer);
-        ResourceLocation resourcelocation = new ResourceLocation(
-                HString.format("dynamic/%s_%d", name, integer));
+		ResourceLocation resourcelocation = new ResourceLocation(
+				HString.format("dynamic/%s_%d", new Object[] { name, integer }));
 		this.loadTexture(resourcelocation, texture);
 		return resourcelocation;
 	}

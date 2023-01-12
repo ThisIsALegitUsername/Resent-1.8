@@ -1,13 +1,6 @@
 package net.minecraft.client;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_BACK;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_COLOR_BUFFER_BIT;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_DEPTH_BUFFER_BIT;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_GREATER;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_LEQUAL;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_MODELVIEW;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SMOOTH;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,13 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 import org.apache.commons.lang3.Validate;
 
 import com.google.common.collect.Lists;
 
-import dev.resent.Resent;
-import dev.resent.ui.mods.ClickGUI;
-import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;
@@ -166,7 +157,7 @@ import net.minecraft.world.WorldSettings;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -176,53 +167,53 @@ import net.minecraft.world.WorldSettings;
  * NOT FOR COMMERCIAL OR MALICIOUS USE
  * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class Minecraft implements IThreadListener {
-    private static final Logger logger = LogManager.getLogger();
-    private static final ResourceLocation locationMojangPng = new ResourceLocation("textures/gui/title/mojang.png");
-    public static final boolean isRunningOnMac = false;
-    private ServerData currentServerData;
-    public TextureManager renderEngine;
-    private static Minecraft theMinecraft;
-    public PlayerControllerMP playerController;
-    private final boolean fullscreen;
-    private final boolean enableGLErrorChecking = true;
-    private boolean hasCrashed;
-    private CrashReport crashReporter;
-    public int displayWidth;
-    public int displayHeight;
-    private boolean field_181541_X = false;
-    private final Timer timer = new Timer(20.0F);
-    public WorldClient theWorld;
-    public RenderGlobal renderGlobal;
-    private RenderManager renderManager;
-    private RenderItem renderItem;
+	private static final Logger logger = LogManager.getLogger();
+	private static final ResourceLocation locationMojangPng = new ResourceLocation("textures/gui/title/mojang.png");
+	public static final boolean isRunningOnMac = false;
+	private ServerData currentServerData;
+	private TextureManager renderEngine;
+	private static Minecraft theMinecraft;
+	public PlayerControllerMP playerController;
+	private boolean fullscreen;
+	private boolean enableGLErrorChecking = true;
+	private boolean hasCrashed;
+	private CrashReport crashReporter;
+	public int displayWidth;
+	public int displayHeight;
+	private boolean field_181541_X = false;
+	private Timer timer = new Timer(20.0F);
+	public WorldClient theWorld;
+	public RenderGlobal renderGlobal;
+	private RenderManager renderManager;
+	private RenderItem renderItem;
 	private ItemRenderer itemRenderer;
 	public EntityPlayerSP thePlayer;
 	private Entity renderViewEntity;
-    public Entity pointedEntity;
-    public EffectRenderer effectRenderer;
-    private final Session session;
-    private boolean isGamePaused;
-    public FontRenderer fontRendererObj;
-    public FontRenderer standardGalacticFontRenderer;
-    public GuiScreen currentScreen;
-    public LoadingScreenRenderer loadingScreen;
-    public EntityRenderer entityRenderer;
-    private int leftClickCounter;
-    private final int tempDisplayWidth;
-    private final int tempDisplayHeight;
-    public GuiAchievement guiAchievement;
-    public GuiIngame ingameGUI;
-    public boolean skipRenderWorld;
-    public MovingObjectPosition objectMouseOver;
-    public GameSettings gameSettings;
-    public MouseHelper mouseHelper;
-    private final String launchedVersion;
-    public static int debugFPS;
-    private int rightClickDelayTimer;
-    private String serverName;
+	public Entity pointedEntity;
+	public EffectRenderer effectRenderer;
+	private final Session session;
+	private boolean isGamePaused;
+	public FontRenderer fontRendererObj;
+	public FontRenderer standardGalacticFontRenderer;
+	public GuiScreen currentScreen;
+	public LoadingScreenRenderer loadingScreen;
+	public EntityRenderer entityRenderer;
+	private int leftClickCounter;
+	private int tempDisplayWidth;
+	private int tempDisplayHeight;
+	public GuiAchievement guiAchievement;
+	public GuiIngame ingameGUI;
+	public boolean skipRenderWorld;
+	public MovingObjectPosition objectMouseOver;
+	public GameSettings gameSettings;
+	public MouseHelper mouseHelper;
+	private final String launchedVersion;
+	private static int debugFPS;
+	private int rightClickDelayTimer;
+	private String serverName;
 	private int serverPort;
 	public boolean inGameHasFocus;
 	long systemTime = getSystemTime();
@@ -252,9 +243,9 @@ public class Minecraft implements IThreadListener {
 	private SoundHandler mcSoundHandler;
 	private MusicTicker mcMusicTicker;
 	private ResourceLocation mojangLogo;
-    private final List<FutureTask<?>> scheduledTasks = new LinkedList<>();
-    private final long field_175615_aJ = 0L;
-    private final Thread mcThread = Thread.currentThread();
+	private final List<FutureTask<?>> scheduledTasks = new LinkedList();
+	private long field_175615_aJ = 0L;
+	private final Thread mcThread = Thread.currentThread();
 	private ModelManager modelManager;
 	private BlockRendererDispatcher blockRenderDispatcher;
 	/**+
@@ -397,9 +388,9 @@ public class Minecraft implements IThreadListener {
 		AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat() {
 			public String formatString(String parString1) {
 				try {
-                    return HString.format(parString1, GameSettings
-                            .getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
-                } catch (Exception exception) {
+					return HString.format(parString1, new Object[] { GameSettings
+							.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()) });
+				} catch (Exception exception) {
 					return "Error: " + exception.getLocalizedMessage();
 				}
 			}
@@ -418,7 +409,6 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.loadIdentity();
 		GlStateManager.matrixMode(GL_MODELVIEW);
 		this.checkGLError("Startup");
-		Resent.INSTANCE.init();
 		this.textureMapBlocks = new TextureMap("textures");
 		this.textureMapBlocks.setMipmapLevels(this.gameSettings.mipmapLevels);
 		this.renderEngine.loadTickableTexture(TextureMap.locationBlocksTexture, this.textureMapBlocks);
@@ -558,25 +548,25 @@ public class Minecraft implements IThreadListener {
 	}
 
 	private void drawSplashScreen(TextureManager textureManagerInstance) {
-        Display.update();
-        updateDisplayMode();
-        GlStateManager.viewport(0, 0, displayWidth, displayHeight);
-        ScaledResolution scaledresolution = new ScaledResolution(this);
-        int i = scaledresolution.getScaleFactor();
-        GlStateManager.matrixMode(GL_PROJECTION);
-        GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth(),
-                scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
-        GlStateManager.matrixMode(GL_MODELVIEW);
-        GlStateManager.loadIdentity();
-        GlStateManager.translate(0.0F, 0.0F, -2000.0F);
-        GlStateManager.disableLighting();
-        GlStateManager.disableFog();
-        GlStateManager.disableDepth();
-        GlStateManager.enableTexture2D();
-        InputStream inputstream = null;
+		Display.update();
+		updateDisplayMode();
+		GlStateManager.viewport(0, 0, displayWidth, displayHeight);
+		ScaledResolution scaledresolution = new ScaledResolution(this);
+		int i = scaledresolution.getScaleFactor();
+		GlStateManager.matrixMode(GL_PROJECTION);
+		GlStateManager.loadIdentity();
+		GlStateManager.ortho(0.0D, (double) scaledresolution.getScaledWidth(),
+				(double) scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
+		GlStateManager.matrixMode(GL_MODELVIEW);
+		GlStateManager.loadIdentity();
+		GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+		GlStateManager.disableLighting();
+		GlStateManager.disableFog();
+		GlStateManager.disableDepth();
+		GlStateManager.enableTexture2D();
+		InputStream inputstream = null;
 
-        try {
+		try {
 			inputstream = this.mcDefaultResourcePack.getInputStream(locationMojangPng);
 			this.mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo",
 					new DynamicTexture(ImageData.loadImageFile(inputstream)));
@@ -590,12 +580,12 @@ public class Minecraft implements IThreadListener {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, this.displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255)
+		worldrenderer.pos(0.0D, (double) this.displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255)
 				.endVertex();
-        worldrenderer.pos(this.displayWidth, this.displayHeight, 0.0D).tex(0.0D, 0.0D)
-                .color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(this.displayWidth, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+		worldrenderer.pos((double) this.displayWidth, (double) this.displayHeight, 0.0D).tex(0.0D, 0.0D)
+				.color(255, 255, 255, 255).endVertex();
+		worldrenderer.pos((double) this.displayWidth, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+		worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		short short1 = 256;
@@ -611,24 +601,24 @@ public class Minecraft implements IThreadListener {
 
 	public void func_181536_a(int parInt1, int parInt2, int parInt3, int parInt4, int parInt5, int parInt6, int parInt7,
 			int parInt8, int parInt9, int parInt10) {
-        float f = 0.00390625F;
-        float f1 = 0.00390625F;
-        WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(parInt1, parInt2 + parInt6, 0.0D)
-                .tex((float) parInt3 * f, (float) (parInt4 + parInt6) * f1)
-                .color(parInt7, parInt8, parInt9, parInt10).endVertex();
-        worldrenderer.pos(parInt1 + parInt5, parInt2 + parInt6, 0.0D)
-                .tex((float) (parInt3 + parInt5) * f, (float) (parInt4 + parInt6) * f1)
-                .color(parInt7, parInt8, parInt9, parInt10).endVertex();
-        worldrenderer.pos(parInt1 + parInt5, parInt2, 0.0D)
-                .tex((float) (parInt3 + parInt5) * f, (float) parInt4 * f1)
-                .color(parInt7, parInt8, parInt9, parInt10).endVertex();
-        worldrenderer.pos(parInt1, parInt2, 0.0D)
-                .tex((float) parInt3 * f, (float) parInt4 * f1)
-                .color(parInt7, parInt8, parInt9, parInt10).endVertex();
-        Tessellator.getInstance().draw();
-    }
+		float f = 0.00390625F;
+		float f1 = 0.00390625F;
+		WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
+		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+		worldrenderer.pos((double) parInt1, (double) (parInt2 + parInt6), 0.0D)
+				.tex((double) ((float) parInt3 * f), (double) ((float) (parInt4 + parInt6) * f1))
+				.color(parInt7, parInt8, parInt9, parInt10).endVertex();
+		worldrenderer.pos((double) (parInt1 + parInt5), (double) (parInt2 + parInt6), 0.0D)
+				.tex((double) ((float) (parInt3 + parInt5) * f), (double) ((float) (parInt4 + parInt6) * f1))
+				.color(parInt7, parInt8, parInt9, parInt10).endVertex();
+		worldrenderer.pos((double) (parInt1 + parInt5), (double) parInt2, 0.0D)
+				.tex((double) ((float) (parInt3 + parInt5) * f), (double) ((float) parInt4 * f1))
+				.color(parInt7, parInt8, parInt9, parInt10).endVertex();
+		worldrenderer.pos((double) parInt1, (double) parInt2, 0.0D)
+				.tex((double) ((float) parInt3 * f), (double) ((float) parInt4 * f1))
+				.color(parInt7, parInt8, parInt9, parInt10).endVertex();
+		Tessellator.getInstance().draw();
+	}
 
 	/**+
 	 * Sets the argument GuiScreen as the main (topmost visible)
@@ -650,14 +640,14 @@ public class Minecraft implements IThreadListener {
 			this.ingameGUI.getChatGUI().clearChatMessages();
 		}
 
-        this.currentScreen = guiScreenIn;
+		this.currentScreen = (GuiScreen) guiScreenIn;
 		if (guiScreenIn != null) {
 			this.setIngameNotInFocus();
 			ScaledResolution scaledresolution = new ScaledResolution(this);
 			int i = scaledresolution.getScaledWidth();
 			int j = scaledresolution.getScaledHeight();
-            guiScreenIn.setWorldAndResolution(this, i, j);
-            this.skipRenderWorld = false;
+			((GuiScreen) guiScreenIn).setWorldAndResolution(this, i, j);
+			this.skipRenderWorld = false;
 		} else {
 			this.mcSoundHandler.resumeSounds();
 			this.setIngameFocus();
@@ -692,9 +682,10 @@ public class Minecraft implements IThreadListener {
 			logger.info("Stopping!");
 
 			try {
-                this.loadWorld(null);
+				this.loadWorld((WorldClient) null);
 			} catch (Throwable var5) {
-            }
+				;
+			}
 
 			this.mcSoundHandler.unloadSounds();
 		} finally {
@@ -793,16 +784,16 @@ public class Minecraft implements IThreadListener {
 		this.field_181543_z = k;
 
 		while (getSystemTime() >= this.debugUpdateTime + 1000L) {
-            debugFPS = this.fpsCounter;
-            this.debug = HString.format("%d fps (%d chunk update%s) T: %s%s%s%s",
-                    Integer.valueOf(debugFPS), Integer.valueOf(RenderChunk.renderChunksUpdated),
-                    RenderChunk.renderChunksUpdated != 1 ? "s" : "",
-                    (float) this.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT
-                            .getValueMax() ? "inf" : Integer.valueOf(this.gameSettings.limitFramerate),
-                    this.gameSettings.enableVsync ? " vsync" : "",
-                    this.gameSettings.fancyGraphics ? "" : " fast", this.gameSettings.clouds == 0 ? ""
-                            : (this.gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"));
-            RenderChunk.renderChunksUpdated = 0;
+			debugFPS = this.fpsCounter;
+			this.debug = HString.format("%d fps (%d chunk update%s) T: %s%s%s%s",
+					new Object[] { Integer.valueOf(debugFPS), Integer.valueOf(RenderChunk.renderChunksUpdated),
+							RenderChunk.renderChunksUpdated != 1 ? "s" : "",
+							(float) this.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT
+									.getValueMax() ? "inf" : Integer.valueOf(this.gameSettings.limitFramerate),
+							this.gameSettings.enableVsync ? " vsync" : "",
+							this.gameSettings.fancyGraphics ? "" : " fast", this.gameSettings.clouds == 0 ? ""
+									: (this.gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds") });
+			RenderChunk.renderChunksUpdated = 0;
 			this.debugUpdateTime += 1000L;
 			this.fpsCounter = 0;
 		}
@@ -854,10 +845,11 @@ public class Minecraft implements IThreadListener {
 
 	public void freeMemory() {
 		try {
-            System.gc();
-            this.loadWorld(null);
+			System.gc();
+			this.loadWorld((WorldClient) null);
 		} catch (Throwable var2) {
-        }
+			;
+		}
 
 		System.gc();
 	}
@@ -903,48 +895,48 @@ public class Minecraft implements IThreadListener {
 			GlStateManager.clear(GL_DEPTH_BUFFER_BIT);
 			GlStateManager.matrixMode(GL_PROJECTION);
 			GlStateManager.enableColorMaterial();
-            GlStateManager.loadIdentity();
-            GlStateManager.ortho(0.0D, this.displayWidth, this.displayHeight, 0.0D, 1000.0D, 3000.0D);
-            GlStateManager.matrixMode(GL_MODELVIEW);
 			GlStateManager.loadIdentity();
-            GlStateManager.translate(0.0F, 0.0F, -2000.0F);
-            EaglercraftGPU.glLineWidth(1.0F);
-            GlStateManager.disableTexture2D();
-            Tessellator tessellator = Tessellator.getInstance();
-            WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            short short1 = 160;
-            int i = this.displayWidth - short1 - 10;
-            int j = this.displayHeight - short1 * 2;
-            GlStateManager.enableBlend();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            worldrenderer.pos((float) i - (float) short1 * 1.1F,
-                    (float) j - (float) short1 * 0.6F - 16.0F, 0.0D).color(0, 0, 0, 100).endVertex();
-            worldrenderer.pos((float) i - (float) short1 * 1.1F, j + short1 * 2, 0.0D)
-                    .color(0, 0, 0, 100).endVertex();
-            worldrenderer.pos((float) i + (float) short1 * 1.1F, j + short1 * 2, 0.0D)
-                    .color(0, 0, 0, 100).endVertex();
-            worldrenderer.pos((float) i + (float) short1 * 1.1F,
-                    (float) j - (float) short1 * 0.6F - 16.0F, 0.0D).color(0, 0, 0, 100).endVertex();
-            tessellator.draw();
-            GlStateManager.disableBlend();
-            double d0 = 0.0D;
+			GlStateManager.ortho(0.0D, (double) this.displayWidth, (double) this.displayHeight, 0.0D, 1000.0D, 3000.0D);
+			GlStateManager.matrixMode(GL_MODELVIEW);
+			GlStateManager.loadIdentity();
+			GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+			EaglercraftGPU.glLineWidth(1.0F);
+			GlStateManager.disableTexture2D();
+			Tessellator tessellator = Tessellator.getInstance();
+			WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+			short short1 = 160;
+			int i = this.displayWidth - short1 - 10;
+			int j = this.displayHeight - short1 * 2;
+			GlStateManager.enableBlend();
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			worldrenderer.pos((double) ((float) i - (float) short1 * 1.1F),
+					(double) ((float) j - (float) short1 * 0.6F - 16.0F), 0.0D).color(0, 0, 0, 100).endVertex();
+			worldrenderer.pos((double) ((float) i - (float) short1 * 1.1F), (double) (j + short1 * 2), 0.0D)
+					.color(0, 0, 0, 100).endVertex();
+			worldrenderer.pos((double) ((float) i + (float) short1 * 1.1F), (double) (j + short1 * 2), 0.0D)
+					.color(0, 0, 0, 100).endVertex();
+			worldrenderer.pos((double) ((float) i + (float) short1 * 1.1F),
+					(double) ((float) j - (float) short1 * 0.6F - 16.0F), 0.0D).color(0, 0, 0, 100).endVertex();
+			tessellator.draw();
+			GlStateManager.disableBlend();
+			double d0 = 0.0D;
 
-            for (int k = 0; k < list.size(); ++k) {
-                Profiler.Result profiler$result1 = (Profiler.Result) list.get(k);
-                int l = MathHelper.floor_double(profiler$result1.field_76332_a / 4.0D) + 1;
-                worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
-                int i1 = profiler$result1.func_76329_a();
-                int j1 = i1 >> 16 & 255;
+			for (int k = 0; k < list.size(); ++k) {
+				Profiler.Result profiler$result1 = (Profiler.Result) list.get(k);
+				int l = MathHelper.floor_double(profiler$result1.field_76332_a / 4.0D) + 1;
+				worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
+				int i1 = profiler$result1.func_76329_a();
+				int j1 = i1 >> 16 & 255;
 				int k1 = i1 >> 8 & 255;
 				int l1 = i1 & 255;
-                worldrenderer.pos(i, j, 0.0D).color(j1, k1, l1, 255).endVertex();
+				worldrenderer.pos((double) i, (double) j, 0.0D).color(j1, k1, l1, 255).endVertex();
 
 				for (int i2 = l; i2 >= 0; --i2) {
 					float f = (float) ((d0 + profiler$result1.field_76332_a * (double) i2 / (double) l)
 							* 3.1415927410125732D * 2.0D / 100.0D);
 					float f1 = MathHelper.sin(f) * (float) short1;
 					float f2 = MathHelper.cos(f) * (float) short1 * 0.5F;
-                    worldrenderer.pos((float) i + f1, (float) j - f2, 0.0D).color(j1, k1, l1, 255)
+					worldrenderer.pos((double) ((float) i + f1), (double) ((float) j - f2), 0.0D).color(j1, k1, l1, 255)
 							.endVertex();
 				}
 
@@ -956,9 +948,9 @@ public class Minecraft implements IThreadListener {
 							* 3.1415927410125732D * 2.0D / 100.0D);
 					float f4 = MathHelper.sin(f3) * (float) short1;
 					float f5 = MathHelper.cos(f3) * (float) short1 * 0.5F;
-                    worldrenderer.pos((float) i + f4, (float) j - f5, 0.0D)
+					worldrenderer.pos((double) ((float) i + f4), (double) ((float) j - f5), 0.0D)
 							.color(j1 >> 1, k1 >> 1, l1 >> 1, 255).endVertex();
-                    worldrenderer.pos((float) i + f4, (float) j - f5 + 10.0F, 0.0D)
+					worldrenderer.pos((double) ((float) i + f4), (double) ((float) j - f5 + 10.0F), 0.0D)
 							.color(j1 >> 1, k1 >> 1, l1 >> 1, 255).endVertex();
 				}
 
@@ -1026,9 +1018,9 @@ public class Minecraft implements IThreadListener {
 		if (Display.isActive()) {
 			if (!this.inGameHasFocus) {
 				this.inGameHasFocus = true;
-                this.mouseHelper.grabMouseCursor();
-                this.displayGuiScreen(null);
-                this.leftClickCounter = 10000;
+				this.mouseHelper.grabMouseCursor();
+				this.displayGuiScreen((GuiScreen) null);
+				this.leftClickCounter = 10000;
 			}
 		}
 	}
@@ -1079,7 +1071,7 @@ public class Minecraft implements IThreadListener {
 		if (this.leftClickCounter <= 0) {
 			this.thePlayer.swingItem();
 			if (this.objectMouseOver == null) {
-                logger.error("Null returned as 'hitResult', this shouldn't happen!");
+				logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
 				if (this.playerController.isNotCreative()) {
 					this.leftClickCounter = 10;
 				}
@@ -1115,7 +1107,7 @@ public class Minecraft implements IThreadListener {
 			boolean flag = true;
 			ItemStack itemstack = this.thePlayer.inventory.getCurrentItem();
 			if (this.objectMouseOver == null) {
-                logger.warn("Null returned as 'hitResult', this shouldn't happen!");
+				logger.warn("Null returned as \'hitResult\', this shouldn\'t happen!");
 			} else {
 				switch (this.objectMouseOver.typeOfHit) {
 				case ENTITY:
@@ -1165,7 +1157,7 @@ public class Minecraft implements IThreadListener {
 	 * Toggles fullscreen mode.
 	 */
 	public void toggleFullscreen() {
-		logger.error("Use F11 to toggle fullscreen!");
+		Display.toggleFullscreen();
 	}
 
 	/**+
@@ -1215,7 +1207,7 @@ public class Minecraft implements IThreadListener {
 
 		if (this.currentScreen == null && this.thePlayer != null) {
 			if (this.thePlayer.getHealth() <= 0.0F) {
-                this.displayGuiScreen(null);
+				this.displayGuiScreen((GuiScreen) null);
 			} else if (this.thePlayer.isPlayerSleeping() && this.theWorld != null) {
 				this.displayGuiScreen(new GuiSleepMP());
 			}
@@ -1227,7 +1219,7 @@ public class Minecraft implements IThreadListener {
 			}
 		} else if (this.currentScreen != null && this.currentScreen instanceof GuiSleepMP
 				&& !this.thePlayer.isPlayerSleeping()) {
-            this.displayGuiScreen(null);
+			this.displayGuiScreen((GuiScreen) null);
 		}
 
 		if (this.currentScreen != null) {
@@ -1320,6 +1312,9 @@ public class Minecraft implements IThreadListener {
 
 			while (Keyboard.next()) {
 				int k = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
+				if (k == 0x1D && (areKeysLocked() || isFullScreen())) {
+					KeyBinding.setKeyBindState(gameSettings.keyBindSprint.getKeyCode(), Keyboard.getEventKeyState());
+				}
 				KeyBinding.setKeyBindState(k, Keyboard.getEventKeyState());
 				if (Keyboard.getEventKeyState()) {
 					KeyBinding.onTick(k);
@@ -1346,10 +1341,6 @@ public class Minecraft implements IThreadListener {
 					if (this.currentScreen != null) {
 						this.currentScreen.handleKeyboardInput();
 					} else {
-
-						if(Keyboard.getEventKey() == this.gameSettings.keyBindFreelook.keyCode)
-						W.freelook().smh();
-
 						if (k == 1 || (k > -1 && k == this.gameSettings.keyBindClose.getKeyCode())) {
 							this.displayInGameMenu();
 						}
@@ -1363,19 +1354,24 @@ public class Minecraft implements IThreadListener {
 						}
 
 						if (k == 17 && Keyboard.isKeyDown(61)) {
-                        }
+							;
+						}
 
 						if (k == 18 && Keyboard.isKeyDown(61)) {
-                        }
+							;
+						}
 
 						if (k == 47 && Keyboard.isKeyDown(61)) {
-                        }
+							;
+						}
 
 						if (k == 38 && Keyboard.isKeyDown(61)) {
-                        }
+							;
+						}
 
 						if (k == 22 && Keyboard.isKeyDown(61)) {
-                        }
+							;
+						}
 
 						if (k == 20 && Keyboard.isKeyDown(61)) {
 							this.refreshResources();
@@ -1424,7 +1420,7 @@ public class Minecraft implements IThreadListener {
 							if (this.gameSettings.thirdPersonView == 0) {
 								this.entityRenderer.loadEntityShader(this.getRenderViewEntity());
 							} else if (this.gameSettings.thirdPersonView == 1) {
-                                this.entityRenderer.loadEntityShader(null);
+								this.entityRenderer.loadEntityShader((Entity) null);
 							}
 
 							this.renderGlobal.setDisplayListEntitiesDirty();
@@ -1471,10 +1467,6 @@ public class Minecraft implements IThreadListener {
 				}
 			}
 
-			if(this.gameSettings.keyBindClickGui.isPressed()){
-				this.displayGuiScreen(new ClickGUI());
-			}
-
 			while (this.gameSettings.keyBindDrop.isPressed()) {
 				if (!this.thePlayer.isSpectator()) {
 					this.thePlayer.dropOneItem(GuiScreen.isCtrlKeyDown());
@@ -1495,13 +1487,16 @@ public class Minecraft implements IThreadListener {
 				}
 
 				while (this.gameSettings.keyBindAttack.isPressed()) {
-                }
+					;
+				}
 
 				while (this.gameSettings.keyBindUseItem.isPressed()) {
-                }
+					;
+				}
 
 				while (this.gameSettings.keyBindPickBlock.isPressed()) {
-                }
+					;
+				}
 			} else {
 				while (this.gameSettings.keyBindAttack.isPressed()) {
 					this.clickMouse();
@@ -1643,9 +1638,9 @@ public class Minecraft implements IThreadListener {
 
 		if (worldClientIn == null && this.theWorld != null) {
 			this.mcResourcePackRepository.func_148529_f();
-            this.ingameGUI.func_181029_i();
-            this.setServerData(null);
-            this.integratedServerIsRunning = false;
+			this.ingameGUI.func_181029_i();
+			this.setServerData((ServerData) null);
+			this.integratedServerIsRunning = false;
 		}
 
 		this.mcSoundHandler.stopSounds();
@@ -1703,7 +1698,7 @@ public class Minecraft implements IThreadListener {
 		this.playerController.setPlayerCapabilities(this.thePlayer);
 		this.thePlayer.setReducedDebug(entityplayersp.hasReducedDebug());
 		if (this.currentScreen instanceof GuiGameOver) {
-            this.displayGuiScreen(null);
+			this.displayGuiScreen((GuiScreen) null);
 		}
 
 	}
@@ -1991,7 +1986,7 @@ public class Minecraft implements IThreadListener {
 	 * Returns whether we're in full screen or not.
 	 */
 	public boolean isFullScreen() {
-		return this.fullscreen;
+		return Display.isFullscreen();
 	}
 
 	public Session getSession() {
@@ -2115,6 +2110,10 @@ public class Minecraft implements IThreadListener {
 	 * Used in the usage snooper.
 	 */
 	public static int getGLMaximumTextureSize() {
-		return EaglercraftGPU.glGetInteger(3379);
+		return EaglercraftGPU.glGetInteger(GL_MAX_TEXTURE_SIZE);
+	}
+
+	public boolean areKeysLocked() {
+		return PlatformInput.lockKeys;
 	}
 }

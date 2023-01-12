@@ -196,7 +196,7 @@ public abstract class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxver
 		// Hack around K not being a subtype of Comparable.
 		// Unsafe, see ImmutableSortedSetFauxverideShim.
 		@SuppressWarnings("unchecked")
-        Ordering<K> naturalOrder = (Ordering<K>) Ordering.natural();
+		Ordering<K> naturalOrder = (Ordering<K>) Ordering.<Comparable>natural();
 		return copyOfInternal(map, naturalOrder);
 	}
 
@@ -283,7 +283,7 @@ public abstract class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxver
 	}
 
 	private static <K, V> void sortEntries(final Comparator<? super K> comparator, int size, Entry<K, V>[] entries) {
-        Arrays.sort(entries, 0, size, Ordering.from(comparator).onKeys());
+		Arrays.sort(entries, 0, size, Ordering.from(comparator).<K>onKeys());
 	}
 
 	private static <K, V> void validateEntries(int size, Entry<K, V>[] entries, Comparator<? super K> comparator) {

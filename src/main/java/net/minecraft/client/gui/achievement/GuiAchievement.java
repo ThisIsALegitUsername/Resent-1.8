@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -32,16 +32,16 @@ import net.minecraft.util.ResourceLocation;
  */
 public class GuiAchievement extends Gui {
 	private static final ResourceLocation achievementBg = new ResourceLocation(
-            "textures/gui/achievement/achievement_background.png");
-    private final Minecraft mc;
-    private int width;
+			"textures/gui/achievement/achievement_background.png");
+	private Minecraft mc;
+	private int width;
 	private int height;
 	private String achievementTitle;
 	private String achievementDescription;
 	private Achievement theAchievement;
-    private long notificationTime;
-    private final RenderItem renderItem;
-    private boolean permanentNotification;
+	private long notificationTime;
+	private RenderItem renderItem;
+	private boolean permanentNotification;
 
 	public GuiAchievement(Minecraft mc) {
 		this.mc = mc;
@@ -49,8 +49,8 @@ public class GuiAchievement extends Gui {
 	}
 
 	public void displayAchievement(Achievement ach) {
-        this.achievementTitle = I18n.format("achievement.get");
-        this.achievementDescription = ach.getStatName().getUnformattedText();
+		this.achievementTitle = I18n.format("achievement.get", new Object[0]);
+		this.achievementDescription = ach.getStatName().getUnformattedText();
 		this.notificationTime = Minecraft.getSystemTime();
 		this.theAchievement = ach;
 		this.permanentNotification = false;
@@ -77,9 +77,9 @@ public class GuiAchievement extends Gui {
 		this.height = scaledresolution.getScaledHeight();
 		GlStateManager.clear(GL_DEPTH_BUFFER_BIT);
 		GlStateManager.matrixMode(GL_PROJECTION);
-        GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, this.width, this.height, 0.0D, 1000.0D, 3000.0D);
-        GlStateManager.matrixMode(GL_MODELVIEW);
+		GlStateManager.loadIdentity();
+		GlStateManager.ortho(0.0D, (double) this.width, (double) this.height, 0.0D, 1000.0D, 3000.0D);
+		GlStateManager.matrixMode(GL_MODELVIEW);
 		GlStateManager.loadIdentity();
 		GlStateManager.translate(0.0F, 0.0F, -2000.0F);
 	}
@@ -112,8 +112,8 @@ public class GuiAchievement extends Gui {
 
 			d1 = d1 * d1;
 			d1 = d1 * d1;
-            int i = this.width - 160;
-            int j = -(int) (d1 * 36.0D);
+			int i = this.width - 160;
+			int j = 0 - (int) (d1 * 36.0D);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			GlStateManager.enableTexture2D();
 			this.mc.getTextureManager().bindTexture(achievementBg);

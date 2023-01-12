@@ -268,7 +268,7 @@ public final class Range<C extends Comparable> implements Predicate<C>, Serializ
 	 * @since 14.0
 	 */
 	public static <C extends Comparable<?>> Range<C> lessThan(C endpoint) {
-		return create(Cut.belowAll(), Cut.belowValue(endpoint));
+		return create(Cut.<C>belowAll(), Cut.belowValue(endpoint));
 	}
 
 	/**
@@ -278,7 +278,7 @@ public final class Range<C extends Comparable> implements Predicate<C>, Serializ
 	 * @since 14.0
 	 */
 	public static <C extends Comparable<?>> Range<C> atMost(C endpoint) {
-        return create(Cut.belowAll(), Cut.aboveValue(endpoint));
+		return create(Cut.<C>belowAll(), Cut.aboveValue(endpoint));
 	}
 
 	/**
@@ -305,7 +305,7 @@ public final class Range<C extends Comparable> implements Predicate<C>, Serializ
 	 * @since 14.0
 	 */
 	public static <C extends Comparable<?>> Range<C> greaterThan(C endpoint) {
-        return create(Cut.aboveValue(endpoint), Cut.aboveAll());
+		return create(Cut.aboveValue(endpoint), Cut.<C>aboveAll());
 	}
 
 	/**
@@ -315,7 +315,7 @@ public final class Range<C extends Comparable> implements Predicate<C>, Serializ
 	 * @since 14.0
 	 */
 	public static <C extends Comparable<?>> Range<C> atLeast(C endpoint) {
-        return create(Cut.belowValue(endpoint), Cut.aboveAll());
+		return create(Cut.belowValue(endpoint), Cut.<C>aboveAll());
 	}
 
 	/**

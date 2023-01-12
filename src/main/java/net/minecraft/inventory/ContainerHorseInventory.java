@@ -11,31 +11,31 @@ import net.minecraft.item.ItemStack;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class ContainerHorseInventory extends Container {
-    private final IInventory horseInventory;
-    private final EntityHorse theHorse;
+	private IInventory horseInventory;
+	private EntityHorse theHorse;
 
-    public ContainerHorseInventory(IInventory playerInventory, final IInventory horseInventoryIn,
-                                   final EntityHorse horse, EntityPlayer player) {
-        this.horseInventory = horseInventoryIn;
-        this.theHorse = horse;
-        byte b0 = 3;
-        horseInventoryIn.openInventory(player);
-        int i = (b0 - 4) * 18;
-        this.addSlotToContainer(new Slot(horseInventoryIn, 0, 8, 18) {
-            public boolean isItemValid(ItemStack itemstack) {
+	public ContainerHorseInventory(IInventory playerInventory, final IInventory horseInventoryIn,
+			final EntityHorse horse, EntityPlayer player) {
+		this.horseInventory = horseInventoryIn;
+		this.theHorse = horse;
+		byte b0 = 3;
+		horseInventoryIn.openInventory(player);
+		int i = (b0 - 4) * 18;
+		this.addSlotToContainer(new Slot(horseInventoryIn, 0, 8, 18) {
+			public boolean isItemValid(ItemStack itemstack) {
 				return super.isItemValid(itemstack) && itemstack.getItem() == Items.saddle && !this.getHasStack();
 			}
 		});
@@ -78,8 +78,8 @@ public class ContainerHorseInventory extends Container {
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer var1, int i) {
-        ItemStack itemstack = null;
-        Slot slot = this.inventorySlots.get(i);
+		ItemStack itemstack = null;
+		Slot slot = (Slot) this.inventorySlots.get(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
@@ -102,7 +102,7 @@ public class ContainerHorseInventory extends Container {
 			}
 
 			if (itemstack1.stackSize == 0) {
-                slot.putStack(null);
+				slot.putStack((ItemStack) null);
 			} else {
 				slot.onSlotChanged();
 			}

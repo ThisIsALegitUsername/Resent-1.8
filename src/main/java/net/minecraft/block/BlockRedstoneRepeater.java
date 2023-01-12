@@ -1,6 +1,8 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -22,7 +24,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -72,21 +74,21 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	}
 
 	protected int getDelay(IBlockState iblockstate) {
-		return iblockstate.getValue(DELAY).intValue() * 2;
+		return ((Integer) iblockstate.getValue(DELAY)).intValue() * 2;
 	}
 
 	protected IBlockState getPoweredState(IBlockState iblockstate) {
-		Integer integer = iblockstate.getValue(DELAY);
-		Boolean obool = iblockstate.getValue(LOCKED);
-		EnumFacing enumfacing = iblockstate.getValue(FACING);
+		Integer integer = (Integer) iblockstate.getValue(DELAY);
+		Boolean obool = (Boolean) iblockstate.getValue(LOCKED);
+		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 		return Blocks.powered_repeater.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer)
 				.withProperty(LOCKED, obool);
 	}
 
 	protected IBlockState getUnpoweredState(IBlockState iblockstate) {
-		Integer integer = iblockstate.getValue(DELAY);
-		Boolean obool = iblockstate.getValue(LOCKED);
-		EnumFacing enumfacing = iblockstate.getValue(FACING);
+		Integer integer = (Integer) iblockstate.getValue(DELAY);
+		Boolean obool = (Boolean) iblockstate.getValue(LOCKED);
+		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 		return Blocks.unpowered_repeater.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer)
 				.withProperty(LOCKED, obool);
 	}
@@ -112,19 +114,19 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
 		if (this.isRepeaterPowered) {
-			EnumFacing enumfacing = iblockstate.getValue(FACING);
+			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 			double d0 = (double) ((float) blockpos.getX() + 0.5F) + (double) (random.nextFloat() - 0.5F) * 0.2D;
 			double d1 = (double) ((float) blockpos.getY() + 0.4F) + (double) (random.nextFloat() - 0.5F) * 0.2D;
 			double d2 = (double) ((float) blockpos.getZ() + 0.5F) + (double) (random.nextFloat() - 0.5F) * 0.2D;
 			float f = -5.0F;
 			if (random.nextBoolean()) {
-				f = (float) (iblockstate.getValue(DELAY).intValue() * 2 - 1);
+				f = (float) (((Integer) iblockstate.getValue(DELAY)).intValue() * 2 - 1);
 			}
 
 			f = f / 16.0F;
-			double d3 = f * (float) enumfacing.getFrontOffsetX();
-			double d4 = f * (float) enumfacing.getFrontOffsetZ();
-			world.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+			double d3 = (double) (f * (float) enumfacing.getFrontOffsetX());
+			double d4 = (double) (f * (float) enumfacing.getFrontOffsetZ());
+			world.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
 		}
 	}
 
@@ -146,12 +148,12 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getHorizontalIndex();
-		i = i | iblockstate.getValue(DELAY).intValue() - 1 << 2;
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getHorizontalIndex();
+		i = i | ((Integer) iblockstate.getValue(DELAY)).intValue() - 1 << 2;
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, DELAY, LOCKED);
+		return new BlockState(this, new IProperty[] { FACING, DELAY, LOCKED });
 	}
 }

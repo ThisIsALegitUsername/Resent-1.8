@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -157,7 +157,8 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 		for (i = this.field_175271_i.func_178648_e() + parInt1; i >= 0 && i <= 8
 				&& (this.field_175271_i.func_178643_a(i) == SpectatorMenu.field_178657_a
 						|| !this.field_175271_i.func_178643_a(i).func_178662_A_()); i += parInt1) {
-        }
+			;
+		}
 
 		if (i >= 0 && i <= 8) {
 			this.field_175271_i.func_178644_b(i);

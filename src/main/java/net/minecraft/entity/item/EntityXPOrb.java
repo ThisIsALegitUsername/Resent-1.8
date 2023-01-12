@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,15 +40,15 @@ public class EntityXPOrb extends Entity {
 	private int xpTargetColor;
 
 	public EntityXPOrb(World worldIn, double x, double y, double z, int expValue) {
-        super(worldIn);
-        this.setSize(0.5F, 0.5F);
-        this.setPosition(x, y, z);
-        this.rotationYaw = (float) (Math.random() * 360.0D);
-        this.motionX = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F;
-        this.motionY = (float) (Math.random() * 0.2D) * 2.0F;
-        this.motionZ = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F;
-        this.xpValue = expValue;
-    }
+		super(worldIn);
+		this.setSize(0.5F, 0.5F);
+		this.setPosition(x, y, z);
+		this.rotationYaw = (float) (Math.random() * 360.0D);
+		this.motionX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
+		this.motionY = (double) ((float) (Math.random() * 0.2D) * 2.0F);
+		this.motionZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D) * 2.0F);
+		this.xpValue = expValue;
+	}
 
 	/**+
 	 * returns if this entity triggers Block.onEntityWalking on the
@@ -95,11 +95,11 @@ public class EntityXPOrb extends Entity {
 		this.prevPosZ = this.posZ;
 		this.motionY -= 0.029999999329447746D;
 		if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.lava) {
-            this.motionY = 0.20000000298023224D;
-            this.motionX = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
-            this.motionZ = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
-            this.playSound("random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
-        }
+			this.motionY = 0.20000000298023224D;
+			this.motionX = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+			this.motionZ = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+			this.playSound("random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
+		}
 
 		this.pushOutOfBlocks(this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0D,
 				this.posZ);
@@ -138,9 +138,9 @@ public class EntityXPOrb extends Entity {
 					.getBlock().slipperiness * 0.98F;
 		}
 
-        this.motionX *= f;
-        this.motionY *= 0.9800000190734863D;
-        this.motionZ *= f;
+		this.motionX *= (double) f;
+		this.motionY *= 0.9800000190734863D;
+		this.motionZ *= (double) f;
 		if (this.onGround) {
 			this.motionY *= -0.8999999761581421D;
 		}
@@ -191,8 +191,8 @@ public class EntityXPOrb extends Entity {
 	 * data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-        nbttagcompound.setShort("Health", (byte) this.xpOrbHealth);
-        nbttagcompound.setShort("Age", (short) this.xpOrbAge);
+		nbttagcompound.setShort("Health", (short) ((byte) this.xpOrbHealth));
+		nbttagcompound.setShort("Age", (short) this.xpOrbAge);
 		nbttagcompound.setShort("Value", (short) this.xpValue);
 	}
 

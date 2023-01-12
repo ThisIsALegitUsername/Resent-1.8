@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -91,7 +92,7 @@ public abstract class BlockButton extends Block {
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
 		if (this.checkForDrop(world, blockpos, iblockstate)
-				&& !func_181088_a(world, blockpos, iblockstate.getValue(FACING).getOpposite())) {
+				&& !func_181088_a(world, blockpos, ((EnumFacing) iblockstate.getValue(FACING)).getOpposite())) {
 			this.dropBlockAsItem(world, blockpos, iblockstate, 0);
 			world.setBlockToAir(blockpos);
 		}
@@ -113,18 +114,18 @@ public abstract class BlockButton extends Block {
 	}
 
 	private void updateBlockBounds(IBlockState state) {
-		EnumFacing enumfacing = state.getValue(FACING);
-		boolean flag = state.getValue(POWERED).booleanValue();
+		EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+		boolean flag = ((Boolean) state.getValue(POWERED)).booleanValue();
 		float f = 0.25F;
 		float f1 = 0.375F;
 		float f2 = (float) (flag ? 1 : 2) / 16.0F;
 		float f3 = 0.125F;
 		float f4 = 0.1875F;
 		switch (enumfacing) {
-			case EAST:
-				this.setBlockBounds(0.0F, 0.375F, 0.3125F, f2, 0.625F, 0.6875F);
-				break;
-			case WEST:
+		case EAST:
+			this.setBlockBounds(0.0F, 0.375F, 0.3125F, f2, 0.625F, 0.6875F);
+			break;
+		case WEST:
 			this.setBlockBounds(1.0F - f2, 0.375F, 0.3125F, 1.0F, 0.625F, 0.6875F);
 			break;
 		case SOUTH:
@@ -144,33 +145,33 @@ public abstract class BlockButton extends Block {
 
 	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState iblockstate, EntityPlayer var4,
 			EnumFacing var5, float var6, float var7, float var8) {
-		if (iblockstate.getValue(POWERED).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
 			return true;
 		} else {
 			world.setBlockState(blockpos, iblockstate.withProperty(POWERED, Boolean.valueOf(true)), 3);
 			world.markBlockRangeForRenderUpdate(blockpos, blockpos);
 			world.playSoundEffect((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D,
 					(double) blockpos.getZ() + 0.5D, "random.click", 0.3F, 0.6F);
-			this.notifyNeighbors(world, blockpos, iblockstate.getValue(FACING));
+			this.notifyNeighbors(world, blockpos, (EnumFacing) iblockstate.getValue(FACING));
 			world.scheduleUpdate(blockpos, this, this.tickRate(world));
 			return true;
 		}
 	}
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState iblockstate) {
-		if (iblockstate.getValue(POWERED).booleanValue()) {
-			this.notifyNeighbors(world, blockpos, iblockstate.getValue(FACING));
+		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
+			this.notifyNeighbors(world, blockpos, (EnumFacing) iblockstate.getValue(FACING));
 		}
 
 		super.breakBlock(world, blockpos, iblockstate);
 	}
 
 	public int getWeakPower(IBlockAccess var1, BlockPos var2, IBlockState iblockstate, EnumFacing var4) {
-		return iblockstate.getValue(POWERED).booleanValue() ? 15 : 0;
+		return ((Boolean) iblockstate.getValue(POWERED)).booleanValue() ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockAccess var1, BlockPos var2, IBlockState iblockstate, EnumFacing enumfacing) {
-		return !iblockstate.getValue(POWERED).booleanValue() ? 0
+		return !((Boolean) iblockstate.getValue(POWERED)).booleanValue() ? 0
 				: (iblockstate.getValue(FACING) == enumfacing ? 15 : 0);
 	}
 
@@ -232,17 +233,17 @@ public abstract class BlockButton extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i;
-		switch (iblockstate.getValue(FACING)) {
-			case EAST:
-				i = 1;
-				break;
-			case WEST:
-				i = 2;
-				break;
-			case SOUTH:
-				i = 3;
-				break;
-			case NORTH:
+		switch ((EnumFacing) iblockstate.getValue(FACING)) {
+		case EAST:
+			i = 1;
+			break;
+		case WEST:
+			i = 2;
+			break;
+		case SOUTH:
+			i = 3;
+			break;
+		case NORTH:
 			i = 4;
 			break;
 		case UP:
@@ -253,7 +254,7 @@ public abstract class BlockButton extends Block {
 			i = 0;
 		}
 
-		if (iblockstate.getValue(POWERED).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -261,6 +262,6 @@ public abstract class BlockButton extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, POWERED);
+		return new BlockState(this, new IProperty[] { FACING, POWERED });
 	}
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -53,13 +53,13 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
 	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements,
 			boolean parFlag) {
-        this.otherPlayerMPX = x;
-        this.otherPlayerMPY = y;
-        this.otherPlayerMPZ = z;
-        this.otherPlayerMPYaw = yaw;
-        this.otherPlayerMPPitch = pitch;
-        this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
-    }
+		this.otherPlayerMPX = x;
+		this.otherPlayerMPY = y;
+		this.otherPlayerMPZ = z;
+		this.otherPlayerMPYaw = (double) yaw;
+		this.otherPlayerMPPitch = (double) pitch;
+		this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
+	}
 
 	/**+
 	 * Called to update the entity's position/logic.
@@ -105,7 +105,8 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
 			double d3;
 			for (d3 = this.otherPlayerMPYaw - (double) this.rotationYaw; d3 < -180.0D; d3 += 360.0D) {
-            }
+				;
+			}
 
 			while (d3 >= 180.0D) {
 				d3 -= 360.0D;

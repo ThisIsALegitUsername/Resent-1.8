@@ -13,7 +13,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -29,8 +29,8 @@ class WebSocketServerQuery extends WebSocketClient implements IServerQuery {
 
 	public static final Logger logger = LogManager.getLogger("WebSocketQuery");
 
-	private final List<QueryResponse> queryResponses = new LinkedList<>();
-	private final List<byte[]> queryResponsesBytes = new LinkedList<>();
+	private final List<QueryResponse> queryResponses = new LinkedList();
+	private final List<byte[]> queryResponsesBytes = new LinkedList();
 	private final String type;
 	private boolean open = true;
 	private boolean alive = false;

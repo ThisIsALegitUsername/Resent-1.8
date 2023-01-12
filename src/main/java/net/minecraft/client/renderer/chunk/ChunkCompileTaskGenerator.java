@@ -1,10 +1,11 @@
 package net.minecraft.client.renderer.chunk;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.util.EnumWorldBlockLayer;
-
-import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -12,7 +13,7 @@ import java.util.List;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -32,8 +33,8 @@ public class ChunkCompileTaskGenerator {
 	private CompiledChunk compiledChunk;
 	private ChunkCompileTaskGenerator.Status status = ChunkCompileTaskGenerator.Status.PENDING;
 	private boolean finished;
-    public long goddamnFuckingTimeout = 0L;
-    public long time = 0;
+	public long goddamnFuckingTimeout = 0l;
+	public long time = 0;
 
 	public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn) {
 		this.renderChunk = renderChunkIn;
@@ -95,21 +96,21 @@ public class ChunkCompileTaskGenerator {
 
 	public boolean isFinished() {
 		return this.finished;
-    }
+	}
 
-    public boolean canExecuteYet() {
-        if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-            return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
-        } else {
-            return true;
-        }
-    }
+	public boolean canExecuteYet() {
+		if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
+			return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
+		} else {
+			return true;
+		}
+	}
 
-    public enum Status {
-        PENDING, COMPILING, UPLOADING, DONE
-    }
+	public static enum Status {
+		PENDING, COMPILING, UPLOADING, DONE;
+	}
 
-    public enum Type {
-        REBUILD_CHUNK, RESORT_TRANSPARENCY
-    }
+	public static enum Type {
+		REBUILD_CHUNK, RESORT_TRANSPARENCY;
+	}
 }

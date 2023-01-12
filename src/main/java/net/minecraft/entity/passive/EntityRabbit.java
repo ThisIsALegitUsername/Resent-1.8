@@ -22,34 +22,34 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class EntityRabbit extends EntityAnimal {
-    private int field_175540_bm = 0;
-    private int field_175535_bn = 0;
-    private boolean field_175536_bo = false;
-    private final boolean field_175537_bp = false;
-    private final int currentMoveTypeDuration = 0;
-    private EntityRabbit.EnumMoveType moveType = EntityRabbit.EnumMoveType.HOP;
-    private int carrotTicks = 0;
-    private final EntityPlayer field_175543_bt = null;
+	private int field_175540_bm = 0;
+	private int field_175535_bn = 0;
+	private boolean field_175536_bo = false;
+	private boolean field_175537_bp = false;
+	private int currentMoveTypeDuration = 0;
+	private EntityRabbit.EnumMoveType moveType = EntityRabbit.EnumMoveType.HOP;
+	private int carrotTicks = 0;
+	private EntityPlayer field_175543_bt = null;
 
-    public EntityRabbit(World worldIn) {
-        super(worldIn);
-        this.setSize(0.6F, 0.7F);
-    }
+	public EntityRabbit(World worldIn) {
+		super(worldIn);
+		this.setSize(0.6F, 0.7F);
+	}
 
-    public void setMoveType(EntityRabbit.EnumMoveType type) {
+	public void setMoveType(EntityRabbit.EnumMoveType type) {
 		this.moveType = type;
 	}
 
@@ -182,7 +182,7 @@ public class EntityRabbit extends EntityAnimal {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource damagesource, float f) {
-        return !this.isEntityInvulnerable(damagesource) && super.attackEntityFrom(damagesource, f);
+		return this.isEntityInvulnerable(damagesource) ? false : super.attackEntityFrom(damagesource, f);
 	}
 
 	/**+
@@ -282,12 +282,12 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	protected void createEatingParticles() {
-        this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST,
-                this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-                this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
-                this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D,
-                0.0D, Block.getStateId(Blocks.carrots.getStateFromMeta(7)));
-        this.carrotTicks = 100;
+		this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST,
+				this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
+				this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height),
+				this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D,
+				0.0D, new int[] { Block.getStateId(Blocks.carrots.getStateFromMeta(7)) });
+		this.carrotTicks = 100;
 	}
 
 	public void handleStatusUpdate(byte b0) {
@@ -301,21 +301,21 @@ public class EntityRabbit extends EntityAnimal {
 
 	}
 
-    enum EnumMoveType {
-        NONE(0.0F, 0.0F, 30, 1), HOP(0.8F, 0.2F, 20, 10), STEP(1.0F, 0.45F, 14, 14), SPRINT(1.75F, 0.4F, 1, 8),
-        ATTACK(2.0F, 0.7F, 7, 8);
+	static enum EnumMoveType {
+		NONE(0.0F, 0.0F, 30, 1), HOP(0.8F, 0.2F, 20, 10), STEP(1.0F, 0.45F, 14, 14), SPRINT(1.75F, 0.4F, 1, 8),
+		ATTACK(2.0F, 0.7F, 7, 8);
 
-        private final float speed;
-        private final float field_180077_g;
-        private final int duration;
-        private final int field_180085_i;
+		private final float speed;
+		private final float field_180077_g;
+		private final int duration;
+		private final int field_180085_i;
 
-        EnumMoveType(float typeSpeed, float parFloat1, int typeDuration, int parInt1) {
-            this.speed = typeSpeed;
-            this.field_180077_g = parFloat1;
-            this.duration = typeDuration;
-            this.field_180085_i = parInt1;
-        }
+		private EnumMoveType(float typeSpeed, float parFloat1, int typeDuration, int parInt1) {
+			this.speed = typeSpeed;
+			this.field_180077_g = parFloat1;
+			this.duration = typeDuration;
+			this.field_180085_i = parInt1;
+		}
 
 		public float getSpeed() {
 			return this.speed;

@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -56,7 +56,7 @@ public class Locale {
 		this.properties.clear();
 
 		for (String s : parList) {
-			String s1 = HString.format("lang/%s.lang", s);
+			String s1 = HString.format("lang/%s.lang", new Object[] { s });
 
 			for (String s2 : resourceManager.getResourceDomains()) {
 				try {
@@ -125,7 +125,7 @@ public class Locale {
 	private void loadLocaleData(InputStream parInputStream) throws IOException {
 		for (String s : IOUtils.readLines(parInputStream, Charsets.UTF_8)) {
 			if (!s.isEmpty() && s.charAt(0) != 35) {
-                String[] astring = Iterables.toArray(splitter.split(s), String.class);
+				String[] astring = (String[]) Iterables.toArray(splitter.split(s), String.class);
 				if (astring != null && astring.length == 2) {
 					String s1 = astring[0];
 					String s2 = pattern.matcher(astring[1]).replaceAll("%s"); // TODO: originally "%$1s" but must be
@@ -145,7 +145,7 @@ public class Locale {
 	 * not be translated.
 	 */
 	private String translateKeyPrivate(String parString1) {
-        String s = this.properties.get(parString1);
+		String s = (String) this.properties.get(parString1);
 		return s == null ? parString1 : s;
 	}
 

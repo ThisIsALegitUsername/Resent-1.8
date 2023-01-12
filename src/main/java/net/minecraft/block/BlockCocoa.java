@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -24,7 +26,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,7 +52,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 		if (!this.canBlockStay(world, blockpos, iblockstate)) {
 			this.dropBlock(world, blockpos, iblockstate);
 		} else if (world.rand.nextInt(5) == 0) {
-			int i = iblockstate.getValue(AGE).intValue();
+			int i = ((Integer) iblockstate.getValue(AGE)).intValue();
 			if (i < 2) {
 				world.setBlockState(blockpos, iblockstate.withProperty(AGE, Integer.valueOf(i + 1)), 2);
 			}
@@ -59,7 +61,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-		pos = pos.offset(state.getValue(FACING));
+		pos = pos.offset((EnumFacing) state.getValue(FACING));
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		return iblockstate.getBlock() == Blocks.log
 				&& iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.JUNGLE;
@@ -89,18 +91,18 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
-		EnumFacing enumfacing = iblockstate.getValue(FACING);
-		int i = iblockstate.getValue(AGE).intValue();
+		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+		int i = ((Integer) iblockstate.getValue(AGE)).intValue();
 		int j = 4 + i * 2;
 		int k = 5 + i * 2;
 		float f = (float) j / 2.0F;
 		switch (enumfacing) {
-			case SOUTH:
-				this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, (15.0F - (float) j) / 16.0F,
-						(8.0F + f) / 16.0F, 0.75F, 0.9375F);
-				break;
-			case NORTH:
-				this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, 0.0625F, (8.0F + f) / 16.0F, 0.75F,
+		case SOUTH:
+			this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, (15.0F - (float) j) / 16.0F,
+					(8.0F + f) / 16.0F, 0.75F, 0.9375F);
+			break;
+		case NORTH:
+			this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, 0.0625F, (8.0F + f) / 16.0F, 0.75F,
 					(1.0F + (float) j) / 16.0F);
 			break;
 		case WEST:
@@ -120,7 +122,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 	 */
 	public void onBlockPlacedBy(World world, BlockPos blockpos, IBlockState iblockstate,
 			EntityLivingBase entitylivingbase, ItemStack var5) {
-		EnumFacing enumfacing = EnumFacing.fromAngle(entitylivingbase.rotationYaw);
+		EnumFacing enumfacing = EnumFacing.fromAngle((double) entitylivingbase.rotationYaw);
 		world.setBlockState(blockpos, iblockstate.withProperty(FACING, enumfacing), 2);
 	}
 
@@ -158,7 +160,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 	 */
 	public void dropBlockAsItemWithChance(World world, BlockPos blockpos, IBlockState iblockstate, float var4,
 			int var5) {
-		int i = iblockstate.getValue(AGE).intValue();
+		int i = ((Integer) iblockstate.getValue(AGE)).intValue();
 		byte b0 = 1;
 		if (i >= 2) {
 			b0 = 3;
@@ -182,7 +184,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 	 * Whether this IGrowable can grow
 	 */
 	public boolean canGrow(World var1, BlockPos var2, IBlockState iblockstate, boolean var4) {
-		return iblockstate.getValue(AGE).intValue() < 2;
+		return ((Integer) iblockstate.getValue(AGE)).intValue() < 2;
 	}
 
 	public boolean canUseBonemeal(World var1, EaglercraftRandom var2, BlockPos var3, IBlockState var4) {
@@ -191,7 +193,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 
 	public void grow(World world, EaglercraftRandom var2, BlockPos blockpos, IBlockState iblockstate) {
 		world.setBlockState(blockpos,
-				iblockstate.withProperty(AGE, Integer.valueOf(iblockstate.getValue(AGE).intValue() + 1)),
+				iblockstate.withProperty(AGE, Integer.valueOf(((Integer) iblockstate.getValue(AGE)).intValue() + 1)),
 				2);
 	}
 
@@ -212,12 +214,12 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getHorizontalIndex();
-		i = i | iblockstate.getValue(AGE).intValue() << 2;
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getHorizontalIndex();
+		i = i | ((Integer) iblockstate.getValue(AGE)).intValue() << 2;
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, AGE);
+		return new BlockState(this, new IProperty[] { FACING, AGE });
 	}
 }

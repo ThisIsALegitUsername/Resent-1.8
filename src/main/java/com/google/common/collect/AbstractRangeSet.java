@@ -50,7 +50,7 @@ abstract class AbstractRangeSet<C extends Comparable> implements RangeSet<C> {
 
 	@Override
 	public void clear() {
-		remove(Range.all());
+		remove(Range.<C>all());
 	}
 
 	@Override

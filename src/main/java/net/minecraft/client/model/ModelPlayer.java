@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -17,29 +17,29 @@ import net.minecraft.entity.Entity;
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
  * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class ModelPlayer extends ModelBiped {
-    public ModelRenderer bipedLeftArmwear;
-    public ModelRenderer bipedRightArmwear;
-    public ModelRenderer bipedLeftLegwear;
-    public ModelRenderer bipedRightLegwear;
-    public ModelRenderer bipedBodyWear;
-    private final ModelRenderer bipedCape;
-    private final ModelRenderer bipedDeadmau5Head;
-    private final boolean smallArms;
+	public ModelRenderer bipedLeftArmwear;
+	public ModelRenderer bipedRightArmwear;
+	public ModelRenderer bipedLeftLegwear;
+	public ModelRenderer bipedRightLegwear;
+	public ModelRenderer bipedBodyWear;
+	private ModelRenderer bipedCape;
+	private ModelRenderer bipedDeadmau5Head;
+	private boolean smallArms;
 
-    public ModelPlayer(float parFloat1, boolean parFlag) {
-        super(parFloat1, 0.0F, 64, 64);
-        this.smallArms = parFlag;
-        this.bipedDeadmau5Head = new ModelRenderer(this, 24, 0);
-        this.bipedDeadmau5Head.addBox(-3.0F, -6.0F, -1.0F, 6, 6, 1, parFloat1);
-        this.bipedCape = new ModelRenderer(this, 0, 0);
-        this.bipedCape.setTextureSize(64, 32);
-        this.bipedCape.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, parFloat1);
-        if (parFlag) {
+	public ModelPlayer(float parFloat1, boolean parFlag) {
+		super(parFloat1, 0.0F, 64, 64);
+		this.smallArms = parFlag;
+		this.bipedDeadmau5Head = new ModelRenderer(this, 24, 0);
+		this.bipedDeadmau5Head.addBox(-3.0F, -6.0F, -1.0F, 6, 6, 1, parFloat1);
+		this.bipedCape = new ModelRenderer(this, 0, 0);
+		this.bipedCape.setTextureSize(64, 32);
+		this.bipedCape.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, parFloat1);
+		if (parFlag) {
 			this.bipedLeftArm = new ModelRenderer(this, 32, 48);
 			this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, parFloat1);
 			this.bipedLeftArm.setRotationPoint(5.0F, 2.5F, 0.0F);

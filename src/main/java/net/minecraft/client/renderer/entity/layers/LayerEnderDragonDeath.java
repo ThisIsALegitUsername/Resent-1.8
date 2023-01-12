@@ -17,7 +17,7 @@ import net.minecraft.entity.boss.EntityDragon;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -58,21 +58,21 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
 				GlStateManager.rotate(random.nextFloat() * 360.0F, 0.0F, 1.0F, 0.0F);
 				GlStateManager.rotate(random.nextFloat() * 360.0F, 0.0F, 0.0F, 1.0F);
 				GlStateManager.rotate(random.nextFloat() * 360.0F, 1.0F, 0.0F, 0.0F);
-                GlStateManager.rotate(random.nextFloat() * 360.0F, 0.0F, 1.0F, 0.0F);
-                GlStateManager.rotate(random.nextFloat() * 360.0F + f1 * 90.0F, 0.0F, 0.0F, 1.0F);
-                float f3 = random.nextFloat() * 20.0F + 5.0F + f2 * 10.0F;
-                float f4 = random.nextFloat() * 2.0F + 1.0F + f2 * 2.0F;
-                worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
-                worldrenderer.pos(0.0D, 0.0D, 0.0D).color(255, 255, 255, (int) (255.0F * (1.0F - f2))).endVertex();
-                worldrenderer.pos(-0.866D * (double) f4, f3, -0.5F * f4).color(255, 0, 255, 0)
-                        .endVertex();
-                worldrenderer.pos(0.866D * (double) f4, f3, -0.5F * f4).color(255, 0, 255, 0)
-                        .endVertex();
-                worldrenderer.pos(0.0D, f3, f4).color(255, 0, 255, 0).endVertex();
-                worldrenderer.pos(-0.866D * (double) f4, f3, -0.5F * f4).color(255, 0, 255, 0)
-                        .endVertex();
-                tessellator.draw();
-            }
+				GlStateManager.rotate(random.nextFloat() * 360.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotate(random.nextFloat() * 360.0F + f1 * 90.0F, 0.0F, 0.0F, 1.0F);
+				float f3 = random.nextFloat() * 20.0F + 5.0F + f2 * 10.0F;
+				float f4 = random.nextFloat() * 2.0F + 1.0F + f2 * 2.0F;
+				worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
+				worldrenderer.pos(0.0D, 0.0D, 0.0D).color(255, 255, 255, (int) (255.0F * (1.0F - f2))).endVertex();
+				worldrenderer.pos(-0.866D * (double) f4, (double) f3, (double) (-0.5F * f4)).color(255, 0, 255, 0)
+						.endVertex();
+				worldrenderer.pos(0.866D * (double) f4, (double) f3, (double) (-0.5F * f4)).color(255, 0, 255, 0)
+						.endVertex();
+				worldrenderer.pos(0.0D, (double) f3, (double) (1.0F * f4)).color(255, 0, 255, 0).endVertex();
+				worldrenderer.pos(-0.866D * (double) f4, (double) f3, (double) (-0.5F * f4)).color(255, 0, 255, 0)
+						.endVertex();
+				tessellator.draw();
+			}
 
 			GlStateManager.popMatrix();
 			GlStateManager.depthMask(true);

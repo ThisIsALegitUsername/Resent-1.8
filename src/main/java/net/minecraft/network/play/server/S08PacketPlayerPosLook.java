@@ -14,7 +14,7 @@ import net.minecraft.network.play.INetHandlerPlayClient;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -102,17 +102,17 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		return this.field_179835_f;
 	}
 
-	public enum EnumFlags {
-        X(0), Y(1), Z(2), Y_ROT(3), X_ROT(4);
+	public static enum EnumFlags {
+		X(0), Y(1), Z(2), Y_ROT(3), X_ROT(4);
 
-        private final int field_180058_f;
+		private int field_180058_f;
 
-        EnumFlags(int parInt2) {
-            this.field_180058_f = parInt2;
-        }
+		private EnumFlags(int parInt2) {
+			this.field_180058_f = parInt2;
+		}
 
-        private int func_180055_a() {
-            return 1 << this.field_180058_f;
+		private int func_180055_a() {
+			return 1 << this.field_180058_f;
 		}
 
 		private boolean func_180054_b(int parInt1) {

@@ -6,7 +6,7 @@ package net.minecraft.util;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -19,14 +19,13 @@ package net.minecraft.util;
  * 
  */
 public class StatCollector {
-	private static final StringTranslate localizedName = StringTranslate.getInstance();
-    /**
-     * +
-     * A StringTranslate instance using the hardcoded default locale
-     * (en_US). Used as a fallback in case the shared
-     * StringTranslate singleton instance fails to translate a key.
-     */
-    private static final StringTranslate fallbackTranslator = new StringTranslate();
+	private static StringTranslate localizedName = StringTranslate.getInstance();
+	/**+
+	 * A StringTranslate instance using the hardcoded default locale
+	 * (en_US). Used as a fallback in case the shared
+	 * StringTranslate singleton instance fails to translate a key.
+	 */
+	private static StringTranslate fallbackTranslator = new StringTranslate();
 
 	/**+
 	 * Translates a Stat name

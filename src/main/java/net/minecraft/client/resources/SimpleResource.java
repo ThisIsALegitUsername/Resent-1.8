@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -67,7 +67,7 @@ public class SimpleResource implements IResource {
 
 	public <T extends IMetadataSection> T getMetadata(String s) {
 		if (!this.hasMetadata()) {
-			return null;
+			return (T) null;
 		} else {
 			if (this.mcmetaJson == null && !this.mcmetaJsonChecked) {
 				this.mcmetaJsonChecked = true;
@@ -82,7 +82,7 @@ public class SimpleResource implements IResource {
 				}
 			}
 
-            IMetadataSection imetadatasection = this.mapMetadataSections.get(s);
+			IMetadataSection imetadatasection = (IMetadataSection) this.mapMetadataSections.get(s);
 			if (imetadatasection == null) {
 				imetadatasection = this.srMetadataSerializer.parseMetadataSection(s, this.mcmetaJson);
 			}
@@ -101,19 +101,25 @@ public class SimpleResource implements IResource {
 		} else if (!(object instanceof SimpleResource)) {
 			return false;
 		} else {
-            SimpleResource simpleresource = (SimpleResource) object;
-            if (this.srResourceLocation != null) {
-                if (!this.srResourceLocation.equals(simpleresource.srResourceLocation)) {
-                    return false;
-                }
-            } else if (simpleresource.srResourceLocation != null) {
-                return false;
-            }
+			SimpleResource simpleresource = (SimpleResource) object;
+			if (this.srResourceLocation != null) {
+				if (!this.srResourceLocation.equals(simpleresource.srResourceLocation)) {
+					return false;
+				}
+			} else if (simpleresource.srResourceLocation != null) {
+				return false;
+			}
 
-            if (this.resourcePackName != null) {
-                return this.resourcePackName.equals(simpleresource.resourcePackName);
-            } else return simpleresource.resourcePackName == null;
-        }
+			if (this.resourcePackName != null) {
+				if (!this.resourcePackName.equals(simpleresource.resourcePackName)) {
+					return false;
+				}
+			} else if (simpleresource.resourcePackName != null) {
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	public int hashCode() {

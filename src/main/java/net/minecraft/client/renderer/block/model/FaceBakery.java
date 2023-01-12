@@ -16,7 +16,7 @@ import net.minecraft.util.Vec3i;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -118,9 +118,9 @@ public class FaceBakery {
 		faceData[i + 1] = Float.floatToRawIntBits(position.y);
 		faceData[i + 2] = Float.floatToRawIntBits(position.z);
 		faceData[i + 3] = shadeColor;
-        faceData[i + 4] = Float.floatToRawIntBits(sprite.getInterpolatedU(faceUV.func_178348_a(vertexIndex)));
-        faceData[i + 4 + 1] = Float
-                .floatToRawIntBits(sprite.getInterpolatedV(faceUV.func_178346_b(vertexIndex)));
+		faceData[i + 4] = Float.floatToRawIntBits(sprite.getInterpolatedU((double) faceUV.func_178348_a(vertexIndex)));
+		faceData[i + 4 + 1] = Float
+				.floatToRawIntBits(sprite.getInterpolatedV((double) faceUV.func_178346_b(vertexIndex)));
 	}
 
 	private void func_178407_a(Vector3f partRotation, BlockPartRotation parBlockPartRotation) {
@@ -200,8 +200,8 @@ public class FaceBakery {
 		Vector3f.sub(vector3f, vector3f1, vector3f3);
 		Vector3f.sub(vector3f2, vector3f1, vector3f4);
 		Vector3f.cross(vector3f4, vector3f3, vector3f5);
-        float f = (float) Math
-                .sqrt(vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z);
+		float f = (float) Math
+				.sqrt((double) (vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z));
 		vector3f5.x /= f;
 		vector3f5.y /= f;
 		vector3f5.z /= f;
@@ -339,17 +339,17 @@ public class FaceBakery {
 			f3 = f * 16.0F;
 			f4 = (1.0F - f1) * 16.0F;
 			break;
-            case WEST:
-                f3 = f2 * 16.0F;
-                f4 = (1.0F - f1) * 16.0F;
-                break;
-            case EAST:
-                f3 = (1.0F - f2) * 16.0F;
-                f4 = (1.0F - f1) * 16.0F;
-        }
+		case WEST:
+			f3 = f2 * 16.0F;
+			f4 = (1.0F - f1) * 16.0F;
+			break;
+		case EAST:
+			f3 = (1.0F - f2) * 16.0F;
+			f4 = (1.0F - f1) * 16.0F;
+		}
 
-        int j = parBlockFaceUV.func_178345_c(facing) * 7;
-        parArrayOfInt[j + 4] = Float.floatToRawIntBits(parTextureAtlasSprite.getInterpolatedU(f3));
-        parArrayOfInt[j + 4 + 1] = Float.floatToRawIntBits(parTextureAtlasSprite.getInterpolatedV(f4));
-    }
+		int j = parBlockFaceUV.func_178345_c(facing) * 7;
+		parArrayOfInt[j + 4] = Float.floatToRawIntBits(parTextureAtlasSprite.getInterpolatedU((double) f3));
+		parArrayOfInt[j + 4 + 1] = Float.floatToRawIntBits(parTextureAtlasSprite.getInterpolatedV((double) f4));
+	}
 }

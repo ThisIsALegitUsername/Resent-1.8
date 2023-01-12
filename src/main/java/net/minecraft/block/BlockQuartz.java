@@ -1,7 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -14,15 +17,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,7 +45,7 @@ public class BlockQuartz extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.create("variant", BlockQuartz.EnumType.class);
+		VARIANT = PropertyEnum.<BlockQuartz.EnumType>create("variant", BlockQuartz.EnumType.class);
 	}
 
 	/**+
@@ -77,14 +78,14 @@ public class BlockQuartz extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-        BlockQuartz.EnumType blockquartz$enumtype = iblockstate.getValue(VARIANT);
+		BlockQuartz.EnumType blockquartz$enumtype = (BlockQuartz.EnumType) iblockstate.getValue(VARIANT);
 		return blockquartz$enumtype != BlockQuartz.EnumType.LINES_X
 				&& blockquartz$enumtype != BlockQuartz.EnumType.LINES_Z ? blockquartz$enumtype.getMetadata()
 						: BlockQuartz.EnumType.LINES_Y.getMetadata();
 	}
 
 	protected ItemStack createStackedBlock(IBlockState iblockstate) {
-        BlockQuartz.EnumType blockquartz$enumtype = iblockstate.getValue(VARIANT);
+		BlockQuartz.EnumType blockquartz$enumtype = (BlockQuartz.EnumType) iblockstate.getValue(VARIANT);
 		return blockquartz$enumtype != BlockQuartz.EnumType.LINES_X
 				&& blockquartz$enumtype != BlockQuartz.EnumType.LINES_Z ? super.createStackedBlock(iblockstate)
 						: new ItemStack(Item.getItemFromBlock(this), 1, BlockQuartz.EnumType.LINES_Y.getMetadata());
@@ -118,27 +119,27 @@ public class BlockQuartz extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockQuartz.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, VARIANT);
+		return new BlockState(this, new IProperty[] { VARIANT });
 	}
 
-    public enum EnumType implements IStringSerializable {
-        DEFAULT(0, "default", "default"), CHISELED(1, "chiseled", "chiseled"), LINES_Y(2, "lines_y", "lines"),
-        LINES_X(3, "lines_x", "lines"), LINES_Z(4, "lines_z", "lines");
+	public static enum EnumType implements IStringSerializable {
+		DEFAULT(0, "default", "default"), CHISELED(1, "chiseled", "chiseled"), LINES_Y(2, "lines_y", "lines"),
+		LINES_X(3, "lines_x", "lines"), LINES_Z(4, "lines_z", "lines");
 
-        private static final BlockQuartz.EnumType[] META_LOOKUP = new BlockQuartz.EnumType[values().length];
-        private final int meta;
-        private final String field_176805_h;
-        private final String unlocalizedName;
+		private static final BlockQuartz.EnumType[] META_LOOKUP = new BlockQuartz.EnumType[values().length];
+		private final int meta;
+		private final String field_176805_h;
+		private final String unlocalizedName;
 
-        EnumType(int meta, String name, String unlocalizedName) {
-            this.meta = meta;
-            this.field_176805_h = name;
-            this.unlocalizedName = unlocalizedName;
-        }
+		private EnumType(int meta, String name, String unlocalizedName) {
+			this.meta = meta;
+			this.field_176805_h = name;
+			this.unlocalizedName = unlocalizedName;
+		}
 
 		public int getMetadata() {
 			return this.meta;

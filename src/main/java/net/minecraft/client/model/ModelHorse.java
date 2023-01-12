@@ -12,68 +12,68 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class ModelHorse extends ModelBase {
-    private final ModelRenderer head;
-    private final ModelRenderer field_178711_b;
-    private final ModelRenderer field_178712_c;
-    private final ModelRenderer horseLeftEar;
-    private final ModelRenderer horseRightEar;
-    private final ModelRenderer muleLeftEar;
-    private final ModelRenderer muleRightEar;
-    private final ModelRenderer neck;
-    private final ModelRenderer horseFaceRopes;
-    private final ModelRenderer mane;
-    private final ModelRenderer body;
-    private final ModelRenderer tailBase;
-    private final ModelRenderer tailMiddle;
-    private final ModelRenderer tailTip;
-    private final ModelRenderer backLeftLeg;
-    private final ModelRenderer backLeftShin;
-    private final ModelRenderer backLeftHoof;
-    private final ModelRenderer backRightLeg;
-    private final ModelRenderer backRightShin;
-    private final ModelRenderer backRightHoof;
-    private final ModelRenderer frontLeftLeg;
-    private final ModelRenderer frontLeftShin;
-    private final ModelRenderer frontLeftHoof;
-    private final ModelRenderer frontRightLeg;
-    private final ModelRenderer frontRightShin;
-    private final ModelRenderer frontRightHoof;
-    private final ModelRenderer muleLeftChest;
-    private final ModelRenderer muleRightChest;
-    private final ModelRenderer horseSaddleBottom;
-    private final ModelRenderer horseSaddleFront;
-    private final ModelRenderer horseSaddleBack;
-    private final ModelRenderer horseLeftSaddleRope;
-    private final ModelRenderer horseLeftSaddleMetal;
-    private final ModelRenderer horseRightSaddleRope;
-    private final ModelRenderer horseRightSaddleMetal;
-    private final ModelRenderer horseLeftFaceMetal;
-    private final ModelRenderer horseRightFaceMetal;
-    private final ModelRenderer horseLeftRein;
-    private final ModelRenderer horseRightRein;
+	private ModelRenderer head;
+	private ModelRenderer field_178711_b;
+	private ModelRenderer field_178712_c;
+	private ModelRenderer horseLeftEar;
+	private ModelRenderer horseRightEar;
+	private ModelRenderer muleLeftEar;
+	private ModelRenderer muleRightEar;
+	private ModelRenderer neck;
+	private ModelRenderer horseFaceRopes;
+	private ModelRenderer mane;
+	private ModelRenderer body;
+	private ModelRenderer tailBase;
+	private ModelRenderer tailMiddle;
+	private ModelRenderer tailTip;
+	private ModelRenderer backLeftLeg;
+	private ModelRenderer backLeftShin;
+	private ModelRenderer backLeftHoof;
+	private ModelRenderer backRightLeg;
+	private ModelRenderer backRightShin;
+	private ModelRenderer backRightHoof;
+	private ModelRenderer frontLeftLeg;
+	private ModelRenderer frontLeftShin;
+	private ModelRenderer frontLeftHoof;
+	private ModelRenderer frontRightLeg;
+	private ModelRenderer frontRightShin;
+	private ModelRenderer frontRightHoof;
+	private ModelRenderer muleLeftChest;
+	private ModelRenderer muleRightChest;
+	private ModelRenderer horseSaddleBottom;
+	private ModelRenderer horseSaddleFront;
+	private ModelRenderer horseSaddleBack;
+	private ModelRenderer horseLeftSaddleRope;
+	private ModelRenderer horseLeftSaddleMetal;
+	private ModelRenderer horseRightSaddleRope;
+	private ModelRenderer horseRightSaddleMetal;
+	private ModelRenderer horseLeftFaceMetal;
+	private ModelRenderer horseRightFaceMetal;
+	private ModelRenderer horseLeftRein;
+	private ModelRenderer horseRightRein;
 
-    public ModelHorse() {
-        this.textureWidth = 128;
-        this.textureHeight = 128;
-        this.body = new ModelRenderer(this, 0, 34);
-        this.body.addBox(-5.0F, -8.0F, -19.0F, 10, 10, 24);
-        this.body.setRotationPoint(0.0F, 11.0F, 9.0F);
-        this.tailBase = new ModelRenderer(this, 44, 0);
-        this.tailBase.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3);
-        this.tailBase.setRotationPoint(0.0F, 3.0F, 14.0F);
+	public ModelHorse() {
+		this.textureWidth = 128;
+		this.textureHeight = 128;
+		this.body = new ModelRenderer(this, 0, 34);
+		this.body.addBox(-5.0F, -8.0F, -19.0F, 10, 10, 24);
+		this.body.setRotationPoint(0.0F, 11.0F, 9.0F);
+		this.tailBase = new ModelRenderer(this, 44, 0);
+		this.tailBase.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3);
+		this.tailBase.setRotationPoint(0.0F, 3.0F, 14.0F);
 		this.setBoxRotation(this.tailBase, -1.134464F, 0.0F, 0.0F);
 		this.tailMiddle = new ModelRenderer(this, 38, 7);
 		this.tailMiddle.addBox(-1.5F, -2.0F, 3.0F, 3, 4, 7);
@@ -317,7 +317,8 @@ public class ModelHorse extends ModelBase {
 	private float updateHorseRotation(float parFloat1, float parFloat2, float parFloat3) {
 		float f;
 		for (f = parFloat2 - parFloat1; f < -180.0F; f += 360.0F) {
-        }
+			;
+		}
 
 		while (f >= 180.0F) {
 			f -= 360.0F;
@@ -387,28 +388,28 @@ public class ModelHorse extends ModelBase {
 		this.horseLeftEar.rotationPointY = this.head.rotationPointY;
 		this.horseRightEar.rotationPointY = this.head.rotationPointY;
 		this.muleLeftEar.rotationPointY = this.head.rotationPointY;
-        this.muleRightEar.rotationPointY = this.head.rotationPointY;
-        this.neck.rotationPointY = this.head.rotationPointY;
-        this.field_178711_b.rotationPointY = 0.02F;
-        this.field_178712_c.rotationPointY = 0.0F;
-        this.mane.rotationPointY = this.head.rotationPointY;
-        this.horseLeftEar.rotationPointZ = this.head.rotationPointZ;
-        this.horseRightEar.rotationPointZ = this.head.rotationPointZ;
-        this.muleLeftEar.rotationPointZ = this.head.rotationPointZ;
-        this.muleRightEar.rotationPointZ = this.head.rotationPointZ;
-        this.neck.rotationPointZ = this.head.rotationPointZ;
-        this.field_178711_b.rotationPointZ = 0.02F - f8;
-        this.field_178712_c.rotationPointZ = 0.0F + f8;
-        this.mane.rotationPointZ = this.head.rotationPointZ;
-        this.horseLeftEar.rotateAngleX = this.head.rotateAngleX;
-        this.horseRightEar.rotateAngleX = this.head.rotateAngleX;
-        this.muleLeftEar.rotateAngleX = this.head.rotateAngleX;
-        this.muleRightEar.rotateAngleX = this.head.rotateAngleX;
-        this.neck.rotateAngleX = this.head.rotateAngleX;
-        this.field_178711_b.rotateAngleX = 0.0F - 0.09424778F * f8;
-        this.field_178712_c.rotateAngleX = 0.0F + 0.15707964F * f8;
-        this.mane.rotateAngleX = this.head.rotateAngleX;
-        this.horseLeftEar.rotateAngleY = this.head.rotateAngleY;
+		this.muleRightEar.rotationPointY = this.head.rotationPointY;
+		this.neck.rotationPointY = this.head.rotationPointY;
+		this.field_178711_b.rotationPointY = 0.02F;
+		this.field_178712_c.rotationPointY = 0.0F;
+		this.mane.rotationPointY = this.head.rotationPointY;
+		this.horseLeftEar.rotationPointZ = this.head.rotationPointZ;
+		this.horseRightEar.rotationPointZ = this.head.rotationPointZ;
+		this.muleLeftEar.rotationPointZ = this.head.rotationPointZ;
+		this.muleRightEar.rotationPointZ = this.head.rotationPointZ;
+		this.neck.rotationPointZ = this.head.rotationPointZ;
+		this.field_178711_b.rotationPointZ = 0.02F - f8 * 1.0F;
+		this.field_178712_c.rotationPointZ = 0.0F + f8 * 1.0F;
+		this.mane.rotationPointZ = this.head.rotationPointZ;
+		this.horseLeftEar.rotateAngleX = this.head.rotateAngleX;
+		this.horseRightEar.rotateAngleX = this.head.rotateAngleX;
+		this.muleLeftEar.rotateAngleX = this.head.rotateAngleX;
+		this.muleRightEar.rotateAngleX = this.head.rotateAngleX;
+		this.neck.rotateAngleX = this.head.rotateAngleX;
+		this.field_178711_b.rotateAngleX = 0.0F - 0.09424778F * f8;
+		this.field_178712_c.rotateAngleX = 0.0F + 0.15707964F * f8;
+		this.mane.rotateAngleX = this.head.rotateAngleX;
+		this.horseLeftEar.rotateAngleY = this.head.rotateAngleY;
 		this.horseRightEar.rotateAngleY = this.head.rotateAngleY;
 		this.muleLeftEar.rotateAngleY = this.head.rotateAngleY;
 		this.muleRightEar.rotateAngleY = this.head.rotateAngleY;

@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,15 +15,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class BlockNote extends BlockContainer {
 	private static final List<String> INSTRUMENTS = Lists
-			.newArrayList("harp", "bd", "snare", "hat", "bassattack");
+			.newArrayList(new String[] { "harp", "bd", "snare", "hat", "bassattack" });
 
 	public BlockNote() {
 		super(Material.wood);
@@ -78,7 +79,7 @@ public class BlockNote extends BlockContainer {
 			id = 0;
 		}
 
-		return INSTRUMENTS.get(id);
+		return (String) INSTRUMENTS.get(id);
 	}
 
 	/**+
@@ -90,7 +91,7 @@ public class BlockNote extends BlockContainer {
 		world.playSoundEffect((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D,
 				(double) blockpos.getZ() + 0.5D, "note." + this.getInstrument(i), 3.0F, f);
 		world.spawnParticle(EnumParticleTypes.NOTE, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 1.2D,
-				(double) blockpos.getZ() + 0.5D, (double) j / 24.0D, 0.0D, 0.0D);
+				(double) blockpos.getZ() + 0.5D, (double) j / 24.0D, 0.0D, 0.0D, new int[0]);
 		return true;
 	}
 

@@ -41,7 +41,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -68,13 +68,12 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
 	private int careerLevel;
 	private boolean isLookingForHome;
 	private boolean areAdditionalTasksSet;
-    private final InventoryBasic villagerInventory;
-    /**
-     * +
-     * A multi-dimensional array mapping the various professions,
-     * careers and career levels that a Villager may offer
-     */
-    private static EntityVillager.ITradeList[][][][] DEFAULT_TRADE_LIST_MAP = null;
+	private InventoryBasic villagerInventory;
+	/**+
+	 * A multi-dimensional array mapping the various professions,
+	 * careers and career levels that a Villager may offer
+	 */
+	private static EntityVillager.ITradeList[][][][] DEFAULT_TRADE_LIST_MAP = null;
 
 	public static void bootstrap() {
 		DEFAULT_TRADE_LIST_MAP = new EntityVillager.ITradeList[][][][] {
@@ -560,8 +559,8 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
 			}
 
 			if (s1 != null) {
-                ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(
-                        "entity.Villager." + s1);
+				ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(
+						"entity.Villager." + s1, new Object[0]);
 				chatcomponenttranslation.getChatStyle().setChatHoverEvent(this.getHoverEvent());
 				chatcomponenttranslation.getChatStyle().setInsertion(this.getUniqueID().toString());
 				return chatcomponenttranslation;
@@ -598,11 +597,11 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
 			double d0 = this.rand.nextGaussian() * 0.02D;
 			double d1 = this.rand.nextGaussian() * 0.02D;
 			double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particleType,
-                    this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
-                    this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
-                    this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2
-            );
+			this.worldObj.spawnParticle(particleType,
+					this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width,
+					this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height),
+					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2,
+					new int[0]);
 		}
 
 	}
@@ -626,8 +625,8 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
 
 	public EntityVillager createChild(EntityAgeable var1) {
 		EntityVillager entityvillager = new EntityVillager(this.worldObj);
-        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)),
-                null);
+		entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)),
+				(IEntityLivingData) null);
 		return entityvillager;
 	}
 
@@ -876,10 +875,10 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
 		}
 
 		public int getPrice(EaglercraftRandom rand) {
-            return this.getFirst().intValue() >= this.getSecond().intValue()
-                    ? this.getFirst().intValue()
-                    : this.getFirst().intValue() + rand.nextInt(
-                    this.getSecond().intValue() - this.getFirst().intValue() + 1);
+			return ((Integer) this.getFirst()).intValue() >= ((Integer) this.getSecond()).intValue()
+					? ((Integer) this.getFirst()).intValue()
+					: ((Integer) this.getFirst()).intValue() + rand.nextInt(
+							((Integer) this.getSecond()).intValue() - ((Integer) this.getFirst()).intValue() + 1);
 		}
 	}
 }

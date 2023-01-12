@@ -8,7 +8,7 @@ import net.minecraft.client.settings.GameSettings;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -24,7 +24,7 @@ public class GuiOptionButton extends GuiButton {
 	private final GameSettings.Options enumOptions;
 
 	public GuiOptionButton(int parInt1, int parInt2, int parInt3, String parString1) {
-		this(parInt1, parInt2, parInt3, null, parString1);
+		this(parInt1, parInt2, parInt3, (GameSettings.Options) null, parString1);
 	}
 
 	public GuiOptionButton(int parInt1, int parInt2, int parInt3, int parInt4, int parInt5, String parString1) {

@@ -1,9 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-import net.lax1dude.eaglercraft.v1_8.HString;
-
 import java.util.Arrays;
 import java.util.IllegalFormatException;
 import java.util.Iterator;
@@ -11,13 +7,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
+
+import net.lax1dude.eaglercraft.v1_8.HString;
+
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -95,7 +96,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 				l = matcher.end();
 				if (k > j) {
 					ChatComponentText chatcomponenttext = new ChatComponentText(
-							HString.format(format.substring(j, k)));
+							HString.format(format.substring(j, k), new Object[0]));
 					chatcomponenttext.getChatStyle().setParentStyle(this.getChatStyle());
 					this.children.add(chatcomponenttext);
 				}
@@ -108,7 +109,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 					this.children.add(chatcomponenttext2);
 				} else {
 					if (!"s".equals(s2)) {
-						throw new ChatComponentTranslationFormatException(this, "Unsupported format: '" + s + "'");
+						throw new ChatComponentTranslationFormatException(this, "Unsupported format: \'" + s + "\'");
 					}
 
 					String s1 = matcher.group(1);
@@ -121,7 +122,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 
 			if (j < format.length()) {
 				ChatComponentText chatcomponenttext1 = new ChatComponentText(
-						HString.format(format.substring(j)));
+						HString.format(format.substring(j), new Object[0]));
 				chatcomponenttext1.getChatStyle().setParentStyle(this.getChatStyle());
 				this.children.add(chatcomponenttext1);
 			}
@@ -138,7 +139,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 			Object object = this.formatArgs[index];
 			Object object1;
 			if (object instanceof IChatComponent) {
-				object1 = object;
+				object1 = (IChatComponent) object;
 			} else {
 				object1 = new ChatComponentText(object == null ? "null" : object.toString());
 				((IChatComponent) object1).getChatStyle().setParentStyle(this.getChatStyle());
@@ -232,7 +233,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 	}
 
 	public String toString() {
-		return "TranslatableComponent{key='" + this.key + '\'' + ", args=" + Arrays.toString(this.formatArgs)
+		return "TranslatableComponent{key=\'" + this.key + '\'' + ", args=" + Arrays.toString(this.formatArgs)
 				+ ", siblings=" + this.siblings + ", style=" + this.getChatStyle() + '}';
 	}
 

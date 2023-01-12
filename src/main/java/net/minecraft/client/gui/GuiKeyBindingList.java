@@ -15,7 +15,7 @@ import net.minecraft.util.EnumChatFormatting;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,10 +34,10 @@ public class GuiKeyBindingList extends GuiListExtended {
 	private int maxListLabelWidth = 0;
 
 	public GuiKeyBindingList(GuiControls controls, Minecraft mcIn) {
-		super(mcIn, GuiScreen.width, GuiScreen.height, 63, GuiScreen.height - 32, 20);
-        this.field_148191_k = controls;
+		super(mcIn, controls.width, controls.height, 63, controls.height - 32, 20);
+		this.field_148191_k = controls;
 		this.mc = mcIn;
-        KeyBinding[] akeybinding = ArrayUtils.clone(mcIn.gameSettings.keyBindings);
+		KeyBinding[] akeybinding = (KeyBinding[]) ArrayUtils.clone(mcIn.gameSettings.keyBindings);
 		this.listEntries = new GuiListExtended.IGuiListEntry[akeybinding.length + KeyBinding.getKeybinds().size()];
 		Arrays.sort(akeybinding);
 		int i = 0;
@@ -50,7 +50,7 @@ public class GuiKeyBindingList extends GuiListExtended {
 				this.listEntries[i++] = new GuiKeyBindingList.CategoryEntry(s1);
 			}
 
-            int j = mcIn.fontRendererObj.getStringWidth(I18n.format(keybinding.getKeyDescription()));
+			int j = mcIn.fontRendererObj.getStringWidth(I18n.format(keybinding.getKeyDescription(), new Object[0]));
 			if (j > this.maxListLabelWidth) {
 				this.maxListLabelWidth = j;
 			}
@@ -87,14 +87,14 @@ public class GuiKeyBindingList extends GuiListExtended {
 		private final int labelWidth;
 
 		public CategoryEntry(String parString1) {
-            this.labelText = I18n.format(parString1);
-            this.labelWidth = GuiKeyBindingList.this.mc.fontRendererObj.getStringWidth(this.labelText);
+			this.labelText = I18n.format(parString1, new Object[0]);
+			this.labelWidth = GuiKeyBindingList.this.mc.fontRendererObj.getStringWidth(this.labelText);
 		}
 
 		public void drawEntry(int var1, int var2, int i, int var4, int j, int var6, int var7, boolean var8) {
 			GuiKeyBindingList.this.mc.fontRendererObj.drawString(this.labelText,
-                    GuiScreen.width / 2 - this.labelWidth / 2,
-                    i + j - GuiKeyBindingList.this.mc.fontRendererObj.FONT_HEIGHT - 1, 16777215);
+					GuiKeyBindingList.this.mc.currentScreen.width / 2 - this.labelWidth / 2,
+					i + j - GuiKeyBindingList.this.mc.fontRendererObj.FONT_HEIGHT - 1, 16777215);
 		}
 
 		public boolean mousePressed(int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -115,12 +115,12 @@ public class GuiKeyBindingList extends GuiListExtended {
 		private final GuiButton btnReset;
 
 		private KeyEntry(KeyBinding parKeyBinding) {
-            this.keybinding = parKeyBinding;
-            this.keyDesc = I18n.format(parKeyBinding.getKeyDescription());
-            this.btnChangeKeyBinding = new GuiButton(0, 0, 0, 75, 20,
-                    I18n.format(parKeyBinding.getKeyDescription()));
-            this.btnReset = new GuiButton(0, 0, 0, 50, 20, I18n.format("controls.reset"));
-        }
+			this.keybinding = parKeyBinding;
+			this.keyDesc = I18n.format(parKeyBinding.getKeyDescription(), new Object[0]);
+			this.btnChangeKeyBinding = new GuiButton(0, 0, 0, 75, 20,
+					I18n.format(parKeyBinding.getKeyDescription(), new Object[0]));
+			this.btnReset = new GuiButton(0, 0, 0, 50, 20, I18n.format("controls.reset", new Object[0]));
+		}
 
 		public void drawEntry(int var1, int i, int j, int var4, int k, int l, int i1, boolean var8) {
 			boolean flag = GuiKeyBindingList.this.field_148191_k.buttonId == this.keybinding;

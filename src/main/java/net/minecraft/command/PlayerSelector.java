@@ -43,7 +43,7 @@ import net.minecraft.world.WorldSettings;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -66,19 +66,17 @@ public class PlayerSelector {
 	 * x,y,z,range from the token's argument list.
 	 */
 	private static final Pattern intListPattern = Pattern.compile("\\G([-!]?[\\w-]*)(?:$|,)");
-	/**
-     * +
-     * This matches things like "rm=4,c=2" and is used for handling
-     * named token arguments.
-     */
-    private static final Pattern keyValueListPattern = Pattern.compile("\\G(\\w+)=([-!]?[\\w-]*)(?:$|,)");
-    /**
-     * +
-     * A set of arguments that will change the selector's world list
-     * to the sender's world instead of all the worlds when present
-     */
-    private static final Set<String> WORLD_BINDING_ARGS = Sets
-            .newHashSet("x", "y", "z", "dx", "dy", "dz", "rm", "r");
+	/**+
+	 * This matches things like "rm=4,c=2" and is used for handling
+	 * named token arguments.
+	 */
+	private static final Pattern keyValueListPattern = Pattern.compile("\\G(\\w+)=([-!]?[\\w-]*)(?:$|,)");
+	/**+
+	 * A set of arguments that will change the selector's world list
+	 * to the sender's world instead of all the worlds when present
+	 */
+	private static final Set<String> WORLD_BINDING_ARGS = Sets
+			.newHashSet(new String[] { "x", "y", "z", "dx", "dy", "dz", "rm", "r" });
 
 	public static <T extends Entity> T matchOneEntity(ICommandSender sender, String token,
 			Class<? extends T> targetClass) {
@@ -161,8 +159,8 @@ public class PlayerSelector {
 		String s = func_179651_b(params, "type");
 		s = s != null && s.startsWith("!") ? s.substring(1) : s;
 		if (s != null && !EntityList.isStringValidEntityName(s)) {
-            ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(
-                    "commands.generic.entity.invalidType", s);
+			ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(
+					"commands.generic.entity.invalidType", new Object[] { s });
 			chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
 			commandSender.addChatMessage(chatcomponenttranslation);
 			return false;
@@ -347,7 +345,7 @@ public class PlayerSelector {
 			final int j = func_179650_a(parseIntWithDefault(parMap, "ry", 359));
 			arraylist.add(new Predicate<Entity>() {
 				public boolean apply(Entity entity) {
-                    int i1 = PlayerSelector.func_179650_a((int) Math.floor(entity.rotationYaw));
+					int i1 = PlayerSelector.func_179650_a((int) Math.floor((double) entity.rotationYaw));
 					return i > j ? i1 >= i || i1 <= j : i1 >= i && i1 <= j;
 				}
 			});
@@ -358,7 +356,7 @@ public class PlayerSelector {
 			final int l = func_179650_a(parseIntWithDefault(parMap, "rx", 359));
 			arraylist.add(new Predicate<Entity>() {
 				public boolean apply(Entity entity) {
-                    int i1 = PlayerSelector.func_179650_a((int) Math.floor(entity.rotationPitch));
+					int i1 = PlayerSelector.func_179650_a((int) Math.floor((double) entity.rotationPitch));
 					return k > l ? i1 >= k || i1 <= l : i1 >= k && i1 <= l;
 				}
 			});
@@ -385,15 +383,15 @@ public class PlayerSelector {
 			int j1 = worldIn.loadedEntityList.size();
 			boolean flag2 = i1 < j1 / 16;
 			if (!params.containsKey("dx") && !params.containsKey("dy") && !params.containsKey("dz")) {
-                if (l >= 0) {
-                    AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(position.getX() - l,
-                            position.getY() - l, position.getZ() - l,
-                            position.getX() + l + 1, position.getY() + l + 1,
-                            position.getZ() + l + 1);
-                    if (flag && flag2 && !flag1) {
-                        arraylist.addAll(worldIn.getPlayers(entityClass, predicate1));
-                    } else {
-                        arraylist.addAll(worldIn.getEntitiesWithinAABB(entityClass, axisalignedbb1, predicate1));
+				if (l >= 0) {
+					AxisAlignedBB axisalignedbb1 = new AxisAlignedBB((double) (position.getX() - l),
+							(double) (position.getY() - l), (double) (position.getZ() - l),
+							(double) (position.getX() + l + 1), (double) (position.getY() + l + 1),
+							(double) (position.getZ() + l + 1));
+					if (flag && flag2 && !flag1) {
+						arraylist.addAll(worldIn.getPlayers(entityClass, predicate1));
+					} else {
+						arraylist.addAll(worldIn.getEntitiesWithinAABB(entityClass, axisalignedbb1, predicate1));
 					}
 				} else if (type.equals("a")) {
 					arraylist.addAll(worldIn.getPlayers(entityClass, predicate));
@@ -407,9 +405,11 @@ public class PlayerSelector {
 				if (flag && flag2 && !flag1) {
 					Predicate predicate2 = new Predicate<Entity>() {
 						public boolean apply(Entity entity) {
-                            return entity.posX >= axisalignedbb.minX && entity.posY >= axisalignedbb.minY
-                                    && entity.posZ >= axisalignedbb.minZ && entity.posX < axisalignedbb.maxX && entity.posY < axisalignedbb.maxY
-                                    && entity.posZ < axisalignedbb.maxZ;
+							return entity.posX >= axisalignedbb.minX && entity.posY >= axisalignedbb.minY
+									&& entity.posZ >= axisalignedbb.minZ
+											? entity.posX < axisalignedbb.maxX && entity.posY < axisalignedbb.maxY
+													&& entity.posZ < axisalignedbb.maxZ
+											: false;
 						}
 					};
 					arraylist.addAll(worldIn.getPlayers(entityClass, Predicates.and(predicate1, predicate2)));
@@ -433,8 +433,8 @@ public class PlayerSelector {
 			final BlockPos parBlockPos) {
 		int i = parseIntWithDefault(parMap, "c", !parString1.equals("a") && !parString1.equals("e") ? 1 : 0);
 		if (!parString1.equals("p") && !parString1.equals("a") && !parString1.equals("e")) {
-            if (parString1.equals("r")) {
-				Collections.shuffle(parList);
+			if (parString1.equals("r")) {
+				Collections.shuffle((List) parList);
 			}
 		} else if (parBlockPos != null) {
 			Collections.sort((List) parList, new Comparator<Entity>() {
@@ -446,20 +446,20 @@ public class PlayerSelector {
 		}
 
 		Entity entity = parICommandSender.getCommandSenderEntity();
-        if (entity != null && parClass1.isAssignableFrom(entity.getClass()) && i == 1
-                && parList.contains(entity) && !"r".equals(parString1)) {
-            parList = (List<T>) Lists.newArrayList(new Entity[] { entity });
+		if (entity != null && parClass1.isAssignableFrom(entity.getClass()) && i == 1
+				&& ((List) parList).contains(entity) && !"r".equals(parString1)) {
+			parList = (List<T>) Lists.newArrayList(new Entity[] { entity });
 		}
 
-        if (i != 0) {
-            if (i < 0) {
-				Collections.reverse(parList);
-            }
+		if (i != 0) {
+			if (i < 0) {
+				Collections.reverse((List) parList);
+			}
 
-            parList = ((List) parList).subList(0, Math.min(Math.abs(i), parList.size()));
+			parList = ((List) parList).subList(0, Math.min(Math.abs(i), ((List) parList).size()));
 		}
 
-		return parList;
+		return (List) parList;
 	}
 
 	private static AxisAlignedBB func_179661_a(BlockPos parBlockPos, int parInt1, int parInt2, int parInt3) {
@@ -472,7 +472,7 @@ public class PlayerSelector {
 		int l = parBlockPos.getX() + (flag ? 0 : parInt1) + 1;
 		int i1 = parBlockPos.getY() + (flag1 ? 0 : parInt2) + 1;
 		int j1 = parBlockPos.getZ() + (flag2 ? 0 : parInt3) + 1;
-        return new AxisAlignedBB(i, j, k, l, i1, j1);
+		return new AxisAlignedBB((double) i, (double) j, (double) k, (double) l, (double) i1, (double) j1);
 	}
 
 	public static int func_179650_a(int parInt1) {
@@ -505,12 +505,12 @@ public class PlayerSelector {
 	}
 
 	private static int parseIntWithDefault(Map<String, String> parMap, String parString1, int parInt1) {
-        return parMap.containsKey(parString1) ? MathHelper.parseIntWithDefault(parMap.get(parString1), parInt1)
+		return parMap.containsKey(parString1) ? MathHelper.parseIntWithDefault((String) parMap.get(parString1), parInt1)
 				: parInt1;
 	}
 
 	private static String func_179651_b(Map<String, String> parMap, String parString1) {
-		return parMap.get(parString1);
+		return (String) parMap.get(parString1);
 	}
 
 	public static Map<String, Integer> func_96560_a(Map<String, String> parMap) {
@@ -518,8 +518,8 @@ public class PlayerSelector {
 
 		for (String s : parMap.keySet()) {
 			if (s.startsWith("score_") && s.length() > "score_".length()) {
-                hashmap.put(s.substring("score_".length()),
-                        Integer.valueOf(MathHelper.parseIntWithDefault(parMap.get(s), 1)));
+				hashmap.put(s.substring("score_".length()),
+						Integer.valueOf(MathHelper.parseIntWithDefault((String) parMap.get(s), 1)));
 			}
 		}
 

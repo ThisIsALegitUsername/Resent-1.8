@@ -10,7 +10,7 @@ import net.minecraft.client.resources.I18n;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -25,11 +25,11 @@ import net.minecraft.client.resources.I18n;
 public class GuiSlider extends GuiButton {
 	private float sliderPosition = 1.0F;
 	public boolean isMouseDown;
-    private final String name;
-    private final float min;
+	private String name;
+	private final float min;
 	private final float max;
-    private final GuiPageButtonList.GuiResponder responder;
-    private final GuiSlider.FormatHelper formatHelper;
+	private final GuiPageButtonList.GuiResponder responder;
+	private GuiSlider.FormatHelper formatHelper;
 
 	public GuiSlider(GuiPageButtonList.GuiResponder guiResponder, int idIn, int x, int y, String name, float min,
 			float max, float defaultValue, GuiSlider.FormatHelper formatter) {
@@ -61,9 +61,9 @@ public class GuiSlider extends GuiButton {
 	}
 
 	private String getDisplayString() {
-        return this.formatHelper == null ? I18n.format(this.name) + ": " + this.func_175220_c()
-                : this.formatHelper.getText(this.id, I18n.format(this.name), this.func_175220_c());
-    }
+		return this.formatHelper == null ? I18n.format(this.name, new Object[0]) + ": " + this.func_175220_c()
+				: this.formatHelper.getText(this.id, I18n.format(this.name, new Object[0]), this.func_175220_c());
+	}
 
 	/**+
 	 * Returns 0 if the button is disabled, 1 if the mouse is NOT

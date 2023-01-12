@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,11 +45,11 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
 
 				JSONObject jsonobject2 = jsonobject1.getJSONObject("default");
 				f = jsonobject2.optFloat("width", f);
-                Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f, "Invalid default width");
-                f1 = jsonobject2.optFloat("spacing", f1);
-                Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f1, "Invalid default spacing");
-                f2 = jsonobject2.optFloat("left", f1);
-                Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f2, "Invalid default left");
+				Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, (double) f, "Invalid default width");
+				f1 = jsonobject2.optFloat("spacing", f1);
+				Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, (double) f1, "Invalid default spacing");
+				f2 = jsonobject2.optFloat("left", f1);
+				Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, (double) f2, "Invalid default left");
 			}
 
 			for (int i = 0; i < 256; ++i) {
@@ -58,12 +58,12 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
 				float f4 = f1;
 				float f5 = f2;
 				if (jsonobject3 != null) {
-                    f3 = jsonobject3.optFloat("width", f);
-                    Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f3, "Invalid width");
-                    f4 = jsonobject3.optFloat("spacing", f1);
-                    Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f4, "Invalid spacing");
-                    f5 = jsonobject3.optFloat("left", f2);
-                    Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, f5, "Invalid left");
+					f3 = jsonobject3.optFloat("width", f);
+					Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, (double) f3, "Invalid width");
+					f4 = jsonobject3.optFloat("spacing", f1);
+					Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, (double) f4, "Invalid spacing");
+					f5 = jsonobject3.optFloat("left", f2);
+					Validate.inclusiveBetween(0.0D, 3.4028234663852886E38D, (double) f5, "Invalid left");
 				}
 
 				afloat[i] = f3;

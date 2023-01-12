@@ -11,7 +11,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -25,11 +25,10 @@ import net.minecraft.world.World;
  */
 public class EntityHugeExplodeFX extends EntityFX {
 	private int timeSinceStart;
-    /**
-     * +
-     * the maximum time for the explosion
-     */
-    private final int maximumTime = 8;
+	/**+
+	 * the maximum time for the explosion
+	 */
+	private int maximumTime = 8;
 
 	protected EntityHugeExplodeFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double parDouble1,
 			double parDouble2, double parDouble3) {
@@ -51,8 +50,8 @@ public class EntityHugeExplodeFX extends EntityFX {
 			double d0 = this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
 			double d1 = this.posY + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
 			double d2 = this.posZ + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
-            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2,
-                    (float) this.timeSinceStart / (float) this.maximumTime, 0.0D, 0.0D);
+			this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2,
+					(double) ((float) this.timeSinceStart / (float) this.maximumTime), 0.0D, 0.0D, new int[0]);
 		}
 
 		++this.timeSinceStart;

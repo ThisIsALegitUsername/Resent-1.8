@@ -12,7 +12,7 @@ import net.minecraft.client.audio.SoundHandler.SoundMap;
 import net.minecraft.client.audio.SoundList;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -28,7 +28,7 @@ public class SoundMapDeserializer implements JSONTypeDeserializer<JSONObject, So
 
 	@Override
 	public SoundMap deserialize(JSONObject json) throws JSONException {
-		Map<String, SoundList> soundsMap = new HashMap<>();
+		Map<String, SoundList> soundsMap = new HashMap();
 		for(String str : json.keySet()) {
 			soundsMap.put(str, JSONTypeProvider.deserialize(json.getJSONObject(str), SoundList.class));
 		}

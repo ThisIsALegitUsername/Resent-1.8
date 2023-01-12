@@ -19,20 +19,19 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class TileEntity {
-    private static final Logger logger = LogManager.getLogger();
-    private static final Map<String, Class<? extends TileEntity>> nameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends TileEntity>, String> classToNameMap = Maps.newHashMap();
-    protected World worldObj;
-    protected BlockPos pos = BlockPos.ORIGIN;
-    protected boolean tileEntityInvalid;
-    private int blockMetadata = -1;
-    protected Block blockType;
+	private static final Logger logger = LogManager.getLogger();
+	private static Map<String, Class<? extends TileEntity>> nameToClassMap = Maps.newHashMap();
+	private static Map<Class<? extends TileEntity>, String> classToNameMap = Maps.newHashMap();
+	protected World worldObj;
+	protected BlockPos pos = BlockPos.ORIGIN;
+	protected boolean tileEntityInvalid;
+	private int blockMetadata = -1;
+	protected Block blockType;
 
-    /**
-     * +
-     * Adds a new two-way mapping between the class and its string
-     * name in both hashmaps.
-     */
+	/**+
+	 * Adds a new two-way mapping between the class and its string
+	 * name in both hashmaps.
+	 */
 	private static void addMapping(Class<? extends TileEntity> cl, String id) {
 		if (nameToClassMap.containsKey(id)) {
 			throw new IllegalArgumentException("Duplicate id: " + id);
@@ -69,7 +68,7 @@ public abstract class TileEntity {
 	}
 
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
-        String s = classToNameMap.get(this.getClass());
+		String s = (String) classToNameMap.get(this.getClass());
 		if (s == null) {
 			throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
 		} else {
@@ -87,8 +86,8 @@ public abstract class TileEntity {
 	public static TileEntity createAndLoadEntity(NBTTagCompound nbt) {
 		TileEntity tileentity = null;
 
-        try {
-            Class oclass = nameToClassMap.get(nbt.getString("id"));
+		try {
+			Class oclass = (Class) nameToClassMap.get(nbt.getString("id"));
 			if (oclass != null) {
 				tileentity = (TileEntity) oclass.newInstance();
 			}
@@ -202,8 +201,8 @@ public abstract class TileEntity {
 	public void addInfoToCrashReport(CrashReportCategory reportCategory) {
 		reportCategory.addCrashSectionCallable("Name", new Callable<String>() {
 			public String call() throws Exception {
-                return TileEntity.classToNameMap.get(TileEntity.this.getClass()) + " // "
-                        + TileEntity.this.getClass().getName();
+				return (String) TileEntity.classToNameMap.get(TileEntity.this.getClass()) + " // "
+						+ TileEntity.this.getClass().getName();
 			}
 		});
 		if (this.worldObj != null) {
@@ -213,10 +212,10 @@ public abstract class TileEntity {
 					int i = Block
 							.getIdFromBlock(TileEntity.this.worldObj.getBlockState(TileEntity.this.pos).getBlock());
 
-                    try {
-                        return HString.format("ID #%d (%s // %s)",
-                                Integer.valueOf(i), Block.getBlockById(i).getUnlocalizedName(),
-                                Block.getBlockById(i).getClass().getName());
+					try {
+						return HString.format("ID #%d (%s // %s)",
+								new Object[] { Integer.valueOf(i), Block.getBlockById(i).getUnlocalizedName(),
+										Block.getBlockById(i).getClass().getName() });
 					} catch (Throwable var3) {
 						return "ID #" + i;
 					}
@@ -228,9 +227,9 @@ public abstract class TileEntity {
 					int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 					if (i < 0) {
 						return "Unknown? (Got " + i + ")";
-                    } else {
-                        String s = HString.format("%4s", Integer.toBinaryString(i)).replace(" ", "0");
-                        return HString.format("%1$d / 0x%1$X / 0b%2$s", Integer.valueOf(i), s);
+					} else {
+						String s = HString.format("%4s", new Object[] { Integer.toBinaryString(i) }).replace(" ", "0");
+						return HString.format("%1$d / 0x%1$X / 0b%2$s", new Object[] { Integer.valueOf(i), s });
 					}
 				}
 			});

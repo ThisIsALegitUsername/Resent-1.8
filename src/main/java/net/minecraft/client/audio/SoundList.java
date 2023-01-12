@@ -10,7 +10,7 @@ import com.google.common.collect.Lists;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -103,17 +103,17 @@ public class SoundList {
 			this.streaming = isStreaming;
 		}
 
-		public enum Type {
-            FILE("file"), SOUND_EVENT("event");
+		public static enum Type {
+			FILE("file"), SOUND_EVENT("event");
 
-            private final String field_148583_c;
+			private final String field_148583_c;
 
-            Type(String parString2) {
-                this.field_148583_c = parString2;
-            }
+			private Type(String parString2) {
+				this.field_148583_c = parString2;
+			}
 
-            public static SoundList.SoundEntry.Type getType(String parString1) {
-                for (SoundList.SoundEntry.Type soundlist$soundentry$type : values()) {
+			public static SoundList.SoundEntry.Type getType(String parString1) {
+				for (SoundList.SoundEntry.Type soundlist$soundentry$type : values()) {
 					if (soundlist$soundentry$type.field_148583_c.equals(parString1)) {
 						return soundlist$soundentry$type;
 					}

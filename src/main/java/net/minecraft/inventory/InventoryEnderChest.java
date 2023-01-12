@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntityEnderChest;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -37,7 +37,7 @@ public class InventoryEnderChest extends InventoryBasic {
 
 	public void loadInventoryFromNBT(NBTTagList parNBTTagList) {
 		for (int i = 0; i < this.getSizeInventory(); ++i) {
-			this.setInventorySlotContents(i, null);
+			this.setInventorySlotContents(i, (ItemStack) null);
 		}
 
 		for (int k = 0; k < parNBTTagList.tagCount(); ++k) {
@@ -71,7 +71,8 @@ public class InventoryEnderChest extends InventoryBasic {
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-        return (this.associatedChest == null || this.associatedChest.canBeUsed(entityplayer)) && super.isUseableByPlayer(entityplayer);
+		return this.associatedChest != null && !this.associatedChest.canBeUsed(entityplayer) ? false
+				: super.isUseableByPlayer(entityplayer);
 	}
 
 	public void openInventory(EntityPlayer entityplayer) {

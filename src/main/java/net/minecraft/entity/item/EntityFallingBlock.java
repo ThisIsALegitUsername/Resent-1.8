@@ -1,6 +1,10 @@
 package net.minecraft.entity.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.material.Material;
@@ -15,16 +19,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -127,7 +128,7 @@ public class EntityFallingBlock extends Entity {
 				}
 
 				if (flag && (double) this.rand.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {
-					int j = this.fallTile.getValue(BlockAnvil.DAMAGE).intValue();
+					int j = ((Integer) this.fallTile.getValue(BlockAnvil.DAMAGE)).intValue();
 					++j;
 					if (j > 2) {
 						this.canSetAsBlock = true;
@@ -145,8 +146,8 @@ public class EntityFallingBlock extends Entity {
 	 * data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-        Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.air;
-        ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(block);
+		Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.air;
+		ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry.getNameForObject(block);
 		nbttagcompound.setString("Block", resourcelocation == null ? "" : resourcelocation.toString());
 		nbttagcompound.setByte("Data", (byte) block.getMetaFromState(this.fallTile));
 		nbttagcompound.setByte("Time", (byte) this.fallTime);

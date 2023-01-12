@@ -14,7 +14,7 @@ import net.minecraft.client.gui.spectator.SpectatorMenu;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,9 +38,9 @@ public class SpectatorDetails {
 	}
 
 	public ISpectatorMenuObject func_178680_a(int parInt1) {
-		return parInt1 >= 0 && parInt1 < this.field_178682_b.size() ? Objects
-                .firstNonNull(this.field_178682_b.get(parInt1), SpectatorMenu.field_178657_a)
-                : SpectatorMenu.field_178657_a;
+		return parInt1 >= 0 && parInt1 < this.field_178682_b.size() ? (ISpectatorMenuObject) Objects
+				.firstNonNull(this.field_178682_b.get(parInt1), SpectatorMenu.field_178657_a)
+				: SpectatorMenu.field_178657_a;
 	}
 
 	public int func_178681_b() {

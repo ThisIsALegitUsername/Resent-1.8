@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,7 +32,7 @@ import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.Uint8Array;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -324,7 +323,7 @@ public class VirtualFilesystem {
 		
 	}
 
-	private final HashMap<String, VFSFile> fileMap = new HashMap<>();
+	private final HashMap<String, VFSFile> fileMap = new HashMap();
 	
 	public final String database;
 	private final IDBDatabase indexeddb;
@@ -410,7 +409,7 @@ public class VirtualFilesystem {
 	}
 	
 	public List<String> listFiles(String prefix) {
-		final ArrayList<String> list = new ArrayList<>();
+		final ArrayList<String> list = new ArrayList();
 		AsyncHandlers.iterateFiles(indexeddb, this, prefix, false, (v) -> {
 			list.add(v.getPath());
 		});
@@ -680,12 +679,12 @@ public class VirtualFilesystem {
 	
 	public static byte[] utf8(String str) {
 		if(str == null) return null;
-        return str.getBytes(StandardCharsets.UTF_8);
+		return str.getBytes(Charset.forName("UTF-8"));
 	}
 	
 	public static String utf8(byte[] str) {
 		if(str == null) return null;
-        return new String(str, StandardCharsets.UTF_8);
+		return new String(str, Charset.forName("UTF-8"));
 	}
 	
 	public static String CRLFtoLF(String str) {

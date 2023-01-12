@@ -10,7 +10,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -29,10 +29,10 @@ public class GuiSleepMP extends GuiChat {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        super.initGui();
-        this.buttonList.add(new GuiButton(1, width / 2 - 100, height - 40,
-                I18n.format("multiplayer.stopSleeping")));
-    }
+		super.initGui();
+		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40,
+				I18n.format("multiplayer.stopSleeping", new Object[0])));
+	}
 
 	/**+
 	 * Fired when a key is typed (except F11 which toggles full

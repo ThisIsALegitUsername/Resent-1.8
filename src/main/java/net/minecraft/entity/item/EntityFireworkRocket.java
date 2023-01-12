@@ -13,7 +13,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -79,8 +79,8 @@ public class EntityFireworkRocket extends Entity {
 			float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 			this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D
 					/ 3.1415927410125732D);
-			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, f) * 180.0D
-                    / 3.1415927410125732D);
+			this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D
+					/ 3.1415927410125732D);
 		}
 
 	}
@@ -101,10 +101,11 @@ public class EntityFireworkRocket extends Entity {
 		this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D
 				/ 3.1415927410125732D);
 
-        for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, f) * 180.0D
-                / 3.1415927410125732D); this.rotationPitch
-                     - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-        }
+		for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f) * 180.0D
+				/ 3.1415927410125732D); this.rotationPitch
+						- this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+			;
+		}
 
 		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			this.prevRotationPitch += 360.0F;
@@ -126,9 +127,9 @@ public class EntityFireworkRocket extends Entity {
 
 		++this.fireworkAge;
 		if (this.fireworkAge % 2 < 2) {
-            this.worldObj.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, this.posX, this.posY - 0.3D, this.posZ,
-                    this.rand.nextGaussian() * 0.05D, -this.motionY * 0.5D, this.rand.nextGaussian() * 0.05D
-            );
+			this.worldObj.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, this.posX, this.posY - 0.3D, this.posZ,
+					this.rand.nextGaussian() * 0.05D, -this.motionY * 0.5D, this.rand.nextGaussian() * 0.05D,
+					new int[0]);
 		}
 
 	}

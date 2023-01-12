@@ -11,7 +11,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 import static net.lax1dude.eaglercraft.v1_8.internal.PlatformOpenGL.*;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -118,14 +118,14 @@ public class GlStateManager {
 	
 	static float clearDepth = -999.0f;
 	
-	public enum TexGen {
-        S, T, R, Q;
+	public static enum TexGen {
+		S, T, R, Q;
 
-        int source = GL_OBJECT_LINEAR;
-        int plane = GL_OBJECT_PLANE;
-        Vector4f vector = new Vector4f();
-
-    }
+		int source = GL_OBJECT_LINEAR;
+		int plane = GL_OBJECT_PLANE;
+		Vector4f vector = new Vector4f();
+		
+	}
 	
 	static int stateTexGenSerial = 0;
 

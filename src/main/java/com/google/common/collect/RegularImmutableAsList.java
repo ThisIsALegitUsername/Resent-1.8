@@ -37,7 +37,7 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
 	}
 
 	RegularImmutableAsList(ImmutableCollection<E> delegate, Object[] array) {
-		this(delegate, ImmutableList.asImmutableList(array));
+		this(delegate, ImmutableList.<E>asImmutableList(array));
 	}
 
 	@Override

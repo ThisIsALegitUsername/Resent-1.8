@@ -1,6 +1,9 @@
 package net.minecraft.client.multiplayer;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.entity.EnumCreatureType;
@@ -14,15 +17,13 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.EmptyChunk;
 import net.minecraft.world.chunk.IChunkProvider;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -36,30 +37,27 @@ import java.util.List;
  */
 public class ChunkProviderClient implements IChunkProvider {
 	private static final Logger logger = LogManager.getLogger();
-	private final Chunk blankChunk;
-	/**
-	 * +
+	private Chunk blankChunk;
+	/**+
 	 * The mapping between ChunkCoordinates and Chunks that
 	 * ChunkProviderClient maintains.
 	 */
-	private final LongHashMap<Chunk> chunkMapping = new LongHashMap();
-	/**
-	 * +
+	private LongHashMap<Chunk> chunkMapping = new LongHashMap();
+	/**+
 	 * This may have been intended to be an iterable version of all
 	 * currently loaded chunks (MultiplayerChunkCache), with
 	 * identical contents to chunkMapping's values. However it is
 	 * never actually added to.
 	 */
-	private final List<Chunk> chunkListing = Lists.newArrayList();
-	private final World worldObj;
+	private List<Chunk> chunkListing = Lists.newArrayList();
+	private World worldObj;
 
 	public ChunkProviderClient(World worldIn) {
 		this.blankChunk = new EmptyChunk(worldIn, 0, 0);
 		this.worldObj = worldIn;
 	}
 
-	/**
-	 * +
+	/**+
 	 * Checks to see if a chunk exists at x, z
 	 */
 	public boolean chunkExists(int var1, int var2) {
@@ -98,7 +96,7 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * chunk from the map seed and chunk seed
 	 */
 	public Chunk provideChunk(int i, int j) {
-		Chunk chunk = this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(i, j));
+		Chunk chunk = (Chunk) this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(i, j));
 		return chunk == null ? this.blankChunk : chunk;
 	}
 
@@ -132,7 +130,7 @@ public class ChunkProviderClient implements IChunkProvider {
 
 		if (System.currentTimeMillis() - i > 100L) {
 			logger.info("Warning: Clientside chunk ticking took {} ms",
-					Long.valueOf(System.currentTimeMillis() - i));
+					new Object[] { Long.valueOf(System.currentTimeMillis() - i) });
 		}
 
 		return false;

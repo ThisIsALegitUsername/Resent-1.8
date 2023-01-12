@@ -448,9 +448,9 @@ public final class HFormatter implements Closeable, Flushable {
 		DECIMAL_FLOAT
 	}
 
-	private final Appendable out;
+	private Appendable out;
 
-    private final Locale locale;
+	private Locale locale;
 
 	private boolean closed = false;
 
@@ -1012,7 +1012,7 @@ public final class HFormatter implements Closeable, Flushable {
 
 		private int precision = UNSET;
 
-        private final StringBuilder strFlags = new StringBuilder(FLAGT_TYPE_COUNT);
+		private StringBuilder strFlags = new StringBuilder(FLAGT_TYPE_COUNT);
 
 		private char dateSuffix;// will be used in new feature.
 
@@ -1156,13 +1156,13 @@ public final class HFormatter implements Closeable, Flushable {
 	 */
 	private static class Transformer {
 
-        private final HFormatter formatter;
+		private HFormatter formatter;
 
 		private FormatToken formatToken;
 
 		private Object arg;
 
-        private final Locale locale;
+		private Locale locale;
 
 		private static String lineSeparator;
 
@@ -1918,13 +1918,13 @@ public final class HFormatter implements Closeable, Flushable {
 	private static class FloatUtil {
 		private StringBuilder result;
 
-        private final DecimalFormat decimalFormat;
+		private DecimalFormat decimalFormat;
 
 		private FormatToken formatToken;
 
-        private final Object argument;
+		private Object argument;
 
-        private final char minusSign;
+		private char minusSign;
 
 		FloatUtil(StringBuilder result, FormatToken formatToken, DecimalFormat decimalFormat, Object argument) {
 			this.result = result;
@@ -2121,7 +2121,7 @@ public final class HFormatter implements Closeable, Flushable {
 			}
 
 			if (fractionalLength < precision) {
-                char[] zeros = new char[precision - fractionalLength];
+				char zeros[] = new char[precision - fractionalLength];
 				Arrays.fill(zeros, '0');
 				result.insert(indexOfP, zeros);
 				return;
@@ -2133,7 +2133,7 @@ public final class HFormatter implements Closeable, Flushable {
 	private static class DateTimeUtil {
 		private Calendar calendar;
 
-        private final Locale locale;
+		private Locale locale;
 
 		private StringBuilder result;
 

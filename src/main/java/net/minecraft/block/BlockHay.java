@@ -2,6 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -57,7 +58,7 @@ public class BlockHay extends BlockRotatedPillar {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-        EnumFacing.Axis enumfacing$axis = iblockstate.getValue(AXIS);
+		EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) iblockstate.getValue(AXIS);
 		if (enumfacing$axis == EnumFacing.Axis.X) {
 			i |= 4;
 		} else if (enumfacing$axis == EnumFacing.Axis.Z) {
@@ -68,7 +69,7 @@ public class BlockHay extends BlockRotatedPillar {
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, AXIS);
+		return new BlockState(this, new IProperty[] { AXIS });
 	}
 
 	protected ItemStack createStackedBlock(IBlockState var1) {

@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -60,18 +60,18 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 					bufferedimage1.width, bufferedimage1.height);
 
 			for (int j = 0; j < 17 && j < this.field_174949_h.size() && j < this.field_174950_i.size(); ++j) {
-                String s = this.field_174949_h.get(j);
-                MapColor mapcolor = this.field_174950_i.get(j).getMapColor();
-                if (s != null) {
-                    InputStream inputstream = parIResourceManager.getResource(new ResourceLocation(s)).getInputStream();
-                    ImageData bufferedimage2 = TextureUtil.readBufferedImage(inputstream);
-                    if (bufferedimage2.width == bufferedimage.width && bufferedimage2.height == bufferedimage.height) {
-                        for (int k = 0; k < bufferedimage2.height; ++k) {
-                            for (int l = 0; l < bufferedimage2.width; ++l) {
-                                int i1 = bufferedimage2.pixels[k * bufferedimage2.width + l];
-                                if ((i1 & -16777216) != 0) {
-                                    int j1 = (i1 & 16711680) << 8 & -16777216;
-                                    int k1 = bufferedimage1.pixels[k * bufferedimage1.width + l];
+				String s = (String) this.field_174949_h.get(j);
+				MapColor mapcolor = ((EnumDyeColor) this.field_174950_i.get(j)).getMapColor();
+				if (s != null) {
+					InputStream inputstream = parIResourceManager.getResource(new ResourceLocation(s)).getInputStream();
+					ImageData bufferedimage2 = TextureUtil.readBufferedImage(inputstream);
+					if (bufferedimage2.width == bufferedimage.width && bufferedimage2.height == bufferedimage.height) {
+						for (int k = 0; k < bufferedimage2.height; ++k) {
+							for (int l = 0; l < bufferedimage2.width; ++l) {
+								int i1 = bufferedimage2.pixels[k * bufferedimage2.width + l];
+								if ((i1 & -16777216) != 0) {
+									int j1 = (i1 & 16711680) << 8 & -16777216;
+									int k1 = bufferedimage1.pixels[k * bufferedimage1.width + l];
 									int l1 = MathHelper.func_180188_d(k1, ImageData.swapRB(mapcolor.colorValue))
 											& 16777215;
 									bufferedimage2.pixels[k * bufferedimage2.width + l] = j1 | l1;
@@ -85,7 +85,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 				}
 			}
 		} catch (IOException ioexception) {
-            LOG.error("Couldn't load layered image", ioexception);
+			LOG.error("Couldn\'t load layered image", ioexception);
 			return;
 		}
 

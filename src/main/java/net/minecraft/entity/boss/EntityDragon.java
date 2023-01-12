@@ -1,5 +1,7 @@
 package net.minecraft.entity.boss;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityMultiPart;
@@ -13,15 +15,13 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -102,8 +102,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 		}
 
 		parFloat1 = 1.0F - parFloat1;
-		int i = this.ringBufferIndex - parInt1 & 63;
-		int j = this.ringBufferIndex - parInt1 - 1 & 63;
+		int i = this.ringBufferIndex - parInt1 * 1 & 63;
+		int j = this.ringBufferIndex - parInt1 * 1 - 1 & 63;
 		double[] adouble = new double[3];
 		double d0 = this.ringBuffer[i][0];
 		double d1 = MathHelper.wrapAngleTo180_double(this.ringBuffer[j][0] - d0);
@@ -134,7 +134,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 			float f13 = (this.rand.nextFloat() - 0.5F) * 4.0F;
 			float f14 = (this.rand.nextFloat() - 0.5F) * 8.0F;
 			this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (double) f11,
-					this.posY + 2.0D + (double) f13, this.posZ + (double) f14, 0.0D, 0.0D, 0.0D);
+					this.posY + 2.0D + (double) f13, this.posZ + (double) f14, 0.0D, 0.0D, 0.0D, new int[0]);
 		} else {
 			this.updateDragonEnderCrystal();
 			float f10 = 0.2F
@@ -153,7 +153,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 			} else {
 				if (this.ringBufferIndex < 0) {
 					for (int i = 0; i < this.ringBuffer.length; ++i) {
-						this.ringBuffer[i][0] = this.rotationYaw;
+						this.ringBuffer[i][0] = (double) this.rotationYaw;
 						this.ringBuffer[i][1] = this.posY;
 					}
 				}
@@ -162,7 +162,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 					this.ringBufferIndex = 0;
 				}
 
-				this.ringBuffer[this.ringBufferIndex][0] = this.rotationYaw;
+				this.ringBuffer[this.ringBufferIndex][0] = (double) this.rotationYaw;
 				this.ringBuffer[this.ringBufferIndex][1] = this.posY;
 				if (this.newPosRotationIncrements > 0) {
 					double d10 = this.posX + (this.newPosX - this.posX) / (double) this.newPosRotationIncrements;
@@ -213,7 +213,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 				float f19 = MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F - this.randomYawVelocity * 0.01F);
 				this.dragonPartHead.onUpdate();
 				this.dragonPartHead.setLocationAndAngles(this.posX + (double) (f18 * 5.5F * f2),
-						this.posY + (adouble[1] - adouble1[1]) + (double) (f15 * 5.5F),
+						this.posY + (adouble[1] - adouble1[1]) * 1.0D + (double) (f15 * 5.5F),
 						this.posZ - (double) (f19 * 5.5F * f2), 0.0F, 0.0F);
 
 				for (int j = 0; j < 3; ++j) {
@@ -232,14 +232,14 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
 					double[] adouble2 = this.getMovementOffsets(12 + j * 2, 1.0F);
 					float f20 = this.rotationYaw * 3.1415927F / 180.0F
-							+ this.simplifyAngle(adouble2[0] - adouble1[0]) * 3.1415927F / 180.0F;
+							+ this.simplifyAngle(adouble2[0] - adouble1[0]) * 3.1415927F / 180.0F * 1.0F;
 					float f21 = MathHelper.sin(f20);
 					float f22 = MathHelper.cos(f20);
 					float f23 = 1.5F;
 					float f24 = (float) (j + 1) * 2.0F;
 					entitydragonpart.onUpdate();
 					entitydragonpart.setLocationAndAngles(this.posX - (double) ((f16 * f23 + f21 * f24) * f2),
-							this.posY + (adouble2[1] - adouble1[1]) - (double) ((f24 + f23) * f15) + 1.5D,
+							this.posY + (adouble2[1] - adouble1[1]) * 1.0D - (double) ((f24 + f23) * f15) + 1.5D,
 							this.posZ + (double) ((f4 * f23 + f22 * f24) * f2), 0.0F, 0.0F);
 				}
 
@@ -262,7 +262,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 		if (this.rand.nextInt(10) == 0) {
 			float f = 32.0F;
 			List list = this.worldObj.getEntitiesWithinAABB(EntityEnderCrystal.class,
-					this.getEntityBoundingBox().expand(f, f, f));
+					this.getEntityBoundingBox().expand((double) f, (double) f, (double) f));
 			EntityEnderCrystal entityendercrystal = null;
 			double d0 = Double.MAX_VALUE;
 
@@ -342,7 +342,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 			float f1 = (this.rand.nextFloat() - 0.5F) * 4.0F;
 			float f2 = (this.rand.nextFloat() - 0.5F) * 8.0F;
 			this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.posX + (double) f,
-					this.posY + 2.0D + (double) f1, this.posZ + (double) f2, 0.0D, 0.0D, 0.0D);
+					this.posY + 2.0D + (double) f1, this.posZ + (double) f2, 0.0D, 0.0D, 0.0D, new int[0]);
 		}
 
 		this.moveEntity(0.0D, 0.10000000149011612D, 0.0D);

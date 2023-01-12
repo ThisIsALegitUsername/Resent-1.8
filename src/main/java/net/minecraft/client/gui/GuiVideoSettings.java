@@ -11,7 +11,7 @@ import net.minecraft.client.settings.GameSettings;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -24,10 +24,10 @@ import net.minecraft.client.settings.GameSettings;
  * 
  */
 public class GuiVideoSettings extends GuiScreen {
-	private final GuiScreen parentGuiScreen;
-    protected String screenTitle = "Video Settings";
-    private final GameSettings guiGameSettings;
-    private GuiListExtended optionsRowList;
+	private GuiScreen parentGuiScreen;
+	protected String screenTitle = "Video Settings";
+	private GameSettings guiGameSettings;
+	private GuiListExtended optionsRowList;
 	/**+
 	 * An array of all of GameSettings.Options's video options.
 	 */
@@ -35,10 +35,11 @@ public class GuiVideoSettings extends GuiScreen {
 			GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION,
 			GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.ANAGLYPH, GameSettings.Options.VIEW_BOBBING,
 			GameSettings.Options.GUI_SCALE, GameSettings.Options.GAMMA, GameSettings.Options.RENDER_CLOUDS,
-			GameSettings.Options.PARTICLES, GameSettings.Options.MIPMAP_LEVELS, GameSettings.Options.BLOCK_ALTERNATIVES,
-			GameSettings.Options.ENTITY_SHADOWS, GameSettings.Options.FOG, GameSettings.Options.HUD_FPS,
-			GameSettings.Options.HUD_COORDS, GameSettings.Options.HUD_PLAYER, GameSettings.Options.HUD_STATS,
-			GameSettings.Options.HUD_WORLD, GameSettings.Options.HUD_24H, GameSettings.Options.CHUNK_FIX };
+			GameSettings.Options.PARTICLES, GameSettings.Options.FXAA, GameSettings.Options.MIPMAP_LEVELS,
+			GameSettings.Options.BLOCK_ALTERNATIVES, GameSettings.Options.ENTITY_SHADOWS, GameSettings.Options.FOG,
+			GameSettings.Options.FULLSCREEN, GameSettings.Options.HUD_FPS, GameSettings.Options.HUD_COORDS,
+			GameSettings.Options.HUD_PLAYER, GameSettings.Options.HUD_STATS, GameSettings.Options.HUD_WORLD,
+			GameSettings.Options.HUD_24H, GameSettings.Options.CHUNK_FIX };
 
 	public GuiVideoSettings(GuiScreen parentScreenIn, GameSettings gameSettingsIn) {
 		this.parentGuiScreen = parentScreenIn;
@@ -51,10 +52,10 @@ public class GuiVideoSettings extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        this.screenTitle = I18n.format("options.videoTitle");
-        this.buttonList.clear();
-        this.buttonList.add(
-                new GuiButton(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
+		this.screenTitle = I18n.format("options.videoTitle", new Object[0]);
+		this.buttonList.clear();
+		this.buttonList.add(
+				new GuiButton(200, this.width / 2 - 100, this.height - 27, I18n.format("gui.done", new Object[0])));
 		GameSettings.Options[] agamesettings$options = new GameSettings.Options[videoOptions.length];
 		int i = 0;
 
@@ -63,8 +64,8 @@ public class GuiVideoSettings extends GuiScreen {
 			++i;
 		}
 
-        this.optionsRowList = new GuiOptionsRowList(this.mc, width, height, 32, height - 32, 25,
-                agamesettings$options);
+		this.optionsRowList = new GuiOptionsRowList(this.mc, this.width, this.height, 32, this.height - 32, 25,
+				agamesettings$options);
 
 	}
 
@@ -130,8 +131,8 @@ public class GuiVideoSettings extends GuiScreen {
 	 */
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
-        this.optionsRowList.drawScreen(i, j, f);
-        this.drawCenteredString(this.fontRendererObj, this.screenTitle, width / 2, 5, 16777215);
-        super.drawScreen(i, j, f);
+		this.optionsRowList.drawScreen(i, j, f);
+		this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 5, 16777215);
+		super.drawScreen(i, j, f);
 	}
 }

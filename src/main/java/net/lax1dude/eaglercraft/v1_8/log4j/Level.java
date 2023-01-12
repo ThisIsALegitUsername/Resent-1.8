@@ -3,7 +3,7 @@ package net.lax1dude.eaglercraft.v1_8.log4j;
 import java.io.PrintStream;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -25,11 +25,11 @@ public enum Level {
 	public final String levelName;
 	public final PrintStream stdout;
 	
-	Level(int levelInt, String levelName, boolean stderr) {
-        this.levelInt = levelInt;
-        this.levelName = levelName;
-        this.stdout = stderr ? System.err : System.out;
-    }
+	private Level(int levelInt, String levelName, boolean stderr) {
+		this.levelInt = levelInt;
+		this.levelName = levelName;
+		this.stdout = stderr ? System.err : System.out;
+	}
 	
 	PrintStream getPrintStream() {
 		return stdout;

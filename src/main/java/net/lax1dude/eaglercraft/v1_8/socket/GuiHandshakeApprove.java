@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,7 +44,7 @@ public class GuiHandshakeApprove extends GuiScreen {
 	public void initGui() {
 		this.buttonList.clear();
 		titleString = I18n.format("handshakeApprove." + message + ".title");
-		bodyLines = new ArrayList<>();
+		bodyLines = new ArrayList();
 		int i = 0;
 		boolean wasNull = true;
 		while(true) {

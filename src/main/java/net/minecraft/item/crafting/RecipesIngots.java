@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -41,16 +41,16 @@ public class RecipesIngots {
 				{ Blocks.hay_block, new ItemStack(Items.wheat, 9) },
 				{ Blocks.slime_block, new ItemStack(Items.slime_ball, 9) } };
 		for (int i = 0; i < this.recipeItems.length; ++i) {
-            Block block = (Block) this.recipeItems[i][0];
-            ItemStack itemstack = (ItemStack) this.recipeItems[i][1];
-            parCraftingManager.addRecipe(new ItemStack(block),
-                    "###", "###", "###", Character.valueOf('#'), itemstack);
-            parCraftingManager.addRecipe(itemstack, "#", Character.valueOf('#'), block);
-        }
+			Block block = (Block) this.recipeItems[i][0];
+			ItemStack itemstack = (ItemStack) this.recipeItems[i][1];
+			parCraftingManager.addRecipe(new ItemStack(block),
+					new Object[] { "###", "###", "###", Character.valueOf('#'), itemstack });
+			parCraftingManager.addRecipe(itemstack, new Object[] { "#", Character.valueOf('#'), block });
+		}
 
-        parCraftingManager.addRecipe(new ItemStack(Items.gold_ingot),
-                "###", "###", "###", Character.valueOf('#'), Items.gold_nugget);
-        parCraftingManager.addRecipe(new ItemStack(Items.gold_nugget, 9),
-                "#", Character.valueOf('#'), Items.gold_ingot);
+		parCraftingManager.addRecipe(new ItemStack(Items.gold_ingot),
+				new Object[] { "###", "###", "###", Character.valueOf('#'), Items.gold_nugget });
+		parCraftingManager.addRecipe(new ItemStack(Items.gold_nugget, 9),
+				new Object[] { "#", Character.valueOf('#'), Items.gold_ingot });
 	}
 }

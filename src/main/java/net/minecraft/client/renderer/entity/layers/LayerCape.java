@@ -13,7 +13,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,28 +46,28 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 					+ (abstractclientplayer.chasingPosX - abstractclientplayer.prevChasingPosX) * (double) f
 					- (abstractclientplayer.prevPosX
 							+ (abstractclientplayer.posX - abstractclientplayer.prevPosX) * (double) f);
-            double d1 = abstractclientplayer.prevChasingPosY
-                    + (abstractclientplayer.chasingPosY - abstractclientplayer.prevChasingPosY) * (double) f
-                    - (abstractclientplayer.prevPosY
-                    + (abstractclientplayer.posY - abstractclientplayer.prevPosY) * (double) f);
-            double d2 = abstractclientplayer.prevChasingPosZ
-                    + (abstractclientplayer.chasingPosZ - abstractclientplayer.prevChasingPosZ) * (double) f
-                    - (abstractclientplayer.prevPosZ
-                    + (abstractclientplayer.posZ - abstractclientplayer.prevPosZ) * (double) f);
-            float f1 = abstractclientplayer.prevRenderYawOffset
-                    + (abstractclientplayer.renderYawOffset - abstractclientplayer.prevRenderYawOffset) * f;
-            double d3 = MathHelper.sin(f1 * 3.1415927F / 180.0F);
-            double d4 = -MathHelper.cos(f1 * 3.1415927F / 180.0F);
-            float f2 = (float) d1 * 10.0F;
-            f2 = MathHelper.clamp_float(f2, -6.0F, 32.0F);
-            float f3 = (float) (d0 * d3 + d2 * d4) * 100.0F;
-            float f4 = (float) (d0 * d4 - d2 * d3) * 100.0F;
-            if (f3 < 0.0F) {
-                f3 = 0.0F;
-            }
+			double d1 = abstractclientplayer.prevChasingPosY
+					+ (abstractclientplayer.chasingPosY - abstractclientplayer.prevChasingPosY) * (double) f
+					- (abstractclientplayer.prevPosY
+							+ (abstractclientplayer.posY - abstractclientplayer.prevPosY) * (double) f);
+			double d2 = abstractclientplayer.prevChasingPosZ
+					+ (abstractclientplayer.chasingPosZ - abstractclientplayer.prevChasingPosZ) * (double) f
+					- (abstractclientplayer.prevPosZ
+							+ (abstractclientplayer.posZ - abstractclientplayer.prevPosZ) * (double) f);
+			float f1 = abstractclientplayer.prevRenderYawOffset
+					+ (abstractclientplayer.renderYawOffset - abstractclientplayer.prevRenderYawOffset) * f;
+			double d3 = (double) MathHelper.sin(f1 * 3.1415927F / 180.0F);
+			double d4 = (double) (-MathHelper.cos(f1 * 3.1415927F / 180.0F));
+			float f2 = (float) d1 * 10.0F;
+			f2 = MathHelper.clamp_float(f2, -6.0F, 32.0F);
+			float f3 = (float) (d0 * d3 + d2 * d4) * 100.0F;
+			float f4 = (float) (d0 * d4 - d2 * d3) * 100.0F;
+			if (f3 < 0.0F) {
+				f3 = 0.0F;
+			}
 
-            float f5 = abstractclientplayer.prevCameraYaw
-                    + (abstractclientplayer.cameraYaw - abstractclientplayer.prevCameraYaw) * f;
+			float f5 = abstractclientplayer.prevCameraYaw
+					+ (abstractclientplayer.cameraYaw - abstractclientplayer.prevCameraYaw) * f;
 			f2 = f2 + MathHelper.sin((abstractclientplayer.prevDistanceWalkedModified
 					+ (abstractclientplayer.distanceWalkedModified - abstractclientplayer.prevDistanceWalkedModified)
 							* f)

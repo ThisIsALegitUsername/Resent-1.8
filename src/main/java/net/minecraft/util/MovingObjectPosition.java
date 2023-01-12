@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -53,16 +53,16 @@ public class MovingObjectPosition {
 		this.hitVec = hitVecIn;
 	}
 
-    public BlockPos getBlockPos() {
-        return this.blockPos;
-    }
+	public BlockPos getBlockPos() {
+		return this.blockPos;
+	}
 
-    public String toString() {
-        return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos="
-                + this.hitVec + ", entity=" + this.entityHit + '}';
-    }
+	public String toString() {
+		return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos="
+				+ this.hitVec + ", entity=" + this.entityHit + '}';
+	}
 
-    public enum MovingObjectType {
-        MISS, BLOCK, ENTITY
-    }
+	public static enum MovingObjectType {
+		MISS, BLOCK, ENTITY;
+	}
 }

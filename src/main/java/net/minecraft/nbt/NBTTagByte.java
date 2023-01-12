@@ -10,7 +10,7 @@ import java.io.IOException;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -77,7 +77,7 @@ public class NBTTagByte extends NBTBase.NBTPrimitive {
 	}
 
 	public long getLong() {
-		return this.data;
+		return (long) this.data;
 	}
 
 	public int getInt() {
@@ -85,7 +85,7 @@ public class NBTTagByte extends NBTBase.NBTPrimitive {
 	}
 
 	public short getShort() {
-        return this.data;
+		return (short) this.data;
 	}
 
 	public byte getByte() {
@@ -93,10 +93,10 @@ public class NBTTagByte extends NBTBase.NBTPrimitive {
 	}
 
 	public double getDouble() {
-        return this.data;
+		return (double) this.data;
 	}
 
 	public float getFloat() {
-        return this.data;
+		return (float) this.data;
 	}
 }

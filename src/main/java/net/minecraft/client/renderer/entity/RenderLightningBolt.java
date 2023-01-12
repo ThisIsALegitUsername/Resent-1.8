@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -58,11 +58,11 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 		EaglercraftRandom random = new EaglercraftRandom(entitylightningbolt.boltVertex);
 
 		for (int i = 7; i >= 0; --i) {
-            adouble[i] = d3;
-            adouble1[i] = d4;
-            d3 += random.nextInt(11) - 5;
-            d4 += random.nextInt(11) - 5;
-        }
+			adouble[i] = d3;
+			adouble1[i] = d4;
+			d3 += (double) (random.nextInt(11) - 5);
+			d4 += (double) (random.nextInt(11) - 5);
+		}
 
 		for (int k1 = 0; k1 < 4; ++k1) {
 			EaglercraftRandom random1 = new EaglercraftRandom(entitylightningbolt.boltVertex);
@@ -85,12 +85,12 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 					double d7 = d5;
 					double d8 = d6;
 					if (j == 0) {
-                        d5 += random1.nextInt(11) - 5;
-                        d6 += random1.nextInt(11) - 5;
-                    } else {
-                        d5 += random1.nextInt(31) - 15;
-                        d6 += random1.nextInt(31) - 15;
-                    }
+						d5 += (double) (random1.nextInt(11) - 5);
+						d6 += (double) (random1.nextInt(11) - 5);
+					} else {
+						d5 += (double) (random1.nextInt(31) - 15);
+						d6 += (double) (random1.nextInt(31) - 15);
+					}
 
 					worldrenderer.begin(5, DefaultVertexFormats.POSITION_COLOR);
 					float f = 0.5F;

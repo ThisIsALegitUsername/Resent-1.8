@@ -17,7 +17,7 @@ import net.minecraft.util.Vec3;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -61,19 +61,19 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-        this.posX = parPacketBuffer.readFloat();
-        this.posY = parPacketBuffer.readFloat();
-        this.posZ = parPacketBuffer.readFloat();
-        this.strength = parPacketBuffer.readFloat();
-        int i = parPacketBuffer.readInt();
-        this.affectedBlockPositions = Lists.newArrayListWithCapacity(i);
-        int j = (int) this.posX;
-        int k = (int) this.posY;
-        int l = (int) this.posZ;
+		this.posX = (double) parPacketBuffer.readFloat();
+		this.posY = (double) parPacketBuffer.readFloat();
+		this.posZ = (double) parPacketBuffer.readFloat();
+		this.strength = parPacketBuffer.readFloat();
+		int i = parPacketBuffer.readInt();
+		this.affectedBlockPositions = Lists.newArrayListWithCapacity(i);
+		int j = (int) this.posX;
+		int k = (int) this.posY;
+		int l = (int) this.posZ;
 
-        for (int i1 = 0; i1 < i; ++i1) {
-            int j1 = parPacketBuffer.readByte() + j;
-            int k1 = parPacketBuffer.readByte() + k;
+		for (int i1 = 0; i1 < i; ++i1) {
+			int j1 = parPacketBuffer.readByte() + j;
+			int k1 = parPacketBuffer.readByte() + k;
 			int l1 = parPacketBuffer.readByte() + l;
 			this.affectedBlockPositions.add(new BlockPos(j1, k1, l1));
 		}

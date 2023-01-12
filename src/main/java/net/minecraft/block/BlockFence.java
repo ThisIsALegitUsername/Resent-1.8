@@ -1,7 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -15,15 +18,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -164,8 +165,13 @@ public class BlockFence extends Block {
 
 	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
 		Block block = worldIn.getBlockState(pos).getBlock();
-		return block != Blocks.barrier && ((block instanceof BlockFence && block.blockMaterial == this.blockMaterial)
-				|| block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.gourd));
+		return block == Blocks.barrier ? false
+				: ((!(block instanceof BlockFence) || block.blockMaterial != this.blockMaterial)
+						&& !(block instanceof BlockFenceGate)
+								? (block.blockMaterial.isOpaque() && block.isFullCube()
+										? block.blockMaterial != Material.gourd
+										: false)
+								: true);
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, BlockPos var2, EnumFacing var3) {
@@ -197,6 +203,6 @@ public class BlockFence extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, NORTH, EAST, WEST, SOUTH);
+		return new BlockState(this, new IProperty[] { NORTH, EAST, WEST, SOUTH });
 	}
 }

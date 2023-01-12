@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -22,13 +22,12 @@ import net.minecraft.entity.Entity;
  * 
  */
 public class ModelEnderCrystal extends ModelBase {
-	private final ModelRenderer cube;
-    /**
-     * +
-     * The glass model for the Ender Crystal.
-     */
-    private final ModelRenderer glass = new ModelRenderer(this, "glass");
-    private ModelRenderer base;
+	private ModelRenderer cube;
+	/**+
+	 * The glass model for the Ender Crystal.
+	 */
+	private ModelRenderer glass = new ModelRenderer(this, "glass");
+	private ModelRenderer base;
 
 	public ModelEnderCrystal(float parFloat1, boolean parFlag) {
 		this.glass.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);

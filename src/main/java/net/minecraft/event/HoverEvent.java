@@ -12,7 +12,7 @@ import net.minecraft.util.IChatComponent;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -57,17 +57,23 @@ public class HoverEvent {
 			if (this.action != hoverevent.action) {
 				return false;
 			} else {
-                if (this.value != null) {
-                    return this.value.equals(hoverevent.value);
-                } else return hoverevent.value == null;
-            }
+				if (this.value != null) {
+					if (!this.value.equals(hoverevent.value)) {
+						return false;
+					}
+				} else if (hoverevent.value != null) {
+					return false;
+				}
+
+				return true;
+			}
 		} else {
 			return false;
 		}
 	}
 
 	public String toString() {
-        return "HoverEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
+		return "HoverEvent{action=" + this.action + ", value=\'" + this.value + '\'' + '}';
 	}
 
 	public int hashCode() {
@@ -76,18 +82,18 @@ public class HoverEvent {
 		return i;
 	}
 
-    public enum Action {
-        SHOW_TEXT("show_text", true), SHOW_ACHIEVEMENT("show_achievement", true), SHOW_ITEM("show_item", true),
-        SHOW_ENTITY("show_entity", true);
+	public static enum Action {
+		SHOW_TEXT("show_text", true), SHOW_ACHIEVEMENT("show_achievement", true), SHOW_ITEM("show_item", true),
+		SHOW_ENTITY("show_entity", true);
 
-        private static final Map<String, HoverEvent.Action> nameMapping = Maps.newHashMap();
-        private final boolean allowedInChat;
-        private final String canonicalName;
+		private static final Map<String, HoverEvent.Action> nameMapping = Maps.newHashMap();
+		private final boolean allowedInChat;
+		private final String canonicalName;
 
-        Action(String canonicalNameIn, boolean allowedInChatIn) {
-            this.canonicalName = canonicalNameIn;
-            this.allowedInChat = allowedInChatIn;
-        }
+		private Action(String canonicalNameIn, boolean allowedInChatIn) {
+			this.canonicalName = canonicalNameIn;
+			this.allowedInChat = allowedInChatIn;
+		}
 
 		public boolean shouldAllowInChat() {
 			return this.allowedInChat;
@@ -98,7 +104,7 @@ public class HoverEvent {
 		}
 
 		public static HoverEvent.Action getValueByCanonicalName(String canonicalNameIn) {
-            return nameMapping.get(canonicalNameIn);
+			return (HoverEvent.Action) nameMapping.get(canonicalNameIn);
 		}
 
 		static {

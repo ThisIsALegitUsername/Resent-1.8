@@ -28,7 +28,7 @@ class EmptyImmutableListMultimap extends ImmutableListMultimap<Object, Object> {
 	static final EmptyImmutableListMultimap INSTANCE = new EmptyImmutableListMultimap();
 
 	private EmptyImmutableListMultimap() {
-		super(ImmutableMap.of(), 0);
+		super(ImmutableMap.<Object, ImmutableList<Object>>of(), 0);
 	}
 
 	private Object readResolve() {

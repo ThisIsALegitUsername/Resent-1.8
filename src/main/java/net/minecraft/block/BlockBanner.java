@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -26,7 +28,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -140,7 +142,7 @@ public class BlockBanner extends BlockContainer {
 			itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
 			spawnAsEntity(worldIn, pos, itemstack);
 		} else {
-			super.harvestBlock(worldIn, player, pos, state, null);
+			super.harvestBlock(worldIn, player, pos, state, (TileEntity) null);
 		}
 
 	}
@@ -151,7 +153,7 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
-			EnumFacing enumfacing = iblockaccess.getBlockState(blockpos).getValue(FACING);
+			EnumFacing enumfacing = (EnumFacing) iblockaccess.getBlockState(blockpos).getValue(FACING);
 			float f = 0.0F;
 			float f1 = 0.78125F;
 			float f2 = 0.0F;
@@ -176,7 +178,7 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
-			EnumFacing enumfacing = iblockstate.getValue(FACING);
+			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 			if (!world.getBlockState(blockpos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid()) {
 				this.dropBlockAsItem(world, blockpos, iblockstate, 0);
 				world.setBlockToAir(blockpos);
@@ -195,11 +197,11 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public int getMetaFromState(IBlockState iblockstate) {
-			return iblockstate.getValue(FACING).getIndex();
+			return ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
 		}
 
 		protected BlockState createBlockState() {
-			return new BlockState(this, FACING);
+			return new BlockState(this, new IProperty[] { FACING });
 		}
 	}
 
@@ -222,11 +224,11 @@ public class BlockBanner extends BlockContainer {
 		}
 
 		public int getMetaFromState(IBlockState iblockstate) {
-			return iblockstate.getValue(ROTATION).intValue();
+			return ((Integer) iblockstate.getValue(ROTATION)).intValue();
 		}
 
 		protected BlockState createBlockState() {
-			return new BlockState(this, ROTATION);
+			return new BlockState(this, new IProperty[] { ROTATION });
 		}
 	}
 }

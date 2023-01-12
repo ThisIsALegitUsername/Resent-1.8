@@ -25,7 +25,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -47,23 +47,23 @@ public class ItemArmor extends Item {
 			"minecraft:items/empty_armor_slot_boots" };
 	private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDefaultDispenseItem() {
 		protected ItemStack dispenseStack(IBlockSource iblocksource, ItemStack itemstack) {
-            BlockPos blockpos = iblocksource.getBlockPos()
-                    .offset(BlockDispenser.getFacing(iblocksource.getBlockMetadata()));
-            int i = blockpos.getX();
-            int j = blockpos.getY();
-            int k = blockpos.getZ();
-            AxisAlignedBB axisalignedbb = new AxisAlignedBB(i, j, k, i + 1,
-                    j + 1, k + 1);
-            List list = iblocksource.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb,
-                    Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(itemstack)));
-            if (list.size() > 0) {
-                EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(0);
-                int l = entitylivingbase instanceof EntityPlayer ? 1 : 0;
-                int i1 = EntityLiving.getArmorPosition(itemstack);
-                ItemStack itemstack1 = itemstack.copy();
-                itemstack1.stackSize = 1;
-                entitylivingbase.setCurrentItemOrArmor(i1 - l, itemstack1);
-                if (entitylivingbase instanceof EntityLiving) {
+			BlockPos blockpos = iblocksource.getBlockPos()
+					.offset(BlockDispenser.getFacing(iblocksource.getBlockMetadata()));
+			int i = blockpos.getX();
+			int j = blockpos.getY();
+			int k = blockpos.getZ();
+			AxisAlignedBB axisalignedbb = new AxisAlignedBB((double) i, (double) j, (double) k, (double) (i + 1),
+					(double) (j + 1), (double) (k + 1));
+			List list = iblocksource.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb,
+					Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(itemstack)));
+			if (list.size() > 0) {
+				EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(0);
+				int l = entitylivingbase instanceof EntityPlayer ? 1 : 0;
+				int i1 = EntityLiving.getArmorPosition(itemstack);
+				ItemStack itemstack1 = itemstack.copy();
+				itemstack1.stackSize = 1;
+				entitylivingbase.setCurrentItemOrArmor(i1 - l, itemstack1);
+				if (entitylivingbase instanceof EntityLiving) {
 					((EntityLiving) entitylivingbase).setEquipmentDropChance(i1, 2.0F);
 				}
 
@@ -122,7 +122,10 @@ public class ItemArmor extends Item {
 	 * Return whether the specified armor ItemStack has a color.
 	 */
 	public boolean hasColor(ItemStack parItemStack) {
-        return this.material == ArmorMaterial.LEATHER && (parItemStack.hasTagCompound() && (parItemStack.getTagCompound().hasKey("display", 10) && parItemStack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
+		return this.material != ItemArmor.ArmorMaterial.LEATHER ? false
+				: (!parItemStack.hasTagCompound() ? false
+						: (!parItemStack.getTagCompound().hasKey("display", 10) ? false
+								: parItemStack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
 	}
 
 	/**+
@@ -165,7 +168,7 @@ public class ItemArmor extends Item {
 	 */
 	public void setColor(ItemStack stack, int color) {
 		if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
-            throw new UnsupportedOperationException("Can't dye non-leather!");
+			throw new UnsupportedOperationException("Can\'t dye non-leather!");
 		} else {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
 			if (nbttagcompound == null) {
@@ -186,7 +189,8 @@ public class ItemArmor extends Item {
 	 * Return whether this item is repairable in an anvil.
 	 */
 	public boolean getIsRepairable(ItemStack itemstack, ItemStack itemstack1) {
-        return this.material.getRepairItem() == itemstack1.getItem() || super.getIsRepairable(itemstack, itemstack1);
+		return this.material.getRepairItem() == itemstack1.getItem() ? true
+				: super.getIsRepairable(itemstack, itemstack1);
 	}
 
 	/**+
@@ -204,22 +208,22 @@ public class ItemArmor extends Item {
 		return itemstack;
 	}
 
-    public enum ArmorMaterial {
-        LEATHER("leather", 5, new int[]{1, 3, 2, 1}, 15), CHAIN("chainmail", 15, new int[]{2, 5, 4, 1}, 12),
-        IRON("iron", 15, new int[]{2, 6, 5, 2}, 9), GOLD("gold", 7, new int[]{2, 5, 3, 1}, 25),
-        DIAMOND("diamond", 33, new int[]{3, 8, 6, 3}, 10);
+	public static enum ArmorMaterial {
+		LEATHER("leather", 5, new int[] { 1, 3, 2, 1 }, 15), CHAIN("chainmail", 15, new int[] { 2, 5, 4, 1 }, 12),
+		IRON("iron", 15, new int[] { 2, 6, 5, 2 }, 9), GOLD("gold", 7, new int[] { 2, 5, 3, 1 }, 25),
+		DIAMOND("diamond", 33, new int[] { 3, 8, 6, 3 }, 10);
 
-        private final String name;
-        private final int maxDamageFactor;
-        private final int[] damageReductionAmountArray;
-        private final int enchantability;
+		private final String name;
+		private final int maxDamageFactor;
+		private final int[] damageReductionAmountArray;
+		private final int enchantability;
 
-        ArmorMaterial(String name, int maxDamage, int[] reductionAmounts, int enchantability) {
-            this.name = name;
-            this.maxDamageFactor = maxDamage;
-            this.damageReductionAmountArray = reductionAmounts;
-            this.enchantability = enchantability;
-        }
+		private ArmorMaterial(String name, int maxDamage, int[] reductionAmounts, int enchantability) {
+			this.name = name;
+			this.maxDamageFactor = maxDamage;
+			this.damageReductionAmountArray = reductionAmounts;
+			this.enchantability = enchantability;
+		}
 
 		public int getDurability(int armorType) {
 			return ItemArmor.maxDamageArray[armorType] * this.maxDamageFactor;

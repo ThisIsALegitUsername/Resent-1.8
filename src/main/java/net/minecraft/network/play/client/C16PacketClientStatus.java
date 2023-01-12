@@ -1,10 +1,10 @@
 package net.minecraft.network.play.client;
 
+import java.io.IOException;
+
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-
-import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -12,7 +12,7 @@ import java.io.IOException;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,9 +38,9 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-        this.status = parPacketBuffer
-                .readEnumValue(EnumState.class);
-    }
+		this.status = (C16PacketClientStatus.EnumState) parPacketBuffer
+				.readEnumValue(C16PacketClientStatus.EnumState.class);
+	}
 
 	/**+
 	 * Writes the raw packet data to the data stream.
@@ -50,17 +50,17 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
 	}
 
 	/**+
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer inethandlerplayserver) {
-        inethandlerplayserver.processClientStatus(this);
-    }
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer inethandlerplayserver) {
+		inethandlerplayserver.processClientStatus(this);
+	}
 
-    public C16PacketClientStatus.EnumState getStatus() {
-        return this.status;
-    }
+	public C16PacketClientStatus.EnumState getStatus() {
+		return this.status;
+	}
 
-    public enum EnumState {
-        PERFORM_RESPAWN, REQUEST_STATS, OPEN_INVENTORY_ACHIEVEMENT
-    }
+	public static enum EnumState {
+		PERFORM_RESPAWN, REQUEST_STATS, OPEN_INVENTORY_ACHIEVEMENT;
+	}
 }

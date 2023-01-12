@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -48,8 +48,8 @@ public class EntityRainFX extends EntityFX {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
-        this.motionY -= this.particleGravity;
-        this.moveEntity(this.motionX, this.motionY, this.motionZ);
+		this.motionY -= (double) this.particleGravity;
+		this.moveEntity(this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
 		this.motionY *= 0.9800000190734863D;
 		this.motionZ *= 0.9800000190734863D;
@@ -74,9 +74,9 @@ public class EntityRainFX extends EntityFX {
 		if (material.isLiquid() || material.isSolid()) {
 			double d0 = 0.0D;
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
-                d0 = 1.0F - BlockLiquid
-                        .getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
-            } else {
+				d0 = (double) (1.0F - BlockLiquid
+						.getLiquidHeightPercent(((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue()));
+			} else {
 				d0 = block.getBlockBoundsMaxY();
 			}
 

@@ -4,11 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,7 +49,7 @@ public class VFile {
 	protected String path;
 	
 	public static String createPath(Object... p) {
-		ArrayList<String> r = new ArrayList<>();
+		ArrayList<String> r = new ArrayList();
 		for(int i = 0; i < p.length; ++i) {
 			if(p[i] == null) {
 				continue;
@@ -230,7 +229,7 @@ public class VFile {
 	
 	public List<String> list() {
 		if(isRelative()) {
-            return Collections.singletonList(path);
+			return Arrays.asList(path);
 		}
 		return SYS.VFS.listFiles(path);
 	}

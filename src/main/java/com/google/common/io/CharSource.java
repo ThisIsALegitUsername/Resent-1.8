@@ -16,14 +16,8 @@
 
 package com.google.common.io;
 
-import com.google.common.annotations.Beta;
-import com.google.common.base.Ascii;
-import com.google.common.base.Splitter;
-import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -33,7 +27,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.annotation.Nullable;
+
+import com.google.common.annotations.Beta;
+import com.google.common.base.Ascii;
+import com.google.common.base.Splitter;
+import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 /**
  * A readable source of characters, such as a text file. Unlike a
@@ -402,7 +403,7 @@ public abstract class CharSource implements InputSupplier<Reader> {
 				@Override
 				public Iterator<String> iterator() {
 					return new AbstractIterator<String>() {
-						final Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
+						Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
 
 						@Override
 						protected String computeNext() {

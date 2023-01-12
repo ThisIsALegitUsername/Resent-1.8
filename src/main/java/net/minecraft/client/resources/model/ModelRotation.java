@@ -15,7 +15,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -42,17 +42,17 @@ public enum ModelRotation {
 		return parInt1 * 360 + parInt2;
 	}
 
-	ModelRotation(int parInt2, int parInt3) {
-        this.combinedXY = combineXY(parInt2, parInt3);
-        this.matrix4d = new Matrix4f();
-        Matrix4f matrix4f = new Matrix4f();
-        matrix4f.setIdentity();
-        Matrix4f.rotate((float) (-parInt2) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
-        this.quartersX = MathHelper.abs_int(parInt2 / 90);
-        Matrix4f matrix4f1 = new Matrix4f();
-        matrix4f1.setIdentity();
-        Matrix4f.rotate((float) (-parInt3) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
-        this.quartersY = MathHelper.abs_int(parInt3 / 90);
+	private ModelRotation(int parInt2, int parInt3) {
+		this.combinedXY = combineXY(parInt2, parInt3);
+		this.matrix4d = new Matrix4f();
+		Matrix4f matrix4f = new Matrix4f();
+		matrix4f.setIdentity();
+		Matrix4f.rotate((float) (-parInt2) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
+		this.quartersX = MathHelper.abs_int(parInt2 / 90);
+		Matrix4f matrix4f1 = new Matrix4f();
+		matrix4f1.setIdentity();
+		Matrix4f.rotate((float) (-parInt3) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
+		this.quartersY = MathHelper.abs_int(parInt3 / 90);
 		Matrix4f.mul(matrix4f1, matrix4f, this.matrix4d);
 	}
 
@@ -96,8 +96,8 @@ public enum ModelRotation {
 	}
 
 	public static ModelRotation getModelRotation(int parInt1, int parInt2) {
-        return mapRotations.get(Integer
-                .valueOf(combineXY(MathHelper.normalizeAngle(parInt1, 360), MathHelper.normalizeAngle(parInt2, 360))));
+		return (ModelRotation) mapRotations.get(Integer
+				.valueOf(combineXY(MathHelper.normalizeAngle(parInt1, 360), MathHelper.normalizeAngle(parInt2, 360))));
 	}
 
 	static {

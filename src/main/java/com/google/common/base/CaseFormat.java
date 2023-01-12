@@ -16,13 +16,14 @@
 
 package com.google.common.base;
 
-import com.google.common.annotations.Beta;
-import com.google.common.annotations.GwtCompatible;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.Nullable;
 import java.io.Serializable;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.annotation.Nullable;
+
+import com.google.common.annotations.Beta;
+import com.google.common.annotations.GwtCompatible;
 
 /**
  * Utility class for converting between various ASCII case formats. Behavior is
@@ -221,7 +222,7 @@ public enum CaseFormat {
 
 	private static String firstCharOnlyToUpper(String word) {
 		return (word.isEmpty()) ? word
-				: Ascii.toUpperCase(word.charAt(0)) +
-				Ascii.toLowerCase(word.substring(1));
+				: new StringBuilder(word.length()).append(Ascii.toUpperCase(word.charAt(0)))
+						.append(Ascii.toLowerCase(word.substring(1))).toString();
 	}
 }

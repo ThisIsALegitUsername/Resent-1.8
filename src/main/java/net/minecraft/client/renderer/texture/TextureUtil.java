@@ -23,7 +23,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -85,8 +85,8 @@ public class TextureUtil {
 					for (int i1 = 0; i1 < j; ++i1) {
 						for (int j1 = 0; j1 < k; ++j1) {
 							int k1 = 2 * (i1 + j1 * l);
-							aint2[i1 + j1 * j] = blendColors(aint1[k1], aint1[k1 + 1], aint1[k1 + l],
-                                    aint1[k1 + 1 + l], flag);
+							aint2[i1 + j1 * j] = blendColors(aint1[k1 + 0], aint1[k1 + 1], aint1[k1 + 0 + l],
+									aint1[k1 + 1 + l], flag);
 						}
 					}
 
@@ -117,37 +117,37 @@ public class TextureUtil {
 
 			for (int i = 0; i < 4; ++i) {
 				if (mipmapBuffer[i] >> 24 != 0) {
-                    f += (float) Math.pow((float) (mipmapBuffer[i] >> 24 & 255) / 255.0F, 2.2D);
-                    f1 += (float) Math.pow((float) (mipmapBuffer[i] >> 16 & 255) / 255.0F, 2.2D);
-                    f2 += (float) Math.pow((float) (mipmapBuffer[i] >> 8 & 255) / 255.0F, 2.2D);
-                    f3 += (float) Math.pow((float) (mipmapBuffer[i] >> 0 & 255) / 255.0F, 2.2D);
-                }
-            }
+					f += (float) Math.pow((double) ((float) (mipmapBuffer[i] >> 24 & 255) / 255.0F), 2.2D);
+					f1 += (float) Math.pow((double) ((float) (mipmapBuffer[i] >> 16 & 255) / 255.0F), 2.2D);
+					f2 += (float) Math.pow((double) ((float) (mipmapBuffer[i] >> 8 & 255) / 255.0F), 2.2D);
+					f3 += (float) Math.pow((double) ((float) (mipmapBuffer[i] >> 0 & 255) / 255.0F), 2.2D);
+				}
+			}
 
-            f = f / 4.0F;
-            f1 = f1 / 4.0F;
-            f2 = f2 / 4.0F;
-            f3 = f3 / 4.0F;
-            int i2 = (int) (Math.pow(f, 0.45454545454545453D) * 255.0D);
-            int j = (int) (Math.pow(f1, 0.45454545454545453D) * 255.0D);
-            int k = (int) (Math.pow(f2, 0.45454545454545453D) * 255.0D);
-            int l = (int) (Math.pow(f3, 0.45454545454545453D) * 255.0D);
-            if (i2 < 96) {
-                i2 = 0;
-            }
+			f = f / 4.0F;
+			f1 = f1 / 4.0F;
+			f2 = f2 / 4.0F;
+			f3 = f3 / 4.0F;
+			int i2 = (int) (Math.pow((double) f, 0.45454545454545453D) * 255.0D);
+			int j = (int) (Math.pow((double) f1, 0.45454545454545453D) * 255.0D);
+			int k = (int) (Math.pow((double) f2, 0.45454545454545453D) * 255.0D);
+			int l = (int) (Math.pow((double) f3, 0.45454545454545453D) * 255.0D);
+			if (i2 < 96) {
+				i2 = 0;
+			}
 
-            return i2 << 24 | j << 16 | k << 8 | l;
-        }
+			return i2 << 24 | j << 16 | k << 8 | l;
+		}
 	}
 
 	private static int blendColorComponent(int parInt1, int parInt2, int parInt3, int parInt4, int parInt5) {
-        float f = (float) Math.pow((float) (parInt1 >> parInt5 & 255) / 255.0F, 2.2D);
-        float f1 = (float) Math.pow((float) (parInt2 >> parInt5 & 255) / 255.0F, 2.2D);
-        float f2 = (float) Math.pow((float) (parInt3 >> parInt5 & 255) / 255.0F, 2.2D);
-        float f3 = (float) Math.pow((float) (parInt4 >> parInt5 & 255) / 255.0F, 2.2D);
-        float f4 = (float) Math.pow((double) (f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D);
-        return (int) ((double) f4 * 255.0D);
-    }
+		float f = (float) Math.pow((double) ((float) (parInt1 >> parInt5 & 255) / 255.0F), 2.2D);
+		float f1 = (float) Math.pow((double) ((float) (parInt2 >> parInt5 & 255) / 255.0F), 2.2D);
+		float f2 = (float) Math.pow((double) ((float) (parInt3 >> parInt5 & 255) / 255.0F), 2.2D);
+		float f3 = (float) Math.pow((double) ((float) (parInt4 >> parInt5 & 255) / 255.0F), 2.2D);
+		float f4 = (float) Math.pow((double) (f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D);
+		return (int) ((double) f4 * 255.0D);
+	}
 
 	public static void uploadTextureMipmap(int[][] parArrayOfarray, int parInt1, int parInt2, int parInt3, int parInt4,
 			boolean parFlag, boolean parFlag2) {
@@ -198,8 +198,8 @@ public class TextureUtil {
 		}
 
 		for (int i = 0; i <= parInt2; ++i) {
-            EaglercraftGPU.glTexImage2D(GL_TEXTURE_2D, i, GL_RGBA, parInt3 >> i, parInt4 >> i, 0, GL_RGBA,
-                    GL_UNSIGNED_BYTE, null);
+			EaglercraftGPU.glTexImage2D(GL_TEXTURE_2D, i, GL_RGBA, parInt3 >> i, parInt4 >> i, 0, GL_RGBA,
+					GL_UNSIGNED_BYTE, (IntBuffer) null);
 		}
 
 	}

@@ -1,5 +1,7 @@
 package net.minecraft.client.particle;
 
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;
@@ -11,42 +13,39 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class EntityFootStepFX extends EntityFX {
-    private static final ResourceLocation FOOTPRINT_TEXTURE = new ResourceLocation("textures/particle/footprint.png");
-    private int footstepAge;
-    private final int footstepMaxAge;
-    private final TextureManager currentFootSteps;
+	private static final ResourceLocation FOOTPRINT_TEXTURE = new ResourceLocation("textures/particle/footprint.png");
+	private int footstepAge;
+	private int footstepMaxAge;
+	private TextureManager currentFootSteps;
 
-    protected EntityFootStepFX(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn,
-                               double zCoordIn) {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.currentFootSteps = currentFootStepsIn;
-        this.motionX = this.motionY = this.motionZ = 0.0D;
-        this.footstepMaxAge = 200;
-    }
+	protected EntityFootStepFX(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn,
+			double zCoordIn) {
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		this.currentFootSteps = currentFootStepsIn;
+		this.motionX = this.motionY = this.motionZ = 0.0D;
+		this.footstepMaxAge = 200;
+	}
 
-    /**+
+	/**+
 	 * Renders the particle
 	 */
 	public void renderParticle(WorldRenderer worldrenderer, Entity var2, float f, float var4, float var5, float var6,
@@ -69,13 +68,13 @@ public class EntityFootStepFX extends EntityFX {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(f4 - 0.125F, f5, f6 + 0.125F).tex(0.0D, 1.0D)
+		worldrenderer.pos((double) (f4 - 0.125F), (double) f5, (double) (f6 + 0.125F)).tex(0.0D, 1.0D)
 				.color(f7, f7, f7, f2).endVertex();
-        worldrenderer.pos(f4 + 0.125F, f5, f6 + 0.125F).tex(1.0D, 1.0D)
+		worldrenderer.pos((double) (f4 + 0.125F), (double) f5, (double) (f6 + 0.125F)).tex(1.0D, 1.0D)
 				.color(f7, f7, f7, f2).endVertex();
-        worldrenderer.pos(f4 + 0.125F, f5, f6 - 0.125F).tex(1.0D, 0.0D)
+		worldrenderer.pos((double) (f4 + 0.125F), (double) f5, (double) (f6 - 0.125F)).tex(1.0D, 0.0D)
 				.color(f7, f7, f7, f2).endVertex();
-        worldrenderer.pos(f4 - 0.125F, f5, f6 - 0.125F).tex(0.0D, 0.0D)
+		worldrenderer.pos((double) (f4 - 0.125F), (double) f5, (double) (f6 - 0.125F)).tex(0.0D, 0.0D)
 				.color(f7, f7, f7, f2).endVertex();
 		Tessellator.getInstance().draw();
 		GlStateManager.disableBlend();

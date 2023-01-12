@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -30,7 +30,7 @@ public class IOUtils {
 			return Arrays.asList(
 					new String(((EaglerInputStream) parInputStream).getAsArray(), charset).split("(\\r\\n|\\n|\\r)"));
 		}else {
-			List<String> ret = new ArrayList<>();
+			List<String> ret = new ArrayList();
 			try(InputStream is = parInputStream) {
 				BufferedReader rd = new BufferedReader(new InputStreamReader(is, charset));
 				String s;

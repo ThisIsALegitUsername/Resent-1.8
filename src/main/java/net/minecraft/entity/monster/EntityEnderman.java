@@ -1,10 +1,14 @@
 package net.minecraft.entity.monster;
 
-import com.google.common.collect.Sets;
+import java.util.Set;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
+
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,10 +16,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import java.util.Set;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -23,7 +30,7 @@ import java.util.Set;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -58,11 +65,11 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	protected void entityInit() {
-        super.entityInit();
-        this.dataWatcher.addObject(16, Short.valueOf((short) 0));
-        this.dataWatcher.addObject(17, Byte.valueOf((byte) 0));
-        this.dataWatcher.addObject(18, Byte.valueOf((byte) 0));
-    }
+		super.entityInit();
+		this.dataWatcher.addObject(16, new Short((short) 0));
+		this.dataWatcher.addObject(17, new Byte((byte) 0));
+		this.dataWatcher.addObject(18, new Byte((byte) 0));
+	}
 
 	/**+
 	 * (abstract) Protected helper method to write subclass entity
@@ -104,12 +111,12 @@ public class EntityEnderman extends EntityMob {
 	 */
 	public void onLivingUpdate() {
 		for (int i = 0; i < 2; ++i) {
-            this.worldObj.spawnParticle(EnumParticleTypes.PORTAL,
-                    this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                    this.posY + this.rand.nextDouble() * (double) this.height - 0.25D,
-                    this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width,
-                    (this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(),
-                    (this.rand.nextDouble() - 0.5D) * 2.0D);
+			this.worldObj.spawnParticle(EnumParticleTypes.PORTAL,
+					this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width,
+					this.posY + this.rand.nextDouble() * (double) this.height - 0.25D,
+					this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width,
+					(this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(),
+					(this.rand.nextDouble() - 0.5D) * 2.0D, new int[0]);
 		}
 		this.isJumping = false;
 		super.onLivingUpdate();
@@ -128,8 +135,8 @@ public class EntityEnderman extends EntityMob {
 			float f = this.getBrightness(1.0F);
 			if (f > 0.5F && this.worldObj.canSeeSky(new BlockPos(this))
 					&& this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.setAttackTarget(null);
-                this.setScreaming(false);
+				this.setAttackTarget((EntityLivingBase) null);
+				this.setScreaming(false);
 				this.isAggressive = false;
 				this.teleportRandomly();
 			}
@@ -205,16 +212,16 @@ public class EntityEnderman extends EntityMob {
 			short short1 = 128;
 
 			for (int i = 0; i < short1; ++i) {
-                double d6 = (double) i / ((double) short1 - 1.0D);
-                float f = (this.rand.nextFloat() - 0.5F) * 0.2F;
-                float f1 = (this.rand.nextFloat() - 0.5F) * 0.2F;
-                float f2 = (this.rand.nextFloat() - 0.5F) * 0.2F;
-                double d3 = d0 + (this.posX - d0) * d6 + (this.rand.nextDouble() - 0.5D) * (double) this.width * 2.0D;
-                double d4 = d1 + (this.posY - d1) * d6 + this.rand.nextDouble() * (double) this.height;
-                double d5 = d2 + (this.posZ - d2) * d6 + (this.rand.nextDouble() - 0.5D) * (double) this.width * 2.0D;
-                this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, f, f1, f2
-                );
-            }
+				double d6 = (double) i / ((double) short1 - 1.0D);
+				float f = (this.rand.nextFloat() - 0.5F) * 0.2F;
+				float f1 = (this.rand.nextFloat() - 0.5F) * 0.2F;
+				float f2 = (this.rand.nextFloat() - 0.5F) * 0.2F;
+				double d3 = d0 + (this.posX - d0) * d6 + (this.rand.nextDouble() - 0.5D) * (double) this.width * 2.0D;
+				double d4 = d1 + (this.posY - d1) * d6 + this.rand.nextDouble() * (double) this.height;
+				double d5 = d2 + (this.posZ - d2) * d6 + (this.rand.nextDouble() - 0.5D) * (double) this.width * 2.0D;
+				this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, (double) f, (double) f1, (double) f2,
+						new int[0]);
+			}
 
 			this.worldObj.playSoundEffect(d0, d1, d2, "mob.endermen.portal", 1.0F, 1.0F);
 			this.playSound("mob.endermen.portal", 1.0F, 1.0F);

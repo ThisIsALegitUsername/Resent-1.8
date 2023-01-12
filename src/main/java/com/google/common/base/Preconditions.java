@@ -472,7 +472,7 @@ public final class Preconditions {
 	 */
 	// Note that this is somewhat-improperly used from Verify.java as well.
 	static String format(String template, @Nullable Object... args) {
-		template = template; // null -> "null"
+		template = String.valueOf(template); // null -> "null"
 
 		// start substituting the arguments into the '%s' placeholders
 		StringBuilder builder = new StringBuilder(template.length() + 16 * args.length);
@@ -483,8 +483,8 @@ public final class Preconditions {
 			if (placeholderStart == -1) {
 				break;
 			}
-            builder.append(template, templateStart, placeholderStart);
-            builder.append(args[i++]);
+			builder.append(template.substring(templateStart, placeholderStart));
+			builder.append(args[i++]);
 			templateStart = placeholderStart + 2;
 		}
 		builder.append(template.substring(templateStart));

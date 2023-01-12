@@ -1,14 +1,15 @@
 package net.minecraft.entity.passive;
 
+import java.util.Calendar;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import java.util.Calendar;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -16,7 +17,7 @@ import java.util.Calendar;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -39,7 +40,7 @@ public class EntityBat extends EntityAmbientCreature {
 
 	protected void entityInit() {
 		super.entityInit();
-		this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+		this.dataWatcher.addObject(16, new Byte((byte) 0));
 	}
 
 	/**+
@@ -131,7 +132,7 @@ public class EntityBat extends EntityAmbientCreature {
 		if (this.getIsBatHanging()) {
 			if (!this.worldObj.getBlockState(blockpos1).getBlock().isNormalCube()) {
 				this.setIsBatHanging(false);
-				this.worldObj.playAuxSFXAtEntity(null, 1015, blockpos, 0);
+				this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1015, blockpos, 0);
 			} else {
 				if (this.rand.nextInt(200) == 0) {
 					this.rotationYawHead = (float) this.rand.nextInt(360);
@@ -139,7 +140,7 @@ public class EntityBat extends EntityAmbientCreature {
 
 				if (this.worldObj.getClosestPlayerToEntity(this, 4.0D) != null) {
 					this.setIsBatHanging(false);
-					this.worldObj.playAuxSFXAtEntity(null, 1015, blockpos, 0);
+					this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1015, blockpos, 0);
 				}
 			}
 		} else {
@@ -149,8 +150,8 @@ public class EntityBat extends EntityAmbientCreature {
 			}
 
 			if (this.spawnPosition == null || this.rand.nextInt(30) == 0
-					|| this.spawnPosition.distanceSq((int) this.posX, (int) this.posY,
-					(int) this.posZ) < 4.0D) {
+					|| this.spawnPosition.distanceSq((double) ((int) this.posX), (double) ((int) this.posY),
+							(double) ((int) this.posZ)) < 4.0D) {
 				this.spawnPosition = new BlockPos((int) this.posX + this.rand.nextInt(7) - this.rand.nextInt(7),
 						(int) this.posY + this.rand.nextInt(6) - 2,
 						(int) this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
@@ -232,7 +233,7 @@ public class EntityBat extends EntityAmbientCreature {
 				return false;
 			}
 
-			return i <= this.rand.nextInt(b0) && super.getCanSpawnHere();
+			return i > this.rand.nextInt(b0) ? false : super.getCanSpawnHere();
 		}
 	}
 

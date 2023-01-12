@@ -263,7 +263,7 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V> imp
 			if (keyComparator != null) {
 				Multimap<K, V> sortedCopy = new BuilderMultimap<K, V>();
 				List<Map.Entry<K, Collection<V>>> entries = Lists.newArrayList(builderMultimap.asMap().entrySet());
-				Collections.sort(entries, Ordering.from(keyComparator).onKeys());
+				Collections.sort(entries, Ordering.from(keyComparator).<K>onKeys());
 				for (Map.Entry<K, Collection<V>> entry : entries) {
 					sortedCopy.putAll(entry.getKey(), entry.getValue());
 				}

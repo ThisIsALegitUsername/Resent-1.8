@@ -21,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -49,10 +49,14 @@ public class ItemRecord extends Item {
 	 */
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos blockpos,
 			EnumFacing var5, float var6, float var7, float var8) {
-        IBlockState iblockstate = world.getBlockState(blockpos);
-        return iblockstate.getBlock() == Blocks.jukebox
-                && !iblockstate.getValue(BlockJukebox.HAS_RECORD).booleanValue();
-    }
+		IBlockState iblockstate = world.getBlockState(blockpos);
+		if (iblockstate.getBlock() == Blocks.jukebox
+				&& !((Boolean) iblockstate.getValue(BlockJukebox.HAS_RECORD)).booleanValue()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**+
 	 * allows items to add custom lines of information to the
@@ -77,6 +81,6 @@ public class ItemRecord extends Item {
 	 * Return the record item corresponding to the given name.
 	 */
 	public static ItemRecord getRecord(String name) {
-        return RECORDS.get(name);
+		return (ItemRecord) RECORDS.get(name);
 	}
 }

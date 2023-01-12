@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -12,15 +15,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,7 +46,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	}
 
 	public static void bootstrapStates() {
-		TYPE = PropertyEnum.create("type", BlockPlanks.EnumType.class);
+		TYPE = PropertyEnum.<BlockPlanks.EnumType>create("type", BlockPlanks.EnumType.class);
 	}
 
 	/**+
@@ -84,7 +85,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return iblockstate.getValue(TYPE).getMetadata();
+		return ((BlockPlanks.EnumType) iblockstate.getValue(TYPE)).getMetadata();
 	}
 
 	/**+
@@ -122,12 +123,12 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(TYPE).getMetadata();
-		i = i | iblockstate.getValue(STAGE).intValue() << 3;
+		i = i | ((BlockPlanks.EnumType) iblockstate.getValue(TYPE)).getMetadata();
+		i = i | ((Integer) iblockstate.getValue(STAGE)).intValue() << 3;
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, TYPE, STAGE);
+		return new BlockState(this, new IProperty[] { TYPE, STAGE });
 	}
 }

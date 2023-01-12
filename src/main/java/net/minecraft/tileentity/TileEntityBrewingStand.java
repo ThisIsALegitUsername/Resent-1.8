@@ -23,7 +23,7 @@ import net.minecraft.util.ITickable;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -279,9 +279,10 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-        return this.worldObj.getTileEntity(this.pos) == this && entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
-    }
+		return this.worldObj.getTileEntity(this.pos) != this ? false
+				: entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+						(double) this.pos.getZ() + 0.5D) <= 64.0D;
+	}
 
 	public void openInventory(EntityPlayer var1) {
 	}
@@ -339,17 +340,21 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 	}
 
 	public int getField(int i) {
-        if (i == 0) {
-            return this.brewTime;
-        }
-        return 0;
-    }
+		switch (i) {
+		case 0:
+			return this.brewTime;
+		default:
+			return 0;
+		}
+	}
 
 	public void setField(int i, int j) {
-        if (i == 0) {
-            this.brewTime = j;
-        }
-    }
+		switch (i) {
+		case 0:
+			this.brewTime = j;
+		default:
+		}
+	}
 
 	public int getFieldCount() {
 		return 1;

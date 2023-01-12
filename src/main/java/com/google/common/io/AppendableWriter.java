@@ -16,13 +16,14 @@
 
 package com.google.common.io;
 
-import javax.annotation.Nullable;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
 import java.io.Writer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.annotation.Nullable;
 
 /**
  * Writer that places all output on an {@link Appendable} target. If the target
@@ -51,7 +52,7 @@ class AppendableWriter extends Writer {
 	 */
 
 	@Override
-	public void write(char[] cbuf, int off, int len) throws IOException {
+	public void write(char cbuf[], int off, int len) throws IOException {
 		checkNotClosed();
 		// It turns out that creating a new String is usually as fast, or faster
 		// than wrapping cbuf in a light-weight CharSequence.

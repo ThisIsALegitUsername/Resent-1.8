@@ -14,7 +14,7 @@ import net.minecraft.scoreboard.ScoreObjective;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -61,8 +61,8 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
 		this.name = parPacketBuffer.readStringFromBuffer(40);
-        this.action = parPacketBuffer.readEnumValue(Action.class);
-        this.objective = parPacketBuffer.readStringFromBuffer(16);
+		this.action = (S3CPacketUpdateScore.Action) parPacketBuffer.readEnumValue(S3CPacketUpdateScore.Action.class);
+		this.objective = parPacketBuffer.readStringFromBuffer(16);
 		if (this.action != S3CPacketUpdateScore.Action.REMOVE) {
 			this.value = parPacketBuffer.readVarIntFromBuffer();
 		}
@@ -95,17 +95,17 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 
 	public String getObjectiveName() {
 		return this.objective;
-    }
+	}
 
-    public int getScoreValue() {
-        return this.value;
-    }
+	public int getScoreValue() {
+		return this.value;
+	}
 
-    public S3CPacketUpdateScore.Action getScoreAction() {
-        return this.action;
-    }
+	public S3CPacketUpdateScore.Action getScoreAction() {
+		return this.action;
+	}
 
-    public enum Action {
-        CHANGE, REMOVE
-    }
+	public static enum Action {
+		CHANGE, REMOVE;
+	}
 }

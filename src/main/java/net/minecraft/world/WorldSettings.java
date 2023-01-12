@@ -107,17 +107,17 @@ public final class WorldSettings {
 		return this.worldName;
 	}
 
-	public enum GameType {
-        NOT_SET(-1, ""), SURVIVAL(0, "survival"), CREATIVE(1, "creative"), ADVENTURE(2, "adventure"),
-        SPECTATOR(3, "spectator");
+	public static enum GameType {
+		NOT_SET(-1, ""), SURVIVAL(0, "survival"), CREATIVE(1, "creative"), ADVENTURE(2, "adventure"),
+		SPECTATOR(3, "spectator");
 
-        int id;
-        String name;
+		int id;
+		String name;
 
-        GameType(int typeId, String nameIn) {
-            this.id = typeId;
-            this.name = nameIn;
-        }
+		private GameType(int typeId, String nameIn) {
+			this.id = typeId;
+			this.name = nameIn;
+		}
 
 		public int getID() {
 			return this.id;

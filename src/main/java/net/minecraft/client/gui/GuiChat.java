@@ -26,7 +26,7 @@ import net.minecraft.util.MovingObjectPosition;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,8 +50,8 @@ public class GuiChat extends GuiScreen {
 	private boolean playerNamesFound;
 	private boolean waitingOnAutocomplete;
 	private int autocompleteIndex;
-    private final List<String> foundPlayerNames = Lists.newArrayList();
-    protected GuiTextField inputField;
+	private List<String> foundPlayerNames = Lists.newArrayList();
+	protected GuiTextField inputField;
 	/**+
 	 * is the text that appears when you press the chat key and the
 	 * input box appears pre-filled
@@ -75,11 +75,11 @@ public class GuiChat extends GuiScreen {
 	public void initGui() {
 		Keyboard.enableRepeatEvents(true);
 		if (!(this instanceof GuiSleepMP)) {
-            this.buttonList.add(exitButton = new GuiButton(69, width - 100, 3, 97, 20, I18n.format("chat.exit")));
+			this.buttonList.add(exitButton = new GuiButton(69, this.width - 100, 3, 97, 20, I18n.format("chat.exit")));
 		}
-        this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
-        this.inputField = new GuiTextField(0, this.fontRendererObj, 4, height - 12, width - 4, 12);
-        this.inputField.setMaxStringLength(100);
+		this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
+		this.inputField = new GuiTextField(0, this.fontRendererObj, 4, this.height - 12, this.width - 4, 12);
+		this.inputField.setMaxStringLength(100);
 		this.inputField.setEnableBackgroundDrawing(false);
 		this.inputField.setFocused(true);
 		this.inputField.setText(this.defaultInputFieldText);
@@ -109,32 +109,36 @@ public class GuiChat extends GuiScreen {
 	 * on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char parChar1, int parInt1) {
-		this.waitingOnAutocomplete = false;
-		if (parInt1 == 15) {
-			this.autocompletePlayerNames();
+		if (parInt1 == 1 && (this.mc.gameSettings.keyBindClose.getKeyCode() == 0 || this.mc.areKeysLocked())) {
+			this.mc.displayGuiScreen((GuiScreen) null);
 		} else {
-			this.playerNamesFound = false;
-		}
-
-		if (parInt1 != 28 && parInt1 != 156) {
-			if (parInt1 == 200) {
-				this.getSentHistory(-1);
-			} else if (parInt1 == 208) {
-				this.getSentHistory(1);
-			} else if (parInt1 == 201) {
-				this.mc.ingameGUI.getChatGUI().scroll(this.mc.ingameGUI.getChatGUI().getLineCount() - 1);
-			} else if (parInt1 == 209) {
-				this.mc.ingameGUI.getChatGUI().scroll(-this.mc.ingameGUI.getChatGUI().getLineCount() + 1);
+			this.waitingOnAutocomplete = false;
+			if (parInt1 == 15) {
+				this.autocompletePlayerNames();
 			} else {
-				this.inputField.textboxKeyTyped(parChar1, parInt1);
-			}
-		} else {
-			String s = this.inputField.getText().trim();
-			if (s.length() > 0) {
-				this.sendChatMessage(s);
+				this.playerNamesFound = false;
 			}
 
-            this.mc.displayGuiScreen(null);
+			if (parInt1 != 28 && parInt1 != 156) {
+				if (parInt1 == 200) {
+					this.getSentHistory(-1);
+				} else if (parInt1 == 208) {
+					this.getSentHistory(1);
+				} else if (parInt1 == 201) {
+					this.mc.ingameGUI.getChatGUI().scroll(this.mc.ingameGUI.getChatGUI().getLineCount() - 1);
+				} else if (parInt1 == 209) {
+					this.mc.ingameGUI.getChatGUI().scroll(-this.mc.ingameGUI.getChatGUI().getLineCount() + 1);
+				} else {
+					this.inputField.textboxKeyTyped(parChar1, parInt1);
+				}
+			} else {
+				String s = this.inputField.getText().trim();
+				if (s.length() > 0) {
+					this.sendChatMessage(s);
+				}
+
+				this.mc.displayGuiScreen((GuiScreen) null);
+			}
 		}
 
 	}
@@ -235,7 +239,7 @@ public class GuiChat extends GuiScreen {
 					.printChatMessageWithOptionalDeletion(new ChatComponentText(stringbuilder.toString()), 1);
 		}
 
-        this.inputField.writeText(this.foundPlayerNames.get(this.autocompleteIndex++));
+		this.inputField.writeText((String) this.foundPlayerNames.get(this.autocompleteIndex++));
 	}
 
 	private void sendAutocompleteRequest(String parString1, String parString2) {
@@ -269,8 +273,8 @@ public class GuiChat extends GuiScreen {
 					this.historyBuffer = this.inputField.getText();
 				}
 
-                this.inputField.setText(this.mc.ingameGUI.getChatGUI().getSentMessages().get(i));
-                this.sentHistoryCursor = i;
+				this.inputField.setText((String) this.mc.ingameGUI.getChatGUI().getSentMessages().get(i));
+				this.sentHistoryCursor = i;
 			}
 		}
 	}
@@ -280,8 +284,8 @@ public class GuiChat extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-        drawRect(2, height - 14, width - 2, height - 2, Integer.MIN_VALUE);
-        this.inputField.drawTextBox();
+		drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
+		this.inputField.drawTextBox();
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 		if (ichatcomponent != null && ichatcomponent.getChatStyle().getChatHoverEvent() != null) {

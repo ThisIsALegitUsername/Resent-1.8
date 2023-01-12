@@ -1,11 +1,14 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -18,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -39,7 +42,7 @@ public class BlockNetherWart extends BlockBush {
 		this.setTickRandomly(true);
 		float f = 0.5F;
 		this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
-		this.setCreativeTab(null);
+		this.setCreativeTab((CreativeTabs) null);
 	}
 
 	/**+
@@ -54,7 +57,7 @@ public class BlockNetherWart extends BlockBush {
 	}
 
 	public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
-		int i = iblockstate.getValue(AGE).intValue();
+		int i = ((Integer) iblockstate.getValue(AGE)).intValue();
 		if (i < 3 && random.nextInt(10) == 0) {
 			iblockstate = iblockstate.withProperty(AGE, Integer.valueOf(i + 1));
 			world.setBlockState(blockpos, iblockstate, 2);
@@ -92,10 +95,10 @@ public class BlockNetherWart extends BlockBush {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(AGE).intValue();
+		return ((Integer) iblockstate.getValue(AGE)).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, AGE);
+		return new BlockState(this, new IProperty[] { AGE });
 	}
 }

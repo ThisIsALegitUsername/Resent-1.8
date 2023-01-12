@@ -104,7 +104,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return !this.isDead && entityplayer.getDistanceSqToEntity(this) <= 64.0D;
+		return this.isDead ? false : entityplayer.getDistanceSqToEntity(this) <= 64.0D;
 	}
 
 	public void openInventory(EntityPlayer var1) {
@@ -206,9 +206,9 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	protected void applyDrag() {
 		int i = 15 - Container.calcRedstoneFromInventory(this);
 		float f = 0.98F + (float) i * 0.001F;
-        this.motionX *= f;
-        this.motionY *= 0.0D;
-        this.motionZ *= f;
+		this.motionX *= (double) f;
+		this.motionY *= 0.0D;
+		this.motionZ *= (double) f;
 	}
 
 	public int getField(int var1) {

@@ -1,5 +1,7 @@
 package net.minecraft.entity.item;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,15 +15,13 @@ import net.minecraft.util.Rotations;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -314,7 +314,11 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * on where precisely the player targeted.
 	 */
 	public boolean interactAt(EntityPlayer entityplayer, Vec3 vec3) {
-        return !this.func_181026_s();
+		if (this.func_181026_s()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**+

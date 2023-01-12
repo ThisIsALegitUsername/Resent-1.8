@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -26,7 +28,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -51,15 +53,15 @@ public class BlockSnow extends Block {
 	}
 
 	public boolean isPassable(IBlockAccess iblockaccess, BlockPos blockpos) {
-		return iblockaccess.getBlockState(blockpos).getValue(LAYERS).intValue() < 5;
+		return ((Integer) iblockaccess.getBlockState(blockpos).getValue(LAYERS)).intValue() < 5;
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState iblockstate) {
-		int i = iblockstate.getValue(LAYERS).intValue() - 1;
+		int i = ((Integer) iblockstate.getValue(LAYERS)).intValue() - 1;
 		float f = 0.125F;
 		return new AxisAlignedBB((double) blockpos.getX() + this.minX, (double) blockpos.getY() + this.minY,
 				(double) blockpos.getZ() + this.minZ, (double) blockpos.getX() + this.maxX,
-				(float) blockpos.getY() + (float) i * f, (double) blockpos.getZ() + this.maxZ);
+				(double) ((float) blockpos.getY() + (float) i * f), (double) blockpos.getZ() + this.maxZ);
 	}
 
 	/**+
@@ -83,7 +85,7 @@ public class BlockSnow extends Block {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
-		this.getBoundsForLayers(iblockstate.getValue(LAYERS).intValue());
+		this.getBoundsForLayers(((Integer) iblockstate.getValue(LAYERS)).intValue());
 	}
 
 	protected void getBoundsForLayers(int parInt1) {
@@ -93,7 +95,10 @@ public class BlockSnow extends Block {
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
 		IBlockState iblockstate = world.getBlockState(blockpos.down());
 		Block block = iblockstate.getBlock();
-		return block != Blocks.ice && block != Blocks.packed_ice && (block.getMaterial() == Material.leaves || (block == this && iblockstate.getValue(LAYERS).intValue() >= 7 || block.isOpaqueCube() && block.blockMaterial.blocksMovement()));
+		return block != Blocks.ice && block != Blocks.packed_ice ? (block.getMaterial() == Material.leaves ? true
+				: (block == this && ((Integer) iblockstate.getValue(LAYERS)).intValue() >= 7 ? true
+						: block.isOpaqueCube() && block.blockMaterial.blocksMovement()))
+				: false;
 	}
 
 	/**+
@@ -116,7 +121,7 @@ public class BlockSnow extends Block {
 	public void harvestBlock(World world, EntityPlayer entityplayer, BlockPos blockpos, IBlockState iblockstate,
 			TileEntity var5) {
 		spawnAsEntity(world, blockpos,
-				new ItemStack(Items.snowball, iblockstate.getValue(LAYERS).intValue() + 1, 0));
+				new ItemStack(Items.snowball, ((Integer) iblockstate.getValue(LAYERS)).intValue() + 1, 0));
 		world.setBlockToAir(blockpos);
 		entityplayer.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
 	}
@@ -144,7 +149,7 @@ public class BlockSnow extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
-		return enumfacing == EnumFacing.UP || super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
+		return enumfacing == EnumFacing.UP ? true : super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
 	}
 
 	/**+
@@ -159,17 +164,17 @@ public class BlockSnow extends Block {
 	 * (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(World world, BlockPos blockpos) {
-		return world.getBlockState(blockpos).getValue(LAYERS).intValue() == 1;
+		return ((Integer) world.getBlockState(blockpos).getValue(LAYERS)).intValue() == 1;
 	}
 
 	/**+
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(LAYERS).intValue() - 1;
+		return ((Integer) iblockstate.getValue(LAYERS)).intValue() - 1;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, LAYERS);
+		return new BlockState(this, new IProperty[] { LAYERS });
 	}
 }

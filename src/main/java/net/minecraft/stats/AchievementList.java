@@ -1,12 +1,13 @@
 package net.minecraft.stats;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonSerializableSet;
-
-import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -14,7 +15,7 @@ import java.util.List;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -73,10 +74,10 @@ public class AchievementList {
 	 */
 	public static void init() {
 		achievementList = Lists.newArrayList();
-        openInventory = (new Achievement("achievement.openInventory", "openInventory", 0, 0, Items.book,
-                null)).initIndependentStat().registerStat();
-        mineWood = (new Achievement("achievement.mineWood", "mineWood", 2, 1, Blocks.log, openInventory))
-                .registerStat();
+		openInventory = (new Achievement("achievement.openInventory", "openInventory", 0, 0, Items.book,
+				(Achievement) null)).initIndependentStat().registerStat();
+		mineWood = (new Achievement("achievement.mineWood", "mineWood", 2, 1, Blocks.log, openInventory))
+				.registerStat();
 		buildWorkBench = (new Achievement("achievement.buildWorkBench", "buildWorkBench", 4, -1, Blocks.crafting_table,
 				mineWood)).registerStat();
 		buildPickaxe = (new Achievement("achievement.buildPickaxe", "buildPickaxe", 4, 2, Items.wooden_pickaxe,

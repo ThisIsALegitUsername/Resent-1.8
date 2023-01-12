@@ -1,13 +1,26 @@
 package net.minecraft.init;
 
+import java.io.PrintStream;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.BlockFire;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockPumpkin;
+import net.minecraft.block.BlockSkull;
+import net.minecraft.block.BlockTNT;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.dispenser.*;
+import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.dispenser.BehaviorProjectileDispense;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityBoat;
@@ -16,8 +29,21 @@ import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.projectile.*;
-import net.minecraft.item.*;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntityEgg;
+import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemBucket;
+import net.minecraft.item.ItemDye;
+import net.minecraft.item.ItemMonsterPlacer;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.BlockPos;
@@ -26,15 +52,13 @@ import net.minecraft.util.LoggingPrintStream;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import java.io.PrintStream;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -116,12 +140,12 @@ public class Bootstrap {
 			public ItemStack dispenseStack(IBlockSource iblocksource, ItemStack itemstack) {
 				EnumFacing enumfacing = BlockDispenser.getFacing(iblocksource.getBlockMetadata());
 				double d0 = iblocksource.getX() + (double) enumfacing.getFrontOffsetX();
-				double d1 = (float) iblocksource.getBlockPos().getY() + 0.2F;
+				double d1 = (double) ((float) iblocksource.getBlockPos().getY() + 0.2F);
 				double d2 = iblocksource.getZ() + (double) enumfacing.getFrontOffsetZ();
 				Entity entity = ItemMonsterPlacer.spawnCreature(iblocksource.getWorld(), itemstack.getMetadata(), d0,
 						d1, d2);
 				if (entity instanceof EntityLivingBase && itemstack.hasDisplayName()) {
-					entity.setCustomNameTag(itemstack.getDisplayName());
+					((EntityLiving) entity).setCustomNameTag(itemstack.getDisplayName());
 				}
 
 				itemstack.splitStack(1);
@@ -132,7 +156,7 @@ public class Bootstrap {
 			public ItemStack dispenseStack(IBlockSource iblocksource, ItemStack itemstack) {
 				EnumFacing enumfacing = BlockDispenser.getFacing(iblocksource.getBlockMetadata());
 				double d0 = iblocksource.getX() + (double) enumfacing.getFrontOffsetX();
-				double d1 = (float) iblocksource.getBlockPos().getY() + 0.2F;
+				double d1 = (double) ((float) iblocksource.getBlockPos().getY() + 0.2F);
 				double d2 = iblocksource.getZ() + (double) enumfacing.getFrontOffsetZ();
 				EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(iblocksource.getWorld(), d0, d1,
 						d2, itemstack);
@@ -229,11 +253,11 @@ public class Bootstrap {
 				Material material = block.getMaterial();
 				Item item;
 				if (Material.water.equals(material) && block instanceof BlockLiquid
-						&& iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
+						&& ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0) {
 					item = Items.water_bucket;
 				} else {
 					if (!Material.lava.equals(material) || !(block instanceof BlockLiquid)
-							|| iblockstate.getValue(BlockLiquid.LEVEL).intValue() != 0) {
+							|| ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() != 0) {
 						return super.dispenseStack(iblocksource, itemstack);
 					}
 
@@ -318,7 +342,7 @@ public class Bootstrap {
 						BlockPos blockpos = iblocksource.getBlockPos()
 								.offset(BlockDispenser.getFacing(iblocksource.getBlockMetadata()));
 						EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) blockpos.getX() + 0.5D,
-								blockpos.getY(), (double) blockpos.getZ() + 0.5D, null);
+								(double) blockpos.getY(), (double) blockpos.getZ() + 0.5D, (EntityLivingBase) null);
 						world.spawnEntityInWorld(entitytntprimed);
 						world.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
 						--itemstack.stackSize;

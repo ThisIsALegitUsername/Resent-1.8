@@ -27,7 +27,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -84,11 +84,11 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	protected void entityInit() {
-        super.entityInit();
-        this.dataWatcher.addObject(18, new Float(this.getHealth()));
-        this.dataWatcher.addObject(19, Byte.valueOf((byte) 0));
-        this.dataWatcher.addObject(20, Byte.valueOf((byte) EnumDyeColor.RED.getMetadata()));
-    }
+		super.entityInit();
+		this.dataWatcher.addObject(18, new Float(this.getHealth()));
+		this.dataWatcher.addObject(19, new Byte((byte) 0));
+		this.dataWatcher.addObject(20, new Byte((byte) EnumDyeColor.RED.getMetadata()));
+	}
 
 	protected void playStepSound(BlockPos var1, Block var2) {
 		this.playSound("mob.wolf.step", 0.15F, 1.0F);
@@ -192,9 +192,9 @@ public class EntityWolf extends EntityTameable {
 				for (int j = 0; j < i; ++j) {
 					float f1 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
 					float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + (double) f1,
-                            f + 0.8F, this.posZ + (double) f2, this.motionX, this.motionY, this.motionZ
-                    );
+					this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + (double) f1,
+							(double) (f + 0.8F), this.posZ + (double) f2, this.motionX, this.motionY, this.motionZ,
+							new int[0]);
 				}
 			}
 		}
@@ -301,8 +301,8 @@ public class EntityWolf extends EntityTameable {
 
 						this.heal((float) itemfood.getHealAmount(itemstack));
 						if (itemstack.stackSize <= 0) {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem,
-                                    null);
+							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem,
+									(ItemStack) null);
 						}
 
 						return true;
@@ -312,8 +312,8 @@ public class EntityWolf extends EntityTameable {
 					if (enumdyecolor != this.getCollarColor()) {
 						this.setCollarColor(enumdyecolor);
 						if (!entityplayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0) {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem,
-                                    null);
+							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem,
+									(ItemStack) null);
 						}
 
 						return true;
@@ -326,7 +326,7 @@ public class EntityWolf extends EntityTameable {
 			}
 
 			if (itemstack.stackSize <= 0) {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
 			}
 
 			return true;
@@ -359,7 +359,9 @@ public class EntityWolf extends EntityTameable {
 	 * animal type)
 	 */
 	public boolean isBreedingItem(ItemStack itemstack) {
-        return itemstack != null && (itemstack.getItem() instanceof ItemFood && ((ItemFood) itemstack.getItem()).isWolfsFavoriteMeat());
+		return itemstack == null ? false
+				: (!(itemstack.getItem() instanceof ItemFood) ? false
+						: ((ItemFood) itemstack.getItem()).isWolfsFavoriteMeat());
 	}
 
 	/**+
@@ -430,7 +432,8 @@ public class EntityWolf extends EntityTameable {
 			return false;
 		} else {
 			EntityWolf entitywolf = (EntityWolf) entityanimal;
-            return entitywolf.isTamed() && (!entitywolf.isSitting() && this.isInLove() && entitywolf.isInLove());
+			return !entitywolf.isTamed() ? false
+					: (entitywolf.isSitting() ? false : this.isInLove() && entitywolf.isInLove());
 		}
 	}
 
@@ -448,16 +451,17 @@ public class EntityWolf extends EntityTameable {
 
 	public boolean shouldAttackEntity(EntityLivingBase entitylivingbase, EntityLivingBase entitylivingbase1) {
 		if (!(entitylivingbase instanceof EntityCreeper) && !(entitylivingbase instanceof EntityGhast)) {
-            if (entitylivingbase instanceof EntityWolf) {
-                EntityWolf entitywolf = (EntityWolf) entitylivingbase;
-                if (entitywolf.isTamed() && entitywolf.getOwner() == entitylivingbase1) {
-                    return false;
-                }
-            }
+			if (entitylivingbase instanceof EntityWolf) {
+				EntityWolf entitywolf = (EntityWolf) entitylivingbase;
+				if (entitywolf.isTamed() && entitywolf.getOwner() == entitylivingbase1) {
+					return false;
+				}
+			}
 
-            return (!(entitylivingbase instanceof EntityPlayer) || !(entitylivingbase1 instanceof EntityPlayer)
-                    || ((EntityPlayer) entitylivingbase1).canAttackPlayer((EntityPlayer) entitylivingbase)) && (!(entitylivingbase instanceof EntityHorse) || !((EntityHorse) entitylivingbase).isTame());
-        } else {
+			return entitylivingbase instanceof EntityPlayer && entitylivingbase1 instanceof EntityPlayer
+					&& !((EntityPlayer) entitylivingbase1).canAttackPlayer((EntityPlayer) entitylivingbase) ? false
+							: !(entitylivingbase instanceof EntityHorse) || !((EntityHorse) entitylivingbase).isTame();
+		} else {
 			return false;
 		}
 	}

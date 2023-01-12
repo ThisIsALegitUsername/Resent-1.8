@@ -527,30 +527,30 @@ public final class IntMath {
 
 	/**
 	 * Returns {@code n!}, that is, the product of the first {@code n} positive
-     * integers, {@code 1} if {@code n == 0}, or {@link Integer#MAX_VALUE} if the
-     * result does not fit in a {@code int}.
-     *
-     * @throws IllegalArgumentException if {@code n < 0}
-     */
-    public static int factorial(int n) {
-        checkNonNegative("n", n);
-        return (n < factorials.length) ? factorials[n] : Integer.MAX_VALUE;
-    }
+	 * integers, {@code 1} if {@code n == 0}, or {@link Integer#MAX_VALUE} if the
+	 * result does not fit in a {@code int}.
+	 *
+	 * @throws IllegalArgumentException if {@code n < 0}
+	 */
+	public static int factorial(int n) {
+		checkNonNegative("n", n);
+		return (n < factorials.length) ? factorials[n] : Integer.MAX_VALUE;
+	}
 
-    private static final int[] factorials = {1, 1, 2, 2 * 3, 2 * 3 * 4, 2 * 3 * 4 * 5,
-            2 * 3 * 4 * 5 * 6, 2 * 3 * 4 * 5 * 6 * 7, 2 * 3 * 4 * 5 * 6 * 7 * 8,
-            2 * 3 * 4 * 5 * 6 * 7 * 8 * 9, 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
-            2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11, 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12};
+	private static final int[] factorials = { 1, 1, 1 * 2, 1 * 2 * 3, 1 * 2 * 3 * 4, 1 * 2 * 3 * 4 * 5,
+			1 * 2 * 3 * 4 * 5 * 6, 1 * 2 * 3 * 4 * 5 * 6 * 7, 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8,
+			1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9, 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
+			1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11, 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 };
 
-    /**
-     * Returns {@code n} choose {@code k}, also known as the binomial coefficient of
-     * {@code n} and {@code k}, or {@link Integer#MAX_VALUE} if the result does not
-     * fit in an {@code int}.
-     *
-     * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0} or
-     *                                  {@code k > n}
-     */
-    @GwtIncompatible("need BigIntegerMath to adequately test")
+	/**
+	 * Returns {@code n} choose {@code k}, also known as the binomial coefficient of
+	 * {@code n} and {@code k}, or {@link Integer#MAX_VALUE} if the result does not
+	 * fit in an {@code int}.
+	 *
+	 * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0} or
+	 *                                  {@code k > n}
+	 */
+	@GwtIncompatible("need BigIntegerMath to adequately test")
 	public static int binomial(int n, int k) {
 		checkNonNegative("n", n);
 		checkNonNegative("k", k);

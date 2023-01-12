@@ -15,7 +15,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,8 +40,8 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
 
 	public S29PacketSoundEffect(String soundNameIn, double soundX, double soundY, double soundZ, float volume,
 			float pitch) {
-		Validate.notNull(soundNameIn, "name");
-        this.soundName = soundNameIn;
+		Validate.notNull(soundNameIn, "name", new Object[0]);
+		this.soundName = soundNameIn;
 		this.posX = (int) (soundX * 8.0D);
 		this.posY = (int) (soundY * 8.0D);
 		this.posZ = (int) (soundZ * 8.0D);
@@ -79,15 +79,15 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	}
 
 	public double getX() {
-        return (float) this.posX / 8.0F;
+		return (double) ((float) this.posX / 8.0F);
 	}
 
 	public double getY() {
-        return (float) this.posY / 8.0F;
+		return (double) ((float) this.posY / 8.0F);
 	}
 
 	public double getZ() {
-        return (float) this.posZ / 8.0F;
+		return (double) ((float) this.posZ / 8.0F);
 	}
 
 	public float getVolume() {

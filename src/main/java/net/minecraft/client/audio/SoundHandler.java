@@ -36,7 +36,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -94,7 +94,8 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 					}
 				}
 			} catch (IOException var11) {
-            }
+				;
+			}
 		}
 
 	}
@@ -127,10 +128,10 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		boolean flag = !this.sndRegistry.containsKey(location);
 		SoundEventAccessorComposite soundeventaccessorcomposite;
 		if (!flag && !sounds.canReplaceExisting()) {
-            soundeventaccessorcomposite = this.sndRegistry.getObject(location);
+			soundeventaccessorcomposite = (SoundEventAccessorComposite) this.sndRegistry.getObject(location);
 		} else {
 			if (!flag) {
-                logger.debug("Replaced sound event location {}", location);
+				logger.debug("Replaced sound event location {}", new Object[] { location });
 			}
 
 			soundeventaccessorcomposite = new SoundEventAccessorComposite(location, 1.0D, 1.0D,
@@ -152,8 +153,8 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 				try {
 					inputstream = this.mcResourceManager.getResource(resourcelocation1).getInputStream();
 				} catch (FileNotFoundException var18) {
-                    logger.warn("File {} does not exist, cannot add it to event {}",
-                            resourcelocation1, location);
+					logger.warn("File {} does not exist, cannot add it to event {}",
+							new Object[] { resourcelocation1, location });
 					continue;
 				} catch (IOException ioexception) {
 					logger.warn(
@@ -165,9 +166,9 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 				}
 
 				object = new SoundEventAccessor(new SoundPoolEntry(resourcelocation1,
-                        soundlist$soundentry.getSoundEntryPitch(),
-                        soundlist$soundentry.getSoundEntryVolume(), soundlist$soundentry.isStreaming()),
-                        soundlist$soundentry.getSoundEntryWeight());
+						(double) soundlist$soundentry.getSoundEntryPitch(),
+						(double) soundlist$soundentry.getSoundEntryVolume(), soundlist$soundentry.isStreaming()),
+						soundlist$soundentry.getSoundEntryWeight());
 				break;
 			case SOUND_EVENT:
 				object = new ISoundEventAccessor<SoundPoolEntry>() {
@@ -175,14 +176,14 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 							soundlist$soundentry.getSoundEntryName());
 
 					public int getWeight() {
-                        SoundEventAccessorComposite soundeventaccessorcomposite1 = SoundHandler.this.sndRegistry
-                                .getObject(this.field_148726_a);
+						SoundEventAccessorComposite soundeventaccessorcomposite1 = (SoundEventAccessorComposite) SoundHandler.this.sndRegistry
+								.getObject(this.field_148726_a);
 						return soundeventaccessorcomposite1 == null ? 0 : soundeventaccessorcomposite1.getWeight();
 					}
 
 					public SoundPoolEntry cloneEntry() {
-                        SoundEventAccessorComposite soundeventaccessorcomposite1 = SoundHandler.this.sndRegistry
-                                .getObject(this.field_148726_a);
+						SoundEventAccessorComposite soundeventaccessorcomposite1 = (SoundEventAccessorComposite) SoundHandler.this.sndRegistry
+								.getObject(this.field_148726_a);
 						return soundeventaccessorcomposite1 == null ? SoundHandler.missing_sound
 								: soundeventaccessorcomposite1.cloneEntry();
 					}
@@ -198,7 +199,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 	}
 
 	public SoundEventAccessorComposite getSound(ResourceLocation location) {
-        return this.sndRegistry.getObject(location);
+		return (SoundEventAccessorComposite) this.sndRegistry.getObject(location);
 	}
 
 	/**+
@@ -265,9 +266,9 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (ResourceLocation resourcelocation : this.sndRegistry.getKeys()) {
-            SoundEventAccessorComposite soundeventaccessorcomposite = this.sndRegistry
-                    .getObject(resourcelocation);
-            SoundCategory cat = soundeventaccessorcomposite.getSoundCategory();
+			SoundEventAccessorComposite soundeventaccessorcomposite = (SoundEventAccessorComposite) this.sndRegistry
+					.getObject(resourcelocation);
+			SoundCategory cat = soundeventaccessorcomposite.getSoundCategory();
 			for (int i = 0; i < categories.length; ++i) {
 				if (cat == categories[i]) {
 					arraylist.add(soundeventaccessorcomposite);

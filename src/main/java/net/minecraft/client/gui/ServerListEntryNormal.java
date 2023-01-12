@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -68,8 +68,8 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 						k + 12 + this.mc.fontRendererObj.FONT_HEIGHT * k1, 8421504);
 			} else if (k1 == 1) {
 				this.mc.fontRendererObj.drawString(
-						this.field_148301_e.hideAddress ? I18n.format("selectServer.hiddenAddress")
-                                : this.field_148301_e.serverIP,
+						this.field_148301_e.hideAddress ? I18n.format("selectServer.hiddenAddress", new Object[0])
+								: this.field_148301_e.serverIP,
 						j + 32 + 3, k + 12 + this.mc.fontRendererObj.FONT_HEIGHT * k1 + k1, 0x444444);
 			}
 		}
@@ -108,8 +108,8 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 				s = this.field_148301_e.playerList;
 			}
 		} else {
-            b0 = 1;
-            i2 = (int) (Minecraft.getSystemTime() / 100L + (long) (i * 2L) & 7L);
+			b0 = 1;
+			i2 = (int) (Minecraft.getSystemTime() / 100L + (long) (i * 2) & 7L);
 			if (i2 > 4) {
 				i2 = 8 - i2;
 			}

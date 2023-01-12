@@ -43,10 +43,10 @@ import com.google.common.primitives.Ints;
 public final class ImmutableRangeSet<C extends Comparable> extends AbstractRangeSet<C> implements Serializable {
 
 	private static final ImmutableRangeSet<Comparable<?>> EMPTY = new ImmutableRangeSet<Comparable<?>>(
-            ImmutableList.of());
+			ImmutableList.<Range<Comparable<?>>>of());
 
-    private static final ImmutableRangeSet<Comparable<?>> ALL = new ImmutableRangeSet<Comparable<?>>(
-            ImmutableList.of(Range.all()));
+	private static final ImmutableRangeSet<Comparable<?>> ALL = new ImmutableRangeSet<Comparable<?>>(
+			ImmutableList.of(Range.<Comparable<?>>all()));
 
 	/**
 	 * Returns an empty immutable range set.
@@ -86,11 +86,11 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
 	 */
 	public static <C extends Comparable> ImmutableRangeSet<C> copyOf(RangeSet<C> rangeSet) {
 		checkNotNull(rangeSet);
-        if (rangeSet.isEmpty()) {
-            return of();
-        } else if (rangeSet.encloses(Range.all())) {
-            return all();
-        }
+		if (rangeSet.isEmpty()) {
+			return of();
+		} else if (rangeSet.encloses(Range.<C>all())) {
+			return all();
+		}
 
 		if (rangeSet instanceof ImmutableRangeSet) {
 			ImmutableRangeSet<C> immutableRangeSet = (ImmutableRangeSet<C>) rangeSet;
@@ -114,15 +114,15 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
 
 	@Override
 	public boolean encloses(Range<C> otherRange) {
-        int index = SortedLists.binarySearch(ranges, Range.lowerBoundFn(), otherRange.lowerBound, Ordering.natural(),
-                ANY_PRESENT, NEXT_LOWER);
+		int index = SortedLists.binarySearch(ranges, Range.<C>lowerBoundFn(), otherRange.lowerBound, Ordering.natural(),
+				ANY_PRESENT, NEXT_LOWER);
 		return index != -1 && ranges.get(index).encloses(otherRange);
 	}
 
 	@Override
 	public Range<C> rangeContaining(C value) {
-        int index = SortedLists.binarySearch(ranges, Range.lowerBoundFn(), Cut.belowValue(value), Ordering.natural(),
-                ANY_PRESENT, NEXT_LOWER);
+		int index = SortedLists.binarySearch(ranges, Range.<C>lowerBoundFn(), Cut.belowValue(value), Ordering.natural(),
+				ANY_PRESENT, NEXT_LOWER);
 		if (index != -1) {
 			Range<C> range = ranges.get(index);
 			return range.contains(value) ? range : null;
@@ -207,14 +207,14 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
 
 			Cut<C> lowerBound;
 			if (positiveBoundedBelow) {
-                lowerBound = (index == 0) ? Cut.belowAll() : ranges.get(index - 1).upperBound;
+				lowerBound = (index == 0) ? Cut.<C>belowAll() : ranges.get(index - 1).upperBound;
 			} else {
 				lowerBound = ranges.get(index).upperBound;
 			}
 
 			Cut<C> upperBound;
 			if (positiveBoundedAbove && index == size - 1) {
-                upperBound = Cut.aboveAll();
+				upperBound = Cut.<C>aboveAll();
 			} else {
 				upperBound = ranges.get(index + (positiveBoundedBelow ? 0 : 1)).lowerBound;
 			}
@@ -257,16 +257,16 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
 
 		final int fromIndex;
 		if (range.hasLowerBound()) {
-            fromIndex = SortedLists.binarySearch(ranges, Range.upperBoundFn(), range.lowerBound,
-                    KeyPresentBehavior.FIRST_AFTER, KeyAbsentBehavior.NEXT_HIGHER);
+			fromIndex = SortedLists.binarySearch(ranges, Range.<C>upperBoundFn(), range.lowerBound,
+					KeyPresentBehavior.FIRST_AFTER, KeyAbsentBehavior.NEXT_HIGHER);
 		} else {
 			fromIndex = 0;
 		}
 
 		int toIndex;
 		if (range.hasUpperBound()) {
-            toIndex = SortedLists.binarySearch(ranges, Range.lowerBoundFn(), range.upperBound,
-                    KeyPresentBehavior.FIRST_PRESENT, KeyAbsentBehavior.NEXT_HIGHER);
+			toIndex = SortedLists.binarySearch(ranges, Range.<C>lowerBoundFn(), range.upperBound,
+					KeyPresentBehavior.FIRST_PRESENT, KeyAbsentBehavior.NEXT_HIGHER);
 		} else {
 			toIndex = ranges.size();
 		}

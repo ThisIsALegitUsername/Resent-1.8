@@ -11,7 +11,7 @@ import java.util.Arrays;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,8 +45,8 @@ public class NBTTagByteArray extends NBTBase {
 	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
 		sizeTracker.read(192L);
 		int i = input.readInt();
-		sizeTracker.read(8L * i);
-        this.data = new byte[i];
+		sizeTracker.read((long) (8 * i));
+		this.data = new byte[i];
 		input.readFully(this.data);
 	}
 
@@ -71,7 +71,7 @@ public class NBTTagByteArray extends NBTBase {
 	}
 
 	public boolean equals(Object object) {
-        return super.equals(object) && Arrays.equals(this.data, ((NBTTagByteArray) object).data);
+		return super.equals(object) ? Arrays.equals(this.data, ((NBTTagByteArray) object).data) : false;
 	}
 
 	public int hashCode() {

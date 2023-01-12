@@ -15,7 +15,7 @@ import net.minecraft.network.PacketBuffer;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,7 +40,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 	 */
 	public MerchantRecipe canRecipeBeUsed(ItemStack parItemStack, ItemStack parItemStack2, int parInt1) {
 		if (parInt1 > 0 && parInt1 < this.size()) {
-			MerchantRecipe merchantrecipe1 = this.get(parInt1);
+			MerchantRecipe merchantrecipe1 = (MerchantRecipe) this.get(parInt1);
 			return !this.func_181078_a(parItemStack, merchantrecipe1.getItemToBuy())
 					|| (parItemStack2 != null || merchantrecipe1.hasSecondItemToBuy())
 							&& (!merchantrecipe1.hasSecondItemToBuy()
@@ -51,7 +51,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 									: merchantrecipe1;
 		} else {
 			for (int i = 0; i < this.size(); ++i) {
-                MerchantRecipe merchantrecipe = this.get(i);
+				MerchantRecipe merchantrecipe = (MerchantRecipe) this.get(i);
 				if (this.func_181078_a(parItemStack, merchantrecipe.getItemToBuy())
 						&& parItemStack.stackSize >= merchantrecipe.getItemToBuy().stackSize
 						&& (!merchantrecipe.hasSecondItemToBuy() && parItemStack2 == null
@@ -76,7 +76,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 		buffer.writeByte((byte) (this.size() & 255));
 
 		for (int i = 0; i < this.size(); ++i) {
-            MerchantRecipe merchantrecipe = this.get(i);
+			MerchantRecipe merchantrecipe = (MerchantRecipe) this.get(i);
 			buffer.writeItemStackToBuffer(merchantrecipe.getItemToBuy());
 			buffer.writeItemStackToBuffer(merchantrecipe.getItemToSell());
 			ItemStack itemstack = merchantrecipe.getSecondItemToBuy();
@@ -133,7 +133,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.size(); ++i) {
-            MerchantRecipe merchantrecipe = this.get(i);
+			MerchantRecipe merchantrecipe = (MerchantRecipe) this.get(i);
 			nbttaglist.appendTag(merchantrecipe.writeToTags());
 		}
 

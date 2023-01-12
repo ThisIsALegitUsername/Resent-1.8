@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -22,7 +24,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,7 +48,7 @@ public class BlockBed extends BlockDirectional {
 	}
 
 	public static void bootstrapStates() {
-		PART = PropertyEnum.create("part", BlockBed.EnumPartType.class);
+		PART = PropertyEnum.<BlockBed.EnumPartType>create("part", BlockBed.EnumPartType.class);
 	}
 
 	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState iblockstate, EntityPlayer entityplayer,
@@ -71,10 +73,36 @@ public class BlockBed extends BlockDirectional {
 	}
 
 	/**+
+	 * Called when a neighboring block changes.
+	 */
+	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
+		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
+		if (iblockstate.getValue(PART) == BlockBed.EnumPartType.HEAD) {
+			if (world.getBlockState(blockpos.offset(enumfacing.getOpposite())).getBlock() != this) {
+				world.setBlockToAir(blockpos);
+			}
+		} else if (world.getBlockState(blockpos.offset(enumfacing)).getBlock() != this) {
+			world.setBlockToAir(blockpos);
+		}
+
+	}
+
+	/**+
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState iblockstate, EaglercraftRandom var2, int var3) {
+		return iblockstate.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : Items.bed;
+	}
+
+	private void setBedBounds() {
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
+	}
+
+	/**+
 	 * Returns a safe BlockPos to disembark the bed
 	 */
 	public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
-		EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+		EnumFacing enumfacing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -100,32 +128,6 @@ public class BlockBed extends BlockDirectional {
 		}
 
 		return null;
-	}
-
-	/**+
-	 * Get the Item that this Block should drop when harvested.
-	 */
-	public Item getItemDropped(IBlockState iblockstate, EaglercraftRandom var2, int var3) {
-		return iblockstate.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : Items.bed;
-	}
-
-	private void setBedBounds() {
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
-	}
-
-	/**+
-	 * Called when a neighboring block changes.
-	 */
-	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
-		EnumFacing enumfacing = iblockstate.getValue(FACING);
-		if (iblockstate.getValue(PART) == BlockBed.EnumPartType.HEAD) {
-			if (world.getBlockState(blockpos.offset(enumfacing.getOpposite())).getBlock() != this) {
-				world.setBlockToAir(blockpos);
-			}
-		} else if (world.getBlockState(blockpos.offset(enumfacing)).getBlock() != this) {
-			world.setBlockToAir(blockpos);
-		}
-
 	}
 
 	protected static boolean hasRoomForPlayer(World worldIn, BlockPos pos) {
@@ -158,7 +160,7 @@ public class BlockBed extends BlockDirectional {
 
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (player.capabilities.isCreativeMode && state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
-			BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
+			BlockPos blockpos = pos.offset(((EnumFacing) state.getValue(FACING)).getOpposite());
 			if (worldIn.getBlockState(blockpos).getBlock() == this) {
 				worldIn.setBlockToAir(blockpos);
 			}
@@ -185,7 +187,7 @@ public class BlockBed extends BlockDirectional {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
-			IBlockState iblockstate = worldIn.getBlockState(pos.offset(state.getValue(FACING)));
+			IBlockState iblockstate = worldIn.getBlockState(pos.offset((EnumFacing) state.getValue(FACING)));
 			if (iblockstate.getBlock() == this) {
 				state = state.withProperty(OCCUPIED, iblockstate.getValue(OCCUPIED));
 			}
@@ -199,10 +201,10 @@ public class BlockBed extends BlockDirectional {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getHorizontalIndex();
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getHorizontalIndex();
 		if (iblockstate.getValue(PART) == BlockBed.EnumPartType.HEAD) {
 			i |= 8;
-			if (iblockstate.getValue(OCCUPIED).booleanValue()) {
+			if (((Boolean) iblockstate.getValue(OCCUPIED)).booleanValue()) {
 				i |= 4;
 			}
 		}
@@ -211,15 +213,15 @@ public class BlockBed extends BlockDirectional {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, PART, OCCUPIED);
+		return new BlockState(this, new IProperty[] { FACING, PART, OCCUPIED });
 	}
 
-	public enum EnumPartType implements IStringSerializable {
+	public static enum EnumPartType implements IStringSerializable {
 		HEAD("head"), FOOT("foot");
 
 		private final String name;
 
-		EnumPartType(String name) {
+		private EnumPartType(String name) {
 			this.name = name;
 		}
 

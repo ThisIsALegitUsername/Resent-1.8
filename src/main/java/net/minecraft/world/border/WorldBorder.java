@@ -15,7 +15,7 @@ import net.minecraft.world.ChunkCoordIntPair;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -86,7 +86,7 @@ public class WorldBorder {
 	public double minX() {
 		double d0 = this.getCenterX() - this.getDiameter() / 2.0D;
 		if (d0 < (double) (-this.worldSize)) {
-			d0 = -this.worldSize;
+			d0 = (double) (-this.worldSize);
 		}
 
 		return d0;
@@ -95,7 +95,7 @@ public class WorldBorder {
 	public double minZ() {
 		double d0 = this.getCenterZ() - this.getDiameter() / 2.0D;
 		if (d0 < (double) (-this.worldSize)) {
-            d0 = -this.worldSize;
+			d0 = (double) (-this.worldSize);
 		}
 
 		return d0;
@@ -104,7 +104,7 @@ public class WorldBorder {
 	public double maxX() {
 		double d0 = this.getCenterX() + this.getDiameter() / 2.0D;
 		if (d0 > (double) this.worldSize) {
-            d0 = this.worldSize;
+			d0 = (double) this.worldSize;
 		}
 
 		return d0;
@@ -113,7 +113,7 @@ public class WorldBorder {
 	public double maxZ() {
 		double d0 = this.getCenterZ() + this.getDiameter() / 2.0D;
 		if (d0 > (double) this.worldSize) {
-            d0 = this.worldSize;
+			d0 = (double) this.worldSize;
 		}
 
 		return d0;
@@ -139,14 +139,14 @@ public class WorldBorder {
 
 	public double getDiameter() {
 		if (this.getStatus() != EnumBorderStatus.STATIONARY) {
-            double d0 = (float) (System.currentTimeMillis() - this.startTime)
-                    / (float) (this.endTime - this.startTime);
-            if (d0 < 1.0D) {
-                return this.startDiameter + (this.endDiameter - this.startDiameter) * d0;
-            }
+			double d0 = (double) ((float) (System.currentTimeMillis() - this.startTime)
+					/ (float) (this.endTime - this.startTime));
+			if (d0 < 1.0D) {
+				return this.startDiameter + (this.endDiameter - this.startDiameter) * d0;
+			}
 
-            this.setTransition(this.endDiameter);
-        }
+			this.setTransition(this.endDiameter);
+		}
 
 		return this.startDiameter;
 	}

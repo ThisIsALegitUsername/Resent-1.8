@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -41,7 +41,8 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
 	private float func_82400_a(float parFloat1, float parFloat2, float parFloat3) {
 		float f;
 		for (f = parFloat2 - parFloat1; f < -180.0F; f += 360.0F) {
-        }
+			;
+		}
 
 		while (f >= 180.0F) {
 			f -= 360.0F;

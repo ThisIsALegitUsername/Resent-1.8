@@ -11,7 +11,7 @@ import net.minecraft.client.resources.I18n;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,35 +50,35 @@ public class GuiScreenAddServer extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        Keyboard.enableRepeatEvents(true);
-        int i = 80;
-        this.buttonList.clear();
-        GuiButton done;
-        GuiButton cancel;
-        this.buttonList.add(done = new GuiButton(0, width / 2 - 100, i + 96 + 12,
-                I18n.format("addServer.add")));
-        this.buttonList.add(cancel = new GuiButton(1, width / 2 - 100, i + 120 + 12,
-                I18n.format("gui.cancel")));
-        if (EagRuntime.requireSSL()) {
-            done.yPosition = cancel.yPosition;
-            done.width = (done.width / 2) - 2;
-            cancel.width = (cancel.width / 2) - 2;
-            done.xPosition += cancel.width + 4;
-        }
-        this.buttonList.add(this.serverResourcePacks = new GuiButton(2, width / 2 - 100, i + 54,
-                I18n.format("addServer.resourcePack") + ": "
-                        + this.serverData.getResourceMode().getMotd().getFormattedText()));
-        this.buttonList.add(this.hideAddress = new GuiButton(3, width / 2 - 100, i + 78,
-                I18n.format("addServer.hideAddress") + ": "
-                        + I18n.format(this.serverData.hideAddress ? "gui.yes" : "gui.no")));
-        this.serverNameField = new GuiTextField(0, this.fontRendererObj, width / 2 - 100, 66, 200, 20);
-        this.serverNameField.setFocused(true);
-        this.serverNameField.setText(this.serverData.serverName);
-        this.serverIPField = new GuiTextField(1, this.fontRendererObj, width / 2 - 100, 106, 200, 20);
-        this.serverIPField.setMaxStringLength(128);
-        this.serverIPField.setText(this.serverData.serverIP);
-        this.buttonList.get(0).enabled = this.serverIPField.getText().trim().length() > 0;
-    }
+		Keyboard.enableRepeatEvents(true);
+		int i = 80;
+		this.buttonList.clear();
+		GuiButton done;
+		GuiButton cancel;
+		this.buttonList.add(done = new GuiButton(0, this.width / 2 - 100, i + 96 + 12,
+				I18n.format("addServer.add", new Object[0])));
+		this.buttonList.add(cancel = new GuiButton(1, this.width / 2 - 100, i + 120 + 12,
+				I18n.format("gui.cancel", new Object[0])));
+		if (EagRuntime.requireSSL()) {
+			done.yPosition = cancel.yPosition;
+			done.width = (done.width / 2) - 2;
+			cancel.width = (cancel.width / 2) - 2;
+			done.xPosition += cancel.width + 4;
+		}
+		this.buttonList.add(this.serverResourcePacks = new GuiButton(2, this.width / 2 - 100, i + 54,
+				I18n.format("addServer.resourcePack", new Object[0]) + ": "
+						+ this.serverData.getResourceMode().getMotd().getFormattedText()));
+		this.buttonList.add(this.hideAddress = new GuiButton(3, this.width / 2 - 100, i + 78,
+				I18n.format("addServer.hideAddress", new Object[0]) + ": "
+						+ I18n.format(this.serverData.hideAddress ? "gui.yes" : "gui.no", new Object[0])));
+		this.serverNameField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 100, 66, 200, 20);
+		this.serverNameField.setFocused(true);
+		this.serverNameField.setText(this.serverData.serverName);
+		this.serverIPField = new GuiTextField(1, this.fontRendererObj, this.width / 2 - 100, 106, 200, 20);
+		this.serverIPField.setMaxStringLength(128);
+		this.serverIPField.setText(this.serverData.serverIP);
+		((GuiButton) this.buttonList.get(0)).enabled = this.serverIPField.getText().trim().length() > 0;
+	}
 
 	/**+
 	 * Called when the screen is unloaded. Used to disable keyboard
@@ -95,15 +95,15 @@ public class GuiScreenAddServer extends GuiScreen {
 	protected void actionPerformed(GuiButton parGuiButton) {
 		if (parGuiButton.enabled) {
 			if (parGuiButton.id == 3) {
-                this.serverData.hideAddress = !this.serverData.hideAddress;
-                this.hideAddress.displayString = I18n.format("addServer.hideAddress") + ": "
-                        + I18n.format(this.serverData.hideAddress ? "gui.yes" : "gui.no");
-            } else if (parGuiButton.id == 2) {
+				this.serverData.hideAddress = !this.serverData.hideAddress;
+				this.hideAddress.displayString = I18n.format("addServer.hideAddress", new Object[0]) + ": "
+						+ I18n.format(this.serverData.hideAddress ? "gui.yes" : "gui.no", new Object[0]);
+			} else if (parGuiButton.id == 2) {
 				this.serverData.setResourceMode(
 						ServerData.ServerResourceMode.values()[(this.serverData.getResourceMode().ordinal() + 1)
 								% ServerData.ServerResourceMode.values().length]);
-                this.serverResourcePacks.displayString = I18n.format("addServer.resourcePack") + ": "
-                        + this.serverData.getResourceMode().getMotd().getFormattedText();
+				this.serverResourcePacks.displayString = I18n.format("addServer.resourcePack", new Object[0]) + ": "
+						+ this.serverData.getResourceMode().getMotd().getFormattedText();
 			} else if (parGuiButton.id == 1) {
 				this.parentScreen.confirmClicked(false, 0);
 			} else if (parGuiButton.id == 0) {
@@ -130,10 +130,10 @@ public class GuiScreenAddServer extends GuiScreen {
 		}
 
 		if (parInt1 == 28 || parInt1 == 156) {
-            this.actionPerformed(this.buttonList.get(0));
+			this.actionPerformed((GuiButton) this.buttonList.get(0));
 		}
 
-        this.buttonList.get(0).enabled = this.serverIPField.getText().trim().length() > 0;
+		((GuiButton) this.buttonList.get(0)).enabled = this.serverIPField.getText().trim().length() > 0;
 	}
 
 	/**+
@@ -152,17 +152,17 @@ public class GuiScreenAddServer extends GuiScreen {
 	 */
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.title"), width / 2, 17,
-                16777215);
-        this.drawString(this.fontRendererObj, I18n.format("addServer.enterName"), width / 2 - 100,
-                53, 10526880);
-        this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp"), width / 2 - 100, 94,
-                10526880);
+		this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.title", new Object[0]), this.width / 2, 17,
+				16777215);
+		this.drawString(this.fontRendererObj, I18n.format("addServer.enterName", new Object[0]), this.width / 2 - 100,
+				53, 10526880);
+		this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp", new Object[0]), this.width / 2 - 100, 94,
+				10526880);
 		if (EagRuntime.requireSSL()) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn1"), width / 2, 184,
-                    0xccccff);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn2"), width / 2, 196,
-                    0xccccff);
+			this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn1"), this.width / 2, 184,
+					0xccccff);
+			this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn2"), this.width / 2, 196,
+					0xccccff);
 		}
 		this.serverNameField.drawTextBox();
 		this.serverIPField.drawTextBox();

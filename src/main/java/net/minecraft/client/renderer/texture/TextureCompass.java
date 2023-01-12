@@ -12,7 +12,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,9 +38,9 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		if (minecraft.theWorld != null && minecraft.thePlayer != null) {
 			this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ,
-                    minecraft.thePlayer.rotationYaw, false, false);
+					(double) minecraft.thePlayer.rotationYaw, false, false);
 		} else {
-            this.updateCompass(null, 0.0D, 0.0D, 0.0D, true, false);
+			this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false);
 		}
 
 	}
@@ -69,7 +69,8 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 			} else {
 				double d3;
 				for (d3 = d0 - this.currentAngle; d3 < -3.141592653589793D; d3 += 6.283185307179586D) {
-                }
+					;
+				}
 
 				while (d3 >= 3.141592653589793D) {
 					d3 -= 6.283185307179586D;
@@ -85,7 +86,8 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 			for (i = (int) ((this.currentAngle / 6.283185307179586D + 1.0D) * (double) this.framesTextureData.size())
 					% this.framesTextureData
 							.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
-            }
+				;
+			}
 
 			if (i != this.frameCounter) {
 				this.frameCounter = i;

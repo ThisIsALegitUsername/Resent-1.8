@@ -25,7 +25,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -119,7 +119,7 @@ public class EagRuntime {
 	public static List<String> getResourceLines(String path) {
 		byte[] bytes = PlatformAssets.getResourceBytes(path);
 		if(bytes != null) {
-			List<String> ret = new ArrayList<>();
+			List<String> ret = new ArrayList();
 			try {
 				BufferedReader rd = new BufferedReader(new StringReader(path));
 				String s;
@@ -158,7 +158,7 @@ public class EagRuntime {
 	}
 	
 	public static String[] getStackTraceElements(Throwable t) {
-		List<String> lst = new ArrayList<>();
+		List<String> lst = new ArrayList();
 		PlatformRuntime.getStackTrace(t, (s) -> {
 			lst.add(s);
 		});

@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,19 +34,19 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 		this.identityMap.put(key, Integer.valueOf(value));
 
 		while (this.objectList.size() <= value) {
-			this.objectList.add(null);
+			this.objectList.add((T) null);
 		}
 
 		this.objectList.set(value, key);
 	}
 
 	public int get(T key) {
-        Integer integer = this.identityMap.get(key);
+		Integer integer = (Integer) this.identityMap.get(key);
 		return integer == null ? -1 : integer.intValue();
 	}
 
 	public final T getByValue(int value) {
-        return value >= 0 && value < this.objectList.size() ? this.objectList.get(value) : null;
+		return (T) (value >= 0 && value < this.objectList.size() ? this.objectList.get(value) : null);
 	}
 
 	public Iterator<T> iterator() {

@@ -1,7 +1,7 @@
 package net.lax1dude.eaglercraft.v1_8.internal;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -26,11 +26,11 @@ public enum EnumPlatformANGLE {
 	public final String id;
 	public final String name;
 
-	EnumPlatformANGLE(int eglEnum, String id, String name) {
-        this.eglEnum = eglEnum;
-        this.id = id;
-        this.name = name;
-    }
+	private EnumPlatformANGLE(int eglEnum, String id, String name) {
+		this.eglEnum = eglEnum;
+		this.id = id;
+		this.name = name;
+	}
 	
 	public String toString() {
 		return id;

@@ -110,7 +110,7 @@ public final class Multisets {
 		transient Set<E> elementSet;
 
 		Set<E> createElementSet() {
-			return Collections.unmodifiableSet(delegate.elementSet());
+			return Collections.<E>unmodifiableSet(delegate.elementSet());
 		}
 
 		@Override
@@ -289,8 +289,8 @@ public final class Multisets {
 		if (unfiltered instanceof FilteredMultiset) {
 			// Support clear(), removeAll(), and retainAll() when filtering a filtered
 			// collection.
-            FilteredMultiset<E> filtered = (FilteredMultiset<E>) unfiltered;
-            Predicate<E> combinedPredicate = Predicates.and(filtered.predicate, predicate);
+			FilteredMultiset<E> filtered = (FilteredMultiset<E>) unfiltered;
+			Predicate<E> combinedPredicate = Predicates.<E>and(filtered.predicate, predicate);
 			return new FilteredMultiset<E>(filtered.unfiltered, combinedPredicate);
 		}
 		return new FilteredMultiset<E>(unfiltered, predicate);

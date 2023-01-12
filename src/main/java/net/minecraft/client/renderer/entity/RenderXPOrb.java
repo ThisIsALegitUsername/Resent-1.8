@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -51,18 +51,18 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 		GlStateManager.translate((float) d0, (float) d1, (float) d2);
 		this.bindEntityTexture(entityxporb);
 		int i = entityxporb.getTextureByXP();
-        float f2 = (float) (i % 4 * 16) / 64.0F;
-        float f3 = (float) (i % 4 * 16 + 16) / 64.0F;
-        float f4 = (float) (i / 4 * 16) / 64.0F;
-        float f5 = (float) (i / 4 * 16 + 16) / 64.0F;
+		float f2 = (float) (i % 4 * 16 + 0) / 64.0F;
+		float f3 = (float) (i % 4 * 16 + 16) / 64.0F;
+		float f4 = (float) (i / 4 * 16 + 0) / 64.0F;
+		float f5 = (float) (i / 4 * 16 + 16) / 64.0F;
 		float f6 = 1.0F;
 		float f7 = 0.5F;
 		float f8 = 0.25F;
 		int j = entityxporb.getBrightnessForRender(f1);
 		int k = j % 65536;
 		int l = j / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k, (float) l);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k / 1.0F, (float) l / 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		float f10 = 255.0F;
 		float f11 = ((float) entityxporb.xpColor + f1) / 2.0F;
 		l = (int) ((MathHelper.sin(f11 + 0.0F) + 1.0F) * 0.5F * 255.0F);
@@ -75,13 +75,13 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-        worldrenderer.pos(0.0F - f7, 0.0F - f8, 0.0D).tex(f2, f5)
+		worldrenderer.pos((double) (0.0F - f7), (double) (0.0F - f8), 0.0D).tex((double) f2, (double) f5)
 				.color(l, 255, i1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos(f6 - f7, 0.0F - f8, 0.0D).tex(f3, f5)
+		worldrenderer.pos((double) (f6 - f7), (double) (0.0F - f8), 0.0D).tex((double) f3, (double) f5)
 				.color(l, 255, i1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos(f6 - f7, 1.0F - f8, 0.0D).tex(f3, f4)
+		worldrenderer.pos((double) (f6 - f7), (double) (1.0F - f8), 0.0D).tex((double) f3, (double) f4)
 				.color(l, 255, i1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos(0.0F - f7, 1.0F - f8, 0.0D).tex(f2, f4)
+		worldrenderer.pos((double) (0.0F - f7), (double) (1.0F - f8), 0.0D).tex((double) f2, (double) f4)
 				.color(l, 255, i1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
 		tessellator.draw();
 		GlStateManager.disableBlend();

@@ -1,7 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -13,15 +16,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,7 +35,7 @@ import java.util.List;
  * 
  */
 public class BlockStainedGlassPane extends BlockPane {
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color",
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
 			EnumDyeColor.class);
 
 	public BlockStainedGlassPane() {
@@ -52,7 +53,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return iblockstate.getValue(COLOR).getMetadata();
+		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
 	}
 
 	/**+
@@ -70,7 +71,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-		return iblockstate.getValue(COLOR).getMapColor();
+		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMapColor();
 	}
 
 	public EnumWorldBlockLayer getBlockLayer() {
@@ -88,11 +89,11 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(COLOR).getMetadata();
+		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, NORTH, EAST, WEST, SOUTH, COLOR);
+		return new BlockState(this, new IProperty[] { NORTH, EAST, WEST, SOUTH, COLOR });
 	}
 
 	public void onBlockAdded(World world, BlockPos blockpos, IBlockState var3) {

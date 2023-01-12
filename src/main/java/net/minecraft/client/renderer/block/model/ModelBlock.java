@@ -29,7 +29,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -47,19 +47,19 @@ public class ModelBlock {
 	private final List<BlockPart> elements;
 	private final boolean gui3d;
 	private final boolean ambientOcclusion;
-    private final ItemCameraTransforms cameraTransforms;
-    public String name;
+	private ItemCameraTransforms cameraTransforms;
+	public String name;
 	protected final Map<String, String> textures;
 	protected ModelBlock parent;
 	protected ResourceLocation parentLocation;
 
 	public static ModelBlock deserialize(String parString1) {
-        return JSONTypeProvider.deserialize(new JSONObject(parString1), ModelBlock.class);
+		return (ModelBlock) JSONTypeProvider.deserialize(new JSONObject(parString1), ModelBlock.class);
 	}
 
 	protected ModelBlock(List<BlockPart> parList, Map<String, String> parMap, boolean parFlag, boolean parFlag2,
 			ItemCameraTransforms parItemCameraTransforms) {
-        this(null, parList, parMap, parFlag, parFlag2, parItemCameraTransforms);
+		this((ResourceLocation) null, parList, parMap, parFlag, parFlag2, parItemCameraTransforms);
 	}
 
 	protected ModelBlock(ResourceLocation parResourceLocation, Map<String, String> parMap, boolean parFlag,
@@ -100,7 +100,7 @@ public class ModelBlock {
 
 	public void getParentFromMap(Map<ResourceLocation, ModelBlock> parMap) {
 		if (this.parentLocation != null) {
-            this.parent = parMap.get(this.parentLocation);
+			this.parent = (ModelBlock) parMap.get(this.parentLocation);
 		}
 
 	}
@@ -123,7 +123,7 @@ public class ModelBlock {
 				LOGGER.warn("Unable to resolve texture due to upward reference: " + textureName + " in " + this.name);
 				return "missingno";
 			} else {
-                String s = this.textures.get(textureName.substring(1));
+				String s = (String) this.textures.get(textureName.substring(1));
 				if (s == null && this.hasParent()) {
 					s = this.parent.resolveTextureName(textureName, parBookkeep);
 				}
@@ -182,7 +182,8 @@ public class ModelBlock {
 			} catch (ModelBlock.LoopException var5) {
 				throw var5;
 			} catch (Throwable var6) {
-            }
+				;
+			}
 		}
 
 	}
@@ -245,7 +246,7 @@ public class ModelBlock {
 			ArrayList arraylist = Lists.newArrayList();
 			if (parJsonObject.has("elements")) {
 				for (Object jsonelement : parJsonObject.getJSONArray("elements")) {
-                    arraylist.add(JSONTypeProvider.deserialize(jsonelement, BlockPart.class));
+					arraylist.add((BlockPart) JSONTypeProvider.deserialize(jsonelement, BlockPart.class));
 				}
 			}
 

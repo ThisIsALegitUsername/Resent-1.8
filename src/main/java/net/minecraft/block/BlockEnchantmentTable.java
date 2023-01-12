@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -66,8 +67,8 @@ public class BlockEnchantmentTable extends BlockContainer {
 							world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) blockpos.getX() + 0.5D,
 									(double) blockpos.getY() + 2.0D, (double) blockpos.getZ() + 0.5D,
 									(double) ((float) i + random.nextFloat()) - 0.5D,
-									(float) k - random.nextFloat() - 1.0F,
-									(double) ((float) j + random.nextFloat()) - 0.5D);
+									(double) ((float) k - random.nextFloat() - 1.0F),
+									(double) ((float) j + random.nextFloat()) - 0.5D, new int[0]);
 						}
 					}
 				}

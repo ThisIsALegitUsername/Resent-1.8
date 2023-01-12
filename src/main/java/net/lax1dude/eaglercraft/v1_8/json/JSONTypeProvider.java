@@ -37,7 +37,7 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -51,10 +51,10 @@ import net.minecraft.util.IChatComponent;
  */
 public class JSONTypeProvider {
 
-	private static final Map<Class<?>,JSONTypeSerializer<?,?>> serializers = new HashMap<>();
-	private static final Map<Class<?>,JSONTypeDeserializer<?,?>> deserializers = new HashMap<>();
+	private static final Map<Class<?>,JSONTypeSerializer<?,?>> serializers = new HashMap();
+	private static final Map<Class<?>,JSONTypeDeserializer<?,?>> deserializers = new HashMap();
 	
-	private static final List<JSONDataParserImpl> parsers = new ArrayList<>();
+	private static final List<JSONDataParserImpl> parsers = new ArrayList();
 
 	public static <J> J serialize(Object object) throws JSONException {
 		JSONTypeSerializer<Object,J> ser = (JSONTypeSerializer<Object,J>) serializers.get(object.getClass());
@@ -80,7 +80,7 @@ public class JSONTypeProvider {
 	public static <O> O deserializeNoCast(Object object, Class<O> clazz) throws JSONException {
 		JSONTypeDeserializer<Object,O> ser = (JSONTypeDeserializer<Object,O>) deserializers.get(clazz);
 		if(ser != null) {
-			return ser.deserializeFromJson(object);
+			return (O)ser.deserializeFromJson(object);
 		}else {
 			throw new JSONException("Could not find a deserializer for " + object.getClass().getSimpleName());
 		}

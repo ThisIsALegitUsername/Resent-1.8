@@ -12,7 +12,7 @@ import net.minecraft.util.IChatComponent;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -25,12 +25,11 @@ import net.minecraft.util.IChatComponent;
  * 
  */
 public class InventoryCraftResult implements IInventory {
-	/**
-     * +
-     * A list of one item containing the result of the crafting
-     * formula
-     */
-    private final ItemStack[] stackResult = new ItemStack[1];
+	/**+
+	 * A list of one item containing the result of the crafting
+	 * formula
+	 */
+	private ItemStack[] stackResult = new ItemStack[1];
 
 	/**+
 	 * Returns the number of slots in the inventory.
@@ -66,8 +65,8 @@ public class InventoryCraftResult implements IInventory {
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName())
-                : new ChatComponentTranslation(this.getName(), new Object[0]);
+		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
+				: new ChatComponentTranslation(this.getName(), new Object[0]));
 	}
 
 	/**+

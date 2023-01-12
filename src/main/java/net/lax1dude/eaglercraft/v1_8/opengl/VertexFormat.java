@@ -3,7 +3,7 @@ package net.lax1dude.eaglercraft.v1_8.opengl;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -95,17 +95,17 @@ public enum VertexFormat {
 	
 	public final int eaglercraftAttribBits;
 
-	VertexFormat(boolean texture, boolean color, boolean normal, boolean lightmap) {
-
-        int index = 0;
-        int bytes = 0;
-        int bitfield = 0;
-
-        attribPositionEnabled = true;
-        attribPositionIndex = index++;
-        attribPositionOffset = bytes;
-        attribPositionFormat = COMPONENT_POSITION_FORMAT;
-        attribPositionNormalized = false;
+	private VertexFormat(boolean texture, boolean color, boolean normal, boolean lightmap) {
+		
+		int index = 0;
+		int bytes = 0;
+		int bitfield = 0;
+		
+		attribPositionEnabled = true;
+		attribPositionIndex = index++;
+		attribPositionOffset = bytes;
+		attribPositionFormat = COMPONENT_POSITION_FORMAT;
+		attribPositionNormalized = false;
 		attribPositionSize = COMPONENT_POSITION_SIZE;
 		attribPositionStride = COMPONENT_POSITION_STRIDE;
 		bytes += COMPONENT_POSITION_STRIDE;

@@ -74,17 +74,17 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
 	@Override
 	public boolean removeAll(Collection<?> c) {
 		return Iterables.removeIf(multimap.unfiltered().entries(),
-                // explicit <Entry<K, V>> is required to build with JDK6
-                Predicates.and(multimap.entryPredicate(),
-                        Maps.valuePredicateOnEntries(Predicates.in(c))));
+				// explicit <Entry<K, V>> is required to build with JDK6
+				Predicates.<Entry<K, V>>and(multimap.entryPredicate(),
+						Maps.<V>valuePredicateOnEntries(Predicates.in(c))));
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-        return Iterables.removeIf(multimap.unfiltered().entries(),
-                // explicit <Entry<K, V>> is required to build with JDK6
-                Predicates.and(multimap.entryPredicate(),
-                        Maps.valuePredicateOnEntries(Predicates.not(Predicates.in(c)))));
+		return Iterables.removeIf(multimap.unfiltered().entries(),
+				// explicit <Entry<K, V>> is required to build with JDK6
+				Predicates.<Entry<K, V>>and(multimap.entryPredicate(),
+						Maps.<V>valuePredicateOnEntries(Predicates.not(Predicates.in(c)))));
 	}
 
 	@Override

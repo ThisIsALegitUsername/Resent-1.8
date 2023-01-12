@@ -41,7 +41,7 @@ public abstract class TileEntityLockable extends TileEntity implements IInteract
 	 * sender's username in chat
 	 */
 	public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName())
-                : new ChatComponentTranslation(this.getName(), new Object[0]);
-    }
+		return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName())
+				: new ChatComponentTranslation(this.getName(), new Object[0]));
+	}
 }

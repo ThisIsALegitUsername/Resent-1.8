@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.Tessellator;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -49,8 +49,8 @@ public class ModelRenderer {
 	public List<ModelBox> cubeList;
 	public List<ModelRenderer> childModels;
 	public final String boxName;
-    private final ModelBase baseModel;
-    public float offsetX;
+	private ModelBase baseModel;
+	public float offsetX;
 	public float offsetY;
 	public float offsetZ;
 
@@ -66,7 +66,7 @@ public class ModelRenderer {
 	}
 
 	public ModelRenderer(ModelBase model) {
-        this(model, null);
+		this(model, (String) null);
 	}
 
 	public ModelRenderer(ModelBase model, int texOffX, int texOffY) {
@@ -155,7 +155,7 @@ public class ModelRenderer {
 						GlStateManager.callList(this.displayList);
 						if (this.childModels != null) {
 							for (int k = 0; k < this.childModels.size(); ++k) {
-                                this.childModels.get(k).render(parFloat1);
+								((ModelRenderer) this.childModels.get(k)).render(parFloat1);
 							}
 						}
 					} else {
@@ -164,7 +164,7 @@ public class ModelRenderer {
 						GlStateManager.callList(this.displayList);
 						if (this.childModels != null) {
 							for (int j = 0; j < this.childModels.size(); ++j) {
-                                this.childModels.get(j).render(parFloat1);
+								((ModelRenderer) this.childModels.get(j)).render(parFloat1);
 							}
 						}
 
@@ -190,7 +190,7 @@ public class ModelRenderer {
 					GlStateManager.callList(this.displayList);
 					if (this.childModels != null) {
 						for (int i = 0; i < this.childModels.size(); ++i) {
-                            this.childModels.get(i).render(parFloat1);
+							((ModelRenderer) this.childModels.get(i)).render(parFloat1);
 						}
 					}
 
@@ -274,7 +274,7 @@ public class ModelRenderer {
 		WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
 
 		for (int i = 0; i < this.cubeList.size(); ++i) {
-            this.cubeList.get(i).render(worldrenderer, scale);
+			((ModelBox) this.cubeList.get(i)).render(worldrenderer, scale);
 		}
 
 		EaglercraftGPU.glEndList();

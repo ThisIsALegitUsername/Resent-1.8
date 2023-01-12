@@ -1,8 +1,10 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -20,7 +22,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -55,9 +57,9 @@ public class BlockMycelium extends Block {
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
 		super.randomDisplayTick(world, blockpos, iblockstate, random);
 		if (random.nextInt(10) == 0) {
-			world.spawnParticle(EnumParticleTypes.TOWN_AURA, (float) blockpos.getX() + random.nextFloat(),
-					(float) blockpos.getY() + 1.1F, (float) blockpos.getZ() + random.nextFloat(),
-					0.0D, 0.0D, 0.0D);
+			world.spawnParticle(EnumParticleTypes.TOWN_AURA, (double) ((float) blockpos.getX() + random.nextFloat()),
+					(double) ((float) blockpos.getY() + 1.1F), (double) ((float) blockpos.getZ() + random.nextFloat()),
+					0.0D, 0.0D, 0.0D, new int[0]);
 		}
 
 	}
@@ -78,6 +80,6 @@ public class BlockMycelium extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, SNOWY);
+		return new BlockState(this, new IProperty[] { SNOWY });
 	}
 }

@@ -17,7 +17,7 @@ import net.minecraft.util.IJsonSerializable;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -36,23 +36,23 @@ public class StatBase {
 	private final IStatType type;
 	private final IScoreObjectiveCriteria field_150957_c;
 	private Class<? extends IJsonSerializable> field_150956_d;
-    private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
-    public static IStatType simpleStatType = new IStatType() {
-        public String format(int parInt1) {
-            return StatBase.numberFormat.format(parInt1);
-        }
-    };
-    private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
-    public static IStatType timeStatType = new IStatType() {
-        public String format(int i) {
-            double d0 = (double) i / 20.0D;
-            double d1 = d0 / 60.0D;
-            double d2 = d1 / 60.0D;
-            double d3 = d2 / 24.0D;
-            double d4 = d3 / 365.0D;
-            return d4 > 0.5D ? StatBase.decimalFormat.format(d4) + " y"
-                    : (d3 > 0.5D ? StatBase.decimalFormat.format(d3) + " d"
-                    : (d2 > 0.5D ? StatBase.decimalFormat.format(d2) + " h"
+	private static NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
+	public static IStatType simpleStatType = new IStatType() {
+		public String format(int parInt1) {
+			return StatBase.numberFormat.format((long) parInt1);
+		}
+	};
+	private static DecimalFormat decimalFormat = new DecimalFormat("########0.00");
+	public static IStatType timeStatType = new IStatType() {
+		public String format(int i) {
+			double d0 = (double) i / 20.0D;
+			double d1 = d0 / 60.0D;
+			double d2 = d1 / 60.0D;
+			double d3 = d2 / 24.0D;
+			double d4 = d3 / 365.0D;
+			return d4 > 0.5D ? StatBase.decimalFormat.format(d4) + " y"
+					: (d3 > 0.5D ? StatBase.decimalFormat.format(d3) + " d"
+							: (d2 > 0.5D ? StatBase.decimalFormat.format(d2) + " h"
 									: (d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " m" : d0 + " s")));
 		}
 	};
@@ -98,8 +98,8 @@ public class StatBase {
 	public StatBase registerStat() {
 		if (StatList.oneShotStats.containsKey(this.statId)) {
 			throw new RuntimeException(
-                    "Duplicate stat id: \"" + StatList.oneShotStats.get(this.statId).statName + "\" and \""
-                            + this.statName + "\" at id " + this.statId);
+					"Duplicate stat id: \"" + ((StatBase) StatList.oneShotStats.get(this.statId)).statName + "\" and \""
+							+ this.statName + "\" at id " + this.statId);
 		} else {
 			StatList.allStats.add(this);
 			StatList.oneShotStats.put(this.statId, this);

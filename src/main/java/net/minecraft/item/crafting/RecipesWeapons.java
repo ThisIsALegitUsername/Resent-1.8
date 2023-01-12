@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -24,8 +24,8 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class RecipesWeapons {
-	private final String[][] recipePatterns = new String[][]{{"X", "X", "#"}};
-    private Object[][] recipeItems;
+	private String[][] recipePatterns = new String[][] { { "X", "X", "#" } };
+	private Object[][] recipeItems;
 
 	/**+
 	 * Adds the weapon recipes to the CraftingManager.
@@ -34,20 +34,20 @@ public class RecipesWeapons {
 		recipeItems = new Object[][] {
 				{ Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot },
 				{ Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword } };
-        for (int i = 0; i < this.recipeItems[0].length; ++i) {
-            Object object = this.recipeItems[0][i];
+		for (int i = 0; i < this.recipeItems[0].length; ++i) {
+			Object object = this.recipeItems[0][i];
 
-            for (int j = 0; j < this.recipeItems.length - 1; ++j) {
-                Item item = (Item) this.recipeItems[j + 1][i];
-                parCraftingManager.addRecipe(new ItemStack(item), this.recipePatterns[j],
-                        Character.valueOf('#'), Items.stick, Character.valueOf('X'), object);
-            }
-        }
+			for (int j = 0; j < this.recipeItems.length - 1; ++j) {
+				Item item = (Item) this.recipeItems[j + 1][i];
+				parCraftingManager.addRecipe(new ItemStack(item), new Object[] { this.recipePatterns[j],
+						Character.valueOf('#'), Items.stick, Character.valueOf('X'), object });
+			}
+		}
 
-        parCraftingManager.addRecipe(new ItemStack(Items.bow, 1), " #X", "# X", " #X",
-                Character.valueOf('X'), Items.string, Character.valueOf('#'), Items.stick);
-        parCraftingManager.addRecipe(new ItemStack(Items.arrow, 4),
-                "X", "#", "Y", Character.valueOf('Y'), Items.feather, Character.valueOf('X'),
-                Items.flint, Character.valueOf('#'), Items.stick);
-    }
+		parCraftingManager.addRecipe(new ItemStack(Items.bow, 1), new Object[] { " #X", "# X", " #X",
+				Character.valueOf('X'), Items.string, Character.valueOf('#'), Items.stick });
+		parCraftingManager.addRecipe(new ItemStack(Items.arrow, 4),
+				new Object[] { "X", "#", "Y", Character.valueOf('Y'), Items.feather, Character.valueOf('X'),
+						Items.flint, Character.valueOf('#'), Items.stick });
+	}
 }

@@ -18,7 +18,7 @@
 package net.lax1dude.eaglercraft.v1_8;
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 /**
  * Provides Base64 encoding and decoding as defined by
@@ -264,61 +264,17 @@ public class Base64 extends BaseNCodec {
 	}
 
 	/**
-	 * Creates a Base64 codec used for decoding (all modes) and encoding in
-	 * URL-unsafe mode.
-	 * <p>
-	 * When encoding the line length and line separator are given in the
-	 * constructor, and the encoding table is STANDARD_ENCODE_TABLE.
-	 * </p>
-	 * <p>
-	 * Line lengths that aren't multiples of 4 will still essentially end up being
-	 * multiples of 4 in the encoded data.
-	 * </p>
-	 * <p>
-	 * When decoding all variants are supported.
-	 * </p>
+	 * Encodes binary data using the base64 algorithm but does not chunk the output.
 	 *
-	 * @param lineLength     Each line of encoded data will be at most of the given
-	 *                       length (rounded down to nearest multiple of 4). If
-	 *                       lineLength &lt;= 0, then the output will not be divided
-	 *                       into lines (chunks). Ignored when decoding.
-	 * @param lineSeparator  Each line of encoded data will end with this sequence
-	 *                       of bytes.
-	 * @param urlSafe        Instead of emitting '+' and '/' we emit '-' and '_'
-	 *                       respectively. urlSafe is only applied to encode
-	 *                       operations. Decoding seamlessly handles both modes.
-	 *                       <b>Note: no padding is added when using the URL-safe
-	 *                       alphabet.</b>
-	 * @param decodingPolicy The decoding policy.
-	 * @throws IllegalArgumentException Thrown when the {@code lineSeparator}
-	 *                                  contains Base64 characters.
-	 * @since 1.15
+	 * NOTE: We changed the behavior of this method from multi-line chunking
+	 * (commons-codec-1.4) to single-line non-chunking (commons-codec-1.5).
+	 *
+	 * @param binaryData binary data to encode
+	 * @return String containing Base64 characters.
+	 * @since 1.4 (NOTE: 1.4 chunked the output, whereas 1.5 does not).
 	 */
-	public Base64(final int lineLength, final byte[] lineSeparator, final boolean urlSafe,
-			final CodecPolicy decodingPolicy) {
-		super(BYTES_PER_UNENCODED_BLOCK, BYTES_PER_ENCODED_BLOCK, lineLength,
-				lineSeparator == null ? 0 : lineSeparator.length, PAD_DEFAULT, decodingPolicy);
-		// sep when length <=0
-		// @see test case Base64Test.testConstructors()
-		if (lineSeparator != null) {
-			if (containsAlphabetOrPad(lineSeparator)) {
-				final String sep = new String(lineSeparator, StandardCharsets.UTF_8);
-				throw new IllegalArgumentException("lineSeparator must not contain base64 characters: [" + sep + "]");
-			}
-			if (lineLength > 0) { // null line-sep forces no chunking rather than throwing IAE
-				this.encodeSize = BYTES_PER_ENCODED_BLOCK + lineSeparator.length;
-				this.lineSeparator = new byte[lineSeparator.length];
-				System.arraycopy(lineSeparator, 0, this.lineSeparator, 0, lineSeparator.length);
-			} else {
-				this.encodeSize = BYTES_PER_ENCODED_BLOCK;
-				this.lineSeparator = null;
-			}
-		} else {
-			this.encodeSize = BYTES_PER_ENCODED_BLOCK;
-			this.lineSeparator = null;
-		}
-		this.decodeSize = this.encodeSize - 1;
-		this.encodeTable = urlSafe ? URL_SAFE_ENCODE_TABLE : STANDARD_ENCODE_TABLE;
+	public static String encodeBase64String(final byte[] binaryData) {
+		return new String(encodeBase64(binaryData, false), Charset.forName("UTF-8"));
 	}
 
 	/**
@@ -335,17 +291,16 @@ public class Base64 extends BaseNCodec {
 	}
 
 	/**
-	 * Encodes binary data using the base64 algorithm but does not chunk the output.
-	 *
-	 * NOTE: We changed the behavior of this method from multi-line chunking
-	 * (commons-codec-1.4) to single-line non-chunking (commons-codec-1.5).
-	 *
+	 * Encodes binary data using a URL-safe variation of the base64 algorithm but
+	 * does not chunk the output. The url-safe variation emits - and _ instead of +
+	 * and / characters. <b>Note: no padding is added.</b>
+	 * 
 	 * @param binaryData binary data to encode
-	 * @return String containing Base64 characters.
-	 * @since 1.4 (NOTE: 1.4 chunked the output, whereas 1.5 does not).
+	 * @return String containing Base64 characters
+	 * @since 1.4
 	 */
-	public static String encodeBase64String(final byte[] binaryData) {
-		return new String(encodeBase64(binaryData, false), StandardCharsets.UTF_8);
+	public static String encodeBase64URLSafeString(final byte[] binaryData) {
+		return new String(encodeBase64(binaryData, false, true), Charset.forName("UTF-8"));
 	}
 
 	/**
@@ -406,16 +361,17 @@ public class Base64 extends BaseNCodec {
 	}
 
 	/**
-	 * Encodes binary data using a URL-safe variation of the base64 algorithm but
-	 * does not chunk the output. The url-safe variation emits - and _ instead of +
-	 * and / characters. <b>Note: no padding is added.</b>
+	 * Tests a given String to see if it contains only valid characters within the
+	 * Base64 alphabet. Currently the method treats whitespace as valid.
 	 *
-	 * @param binaryData binary data to encode
-	 * @return String containing Base64 characters
-	 * @since 1.4
+	 * @param base64 String to test
+	 * @return {@code true} if all characters in the String are valid characters in
+	 *         the Base64 alphabet or if the String is empty; {@code false},
+	 *         otherwise
+	 * @since 1.5
 	 */
-	public static String encodeBase64URLSafeString(final byte[] binaryData) {
-		return new String(encodeBase64(binaryData, false, true), StandardCharsets.UTF_8);
+	public static boolean isBase64(final String base64) {
+		return isBase64(base64.getBytes(Charset.forName("UTF-8")));
 	}
 
 	/**
@@ -602,17 +558,62 @@ public class Base64 extends BaseNCodec {
 	}
 
 	/**
-	 * Tests a given String to see if it contains only valid characters within the
-	 * Base64 alphabet. Currently the method treats whitespace as valid.
+	 * Creates a Base64 codec used for decoding (all modes) and encoding in
+	 * URL-unsafe mode.
+	 * <p>
+	 * When encoding the line length and line separator are given in the
+	 * constructor, and the encoding table is STANDARD_ENCODE_TABLE.
+	 * </p>
+	 * <p>
+	 * Line lengths that aren't multiples of 4 will still essentially end up being
+	 * multiples of 4 in the encoded data.
+	 * </p>
+	 * <p>
+	 * When decoding all variants are supported.
+	 * </p>
 	 *
-	 * @param base64 String to test
-	 * @return {@code true} if all characters in the String are valid characters in
-	 *         the Base64 alphabet or if the String is empty; {@code false},
-	 *         otherwise
-	 * @since 1.5
+	 * @param lineLength     Each line of encoded data will be at most of the given
+	 *                       length (rounded down to nearest multiple of 4). If
+	 *                       lineLength &lt;= 0, then the output will not be divided
+	 *                       into lines (chunks). Ignored when decoding.
+	 * @param lineSeparator  Each line of encoded data will end with this sequence
+	 *                       of bytes.
+	 * @param urlSafe        Instead of emitting '+' and '/' we emit '-' and '_'
+	 *                       respectively. urlSafe is only applied to encode
+	 *                       operations. Decoding seamlessly handles both modes.
+	 *                       <b>Note: no padding is added when using the URL-safe
+	 *                       alphabet.</b>
+	 * @param decodingPolicy The decoding policy.
+	 * @throws IllegalArgumentException Thrown when the {@code lineSeparator}
+	 *                                  contains Base64 characters.
+	 * @since 1.15
 	 */
-	public static boolean isBase64(final String base64) {
-		return isBase64(base64.getBytes(StandardCharsets.UTF_8));
+	public Base64(final int lineLength, final byte[] lineSeparator, final boolean urlSafe,
+			final CodecPolicy decodingPolicy) {
+		super(BYTES_PER_UNENCODED_BLOCK, BYTES_PER_ENCODED_BLOCK, lineLength,
+				lineSeparator == null ? 0 : lineSeparator.length, PAD_DEFAULT, decodingPolicy);
+		// TODO could be simplified if there is no requirement to reject invalid line
+		// sep when length <=0
+		// @see test case Base64Test.testConstructors()
+		if (lineSeparator != null) {
+			if (containsAlphabetOrPad(lineSeparator)) {
+				final String sep = new String(lineSeparator, Charset.forName("UTF-8"));
+				throw new IllegalArgumentException("lineSeparator must not contain base64 characters: [" + sep + "]");
+			}
+			if (lineLength > 0) { // null line-sep forces no chunking rather than throwing IAE
+				this.encodeSize = BYTES_PER_ENCODED_BLOCK + lineSeparator.length;
+				this.lineSeparator = new byte[lineSeparator.length];
+				System.arraycopy(lineSeparator, 0, this.lineSeparator, 0, lineSeparator.length);
+			} else {
+				this.encodeSize = BYTES_PER_ENCODED_BLOCK;
+				this.lineSeparator = null;
+			}
+		} else {
+			this.encodeSize = BYTES_PER_ENCODED_BLOCK;
+			this.lineSeparator = null;
+		}
+		this.decodeSize = this.encodeSize - 1;
+		this.encodeTable = urlSafe ? URL_SAFE_ENCODE_TABLE : STANDARD_ENCODE_TABLE;
 	}
 
 	// Implementation of the Encoder Interface

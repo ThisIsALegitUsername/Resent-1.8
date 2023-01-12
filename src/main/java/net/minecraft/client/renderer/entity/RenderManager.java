@@ -4,10 +4,6 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-import dev.resent.module.impl.hud.Hitboxes;
-import dev.resent.util.misc.W;
-import dev.resent.util.render.RenderUtils;
-import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
@@ -113,32 +109,32 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class RenderManager {
-    private final Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.newHashMap();
-    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
-    private final RenderPlayer playerRenderer;
-    private FontRenderer textRenderer;
-    public double renderPosX;
-    public double renderPosY;
-    public double renderPosZ;
-    public TextureManager renderEngine;
-    public World worldObj;
-    public Entity livingPlayer;
-    public Entity pointedEntity;
-    public float playerViewY;
-    public float playerViewX;
+	private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.newHashMap();
+	private Map<String, RenderPlayer> skinMap = Maps.newHashMap();
+	private RenderPlayer playerRenderer;
+	private FontRenderer textRenderer;
+	private double renderPosX;
+	private double renderPosY;
+	private double renderPosZ;
+	public TextureManager renderEngine;
+	public World worldObj;
+	public Entity livingPlayer;
+	public Entity pointedEntity;
+	public float playerViewY;
+	public float playerViewX;
 	public GameSettings options;
 	public double viewerPosX;
 	public double viewerPosY;
@@ -225,7 +221,7 @@ public class RenderManager {
 	}
 
 	public <T extends Entity> Render<T> getEntityClassRenderObject(Class<? extends Entity> parClass1) {
-        Render render = this.entityRenderMap.get(parClass1);
+		Render render = (Render) this.entityRenderMap.get(parClass1);
 		if (render == null && parClass1 != Entity.class) {
 			render = this.getEntityClassRenderObject((Class<? extends Entity>) parClass1.getSuperclass());
 			this.entityRenderMap.put(parClass1, render);
@@ -236,8 +232,8 @@ public class RenderManager {
 
 	public <T extends Entity> Render getEntityRenderObject(Entity entityIn) {
 		if (entityIn instanceof AbstractClientPlayer) {
-            String s = ((AbstractClientPlayer) entityIn).getSkinType();
-            RenderPlayer renderplayer = this.skinMap.get(s);
+			String s = ((AbstractClientPlayer) entityIn).getSkinType();
+			RenderPlayer renderplayer = (RenderPlayer) this.skinMap.get(s);
 			return renderplayer != null ? renderplayer : this.playerRenderer;
 		} else {
 			return this.<T>getEntityClassRenderObject(entityIn.getClass());
@@ -255,7 +251,7 @@ public class RenderManager {
 			IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
 			Block block = iblockstate.getBlock();
 			if (block == Blocks.bed) {
-                int i = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
+				int i = ((EnumFacing) iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
 				this.playerViewY = (float) (i * 90 + 180);
 				this.playerViewX = 0.0F;
 			}
@@ -325,8 +321,8 @@ public class RenderManager {
 
 		int j = i % 65536;
 		int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f,
 				partialTicks, parFlag);
 	}
@@ -340,8 +336,8 @@ public class RenderManager {
 			int i = entityIn.getBrightnessForRender(partialTicks);
 			int j = i % 65536;
 			int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			render.renderName(entityIn, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ);
 		}
 
@@ -386,52 +382,9 @@ public class RenderManager {
 								CrashReport.makeCrashReport(throwable, "Rendering entity hitbox in world"));
 					}
 				}
-
-				if (W.hitboxes().isEnabled() && W.hitboxes().old.getValue() && !entity.isInvisible()) {
-					GlStateManager.disableTexture2D();
-					GlStateManager.disableLighting();
-					GlStateManager.disableCull();
-					GlStateManager.disableBlend();
-					GlStateManager.depthMask(false);
-					GlStateManager.pushMatrix();
-					EaglercraftGPU.glLineWidth(1.0f);
-
-					RenderGlobal.func_181563_a(
-							new AxisAlignedBB(
-									entity.boundingBox.minX-0.05-entity.posX
-											+ (entity.posX - renderPosX),
-									entity.boundingBox.minY
-											- 0.05
-											- entity.posY
-											+ (entity.posY - renderPosY),
-									entity.boundingBox.minZ
-											- 0.05
-											- entity.posZ
-											+ (entity.posZ - renderPosZ),
-									entity.boundingBox.maxX
-											+ 0.05
-											- entity.posX
-											+ (entity.posX - renderPosX),
-									entity.boundingBox.maxY
-											+ 0.1
-											- entity.posY
-											+ (entity.posY - renderPosY),
-									entity.boundingBox.maxZ
-											+ 0.05
-											- entity.posZ
-											+ (entity.posZ - renderPosZ)),
-							RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed(),
-                            RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen(),
-                            RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue(), 255);
-                    GlStateManager.popMatrix();
-                    GlStateManager.enableTexture2D();
-                    GlStateManager.enableLighting();
-                    GlStateManager.enableCull();
-                    GlStateManager.enableBlend();
-                    GlStateManager.depthMask(true);
-                    //EaglerAdapter.glBlendFunc(EaglerAdapter.GL_SRC_ALPHA, EaglerAdapter.GL_ONE_MINUS_SRC_ALPHA);
-                }
-            } else return this.renderEngine == null;
+			} else if (this.renderEngine != null) {
+				return false;
+			}
 
 			return true;
 		} catch (Throwable throwable3) {
@@ -470,11 +423,7 @@ public class RenderManager {
 			RenderGlobal.func_181563_a(new AxisAlignedBB(parDouble1 - (double) f,
 					parDouble2 + (double) entityIn.getEyeHeight() - 0.009999999776482582D, parDouble3 - (double) f,
 					parDouble1 + (double) f, parDouble2 + (double) entityIn.getEyeHeight() + 0.009999999776482582D,
-					parDouble3 + (double) f),
-
-					W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed() : 255,
-					W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen() : 255,
-					W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue() : 255, 255);
+					parDouble3 + (double) f), 255, 0, 0, 255);
 		}
 
 		Tessellator tessellator = Tessellator.getInstance();

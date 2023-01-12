@@ -10,7 +10,7 @@ import net.minecraft.network.play.client.C00PacketKeepAlive;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -23,8 +23,8 @@ import net.minecraft.network.play.client.C00PacketKeepAlive;
  * 
  */
 public class GuiDownloadTerrain extends GuiScreen {
-	private final NetHandlerPlayClient netHandlerPlayClient;
-    private int progress;
+	private NetHandlerPlayClient netHandlerPlayClient;
+	private int progress;
 
 	public GuiDownloadTerrain(NetHandlerPlayClient netHandler) {
 		this.netHandlerPlayClient = netHandler;
@@ -64,11 +64,11 @@ public class GuiDownloadTerrain extends GuiScreen {
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-        this.drawBackground(0);
-        this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingTerrain"),
-                width / 2, height / 2 - 50, 16777215);
-        super.drawScreen(i, j, f);
-    }
+		this.drawBackground(0);
+		this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingTerrain", new Object[0]),
+				this.width / 2, this.height / 2 - 50, 16777215);
+		super.drawScreen(i, j, f);
+	}
 
 	/**+
 	 * Returns true if this GUI should pause the game when it is

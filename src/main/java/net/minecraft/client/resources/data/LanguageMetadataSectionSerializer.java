@@ -15,7 +15,7 @@ import net.minecraft.client.resources.Language;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -37,15 +37,15 @@ public class LanguageMetadataSectionSerializer extends BaseMetadataSectionSerial
 			String s2 = jsonobject1.getString("name");
 			boolean flag = jsonobject1.optBoolean("bidirectional", false);
 			if (s1.isEmpty()) {
-				throw new JSONException("Invalid language->'" + s + "'->region: empty value");
+				throw new JSONException("Invalid language->\'" + s + "\'->region: empty value");
 			}
 
 			if (s2.isEmpty()) {
-                throw new JSONException("Invalid language->'" + s + "'->name: empty value");
+				throw new JSONException("Invalid language->\'" + s + "\'->name: empty value");
 			}
 
 			if (!hashset.add(new Language(s, s1, s2, flag))) {
-                throw new JSONException("Duplicate language->'" + s + "' defined");
+				throw new JSONException("Duplicate language->\'" + s + "\' defined");
 			}
 		}
 

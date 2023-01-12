@@ -1,12 +1,12 @@
 package net.minecraft.network.play.client;
 
+import java.io.IOException;
+
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-
-import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -14,7 +14,7 @@ import java.io.IOException;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,11 +44,11 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-        this.status = parPacketBuffer
-                .readEnumValue(Action.class);
-        this.position = parPacketBuffer.readBlockPos();
-        this.facing = EnumFacing.getFront(parPacketBuffer.readUnsignedByte());
-    }
+		this.status = (C07PacketPlayerDigging.Action) parPacketBuffer
+				.readEnumValue(C07PacketPlayerDigging.Action.class);
+		this.position = parPacketBuffer.readBlockPos();
+		this.facing = EnumFacing.getFront(parPacketBuffer.readUnsignedByte());
+	}
 
 	/**+
 	 * Writes the raw packet data to the data stream.
@@ -68,17 +68,17 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 
 	public BlockPos getPosition() {
 		return this.position;
-    }
+	}
 
-    public EnumFacing getFacing() {
-        return this.facing;
-    }
+	public EnumFacing getFacing() {
+		return this.facing;
+	}
 
-    public C07PacketPlayerDigging.Action getStatus() {
-        return this.status;
-    }
+	public C07PacketPlayerDigging.Action getStatus() {
+		return this.status;
+	}
 
-    public enum Action {
-        START_DESTROY_BLOCK, ABORT_DESTROY_BLOCK, STOP_DESTROY_BLOCK, DROP_ALL_ITEMS, DROP_ITEM, RELEASE_USE_ITEM
-    }
+	public static enum Action {
+		START_DESTROY_BLOCK, ABORT_DESTROY_BLOCK, STOP_DESTROY_BLOCK, DROP_ALL_ITEMS, DROP_ITEM, RELEASE_USE_ITEM;
+	}
 }

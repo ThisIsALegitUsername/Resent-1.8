@@ -1,6 +1,5 @@
 package net.minecraft.client.entity;
 
-import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -75,20 +74,18 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
 	public float getFovModifier() {
 		float f = 1.0F;
-		if (this.capabilities.isFlying && !W.dynamicFOV().isEnabled()) {
+		if (this.capabilities.isFlying) {
 			f *= 1.1F;
 		}
 
 		IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-		if(!W.dynamicFOV().isEnabled()){
-			f = (float) ((double) f * ((iattributeinstance.getAttributeValue() / (double) this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
-		}
-
+		f = (float) ((double) f
+				* ((iattributeinstance.getAttributeValue() / (double) this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
 		if (this.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
 			f = 1.0F;
 		}
 
-		if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow && !W.dynamicFOV().isEnabled()) {
+		if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow) {
 			int i = this.getItemInUseDuration();
 			float f1 = (float) i / 20.0F;
 			if (f1 > 1.0F) {

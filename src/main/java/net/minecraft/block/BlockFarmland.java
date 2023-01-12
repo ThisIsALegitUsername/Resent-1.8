@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,8 +47,8 @@ public class BlockFarmland extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState var3) {
-		return new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(),
-				blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1);
+		return new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(),
+				(double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1));
 	}
 
 	/**+
@@ -62,7 +64,7 @@ public class BlockFarmland extends Block {
 	}
 
 	public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom var4) {
-		int i = iblockstate.getValue(MOISTURE).intValue();
+		int i = ((Integer) iblockstate.getValue(MOISTURE)).intValue();
 		if (!this.hasWater(world, blockpos) && !world.canLightningStrike(blockpos.up())) {
 			if (i > 0) {
 				world.setBlockState(blockpos, iblockstate.withProperty(MOISTURE, Integer.valueOf(i - 1)), 2);
@@ -149,10 +151,10 @@ public class BlockFarmland extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(MOISTURE).intValue();
+		return ((Integer) iblockstate.getValue(MOISTURE)).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, MOISTURE);
+		return new BlockState(this, new IProperty[] { MOISTURE });
 	}
 }

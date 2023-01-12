@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,7 +34,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class RenderEntityItem extends Render<EntityItem> {
 	private final RenderItem itemRenderer;
-    private final EaglercraftRandom field_177079_e = new EaglercraftRandom();
+	private EaglercraftRandom field_177079_e = new EaglercraftRandom();
 
 	public RenderEntityItem(RenderManager renderManagerIn, RenderItem parRenderItem) {
 		super(renderManagerIn);

@@ -9,7 +9,7 @@ import net.minecraft.client.resources.I18n;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -23,8 +23,8 @@ import net.minecraft.client.resources.I18n;
  */
 public class GuiListButton extends GuiButton {
 	private boolean field_175216_o;
-    private final String localizationStr;
-    private final GuiPageButtonList.GuiResponder guiResponder;
+	private String localizationStr;
+	private final GuiPageButtonList.GuiResponder guiResponder;
 
 	public GuiListButton(GuiPageButtonList.GuiResponder responder, int parInt1, int parInt2, int parInt3,
 			String parString1, boolean parFlag) {
@@ -39,9 +39,9 @@ public class GuiListButton extends GuiButton {
 	 * Builds the localized display string for this GuiListButton
 	 */
 	private String buildDisplayString() {
-        return I18n.format(this.localizationStr) + ": "
-                + (this.field_175216_o ? I18n.format("gui.yes") : I18n.format("gui.no"));
-    }
+		return I18n.format(this.localizationStr, new Object[0]) + ": "
+				+ (this.field_175216_o ? I18n.format("gui.yes", new Object[0]) : I18n.format("gui.no", new Object[0]));
+	}
 
 	public void func_175212_b(boolean parFlag) {
 		this.field_175216_o = parFlag;

@@ -18,7 +18,7 @@ import net.lax1dude.eaglercraft.v1_8.HString;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -282,27 +282,27 @@ public class WorldInfo {
 		nbt.setBoolean("raining", this.raining);
 		nbt.setInteger("thunderTime", this.thunderTime);
 		nbt.setBoolean("thundering", this.thundering);
-        nbt.setBoolean("hardcore", this.hardcore);
-        nbt.setBoolean("allowCommands", this.allowCommands);
-        nbt.setBoolean("initialized", this.initialized);
-        nbt.setDouble("BorderCenterX", this.borderCenterX);
-        nbt.setDouble("BorderCenterZ", this.borderCenterZ);
-        nbt.setDouble("BorderSize", this.borderSize);
-        nbt.setLong("BorderSizeLerpTime", this.borderSizeLerpTime);
-        nbt.setDouble("BorderSafeZone", this.borderSafeZone);
-        nbt.setDouble("BorderDamagePerBlock", this.borderDamagePerBlock);
-        nbt.setDouble("BorderSizeLerpTarget", this.borderSizeLerpTarget);
-        nbt.setDouble("BorderWarningBlocks", this.borderWarningDistance);
-        nbt.setDouble("BorderWarningTime", this.borderWarningTime);
-        if (this.difficulty != null) {
-            nbt.setByte("Difficulty", (byte) this.difficulty.getDifficultyId());
-        }
+		nbt.setBoolean("hardcore", this.hardcore);
+		nbt.setBoolean("allowCommands", this.allowCommands);
+		nbt.setBoolean("initialized", this.initialized);
+		nbt.setDouble("BorderCenterX", this.borderCenterX);
+		nbt.setDouble("BorderCenterZ", this.borderCenterZ);
+		nbt.setDouble("BorderSize", this.borderSize);
+		nbt.setLong("BorderSizeLerpTime", this.borderSizeLerpTime);
+		nbt.setDouble("BorderSafeZone", this.borderSafeZone);
+		nbt.setDouble("BorderDamagePerBlock", this.borderDamagePerBlock);
+		nbt.setDouble("BorderSizeLerpTarget", this.borderSizeLerpTarget);
+		nbt.setDouble("BorderWarningBlocks", (double) this.borderWarningDistance);
+		nbt.setDouble("BorderWarningTime", (double) this.borderWarningTime);
+		if (this.difficulty != null) {
+			nbt.setByte("Difficulty", (byte) this.difficulty.getDifficultyId());
+		}
 
-        nbt.setBoolean("DifficultyLocked", this.difficultyLocked);
-        nbt.setTag("GameRules", this.theGameRules.writeToNBT());
-        if (playerNbt != null) {
-            nbt.setTag("Player", playerNbt);
-        }
+		nbt.setBoolean("DifficultyLocked", this.difficultyLocked);
+		nbt.setTag("GameRules", this.theGameRules.writeToNBT());
+		if (playerNbt != null) {
+			nbt.setTag("Player", playerNbt);
+		}
 
 	}
 
@@ -721,11 +721,11 @@ public class WorldInfo {
 		});
 		category.addCrashSectionCallable("Level generator", new Callable<String>() {
 			public String call() throws Exception {
-                return HString.format("ID %02d - %s, ver %d. Features enabled: %b",
-                        Integer.valueOf(WorldInfo.this.terrainType.getWorldTypeID()),
-                        WorldInfo.this.terrainType.getWorldTypeName(),
-                        Integer.valueOf(WorldInfo.this.terrainType.getGeneratorVersion()),
-                        Boolean.valueOf(WorldInfo.this.mapFeaturesEnabled));
+				return HString.format("ID %02d - %s, ver %d. Features enabled: %b",
+						new Object[] { Integer.valueOf(WorldInfo.this.terrainType.getWorldTypeID()),
+								WorldInfo.this.terrainType.getWorldTypeName(),
+								Integer.valueOf(WorldInfo.this.terrainType.getGeneratorVersion()),
+								Boolean.valueOf(WorldInfo.this.mapFeaturesEnabled) });
 			}
 		});
 		category.addCrashSectionCallable("Level generator options", new Callable<String>() {
@@ -735,13 +735,14 @@ public class WorldInfo {
 		});
 		category.addCrashSectionCallable("Level spawn location", new Callable<String>() {
 			public String call() throws Exception {
-                return CrashReportCategory.getCoordinateInfo(WorldInfo.this.spawnX,
-                        WorldInfo.this.spawnY, WorldInfo.this.spawnZ);
-            }
+				return CrashReportCategory.getCoordinateInfo((double) WorldInfo.this.spawnX,
+						(double) WorldInfo.this.spawnY, (double) WorldInfo.this.spawnZ);
+			}
 		});
 		category.addCrashSectionCallable("Level time", new Callable<String>() {
 			public String call() throws Exception {
-                return HString.format("%d game time, %d day time", Long.valueOf(WorldInfo.this.totalTime), Long.valueOf(WorldInfo.this.worldTime));
+				return HString.format("%d game time, %d day time", new Object[] {
+						Long.valueOf(WorldInfo.this.totalTime), Long.valueOf(WorldInfo.this.worldTime) });
 			}
 		});
 		category.addCrashSectionCallable("Level dimension", new Callable<String>() {
@@ -762,24 +763,26 @@ public class WorldInfo {
 						s = "Anvil";
 					}
 				} catch (Throwable var3) {
-                }
+					;
+				}
 
-                return HString.format("0x%05X - %s", Integer.valueOf(WorldInfo.this.saveVersion), s);
+				return HString.format("0x%05X - %s", new Object[] { Integer.valueOf(WorldInfo.this.saveVersion), s });
 			}
 		});
 		category.addCrashSectionCallable("Level weather", new Callable<String>() {
 			public String call() throws Exception {
-                return HString.format("Rain time: %d (now: %b), thunder time: %d (now: %b)",
-                        Integer.valueOf(WorldInfo.this.rainTime),
-                        Boolean.valueOf(WorldInfo.this.raining), Integer.valueOf(WorldInfo.this.thunderTime),
-                        Boolean.valueOf(WorldInfo.this.thundering));
+				return HString.format("Rain time: %d (now: %b), thunder time: %d (now: %b)",
+						new Object[] { Integer.valueOf(WorldInfo.this.rainTime),
+								Boolean.valueOf(WorldInfo.this.raining), Integer.valueOf(WorldInfo.this.thunderTime),
+								Boolean.valueOf(WorldInfo.this.thundering) });
 			}
 		});
 		category.addCrashSectionCallable("Level game mode", new Callable<String>() {
 			public String call() throws Exception {
-                return HString.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", WorldInfo.this.theGameType.getName(), Integer.valueOf(WorldInfo.this.theGameType.getID()),
-                        Boolean.valueOf(WorldInfo.this.hardcore), Boolean.valueOf(WorldInfo.this.allowCommands));
-            }
+				return HString.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", new Object[] {
+						WorldInfo.this.theGameType.getName(), Integer.valueOf(WorldInfo.this.theGameType.getID()),
+						Boolean.valueOf(WorldInfo.this.hardcore), Boolean.valueOf(WorldInfo.this.allowCommands) });
+			}
 		});
 	}
 }

@@ -32,7 +32,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,8 +45,8 @@ import net.minecraft.world.World;
  * 
  */
 public class ItemPotion extends Item {
-	private final Map<Integer, List<PotionEffect>> effectCache = Maps.newHashMap();
-    private static final Map<List<PotionEffect>, Integer> SUB_ITEMS_CACHE = Maps.newLinkedHashMap();
+	private Map<Integer, List<PotionEffect>> effectCache = Maps.newHashMap();
+	private static final Map<List<PotionEffect>, Integer> SUB_ITEMS_CACHE = Maps.newLinkedHashMap();
 
 	public ItemPotion() {
 		this.setMaxStackSize(1);
@@ -74,7 +74,7 @@ public class ItemPotion extends Item {
 
 			return arraylist;
 		} else {
-            List list = this.effectCache.get(Integer.valueOf(stack.getMetadata()));
+			List list = (List) this.effectCache.get(Integer.valueOf(stack.getMetadata()));
 			if (list == null) {
 				list = PotionHelper.getPotionEffects(stack.getMetadata(), false);
 				this.effectCache.put(Integer.valueOf(stack.getMetadata()), list);
@@ -89,7 +89,7 @@ public class ItemPotion extends Item {
 	 * value.
 	 */
 	public List<PotionEffect> getEffects(int meta) {
-        List list = this.effectCache.get(Integer.valueOf(meta));
+		List list = (List) this.effectCache.get(Integer.valueOf(meta));
 		if (list == null) {
 			list = PotionHelper.getPotionEffects(meta, false);
 			this.effectCache.put(Integer.valueOf(meta), list);
@@ -266,16 +266,16 @@ public class ItemPotion extends Item {
 					}
 
 					if (d0 > 0.0D) {
-                        list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
-                                "attribute.modifier.plus." + attributemodifier2.getOperation(),
-                                new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector
-                                        .translateToLocal("attribute.name." + entry1.getKey())}));
+						list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
+								"attribute.modifier.plus." + attributemodifier2.getOperation(),
+								new Object[] { ItemStack.DECIMALFORMAT.format(d1), StatCollector
+										.translateToLocal("attribute.name." + (String) entry1.getKey()) }));
 					} else if (d0 < 0.0D) {
-                        d1 = d1 * -1.0D;
-                        list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
-                                "attribute.modifier.take." + attributemodifier2.getOperation(),
-                                new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector
-                                        .translateToLocal("attribute.name." + entry1.getKey())}));
+						d1 = d1 * -1.0D;
+						list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
+								"attribute.modifier.take." + attributemodifier2.getOperation(),
+								new Object[] { ItemStack.DECIMALFORMAT.format(d1), StatCollector
+										.translateToLocal("attribute.name." + (String) entry1.getKey()) }));
 					}
 				}
 			}

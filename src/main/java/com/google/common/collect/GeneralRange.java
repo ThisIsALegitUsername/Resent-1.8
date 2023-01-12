@@ -251,10 +251,11 @@ final class GeneralRange<T> implements Serializable {
 
 	@Override
 	public String toString() {
-        return comparator + ":" + (lowerBoundType == CLOSED ? '[' : '(') +
-                (hasLowerBound ? lowerEndpoint : "-\u221e") + ',' +
-                (hasUpperBound ? upperEndpoint : "\u221e") + (upperBoundType == CLOSED ? ']' : ')');
-    }
+		return new StringBuilder().append(comparator).append(":").append(lowerBoundType == CLOSED ? '[' : '(')
+				.append(hasLowerBound ? lowerEndpoint : "-\u221e").append(',')
+				.append(hasUpperBound ? upperEndpoint : "\u221e").append(upperBoundType == CLOSED ? ']' : ')')
+				.toString();
+	}
 
 	T getLowerEndpoint() {
 		return lowerEndpoint;

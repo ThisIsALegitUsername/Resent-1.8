@@ -26,8 +26,8 @@ package net.lax1dude.eaglercraft.v1_8.crypto;
  * Applied Cryptography", pages 344 - 347.
  */
 public abstract class GeneralDigest {
-	private final byte[] xBuf;
-    private int xBufOff;
+	private byte[] xBuf;
+	private int xBufOff;
 
 	private long byteCount;
 

@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +24,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -97,7 +99,7 @@ public class BlockVine extends Block {
 		float f5 = 0.0F;
 		float f6 = 0.0F;
 		boolean flag = false;
-		if (iblockaccess.getBlockState(blockpos).getValue(WEST).booleanValue()) {
+		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(WEST)).booleanValue()) {
 			f4 = Math.max(f4, 0.0625F);
 			f1 = 0.0F;
 			f2 = 0.0F;
@@ -107,7 +109,7 @@ public class BlockVine extends Block {
 			flag = true;
 		}
 
-		if (iblockaccess.getBlockState(blockpos).getValue(EAST).booleanValue()) {
+		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(EAST)).booleanValue()) {
 			f1 = Math.min(f1, 0.9375F);
 			f4 = 1.0F;
 			f2 = 0.0F;
@@ -117,7 +119,7 @@ public class BlockVine extends Block {
 			flag = true;
 		}
 
-		if (iblockaccess.getBlockState(blockpos).getValue(NORTH).booleanValue()) {
+		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(NORTH)).booleanValue()) {
 			f6 = Math.max(f6, 0.0625F);
 			f3 = 0.0F;
 			f1 = 0.0F;
@@ -127,7 +129,7 @@ public class BlockVine extends Block {
 			flag = true;
 		}
 
-		if (iblockaccess.getBlockState(blockpos).getValue(SOUTH).booleanValue()) {
+		if (((Boolean) iblockaccess.getBlockState(blockpos).getValue(SOUTH)).booleanValue()) {
 			f3 = Math.min(f3, 0.9375F);
 			f6 = 1.0F;
 			f1 = 0.0F;
@@ -179,11 +181,11 @@ public class BlockVine extends Block {
 
 		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
 			PropertyBool propertybool = getPropertyFor(enumfacing);
-			if (state.getValue(propertybool).booleanValue()
+			if (((Boolean) state.getValue(propertybool)).booleanValue()
 					&& !this.canPlaceOn(worldIn.getBlockState(pos.offset(enumfacing)).getBlock())) {
 				IBlockState iblockstate1 = worldIn.getBlockState(pos.up());
 				if (iblockstate1.getBlock() != this
-						|| !iblockstate1.getValue(propertybool).booleanValue()) {
+						|| !((Boolean) iblockstate1.getValue(propertybool)).booleanValue()) {
 					state = state.withProperty(propertybool, Boolean.valueOf(false));
 				}
 			}
@@ -258,19 +260,19 @@ public class BlockVine extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		if (iblockstate.getValue(SOUTH).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(SOUTH)).booleanValue()) {
 			i |= 1;
 		}
 
-		if (iblockstate.getValue(WEST).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(WEST)).booleanValue()) {
 			i |= 2;
 		}
 
-		if (iblockstate.getValue(NORTH).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(NORTH)).booleanValue()) {
 			i |= 4;
 		}
 
-		if (iblockstate.getValue(EAST).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(EAST)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -278,7 +280,7 @@ public class BlockVine extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, UP, NORTH, EAST, SOUTH, WEST);
+		return new BlockState(this, new IProperty[] { UP, NORTH, EAST, SOUTH, WEST });
 	}
 
 	public static PropertyBool getPropertyFor(EnumFacing side) {
@@ -302,7 +304,7 @@ public class BlockVine extends Block {
 		int i = 0;
 
 		for (PropertyBool propertybool : ALL_FACES) {
-			if (state.getValue(propertybool).booleanValue()) {
+			if (((Boolean) state.getValue(propertybool)).booleanValue()) {
 				++i;
 			}
 		}

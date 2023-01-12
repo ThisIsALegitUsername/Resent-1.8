@@ -1,6 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import com.google.common.base.Predicate;
+
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -11,15 +15,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -61,7 +63,7 @@ public class BlockNewLeaf extends BlockLeaves {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	public int getDamageValue(World world, BlockPos blockpos) {
@@ -80,7 +82,7 @@ public class BlockNewLeaf extends BlockLeaves {
 
 	protected ItemStack createStackedBlock(IBlockState iblockstate) {
 		return new ItemStack(Item.getItemFromBlock(this), 1,
-				iblockstate.getValue(VARIANT).getMetadata() - 4);
+				((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata() - 4);
 	}
 
 	/**+
@@ -97,12 +99,12 @@ public class BlockNewLeaf extends BlockLeaves {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(VARIANT).getMetadata() - 4;
-		if (!iblockstate.getValue(DECAYABLE).booleanValue()) {
+		i = i | ((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata() - 4;
+		if (!((Boolean) iblockstate.getValue(DECAYABLE)).booleanValue()) {
 			i |= 4;
 		}
 
-		if (iblockstate.getValue(CHECK_DECAY).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(CHECK_DECAY)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -114,7 +116,7 @@ public class BlockNewLeaf extends BlockLeaves {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, VARIANT, CHECK_DECAY, DECAYABLE);
+		return new BlockState(this, new IProperty[] { VARIANT, CHECK_DECAY, DECAYABLE });
 	}
 
 }

@@ -35,10 +35,10 @@ enum PublicSuffixType {
 	/** The character used for a leaf node in the trie encoding */
 	private final char leafNodeCode;
 
-	PublicSuffixType(char innerNodeCode, char leafNodeCode) {
-        this.innerNodeCode = innerNodeCode;
-        this.leafNodeCode = leafNodeCode;
-    }
+	private PublicSuffixType(char innerNodeCode, char leafNodeCode) {
+		this.innerNodeCode = innerNodeCode;
+		this.leafNodeCode = leafNodeCode;
+	}
 
 	char getLeafNodeCode() {
 		return leafNodeCode;

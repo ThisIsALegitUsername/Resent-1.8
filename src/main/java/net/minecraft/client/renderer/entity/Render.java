@@ -2,7 +2,6 @@ package net.minecraft.client.renderer.entity;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
-import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -132,13 +131,13 @@ public abstract class Render<T extends Entity> {
 				f6 = f10;
 			}
 
-			worldrenderer.pos(f1 - f2, 0.0F - f4, f5).tex(f8, f9)
+			worldrenderer.pos((double) (f1 - f2), (double) (0.0F - f4), (double) f5).tex((double) f8, (double) f9)
 					.endVertex();
-            worldrenderer.pos(-f1 - f2, 0.0F - f4, f5).tex(f6, f9)
+			worldrenderer.pos((double) (-f1 - f2), (double) (0.0F - f4), (double) f5).tex((double) f6, (double) f9)
 					.endVertex();
-            worldrenderer.pos(-f1 - f2, 1.4F - f4, f5).tex(f6, f7)
+			worldrenderer.pos((double) (-f1 - f2), (double) (1.4F - f4), (double) f5).tex((double) f6, (double) f7)
 					.endVertex();
-            worldrenderer.pos(f1 - f2, 1.4F - f4, f5).tex(f8, f7)
+			worldrenderer.pos((double) (f1 - f2), (double) (1.4F - f4), (double) f5).tex((double) f8, (double) f7)
 					.endVertex();
 			f3 -= 0.45F;
 			f4 -= 0.45F;
@@ -229,13 +228,13 @@ public abstract class Render<T extends Entity> {
 				float f1 = (float) ((pos - d2) / 2.0D / (double) parFloat2 + 0.5D);
 				float f2 = (float) ((parDouble3 - d4) / 2.0D / (double) parFloat2 + 0.5D);
 				float f3 = (float) ((parDouble3 - d5) / 2.0D / (double) parFloat2 + 0.5D);
-                worldrenderer.pos(d1, d3, d4).tex(f, f2).color(1.0F, 1.0F, 1.0F, (float) d0)
+				worldrenderer.pos(d1, d3, d4).tex((double) f, (double) f2).color(1.0F, 1.0F, 1.0F, (float) d0)
 						.endVertex();
-                worldrenderer.pos(d1, d3, d5).tex(f, f3).color(1.0F, 1.0F, 1.0F, (float) d0)
+				worldrenderer.pos(d1, d3, d5).tex((double) f, (double) f3).color(1.0F, 1.0F, 1.0F, (float) d0)
 						.endVertex();
-                worldrenderer.pos(d2, d3, d5).tex(f1, f3).color(1.0F, 1.0F, 1.0F, (float) d0)
+				worldrenderer.pos(d2, d3, d5).tex((double) f1, (double) f3).color(1.0F, 1.0F, 1.0F, (float) d0)
 						.endVertex();
-                worldrenderer.pos(d2, d3, d4).tex(f1, f2).color(1.0F, 1.0F, 1.0F, (float) d0)
+				worldrenderer.pos(d2, d3, d4).tex((double) f1, (double) f2).color(1.0F, 1.0F, 1.0F, (float) d0)
 						.endVertex();
 			}
 		}
@@ -331,30 +330,30 @@ public abstract class Render<T extends Entity> {
 			GlStateManager.disableDepth();
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-            Tessellator tessellator = Tessellator.getInstance();
-            WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            byte b0 = 0;
-            if (str.equals("deadmau5")) {
-                b0 = -10;
-            }
+			Tessellator tessellator = Tessellator.getInstance();
+			WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+			byte b0 = 0;
+			if (str.equals("deadmau5")) {
+				b0 = -10;
+			}
 
-            int i = fontrenderer.getStringWidth(str) / 2;
-            GlStateManager.disableTexture2D();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            worldrenderer.pos(-i - 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos(-i - 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos(i + 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos(i + 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            tessellator.draw();
-            GlStateManager.enableTexture2D();
-            fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, b0, 553648127);
-            GlStateManager.enableDepth();
-            GlStateManager.depthMask(true);
-            fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, b0, -1);
-            GlStateManager.enableLighting();
-            GlStateManager.disableBlend();
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.popMatrix();
+			int i = fontrenderer.getStringWidth(str) / 2;
+			GlStateManager.disableTexture2D();
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			worldrenderer.pos((double) (-i - 1), (double) (-1 + b0), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+			worldrenderer.pos((double) (-i - 1), (double) (8 + b0), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+			worldrenderer.pos((double) (i + 1), (double) (8 + b0), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+			worldrenderer.pos((double) (i + 1), (double) (-1 + b0), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+			tessellator.draw();
+			GlStateManager.enableTexture2D();
+			fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, b0, 553648127);
+			GlStateManager.enableDepth();
+			GlStateManager.depthMask(true);
+			fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, b0, -1);
+			GlStateManager.enableLighting();
+			GlStateManager.disableBlend();
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.popMatrix();
 		}
 	}
 

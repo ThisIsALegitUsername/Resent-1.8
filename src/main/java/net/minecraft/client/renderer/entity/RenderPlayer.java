@@ -26,31 +26,31 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
-    private final boolean smallArms;
-    private final boolean zombieModel;
+	private boolean smallArms;
+	private boolean zombieModel;
 
-    public RenderPlayer(RenderManager renderManager) {
-        this(renderManager, false, false);
-    }
+	public RenderPlayer(RenderManager renderManager) {
+		this(renderManager, false, false);
+	}
 
-    public RenderPlayer(RenderManager renderManager, boolean useSmallArms, boolean zombieModel) {
-        super(renderManager, zombieModel ? new ModelZombie(0.0F, true) : new ModelPlayer(0.0F, useSmallArms), 0.5F);
-        this.smallArms = useSmallArms;
-        this.zombieModel = zombieModel;
-        this.addLayer(new LayerBipedArmor(this));
+	public RenderPlayer(RenderManager renderManager, boolean useSmallArms, boolean zombieModel) {
+		super(renderManager, zombieModel ? new ModelZombie(0.0F, true) : new ModelPlayer(0.0F, useSmallArms), 0.5F);
+		this.smallArms = useSmallArms;
+		this.zombieModel = zombieModel;
+		this.addLayer(new LayerBipedArmor(this));
 		this.addLayer(new LayerHeldItem(this));
 		this.addLayer(new LayerArrow(this));
 		this.addLayer(new LayerDeadmau5Head(this));
@@ -151,9 +151,9 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
 			ScoreObjective scoreobjective = scoreboard.getObjectiveInDisplaySlot(2);
 			if (scoreobjective != null) {
 				Score score = scoreboard.getValueFromObjective(abstractclientplayer.getName(), scoreobjective);
-                this.renderLivingLabel(abstractclientplayer,
-                        score.getScorePoints() + " " + scoreobjective.getDisplayName(), d0, d1, d2, 64);
-                d1 += (float) this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * f;
+				this.renderLivingLabel(abstractclientplayer,
+						score.getScorePoints() + " " + scoreobjective.getDisplayName(), d0, d1, d2, 64);
+				d1 += (double) ((float) this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * f);
 			}
 		}
 

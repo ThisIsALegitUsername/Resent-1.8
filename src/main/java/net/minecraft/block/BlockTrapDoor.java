@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -10,7 +11,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -20,7 +27,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -48,7 +55,7 @@ public class BlockTrapDoor extends Block {
 	}
 
 	public static void bootstrapStates() {
-		HALF = PropertyEnum.create("half", BlockTrapDoor.DoorHalf.class);
+		HALF = PropertyEnum.<BlockTrapDoor.DoorHalf>create("half", BlockTrapDoor.DoorHalf.class);
 	}
 
 	/**+
@@ -64,7 +71,7 @@ public class BlockTrapDoor extends Block {
 	}
 
 	public boolean isPassable(IBlockAccess iblockaccess, BlockPos blockpos) {
-		return !iblockaccess.getBlockState(blockpos).getValue(OPEN).booleanValue();
+		return !((Boolean) iblockaccess.getBlockState(blockpos).getValue(OPEN)).booleanValue();
 	}
 
 	public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos blockpos) {
@@ -92,8 +99,8 @@ public class BlockTrapDoor extends Block {
 	public void setBounds(IBlockState state) {
 		if (state.getBlock() == this) {
 			boolean flag = state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP;
-			Boolean obool = state.getValue(OPEN);
-			EnumFacing enumfacing = state.getValue(FACING);
+			Boolean obool = (Boolean) state.getValue(OPEN);
+			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
 			float f = 0.1875F;
 			if (flag) {
 				this.setBlockBounds(0.0F, 0.8125F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -129,7 +136,7 @@ public class BlockTrapDoor extends Block {
 		} else {
 			iblockstate = iblockstate.cycleProperty(OPEN);
 			world.setBlockState(blockpos, iblockstate, 2);
-			world.playAuxSFXAtEntity(entityplayer, iblockstate.getValue(OPEN).booleanValue() ? 1003 : 1006,
+			world.playAuxSFXAtEntity(entityplayer, ((Boolean) iblockstate.getValue(OPEN)).booleanValue() ? 1003 : 1006,
 					blockpos, 0);
 			return true;
 		}
@@ -219,8 +226,8 @@ public class BlockTrapDoor extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | getMetaForFacing(iblockstate.getValue(FACING));
-		if (iblockstate.getValue(OPEN).booleanValue()) {
+		i = i | getMetaForFacing((EnumFacing) iblockstate.getValue(FACING));
+		if (((Boolean) iblockstate.getValue(OPEN)).booleanValue()) {
 			i |= 4;
 		}
 
@@ -232,15 +239,15 @@ public class BlockTrapDoor extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, OPEN, HALF);
+		return new BlockState(this, new IProperty[] { FACING, OPEN, HALF });
 	}
 
-	public enum DoorHalf implements IStringSerializable {
+	public static enum DoorHalf implements IStringSerializable {
 		TOP("top"), BOTTOM("bottom");
 
 		private final String name;
 
-		DoorHalf(String name) {
+		private DoorHalf(String name) {
 			this.name = name;
 		}
 

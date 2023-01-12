@@ -16,10 +16,10 @@
 
 package com.google.common.base;
 
-import com.google.common.annotations.GwtCompatible;
-
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.annotations.GwtIncompatible;
 
 /**
  * Contains constant definitions for the six standard {@link Charset} instances,
@@ -42,10 +42,11 @@ public final class Charsets {
 	private Charsets() {
 	}
 
-    /**
-     * UTF-8: eight-bit UCS Transformation Format.
-     */
-    public static final Charset UTF_8 = StandardCharsets.UTF_8;
+	/**
+	 * UTF-8: eight-bit UCS Transformation Format.
+	 *
+	 */
+	public static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	/*
 	 * Please do not add new Charset references to this class, unless those

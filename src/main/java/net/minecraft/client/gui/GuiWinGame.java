@@ -30,7 +30,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -49,7 +49,7 @@ public class GuiWinGame extends GuiScreen {
 	private int field_146581_h;
 	private List<String> field_146582_i;
 	private int field_146579_r;
-    private final float field_146578_s = 0.5F;
+	private float field_146578_s = 0.5F;
 
 	/**+
 	 * Called from the main game loop to update the screen.
@@ -65,7 +65,7 @@ public class GuiWinGame extends GuiScreen {
 
 		soundhandler.update();
 		++this.field_146581_h;
-        float f = (float) (this.field_146579_r + height + height + 24) / this.field_146578_s;
+		float f = (float) (this.field_146579_r + this.height + this.height + 24) / this.field_146578_s;
 		if ((float) this.field_146581_h > f) {
 			this.sendRespawnPacket();
 		}
@@ -86,9 +86,9 @@ public class GuiWinGame extends GuiScreen {
 	}
 
 	private void sendRespawnPacket() {
-        this.mc.thePlayer.sendQueue
-                .addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
-        this.mc.displayGuiScreen(null);
+		this.mc.thePlayer.sendQueue
+				.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
+		this.mc.displayGuiScreen((GuiScreen) null);
 	}
 
 	/**+
@@ -153,7 +153,7 @@ public class GuiWinGame extends GuiScreen {
 				inputstream.close();
 				this.field_146579_r = this.field_146582_i.size() * 12;
 			} catch (Exception exception) {
-                logger.error("Couldn't load credits", exception);
+				logger.error("Couldn\'t load credits", exception);
 			}
 
 		}
@@ -164,93 +164,93 @@ public class GuiWinGame extends GuiScreen {
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		this.mc.getTextureManager().bindTexture(Gui.optionsBackground);
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        int i = width;
-        float f = 0.0F - ((float) this.field_146581_h + parFloat1) * 0.5F * this.field_146578_s;
-        float f1 = (float) height - ((float) this.field_146581_h + parFloat1) * 0.5F * this.field_146578_s;
-        float f2 = 0.015625F;
-        float f3 = ((float) this.field_146581_h + parFloat1 - 0.0F) * 0.02F;
-        float f4 = (float) (this.field_146579_r + height + height + 24) / this.field_146578_s;
-        float f5 = (f4 - 20.0F - ((float) this.field_146581_h + parFloat1)) * 0.005F;
+		int i = this.width;
+		float f = 0.0F - ((float) this.field_146581_h + parFloat1) * 0.5F * this.field_146578_s;
+		float f1 = (float) this.height - ((float) this.field_146581_h + parFloat1) * 0.5F * this.field_146578_s;
+		float f2 = 0.015625F;
+		float f3 = ((float) this.field_146581_h + parFloat1 - 0.0F) * 0.02F;
+		float f4 = (float) (this.field_146579_r + this.height + this.height + 24) / this.field_146578_s;
+		float f5 = (f4 - 20.0F - ((float) this.field_146581_h + parFloat1)) * 0.005F;
 		if (f5 < f3) {
 			f3 = f5;
-        }
+		}
 
-        if (f3 > 1.0F) {
-            f3 = 1.0F;
-        }
+		if (f3 > 1.0F) {
+			f3 = 1.0F;
+		}
 
-        f3 = f3 * f3;
-        f3 = f3 * 96.0F / 255.0F;
-        worldrenderer.pos(0.0D, height, this.zLevel).tex(0.0D, f * f2)
-                .color(f3, f3, f3, 1.0F).endVertex();
-        worldrenderer.pos(i, height, this.zLevel)
-                .tex((float) i * f2, f * f2).color(f3, f3, f3, 1.0F).endVertex();
-        worldrenderer.pos(i, 0.0D, this.zLevel).tex((float) i * f2, f1 * f2)
-                .color(f3, f3, f3, 1.0F).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(0.0D, f1 * f2).color(f3, f3, f3, 1.0F)
-                .endVertex();
-        tessellator.draw();
-    }
+		f3 = f3 * f3;
+		f3 = f3 * 96.0F / 255.0F;
+		worldrenderer.pos(0.0D, (double) this.height, (double) this.zLevel).tex(0.0D, (double) (f * f2))
+				.color(f3, f3, f3, 1.0F).endVertex();
+		worldrenderer.pos((double) i, (double) this.height, (double) this.zLevel)
+				.tex((double) ((float) i * f2), (double) (f * f2)).color(f3, f3, f3, 1.0F).endVertex();
+		worldrenderer.pos((double) i, 0.0D, (double) this.zLevel).tex((double) ((float) i * f2), (double) (f1 * f2))
+				.color(f3, f3, f3, 1.0F).endVertex();
+		worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex(0.0D, (double) (f1 * f2)).color(f3, f3, f3, 1.0F)
+				.endVertex();
+		tessellator.draw();
+	}
 
 	/**+
 	 * Draws the screen and all the components in it. Args : mouseX,
 	 * mouseY, renderPartialTicks
 	 */
 	public void drawScreen(int i, int j, float f) {
-        this.drawWinGameScreen(i, j, f);
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        short short1 = 274;
-        int k = width / 2 - short1 / 2;
-        int l = height + 50;
-        float f1 = -((float) this.field_146581_h + f) * this.field_146578_s;
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(0.0F, f1, 0.0F);
-        this.mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.drawTexturedModalRect(k, l, 0, 0, 155, 44);
-        this.drawTexturedModalRect(k + 155, l, 0, 45, 155, 44);
-        int i1 = l + 200;
+		this.drawWinGameScreen(i, j, f);
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+		short short1 = 274;
+		int k = this.width / 2 - short1 / 2;
+		int l = this.height + 50;
+		float f1 = -((float) this.field_146581_h + f) * this.field_146578_s;
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(0.0F, f1, 0.0F);
+		this.mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		this.drawTexturedModalRect(k, l, 0, 0, 155, 44);
+		this.drawTexturedModalRect(k + 155, l, 0, 45, 155, 44);
+		int i1 = l + 200;
 
-        for (int j1 = 0; j1 < this.field_146582_i.size(); ++j1) {
-            if (j1 == this.field_146582_i.size() - 1) {
-                float f2 = (float) i1 + f1 - (float) (height / 2 - 6);
-                if (f2 < 0.0F) {
-                    GlStateManager.translate(0.0F, -f2, 0.0F);
-                }
-            }
+		for (int j1 = 0; j1 < this.field_146582_i.size(); ++j1) {
+			if (j1 == this.field_146582_i.size() - 1) {
+				float f2 = (float) i1 + f1 - (float) (this.height / 2 - 6);
+				if (f2 < 0.0F) {
+					GlStateManager.translate(0.0F, -f2, 0.0F);
+				}
+			}
 
-            if ((float) i1 + f1 + 12.0F + 8.0F > 0.0F && (float) i1 + f1 < (float) height) {
-                String s = this.field_146582_i.get(j1);
-                if (s.startsWith("[C]")) {
-                    this.fontRendererObj.drawStringWithShadow(s.substring(3),
-                            (float) (k + (short1 - this.fontRendererObj.getStringWidth(s.substring(3))) / 2),
-                            (float) i1, 16777215);
-                } else {
-                    this.fontRendererObj.fontRandom.setSeed((long) j1 * 4238972211L + (long) (this.field_146581_h / 4));
-                    this.fontRendererObj.drawStringWithShadow(s, (float) k, (float) i1, 16777215);
-                }
-            }
+			if ((float) i1 + f1 + 12.0F + 8.0F > 0.0F && (float) i1 + f1 < (float) this.height) {
+				String s = (String) this.field_146582_i.get(j1);
+				if (s.startsWith("[C]")) {
+					this.fontRendererObj.drawStringWithShadow(s.substring(3),
+							(float) (k + (short1 - this.fontRendererObj.getStringWidth(s.substring(3))) / 2),
+							(float) i1, 16777215);
+				} else {
+					this.fontRendererObj.fontRandom.setSeed((long) j1 * 4238972211L + (long) (this.field_146581_h / 4));
+					this.fontRendererObj.drawStringWithShadow(s, (float) k, (float) i1, 16777215);
+				}
+			}
 
-            i1 += 12;
-        }
+			i1 += 12;
+		}
 
-        GlStateManager.popMatrix();
-        this.mc.getTextureManager().bindTexture(VIGNETTE_TEXTURE);
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL_ZERO, GL_ONE_MINUS_SRC_COLOR);
-        int k1 = width;
-        int l1 = height;
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, l1, this.zLevel).tex(0.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F)
-                .endVertex();
-        worldrenderer.pos(k1, l1, this.zLevel).tex(1.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F)
-                .endVertex();
-        worldrenderer.pos(k1, 0.0D, this.zLevel).tex(1.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F)
-                .endVertex();
-        worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(0.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        tessellator.draw();
-        GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
+		this.mc.getTextureManager().bindTexture(VIGNETTE_TEXTURE);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL_ZERO, GL_ONE_MINUS_SRC_COLOR);
+		int k1 = this.width;
+		int l1 = this.height;
+		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+		worldrenderer.pos(0.0D, (double) l1, (double) this.zLevel).tex(0.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F)
+				.endVertex();
+		worldrenderer.pos((double) k1, (double) l1, (double) this.zLevel).tex(1.0D, 1.0D).color(1.0F, 1.0F, 1.0F, 1.0F)
+				.endVertex();
+		worldrenderer.pos((double) k1, 0.0D, (double) this.zLevel).tex(1.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F)
+				.endVertex();
+		worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex(0.0D, 0.0D).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+		tessellator.draw();
+		GlStateManager.disableBlend();
 		super.drawScreen(i, j, f);
 	}
 }

@@ -19,7 +19,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -52,8 +52,12 @@ public class ItemBanner extends ItemBlock {
 		} else {
 			blockpos = blockpos.offset(enumfacing);
 			if (!entityplayer.canPlayerEdit(blockpos, enumfacing, itemstack)) {
-                return false;
-            } else return Blocks.standing_banner.canPlaceBlockAt(world, blockpos);
+				return false;
+			} else if (!Blocks.standing_banner.canPlaceBlockAt(world, blockpos)) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}
 
@@ -104,7 +108,7 @@ public class ItemBanner extends ItemBlock {
 	public void getSubItems(Item item, CreativeTabs var2, List<ItemStack> list) {
 		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
-            TileEntityBanner.func_181020_a(nbttagcompound, enumdyecolor.getDyeDamage(), null);
+			TileEntityBanner.func_181020_a(nbttagcompound, enumdyecolor.getDyeDamage(), (NBTTagList) null);
 			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 			nbttagcompound1.setTag("BlockEntityTag", nbttagcompound);
 			ItemStack itemstack = new ItemStack(item, 1, enumdyecolor.getDyeDamage());

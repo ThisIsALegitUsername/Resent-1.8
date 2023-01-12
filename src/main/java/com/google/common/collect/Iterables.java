@@ -389,7 +389,7 @@ public final class Iterables {
 
 			@Override
 			public String toString() {
-				return iterable + " (cycled)";
+				return iterable.toString() + " (cycled)";
 			}
 		};
 	}

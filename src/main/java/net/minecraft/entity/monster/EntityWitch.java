@@ -21,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -100,9 +100,9 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 		if (b0 == 15) {
 			for (int i = 0; i < this.rand.nextInt(35) + 10; ++i) {
 				this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH,
-                        this.posX + this.rand.nextGaussian() * 0.12999999523162842D,
-                        this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D,
-                        this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
+						this.posX + this.rand.nextGaussian() * 0.12999999523162842D,
+						this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D,
+						this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D, new int[0]);
 			}
 		} else {
 			super.handleStatusUpdate(b0);

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -47,7 +47,7 @@ public class BlockDropper extends BlockDispenser {
 
 	protected void dispense(World world, BlockPos blockpos) {
 		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(world, blockpos);
-        TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
+		TileEntityDispenser tileentitydispenser = (TileEntityDispenser) blocksourceimpl.getBlockTileEntity();
 		if (tileentitydispenser != null) {
 			int i = tileentitydispenser.getDispenseSlot();
 			if (i < 0) {
@@ -55,20 +55,20 @@ public class BlockDropper extends BlockDispenser {
 			} else {
 				ItemStack itemstack = tileentitydispenser.getStackInSlot(i);
 				if (itemstack != null) {
-                    EnumFacing enumfacing = world.getBlockState(blockpos).getValue(FACING);
-                    BlockPos blockpos1 = blockpos.offset(enumfacing);
-                    IInventory iinventory = TileEntityHopper.getInventoryAtPosition(world, blockpos1.getX(),
-                            blockpos1.getY(), blockpos1.getZ());
-                    ItemStack itemstack1;
-                    if (iinventory == null) {
-                        itemstack1 = this.dropBehavior.dispense(blocksourceimpl, itemstack);
-                        if (itemstack1 != null && itemstack1.stackSize <= 0) {
-                            itemstack1 = null;
-                        }
-                    } else {
-                        itemstack1 = TileEntityHopper.putStackInInventoryAllSlots(iinventory,
-                                itemstack.copy().splitStack(1), enumfacing.getOpposite());
-                        if (itemstack1 == null) {
+					EnumFacing enumfacing = (EnumFacing) world.getBlockState(blockpos).getValue(FACING);
+					BlockPos blockpos1 = blockpos.offset(enumfacing);
+					IInventory iinventory = TileEntityHopper.getInventoryAtPosition(world, (double) blockpos1.getX(),
+							(double) blockpos1.getY(), (double) blockpos1.getZ());
+					ItemStack itemstack1;
+					if (iinventory == null) {
+						itemstack1 = this.dropBehavior.dispense(blocksourceimpl, itemstack);
+						if (itemstack1 != null && itemstack1.stackSize <= 0) {
+							itemstack1 = null;
+						}
+					} else {
+						itemstack1 = TileEntityHopper.putStackInInventoryAllSlots(iinventory,
+								itemstack.copy().splitStack(1), enumfacing.getOpposite());
+						if (itemstack1 == null) {
 							itemstack1 = itemstack.copy();
 							if (--itemstack1.stackSize <= 0) {
 								itemstack1 = null;

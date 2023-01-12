@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,7 +51,7 @@ public class BlockFenceGate extends BlockDirectional {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState iblockstate, IBlockAccess iblockaccess, BlockPos blockpos) {
-		EnumFacing.Axis enumfacing$axis = iblockstate.getValue(FACING).getAxis();
+		EnumFacing.Axis enumfacing$axis = ((EnumFacing) iblockstate.getValue(FACING)).getAxis();
 		if (enumfacing$axis == EnumFacing.Axis.Z
 				&& (iblockaccess.getBlockState(blockpos.west()).getBlock() == Blocks.cobblestone_wall
 						|| iblockaccess.getBlockState(blockpos.east()).getBlock() == Blocks.cobblestone_wall)
@@ -64,26 +65,28 @@ public class BlockFenceGate extends BlockDirectional {
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
-		return world.getBlockState(blockpos.down()).getBlock().getMaterial().isSolid() && super.canPlaceBlockAt(world, blockpos);
+		return world.getBlockState(blockpos.down()).getBlock().getMaterial().isSolid()
+				? super.canPlaceBlockAt(world, blockpos)
+				: false;
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState iblockstate) {
-		if (iblockstate.getValue(OPEN).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(OPEN)).booleanValue()) {
 			return null;
 		} else {
-			EnumFacing.Axis enumfacing$axis = iblockstate.getValue(FACING).getAxis();
+			EnumFacing.Axis enumfacing$axis = ((EnumFacing) iblockstate.getValue(FACING)).getAxis();
 			return enumfacing$axis == EnumFacing.Axis.Z
-					? new AxisAlignedBB(blockpos.getX(), blockpos.getY(),
-					(float) blockpos.getZ() + 0.375F, blockpos.getX() + 1,
-					(float) blockpos.getY() + 1.5F, (float) blockpos.getZ() + 0.625F)
-					: new AxisAlignedBB((float) blockpos.getX() + 0.375F, blockpos.getY(),
-					blockpos.getZ(), (float) blockpos.getX() + 0.625F,
-					(float) blockpos.getY() + 1.5F, blockpos.getZ() + 1);
+					? new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(),
+							(double) ((float) blockpos.getZ() + 0.375F), (double) (blockpos.getX() + 1),
+							(double) ((float) blockpos.getY() + 1.5F), (double) ((float) blockpos.getZ() + 0.625F))
+					: new AxisAlignedBB((double) ((float) blockpos.getX() + 0.375F), (double) blockpos.getY(),
+							(double) blockpos.getZ(), (double) ((float) blockpos.getX() + 0.625F),
+							(double) ((float) blockpos.getY() + 1.5F), (double) (blockpos.getZ() + 1));
 		}
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
-		EnumFacing.Axis enumfacing$axis = iblockaccess.getBlockState(blockpos).getValue(FACING)
+		EnumFacing.Axis enumfacing$axis = ((EnumFacing) iblockaccess.getBlockState(blockpos).getValue(FACING))
 				.getAxis();
 		if (enumfacing$axis == EnumFacing.Axis.Z) {
 			this.setBlockBounds(0.0F, 0.0F, 0.375F, 1.0F, 1.0F, 0.625F);
@@ -106,7 +109,7 @@ public class BlockFenceGate extends BlockDirectional {
 	}
 
 	public boolean isPassable(IBlockAccess iblockaccess, BlockPos blockpos) {
-		return iblockaccess.getBlockState(blockpos).getValue(OPEN).booleanValue();
+		return ((Boolean) iblockaccess.getBlockState(blockpos).getValue(OPEN)).booleanValue();
 	}
 
 	/**+
@@ -122,11 +125,11 @@ public class BlockFenceGate extends BlockDirectional {
 
 	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState iblockstate, EntityPlayer entityplayer,
 			EnumFacing var5, float var6, float var7, float var8) {
-		if (iblockstate.getValue(OPEN).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(OPEN)).booleanValue()) {
 			iblockstate = iblockstate.withProperty(OPEN, Boolean.valueOf(false));
 			world.setBlockState(blockpos, iblockstate, 2);
 		} else {
-			EnumFacing enumfacing = EnumFacing.fromAngle(entityplayer.rotationYaw);
+			EnumFacing enumfacing = EnumFacing.fromAngle((double) entityplayer.rotationYaw);
 			if (iblockstate.getValue(FACING) == enumfacing.getOpposite()) {
 				iblockstate = iblockstate.withProperty(FACING, enumfacing);
 			}
@@ -135,7 +138,7 @@ public class BlockFenceGate extends BlockDirectional {
 			world.setBlockState(blockpos, iblockstate, 2);
 		}
 
-		world.playAuxSFXAtEntity(entityplayer, iblockstate.getValue(OPEN).booleanValue() ? 1003 : 1006,
+		world.playAuxSFXAtEntity(entityplayer, ((Boolean) iblockstate.getValue(OPEN)).booleanValue() ? 1003 : 1006,
 				blockpos, 0);
 		return true;
 	}
@@ -157,12 +160,12 @@ public class BlockFenceGate extends BlockDirectional {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getHorizontalIndex();
-		if (iblockstate.getValue(POWERED).booleanValue()) {
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getHorizontalIndex();
+		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
 			i |= 8;
 		}
 
-		if (iblockstate.getValue(OPEN).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(OPEN)).booleanValue()) {
 			i |= 4;
 		}
 
@@ -170,6 +173,6 @@ public class BlockFenceGate extends BlockDirectional {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, OPEN, POWERED, IN_WALL);
+		return new BlockState(this, new IProperty[] { FACING, OPEN, POWERED, IN_WALL });
 	}
 }

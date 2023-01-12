@@ -1,8 +1,8 @@
 package net.minecraft.event;
 
-import com.google.common.collect.Maps;
-
 import java.util.Map;
+
+import com.google.common.collect.Maps;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -10,7 +10,7 @@ import java.util.Map;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -56,8 +56,14 @@ public class ClickEvent {
 				return false;
 			} else {
 				if (this.value != null) {
-					return this.value.equals(clickevent.value);
-				} else return clickevent.value == null;
+					if (!this.value.equals(clickevent.value)) {
+						return false;
+					}
+				} else if (clickevent.value != null) {
+					return false;
+				}
+
+				return true;
 			}
 		} else {
 			return false;
@@ -65,7 +71,7 @@ public class ClickEvent {
 	}
 
 	public String toString() {
-		return "ClickEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
+		return "ClickEvent{action=" + this.action + ", value=\'" + this.value + '\'' + '}';
 	}
 
 	public int hashCode() {
@@ -74,7 +80,7 @@ public class ClickEvent {
 		return i;
 	}
 
-	public enum Action {
+	public static enum Action {
 		OPEN_URL("open_url", true), OPEN_FILE("open_file", false), RUN_COMMAND("run_command", true),
 		TWITCH_USER_INFO("twitch_user_info", false), SUGGEST_COMMAND("suggest_command", true),
 		CHANGE_PAGE("change_page", true);
@@ -83,7 +89,7 @@ public class ClickEvent {
 		private final boolean allowedInChat;
 		private final String canonicalName;
 
-		Action(String canonicalNameIn, boolean allowedInChatIn) {
+		private Action(String canonicalNameIn, boolean allowedInChatIn) {
 			this.canonicalName = canonicalNameIn;
 			this.allowedInChat = allowedInChatIn;
 		}
@@ -97,7 +103,7 @@ public class ClickEvent {
 		}
 
 		public static ClickEvent.Action getValueByCanonicalName(String canonicalNameIn) {
-			return nameMapping.get(canonicalNameIn);
+			return (ClickEvent.Action) nameMapping.get(canonicalNameIn);
 		}
 
 		static {

@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -124,8 +124,8 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 		GlStateManager.enableAlpha();
-        modelskeletonhead.render(null, 0.0F, 0.0F, 0.0F, parFloat4, 0.0F, f);
-        GlStateManager.popMatrix();
+		modelskeletonhead.render((Entity) null, 0.0F, 0.0F, 0.0F, parFloat4, 0.0F, f);
+		GlStateManager.popMatrix();
 		if (parInt2 >= 0) {
 			GlStateManager.matrixMode(GL_TEXTURE);
 			GlStateManager.popMatrix();

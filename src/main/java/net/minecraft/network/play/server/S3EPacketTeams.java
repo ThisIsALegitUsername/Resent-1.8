@@ -17,7 +17,7 @@ import net.minecraft.scoreboard.Team;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -36,8 +36,8 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
 	private String field_149316_d = "";
 	private String field_179816_e;
 	private int field_179815_f;
-    private final Collection<String> field_149317_e;
-    private int field_149314_f;
+	private Collection<String> field_149317_e;
+	private int field_149314_f;
 	private int field_149315_g;
 
 	public S3EPacketTeams() {

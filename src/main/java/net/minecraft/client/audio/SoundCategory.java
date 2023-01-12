@@ -10,7 +10,7 @@ import com.google.common.collect.Maps;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -31,10 +31,10 @@ public enum SoundCategory {
 	private final String categoryName;
 	private final int categoryId;
 
-	SoundCategory(String name, int id) {
-        this.categoryName = name;
-        this.categoryId = id;
-    }
+	private SoundCategory(String name, int id) {
+		this.categoryName = name;
+		this.categoryId = id;
+	}
 
 	public String getCategoryName() {
 		return this.categoryName;
@@ -45,7 +45,7 @@ public enum SoundCategory {
 	}
 
 	public static SoundCategory getCategory(String name) {
-        return NAME_CATEGORY_MAP.get(name);
+		return (SoundCategory) NAME_CATEGORY_MAP.get(name);
 	}
 
 	static {

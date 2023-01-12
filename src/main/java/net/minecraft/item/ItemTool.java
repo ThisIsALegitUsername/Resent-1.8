@@ -18,7 +18,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -31,10 +31,10 @@ import net.minecraft.world.World;
  * 
  */
 public class ItemTool extends Item {
-	private final Set<Block> effectiveBlocks;
-    protected float efficiencyOnProperMaterial = 4.0F;
-    private final float damageVsEntity;
-    protected Item.ToolMaterial toolMaterial;
+	private Set<Block> effectiveBlocks;
+	protected float efficiencyOnProperMaterial = 4.0F;
+	private float damageVsEntity;
+	protected Item.ToolMaterial toolMaterial;
 
 	protected ItemTool(float attackDamage, Item.ToolMaterial material, Set<Block> effectiveBlocks) {
 		this.toolMaterial = material;
@@ -103,13 +103,14 @@ public class ItemTool extends Item {
 	 * Return whether this item is repairable in an anvil.
 	 */
 	public boolean getIsRepairable(ItemStack itemstack, ItemStack itemstack1) {
-        return this.toolMaterial.getRepairItem() == itemstack1.getItem() || super.getIsRepairable(itemstack, itemstack1);
+		return this.toolMaterial.getRepairItem() == itemstack1.getItem() ? true
+				: super.getIsRepairable(itemstack, itemstack1);
 	}
 
 	public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
 		Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
-                new AttributeModifier(itemModifierUUID, "Tool modifier", this.damageVsEntity, 0));
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
+				new AttributeModifier(itemModifierUUID, "Tool modifier", (double) this.damageVsEntity, 0));
 		return multimap;
 	}
 }

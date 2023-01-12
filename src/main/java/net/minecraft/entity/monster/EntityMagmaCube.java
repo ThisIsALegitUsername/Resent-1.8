@@ -13,7 +13,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -127,13 +127,13 @@ public class EntityMagmaCube extends EntitySlime {
 	 * Causes this entity to do an upwards motion (jumping).
 	 */
 	protected void jump() {
-		this.motionY = 0.42F + (float) this.getSlimeSize() * 0.1F;
-        this.isAirBorne = true;
+		this.motionY = (double) (0.42F + (float) this.getSlimeSize() * 0.1F);
+		this.isAirBorne = true;
 	}
 
 	protected void handleJumpLava() {
-        this.motionY = 0.22F + (float) this.getSlimeSize() * 0.05F;
-        this.isAirBorne = true;
+		this.motionY = (double) (0.22F + (float) this.getSlimeSize() * 0.05F);
+		this.isAirBorne = true;
 	}
 
 	public void fall(float var1, float var2) {

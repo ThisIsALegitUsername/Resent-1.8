@@ -1,6 +1,7 @@
 package net.minecraft.entity;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
+
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.util.BlockPos;
@@ -47,7 +48,8 @@ public abstract class EntityCreature extends EntityLiving {
 	}
 
 	public boolean isWithinHomeDistanceFromPosition(BlockPos pos) {
-		return this.maximumHomeDistance == -1.0F || this.homePosition.distanceSq(pos) < (double) (this.maximumHomeDistance * this.maximumHomeDistance);
+		return this.maximumHomeDistance == -1.0F ? true
+				: this.homePosition.distanceSq(pos) < (double) (this.maximumHomeDistance * this.maximumHomeDistance);
 	}
 
 	/**+

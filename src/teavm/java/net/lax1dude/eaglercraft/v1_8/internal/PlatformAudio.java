@@ -29,7 +29,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.util.MathHelper;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -47,14 +47,14 @@ public class PlatformAudio {
 	
 	private static AudioContext audioctx = null;
 	private static MediaStreamAudioDestinationNode recDest = null;
-	private static final Map<String, BrowserAudioResource> soundCache = new HashMap<>();
+	private static final Map<String, BrowserAudioResource> soundCache = new HashMap();
 	
-	private static long cacheFreeTimer = 0L;
+	private static long cacheFreeTimer = 0l;
 	
 	protected static class BrowserAudioResource implements IAudioResource {
-
-        protected AudioBuffer buffer;
-        protected long cacheHit = 0L;
+		
+		protected AudioBuffer buffer;
+		protected long cacheHit = 0l;
 		
 		protected BrowserAudioResource(AudioBuffer buffer) {
 			this.buffer = buffer;
@@ -248,17 +248,17 @@ public class PlatformAudio {
 
 	public static void clearAudioCache() {
 		long millis = System.currentTimeMillis();
-        if (millis - cacheFreeTimer > 30000L) {
-            cacheFreeTimer = millis;
-            synchronized (soundCache) {
-                Iterator<BrowserAudioResource> itr = soundCache.values().iterator();
-                while (itr.hasNext()) {
-                    if (millis - itr.next().cacheHit > 600000L) { // 10 minutes
-                        itr.remove();
-                    }
-                }
-            }
-        }
+		if(millis - cacheFreeTimer > 30000l) {
+			cacheFreeTimer = millis;
+			synchronized(soundCache) {
+				Iterator<BrowserAudioResource> itr = soundCache.values().iterator();
+				while(itr.hasNext()) {
+					if(millis - itr.next().cacheHit > 600000l) { // 10 minutes
+						itr.remove();
+					}
+				}
+			}
+		}
 	}
 	
 	public static boolean available() {

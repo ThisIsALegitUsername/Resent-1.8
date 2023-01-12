@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
@@ -56,7 +57,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
 						BlockPos blockpos1 = blockpos.add(i1, j1, k1);
 						IBlockState iblockstate = world.getBlockState(blockpos1);
 						if (iblockstate.getBlock().getMaterial() == Material.leaves
-								&& !iblockstate.getValue(CHECK_DECAY).booleanValue()) {
+								&& !((Boolean) iblockstate.getValue(CHECK_DECAY)).booleanValue()) {
 							world.setBlockState(blockpos1, iblockstate.withProperty(CHECK_DECAY, Boolean.valueOf(true)),
 									4);
 						}
@@ -70,10 +71,10 @@ public abstract class BlockLeaves extends BlockLeavesBase {
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState var3, EaglercraftRandom random) {
 		if (world.canLightningStrike(blockpos.up()) && !World.doesBlockHaveSolidTopSurface(world, blockpos.down())
 				&& random.nextInt(15) == 1) {
-			double d0 = (float) blockpos.getX() + random.nextFloat();
+			double d0 = (double) ((float) blockpos.getX() + random.nextFloat());
 			double d1 = (double) blockpos.getY() - 0.05D;
-			double d2 = (float) blockpos.getZ() + random.nextFloat();
-			world.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			double d2 = (double) ((float) blockpos.getZ() + random.nextFloat());
+			world.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
 		}
 
 	}

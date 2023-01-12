@@ -13,7 +13,7 @@ import net.minecraft.world.storage.MapData;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -55,7 +55,7 @@ public class RecipesMapExtending extends ShapedRecipes {
 				return false;
 			} else {
 				MapData mapdata = Items.filled_map.getMapData(itemstack, world);
-				return mapdata != null && mapdata.scale < 4;
+				return mapdata == null ? false : mapdata.scale < 4;
 			}
 		}
 	}

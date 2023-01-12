@@ -16,7 +16,7 @@ import net.minecraft.util.IChatComponent;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -180,20 +180,20 @@ public class ServerStatusResponse {
 		public ServerStatusResponse deserialize(JSONObject jsonobject) throws JSONException {
 			ServerStatusResponse serverstatusresponse = new ServerStatusResponse();
 			if (jsonobject.has("description")) {
-				serverstatusresponse.setServerDescription(JSONTypeProvider
-                        .deserialize(jsonobject.get("description"), IChatComponent.class));
+				serverstatusresponse.setServerDescription((IChatComponent) JSONTypeProvider
+						.deserialize(jsonobject.get("description"), IChatComponent.class));
 			}
 
 			if (jsonobject.has("players")) {
-                serverstatusresponse.setPlayerCountData(JSONTypeProvider
-                        .deserialize(jsonobject.get("players"), PlayerCountData.class));
-            }
+				serverstatusresponse.setPlayerCountData((ServerStatusResponse.PlayerCountData) JSONTypeProvider
+						.deserialize(jsonobject.get("players"), ServerStatusResponse.PlayerCountData.class));
+			}
 
 			if (jsonobject.has("version")) {
-                serverstatusresponse.setProtocolVersionInfo(
-                        JSONTypeProvider.deserialize(
-                                jsonobject.get("version"),
-                                MinecraftProtocolVersionIdentifier.class));
+				serverstatusresponse.setProtocolVersionInfo(
+						(ServerStatusResponse.MinecraftProtocolVersionIdentifier) JSONTypeProvider.deserialize(
+								jsonobject.get("version"),
+								ServerStatusResponse.MinecraftProtocolVersionIdentifier.class));
 			}
 
 			if (jsonobject.has("favicon")) {

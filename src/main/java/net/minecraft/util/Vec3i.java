@@ -8,7 +8,7 @@ import com.google.common.base.Objects;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,7 +46,8 @@ public class Vec3i implements Comparable<Vec3i> {
 			return false;
 		} else {
 			Vec3i vec3i = (Vec3i) object;
-			return this.getX() == vec3i.getX() && (this.getY() == vec3i.getY() && this.getZ() == vec3i.getZ());
+			return this.getX() != vec3i.getX() ? false
+					: (this.getY() != vec3i.getY() ? false : this.getZ() == vec3i.getZ());
 		}
 	}
 
@@ -115,7 +116,7 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Calculate squared distance to the given coordinates
 	 */
 	public double distanceSq(Vec3i to) {
-        return this.distanceSq(to.getX(), to.getY(), to.getZ());
+		return this.distanceSq((double) to.getX(), (double) to.getY(), (double) to.getZ());
 	}
 
 	public String toString() {

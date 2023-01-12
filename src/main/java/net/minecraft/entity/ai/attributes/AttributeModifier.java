@@ -1,9 +1,11 @@
 package net.minecraft.entity.ai.attributes;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
+
+import org.apache.commons.lang3.Validate;
+
 import net.lax1dude.eaglercraft.v1_8.ThreadLocalRandom;
 import net.minecraft.util.MathHelper;
-import org.apache.commons.lang3.Validate;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -11,7 +13,7 @@ import org.apache.commons.lang3.Validate;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,8 +42,8 @@ public class AttributeModifier {
 		this.name = nameIn;
 		this.amount = amountIn;
 		this.operation = operationIn;
-		Validate.notEmpty(nameIn, "Modifier name cannot be empty");
-		Validate.inclusiveBetween(0L, 2L, operationIn, "Invalid operation");
+		Validate.notEmpty(nameIn, "Modifier name cannot be empty", new Object[0]);
+		Validate.inclusiveBetween(0L, 2L, (long) operationIn, "Invalid operation");
 	}
 
 	public EaglercraftUUID getID() {
@@ -81,8 +83,14 @@ public class AttributeModifier {
 		} else if (object != null && this.getClass() == object.getClass()) {
 			AttributeModifier attributemodifier = (AttributeModifier) object;
 			if (this.id != null) {
-				return this.id.equals(attributemodifier.id);
-			} else return attributemodifier.id == null;
+				if (!this.id.equals(attributemodifier.id)) {
+					return false;
+				}
+			} else if (attributemodifier.id != null) {
+				return false;
+			}
+
+			return true;
 		} else {
 			return false;
 		}
@@ -93,7 +101,7 @@ public class AttributeModifier {
 	}
 
 	public String toString() {
-		return "AttributeModifier{amount=" + this.amount + ", operation=" + this.operation + ", name='" + this.name
+		return "AttributeModifier{amount=" + this.amount + ", operation=" + this.operation + ", name=\'" + this.name
 				+ '\'' + ", id=" + this.id + ", serialize=" + this.isSaved + '}';
 	}
 }

@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -106,7 +108,7 @@ public class BlockTripWire extends Block {
 	 * Called when a neighboring block changes.
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
-		boolean flag = iblockstate.getValue(SUSPENDED).booleanValue();
+		boolean flag = ((Boolean) iblockstate.getValue(SUSPENDED)).booleanValue();
 		boolean flag1 = !World.doesBlockHaveSolidTopSurface(world, blockpos.down());
 		if (flag != flag1) {
 			this.dropBlockAsItem(world, blockpos, iblockstate, 0);
@@ -117,8 +119,8 @@ public class BlockTripWire extends Block {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
-		boolean flag = iblockstate.getValue(ATTACHED).booleanValue();
-		boolean flag1 = iblockstate.getValue(SUSPENDED).booleanValue();
+		boolean flag = ((Boolean) iblockstate.getValue(ATTACHED)).booleanValue();
+		boolean flag1 = ((Boolean) iblockstate.getValue(SUSPENDED)).booleanValue();
 		if (!flag1) {
 			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.09375F, 1.0F);
 		} else if (!flag) {
@@ -168,8 +170,8 @@ public class BlockTripWire extends Block {
 			EnumFacing enumfacing = direction.getOpposite();
 			return iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing;
 		} else if (block == Blocks.tripwire) {
-			boolean flag = state.getValue(SUSPENDED).booleanValue();
-			boolean flag1 = iblockstate.getValue(SUSPENDED).booleanValue();
+			boolean flag = ((Boolean) state.getValue(SUSPENDED)).booleanValue();
+			boolean flag1 = ((Boolean) iblockstate.getValue(SUSPENDED)).booleanValue();
 			return flag == flag1;
 		} else {
 			return false;
@@ -191,19 +193,19 @@ public class BlockTripWire extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		if (iblockstate.getValue(POWERED).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(POWERED)).booleanValue()) {
 			i |= 1;
 		}
 
-		if (iblockstate.getValue(SUSPENDED).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(SUSPENDED)).booleanValue()) {
 			i |= 2;
 		}
 
-		if (iblockstate.getValue(ATTACHED).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(ATTACHED)).booleanValue()) {
 			i |= 4;
 		}
 
-		if (iblockstate.getValue(DISARMED).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(DISARMED)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -212,6 +214,6 @@ public class BlockTripWire extends Block {
 
 	protected BlockState createBlockState() {
 		return new BlockState(this,
-				POWERED, SUSPENDED, ATTACHED, DISARMED, NORTH, EAST, WEST, SOUTH);
+				new IProperty[] { POWERED, SUSPENDED, ATTACHED, DISARMED, NORTH, EAST, WEST, SOUTH });
 	}
 }

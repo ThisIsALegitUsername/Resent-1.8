@@ -1,7 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -11,15 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.StatCollector;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,7 +45,7 @@ public class BlockPrismarine extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.create("variant", BlockPrismarine.EnumType.class);
+		VARIANT = PropertyEnum.<BlockPrismarine.EnumType>create("variant", BlockPrismarine.EnumType.class);
 	}
 
 	/**+
@@ -71,18 +72,18 @@ public class BlockPrismarine extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockPrismarine.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	/**+
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockPrismarine.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, VARIANT);
+		return new BlockState(this, new IProperty[] { VARIANT });
 	}
 
 	/**+
@@ -102,19 +103,19 @@ public class BlockPrismarine extends Block {
 		list.add(new ItemStack(item, 1, DARK_META));
 	}
 
-    public enum EnumType implements IStringSerializable {
-        ROUGH(0, "prismarine", "rough"), BRICKS(1, "prismarine_bricks", "bricks"), DARK(2, "dark_prismarine", "dark");
+	public static enum EnumType implements IStringSerializable {
+		ROUGH(0, "prismarine", "rough"), BRICKS(1, "prismarine_bricks", "bricks"), DARK(2, "dark_prismarine", "dark");
 
-        private static final BlockPrismarine.EnumType[] META_LOOKUP = new BlockPrismarine.EnumType[values().length];
-        private final int meta;
-        private final String name;
-        private final String unlocalizedName;
+		private static final BlockPrismarine.EnumType[] META_LOOKUP = new BlockPrismarine.EnumType[values().length];
+		private final int meta;
+		private final String name;
+		private final String unlocalizedName;
 
-        EnumType(int meta, String name, String unlocalizedName) {
-            this.meta = meta;
-            this.name = name;
-            this.unlocalizedName = unlocalizedName;
-        }
+		private EnumType(int meta, String name, String unlocalizedName) {
+			this.meta = meta;
+			this.name = name;
+			this.unlocalizedName = unlocalizedName;
+		}
 
 		public int getMetadata() {
 			return this.meta;

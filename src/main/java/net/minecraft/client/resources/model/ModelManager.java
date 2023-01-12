@@ -12,7 +12,7 @@ import net.minecraft.util.IRegistry;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,15 +38,15 @@ public class ModelManager implements IResourceManagerReloadListener {
 	public void onResourceManagerReload(IResourceManager iresourcemanager) {
 		ModelBakery modelbakery = new ModelBakery(iresourcemanager, this.texMap, this.modelProvider);
 		this.modelRegistry = modelbakery.setupModelRegistry();
-        this.defaultModel = this.modelRegistry.getObject(ModelBakery.MODEL_MISSING);
-        this.modelProvider.reloadModels();
+		this.defaultModel = (IBakedModel) this.modelRegistry.getObject(ModelBakery.MODEL_MISSING);
+		this.modelProvider.reloadModels();
 	}
 
 	public IBakedModel getModel(ModelResourceLocation modelLocation) {
 		if (modelLocation == null) {
 			return this.defaultModel;
 		} else {
-            IBakedModel ibakedmodel = this.modelRegistry.getObject(modelLocation);
+			IBakedModel ibakedmodel = (IBakedModel) this.modelRegistry.getObject(modelLocation);
 			return ibakedmodel == null ? this.defaultModel : ibakedmodel;
 		}
 	}

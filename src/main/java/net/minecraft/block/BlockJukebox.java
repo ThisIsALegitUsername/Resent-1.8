@@ -2,6 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,7 +46,7 @@ public class BlockJukebox extends BlockContainer {
 
 	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState iblockstate, EntityPlayer var4,
 			EnumFacing var5, float var6, float var7, float var8) {
-		if (iblockstate.getValue(HAS_RECORD).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(HAS_RECORD)).booleanValue()) {
 			iblockstate = iblockstate.withProperty(HAS_RECORD, Boolean.valueOf(false));
 			world.setBlockState(blockpos, iblockstate, 2);
 			return true;
@@ -101,11 +102,11 @@ public class BlockJukebox extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(HAS_RECORD).booleanValue() ? 1 : 0;
+		return ((Boolean) iblockstate.getValue(HAS_RECORD)).booleanValue() ? 1 : 0;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, HAS_RECORD);
+		return new BlockState(this, new IProperty[] { HAS_RECORD });
 	}
 
 	public static class TileEntityJukebox extends TileEntity {

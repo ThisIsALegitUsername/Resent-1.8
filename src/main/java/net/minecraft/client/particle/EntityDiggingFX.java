@@ -17,7 +17,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -30,8 +30,8 @@ import net.minecraft.world.World;
  * 
  */
 public class EntityDiggingFX extends EntityFX {
-	private final IBlockState field_174847_a;
-    private BlockPos field_181019_az;
+	private IBlockState field_174847_a;
+	private BlockPos field_181019_az;
 
 	protected EntityDiggingFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
 			double ySpeedIn, double zSpeedIn, IBlockState state) {
@@ -86,11 +86,11 @@ public class EntityDiggingFX extends EntityFX {
 		float f9 = f8 + 0.015609375F;
 		float f10 = 0.1F * this.particleScale;
 		if (this.particleIcon != null) {
-            f6 = this.particleIcon.getInterpolatedU(this.particleTextureJitterX / 4.0F * 16.0F);
-            f7 = this.particleIcon.getInterpolatedU((this.particleTextureJitterX + 1.0F) / 4.0F * 16.0F);
-            f8 = this.particleIcon.getInterpolatedV(this.particleTextureJitterY / 4.0F * 16.0F);
-            f9 = this.particleIcon.getInterpolatedV((this.particleTextureJitterY + 1.0F) / 4.0F * 16.0F);
-        }
+			f6 = this.particleIcon.getInterpolatedU((double) (this.particleTextureJitterX / 4.0F * 16.0F));
+			f7 = this.particleIcon.getInterpolatedU((double) ((this.particleTextureJitterX + 1.0F) / 4.0F * 16.0F));
+			f8 = this.particleIcon.getInterpolatedV((double) (this.particleTextureJitterY / 4.0F * 16.0F));
+			f9 = this.particleIcon.getInterpolatedV((double) ((this.particleTextureJitterY + 1.0F) / 4.0F * 16.0F));
+		}
 
 		float f11 = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) f - interpPosX);
 		float f12 = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) f - interpPosY);
@@ -98,25 +98,25 @@ public class EntityDiggingFX extends EntityFX {
 		int i = this.getBrightnessForRender(f);
 		int j = i >> 16 & '\uffff';
 		int k = i & '\uffff';
-        worldrenderer
-                .pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10,
-                        f13 - f3 * f10 - f5 * f10)
-                .tex(f6, f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+		worldrenderer
+				.pos((double) (f11 - f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
+						(double) (f13 - f3 * f10 - f5 * f10))
+				.tex((double) f6, (double) f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
-        worldrenderer
-                .pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10,
-                        f13 - f3 * f10 + f5 * f10)
-                .tex(f6, f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+		worldrenderer
+				.pos((double) (f11 - f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
+						(double) (f13 - f3 * f10 + f5 * f10))
+				.tex((double) f6, (double) f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
-        worldrenderer
-                .pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10,
-                        f13 + f3 * f10 + f5 * f10)
-                .tex(f7, f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+		worldrenderer
+				.pos((double) (f11 + f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
+						(double) (f13 + f3 * f10 + f5 * f10))
+				.tex((double) f7, (double) f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
-        worldrenderer
-                .pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10,
-                        f13 + f3 * f10 - f5 * f10)
-                .tex(f7, f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+		worldrenderer
+				.pos((double) (f11 + f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
+						(double) (f13 + f3 * f10 - f5 * f10))
+				.tex((double) f7, (double) f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 				.lightmap(j, k).endVertex();
 	}
 

@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -10,7 +12,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -20,7 +26,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -85,10 +91,10 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Called when a player destroys this Block
 	 */
 	public void onBlockDestroyedByPlayer(World world, BlockPos blockpos, IBlockState iblockstate) {
-		BlockPos blockpos1 = blockpos.offset(iblockstate.getValue(FACING).getOpposite());
+		BlockPos blockpos1 = blockpos.offset(((EnumFacing) iblockstate.getValue(FACING)).getOpposite());
 		IBlockState iblockstate1 = world.getBlockState(blockpos1);
 		if (iblockstate1.getBlock() instanceof BlockPistonBase
-				&& iblockstate1.getValue(BlockPistonBase.EXTENDED).booleanValue()) {
+				&& ((Boolean) iblockstate1.getValue(BlockPistonBase.EXTENDED)).booleanValue()) {
 			world.setBlockToAir(blockpos1);
 		}
 
@@ -181,21 +187,21 @@ public class BlockPistonMoving extends BlockContainer {
 				double d4 = axisalignedbb.maxY;
 				double d5 = axisalignedbb.maxZ;
 				if (direction.getFrontOffsetX() < 0) {
-					d0 -= (float) direction.getFrontOffsetX() * progress;
+					d0 -= (double) ((float) direction.getFrontOffsetX() * progress);
 				} else {
-					d3 -= (float) direction.getFrontOffsetX() * progress;
+					d3 -= (double) ((float) direction.getFrontOffsetX() * progress);
 				}
 
 				if (direction.getFrontOffsetY() < 0) {
-					d1 -= (float) direction.getFrontOffsetY() * progress;
+					d1 -= (double) ((float) direction.getFrontOffsetY() * progress);
 				} else {
-					d4 -= (float) direction.getFrontOffsetY() * progress;
+					d4 -= (double) ((float) direction.getFrontOffsetY() * progress);
 				}
 
 				if (direction.getFrontOffsetZ() < 0) {
-					d2 -= (float) direction.getFrontOffsetZ() * progress;
+					d2 -= (double) ((float) direction.getFrontOffsetZ() * progress);
 				} else {
-					d5 -= (float) direction.getFrontOffsetZ() * progress;
+					d5 -= (double) ((float) direction.getFrontOffsetZ() * progress);
 				}
 
 				return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
@@ -227,7 +233,7 @@ public class BlockPistonMoving extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getIndex();
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
 		if (iblockstate.getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY) {
 			i |= 8;
 		}
@@ -236,6 +242,6 @@ public class BlockPistonMoving extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, TYPE);
+		return new BlockState(this, new IProperty[] { FACING, TYPE });
 	}
 }

@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -23,15 +26,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -85,11 +86,11 @@ public class BlockAnvil extends BlockFalling {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState state) {
-		return state.getValue(DAMAGE).intValue();
+		return ((Integer) state.getValue(DAMAGE)).intValue();
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+		EnumFacing enumfacing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
 		if (enumfacing.getAxis() == EnumFacing.Axis.X) {
 			this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
 		} else {
@@ -146,13 +147,13 @@ public class BlockAnvil extends BlockFalling {
 	 */
 	public int getMetaFromState(IBlockState state) {
 		int i = 0;
-		i = i | state.getValue(FACING).getHorizontalIndex();
-		i = i | state.getValue(DAMAGE).intValue() << 2;
+		i = i | ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+		i = i | ((Integer) state.getValue(DAMAGE)).intValue() << 2;
 		return i;
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, DAMAGE);
+		return new BlockState(this, new IProperty[] { FACING, DAMAGE });
 	}
 
 	public static class Anvil implements IInteractionObject {
@@ -173,7 +174,7 @@ public class BlockAnvil extends BlockFalling {
 		}
 
 		public IChatComponent getDisplayName() {
-			return new ChatComponentTranslation(Blocks.anvil.getUnlocalizedName() + ".name");
+			return new ChatComponentTranslation(Blocks.anvil.getUnlocalizedName() + ".name", new Object[0]);
 		}
 
 		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {

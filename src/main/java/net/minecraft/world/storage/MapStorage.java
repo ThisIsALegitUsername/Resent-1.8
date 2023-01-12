@@ -14,7 +14,7 @@ import net.minecraft.world.WorldSavedData;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -22,33 +22,32 @@ import net.minecraft.world.WorldSavedData;
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
  * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class MapStorage {
-    private final ISaveHandler saveHandler;
-    protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
-    /**
-     * +
-     * List of loaded MapDataBases.
-     */
-    private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
-    private final Map<String, Short> idCounts = Maps.newHashMap();
+	private ISaveHandler saveHandler;
+	protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
+	/**+
+	 * List of loaded MapDataBases.
+	 */
+	private List<WorldSavedData> loadedDataList = Lists.newArrayList();
+	private Map<String, Short> idCounts = Maps.newHashMap();
 
-    public MapStorage(ISaveHandler saveHandlerIn) {
-        this.saveHandler = saveHandlerIn;
-        this.loadIdCounts();
-    }
+	public MapStorage(ISaveHandler saveHandlerIn) {
+		this.saveHandler = saveHandlerIn;
+		this.loadIdCounts();
+	}
 
-    /**+
-     * Loads an existing MapDataBase corresponding to the given
-     * String id from disk, instantiating the given Class, or
-     * returns null if none such file exists. args: Class to
+	/**+
+	 * Loads an existing MapDataBase corresponding to the given
+	 * String id from disk, instantiating the given Class, or
+	 * returns null if none such file exists. args: Class to
 	 * instantiate, String dataid
 	 */
 	public WorldSavedData loadData(Class<? extends WorldSavedData> oclass, String s) {
-        return this.loadedDataMap.get(s);
+		return (WorldSavedData) this.loadedDataMap.get(s);
 	}
 
 	/**+
@@ -69,7 +68,7 @@ public class MapStorage {
 	 */
 	public void saveAllData() {
 		for (int i = 0; i < this.loadedDataList.size(); ++i) {
-            this.loadedDataList.get(i).setDirty(false);
+			((WorldSavedData) this.loadedDataList.get(i)).setDirty(false);
 		}
 
 	}
@@ -86,7 +85,7 @@ public class MapStorage {
 	 * the idCounts map to the 'idcounts' file.
 	 */
 	public int getUniqueDataId(String s) {
-        Short oshort = this.idCounts.get(s);
+		Short oshort = (Short) this.idCounts.get(s);
 		if (oshort == null) {
 			oshort = Short.valueOf((short) 0);
 		} else {

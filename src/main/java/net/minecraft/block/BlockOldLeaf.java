@@ -1,6 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import com.google.common.base.Predicate;
+
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -13,15 +17,13 @@ import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -53,7 +55,7 @@ public class BlockOldLeaf extends BlockLeaves {
 		if (iblockstate.getBlock() != this) {
 			return super.getRenderColor(iblockstate);
 		} else {
-			BlockPlanks.EnumType blockplanks$enumtype = iblockstate.getValue(VARIANT);
+			BlockPlanks.EnumType blockplanks$enumtype = (BlockPlanks.EnumType) iblockstate.getValue(VARIANT);
 			return blockplanks$enumtype == BlockPlanks.EnumType.SPRUCE ? ColorizerFoliage.getFoliageColorPine()
 					: (blockplanks$enumtype == BlockPlanks.EnumType.BIRCH ? ColorizerFoliage.getFoliageColorBirch()
 							: super.getRenderColor(iblockstate));
@@ -63,7 +65,7 @@ public class BlockOldLeaf extends BlockLeaves {
 	public int colorMultiplier(IBlockAccess iblockaccess, BlockPos blockpos, int i) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
 		if (iblockstate.getBlock() == this) {
-			BlockPlanks.EnumType blockplanks$enumtype = iblockstate.getValue(VARIANT);
+			BlockPlanks.EnumType blockplanks$enumtype = (BlockPlanks.EnumType) iblockstate.getValue(VARIANT);
 			if (blockplanks$enumtype == BlockPlanks.EnumType.SPRUCE) {
 				return ColorizerFoliage.getFoliageColorPine();
 			}
@@ -101,7 +103,7 @@ public class BlockOldLeaf extends BlockLeaves {
 
 	protected ItemStack createStackedBlock(IBlockState iblockstate) {
 		return new ItemStack(Item.getItemFromBlock(this), 1,
-				iblockstate.getValue(VARIANT).getMetadata());
+				((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata());
 	}
 
 	/**+
@@ -118,12 +120,12 @@ public class BlockOldLeaf extends BlockLeaves {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(VARIANT).getMetadata();
-		if (!iblockstate.getValue(DECAYABLE).booleanValue()) {
+		i = i | ((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
+		if (!((Boolean) iblockstate.getValue(DECAYABLE)).booleanValue()) {
 			i |= 4;
 		}
 
-		if (iblockstate.getValue(CHECK_DECAY).booleanValue()) {
+		if (((Boolean) iblockstate.getValue(CHECK_DECAY)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -135,7 +137,7 @@ public class BlockOldLeaf extends BlockLeaves {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, VARIANT, CHECK_DECAY, DECAYABLE);
+		return new BlockState(this, new IProperty[] { VARIANT, CHECK_DECAY, DECAYABLE });
 	}
 
 	/**+
@@ -145,7 +147,7 @@ public class BlockOldLeaf extends BlockLeaves {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockPlanks.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 }

@@ -1,10 +1,10 @@
 package net.minecraft.client.resources.data;
 
-import com.google.common.collect.Sets;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -12,7 +12,7 @@ import java.util.Set;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -61,7 +61,7 @@ public class AnimationMetadataSection implements IMetadataSection {
 	}
 
 	private AnimationFrame getAnimationFrame(int parInt1) {
-		return this.animationFrames.get(parInt1);
+		return (AnimationFrame) this.animationFrames.get(parInt1);
 	}
 
 	public int getFrameTimeSingle(int parInt1) {
@@ -70,11 +70,11 @@ public class AnimationMetadataSection implements IMetadataSection {
 	}
 
 	public boolean frameHasTime(int parInt1) {
-		return !this.animationFrames.get(parInt1).hasNoTime();
+		return !((AnimationFrame) this.animationFrames.get(parInt1)).hasNoTime();
 	}
 
 	public int getFrameIndex(int parInt1) {
-		return this.animationFrames.get(parInt1).getFrameIndex();
+		return ((AnimationFrame) this.animationFrames.get(parInt1)).getFrameIndex();
 	}
 
 	public Set<Integer> getFrameIndexSet() {

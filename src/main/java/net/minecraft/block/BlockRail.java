@@ -13,7 +13,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -35,7 +35,7 @@ public class BlockRail extends BlockRailBase {
 	}
 
 	public static void bootstrapStates() {
-		SHAPE = PropertyEnum.create("shape", BlockRailBase.EnumRailDirection.class);
+		SHAPE = PropertyEnum.<BlockRailBase.EnumRailDirection>create("shape", BlockRailBase.EnumRailDirection.class);
 	}
 
 	protected void onNeighborChangedInternal(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
@@ -61,10 +61,10 @@ public class BlockRail extends BlockRailBase {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(SHAPE).getMetadata();
+		return ((BlockRailBase.EnumRailDirection) iblockstate.getValue(SHAPE)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, SHAPE);
+		return new BlockState(this, new IProperty[] { SHAPE });
 	}
 }

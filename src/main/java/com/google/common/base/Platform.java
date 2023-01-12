@@ -41,6 +41,6 @@ final class Platform {
 
 	static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
 		WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
-		return ref == null ? Optional.absent() : Optional.of(enumClass.cast(ref.get()));
+		return ref == null ? Optional.<T>absent() : Optional.of(enumClass.cast(ref.get()));
 	}
 }

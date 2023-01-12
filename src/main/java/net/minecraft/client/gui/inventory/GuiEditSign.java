@@ -20,7 +20,7 @@ import net.minecraft.util.ChatComponentText;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -33,8 +33,8 @@ import net.minecraft.util.ChatComponentText;
  * 
  */
 public class GuiEditSign extends GuiScreen {
-	private final TileEntitySign tileSign;
-    private int updateCounter;
+	private TileEntitySign tileSign;
+	private int updateCounter;
 	private int editLine;
 	private GuiButton doneBtn;
 
@@ -48,12 +48,12 @@ public class GuiEditSign extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        this.buttonList.clear();
-        Keyboard.enableRepeatEvents(true);
-        this.buttonList.add(this.doneBtn = new GuiButton(0, width / 2 - 100, height / 4 + 120,
-                I18n.format("gui.done")));
-        this.tileSign.setEditable(false);
-    }
+		this.buttonList.clear();
+		Keyboard.enableRepeatEvents(true);
+		this.buttonList.add(this.doneBtn = new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120,
+				I18n.format("gui.done", new Object[0])));
+		this.tileSign.setEditable(false);
+	}
 
 	/**+
 	 * Called when the screen is unloaded. Used to disable keyboard
@@ -84,8 +84,8 @@ public class GuiEditSign extends GuiScreen {
 	protected void actionPerformed(GuiButton parGuiButton) {
 		if (parGuiButton.enabled) {
 			if (parGuiButton.id == 0) {
-                this.tileSign.markDirty();
-                this.mc.displayGuiScreen(null);
+				this.tileSign.markDirty();
+				this.mc.displayGuiScreen((GuiScreen) null);
 			}
 
 		}
@@ -129,11 +129,11 @@ public class GuiEditSign extends GuiScreen {
 	 */
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("sign.edit"), width / 2, 40,
-                16777215);
+		this.drawCenteredString(this.fontRendererObj, I18n.format("sign.edit", new Object[0]), this.width / 2, 40,
+				16777215);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float) (width / 2), 0.0F, 50.0F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float) (this.width / 2), 0.0F, 50.0F);
 		float f1 = 93.75F;
 		GlStateManager.scale(-f1, -f1, -f1);
 		GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);

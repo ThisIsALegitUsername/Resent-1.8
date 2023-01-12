@@ -8,7 +8,7 @@ import net.minecraft.client.resources.I18n;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -27,15 +27,15 @@ public class GuiConfirmOpenLink extends GuiYesNo {
 	private boolean showSecurityWarning = true;
 
 	public GuiConfirmOpenLink(GuiYesNoCallback parGuiYesNoCallback, String linkTextIn, int parInt1, boolean parFlag) {
-        super(parGuiYesNoCallback,
-                I18n.format(parFlag ? "chat.link.confirmTrusted" : "chat.link.confirm"), linkTextIn,
-                parInt1);
-        this.confirmButtonText = I18n.format(parFlag ? "chat.link.open" : "gui.yes");
-        this.cancelButtonText = I18n.format(parFlag ? "gui.cancel" : "gui.no");
-        this.copyLinkButtonText = I18n.format("chat.copy");
-        this.openLinkWarning = I18n.format("chat.link.warning");
-        this.linkText = linkTextIn;
-    }
+		super(parGuiYesNoCallback,
+				I18n.format(parFlag ? "chat.link.confirmTrusted" : "chat.link.confirm", new Object[0]), linkTextIn,
+				parInt1);
+		this.confirmButtonText = I18n.format(parFlag ? "chat.link.open" : "gui.yes", new Object[0]);
+		this.cancelButtonText = I18n.format(parFlag ? "gui.cancel" : "gui.no", new Object[0]);
+		this.copyLinkButtonText = I18n.format("chat.copy", new Object[0]);
+		this.openLinkWarning = I18n.format("chat.link.warning", new Object[0]);
+		this.linkText = linkTextIn;
+	}
 
 	/**+
 	 * Adds the buttons (and other controls) to the screen in
@@ -44,13 +44,13 @@ public class GuiConfirmOpenLink extends GuiYesNo {
 	 */
 	public void initGui() {
 		super.initGui();
-        this.buttonList.clear();
-        this.buttonList.add(
-                new GuiButton(0, width / 2 - 50 - 105, height / 6 + 96, 100, 20, this.confirmButtonText));
-        this.buttonList
-                .add(new GuiButton(2, width / 2 - 50, height / 6 + 96, 100, 20, this.copyLinkButtonText));
-        this.buttonList
-                .add(new GuiButton(1, width / 2 - 50 + 105, height / 6 + 96, 100, 20, this.cancelButtonText));
+		this.buttonList.clear();
+		this.buttonList.add(
+				new GuiButton(0, this.width / 2 - 50 - 105, this.height / 6 + 96, 100, 20, this.confirmButtonText));
+		this.buttonList
+				.add(new GuiButton(2, this.width / 2 - 50, this.height / 6 + 96, 100, 20, this.copyLinkButtonText));
+		this.buttonList
+				.add(new GuiButton(1, this.width / 2 - 50 + 105, this.height / 6 + 96, 100, 20, this.cancelButtonText));
 	}
 
 	/**+
@@ -79,7 +79,7 @@ public class GuiConfirmOpenLink extends GuiYesNo {
 	public void drawScreen(int i, int j, float f) {
 		super.drawScreen(i, j, f);
 		if (this.showSecurityWarning) {
-            this.drawCenteredString(this.fontRendererObj, this.openLinkWarning, width / 2, 110, 16764108);
+			this.drawCenteredString(this.fontRendererObj, this.openLinkWarning, this.width / 2, 110, 16764108);
 		}
 
 	}

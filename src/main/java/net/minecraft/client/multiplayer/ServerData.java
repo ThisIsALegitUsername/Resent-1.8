@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -43,18 +43,16 @@ public class ServerData {
 	 * meaning 5 slots used out of 20 slots total)
 	 */
 	public String populationInfo = "";
-	/**
-     * +
-     * (better variable name would be 'hostname') server name as
-     * displayed in the server browser's second line (grey text)
-     */
-    public String serverMOTD = "";
-    /**
-     * +
-     * last server ping that showed up in the server browser
-     */
-    public long pingToServer = -1L;
-    public int version = 47;
+	/**+
+	 * (better variable name would be 'hostname') server name as
+	 * displayed in the server browser's second line (grey text)
+	 */
+	public String serverMOTD = "";
+	/**+
+	 * last server ping that showed up in the server browser
+	 */
+	public long pingToServer = -1l;
+	public int version = 47;
 	/**+
 	 * Game version for this server.
 	 */
@@ -66,9 +64,9 @@ public class ServerData {
 	private boolean field_181042_l;
 	public IServerQuery currentQuery = null;
 	public final ResourceLocation iconResourceLocation;
-    public EaglerSkinTexture iconTextureObject = null;
-    public long pingSentTime = -1L;
-    public boolean serverIconDirty = false;
+	public EaglerSkinTexture iconTextureObject = null;
+	public long pingSentTime = -1l;
+	public boolean serverIconDirty = false;
 	public boolean hasPing = false;
 	public boolean serverIconEnabled = false;
 	public boolean isDefault = false;
@@ -148,18 +146,18 @@ public class ServerData {
 		this.setResourceMode(serverDataIn.getResourceMode());
 		this.hideAddress = serverDataIn.hideAddress;
 		this.field_181042_l = serverDataIn.field_181042_l;
-    }
+	}
 
-    public enum ServerResourceMode {
-        ENABLED("enabled"), DISABLED("disabled"), PROMPT("prompt");
+	public static enum ServerResourceMode {
+		ENABLED("enabled"), DISABLED("disabled"), PROMPT("prompt");
 
-        private final IChatComponent motd;
+		private final IChatComponent motd;
 
-        ServerResourceMode(String parString2) {
-            this.motd = new ChatComponentTranslation("addServer.resourcePack." + parString2);
-        }
+		private ServerResourceMode(String parString2) {
+			this.motd = new ChatComponentTranslation("addServer.resourcePack." + parString2, new Object[0]);
+		}
 
-        public IChatComponent getMotd() {
+		public IChatComponent getMotd() {
 			return this.motd;
 		}
 	}
@@ -194,10 +192,10 @@ public class ServerData {
 				}
 			} else {
 				throw new IOException("Response was not JSON!");
-            }
-        } catch (Throwable t) {
-            pingToServer = -1L;
-            logger.error("Could not decode QueryResponse from: {}", serverIP);
+			}
+		} catch (Throwable t) {
+			pingToServer = -1l;
+			logger.error("Could not decode QueryResponse from: {}", serverIP);
 			logger.error(t);
 		}
 	}
@@ -221,10 +219,10 @@ public class ServerData {
 			} else {
 				iconTextureObject = new EaglerSkinTexture(pixels, 64, 64);
 				Minecraft.getMinecraft().getTextureManager().loadTexture(iconResourceLocation, iconTextureObject);
-            }
-        } catch (Throwable t) {
-            pingToServer = -1L;
-            logger.error("Could not decode MOTD icon from: {}", serverIP);
+			}
+		} catch (Throwable t) {
+			pingToServer = -1l;
+			logger.error("Could not decode MOTD icon from: {}", serverIP);
 			logger.error(t);
 		}
 	}

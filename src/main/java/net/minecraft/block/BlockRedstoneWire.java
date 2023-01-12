@@ -1,9 +1,15 @@
 package net.minecraft.block;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import java.util.Set;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -11,13 +17,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.Set;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -25,7 +33,7 @@ import java.util.Set;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -60,13 +68,13 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	public static void bootstrapStates() {
-		NORTH = PropertyEnum.create("north",
+		NORTH = PropertyEnum.<BlockRedstoneWire.EnumAttachPosition>create("north",
 				BlockRedstoneWire.EnumAttachPosition.class);
-		EAST = PropertyEnum.create("east",
+		EAST = PropertyEnum.<BlockRedstoneWire.EnumAttachPosition>create("east",
 				BlockRedstoneWire.EnumAttachPosition.class);
-		SOUTH = PropertyEnum.create("south",
+		SOUTH = PropertyEnum.<BlockRedstoneWire.EnumAttachPosition>create("south",
 				BlockRedstoneWire.EnumAttachPosition.class);
-		WEST = PropertyEnum.create("west",
+		WEST = PropertyEnum.<BlockRedstoneWire.EnumAttachPosition>create("west",
 				BlockRedstoneWire.EnumAttachPosition.class);
 	}
 
@@ -118,7 +126,7 @@ public class BlockRedstoneWire extends Block {
 	public int colorMultiplier(IBlockAccess iblockaccess, BlockPos blockpos, int i) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
 		return iblockstate.getBlock() != this ? super.colorMultiplier(iblockaccess, blockpos, i)
-				: this.colorMultiplier(iblockstate.getValue(POWER).intValue());
+				: this.colorMultiplier(((Integer) iblockstate.getValue(POWER)).intValue());
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
@@ -140,7 +148,7 @@ public class BlockRedstoneWire extends Block {
 
 	private IBlockState calculateCurrentChanges(World worldIn, BlockPos pos1, BlockPos pos2, IBlockState state) {
 		IBlockState iblockstate = state;
-		int i = state.getValue(POWER).intValue();
+		int i = ((Integer) state.getValue(POWER)).intValue();
 		int j = 0;
 		j = this.getMaxCurrentStrength(worldIn, pos2, j);
 		this.canProvidePower = false;
@@ -218,7 +226,7 @@ public class BlockRedstoneWire extends Block {
 		if (worldIn.getBlockState(pos).getBlock() != this) {
 			return strength;
 		} else {
-			int i = worldIn.getBlockState(pos).getValue(POWER).intValue();
+			int i = ((Integer) worldIn.getBlockState(pos).getValue(POWER)).intValue();
 			return i > strength ? i : strength;
 		}
 	}
@@ -240,7 +248,7 @@ public class BlockRedstoneWire extends Block {
 		if (!this.canProvidePower) {
 			return 0;
 		} else {
-			int i = iblockstate.getValue(POWER).intValue();
+			int i = ((Integer) iblockstate.getValue(POWER)).intValue();
 			if (i == 0) {
 				return 0;
 			} else if (enumfacing == EnumFacing.UP) {
@@ -272,7 +280,11 @@ public class BlockRedstoneWire extends Block {
 		Block block = iblockstate.getBlock();
 		boolean flag = block.isNormalCube();
 		boolean flag1 = worldIn.getBlockState(pos.up()).getBlock().isNormalCube();
-		return !flag1 && flag && canConnectUpwardsTo(worldIn, blockpos.up()) || (canConnectTo(iblockstate, side) || (block == Blocks.powered_repeater && iblockstate.getValue(BlockRedstoneDiode.FACING) == side || !flag && canConnectUpwardsTo(worldIn, blockpos.down())));
+		return !flag1 && flag && canConnectUpwardsTo(worldIn, blockpos.up()) ? true
+				: (canConnectTo(iblockstate, side) ? true
+						: (block == Blocks.powered_repeater && iblockstate.getValue(BlockRedstoneDiode.FACING) == side
+								? true
+								: !flag && canConnectUpwardsTo(worldIn, blockpos.down())));
 	}
 
 	protected static boolean canConnectUpwardsTo(IBlockAccess worldIn, BlockPos pos) {
@@ -280,7 +292,7 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	protected static boolean canConnectUpwardsTo(IBlockState state) {
-		return canConnectTo(state, null);
+		return canConnectTo(state, (EnumFacing) null);
 	}
 
 	protected static boolean canConnectTo(IBlockState blockState, EnumFacing side) {
@@ -288,7 +300,7 @@ public class BlockRedstoneWire extends Block {
 		if (block == Blocks.redstone_wire) {
 			return true;
 		} else if (Blocks.unpowered_repeater.isAssociated(block)) {
-			EnumFacing enumfacing = blockState.getValue(BlockRedstoneRepeater.FACING);
+			EnumFacing enumfacing = (EnumFacing) blockState.getValue(BlockRedstoneRepeater.FACING);
 			return enumfacing == side || enumfacing.getOpposite() == side;
 		} else {
 			return block.canProvidePower() && side != null;
@@ -327,17 +339,17 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
-		int i = iblockstate.getValue(POWER).intValue();
+		int i = ((Integer) iblockstate.getValue(POWER)).intValue();
 		if (i != 0) {
 			double d0 = (double) blockpos.getX() + 0.5D + ((double) random.nextFloat() - 0.5D) * 0.2D;
-			double d1 = (float) blockpos.getY() + 0.0625F;
+			double d1 = (double) ((float) blockpos.getY() + 0.0625F);
 			double d2 = (double) blockpos.getZ() + 0.5D + ((double) random.nextFloat() - 0.5D) * 0.2D;
 			float f = (float) i / 15.0F;
 			float f1 = f * 0.6F + 0.4F;
 			float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
 			float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
-			world.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, f1, f2, f3
-			);
+			world.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, (double) f1, (double) f2, (double) f3,
+					new int[0]);
 		}
 	}
 
@@ -360,19 +372,19 @@ public class BlockRedstoneWire extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(POWER).intValue();
+		return ((Integer) iblockstate.getValue(POWER)).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, NORTH, EAST, SOUTH, WEST, POWER);
+		return new BlockState(this, new IProperty[] { NORTH, EAST, SOUTH, WEST, POWER });
 	}
 
-	enum EnumAttachPosition implements IStringSerializable {
+	static enum EnumAttachPosition implements IStringSerializable {
 		UP("up"), SIDE("side"), NONE("none");
 
 		private final String name;
 
-		EnumAttachPosition(String name) {
+		private EnumAttachPosition(String name) {
 			this.name = name;
 		}
 

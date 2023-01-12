@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -131,11 +132,11 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Returns the cubic AABB inset by 1/8 on all sides
 	 */
 	protected AxisAlignedBB getSensitiveAABB(BlockPos pos) {
-        float f = 0.125F;
-        return new AxisAlignedBB((float) pos.getX() + 0.125F, pos.getY(),
-                (float) pos.getZ() + 0.125F, (float) (pos.getX() + 1) - 0.125F,
-                (double) pos.getY() + 0.25D, (float) (pos.getZ() + 1) - 0.125F);
-    }
+		float f = 0.125F;
+		return new AxisAlignedBB((double) ((float) pos.getX() + 0.125F), (double) pos.getY(),
+				(double) ((float) pos.getZ() + 0.125F), (double) ((float) (pos.getX() + 1) - 0.125F),
+				(double) pos.getY() + 0.25D, (double) ((float) (pos.getZ() + 1) - 0.125F));
+	}
 
 	public void breakBlock(World world, BlockPos blockpos, IBlockState iblockstate) {
 		if (this.getRedstoneStrength(iblockstate) > 0) {

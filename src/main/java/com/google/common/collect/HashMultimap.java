@@ -93,14 +93,14 @@ public final class HashMultimap<K, V> extends AbstractSetMultimap<K, V> {
 	}
 
 	private HashMultimap(int expectedKeys, int expectedValuesPerKey) {
-		super(Maps.newHashMapWithExpectedSize(expectedKeys));
-        Preconditions.checkArgument(expectedValuesPerKey >= 0);
+		super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(expectedKeys));
+		Preconditions.checkArgument(expectedValuesPerKey >= 0);
 		this.expectedValuesPerKey = expectedValuesPerKey;
 	}
 
 	private HashMultimap(Multimap<? extends K, ? extends V> multimap) {
-        super(Maps.newHashMapWithExpectedSize(multimap.keySet().size()));
-        putAll(multimap);
+		super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(multimap.keySet().size()));
+		putAll(multimap);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public final class HashMultimap<K, V> extends AbstractSetMultimap<K, V> {
 	 */
 	@Override
 	Set<V> createCollection() {
-        return Sets.newHashSetWithExpectedSize(expectedValuesPerKey);
+		return Sets.<V>newHashSetWithExpectedSize(expectedValuesPerKey);
 	}
 
 	/**

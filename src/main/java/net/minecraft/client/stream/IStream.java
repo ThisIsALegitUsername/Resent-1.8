@@ -6,7 +6,7 @@ package net.minecraft.client.stream;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -70,18 +70,17 @@ public interface IStream {
 
 	boolean func_152913_F();
 
-    /**
-     * +
-     * mutes or unmutes the microphone based on the boolean
-     * parameter passed into the method
-     */
-    void muteMicrophone(boolean var1);
+	/**+
+	 * mutes or unmutes the microphone based on the boolean
+	 * parameter passed into the method
+	 */
+	void muteMicrophone(boolean var1);
 
-    boolean func_152929_G();
+	boolean func_152929_G();
 
-    IStream.AuthFailureReason func_152918_H();
+	IStream.AuthFailureReason func_152918_H();
 
-    enum AuthFailureReason {
-        ERROR, INVALID_TOKEN
-    }
+	public static enum AuthFailureReason {
+		ERROR, INVALID_TOKEN;
+	}
 }

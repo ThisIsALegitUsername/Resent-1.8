@@ -26,7 +26,7 @@ import net.minecraft.util.ChatComponentText;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -66,8 +66,8 @@ public class GuiConnecting extends GuiScreen {
 		this.mc = mcIn;
 		this.previousGuiScreen = parGuiScreen;
 		String serveraddress = AddressResolver.resolveURI(parServerData);
-		mcIn.loadWorld(null);
-        mcIn.setServerData(parServerData);
+		mcIn.loadWorld((WorldClient) null);
+		mcIn.setServerData(parServerData);
 		if (RateLimitTracker.isLockedOut(serveraddress)) {
 			logger.error("Server locked this client out on a previous connection, will not attempt to reconnect");
 		} else {
@@ -90,9 +90,9 @@ public class GuiConnecting extends GuiScreen {
 	public GuiConnecting(GuiScreen parGuiScreen, Minecraft mcIn, String hostName, int port, String password,
 			boolean allowPlaintext) {
 		this.mc = mcIn;
-        this.previousGuiScreen = parGuiScreen;
-        mcIn.loadWorld(null);
-        this.connect(hostName, password, allowPlaintext);
+		this.previousGuiScreen = parGuiScreen;
+		mcIn.loadWorld((WorldClient) null);
+		this.connect(hostName, password, allowPlaintext);
 	}
 
 	public GuiConnecting(GuiConnecting previous, String password) {
@@ -204,9 +204,9 @@ public class GuiConnecting extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        this.buttonList.clear();
-        this.buttonList.add(
-                new GuiButton(0, width / 2 - 100, height / 2 - 10, I18n.format("gui.cancel")));
+		this.buttonList.clear();
+		this.buttonList.add(
+				new GuiButton(0, this.width / 2 - 100, this.height / 2 - 10, I18n.format("gui.cancel", new Object[0])));
 	}
 
 	/**+
@@ -232,12 +232,12 @@ public class GuiConnecting extends GuiScreen {
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
 		if (this.networkManager == null || !this.networkManager.isChannelOpen()) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("connect.connecting"),
-                    width / 2, height / 2 - 50, 16777215);
-        } else {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("connect.authorizing"),
-                    width / 2, height / 2 - 50, 16777215);
-        }
+			this.drawCenteredString(this.fontRendererObj, I18n.format("connect.connecting", new Object[0]),
+					this.width / 2, this.height / 2 - 50, 16777215);
+		} else {
+			this.drawCenteredString(this.fontRendererObj, I18n.format("connect.authorizing", new Object[0]),
+					this.width / 2, this.height / 2 - 50, 16777215);
+		}
 
 		super.drawScreen(i, j, f);
 	}

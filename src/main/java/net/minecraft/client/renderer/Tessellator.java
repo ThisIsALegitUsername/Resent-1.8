@@ -10,31 +10,31 @@ import net.lax1dude.eaglercraft.v1_8.opengl.WorldVertexBufferUploader;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class Tessellator {
-    private final WorldRenderer worldRenderer;
-    private final WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
+	private WorldRenderer worldRenderer;
+	private WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
 
-    public static final int GL_TRIANGLES = RealOpenGLEnums.GL_TRIANGLES;
-    public static final int GL_TRIANGLE_STRIP = RealOpenGLEnums.GL_TRIANGLE_STRIP;
-    public static final int GL_TRIANGLE_FAN = RealOpenGLEnums.GL_TRIANGLE_FAN;
-    public static final int GL_QUADS = RealOpenGLEnums.GL_QUADS;
-    public static final int GL_LINES = RealOpenGLEnums.GL_LINES;
-    public static final int GL_LINE_STRIP = RealOpenGLEnums.GL_LINE_STRIP;
-    public static final int GL_LINE_LOOP = RealOpenGLEnums.GL_LINE_LOOP;
+	public static final int GL_TRIANGLES = RealOpenGLEnums.GL_TRIANGLES;
+	public static final int GL_TRIANGLE_STRIP = RealOpenGLEnums.GL_TRIANGLE_STRIP;
+	public static final int GL_TRIANGLE_FAN = RealOpenGLEnums.GL_TRIANGLE_FAN;
+	public static final int GL_QUADS = RealOpenGLEnums.GL_QUADS;
+	public static final int GL_LINES = RealOpenGLEnums.GL_LINES;
+	public static final int GL_LINE_STRIP = RealOpenGLEnums.GL_LINE_STRIP;
+	public static final int GL_LINE_LOOP = RealOpenGLEnums.GL_LINE_LOOP;
 
-    /**+
+	/**+
 	 * The static instance of the Tessellator.
 	 */
 	private static final Tessellator instance = new Tessellator(2097152);

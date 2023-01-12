@@ -33,8 +33,8 @@ import javax.annotation.Nullable;
  */
 final class MultiInputStream extends InputStream {
 
-	private final Iterator<? extends ByteSource> it;
-    private InputStream in;
+	private Iterator<? extends ByteSource> it;
+	private InputStream in;
 
 	/**
 	 * Creates a new instance.

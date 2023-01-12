@@ -32,7 +32,7 @@ import net.minecraft.util.ITickable;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -103,7 +103,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 			IBlockState iblockstate = this.worldObj.getBlockState(blockpos$mutableblockpos.func_181079_c(j, i1, l));
 			float[] afloat;
 			if (iblockstate.getBlock() == Blocks.stained_glass) {
-				afloat = EntitySheep.func_175513_a(iblockstate.getValue(BlockStainedGlass.COLOR));
+				afloat = EntitySheep.func_175513_a((EnumDyeColor) iblockstate.getValue(BlockStainedGlass.COLOR));
 			} else {
 				if (iblockstate.getBlock() != Blocks.stained_glass_pane) {
 					if (iblockstate.getBlock().getLightOpacity() >= 15 && iblockstate.getBlock() != Blocks.bedrock) {
@@ -116,7 +116,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 					continue;
 				}
 
-                afloat = EntitySheep.func_175513_a(iblockstate.getValue(BlockStainedGlassPane.COLOR));
+				afloat = EntitySheep.func_175513_a((EnumDyeColor) iblockstate.getValue(BlockStainedGlassPane.COLOR));
 			}
 
 			if (!flag) {
@@ -323,9 +323,10 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
-    }
+		return this.worldObj.getTileEntity(this.pos) != this ? false
+				: player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+						(double) this.pos.getZ() + 0.5D) <= 64.0D;
+	}
 
 	public void openInventory(EntityPlayer player) {
 	}

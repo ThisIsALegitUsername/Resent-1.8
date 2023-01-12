@@ -16,10 +16,15 @@
 
 package com.google.common.io;
 
-import java.io.*;
-import java.nio.charset.Charset;
-
 import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
 
 /**
  * A destination to which bytes can be written, such as a file. Unlike an
@@ -169,7 +174,7 @@ public abstract class ByteSink implements OutputSupplier<OutputStream> {
 
 		@Override
 		public String toString() {
-			return ByteSink.this + ".asCharSink(" + charset + ")";
+			return ByteSink.this.toString() + ".asCharSink(" + charset + ")";
 		}
 	}
 }

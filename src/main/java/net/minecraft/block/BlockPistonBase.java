@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockPistonStructureHelper;
@@ -20,15 +23,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -84,13 +85,13 @@ public class BlockPistonBase extends Block {
 	}
 
 	private void checkForMove(World worldIn, BlockPos pos, IBlockState state) {
-		EnumFacing enumfacing = state.getValue(FACING);
+		EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
 		boolean flag = this.shouldBeExtended(worldIn, pos, enumfacing);
-		if (flag && !state.getValue(EXTENDED).booleanValue()) {
+		if (flag && !((Boolean) state.getValue(EXTENDED)).booleanValue()) {
 			if ((new BlockPistonStructureHelper(worldIn, pos, enumfacing, true)).canMove()) {
 				worldIn.addBlockEvent(pos, this, 0, enumfacing.getIndex());
 			}
-		} else if (!flag && state.getValue(EXTENDED).booleanValue()) {
+		} else if (!flag && ((Boolean) state.getValue(EXTENDED)).booleanValue()) {
 			worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.valueOf(false)), 2);
 			worldIn.addBlockEvent(pos, this, 1, enumfacing.getIndex());
 		}
@@ -125,7 +126,7 @@ public class BlockPistonBase extends Block {
 	 * called
 	 */
 	public boolean onBlockEventReceived(World world, BlockPos blockpos, IBlockState iblockstate, int i, int j) {
-		EnumFacing enumfacing = iblockstate.getValue(FACING);
+		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 		if (i == 0) {
 			if (!this.doMove(world, blockpos, enumfacing, true)) {
 				return false;
@@ -182,17 +183,17 @@ public class BlockPistonBase extends Block {
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
-		if (iblockstate.getBlock() == this && iblockstate.getValue(EXTENDED).booleanValue()) {
+		if (iblockstate.getBlock() == this && ((Boolean) iblockstate.getValue(EXTENDED)).booleanValue()) {
 			float f = 0.25F;
-			EnumFacing enumfacing = iblockstate.getValue(FACING);
+			EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 			if (enumfacing != null) {
 				switch (enumfacing) {
-					case DOWN:
-						this.setBlockBounds(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
-						break;
-					case UP:
-						this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-						break;
+				case DOWN:
+					this.setBlockBounds(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
+					break;
+				case UP:
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
+					break;
 				case NORTH:
 					this.setBlockBounds(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
 					break;
@@ -278,9 +279,13 @@ public class BlockPistonBase extends Block {
 					}
 
 					if (blockIn.getMobilityFlag() == 1) {
-						return allowDestroy;
+						if (!allowDestroy) {
+							return false;
+						}
+
+						return true;
 					}
-				} else if (worldIn.getBlockState(pos).getValue(EXTENDED).booleanValue()) {
+				} else if (((Boolean) worldIn.getBlockState(pos).getValue(EXTENDED)).booleanValue()) {
 					return false;
 				}
 
@@ -387,8 +392,8 @@ public class BlockPistonBase extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getIndex();
-		if (iblockstate.getValue(EXTENDED).booleanValue()) {
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+		if (((Boolean) iblockstate.getValue(EXTENDED)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -396,6 +401,6 @@ public class BlockPistonBase extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, EXTENDED);
+		return new BlockState(this, new IProperty[] { FACING, EXTENDED });
 	}
 }

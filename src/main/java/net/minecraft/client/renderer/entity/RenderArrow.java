@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -59,8 +59,8 @@ public class RenderArrow extends Render<EntityArrow> {
 		byte b0 = 0;
 		float f2 = 0.0F;
 		float f3 = 0.5F;
-        float f4 = (float) (b0 * 10) / 32.0F;
-        float f5 = (float) (5 + b0 * 10) / 32.0F;
+		float f4 = (float) (0 + b0 * 10) / 32.0F;
+		float f5 = (float) (5 + b0 * 10) / 32.0F;
 		float f6 = 0.0F;
 		float f7 = 0.15625F;
 		float f8 = (float) (5 + b0 * 10) / 32.0F;
@@ -68,39 +68,39 @@ public class RenderArrow extends Render<EntityArrow> {
 		float f10 = 0.05625F;
 		GlStateManager.enableRescaleNormal();
 		float f11 = (float) entityarrow.arrowShake - f1;
-        if (f11 > 0.0F) {
-            float f12 = -MathHelper.sin(f11 * 3.0F) * f11;
-            GlStateManager.rotate(f12, 0.0F, 0.0F, 1.0F);
-        }
+		if (f11 > 0.0F) {
+			float f12 = -MathHelper.sin(f11 * 3.0F) * f11;
+			GlStateManager.rotate(f12, 0.0F, 0.0F, 1.0F);
+		}
 
-        GlStateManager.rotate(45.0F, 1.0F, 0.0F, 0.0F);
-        GlStateManager.scale(f10, f10, f10);
-        GlStateManager.translate(-4.0F, 0.0F, 0.0F);
-        EaglercraftGPU.glNormal3f(f10, 0.0F, 0.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(-7.0D, -2.0D, -2.0D).tex(f6, f8).endVertex();
-        worldrenderer.pos(-7.0D, -2.0D, 2.0D).tex(f7, f8).endVertex();
-        worldrenderer.pos(-7.0D, 2.0D, 2.0D).tex(f7, f9).endVertex();
-        worldrenderer.pos(-7.0D, 2.0D, -2.0D).tex(f6, f9).endVertex();
-        tessellator.draw();
-        EaglercraftGPU.glNormal3f(-f10, 0.0F, 0.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(-7.0D, 2.0D, -2.0D).tex(f6, f8).endVertex();
-        worldrenderer.pos(-7.0D, 2.0D, 2.0D).tex(f7, f8).endVertex();
-        worldrenderer.pos(-7.0D, -2.0D, 2.0D).tex(f7, f9).endVertex();
-        worldrenderer.pos(-7.0D, -2.0D, -2.0D).tex(f6, f9).endVertex();
-        tessellator.draw();
+		GlStateManager.rotate(45.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.scale(f10, f10, f10);
+		GlStateManager.translate(-4.0F, 0.0F, 0.0F);
+		EaglercraftGPU.glNormal3f(f10, 0.0F, 0.0F);
+		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+		worldrenderer.pos(-7.0D, -2.0D, -2.0D).tex((double) f6, (double) f8).endVertex();
+		worldrenderer.pos(-7.0D, -2.0D, 2.0D).tex((double) f7, (double) f8).endVertex();
+		worldrenderer.pos(-7.0D, 2.0D, 2.0D).tex((double) f7, (double) f9).endVertex();
+		worldrenderer.pos(-7.0D, 2.0D, -2.0D).tex((double) f6, (double) f9).endVertex();
+		tessellator.draw();
+		EaglercraftGPU.glNormal3f(-f10, 0.0F, 0.0F);
+		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+		worldrenderer.pos(-7.0D, 2.0D, -2.0D).tex((double) f6, (double) f8).endVertex();
+		worldrenderer.pos(-7.0D, 2.0D, 2.0D).tex((double) f7, (double) f8).endVertex();
+		worldrenderer.pos(-7.0D, -2.0D, 2.0D).tex((double) f7, (double) f9).endVertex();
+		worldrenderer.pos(-7.0D, -2.0D, -2.0D).tex((double) f6, (double) f9).endVertex();
+		tessellator.draw();
 
-        for (int i = 0; i < 4; ++i) {
-            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-            EaglercraftGPU.glNormal3f(0.0F, 0.0F, f10);
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(-8.0D, -2.0D, 0.0D).tex(f2, f4).endVertex();
-            worldrenderer.pos(8.0D, -2.0D, 0.0D).tex(f3, f4).endVertex();
-            worldrenderer.pos(8.0D, 2.0D, 0.0D).tex(f3, f5).endVertex();
-            worldrenderer.pos(-8.0D, 2.0D, 0.0D).tex(f2, f5).endVertex();
-            tessellator.draw();
-        }
+		for (int i = 0; i < 4; ++i) {
+			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+			EaglercraftGPU.glNormal3f(0.0F, 0.0F, f10);
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+			worldrenderer.pos(-8.0D, -2.0D, 0.0D).tex((double) f2, (double) f4).endVertex();
+			worldrenderer.pos(8.0D, -2.0D, 0.0D).tex((double) f3, (double) f4).endVertex();
+			worldrenderer.pos(8.0D, 2.0D, 0.0D).tex((double) f3, (double) f5).endVertex();
+			worldrenderer.pos(-8.0D, 2.0D, 0.0D).tex((double) f2, (double) f5).endVertex();
+			tessellator.draw();
+		}
 
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();

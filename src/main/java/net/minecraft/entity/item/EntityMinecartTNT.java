@@ -19,7 +19,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -57,8 +57,8 @@ public class EntityMinecartTNT extends EntityMinecart {
 		super.onUpdate();
 		if (this.minecartTNTFuse > 0) {
 			--this.minecartTNTFuse;
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
-                    0.0D, 0.0D);
+			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
+					0.0D, 0.0D, new int[0]);
 		} else if (this.minecartTNTFuse == 0) {
 			this.explodeCart(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		}
@@ -111,7 +111,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 	public void fall(float f, float f1) {
 		if (f >= 3.0F) {
 			float f2 = f / 10.0F;
-            this.explodeCart(f2 * f2);
+			this.explodeCart((double) (f2 * f2));
 		}
 
 		super.fall(f, f1);
@@ -170,9 +170,11 @@ public class EntityMinecartTNT extends EntityMinecart {
 
 	public boolean verifyExplosion(Explosion explosion, World world, BlockPos blockpos, IBlockState iblockstate,
 			float f) {
-        return (!this.isIgnited()
-                || !BlockRailBase.isRailBlock(iblockstate) && !BlockRailBase.isRailBlock(world, blockpos.up())) && super.verifyExplosion(explosion, world, blockpos, iblockstate, f);
-    }
+		return !this.isIgnited()
+				|| !BlockRailBase.isRailBlock(iblockstate) && !BlockRailBase.isRailBlock(world, blockpos.up())
+						? super.verifyExplosion(explosion, world, blockpos, iblockstate, f)
+						: false;
+	}
 
 	/**+
 	 * (abstract) Protected helper method to read subclass entity

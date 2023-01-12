@@ -12,7 +12,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -113,7 +113,7 @@ public class EntitySpellParticleFX extends EntityFX {
 		public EntityFX getEntityFX(int var1, World world, double d0, double d1, double d2, double d3, double d4,
 				double d5, int... var15) {
 			EntitySpellParticleFX entityspellparticlefx = new EntitySpellParticleFX(world, d0, d1, d2, d3, d4, d5);
-			entityspellparticlefx.setBaseSpellTextureIndex(144);
+			((EntitySpellParticleFX) entityspellparticlefx).setBaseSpellTextureIndex(144);
 			return entityspellparticlefx;
 		}
 	}
@@ -131,9 +131,9 @@ public class EntitySpellParticleFX extends EntityFX {
 		public EntityFX getEntityFX(int var1, World world, double d0, double d1, double d2, double d3, double d4,
 				double d5, int... var15) {
 			EntitySpellParticleFX entityspellparticlefx = new EntitySpellParticleFX(world, d0, d1, d2, d3, d4, d5);
-            entityspellparticlefx.setBaseSpellTextureIndex(144);
+			((EntitySpellParticleFX) entityspellparticlefx).setBaseSpellTextureIndex(144);
 			float f = world.rand.nextFloat() * 0.5F + 0.35F;
-            entityspellparticlefx.setRBGColorF(f, 0.0F * f, f);
+			entityspellparticlefx.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
 			return entityspellparticlefx;
 		}
 	}

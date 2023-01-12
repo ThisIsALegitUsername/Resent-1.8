@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -131,19 +132,19 @@ public class BlockRedstoneOre extends Block {
 		double d0 = 0.0625D;
 
 		for (int i = 0; i < 6; ++i) {
-            double d1 = (float) pos.getX() + random.nextFloat();
-            double d2 = (float) pos.getY() + random.nextFloat();
-            double d3 = (float) pos.getZ() + random.nextFloat();
-            if (i == 0 && !worldIn.getBlockState(pos.up()).getBlock().isOpaqueCube()) {
-                d2 = (double) pos.getY() + d0 + 1.0D;
-            }
+			double d1 = (double) ((float) pos.getX() + random.nextFloat());
+			double d2 = (double) ((float) pos.getY() + random.nextFloat());
+			double d3 = (double) ((float) pos.getZ() + random.nextFloat());
+			if (i == 0 && !worldIn.getBlockState(pos.up()).getBlock().isOpaqueCube()) {
+				d2 = (double) pos.getY() + d0 + 1.0D;
+			}
 
-            if (i == 1 && !worldIn.getBlockState(pos.down()).getBlock().isOpaqueCube()) {
-                d2 = (double) pos.getY() - d0;
-            }
+			if (i == 1 && !worldIn.getBlockState(pos.down()).getBlock().isOpaqueCube()) {
+				d2 = (double) pos.getY() - d0;
+			}
 
-            if (i == 2 && !worldIn.getBlockState(pos.south()).getBlock().isOpaqueCube()) {
-                d3 = (double) pos.getZ() + d0 + 1.0D;
+			if (i == 2 && !worldIn.getBlockState(pos.south()).getBlock().isOpaqueCube()) {
+				d3 = (double) pos.getZ() + d0 + 1.0D;
 			}
 
 			if (i == 3 && !worldIn.getBlockState(pos.north()).getBlock().isOpaqueCube()) {
@@ -160,7 +161,7 @@ public class BlockRedstoneOre extends Block {
 
 			if (d1 < (double) pos.getX() || d1 > (double) (pos.getX() + 1) || d2 < 0.0D
 					|| d2 > (double) (pos.getY() + 1) || d3 < (double) pos.getZ() || d3 > (double) (pos.getZ() + 1)) {
-                worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d1, d2, d3, 0.0D, 0.0D, 0.0D);
+				worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d1, d2, d3, 0.0D, 0.0D, 0.0D, new int[0]);
 			}
 		}
 

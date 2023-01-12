@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -54,17 +55,17 @@ public class BlockLadder extends Block {
 		IBlockState iblockstate = iblockaccess.getBlockState(blockpos);
 		if (iblockstate.getBlock() == this) {
 			float f = 0.125F;
-			switch (iblockstate.getValue(FACING)) {
-                case NORTH:
-                    this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
-                    break;
-                case SOUTH:
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
-                    break;
-                case WEST:
-                    this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                    break;
-                case EAST:
+			switch ((EnumFacing) iblockstate.getValue(FACING)) {
+			case NORTH:
+				this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+				break;
+			case SOUTH:
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+				break;
+			case WEST:
+				this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+				break;
+			case EAST:
 			default:
 				this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
 			}
@@ -85,7 +86,10 @@ public class BlockLadder extends Block {
 	}
 
 	public boolean canPlaceBlockAt(World world, BlockPos blockpos) {
-        return world.getBlockState(blockpos.west()).getBlock().isNormalCube() || (world.getBlockState(blockpos.east()).getBlock().isNormalCube() || (world.getBlockState(blockpos.north()).getBlock().isNormalCube() || world.getBlockState(blockpos.south()).getBlock().isNormalCube()));
+		return world.getBlockState(blockpos.west()).getBlock().isNormalCube() ? true
+				: (world.getBlockState(blockpos.east()).getBlock().isNormalCube() ? true
+						: (world.getBlockState(blockpos.north()).getBlock().isNormalCube() ? true
+								: world.getBlockState(blockpos.south()).getBlock().isNormalCube()));
 	}
 
 	/**+
@@ -111,7 +115,7 @@ public class BlockLadder extends Block {
 	 * Called when a neighboring block changes.
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block block) {
-        EnumFacing enumfacing = iblockstate.getValue(FACING);
+		EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(FACING);
 		if (!this.canBlockStay(world, blockpos, enumfacing)) {
 			this.dropBlockAsItem(world, blockpos, iblockstate, 0);
 			world.setBlockToAir(blockpos);
@@ -144,10 +148,10 @@ public class BlockLadder extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(FACING).getIndex();
+		return ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, FACING);
+		return new BlockState(this, new IProperty[] { FACING });
 	}
 }

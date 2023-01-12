@@ -1,6 +1,7 @@
 package net.minecraft.world.biome;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -11,32 +12,32 @@ import net.minecraft.world.chunk.ChunkPrimer;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class BiomeGenHills extends BiomeGenBase {
-    private final int field_150635_aE = 0;
-    private final int field_150636_aF = 1;
-    private final int field_150637_aG = 2;
-    private int field_150638_aH;
+	private int field_150635_aE = 0;
+	private int field_150636_aF = 1;
+	private int field_150637_aG = 2;
+	private int field_150638_aH;
 
-    protected BiomeGenHills(int parInt1, boolean parFlag) {
-        super(parInt1);
-        this.field_150638_aH = this.field_150635_aE;
-        if (parFlag) {
-            this.field_150638_aH = this.field_150636_aF;
-        }
+	protected BiomeGenHills(int parInt1, boolean parFlag) {
+		super(parInt1);
+		this.field_150638_aH = this.field_150635_aE;
+		if (parFlag) {
+			this.field_150638_aH = this.field_150636_aF;
+		}
 
-    }
+	}
 
 	public void genTerrainBlocks(World world, EaglercraftRandom random, ChunkPrimer chunkprimer, int i, int j,
 			double d0) {

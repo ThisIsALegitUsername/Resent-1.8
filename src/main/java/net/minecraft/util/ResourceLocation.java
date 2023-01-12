@@ -8,7 +8,7 @@ import org.apache.commons.lang3.Validate;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,7 +38,7 @@ public class ResourceLocation {
 	}
 
 	public ResourceLocation(String resourceDomainIn, String resourcePathIn) {
-		this(0, resourceDomainIn, resourcePathIn);
+		this(0, new String[] { resourceDomainIn, resourcePathIn });
 	}
 
 	/**+
@@ -51,7 +51,7 @@ public class ResourceLocation {
 		String[] astring = new String[] { null, toSplit };
 		int i = toSplit.indexOf(58);
 		if (i >= 0) {
-            astring[1] = toSplit.substring(i + 1);
+			astring[1] = toSplit.substring(i + 1, toSplit.length());
 			if (i > 1) {
 				astring[0] = toSplit.substring(0, i);
 			}

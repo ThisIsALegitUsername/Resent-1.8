@@ -104,7 +104,7 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
 
 	Collection<V> unmodifiableEmptyCollection() {
 		// These return false, rather than throwing a UOE, on remove calls.
-		return (unfiltered instanceof SetMultimap) ? Collections.emptySet() : Collections.emptyList();
+		return (unfiltered instanceof SetMultimap) ? Collections.<V>emptySet() : Collections.<V>emptyList();
 	}
 
 	@Override
@@ -215,12 +215,12 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
 			return new Maps.KeySet<K, Collection<V>>(this) {
 				@Override
 				public boolean removeAll(Collection<?> c) {
-                    return removeEntriesIf(Maps.keyPredicateOnEntries(in(c)));
+					return removeEntriesIf(Maps.<K>keyPredicateOnEntries(in(c)));
 				}
 
 				@Override
 				public boolean retainAll(Collection<?> c) {
-                    return removeEntriesIf(Maps.keyPredicateOnEntries(not(in(c))));
+					return removeEntriesIf(Maps.<K>keyPredicateOnEntries(not(in(c))));
 				}
 
 				@Override
@@ -303,12 +303,12 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
 
 				@Override
 				public boolean removeAll(Collection<?> c) {
-                    return removeEntriesIf(Maps.valuePredicateOnEntries(in(c)));
+					return removeEntriesIf(Maps.<Collection<V>>valuePredicateOnEntries(in(c)));
 				}
 
 				@Override
 				public boolean retainAll(Collection<?> c) {
-                    return removeEntriesIf(Maps.valuePredicateOnEntries(not(in(c))));
+					return removeEntriesIf(Maps.<Collection<V>>valuePredicateOnEntries(not(in(c))));
 				}
 			};
 		}

@@ -11,7 +11,7 @@ import net.minecraft.client.resources.I18n;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,22 +46,22 @@ public class GuiScreenServerList extends GuiScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void initGui() {
-        Keyboard.enableRepeatEvents(true);
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + 12,
-                I18n.format("selectServer.select")));
-        this.buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
-                I18n.format("gui.cancel")));
-        if (EagRuntime.requireSSL()) {
-            this.field_146302_g = new GuiTextField(2, this.fontRendererObj, width / 2 - 100, height / 4 + 35,
-                    200, 20);
-        } else {
-            this.field_146302_g = new GuiTextField(2, this.fontRendererObj, width / 2 - 100, 116, 200, 20);
-        }
-        this.field_146302_g.setMaxStringLength(128);
-        this.field_146302_g.setFocused(true);
-        this.field_146302_g.setText(this.mc.gameSettings.lastServer);
-        this.buttonList.get(0).enabled = this.field_146302_g.getText().trim().length() > 0;
+		Keyboard.enableRepeatEvents(true);
+		this.buttonList.clear();
+		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12,
+				I18n.format("selectServer.select", new Object[0])));
+		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12,
+				I18n.format("gui.cancel", new Object[0])));
+		if (EagRuntime.requireSSL()) {
+			this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, this.height / 4 + 35,
+					200, 20);
+		} else {
+			this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, 116, 200, 20);
+		}
+		this.field_146302_g.setMaxStringLength(128);
+		this.field_146302_g.setFocused(true);
+		this.field_146302_g.setText(this.mc.gameSettings.lastServer);
+		((GuiButton) this.buttonList.get(0)).enabled = this.field_146302_g.getText().trim().length() > 0;
 	}
 
 	/**+
@@ -98,9 +98,9 @@ public class GuiScreenServerList extends GuiScreen {
 	 */
 	protected void keyTyped(char parChar1, int parInt1) {
 		if (this.field_146302_g.textboxKeyTyped(parChar1, parInt1)) {
-            this.buttonList.get(0).enabled = this.field_146302_g.getText().trim().length() > 0;
+			((GuiButton) this.buttonList.get(0)).enabled = this.field_146302_g.getText().trim().length() > 0;
 		} else if (parInt1 == 28 || parInt1 == 156) {
-            this.actionPerformed(this.buttonList.get(0));
+			this.actionPerformed((GuiButton) this.buttonList.get(0));
 		}
 
 	}
@@ -120,18 +120,18 @@ public class GuiScreenServerList extends GuiScreen {
 	 */
 	public void drawScreen(int i, int j, float f) {
 		this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("selectServer.direct"), width / 2,
-                20, 16777215);
+		this.drawCenteredString(this.fontRendererObj, I18n.format("selectServer.direct", new Object[0]), this.width / 2,
+				20, 16777215);
 		if (EagRuntime.requireSSL()) {
-            this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp"), width / 2 - 100,
-                    height / 4 + 19, 10526880);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn1"), width / 2,
-                    height / 4 + 30 + 37, 0xccccff);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn2"), width / 2,
-                    height / 4 + 30 + 49, 0xccccff);
-        } else {
-            this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp"), width / 2 - 100,
-                    100, 10526880);
+			this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp", new Object[0]), this.width / 2 - 100,
+					this.height / 4 + 19, 10526880);
+			this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn1"), this.width / 2,
+					this.height / 4 + 30 + 37, 0xccccff);
+			this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.SSLWarn2"), this.width / 2,
+					this.height / 4 + 30 + 49, 0xccccff);
+		} else {
+			this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp", new Object[0]), this.width / 2 - 100,
+					100, 10526880);
 		}
 		this.field_146302_g.drawTextBox();
 		super.drawScreen(i, j, f);

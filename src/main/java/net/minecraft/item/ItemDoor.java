@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -28,7 +28,7 @@ import net.minecraft.world.World;
  * 
  */
 public class ItemDoor extends Item {
-	private final Block block;
+	private Block block;
 
 	public ItemDoor(Block block) {
 		this.block = block;
@@ -54,8 +54,8 @@ public class ItemDoor extends Item {
 			} else if (!this.block.canPlaceBlockAt(world, blockpos)) {
 				return false;
 			} else {
-                placeDoor(world, blockpos, EnumFacing.fromAngle(entityplayer.rotationYaw), this.block);
-                --itemstack.stackSize;
+				placeDoor(world, blockpos, EnumFacing.fromAngle((double) entityplayer.rotationYaw), this.block);
+				--itemstack.stackSize;
 				return true;
 			}
 		}
@@ -70,13 +70,16 @@ public class ItemDoor extends Item {
 				+ (worldIn.getBlockState(blockpos.up()).getBlock().isNormalCube() ? 1 : 0);
 		boolean flag = worldIn.getBlockState(blockpos1).getBlock() == door
 				|| worldIn.getBlockState(blockpos1.up()).getBlock() == door;
-        boolean flag1 = worldIn.getBlockState(blockpos).getBlock() == door
-                || worldIn.getBlockState(blockpos.up()).getBlock() == door;
-        boolean flag2 = flag && !flag1 || j > i;
+		boolean flag1 = worldIn.getBlockState(blockpos).getBlock() == door
+				|| worldIn.getBlockState(blockpos.up()).getBlock() == door;
+		boolean flag2 = false;
+		if (flag && !flag1 || j > i) {
+			flag2 = true;
+		}
 
-        BlockPos blockpos2 = pos.up();
-        IBlockState iblockstate = door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(
-                BlockDoor.HINGE, flag2 ? BlockDoor.EnumHingePosition.RIGHT : BlockDoor.EnumHingePosition.LEFT);
+		BlockPos blockpos2 = pos.up();
+		IBlockState iblockstate = door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(
+				BlockDoor.HINGE, flag2 ? BlockDoor.EnumHingePosition.RIGHT : BlockDoor.EnumHingePosition.LEFT);
 		worldIn.setBlockState(pos, iblockstate.withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.LOWER), 2);
 		worldIn.setBlockState(blockpos2, iblockstate.withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), 2);
 		worldIn.notifyNeighborsOfStateChange(pos, door);

@@ -3,7 +3,7 @@ package net.lax1dude.eaglercraft.v1_8.profile;
 import net.minecraft.util.ResourceLocation;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -49,12 +49,12 @@ public enum DefaultSkins {
 	public final ResourceLocation location;
 	public final SkinModel model;
 	
-	DefaultSkins(int id, String name, ResourceLocation location, SkinModel model) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.model = model;
-    }
+	private DefaultSkins(int id, String name, ResourceLocation location, SkinModel model) {
+		this.id = id;
+		this.name = name;
+		this.location = location;
+		this.model = model;
+	}
 	
 	public static DefaultSkins getSkinFromId(int id) {
 		DefaultSkins e = null;

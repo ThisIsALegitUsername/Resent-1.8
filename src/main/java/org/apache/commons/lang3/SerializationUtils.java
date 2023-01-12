@@ -248,7 +248,7 @@ public class SerializationUtils {
 	 */
 	@SuppressWarnings("unchecked") // OK, because we serialized a type `T`
 	public static <T extends Serializable> T roundtrip(final T obj) {
-		return deserialize(serialize(obj));
+		return (T) deserialize(serialize(obj));
 	}
 
 	/**

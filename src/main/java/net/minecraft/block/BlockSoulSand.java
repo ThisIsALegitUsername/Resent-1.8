@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -34,11 +34,11 @@ public class BlockSoulSand extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(World var1, BlockPos blockpos, IBlockState var3) {
-        float f = 0.125F;
-        return new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(),
-                blockpos.getX() + 1, (float) (blockpos.getY() + 1) - f,
-                blockpos.getZ() + 1);
-    }
+		float f = 0.125F;
+		return new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(),
+				(double) (blockpos.getX() + 1), (double) ((float) (blockpos.getY() + 1) - f),
+				(double) (blockpos.getZ() + 1));
+	}
 
 	/**+
 	 * Called When an Entity Collided with the Block

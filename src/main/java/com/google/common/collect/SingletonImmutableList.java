@@ -69,7 +69,7 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
 	@Override
 	public ImmutableList<E> subList(int fromIndex, int toIndex) {
 		Preconditions.checkPositionIndexes(fromIndex, toIndex, 1);
-		return (fromIndex == toIndex) ? ImmutableList.of() : this;
+		return (fromIndex == toIndex) ? ImmutableList.<E>of() : this;
 	}
 
 	@Override
@@ -104,7 +104,8 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
 	@Override
 	public String toString() {
 		String elementToString = element.toString();
-        return '[' + elementToString + ']';
+		return new StringBuilder(elementToString.length() + 2).append('[').append(elementToString).append(']')
+				.toString();
 	}
 
 	@Override

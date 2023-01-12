@@ -72,26 +72,26 @@ public abstract class MobSpawnerBaseLogic {
 	private boolean isActivated() {
 		BlockPos blockpos = this.getSpawnerPosition();
 		return this.getSpawnerWorld().isAnyPlayerWithinRangeAt((double) blockpos.getX() + 0.5D,
-                (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D,
-                this.activatingRangeFromPlayer);
+				(double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D,
+				(double) this.activatingRangeFromPlayer);
 	}
 
 	public void updateSpawner() {
 		if (this.isActivated()) {
-            BlockPos blockpos = this.getSpawnerPosition();
-            double d3 = (float) blockpos.getX() + this.getSpawnerWorld().rand.nextFloat();
-            double d4 = (float) blockpos.getY() + this.getSpawnerWorld().rand.nextFloat();
-            double d5 = (float) blockpos.getZ() + this.getSpawnerWorld().rand.nextFloat();
-            this.getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D
-            );
-            this.getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
-            if (this.spawnDelay > 0) {
-                --this.spawnDelay;
-            }
+			BlockPos blockpos = this.getSpawnerPosition();
+			double d3 = (double) ((float) blockpos.getX() + this.getSpawnerWorld().rand.nextFloat());
+			double d4 = (double) ((float) blockpos.getY() + this.getSpawnerWorld().rand.nextFloat());
+			double d5 = (double) ((float) blockpos.getZ() + this.getSpawnerWorld().rand.nextFloat());
+			this.getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D,
+					new int[0]);
+			this.getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D, new int[0]);
+			if (this.spawnDelay > 0) {
+				--this.spawnDelay;
+			}
 
-            this.prevMobRotation = this.mobRotation;
-            this.mobRotation = (this.mobRotation + (double) (1000.0F / ((float) this.spawnDelay + 200.0F))) % 360.0D;
-        }
+			this.prevMobRotation = this.mobRotation;
+			this.mobRotation = (this.mobRotation + (double) (1000.0F / ((float) this.spawnDelay + 200.0F))) % 360.0D;
+		}
 	}
 
 	private Entity spawnNewEntity(Entity entityIn, boolean spawn) {
@@ -136,8 +136,8 @@ public abstract class MobSpawnerBaseLogic {
 			}
 		} else if (entityIn instanceof EntityLivingBase && entityIn.worldObj != null && spawn) {
 			if (entityIn instanceof EntityLiving) {
-                ((EntityLiving) entityIn).onInitialSpawn(
-                        entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), null);
+				((EntityLiving) entityIn).onInitialSpawn(
+						entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), (IEntityLivingData) null);
 			}
 
 			entityIn.worldObj.spawnEntityInWorld(entityIn);
@@ -155,8 +155,8 @@ public abstract class MobSpawnerBaseLogic {
 		}
 
 		if (this.minecartToSpawn.size() > 0) {
-            this.setRandomEntity(WeightedRandom
-                    .getRandomItem(this.getSpawnerWorld().rand, this.minecartToSpawn));
+			this.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart) WeightedRandom
+					.getRandomItem(this.getSpawnerWorld().rand, this.minecartToSpawn));
 		}
 
 		this.func_98267_a(1);
@@ -179,7 +179,7 @@ public abstract class MobSpawnerBaseLogic {
 			this.setRandomEntity(
 					new MobSpawnerBaseLogic.WeightedRandomMinecart(nbt.getCompoundTag("SpawnData"), this.mobID));
 		} else {
-            this.setRandomEntity(null);
+			this.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart) null);
 		}
 
 		if (nbt.hasKey("MinSpawnDelay", 99)) {

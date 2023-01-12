@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -22,30 +22,29 @@ import net.minecraft.util.ResourceLocation;
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
  * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class GuiHopper extends GuiContainer {
-    /**
-     * +
-     * The ResourceLocation containing the gui texture for the
-     * hopper
-     */
-    private static final ResourceLocation HOPPER_GUI_TEXTURE = new ResourceLocation(
-            "textures/gui/container/hopper.png");
-    private final IInventory playerInventory;
-    private final IInventory hopperInventory;
+	/**+
+	 * The ResourceLocation containing the gui texture for the
+	 * hopper
+	 */
+	private static final ResourceLocation HOPPER_GUI_TEXTURE = new ResourceLocation(
+			"textures/gui/container/hopper.png");
+	private IInventory playerInventory;
+	private IInventory hopperInventory;
 
-    public GuiHopper(InventoryPlayer playerInv, IInventory hopperInv) {
-        super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().thePlayer));
-        this.playerInventory = playerInv;
-        this.hopperInventory = hopperInv;
-        this.allowUserInput = false;
-        this.ySize = 133;
-    }
+	public GuiHopper(InventoryPlayer playerInv, IInventory hopperInv) {
+		super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().thePlayer));
+		this.playerInventory = playerInv;
+		this.hopperInventory = hopperInv;
+		this.allowUserInput = false;
+		this.ySize = 133;
+	}
 
-    /**+
+	/**+
 	 * Draw the foreground layer for the GuiContainer (everything in
 	 * front of the items). Args : mouseX, mouseY
 	 */
@@ -59,10 +58,10 @@ public class GuiHopper extends GuiContainer {
 	 * Args : renderPartialTicks, mouseX, mouseY
 	 */
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(HOPPER_GUI_TEXTURE);
-        int i = (width - this.xSize) / 2;
-        int j = (height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.getTextureManager().bindTexture(HOPPER_GUI_TEXTURE);
+		int i = (this.width - this.xSize) / 2;
+		int j = (this.height - this.ySize) / 2;
+		this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 	}
 }

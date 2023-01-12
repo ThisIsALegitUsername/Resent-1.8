@@ -21,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -50,8 +50,8 @@ public class ItemMonsterPlacer extends Item {
 	}
 
 	public int getColorFromItemStack(ItemStack itemstack, int i) {
-		EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs
-                .get(Integer.valueOf(itemstack.getMetadata()));
+		EntityList.EntityEggInfo entitylist$entityegginfo = (EntityList.EntityEggInfo) EntityList.entityEggs
+				.get(Integer.valueOf(itemstack.getMetadata()));
 		return entitylist$entityegginfo != null
 				? (i == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor)
 				: 16777215;
@@ -83,10 +83,10 @@ public class ItemMonsterPlacer extends Item {
 					entity.setLocationAndAngles(x, y, z,
 							MathHelper.wrapAngleTo180_float(worldIn.rand.nextFloat() * 360.0F), 0.0F);
 					entityliving.rotationYawHead = entityliving.rotationYaw;
-                    entityliving.renderYawOffset = entityliving.rotationYaw;
-                    entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)),
-                            null);
-                    worldIn.spawnEntityInWorld(entity);
+					entityliving.renderYawOffset = entityliving.rotationYaw;
+					entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)),
+							(IEntityLivingData) null);
+					worldIn.spawnEntityInWorld(entity);
 					entityliving.playLivingSound();
 				}
 			}

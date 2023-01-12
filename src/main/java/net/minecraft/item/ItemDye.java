@@ -23,7 +23,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -65,7 +65,9 @@ public class ItemDye extends Item {
 		} else {
 			EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(itemstack.getMetadata());
 			if (enumdyecolor == EnumDyeColor.WHITE) {
-                return applyBonemeal(itemstack, world, blockpos);
+				if (applyBonemeal(itemstack, world, blockpos)) {
+					return true;
+				}
 			} else if (enumdyecolor == EnumDyeColor.BROWN) {
 				IBlockState iblockstate = world.getBlockState(blockpos);
 				Block block = iblockstate.getBlock();
@@ -100,7 +102,9 @@ public class ItemDye extends Item {
 		IBlockState iblockstate = worldIn.getBlockState(target);
 		if (iblockstate.getBlock() instanceof IGrowable) {
 			IGrowable igrowable = (IGrowable) iblockstate.getBlock();
-            return igrowable.canGrow(worldIn, target, iblockstate, true);
+			if (igrowable.canGrow(worldIn, target, iblockstate, true)) {
+				return true;
+			}
 		}
 
 		return false;
@@ -119,10 +123,10 @@ public class ItemDye extends Item {
 				double d0 = itemRand.nextGaussian() * 0.02D;
 				double d1 = itemRand.nextGaussian() * 0.02D;
 				double d2 = itemRand.nextGaussian() * 0.02D;
-                worldIn.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY,
-                        (float) pos.getX() + itemRand.nextFloat(),
-                        (double) pos.getY() + (double) itemRand.nextFloat() * block.getBlockBoundsMaxY(),
-                        (float) pos.getZ() + itemRand.nextFloat(), d0, d1, d2);
+				worldIn.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY,
+						(double) ((float) pos.getX() + itemRand.nextFloat()),
+						(double) pos.getY() + (double) itemRand.nextFloat() * block.getBlockBoundsMaxY(),
+						(double) ((float) pos.getZ() + itemRand.nextFloat()), d0, d1, d2, new int[0]);
 			}
 
 		}

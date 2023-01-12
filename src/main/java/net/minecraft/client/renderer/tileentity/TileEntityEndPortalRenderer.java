@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -106,7 +106,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			float f12 = (field_147527_e.nextFloat() * 0.5F + 0.4F) * f6;
 			float f13 = (field_147527_e.nextFloat() * 0.5F + 0.5F) * f6;
 			if (i == 0) {
-				f11 = f12 = f13 = f6;
+				f11 = f12 = f13 = 1.0F * f6;
 			}
 
 			worldrenderer.pos(d0, d1 + (double) f3, d2).color(f11, f12, f13, 1.0F).endVertex();

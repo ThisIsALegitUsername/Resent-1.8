@@ -19,7 +19,7 @@ import net.minecraft.util.ITickable;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,7 +38,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 	private boolean shouldHeadBeRendered;
 	private float progress;
 	private float lastProgress;
-    private final List<Entity> field_174933_k = Lists.newArrayList();
+	private List<Entity> field_174933_k = Lists.newArrayList();
 
 	public TileEntityPiston() {
 	}
@@ -112,7 +112,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		AxisAlignedBB axisalignedbb = Blocks.piston_extension.getBoundingBox(this.worldObj, this.pos, this.pistonState,
 				parFloat1, this.pistonFacing);
 		if (axisalignedbb != null) {
-            List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
+			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity) null, axisalignedbb);
 			if (!list.isEmpty()) {
 				this.field_174933_k.addAll(list);
 
@@ -120,19 +120,19 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 					if (this.pistonState.getBlock() == Blocks.slime_block && this.extending) {
 						switch (this.pistonFacing.getAxis()) {
 						case X:
-                            entity.motionX = this.pistonFacing.getFrontOffsetX();
+							entity.motionX = (double) this.pistonFacing.getFrontOffsetX();
 							break;
 						case Y:
-                            entity.motionY = this.pistonFacing.getFrontOffsetY();
+							entity.motionY = (double) this.pistonFacing.getFrontOffsetY();
 							break;
 						case Z:
-                            entity.motionZ = this.pistonFacing.getFrontOffsetZ();
+							entity.motionZ = (double) this.pistonFacing.getFrontOffsetZ();
 						}
 					} else {
-                        entity.moveEntity(parFloat2 * (float) this.pistonFacing.getFrontOffsetX(),
-                                parFloat2 * (float) this.pistonFacing.getFrontOffsetY(),
-                                parFloat2 * (float) this.pistonFacing.getFrontOffsetZ());
-                    }
+						entity.moveEntity((double) (parFloat2 * (float) this.pistonFacing.getFrontOffsetX()),
+								(double) (parFloat2 * (float) this.pistonFacing.getFrontOffsetY()),
+								(double) (parFloat2 * (float) this.pistonFacing.getFrontOffsetZ()));
+					}
 				}
 
 				this.field_174933_k.clear();

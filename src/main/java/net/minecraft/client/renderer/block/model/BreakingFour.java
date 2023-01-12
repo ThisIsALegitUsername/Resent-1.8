@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.block.model;
 
-import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
-
 import java.util.Arrays;
+
+import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -10,7 +10,7 @@ import java.util.Arrays;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -62,17 +62,17 @@ public class BreakingFour extends BakedQuad {
 		case SOUTH:
 			f3 = f * 16.0F;
 			f4 = (1.0F - f1) * 16.0F;
-            break;
-            case WEST:
-                f3 = f2 * 16.0F;
-                f4 = (1.0F - f1) * 16.0F;
-                break;
-            case EAST:
-                f3 = (1.0F - f2) * 16.0F;
-                f4 = (1.0F - f1) * 16.0F;
-        }
+			break;
+		case WEST:
+			f3 = f2 * 16.0F;
+			f4 = (1.0F - f1) * 16.0F;
+			break;
+		case EAST:
+			f3 = (1.0F - f2) * 16.0F;
+			f4 = (1.0F - f1) * 16.0F;
+		}
 
-        this.vertexData[i + 4] = Float.floatToRawIntBits(this.texture.getInterpolatedU(f3));
-        this.vertexData[i + 4 + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV(f4));
-    }
+		this.vertexData[i + 4] = Float.floatToRawIntBits(this.texture.getInterpolatedU((double) f3));
+		this.vertexData[i + 4 + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV((double) f4));
+	}
 }

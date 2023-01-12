@@ -1,15 +1,30 @@
 package net.minecraft.block.state;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
-import com.google.common.collect.*;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.util.Cartesian;
 import net.minecraft.util.MapPopulator;
-
-import java.util.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -17,7 +32,7 @@ import java.util.*;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -74,14 +89,14 @@ public class BlockState {
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (int i = 0; i < this.properties.size(); ++i) {
-			arraylist.add(this.properties.get(i).getAllowedValues());
+			arraylist.add(((IProperty) this.properties.get(i)).getAllowedValues());
 		}
 
 		return arraylist;
 	}
 
 	public IBlockState getBaseState() {
-		return this.validStates.get(0);
+		return (IBlockState) this.validStates.get(0);
 	}
 
 	public Block getBlock() {
@@ -116,7 +131,7 @@ public class BlockState {
 				throw new IllegalArgumentException(
 						"Cannot get property " + iproperty + " as it does not exist in " + this.block.getBlockState());
 			} else {
-				return iproperty.getValueClass().cast(this.properties.get(iproperty));
+				return (T) ((Comparable) iproperty.getValueClass().cast(this.properties.get(iproperty)));
 			}
 		}
 
@@ -129,8 +144,8 @@ public class BlockState {
 						"Cannot set property " + iproperty + " to " + comparable + " on block "
 								+ Block.blockRegistry.getNameForObject(this.block) + ", it is not an allowed value");
 			} else {
-				return this.properties.get(iproperty) == comparable ? this
-						: this.propertyValueTable.get(iproperty, comparable);
+				return (IBlockState) (this.properties.get(iproperty) == comparable ? this
+						: (IBlockState) this.propertyValueTable.get(iproperty, comparable));
 			}
 		}
 

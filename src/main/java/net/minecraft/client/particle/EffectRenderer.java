@@ -1,9 +1,18 @@
 package net.minecraft.client.particle;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.AcceleratedEffectRenderer;
+
+import java.util.concurrent.Callable;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.Block;
@@ -17,15 +26,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ReportedException;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
-
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -33,32 +40,31 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class EffectRenderer {
 	private static final ResourceLocation particleTextures = new ResourceLocation("textures/particle/particles.png");
 	protected World worldObj;
-	private final List<EntityFX>[][] fxLayers = new List[4][];
-	private final List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
-	private final TextureManager renderer;
-	/**
-	 * +
+	private List<EntityFX>[][] fxLayers = new List[4][];
+	private List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
+	private TextureManager renderer;
+	/**+
 	 * RNG.
 	 */
-	private final EaglercraftRandom rand = new EaglercraftRandom();
-	private final Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
+	private EaglercraftRandom rand = new EaglercraftRandom();
+	private Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
 
-	private final AcceleratedEffectRenderer acceleratedParticleRenderer = new AcceleratedEffectRenderer();
+	private AcceleratedEffectRenderer acceleratedParticleRenderer = new AcceleratedEffectRenderer();
 
 	public EffectRenderer(World worldIn, TextureManager rendererIn) {
 		this.worldObj = worldIn;
@@ -137,7 +143,7 @@ public class EffectRenderer {
 	 */
 	public EntityFX spawnEffectParticle(int particleId, double parDouble1, double parDouble2, double parDouble3,
 			double parDouble4, double parDouble5, double parDouble6, int... parArrayOfInt) {
-		IParticleFactory iparticlefactory = this.particleTypes.get(Integer.valueOf(particleId));
+		IParticleFactory iparticlefactory = (IParticleFactory) this.particleTypes.get(Integer.valueOf(particleId));
 		if (iparticlefactory != null) {
 			EntityFX entityfx = iparticlefactory.getEntityFX(particleId, this.worldObj, parDouble1, parDouble2,
 					parDouble3, parDouble4, parDouble5, parDouble6, parArrayOfInt);
@@ -188,7 +194,7 @@ public class EffectRenderer {
 		ArrayList arraylist = Lists.newArrayList();
 
 		for (int i = 0; i < parList.size(); ++i) {
-			EntityFX entityfx = parList.get(i);
+			EntityFX entityfx = (EntityFX) parList.get(i);
 			this.tickParticle(entityfx);
 			if (entityfx.isDead) {
 				arraylist.add(entityfx);
@@ -272,7 +278,7 @@ public class EffectRenderer {
 					acceleratedParticleRenderer.begin(partialTicks);
 
 					for (int k = 0; k < this.fxLayers[i][j].size(); ++k) {
-						final EntityFX entityfx = this.fxLayers[i][j].get(k);
+						final EntityFX entityfx = (EntityFX) this.fxLayers[i][j].get(k);
 
 						try {
 							if (!entityfx.renderAccelerated(acceleratedParticleRenderer, entityIn, partialTicks, f, f4,

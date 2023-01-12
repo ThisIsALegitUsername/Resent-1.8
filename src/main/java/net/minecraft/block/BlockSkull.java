@@ -1,8 +1,11 @@
 package net.minecraft.block;
 
-import com.google.common.base.Predicate;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
+import com.google.common.base.Predicate;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -32,7 +35,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -85,17 +88,17 @@ public class BlockSkull extends BlockContainer {
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, BlockPos blockpos) {
-		switch (iblockaccess.getBlockState(blockpos).getValue(FACING)) {
-			case UP:
-			default:
-				this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
-				break;
-			case NORTH:
-				this.setBlockBounds(0.25F, 0.25F, 0.5F, 0.75F, 0.75F, 1.0F);
-				break;
-			case SOUTH:
-				this.setBlockBounds(0.25F, 0.25F, 0.0F, 0.75F, 0.75F, 0.5F);
-				break;
+		switch ((EnumFacing) iblockaccess.getBlockState(blockpos).getValue(FACING)) {
+		case UP:
+		default:
+			this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
+			break;
+		case NORTH:
+			this.setBlockBounds(0.25F, 0.25F, 0.5F, 0.75F, 0.75F, 1.0F);
+			break;
+		case SOUTH:
+			this.setBlockBounds(0.25F, 0.25F, 0.0F, 0.75F, 0.75F, 0.5F);
+			break;
 		case WEST:
 			this.setBlockBounds(0.5F, 0.25F, 0.25F, 1.0F, 0.75F, 0.75F);
 			break;
@@ -185,8 +188,8 @@ public class BlockSkull extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getIndex();
-		if (iblockstate.getValue(NODROP).booleanValue()) {
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+		if (((Boolean) iblockstate.getValue(NODROP)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -194,12 +197,12 @@ public class BlockSkull extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, NODROP);
+		return new BlockState(this, new IProperty[] { FACING, NODROP });
 	}
 
 	protected BlockPattern getWitherBasePattern() {
 		if (this.witherBasePattern == null) {
-			this.witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~")
+			this.witherBasePattern = FactoryBlockPattern.start().aisle(new String[] { "   ", "###", "~#~" })
 					.where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand)))
 					.where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
 		}
@@ -209,7 +212,7 @@ public class BlockSkull extends BlockContainer {
 
 	protected BlockPattern getWitherPattern() {
 		if (this.witherPattern == null) {
-			this.witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~")
+			this.witherPattern = FactoryBlockPattern.start().aisle(new String[] { "^^^", "###", "~#~" })
 					.where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand)))
 					.where('^', IS_WITHER_SKELETON)
 					.where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();

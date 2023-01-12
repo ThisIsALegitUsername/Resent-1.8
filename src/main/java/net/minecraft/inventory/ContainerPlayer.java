@@ -15,7 +15,7 @@ import net.minecraft.item.crafting.CraftingManager;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -57,11 +57,12 @@ public class ContainerPlayer extends Container {
 						}
 
 						public boolean isItemValid(ItemStack itemstack) {
-                            return itemstack != null && (itemstack.getItem() instanceof ItemArmor
-                                    ? ((ItemArmor) itemstack.getItem()).armorType == k2
-                                    : ((itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin)
-                                    || itemstack.getItem() == Items.skull) && k2 == 0));
-                        }
+							return itemstack == null ? false
+									: (itemstack.getItem() instanceof ItemArmor
+											? ((ItemArmor) itemstack.getItem()).armorType == k2
+											: (itemstack.getItem() != Item.getItemFromBlock(Blocks.pumpkin)
+													&& itemstack.getItem() != Items.skull ? false : k2 == 0));
+						}
 
 						public String getSlotTexture() {
 							return ItemArmor.EMPTY_SLOT_NAMES[k2];
@@ -103,7 +104,7 @@ public class ContainerPlayer extends Container {
 			}
 		}
 
-        this.craftResult.setInventorySlotContents(0, null);
+		this.craftResult.setInventorySlotContents(0, (ItemStack) null);
 	}
 
 	public boolean canInteractWith(EntityPlayer var1) {
@@ -114,8 +115,8 @@ public class ContainerPlayer extends Container {
 	 * Take a stack from the specified inventory slot.
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i) {
-        ItemStack itemstack = null;
-        Slot slot = this.inventorySlots.get(i);
+		ItemStack itemstack = null;
+		Slot slot = (Slot) this.inventorySlots.get(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
@@ -134,8 +135,8 @@ public class ContainerPlayer extends Container {
 					return null;
 				}
 			} else if (itemstack.getItem() instanceof ItemArmor
-                    && !this.inventorySlots.get(5 + ((ItemArmor) itemstack.getItem()).armorType)
-                    .getHasStack()) {
+					&& !((Slot) this.inventorySlots.get(5 + ((ItemArmor) itemstack.getItem()).armorType))
+							.getHasStack()) {
 				int j = 5 + ((ItemArmor) itemstack.getItem()).armorType;
 				if (!this.mergeItemStack(itemstack1, j, j + 1, false)) {
 					return null;
@@ -153,7 +154,7 @@ public class ContainerPlayer extends Container {
 			}
 
 			if (itemstack1.stackSize == 0) {
-                slot.putStack(null);
+				slot.putStack((ItemStack) null);
 			} else {
 				slot.onSlotChanged();
 			}

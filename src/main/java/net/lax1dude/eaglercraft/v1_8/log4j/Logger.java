@@ -8,7 +8,7 @@ import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -133,8 +133,8 @@ public class Logger {
 			for(int i = 0; i < args.length; ++i) {
 				int idx = msg.indexOf("{}");
 				if(idx != -1) {
-					builtString.append(msg, 0, idx);
-                    builtString.append(args[i]);
+					builtString.append(msg.substring(0, idx));
+					builtString.append(args[i]);
 					msg = msg.substring(idx + 2);
 				}else {
 					break;

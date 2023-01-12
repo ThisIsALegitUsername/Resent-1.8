@@ -11,7 +11,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -31,17 +31,17 @@ public class Util {
 	public static <V> V func_181617_a(FutureTask<V> parFutureTask, Logger parLogger) {
 		try {
 			parFutureTask.run();
-            return parFutureTask.get();
-        } catch (ExecutionException executionexception) {
-            parLogger.fatal("Error executing task", executionexception);
-        } catch (InterruptedException interruptedexception) {
-            parLogger.fatal("Error executing task", interruptedexception);
-        }
+			return (V) parFutureTask.get();
+		} catch (ExecutionException executionexception) {
+			parLogger.fatal("Error executing task", executionexception);
+		} catch (InterruptedException interruptedexception) {
+			parLogger.fatal("Error executing task", interruptedexception);
+		}
 
-        return null;
-    }
+		return (V) null;
+	}
 
-    public enum EnumOS {
-        LINUX, SOLARIS, WINDOWS, OSX, UNKNOWN
-    }
+	public static enum EnumOS {
+		LINUX, SOLARIS, WINDOWS, OSX, UNKNOWN;
+	}
 }

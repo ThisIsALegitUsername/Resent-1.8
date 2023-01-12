@@ -1,8 +1,11 @@
 package net.minecraft.block;
 
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -15,15 +18,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -68,7 +69,7 @@ public class BlockEndPortalFrame extends Block {
 			AxisAlignedBB axisalignedbb, List<AxisAlignedBB> list, Entity entity) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.8125F, 1.0F);
 		super.addCollisionBoxesToList(world, blockpos, iblockstate, axisalignedbb, list, entity);
-		if (world.getBlockState(blockpos).getValue(EYE).booleanValue()) {
+		if (((Boolean) world.getBlockState(blockpos).getValue(EYE)).booleanValue()) {
 			this.setBlockBounds(0.3125F, 0.8125F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
 			super.addCollisionBoxesToList(world, blockpos, iblockstate, axisalignedbb, list, entity);
 		}
@@ -98,7 +99,7 @@ public class BlockEndPortalFrame extends Block {
 	}
 
 	public int getComparatorInputOverride(World world, BlockPos blockpos) {
-		return world.getBlockState(blockpos).getValue(EYE).booleanValue() ? 15 : 0;
+		return ((Boolean) world.getBlockState(blockpos).getValue(EYE)).booleanValue() ? 15 : 0;
 	}
 
 	/**+
@@ -114,8 +115,8 @@ public class BlockEndPortalFrame extends Block {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getHorizontalIndex();
-		if (iblockstate.getValue(EYE).booleanValue()) {
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getHorizontalIndex();
+		if (((Boolean) iblockstate.getValue(EYE)).booleanValue()) {
 			i |= 4;
 		}
 
@@ -123,6 +124,6 @@ public class BlockEndPortalFrame extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, EYE);
+		return new BlockState(this, new IProperty[] { FACING, EYE });
 	}
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -33,17 +33,17 @@ public class EaglerBufferInputStream extends InputStream {
 	}
 
 	@Override
-    public int read(byte[] b, int off, int len) throws IOException {
-        int p = buffer.position();
-        int l = buffer.limit();
-        int r = l - p;
-        if (r < len) {
-            len = r;
-        }
-        if (len > 0) {
-            buffer.get(b, off, len);
-        }
-        return len;
+	public int read(byte b[], int off, int len) throws IOException {
+		int p = buffer.position();
+		int l = buffer.limit();
+		int r = l - p;
+		if(r < len) {
+			len = r;
+		}
+		if(len > 0) {
+			buffer.get(b, off, len);
+		}
+		return len;
 	}
 
 	@Override

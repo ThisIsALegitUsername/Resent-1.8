@@ -1,7 +1,7 @@
 package net.lax1dude.eaglercraft.v1_8.internal.vfs;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -16,16 +16,16 @@ package net.lax1dude.eaglercraft.v1_8.internal.vfs;
 
 public interface VFSIterator {
 	
-	class BreakLoop extends RuntimeException {
-        public BreakLoop() {
-            super("iterator loop break request");
-        }
-    }
-
-    default void end() {
-        throw new BreakLoop();
-    }
-
-    void next(VIteratorFile entry);
+	public static class BreakLoop extends RuntimeException {
+		public BreakLoop() {
+			super("iterator loop break request");
+		}
+	}
+	
+	public default void end() {
+		throw new BreakLoop();
+	}
+	
+	public void next(VIteratorFile entry);
 	
 }

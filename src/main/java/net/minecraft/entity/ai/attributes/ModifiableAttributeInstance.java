@@ -17,7 +17,7 @@ import com.google.common.collect.Sets;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -69,7 +69,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	public Collection<AttributeModifier> getModifiersByOperation(int i) {
-		return this.mapByOperation.get(Integer.valueOf(i));
+		return (Collection) this.mapByOperation.get(Integer.valueOf(i));
 	}
 
 	public Collection<AttributeModifier> func_111122_c() {
@@ -86,7 +86,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	 * Returns attribute modifier, if any, by the given UUID
 	 */
 	public AttributeModifier getModifier(EaglercraftUUID uuid) {
-        return this.mapByUUID.get(uuid);
+		return (AttributeModifier) this.mapByUUID.get(uuid);
 	}
 
 	public boolean hasModifier(AttributeModifier attributemodifier) {
@@ -97,17 +97,17 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 		if (this.getModifier(attributemodifier.getID()) != null) {
 			throw new IllegalArgumentException("Modifier is already applied on this attribute!");
 		} else {
-            Set<AttributeModifier> object = this.mapByName.get(attributemodifier.getName());
-            if (object == null) {
-                object = Sets.newHashSet();
-                this.mapByName.put(attributemodifier.getName(), object);
-            }
+			Set<AttributeModifier> object = (Set) this.mapByName.get(attributemodifier.getName());
+			if (object == null) {
+				object = Sets.newHashSet();
+				this.mapByName.put(attributemodifier.getName(), object);
+			}
 
-            this.mapByOperation.get(Integer.valueOf(attributemodifier.getOperation())).add(attributemodifier);
-            object.add(attributemodifier);
-            this.mapByUUID.put(attributemodifier.getID(), attributemodifier);
-            this.flagForUpdate();
-        }
+			((Set) this.mapByOperation.get(Integer.valueOf(attributemodifier.getOperation()))).add(attributemodifier);
+			((Set) object).add(attributemodifier);
+			this.mapByUUID.put(attributemodifier.getID(), attributemodifier);
+			this.flagForUpdate();
+		}
 	}
 
 	protected void flagForUpdate() {
@@ -117,11 +117,11 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 
 	public void removeModifier(AttributeModifier attributemodifier) {
 		for (int i = 0; i < 3; ++i) {
-            Set set = this.mapByOperation.get(Integer.valueOf(i));
+			Set set = (Set) this.mapByOperation.get(Integer.valueOf(i));
 			set.remove(attributemodifier);
 		}
 
-        Set set1 = this.mapByName.get(attributemodifier.getName());
+		Set set1 = (Set) this.mapByName.get(attributemodifier.getName());
 		if (set1 != null) {
 			set1.remove(attributemodifier);
 			if (set1.isEmpty()) {

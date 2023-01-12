@@ -1,8 +1,12 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import com.google.common.base.Predicate;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -23,15 +27,13 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -139,7 +141,7 @@ public class BlockHopper extends BlockContainer {
 
 	private void updateState(World worldIn, BlockPos pos, IBlockState state) {
 		boolean flag = !worldIn.isBlockPowered(pos);
-		if (flag != state.getValue(ENABLED).booleanValue()) {
+		if (flag != ((Boolean) state.getValue(ENABLED)).booleanValue()) {
 			worldIn.setBlockState(pos, state.withProperty(ENABLED, Boolean.valueOf(flag)), 4);
 		}
 
@@ -217,8 +219,8 @@ public class BlockHopper extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getIndex();
-		if (!iblockstate.getValue(ENABLED).booleanValue()) {
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+		if (!((Boolean) iblockstate.getValue(ENABLED)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -226,6 +228,6 @@ public class BlockHopper extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, ENABLED);
+		return new BlockState(this, new IProperty[] { FACING, ENABLED });
 	}
 }

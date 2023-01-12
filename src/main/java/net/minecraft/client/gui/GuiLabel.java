@@ -16,7 +16,7 @@ import net.minecraft.client.resources.I18n;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -26,34 +26,34 @@ import net.minecraft.client.resources.I18n;
  * NOT FOR COMMERCIAL OR MALICIOUS USE
  * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class GuiLabel extends Gui {
-    protected int field_146167_a = 200;
-    protected int field_146161_f = 20;
-    public int field_146162_g;
-    public int field_146174_h;
-    private final List<String> field_146173_k;
-    public int field_175204_i;
-    private boolean centered;
-    public boolean visible = true;
-    private final boolean labelBgEnabled;
-    private final int field_146168_n;
-    private final int field_146169_o;
-    private final int field_146166_p;
-    private final int field_146165_q;
-    private final FontRenderer fontRenderer;
-    private final int field_146163_s;
+	protected int field_146167_a = 200;
+	protected int field_146161_f = 20;
+	public int field_146162_g;
+	public int field_146174_h;
+	private List<String> field_146173_k;
+	public int field_175204_i;
+	private boolean centered;
+	public boolean visible = true;
+	private boolean labelBgEnabled;
+	private int field_146168_n;
+	private int field_146169_o;
+	private int field_146166_p;
+	private int field_146165_q;
+	private FontRenderer fontRenderer;
+	private int field_146163_s;
 
-    public GuiLabel(FontRenderer fontRendererObj, int parInt1, int parInt2, int parInt3, int parInt4, int parInt5,
-                    int parInt6) {
-        this.fontRenderer = fontRendererObj;
-        this.field_175204_i = parInt1;
-        this.field_146162_g = parInt2;
-        this.field_146174_h = parInt3;
-        this.field_146167_a = parInt4;
-        this.field_146161_f = parInt5;
-        this.field_146173_k = Lists.newArrayList();
+	public GuiLabel(FontRenderer fontRendererObj, int parInt1, int parInt2, int parInt3, int parInt4, int parInt5,
+			int parInt6) {
+		this.fontRenderer = fontRendererObj;
+		this.field_175204_i = parInt1;
+		this.field_146162_g = parInt2;
+		this.field_146174_h = parInt3;
+		this.field_146167_a = parInt4;
+		this.field_146161_f = parInt5;
+		this.field_146173_k = Lists.newArrayList();
 		this.centered = false;
 		this.labelBgEnabled = false;
 		this.field_146168_n = parInt6;
@@ -64,7 +64,7 @@ public class GuiLabel extends Gui {
 	}
 
 	public void func_175202_a(String parString1) {
-        this.field_146173_k.add(I18n.format(parString1));
+		this.field_146173_k.add(I18n.format(parString1, new Object[0]));
 	}
 
 	/**+
@@ -85,11 +85,11 @@ public class GuiLabel extends Gui {
 
 			for (int k = 0; k < this.field_146173_k.size(); ++k) {
 				if (this.centered) {
-                    this.drawCenteredString(this.fontRenderer, this.field_146173_k.get(k),
-                            this.field_146162_g + this.field_146167_a / 2, j + k * 10, this.field_146168_n);
+					this.drawCenteredString(this.fontRenderer, (String) this.field_146173_k.get(k),
+							this.field_146162_g + this.field_146167_a / 2, j + k * 10, this.field_146168_n);
 				} else {
-                    this.drawString(this.fontRenderer, this.field_146173_k.get(k), this.field_146162_g,
-                            j + k * 10, this.field_146168_n);
+					this.drawString(this.fontRenderer, (String) this.field_146173_k.get(k), this.field_146162_g,
+							j + k * 10, this.field_146168_n);
 				}
 			}
 

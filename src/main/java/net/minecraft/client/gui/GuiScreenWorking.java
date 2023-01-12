@@ -8,7 +8,7 @@ import net.minecraft.util.IProgressUpdate;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -71,15 +71,15 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 	public void drawScreen(int i, int j, float f) {
 		if (this.doneWorking) {
 			if (!this.mc.func_181540_al()) {
-				this.mc.displayGuiScreen(null);
+				this.mc.displayGuiScreen((GuiScreen) null);
 			}
 
 		} else {
-            this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, this.field_146591_a, width / 2, 70, 16777215);
-            this.drawCenteredString(this.fontRendererObj, this.field_146589_f + " " + this.progress + "%",
-                    width / 2, 90, 16777215);
-            super.drawScreen(i, j, f);
+			this.drawDefaultBackground();
+			this.drawCenteredString(this.fontRendererObj, this.field_146591_a, this.width / 2, 70, 16777215);
+			this.drawCenteredString(this.fontRendererObj, this.field_146589_f + " " + this.progress + "%",
+					this.width / 2, 90, 16777215);
+			super.drawScreen(i, j, f);
 		}
 	}
 }

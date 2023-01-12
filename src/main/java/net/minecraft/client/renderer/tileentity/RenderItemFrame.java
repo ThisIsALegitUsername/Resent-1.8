@@ -38,7 +38,7 @@ import net.minecraft.world.storage.MapData;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -56,7 +56,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	private final Minecraft mc = Minecraft.getMinecraft();
 	private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
 	private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
-    private final RenderItem itemRenderer;
+	private RenderItem itemRenderer;
 
 	public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
 		super(renderManagerIn);
@@ -177,29 +177,29 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 					GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
 					GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 					GlStateManager.scale(-f1, -f1, f1);
-                    GlStateManager.disableLighting();
-                    GlStateManager.translate(0.0F, 0.25F / f1, 0.0F);
-                    GlStateManager.depthMask(false);
-                    GlStateManager.enableBlend();
-                    GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    Tessellator tessellator = Tessellator.getInstance();
-                    WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                    int i = fontrenderer.getStringWidth(s) / 2;
-                    GlStateManager.disableTexture2D();
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    tessellator.draw();
-                    GlStateManager.enableTexture2D();
-                    GlStateManager.depthMask(true);
-                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
-                    GlStateManager.enableLighting();
-                    GlStateManager.disableBlend();
-                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                    GlStateManager.popMatrix();
-                } else {
+					GlStateManager.disableLighting();
+					GlStateManager.translate(0.0F, 0.25F / f1, 0.0F);
+					GlStateManager.depthMask(false);
+					GlStateManager.enableBlend();
+					GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					Tessellator tessellator = Tessellator.getInstance();
+					WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+					int i = fontrenderer.getStringWidth(s) / 2;
+					GlStateManager.disableTexture2D();
+					worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+					worldrenderer.pos((double) (-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+					worldrenderer.pos((double) (-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+					worldrenderer.pos((double) (i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+					worldrenderer.pos((double) (i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+					tessellator.draw();
+					GlStateManager.enableTexture2D();
+					GlStateManager.depthMask(true);
+					fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
+					GlStateManager.enableLighting();
+					GlStateManager.disableBlend();
+					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+					GlStateManager.popMatrix();
+				} else {
 					this.renderLivingLabel(entityitemframe, s, d0, d1, d2, 64);
 				}
 			}

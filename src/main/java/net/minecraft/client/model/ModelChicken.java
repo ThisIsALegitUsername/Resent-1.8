@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,8 +45,8 @@ public class ModelChicken extends ModelBase {
 		this.chin.setRotationPoint(0.0F, (float) (-1 + b0), -4.0F);
 		this.body = new ModelRenderer(this, 0, 9);
 		this.body.addBox(-3.0F, -4.0F, -3.0F, 6, 8, 6, 0.0F);
-        this.body.setRotationPoint(0.0F, b0, 0.0F);
-        this.rightLeg = new ModelRenderer(this, 26, 0);
+		this.body.setRotationPoint(0.0F, (float) b0, 0.0F);
+		this.rightLeg = new ModelRenderer(this, 26, 0);
 		this.rightLeg.addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
 		this.rightLeg.setRotationPoint(-2.0F, (float) (3 + b0), 1.0F);
 		this.leftLeg = new ModelRenderer(this, 26, 0);

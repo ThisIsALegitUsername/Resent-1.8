@@ -29,7 +29,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -190,9 +190,10 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 	 * it clashes with Container
 	 */
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-        return this.worldObj.getTileEntity(this.pos) == this && entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
-    }
+		return this.worldObj.getTileEntity(this.pos) != this ? false
+				: entityplayer.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+						(double) this.pos.getZ() + 0.5D) <= 64.0D;
+	}
 
 	public void openInventory(EntityPlayer var1) {
 	}
@@ -318,9 +319,9 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 	private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
 		ItemStack itemstack = inventoryIn.getStackInSlot(index);
 		if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction)) {
-            ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1),
-                    null);
+			ItemStack itemstack1 = itemstack.copy();
+			ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1),
+					(EnumFacing) null);
 			if (itemstack2 == null || itemstack2.stackSize == 0) {
 				inventoryIn.markDirty();
 				return true;
@@ -342,8 +343,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 		if (parEntityItem == null) {
 			return false;
 		} else {
-            ItemStack itemstack = parEntityItem.getEntityItem().copy();
-            ItemStack itemstack1 = putStackInInventoryAllSlots(itemIn, itemstack, null);
+			ItemStack itemstack = parEntityItem.getEntityItem().copy();
+			ItemStack itemstack1 = putStackInInventoryAllSlots(itemIn, itemstack, (EnumFacing) null);
 			if (itemstack1 != null && itemstack1.stackSize != 0) {
 				parEntityItem.setEntityItemStack(itemstack1);
 			} else {
@@ -387,9 +388,10 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 	 * slot on the specified side?
 	 */
 	private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
-        return inventoryIn.isItemValidForSlot(index, stack) && (!(inventoryIn instanceof ISidedInventory)
-                || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side));
-    }
+		return !inventoryIn.isItemValidForSlot(index, stack) ? false
+				: !(inventoryIn instanceof ISidedInventory)
+						|| ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side);
+	}
 
 	/**+
 	 * Can this hopper extract the specified item from the specified
@@ -451,10 +453,10 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 	public static List<EntityItem> func_181556_a(World parWorld, double parDouble1, double parDouble2,
 			double parDouble3) {
 		return parWorld
-                .getEntitiesWithinAABB(
-                        EntityItem.class, new AxisAlignedBB(parDouble1 - 0.5D, parDouble2 - 0.5D, parDouble3 - 0.5D,
-                                parDouble1 + 0.5D, parDouble2 + 0.5D, parDouble3 + 0.5D),
-                        EntitySelectors.selectAnything);
+				.<EntityItem>getEntitiesWithinAABB(
+						EntityItem.class, new AxisAlignedBB(parDouble1 - 0.5D, parDouble2 - 0.5D, parDouble3 - 0.5D,
+								parDouble1 + 0.5D, parDouble2 + 0.5D, parDouble3 + 0.5D),
+						EntitySelectors.selectAnything);
 	}
 
 	/**+
@@ -471,7 +473,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 		if (block.hasTileEntity()) {
 			TileEntity tileentity = worldIn.getTileEntity(blockpos);
 			if (tileentity instanceof IInventory) {
-                object = tileentity;
+				object = (IInventory) tileentity;
 				if (object instanceof TileEntityChest && block instanceof BlockChest) {
 					object = ((BlockChest) block).getLockableContainer(worldIn, blockpos);
 				}
@@ -479,11 +481,11 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 		}
 
 		if (object == null) {
-            List list = worldIn.getEntitiesInAABBexcluding(null,
-                    new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D),
-                    EntitySelectors.selectInventories);
+			List list = worldIn.getEntitiesInAABBexcluding((Entity) null,
+					new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D),
+					EntitySelectors.selectInventories);
 			if (list.size() > 0) {
-                object = list.get(worldIn.rand.nextInt(list.size()));
+				object = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
 			}
 		}
 
@@ -491,7 +493,10 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 	}
 
 	private static boolean canCombine(ItemStack stack1, ItemStack stack2) {
-        return stack1.getItem() == stack2.getItem() && (stack1.getMetadata() == stack2.getMetadata() && (stack1.stackSize <= stack1.getMaxStackSize() && ItemStack.areItemStackTagsEqual(stack1, stack2)));
+		return stack1.getItem() != stack2.getItem() ? false
+				: (stack1.getMetadata() != stack2.getMetadata() ? false
+						: (stack1.stackSize > stack1.getMaxStackSize() ? false
+								: ItemStack.areItemStackTagsEqual(stack1, stack2)));
 	}
 
 	/**+

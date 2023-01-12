@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -27,7 +27,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<TileEntityEnderChest> {
 	private static final ResourceLocation ENDER_CHEST_TEXTURE = new ResourceLocation("textures/entity/chest/ender.png");
-    private final ModelChest field_147521_c = new ModelChest();
+	private ModelChest field_147521_c = new ModelChest();
 
 	public void renderTileEntityAt(TileEntityEnderChest tileentityenderchest, double d0, double d1, double d2, float f,
 			int i) {
@@ -70,8 +70,8 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
 			short1 = -90;
 		}
 
-        GlStateManager.rotate(short1, 0.0F, 1.0F, 0.0F);
-        GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+		GlStateManager.rotate((float) short1, 0.0F, 1.0F, 0.0F);
+		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 		float f1 = tileentityenderchest.prevLidAngle
 				+ (tileentityenderchest.lidAngle - tileentityenderchest.prevLidAngle) * f;
 		f1 = 1.0F - f1;

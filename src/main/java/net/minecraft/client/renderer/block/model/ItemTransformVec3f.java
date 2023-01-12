@@ -14,7 +14,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,7 +46,9 @@ public class ItemTransformVec3f {
 			return false;
 		} else {
 			ItemTransformVec3f itemtransformvec3f = (ItemTransformVec3f) object;
-			return this.rotation.equals(itemtransformvec3f.rotation) && (this.scale.equals(itemtransformvec3f.scale) && this.translation.equals(itemtransformvec3f.translation));
+			return !this.rotation.equals(itemtransformvec3f.rotation) ? false
+					: (!this.scale.equals(itemtransformvec3f.scale) ? false
+							: this.translation.equals(itemtransformvec3f.translation));
 		}
 	}
 

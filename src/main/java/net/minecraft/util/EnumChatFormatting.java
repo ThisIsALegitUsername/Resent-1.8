@@ -14,7 +14,7 @@ import com.google.common.collect.Maps;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -36,14 +36,13 @@ public enum EnumChatFormatting {
 	RESET("RESET", 'r', -1);
 
 	private static final Map<String, EnumChatFormatting> nameMapping = Maps.newHashMap();
-    /**
-     * +
-     * Matches formatting codes that indicate that the client should
-     * treat the following text as bold, recolored, obfuscated, etc.
-     */
-    private static final Pattern formattingCodePattern = Pattern
-            .compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
-    private final String name;
+	/**+
+	 * Matches formatting codes that indicate that the client should
+	 * treat the following text as bold, recolored, obfuscated, etc.
+	 */
+	private static final Pattern formattingCodePattern = Pattern
+			.compile("(?i)" + String.valueOf('\u00a7') + "[0-9A-FK-OR]");
+	private final String name;
 	private final char formattingCode;
 	private final boolean fancyStyling;
 	private final String controlString;
@@ -51,22 +50,22 @@ public enum EnumChatFormatting {
 
 	private static String func_175745_c(String parString1) {
 		return parString1.toLowerCase().replaceAll("[^a-z]", "");
-    }
+	}
 
-    EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
-        this(formattingName, formattingCodeIn, false, colorIndex);
-    }
+	private EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
+		this(formattingName, formattingCodeIn, false, colorIndex);
+	}
 
-    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
-        this(formattingName, formattingCodeIn, fancyStylingIn, -1);
-    }
+	private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
+		this(formattingName, formattingCodeIn, fancyStylingIn, -1);
+	}
 
-    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
-        this.name = formattingName;
-        this.formattingCode = formattingCodeIn;
-        this.fancyStyling = fancyStylingIn;
-        this.colorIndex = colorIndex;
-        this.controlString = "\u00a7" + formattingCodeIn;
+	private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
+		this.name = formattingName;
+		this.formattingCode = formattingCodeIn;
+		this.fancyStyling = fancyStylingIn;
+		this.colorIndex = colorIndex;
+		this.controlString = "\u00a7" + formattingCodeIn;
 	}
 
 	/**+
@@ -116,7 +115,7 @@ public enum EnumChatFormatting {
 	 * does not map to a defined value.
 	 */
 	public static EnumChatFormatting getValueByName(String friendlyName) {
-        return friendlyName == null ? null : nameMapping.get(func_175745_c(friendlyName));
+		return friendlyName == null ? null : (EnumChatFormatting) nameMapping.get(func_175745_c(friendlyName));
 	}
 
 	public static EnumChatFormatting func_175744_a(int parInt1) {

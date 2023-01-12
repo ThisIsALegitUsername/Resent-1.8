@@ -1,6 +1,7 @@
 package net.minecraft.world.biome;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.BlockDirt;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -26,7 +27,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
  * 
  */
 public class BiomeGenTaiga extends BiomeGenBase {
-	private final int field_150644_aH;
+	private int field_150644_aH;
 
 	public BiomeGenTaiga(int parInt1, int parInt2) {
 		super(parInt1);

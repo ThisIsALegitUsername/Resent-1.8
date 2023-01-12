@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -24,7 +26,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -118,16 +120,16 @@ public class BlockEnderChest extends BlockContainer {
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState var3, EaglercraftRandom random) {
 		for (int i = 0; i < 3; ++i) {
-            int j = random.nextInt(2) * 2 - 1;
-            int k = random.nextInt(2) * 2 - 1;
-            double d0 = (double) blockpos.getX() + 0.5D + 0.25D * (double) j;
-            double d1 = (float) blockpos.getY() + random.nextFloat();
-            double d2 = (double) blockpos.getZ() + 0.5D + 0.25D * (double) k;
-            double d3 = random.nextFloat() * (float) j;
-            double d4 = ((double) random.nextFloat() - 0.5D) * 0.125D;
-            double d5 = random.nextFloat() * (float) k;
-            world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
-        }
+			int j = random.nextInt(2) * 2 - 1;
+			int k = random.nextInt(2) * 2 - 1;
+			double d0 = (double) blockpos.getX() + 0.5D + 0.25D * (double) j;
+			double d1 = (double) ((float) blockpos.getY() + random.nextFloat());
+			double d2 = (double) blockpos.getZ() + 0.5D + 0.25D * (double) k;
+			double d3 = (double) (random.nextFloat() * (float) j);
+			double d4 = ((double) random.nextFloat() - 0.5D) * 0.125D;
+			double d5 = (double) (random.nextFloat() * (float) k);
+			world.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5, new int[0]);
+		}
 
 	}
 
@@ -147,10 +149,10 @@ public class BlockEnderChest extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(FACING).getIndex();
+		return ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, FACING);
+		return new BlockState(this, new IProperty[] { FACING });
 	}
 }

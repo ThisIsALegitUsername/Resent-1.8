@@ -1216,17 +1216,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 	 * @since 2.3
 	 */
 	public <T> StrBuilder appendAll(@SuppressWarnings("unchecked") final T... array) {
-        /*
-         * @SuppressWarnings used to hide warning about vararg usage. We cannot
-         * use @SafeVarargs, since this method is not final. Using @SuppressWarnings is
-         * fine, because it isn't inherited by subclasses, so each subclass must vouch
-         * for itself whether its use of 'array' is safe.
-         */
-        for (final Object element : array) {
-            append(element);
-        }
-        return this;
-    }
+		/*
+		 * @SuppressWarnings used to hide warning about vararg usage. We cannot
+		 * use @SafeVarargs, since this method is not final. Using @SuppressWarnings is
+		 * fine, because it isn't inherited by subclasses, so each subclass must vouch
+		 * for itself whether its use of 'array' is safe.
+		 */
+		if (array.length > 0) {
+			for (final Object element : array) {
+				append(element);
+			}
+		}
+		return this;
+	}
 
 	/**
 	 * Appends each item in an iterable to the builder without any separators.
@@ -3019,9 +3021,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 		/** {@inheritDoc} */
 		@Override
 		public int read() {
-            if (!ready()) {
-                return -1;
-            }
+			if (ready() == false) {
+				return -1;
+			}
 			return StrBuilder.this.charAt(pos++);
 		}
 

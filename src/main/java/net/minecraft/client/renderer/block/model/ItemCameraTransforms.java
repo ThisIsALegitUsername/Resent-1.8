@@ -13,7 +13,7 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -115,17 +115,17 @@ public class ItemCameraTransforms {
 			ItemTransformVec3f itemtransformvec3f4 = this.func_181683_a(jsonobject, "ground");
 			ItemTransformVec3f itemtransformvec3f5 = this.func_181683_a(jsonobject, "fixed");
 			return new ItemCameraTransforms(itemtransformvec3f, itemtransformvec3f1, itemtransformvec3f2,
-                    itemtransformvec3f3, itemtransformvec3f4, itemtransformvec3f5);
-        }
+					itemtransformvec3f3, itemtransformvec3f4, itemtransformvec3f5);
+		}
 
-        private ItemTransformVec3f func_181683_a(JSONObject parJsonObject, String parString1) {
-            return parJsonObject.has(parString1)
-                    ? JSONTypeProvider.deserialize(parJsonObject.get(parString1), ItemTransformVec3f.class)
-                    : ItemTransformVec3f.DEFAULT;
-        }
-    }
+		private ItemTransformVec3f func_181683_a(JSONObject parJsonObject, String parString1) {
+			return parJsonObject.has(parString1)
+					? JSONTypeProvider.deserialize(parJsonObject.get(parString1), ItemTransformVec3f.class)
+					: ItemTransformVec3f.DEFAULT;
+		}
+	}
 
-    public enum TransformType {
-        NONE, THIRD_PERSON, FIRST_PERSON, HEAD, GUI, GROUND, FIXED
-    }
+	public static enum TransformType {
+		NONE, THIRD_PERSON, FIRST_PERSON, HEAD, GUI, GROUND, FIXED;
+	}
 }

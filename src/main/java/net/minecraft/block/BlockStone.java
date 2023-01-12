@@ -1,8 +1,11 @@
 package net.minecraft.block;
 
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -13,15 +16,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.StatCollector;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -43,7 +44,7 @@ public class BlockStone extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.create("variant", BlockStone.EnumType.class);
+		VARIANT = PropertyEnum.<BlockStone.EnumType>create("variant", BlockStone.EnumType.class);
 	}
 
 	/**+
@@ -59,7 +60,7 @@ public class BlockStone extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).func_181072_c();
+		return ((BlockStone.EnumType) iblockstate.getValue(VARIANT)).func_181072_c();
 	}
 
 	/**+
@@ -77,7 +78,7 @@ public class BlockStone extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockStone.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	/**+
@@ -102,37 +103,37 @@ public class BlockStone extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockStone.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, VARIANT);
+		return new BlockState(this, new IProperty[] { VARIANT });
 	}
 
-    public enum EnumType implements IStringSerializable {
-        STONE(0, MapColor.stoneColor, "stone"), GRANITE(1, MapColor.dirtColor, "granite"),
-        GRANITE_SMOOTH(2, MapColor.dirtColor, "smooth_granite", "graniteSmooth"),
-        DIORITE(3, MapColor.quartzColor, "diorite"),
-        DIORITE_SMOOTH(4, MapColor.quartzColor, "smooth_diorite", "dioriteSmooth"),
-        ANDESITE(5, MapColor.stoneColor, "andesite"),
-        ANDESITE_SMOOTH(6, MapColor.stoneColor, "smooth_andesite", "andesiteSmooth");
+	public static enum EnumType implements IStringSerializable {
+		STONE(0, MapColor.stoneColor, "stone"), GRANITE(1, MapColor.dirtColor, "granite"),
+		GRANITE_SMOOTH(2, MapColor.dirtColor, "smooth_granite", "graniteSmooth"),
+		DIORITE(3, MapColor.quartzColor, "diorite"),
+		DIORITE_SMOOTH(4, MapColor.quartzColor, "smooth_diorite", "dioriteSmooth"),
+		ANDESITE(5, MapColor.stoneColor, "andesite"),
+		ANDESITE_SMOOTH(6, MapColor.stoneColor, "smooth_andesite", "andesiteSmooth");
 
-        private static final BlockStone.EnumType[] META_LOOKUP = new BlockStone.EnumType[values().length];
-        private final int meta;
-        private final String name;
+		private static final BlockStone.EnumType[] META_LOOKUP = new BlockStone.EnumType[values().length];
+		private final int meta;
+		private final String name;
 		private final String unlocalizedName;
 		private final MapColor field_181073_l;
 
-        EnumType(int parInt2, MapColor parMapColor, String parString2) {
-            this(parInt2, parMapColor, parString2, parString2);
-        }
+		private EnumType(int parInt2, MapColor parMapColor, String parString2) {
+			this(parInt2, parMapColor, parString2, parString2);
+		}
 
-        EnumType(int parInt2, MapColor parMapColor, String parString2, String parString3) {
-            this.meta = parInt2;
-            this.name = parString2;
-            this.unlocalizedName = parString3;
-            this.field_181073_l = parMapColor;
-        }
+		private EnumType(int parInt2, MapColor parMapColor, String parString2, String parString3) {
+			this.meta = parInt2;
+			this.name = parString2;
+			this.unlocalizedName = parString3;
+			this.field_181073_l = parMapColor;
+		}
 
 		public int getMetadata() {
 			return this.meta;

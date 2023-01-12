@@ -1,12 +1,17 @@
 package net.minecraft.util;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
-
-import java.lang.reflect.Array;
-import java.util.*;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -14,7 +19,7 @@ import java.util.*;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -28,7 +33,7 @@ import java.util.*;
  */
 public class Cartesian {
 	public static <T> Iterable<T[]> cartesianProduct(Class<T> clazz, Iterable<? extends Iterable<? extends T>> sets) {
-		return new Cartesian.Product(clazz, toArray(Iterable.class, sets));
+		return new Cartesian.Product(clazz, (Iterable[]) toArray(Iterable.class, sets));
 	}
 
 	public static <T> Iterable<List<T>> cartesianProduct(Iterable<? extends Iterable<? extends T>> sets) {
@@ -50,11 +55,11 @@ public class Cartesian {
 			arraylist.add(object);
 		}
 
-		return (T[]) arraylist.toArray(createArray(clazz, arraylist.size()));
+		return (T[]) ((Object[]) arraylist.toArray(createArray(clazz, arraylist.size())));
 	}
 
 	private static <T> T[] createArray(Class<? super T> parClass1, int parInt1) {
-		return (T[]) Array.newInstance(parClass1, parInt1);
+		return (T[]) ((Object[]) ((Object[]) Array.newInstance(parClass1, parInt1)));
 	}
 
 	static class GetList<T> implements Function<Object[], List<T>> {
@@ -62,7 +67,7 @@ public class Cartesian {
 		}
 
 		public List<T> apply(Object[] aobject) {
-			return (List<T>) Arrays.asList(aobject);
+			return (List<T>) Arrays.asList((Object[]) aobject);
 		}
 	}
 
@@ -77,7 +82,7 @@ public class Cartesian {
 
 		public Iterator<T[]> iterator() {
 			return (Iterator<T[]>) (this.iterables.length <= 0
-					? Collections.singletonList(Cartesian.createArray(this.clazz, 0)).iterator()
+					? Collections.singletonList((T[]) Cartesian.createArray(this.clazz, 0)).iterator()
 					: new Cartesian.Product.ProductIterator(this.clazz, this.iterables));
 		}
 
@@ -90,7 +95,7 @@ public class Cartesian {
 			private ProductIterator(Class<T> clazz, Iterable<? extends T>[] iterables) {
 				this.index = -2;
 				this.iterables = iterables;
-				this.iterators = Cartesian.createArray(Iterator.class, this.iterables.length);
+				this.iterators = (Iterator[]) Cartesian.createArray(Iterator.class, this.iterables.length);
 
 				for (int i = 0; i < this.iterables.length; ++i) {
 					this.iterators[i] = iterables[i].iterator();
@@ -101,8 +106,8 @@ public class Cartesian {
 
 			private void endOfData() {
 				this.index = -1;
-				Arrays.fill(this.iterators, null);
-				Arrays.fill(this.results, null);
+				Arrays.fill(this.iterators, (Object) null);
+				Arrays.fill(this.results, (Object) null);
 			}
 
 			public boolean hasNext() {
@@ -152,7 +157,7 @@ public class Cartesian {
 						++this.index;
 					}
 
-					return this.results.clone();
+					return (T[]) ((Object[]) this.results.clone());
 				}
 			}
 		}

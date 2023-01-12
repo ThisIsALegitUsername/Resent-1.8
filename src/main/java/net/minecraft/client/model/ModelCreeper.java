@@ -9,7 +9,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -38,14 +38,14 @@ public class ModelCreeper extends ModelBase {
 		byte b0 = 6;
 		this.head = new ModelRenderer(this, 0, 0);
 		this.head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, parFloat1);
-        this.head.setRotationPoint(0.0F, b0, 0.0F);
-        this.creeperArmor = new ModelRenderer(this, 32, 0);
-        this.creeperArmor.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, parFloat1 + 0.5F);
-        this.creeperArmor.setRotationPoint(0.0F, b0, 0.0F);
-        this.body = new ModelRenderer(this, 16, 16);
-        this.body.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, parFloat1);
-        this.body.setRotationPoint(0.0F, b0, 0.0F);
-        this.leg1 = new ModelRenderer(this, 0, 16);
+		this.head.setRotationPoint(0.0F, (float) b0, 0.0F);
+		this.creeperArmor = new ModelRenderer(this, 32, 0);
+		this.creeperArmor.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, parFloat1 + 0.5F);
+		this.creeperArmor.setRotationPoint(0.0F, (float) b0, 0.0F);
+		this.body = new ModelRenderer(this, 16, 16);
+		this.body.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, parFloat1);
+		this.body.setRotationPoint(0.0F, (float) b0, 0.0F);
+		this.leg1 = new ModelRenderer(this, 0, 16);
 		this.leg1.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, parFloat1);
 		this.leg1.setRotationPoint(-2.0F, (float) (12 + b0), 4.0F);
 		this.leg2 = new ModelRenderer(this, 0, 16);

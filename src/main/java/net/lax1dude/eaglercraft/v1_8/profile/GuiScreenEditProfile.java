@@ -17,7 +17,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 import java.io.IOException;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -223,18 +223,18 @@ public class GuiScreenEditProfile extends GuiScreen {
 			mc.getTextureManager().bindTexture(newSkin.getResource());
 			SkinPreviewRenderer.renderBiped(xx, yy, mx, my, SkinModel.ALEX);
 		}else {
-            skinX = width / 2 - 120;
-            skinY = height / 6 + 8;
-            skinWidth = 80;
-            skinHeight = 130;
-
-            ResourceLocation texture;
-            SkinModel model;
-            if (selectedSlot < numberOfCustomSkins) {
-                CustomSkin customSkin = EaglerProfile.customSkins.get(selectedSlot);
-                texture = customSkin.getResource();
-                model = customSkin.model;
-            } else {
+			skinX = this.width / 2 - 120;
+			skinY = this.height / 6 + 8;
+			skinWidth = 80;
+			skinHeight = 130;
+			
+			ResourceLocation texture;
+			SkinModel model;
+			if(selectedSlot < numberOfCustomSkins) {
+				CustomSkin customSkin = EaglerProfile.customSkins.get(selectedSlot);
+				texture = customSkin.getResource();
+				model = customSkin.model;
+			}else {
 				DefaultSkins defaultSkin = DefaultSkins.defaultSkinsMap[selectedSlot - numberOfCustomSkins];
 				texture = defaultSkin.location;
 				model = defaultSkin.model;
@@ -264,8 +264,8 @@ public class GuiScreenEditProfile extends GuiScreen {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(!dropDownOpen) {
 			if(par1GuiButton.id == 0) {
-                safeProfile();
-                this.mc.displayGuiScreen(parent);
+				safeProfile();
+				this.mc.displayGuiScreen((GuiScreen) parent);
 			}else if(par1GuiButton.id == 1) {
 				EagRuntime.displayFileChooser("image/png", "png");
 			}else if(par1GuiButton.id == 2) {

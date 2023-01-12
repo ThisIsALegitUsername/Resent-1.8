@@ -1,10 +1,10 @@
 package net.minecraft.network.play.client;
 
+import java.io.IOException;
+
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-
-import java.io.IOException;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -12,7 +12,7 @@ import java.io.IOException;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -44,28 +44,27 @@ public class C19PacketResourcePackStatus implements Packet<INetHandlerPlayServer
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-        this.hash = parPacketBuffer.readStringFromBuffer(40);
-        this.status = parPacketBuffer
-                .readEnumValue(Action.class);
-    }
+		this.hash = parPacketBuffer.readStringFromBuffer(40);
+		this.status = (C19PacketResourcePackStatus.Action) parPacketBuffer
+				.readEnumValue(C19PacketResourcePackStatus.Action.class);
+	}
 
 	/**+
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer parPacketBuffer) throws IOException {
 		parPacketBuffer.writeString(this.hash);
-        parPacketBuffer.writeEnumValue(this.status);
-    }
+		parPacketBuffer.writeEnumValue(this.status);
+	}
 
-    /**
-     * +
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayServer inethandlerplayserver) {
-        inethandlerplayserver.handleResourcePackStatus(this);
-    }
+	/**+
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayServer inethandlerplayserver) {
+		inethandlerplayserver.handleResourcePackStatus(this);
+	}
 
-    public enum Action {
-        SUCCESSFULLY_LOADED, DECLINED, FAILED_DOWNLOAD, ACCEPTED
-    }
+	public static enum Action {
+		SUCCESSFULLY_LOADED, DECLINED, FAILED_DOWNLOAD, ACCEPTED;
+	}
 }

@@ -1,8 +1,11 @@
 package net.minecraft.block;
 
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -16,15 +19,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -99,7 +100,7 @@ public class BlockCauldron extends Block {
 	public void fillWithRain(World world, BlockPos blockpos) {
 		if (world.rand.nextInt(20) == 1) {
 			IBlockState iblockstate = world.getBlockState(blockpos);
-			if (iblockstate.getValue(LEVEL).intValue() < 3) {
+			if (((Integer) iblockstate.getValue(LEVEL)).intValue() < 3) {
 				world.setBlockState(blockpos, iblockstate.cycleProperty(LEVEL), 2);
 			}
 
@@ -122,7 +123,7 @@ public class BlockCauldron extends Block {
 	}
 
 	public int getComparatorInputOverride(World world, BlockPos blockpos) {
-		return world.getBlockState(blockpos).getValue(LEVEL).intValue();
+		return ((Integer) world.getBlockState(blockpos).getValue(LEVEL)).intValue();
 	}
 
 	/**+
@@ -136,10 +137,10 @@ public class BlockCauldron extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(LEVEL).intValue();
+		return ((Integer) iblockstate.getValue(LEVEL)).intValue();
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, LEVEL);
+		return new BlockState(this, new IProperty[] { LEVEL });
 	}
 }

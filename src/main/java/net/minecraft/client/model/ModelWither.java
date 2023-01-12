@@ -11,31 +11,31 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class ModelWither extends ModelBase {
-    private final ModelRenderer[] field_82905_a;
-    private final ModelRenderer[] field_82904_b;
+	private ModelRenderer[] field_82905_a;
+	private ModelRenderer[] field_82904_b;
 
-    public ModelWither(float parFloat1) {
-        this.textureWidth = 64;
-        this.textureHeight = 64;
-        this.field_82905_a = new ModelRenderer[3];
-        this.field_82905_a[0] = new ModelRenderer(this, 0, 16);
-        this.field_82905_a[0].addBox(-10.0F, 3.9F, -0.5F, 20, 3, 3, parFloat1);
-        this.field_82905_a[1] = (new ModelRenderer(this)).setTextureSize(this.textureWidth, this.textureHeight);
-        this.field_82905_a[1].setRotationPoint(-2.0F, 6.9F, -0.5F);
-        this.field_82905_a[1].setTextureOffset(0, 22).addBox(0.0F, 0.0F, 0.0F, 3, 10, 3, parFloat1);
+	public ModelWither(float parFloat1) {
+		this.textureWidth = 64;
+		this.textureHeight = 64;
+		this.field_82905_a = new ModelRenderer[3];
+		this.field_82905_a[0] = new ModelRenderer(this, 0, 16);
+		this.field_82905_a[0].addBox(-10.0F, 3.9F, -0.5F, 20, 3, 3, parFloat1);
+		this.field_82905_a[1] = (new ModelRenderer(this)).setTextureSize(this.textureWidth, this.textureHeight);
+		this.field_82905_a[1].setRotationPoint(-2.0F, 6.9F, -0.5F);
+		this.field_82905_a[1].setTextureOffset(0, 22).addBox(0.0F, 0.0F, 0.0F, 3, 10, 3, parFloat1);
 		this.field_82905_a[1].setTextureOffset(24, 22).addBox(-4.0F, 1.5F, 0.5F, 11, 2, 2, parFloat1);
 		this.field_82905_a[1].setTextureOffset(24, 22).addBox(-4.0F, 4.0F, 0.5F, 11, 2, 2, parFloat1);
 		this.field_82905_a[1].setTextureOffset(24, 22).addBox(-4.0F, 6.5F, 0.5F, 11, 2, 2, parFloat1);

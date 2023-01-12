@@ -18,7 +18,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -514,24 +514,24 @@ public class GuiTextField extends Gui {
 		}
 
 		if (parInt1 > this.xPosition + this.width) {
-            parInt1 = this.xPosition + this.width;
-        }
+			parInt1 = this.xPosition + this.width;
+		}
 
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        GlStateManager.color(0.2F, 0.2F, 1.0F, 1.0F);
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL_ONE_MINUS_DST_COLOR, GL_SRC_ALPHA);
-        GlStateManager.disableTexture2D();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos(parInt1, parInt4, 0.0D).endVertex();
-        worldrenderer.pos(parInt3, parInt4, 0.0D).endVertex();
-        worldrenderer.pos(parInt3, parInt2, 0.0D).endVertex();
-        worldrenderer.pos(parInt1, parInt2, 0.0D).endVertex();
-        tessellator.draw();
-        GlStateManager.disableBlend();
-        GlStateManager.enableTexture2D();
-    }
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+		GlStateManager.color(0.2F, 0.2F, 1.0F, 1.0F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL_ONE_MINUS_DST_COLOR, GL_SRC_ALPHA);
+		GlStateManager.disableTexture2D();
+		worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+		worldrenderer.pos((double) parInt1, (double) parInt4, 0.0D).endVertex();
+		worldrenderer.pos((double) parInt3, (double) parInt4, 0.0D).endVertex();
+		worldrenderer.pos((double) parInt3, (double) parInt2, 0.0D).endVertex();
+		worldrenderer.pos((double) parInt1, (double) parInt2, 0.0D).endVertex();
+		tessellator.draw();
+		GlStateManager.disableBlend();
+		GlStateManager.enableTexture2D();
+	}
 
 	public void setMaxStringLength(int parInt1) {
 		this.maxStringLength = parInt1;

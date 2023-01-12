@@ -1212,9 +1212,9 @@ public class StringUtils {
 	 */
 	private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
 			final CharSequence cs, final CharSequence... searchCharSequences) {
-		if (isEmpty(cs)) {
-            return false;
-        }
+		if (isEmpty(cs) || searchCharSequences.length == 0) {
+			return false;
+		}
 		for (final CharSequence searchCharSequence : searchCharSequences) {
 			if (test.applyAsBoolean(cs, searchCharSequence)) {
 				return true;
@@ -1851,9 +1851,9 @@ public class StringUtils {
 	 * @since 3.0
 	 */
 	public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence)) {
-            return false;
-        }
+		if (isEmpty(sequence) || searchStrings.length == 0) {
+			return false;
+		}
 		for (final CharSequence searchString : searchStrings) {
 			if (endsWith(sequence, searchString)) {
 				return true;
@@ -1969,13 +1969,15 @@ public class StringUtils {
 	 * @since 3.5
 	 */
 	public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
-        for (final CharSequence next : searchStrings) {
-            if (equals(string, next)) {
-                return true;
-            }
-        }
-        return false;
-    }
+		if (searchStrings.length > 0) {
+			for (final CharSequence next : searchStrings) {
+				if (equals(string, next)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * <p>
@@ -2001,13 +2003,15 @@ public class StringUtils {
 	 * @since 3.5
 	 */
 	public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
-        for (final CharSequence next : searchStrings) {
-            if (equalsIgnoreCase(string, next)) {
-                return true;
-            }
-        }
-        return false;
-    }
+		if (searchStrings.length > 0) {
+			for (final CharSequence next : searchStrings) {
+				if (equalsIgnoreCase(string, next)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * <p>
@@ -3464,11 +3468,14 @@ public class StringUtils {
 	 * @since 3.6
 	 */
 	public static boolean isAllBlank(final CharSequence... css) {
-        for (final CharSequence cs : css) {
-            if (isNotBlank(cs)) {
-                return false;
-            }
-        }
+		if (css.length == 0) {
+			return true;
+		}
+		for (final CharSequence cs : css) {
+			if (isNotBlank(cs)) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -3494,11 +3501,14 @@ public class StringUtils {
 	 * @since 3.6
 	 */
 	public static boolean isAllEmpty(final CharSequence... css) {
-        for (final CharSequence cs : css) {
-            if (isNotEmpty(cs)) {
-                return false;
-            }
-        }
+		if (css.length == 0) {
+			return true;
+		}
+		for (final CharSequence cs : css) {
+			if (isNotEmpty(cs)) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -3767,11 +3777,14 @@ public class StringUtils {
 	 * @since 3.2
 	 */
 	public static boolean isAnyBlank(final CharSequence... css) {
-        for (final CharSequence cs : css) {
-            if (isBlank(cs)) {
-                return true;
-            }
-        }
+		if (css.length == 0) {
+			return false;
+		}
+		for (final CharSequence cs : css) {
+			if (isBlank(cs)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -3798,11 +3811,14 @@ public class StringUtils {
 	 * @since 3.2
 	 */
 	public static boolean isAnyEmpty(final CharSequence... css) {
-        for (final CharSequence cs : css) {
-            if (isEmpty(cs)) {
-                return true;
-            }
-        }
+		if (css.length == 0) {
+			return false;
+		}
+		for (final CharSequence cs : css) {
+			if (isEmpty(cs)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -6219,16 +6235,18 @@ public class StringUtils {
 	 */
 	private static String prependIfMissing(final String str, final CharSequence prefix, final boolean ignoreCase,
 			final CharSequence... prefixes) {
-        if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
-            return str;
-        }
-        for (final CharSequence p : prefixes) {
-            if (startsWith(str, p, ignoreCase)) {
-                return str;
-            }
-        }
-        return prefix + str;
-    }
+		if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
+			return str;
+		}
+		if (prefixes.length > 0) {
+			for (final CharSequence p : prefixes) {
+				if (startsWith(str, p, ignoreCase)) {
+					return str;
+				}
+			}
+		}
+		return prefix.toString() + str;
+	}
 
 	/**
 	 * Prepends the prefix to the start of the string if the string does not already
@@ -8787,9 +8805,9 @@ public class StringUtils {
 	 *        startsWithAny(CharSequence, CharSequence...)
 	 */
 	public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence)) {
-            return false;
-        }
+		if (isEmpty(sequence) || searchStrings.length == 0) {
+			return false;
+		}
 		for (final CharSequence searchString : searchStrings) {
 			if (startsWith(sequence, searchString)) {
 				return true;

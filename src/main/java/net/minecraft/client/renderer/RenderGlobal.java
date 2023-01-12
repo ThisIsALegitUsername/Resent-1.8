@@ -90,7 +90,7 @@ import net.minecraft.world.chunk.Chunk;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -149,8 +149,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	private double lastViewEntityPitch = Double.MIN_VALUE;
 	private double lastViewEntityYaw = Double.MIN_VALUE;
 	private final ChunkUpdateManager renderDispatcher = new ChunkUpdateManager();
-    private final ChunkRenderContainer renderContainer;
-    private int renderDistanceChunks = -1;
+	private ChunkRenderContainer renderContainer;
+	private int renderDistanceChunks = -1;
 	/**+
 	 * Render entities startup counter (init value=2)
 	 */
@@ -256,18 +256,18 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 		for (int i = -384; i <= 384; i += 64) {
 			for (int j = -384; j <= 384; j += 64) {
-                float f = (float) i;
-                float f1 = (float) (i + 64);
-                if (parFlag) {
-                    f1 = (float) i;
-                    f = (float) (i + 64);
-                }
+				float f = (float) i;
+				float f1 = (float) (i + 64);
+				if (parFlag) {
+					f1 = (float) i;
+					f = (float) (i + 64);
+				}
 
-                worldRendererIn.pos(f, parFloat1, j).endVertex();
-                worldRendererIn.pos(f1, parFloat1, j).endVertex();
-                worldRendererIn.pos(f1, parFloat1, j + 64).endVertex();
-                worldRendererIn.pos(f, parFloat1, j + 64).endVertex();
-            }
+				worldRendererIn.pos((double) f, (double) parFloat1, (double) j).endVertex();
+				worldRendererIn.pos((double) f1, (double) parFloat1, (double) j).endVertex();
+				worldRendererIn.pos((double) f1, (double) parFloat1, (double) (j + 64)).endVertex();
+				worldRendererIn.pos((double) f, (double) parFloat1, (double) (j + 64)).endVertex();
+			}
 		}
 
 	}
@@ -296,20 +296,20 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 		worldRendererIn.begin(7, DefaultVertexFormats.POSITION);
 
 		for (int i = 0; i < 1500; ++i) {
-            double d0 = random.nextFloat() * 2.0F - 1.0F;
-            double d1 = random.nextFloat() * 2.0F - 1.0F;
-            double d2 = random.nextFloat() * 2.0F - 1.0F;
-            double d3 = 0.15F + random.nextFloat() * 0.1F;
-            double d4 = d0 * d0 + d1 * d1 + d2 * d2;
-            if (d4 < 1.0D && d4 > 0.01D) {
-                d4 = 1.0D / Math.sqrt(d4);
-                d0 = d0 * d4;
-                d1 = d1 * d4;
-                d2 = d2 * d4;
-                double d5 = d0 * 100.0D;
-                double d6 = d1 * 100.0D;
-                double d7 = d2 * 100.0D;
-                double d8 = Math.atan2(d0, d2);
+			double d0 = (double) (random.nextFloat() * 2.0F - 1.0F);
+			double d1 = (double) (random.nextFloat() * 2.0F - 1.0F);
+			double d2 = (double) (random.nextFloat() * 2.0F - 1.0F);
+			double d3 = (double) (0.15F + random.nextFloat() * 0.1F);
+			double d4 = d0 * d0 + d1 * d1 + d2 * d2;
+			if (d4 < 1.0D && d4 > 0.01D) {
+				d4 = 1.0D / Math.sqrt(d4);
+				d0 = d0 * d4;
+				d1 = d1 * d4;
+				d2 = d2 * d4;
+				double d5 = d0 * 100.0D;
+				double d6 = d1 * 100.0D;
+				double d7 = d2 * 100.0D;
+				double d8 = Math.atan2(d0, d2);
 				double d9 = Math.sin(d8);
 				double d10 = Math.cos(d8);
 				double d11 = Math.atan2(Math.sqrt(d0 * d0 + d2 * d2), d1);
@@ -433,7 +433,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 			this.countEntitiesTotal = list.size();
 
 			for (int i = 0; i < this.theWorld.weatherEffects.size(); ++i) {
-                Entity entity1 = this.theWorld.weatherEffects.get(i);
+				Entity entity1 = (Entity) this.theWorld.weatherEffects.get(i);
 				++this.countEntitiesRendered;
 				if (entity1.isInRangeToRender3d(d0, d1, d2)) {
 					this.renderManager.renderEntitySimple(entity1, partialTicks);
@@ -466,7 +466,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 								break;
 							}
 
-                            boolean flag3 = this.mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase) this.mc.getRenderViewEntity()).isPlayerSleeping();
+							boolean flag3 = this.mc.getRenderViewEntity() instanceof EntityLivingBase
+									? ((EntityLivingBase) this.mc.getRenderViewEntity()).isPlayerSleeping()
+									: false;
 							if ((entity2 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != 0
 									|| flag3)
 									&& (entity2.posY < 0.0D || entity2.posY >= 256.0D
@@ -547,9 +549,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 			}
 		}
 
-        return HString.format("C: %d/%d %sD: %d, %s",
-                Integer.valueOf(j), Integer.valueOf(i), this.mc.renderChunksMany ? "(s) " : "",
-                Integer.valueOf(this.renderDistanceChunks), this.renderDispatcher.getDebugInfo());
+		return HString.format("C: %d/%d %sD: %d, %s",
+				new Object[] { Integer.valueOf(j), Integer.valueOf(i), this.mc.renderChunksMany ? "(s) " : "",
+						Integer.valueOf(this.renderDistanceChunks), this.renderDispatcher.getDebugInfo() });
 	}
 
 	/**+
@@ -598,29 +600,29 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 		this.mc.mcProfiler.endStartSection("culling");
 		BlockPos blockpos1 = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
 		RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos1);
-        BlockPos blockpos = new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16,
-                MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
-        this.displayListEntitiesDirty = this.displayListEntitiesDirty || !this.chunksToUpdate.isEmpty()
-                || viewEntity.posX != this.lastViewEntityX || viewEntity.posY != this.lastViewEntityY
-                || viewEntity.posZ != this.lastViewEntityZ
-                || (double) viewEntity.rotationPitch != this.lastViewEntityPitch
-                || (double) viewEntity.rotationYaw != this.lastViewEntityYaw;
-        this.lastViewEntityX = viewEntity.posX;
-        this.lastViewEntityY = viewEntity.posY;
-        this.lastViewEntityZ = viewEntity.posZ;
-        this.lastViewEntityPitch = viewEntity.rotationPitch;
-        this.lastViewEntityYaw = viewEntity.rotationYaw;
-        boolean flag = this.debugFixedClippingHelper != null;
-        if (!flag && this.displayListEntitiesDirty) {
-            this.displayListEntitiesDirty = false;
-            this.renderInfos = Lists.newArrayList();
-            LinkedList linkedlist = Lists.newLinkedList();
-            boolean flag1 = this.mc.renderChunksMany;
-            if (renderchunk != null) {
-                boolean flag2 = false;
-                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 = new RenderGlobal.ContainerLocalRenderInformation(
-                        renderchunk, null, 0);
-                Set set1 = this.getVisibleFacings(blockpos1);
+		BlockPos blockpos = new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16,
+				MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
+		this.displayListEntitiesDirty = this.displayListEntitiesDirty || !this.chunksToUpdate.isEmpty()
+				|| viewEntity.posX != this.lastViewEntityX || viewEntity.posY != this.lastViewEntityY
+				|| viewEntity.posZ != this.lastViewEntityZ
+				|| (double) viewEntity.rotationPitch != this.lastViewEntityPitch
+				|| (double) viewEntity.rotationYaw != this.lastViewEntityYaw;
+		this.lastViewEntityX = viewEntity.posX;
+		this.lastViewEntityY = viewEntity.posY;
+		this.lastViewEntityZ = viewEntity.posZ;
+		this.lastViewEntityPitch = (double) viewEntity.rotationPitch;
+		this.lastViewEntityYaw = (double) viewEntity.rotationYaw;
+		boolean flag = this.debugFixedClippingHelper != null;
+		if (!flag && this.displayListEntitiesDirty) {
+			this.displayListEntitiesDirty = false;
+			this.renderInfos = Lists.newArrayList();
+			LinkedList linkedlist = Lists.newLinkedList();
+			boolean flag1 = this.mc.renderChunksMany;
+			if (renderchunk != null) {
+				boolean flag2 = false;
+				RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 = new RenderGlobal.ContainerLocalRenderInformation(
+						renderchunk, (EnumFacing) null, 0);
+				Set set1 = this.getVisibleFacings(blockpos1);
 				if (set1.size() == 1) {
 					Vector3f vector3f = this.getViewVector(viewEntity, partialTicks);
 					EnumFacing enumfacing = EnumFacing.getFacingFromVector(vector3f.x, vector3f.y, vector3f.z)
@@ -649,12 +651,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 					for (int k = -this.renderDistanceChunks; k <= this.renderDistanceChunks; ++k) {
 						RenderChunk renderchunk1 = this.viewFrustum
 								.getRenderChunk(new BlockPos((j << 4) + 8, i, (k << 4) + 8));
-                        if (renderchunk1 != null
-                                && camera.isBoundingBoxInFrustum(renderchunk1.boundingBox)) {
-                            renderchunk1.setFrameIndex(frameCount);
-                            linkedlist.add(new RenderGlobal.ContainerLocalRenderInformation(renderchunk1,
-                                    null, 0));
-                        }
+						if (renderchunk1 != null
+								&& ((ICamera) camera).isBoundingBoxInFrustum(renderchunk1.boundingBox)) {
+							renderchunk1.setFrameIndex(frameCount);
+							linkedlist.add(new RenderGlobal.ContainerLocalRenderInformation(renderchunk1,
+									(EnumFacing) null, 0));
+						}
 					}
 				}
 			}
@@ -668,20 +670,20 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 				this.renderInfos.add(renderglobal$containerlocalrenderinformation1);
 				for (EnumFacing enumfacing1 : EnumFacing.values()) {
 					RenderChunk renderchunk2 = this.func_181562_a(blockpos, renderchunk3, enumfacing1);
-                    if ((!flag1 || !renderglobal$containerlocalrenderinformation1.setFacing
-                            .contains(enumfacing1.getOpposite()))
-                            && (!flag1 || enumfacing2 == null
-                            || renderchunk3.getCompiledChunk().isVisible(enumfacing2.getOpposite(),
-                            enumfacing1))
-                            && renderchunk2 != null && renderchunk2.setFrameIndex(frameCount)
-                            && camera.isBoundingBoxInFrustum(renderchunk2.boundingBox)) {
-                        RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = new RenderGlobal.ContainerLocalRenderInformation(
-                                renderchunk2, enumfacing1, renderglobal$containerlocalrenderinformation1.counter + 1);
-                        renderglobal$containerlocalrenderinformation.setFacing
-                                .addAll(renderglobal$containerlocalrenderinformation1.setFacing);
-                        renderglobal$containerlocalrenderinformation.setFacing.add(enumfacing1);
-                        linkedlist.add(renderglobal$containerlocalrenderinformation);
-                    }
+					if ((!flag1 || !renderglobal$containerlocalrenderinformation1.setFacing // TODO:
+							.contains(enumfacing1.getOpposite()))
+							&& (!flag1 || enumfacing2 == null
+									|| renderchunk3.getCompiledChunk().isVisible(enumfacing2.getOpposite(),
+											enumfacing1))
+							&& renderchunk2 != null && renderchunk2.setFrameIndex(frameCount)
+							&& ((ICamera) camera).isBoundingBoxInFrustum(renderchunk2.boundingBox)) {
+						RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = new RenderGlobal.ContainerLocalRenderInformation(
+								renderchunk2, enumfacing1, renderglobal$containerlocalrenderinformation1.counter + 1);
+						renderglobal$containerlocalrenderinformation.setFacing
+								.addAll(renderglobal$containerlocalrenderinformation1.setFacing);
+						renderglobal$containerlocalrenderinformation.setFacing.add(enumfacing1);
+						linkedlist.add(renderglobal$containerlocalrenderinformation);
+					}
 				}
 			}
 		}
@@ -716,7 +718,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 	private boolean isPositionInRenderChunk(BlockPos pos, RenderChunk renderChunkIn) {
 		BlockPos blockpos = renderChunkIn.getPosition();
-        return MathHelper.abs_int(pos.getX() - blockpos.getX()) <= 16 && (MathHelper.abs_int(pos.getY() - blockpos.getY()) <= 16 && MathHelper.abs_int(pos.getZ() - blockpos.getZ()) <= 16);
+		return MathHelper.abs_int(pos.getX() - blockpos.getX()) > 16 ? false
+				: (MathHelper.abs_int(pos.getY() - blockpos.getY()) > 16 ? false
+						: MathHelper.abs_int(pos.getZ() - blockpos.getZ()) <= 16);
 	}
 
 	/**
@@ -724,7 +728,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	 */
 	private boolean isPositionInRenderChunkHack(BlockPos pos, RenderChunk renderChunkIn) {
 		BlockPos blockpos = renderChunkIn.getPosition();
-        return MathHelper.abs_int(pos.getX() - blockpos.getX() - 8) <= 11 && (MathHelper.abs_int(pos.getY() - blockpos.getY() - 8) <= 11 && MathHelper.abs_int(pos.getZ() - blockpos.getZ() - 8) <= 11);
+		return MathHelper.abs_int(pos.getX() - blockpos.getX() - 8) > 11 ? false
+				: (MathHelper.abs_int(pos.getY() - blockpos.getY() - 8) > 11 ? false
+						: MathHelper.abs_int(pos.getZ() - blockpos.getZ() - 8) <= 11);
 	}
 
 	private Set<EnumFacing> getVisibleFacings(BlockPos pos) {
@@ -835,13 +841,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 		int j1 = flag ? -1 : 1;
 
 		for (int j = i1; j != i; j += j1) {
-            RenderChunk renderchunk = this.renderInfos
-                    .get(j).renderChunk;
-            if (!renderchunk.getCompiledChunk().isLayerEmpty(blockLayerIn)) {
-                ++l;
-                this.renderContainer.addRenderChunk(renderchunk, blockLayerIn);
-            }
-        }
+			RenderChunk renderchunk = ((RenderGlobal.ContainerLocalRenderInformation) this.renderInfos
+					.get(j)).renderChunk;
+			if (!renderchunk.getCompiledChunk().isLayerEmpty(blockLayerIn)) {
+				++l;
+				this.renderContainer.addRenderChunk(renderchunk, blockLayerIn);
+			}
+		}
 
 		this.mc.mcProfiler.endStartSection("render_" + blockLayerIn);
 		this.renderBlockLayer(blockLayerIn);
@@ -857,8 +863,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 	private void cleanupDamagedBlocks(Iterator<DestroyBlockProgress> iteratorIn) {
 		while (iteratorIn.hasNext()) {
-            DestroyBlockProgress destroyblockprogress = iteratorIn.next();
-            int i = destroyblockprogress.getCreationCloudUpdateTick();
+			DestroyBlockProgress destroyblockprogress = (DestroyBlockProgress) iteratorIn.next();
+			int i = destroyblockprogress.getCreationCloudUpdateTick();
 			if (this.cloudTickCounter - i > 400) {
 				iteratorIn.remove();
 			}
@@ -983,8 +989,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 					float f21 = (float) k * 3.1415927F * 2.0F / 16.0F;
 					float f12 = MathHelper.sin(f21);
 					float f13 = MathHelper.cos(f21);
-                    worldrenderer
-                            .pos(f12 * 120.0F, f13 * 120.0F, f13 * 40.0F * afloat[3])
+					worldrenderer
+							.pos((double) (f12 * 120.0F), (double) (f13 * 120.0F), (double) (f13 * 40.0F * afloat[3]))
 							.color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
 				}
 
@@ -993,45 +999,45 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 				GlStateManager.shadeModel(GL_FLAT);
 			}
 
-            GlStateManager.enableTexture2D();
-            GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, 1, 1, 0);
-            GlStateManager.pushMatrix();
-            float f16 = 1.0F - this.theWorld.getRainStrength(partialTicks);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, f16);
-            GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(this.theWorld.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
-            float f17 = 30.0F;
-            this.renderEngine.bindTexture(locationSunPng);
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
-            worldrenderer.pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
-            worldrenderer.pos(f17, 100.0D, f17).tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
-            tessellator.draw();
-            f17 = 20.0F;
-            this.renderEngine.bindTexture(locationMoonPhasesPng);
-            int i = this.theWorld.getMoonPhase();
-            int j = i % 4;
-            int l = i / 4 % 2;
-            float f22 = (float) (j) / 4.0F;
-            float f23 = (float) (l) / 2.0F;
-            float f24 = (float) (j + 1) / 4.0F;
-            float f14 = (float) (l + 1) / 2.0F;
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(-f17, -100.0D, f17).tex(f24, f14).endVertex();
-            worldrenderer.pos(f17, -100.0D, f17).tex(f22, f14).endVertex();
-            worldrenderer.pos(f17, -100.0D, -f17).tex(f22, f23).endVertex();
-            worldrenderer.pos(-f17, -100.0D, -f17).tex(f24, f23).endVertex();
-            tessellator.draw();
-            GlStateManager.disableTexture2D();
-            float f15 = this.theWorld.getStarBrightness(partialTicks) * f16;
-            if (f15 > 0.0F) {
-                GlStateManager.color(f15, f15, f15, f15);
-                GlStateManager.callList(this.starGLCallList);
-            }
+			GlStateManager.enableTexture2D();
+			GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, 1, 1, 0);
+			GlStateManager.pushMatrix();
+			float f16 = 1.0F - this.theWorld.getRainStrength(partialTicks);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, f16);
+			GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(this.theWorld.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
+			float f17 = 30.0F;
+			this.renderEngine.bindTexture(locationSunPng);
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+			worldrenderer.pos((double) (-f17), 100.0D, (double) (-f17)).tex(0.0D, 0.0D).endVertex();
+			worldrenderer.pos((double) f17, 100.0D, (double) (-f17)).tex(1.0D, 0.0D).endVertex();
+			worldrenderer.pos((double) f17, 100.0D, (double) f17).tex(1.0D, 1.0D).endVertex();
+			worldrenderer.pos((double) (-f17), 100.0D, (double) f17).tex(0.0D, 1.0D).endVertex();
+			tessellator.draw();
+			f17 = 20.0F;
+			this.renderEngine.bindTexture(locationMoonPhasesPng);
+			int i = this.theWorld.getMoonPhase();
+			int j = i % 4;
+			int l = i / 4 % 2;
+			float f22 = (float) (j + 0) / 4.0F;
+			float f23 = (float) (l + 0) / 2.0F;
+			float f24 = (float) (j + 1) / 4.0F;
+			float f14 = (float) (l + 1) / 2.0F;
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+			worldrenderer.pos((double) (-f17), -100.0D, (double) f17).tex((double) f24, (double) f14).endVertex();
+			worldrenderer.pos((double) f17, -100.0D, (double) f17).tex((double) f22, (double) f14).endVertex();
+			worldrenderer.pos((double) f17, -100.0D, (double) (-f17)).tex((double) f22, (double) f23).endVertex();
+			worldrenderer.pos((double) (-f17), -100.0D, (double) (-f17)).tex((double) f24, (double) f23).endVertex();
+			tessellator.draw();
+			GlStateManager.disableTexture2D();
+			float f15 = this.theWorld.getStarBrightness(partialTicks) * f16;
+			if (f15 > 0.0F) {
+				GlStateManager.color(f15, f15, f15, f15);
+				GlStateManager.callList(this.starGLCallList);
+			}
 
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.disableBlend();
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.disableBlend();
 			GlStateManager.enableAlpha();
 			GlStateManager.enableFog();
 			GlStateManager.popMatrix();
@@ -1039,37 +1045,37 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 			GlStateManager.color(0.0F, 0.0F, 0.0F);
 			double d0 = this.mc.thePlayer.getPositionEyes(partialTicks).yCoord - this.theWorld.getHorizon();
 			if (d0 < 0.0D) {
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(0.0F, 12.0F, 0.0F);
-                GlStateManager.callList(this.glSkyList2);
+				GlStateManager.pushMatrix();
+				GlStateManager.translate(0.0F, 12.0F, 0.0F);
+				GlStateManager.callList(this.glSkyList2);
 
-                GlStateManager.popMatrix();
-                float f18 = 1.0F;
-                float f19 = -((float) (d0 + 65.0D));
-                float f20 = -1.0F;
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                worldrenderer.pos(-1.0D, f19, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f19, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f19, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, f19, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f19, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f19, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, f19, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, f19, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                tessellator.draw();
-            }
+				GlStateManager.popMatrix();
+				float f18 = 1.0F;
+				float f19 = -((float) (d0 + 65.0D));
+				float f20 = -1.0F;
+				worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+				worldrenderer.pos(-1.0D, (double) f19, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, (double) f19, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, (double) f19, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, (double) f19, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, (double) f19, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, (double) f19, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, (double) f19, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, (double) f19, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+				worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+				tessellator.draw();
+			}
 
 			if (this.theWorld.provider.isSkyColored()) {
 				GlStateManager.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
@@ -1115,12 +1121,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 					f3 = f6;
 				}
 
-                float f10 = 4.8828125E-4F;
-                double d2 = (float) this.cloudTickCounter + partialTicks;
-                double d0 = this.mc.getRenderViewEntity().prevPosX
-                        + (this.mc.getRenderViewEntity().posX - this.mc.getRenderViewEntity().prevPosX)
-                        * (double) partialTicks
-                        + d2 * 0.029999999329447746D;
+				float f10 = 4.8828125E-4F;
+				double d2 = (double) ((float) this.cloudTickCounter + partialTicks);
+				double d0 = this.mc.getRenderViewEntity().prevPosX
+						+ (this.mc.getRenderViewEntity().posX - this.mc.getRenderViewEntity().prevPosX)
+								* (double) partialTicks
+						+ d2 * 0.029999999329447746D;
 				double d1 = this.mc.getRenderViewEntity().prevPosZ
 						+ (this.mc.getRenderViewEntity().posZ - this.mc.getRenderViewEntity().prevPosZ)
 								* (double) partialTicks;
@@ -1135,23 +1141,23 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 				for (int k = -256; k < 256; k += 32) {
 					for (int l = -256; l < 256; l += 32) {
-                        worldrenderer.pos(k, f7, l + 32)
-                                .tex((float) (k) * 4.8828125E-4F + f8,
-                                        (float) (l + 32) * 4.8828125E-4F + f9)
-                                .color(f1, f2, f3, 0.8F).endVertex();
-                        worldrenderer.pos(k + 32, f7, l + 32)
-                                .tex((float) (k + 32) * 4.8828125E-4F + f8,
-                                        (float) (l + 32) * 4.8828125E-4F + f9)
-                                .color(f1, f2, f3, 0.8F).endVertex();
-                        worldrenderer.pos(k + 32, f7, l)
-                                .tex((float) (k + 32) * 4.8828125E-4F + f8,
-                                        (float) (l) * 4.8828125E-4F + f9)
-                                .color(f1, f2, f3, 0.8F).endVertex();
-                        worldrenderer.pos(k, f7, l)
-                                .tex((float) (k) * 4.8828125E-4F + f8,
-                                        (float) (l) * 4.8828125E-4F + f9)
-                                .color(f1, f2, f3, 0.8F).endVertex();
-                    }
+						worldrenderer.pos((double) (k + 0), (double) f7, (double) (l + 32))
+								.tex((double) ((float) (k + 0) * 4.8828125E-4F + f8),
+										(double) ((float) (l + 32) * 4.8828125E-4F + f9))
+								.color(f1, f2, f3, 0.8F).endVertex();
+						worldrenderer.pos((double) (k + 32), (double) f7, (double) (l + 32))
+								.tex((double) ((float) (k + 32) * 4.8828125E-4F + f8),
+										(double) ((float) (l + 32) * 4.8828125E-4F + f9))
+								.color(f1, f2, f3, 0.8F).endVertex();
+						worldrenderer.pos((double) (k + 32), (double) f7, (double) (l + 0))
+								.tex((double) ((float) (k + 32) * 4.8828125E-4F + f8),
+										(double) ((float) (l + 0) * 4.8828125E-4F + f9))
+								.color(f1, f2, f3, 0.8F).endVertex();
+						worldrenderer.pos((double) (k + 0), (double) f7, (double) (l + 0))
+								.tex((double) ((float) (k + 0) * 4.8828125E-4F + f8),
+										(double) ((float) (l + 0) * 4.8828125E-4F + f9))
+								.color(f1, f2, f3, 0.8F).endVertex();
+					}
 				}
 
 				tessellator.draw();
@@ -1177,11 +1183,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		float f1 = 12.0F;
-        float f2 = 4.0F;
-        double d0 = (float) this.cloudTickCounter + partialTicks;
-        double d1 = (this.mc.getRenderViewEntity().prevPosX
-                + (this.mc.getRenderViewEntity().posX - this.mc.getRenderViewEntity().prevPosX) * (double) partialTicks
-                + d0 * 0.029999999329447746D) / 12.0D;
+		float f2 = 4.0F;
+		double d0 = (double) ((float) this.cloudTickCounter + partialTicks);
+		double d1 = (this.mc.getRenderViewEntity().prevPosX
+				+ (this.mc.getRenderViewEntity().posX - this.mc.getRenderViewEntity().prevPosX) * (double) partialTicks
+				+ d0 * 0.029999999329447746D) / 12.0D;
 		double d2 = (this.mc.getRenderViewEntity().prevPosZ
 				+ (this.mc.getRenderViewEntity().posZ - this.mc.getRenderViewEntity().prevPosZ) * (double) partialTicks)
 				/ 12.0D + 0.33000001311302185D;
@@ -1249,159 +1255,159 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 					float f24 = f22 - f19;
 					float f25 = f23 - f20;
 					if (f3 > -5.0F) {
-                        worldrenderer.pos(f24 + 0.0F, f3 + 0.0F, f25 + 8.0F)
-                                .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                        (f23 + 8.0F) * 0.00390625F + f18)
-                                .color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
-                        worldrenderer.pos(f24 + 8.0F, f3 + 0.0F, f25 + 8.0F)
-                                .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                        (f23 + 8.0F) * 0.00390625F + f18)
-                                .color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
-                        worldrenderer.pos(f24 + 8.0F, f3 + 0.0F, f25 + 0.0F)
-                                .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                        (f23 + 0.0F) * 0.00390625F + f18)
-                                .color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
-                        worldrenderer.pos(f24 + 0.0F, f3 + 0.0F, f25 + 0.0F)
-                                .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                        (f23 + 0.0F) * 0.00390625F + f18)
-                                .color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
-                    }
+						worldrenderer.pos((double) (f24 + 0.0F), (double) (f3 + 0.0F), (double) (f25 + 8.0F))
+								.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+										(double) ((f23 + 8.0F) * 0.00390625F + f18))
+								.color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+						worldrenderer.pos((double) (f24 + 8.0F), (double) (f3 + 0.0F), (double) (f25 + 8.0F))
+								.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+										(double) ((f23 + 8.0F) * 0.00390625F + f18))
+								.color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+						worldrenderer.pos((double) (f24 + 8.0F), (double) (f3 + 0.0F), (double) (f25 + 0.0F))
+								.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+										(double) ((f23 + 0.0F) * 0.00390625F + f18))
+								.color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+						worldrenderer.pos((double) (f24 + 0.0F), (double) (f3 + 0.0F), (double) (f25 + 0.0F))
+								.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+										(double) ((f23 + 0.0F) * 0.00390625F + f18))
+								.color(f10, f11, f12, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+					}
 
 					if (f3 <= 5.0F) {
-                        worldrenderer
-                                .pos(f24 + 0.0F, f3 + 4.0F - 9.765625E-4F, f25 + 8.0F)
-                                .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                        (f23 + 8.0F) * 0.00390625F + f18)
+						worldrenderer
+								.pos((double) (f24 + 0.0F), (double) (f3 + 4.0F - 9.765625E-4F), (double) (f25 + 8.0F))
+								.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+										(double) ((f23 + 8.0F) * 0.00390625F + f18))
 								.color(f4, f5, f6, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
-                        worldrenderer
-                                .pos(f24 + 8.0F, f3 + 4.0F - 9.765625E-4F, f25 + 8.0F)
-                                .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                        (f23 + 8.0F) * 0.00390625F + f18)
+						worldrenderer
+								.pos((double) (f24 + 8.0F), (double) (f3 + 4.0F - 9.765625E-4F), (double) (f25 + 8.0F))
+								.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+										(double) ((f23 + 8.0F) * 0.00390625F + f18))
 								.color(f4, f5, f6, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
-                        worldrenderer
-                                .pos(f24 + 8.0F, f3 + 4.0F - 9.765625E-4F, f25 + 0.0F)
-                                .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                        (f23 + 0.0F) * 0.00390625F + f18)
+						worldrenderer
+								.pos((double) (f24 + 8.0F), (double) (f3 + 4.0F - 9.765625E-4F), (double) (f25 + 0.0F))
+								.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+										(double) ((f23 + 0.0F) * 0.00390625F + f18))
 								.color(f4, f5, f6, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
-                        worldrenderer
-                                .pos(f24 + 0.0F, f3 + 4.0F - 9.765625E-4F, f25 + 0.0F)
-                                .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                        (f23 + 0.0F) * 0.00390625F + f18)
+						worldrenderer
+								.pos((double) (f24 + 0.0F), (double) (f3 + 4.0F - 9.765625E-4F), (double) (f25 + 0.0F))
+								.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+										(double) ((f23 + 0.0F) * 0.00390625F + f18))
 								.color(f4, f5, f6, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
 					}
 
 					if (l > -1) {
 						for (int j1 = 0; j1 < 8; ++j1) {
-                            worldrenderer
-                                    .pos(f24 + (float) j1 + 0.0F, f3 + 0.0F,
-                                            f25 + 8.0F)
-                                    .tex((f22 + (float) j1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 8.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) j1 + 0.0F), (double) (f3 + 0.0F),
+											(double) (f25 + 8.0F))
+									.tex((double) ((f22 + (float) j1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 8.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + (float) j1 + 0.0F, f3 + 4.0F,
-                                            f25 + 8.0F)
-                                    .tex((f22 + (float) j1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 8.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) j1 + 0.0F), (double) (f3 + 4.0F),
+											(double) (f25 + 8.0F))
+									.tex((double) ((f22 + (float) j1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 8.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + (float) j1 + 0.0F, f3 + 4.0F,
-                                            f25 + 0.0F)
-                                    .tex((f22 + (float) j1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 0.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) j1 + 0.0F), (double) (f3 + 4.0F),
+											(double) (f25 + 0.0F))
+									.tex((double) ((f22 + (float) j1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 0.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + (float) j1 + 0.0F, f3 + 0.0F,
-                                            f25 + 0.0F)
-                                    .tex((f22 + (float) j1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 0.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) j1 + 0.0F), (double) (f3 + 0.0F),
+											(double) (f25 + 0.0F))
+									.tex((double) ((f22 + (float) j1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 0.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
 						}
 					}
 
 					if (l <= 1) {
 						for (int k1 = 0; k1 < 8; ++k1) {
-                            worldrenderer
-                                    .pos(f24 + (float) k1 + 1.0F - 9.765625E-4F, f3 + 0.0F,
-                                            f25 + 8.0F)
-                                    .tex((f22 + (float) k1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 8.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) k1 + 1.0F - 9.765625E-4F), (double) (f3 + 0.0F),
+											(double) (f25 + 8.0F))
+									.tex((double) ((f22 + (float) k1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 8.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + (float) k1 + 1.0F - 9.765625E-4F, f3 + 4.0F,
-                                            f25 + 8.0F)
-                                    .tex((f22 + (float) k1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 8.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) k1 + 1.0F - 9.765625E-4F), (double) (f3 + 4.0F),
+											(double) (f25 + 8.0F))
+									.tex((double) ((f22 + (float) k1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 8.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + (float) k1 + 1.0F - 9.765625E-4F, f3 + 4.0F,
-                                            f25 + 0.0F)
-                                    .tex((f22 + (float) k1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 0.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) k1 + 1.0F - 9.765625E-4F), (double) (f3 + 4.0F),
+											(double) (f25 + 0.0F))
+									.tex((double) ((f22 + (float) k1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 0.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + (float) k1 + 1.0F - 9.765625E-4F, f3 + 0.0F,
-                                            f25 + 0.0F)
-                                    .tex((f22 + (float) k1 + 0.5F) * 0.00390625F + f17,
-                                            (f23 + 0.0F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + (float) k1 + 1.0F - 9.765625E-4F), (double) (f3 + 0.0F),
+											(double) (f25 + 0.0F))
+									.tex((double) ((f22 + (float) k1 + 0.5F) * 0.00390625F + f17),
+											(double) ((f23 + 0.0F) * 0.00390625F + f18))
 									.color(f26, f27, f28, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
 						}
 					}
 
 					if (i1 > -1) {
 						for (int l1 = 0; l1 < 8; ++l1) {
-                            worldrenderer
-                                    .pos(f24 + 0.0F, f3 + 4.0F,
-                                            f25 + (float) l1 + 0.0F)
-                                    .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                            (f23 + (float) l1 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 0.0F), (double) (f3 + 4.0F),
+											(double) (f25 + (float) l1 + 0.0F))
+									.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) l1 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + 8.0F, f3 + 4.0F,
-                                            f25 + (float) l1 + 0.0F)
-                                    .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                            (f23 + (float) l1 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 8.0F), (double) (f3 + 4.0F),
+											(double) (f25 + (float) l1 + 0.0F))
+									.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) l1 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + 8.0F, f3 + 0.0F,
-                                            f25 + (float) l1 + 0.0F)
-                                    .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                            (f23 + (float) l1 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 8.0F), (double) (f3 + 0.0F),
+											(double) (f25 + (float) l1 + 0.0F))
+									.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) l1 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + 0.0F, f3 + 0.0F,
-                                            f25 + (float) l1 + 0.0F)
-                                    .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                            (f23 + (float) l1 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 0.0F), (double) (f3 + 0.0F),
+											(double) (f25 + (float) l1 + 0.0F))
+									.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) l1 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
 						}
 					}
 
 					if (i1 <= 1) {
 						for (int i2 = 0; i2 < 8; ++i2) {
-                            worldrenderer
-                                    .pos(f24 + 0.0F, f3 + 4.0F,
-                                            f25 + (float) i2 + 1.0F - 9.765625E-4F)
-                                    .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                            (f23 + (float) i2 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 0.0F), (double) (f3 + 4.0F),
+											(double) (f25 + (float) i2 + 1.0F - 9.765625E-4F))
+									.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) i2 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + 8.0F, f3 + 4.0F,
-                                            f25 + (float) i2 + 1.0F - 9.765625E-4F)
-                                    .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                            (f23 + (float) i2 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 8.0F), (double) (f3 + 4.0F),
+											(double) (f25 + (float) i2 + 1.0F - 9.765625E-4F))
+									.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) i2 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + 8.0F, f3 + 0.0F,
-                                            f25 + (float) i2 + 1.0F - 9.765625E-4F)
-                                    .tex((f22 + 8.0F) * 0.00390625F + f17,
-                                            (f23 + (float) i2 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 8.0F), (double) (f3 + 0.0F),
+											(double) (f25 + (float) i2 + 1.0F - 9.765625E-4F))
+									.tex((double) ((f22 + 8.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) i2 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
-                            worldrenderer
-                                    .pos(f24 + 0.0F, f3 + 0.0F,
-                                            f25 + (float) i2 + 1.0F - 9.765625E-4F)
-                                    .tex((f22 + 0.0F) * 0.00390625F + f17,
-                                            (f23 + (float) i2 + 0.5F) * 0.00390625F + f18)
+							worldrenderer
+									.pos((double) (f24 + 0.0F), (double) (f3 + 0.0F),
+											(double) (f25 + (float) i2 + 1.0F - 9.765625E-4F))
+									.tex((double) ((f22 + 0.0F) * 0.00390625F + f17),
+											(double) ((f23 + (float) i2 + 0.5F) * 0.00390625F + f18))
 									.color(f13, f14, f15, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
 						}
 					}
@@ -1440,8 +1446,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	public void renderWorldBorder(Entity partialTicks, float parFloat1) {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        WorldBorder worldborder = this.theWorld.getWorldBorder();
-        double d0 = this.mc.gameSettings.renderDistanceChunks * 16;
+		WorldBorder worldborder = this.theWorld.getWorldBorder();
+		double d0 = (double) (this.mc.gameSettings.renderDistanceChunks * 16);
 		if (partialTicks.posX >= worldborder.maxX() - d0 || partialTicks.posX <= worldborder.minX() + d0
 				|| partialTicks.posZ >= worldborder.maxZ() - d0 || partialTicks.posZ <= worldborder.minZ() + d0) {
 			double d1 = 1.0D - worldborder.getClosestDistance(partialTicks) / d0;
@@ -1463,90 +1469,90 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 			float f2 = (float) (i & 255) / 255.0F;
 			GlStateManager.color(f, f1, f2, (float) d1);
 			GlStateManager.doPolygonOffset(-3.0F, -3.0F);
-            GlStateManager.enablePolygonOffset();
-            GlStateManager.alphaFunc(GL_GREATER, 0.1F);
-            GlStateManager.enableAlpha();
-            GlStateManager.disableCull();
-            float f3 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F;
-            float f4 = 0.0F;
-            float f5 = 0.0F;
-            float f6 = 128.0F;
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.setTranslation(-d2, -d3, -d4);
-            double d5 = Math.max(MathHelper.floor_double(d4 - d0), worldborder.minZ());
-            double d6 = Math.min(MathHelper.ceiling_double_int(d4 + d0), worldborder.maxZ());
-            if (d2 > worldborder.maxX() - d0) {
-                float f7 = 0.0F;
+			GlStateManager.enablePolygonOffset();
+			GlStateManager.alphaFunc(GL_GREATER, 0.1F);
+			GlStateManager.enableAlpha();
+			GlStateManager.disableCull();
+			float f3 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F;
+			float f4 = 0.0F;
+			float f5 = 0.0F;
+			float f6 = 128.0F;
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+			worldrenderer.setTranslation(-d2, -d3, -d4);
+			double d5 = Math.max((double) MathHelper.floor_double(d4 - d0), worldborder.minZ());
+			double d6 = Math.min((double) MathHelper.ceiling_double_int(d4 + d0), worldborder.maxZ());
+			if (d2 > worldborder.maxX() - d0) {
+				float f7 = 0.0F;
 
-                for (double d7 = d5; d7 < d6; f7 += 0.5F) {
-                    double d8 = Math.min(1.0D, d6 - d7);
-                    float f8 = (float) d8 * 0.5F;
-                    worldrenderer.pos(worldborder.maxX(), 256.0D, d7).tex(f3 + f7, f3 + 0.0F)
-                            .endVertex();
-                    worldrenderer.pos(worldborder.maxX(), 256.0D, d7 + d8)
-                            .tex(f3 + f8 + f7, f3 + 0.0F).endVertex();
-                    worldrenderer.pos(worldborder.maxX(), 0.0D, d7 + d8)
-                            .tex(f3 + f8 + f7, f3 + 128.0F).endVertex();
-                    worldrenderer.pos(worldborder.maxX(), 0.0D, d7).tex(f3 + f7, f3 + 128.0F)
-                            .endVertex();
-                    ++d7;
-                }
+				for (double d7 = d5; d7 < d6; f7 += 0.5F) {
+					double d8 = Math.min(1.0D, d6 - d7);
+					float f8 = (float) d8 * 0.5F;
+					worldrenderer.pos(worldborder.maxX(), 256.0D, d7).tex((double) (f3 + f7), (double) (f3 + 0.0F))
+							.endVertex();
+					worldrenderer.pos(worldborder.maxX(), 256.0D, d7 + d8)
+							.tex((double) (f3 + f8 + f7), (double) (f3 + 0.0F)).endVertex();
+					worldrenderer.pos(worldborder.maxX(), 0.0D, d7 + d8)
+							.tex((double) (f3 + f8 + f7), (double) (f3 + 128.0F)).endVertex();
+					worldrenderer.pos(worldborder.maxX(), 0.0D, d7).tex((double) (f3 + f7), (double) (f3 + 128.0F))
+							.endVertex();
+					++d7;
+				}
 			}
 
 			if (d2 < worldborder.minX() + d0) {
 				float f9 = 0.0F;
 
 				for (double d9 = d5; d9 < d6; f9 += 0.5F) {
-                    double d12 = Math.min(1.0D, d6 - d9);
-                    float f12 = (float) d12 * 0.5F;
-                    worldrenderer.pos(worldborder.minX(), 256.0D, d9).tex(f3 + f9, f3 + 0.0F)
-                            .endVertex();
-                    worldrenderer.pos(worldborder.minX(), 256.0D, d9 + d12)
-                            .tex(f3 + f12 + f9, f3 + 0.0F).endVertex();
-                    worldrenderer.pos(worldborder.minX(), 0.0D, d9 + d12)
-                            .tex(f3 + f12 + f9, f3 + 128.0F).endVertex();
-                    worldrenderer.pos(worldborder.minX(), 0.0D, d9).tex(f3 + f9, f3 + 128.0F)
-                            .endVertex();
-                    ++d9;
-                }
-            }
+					double d12 = Math.min(1.0D, d6 - d9);
+					float f12 = (float) d12 * 0.5F;
+					worldrenderer.pos(worldborder.minX(), 256.0D, d9).tex((double) (f3 + f9), (double) (f3 + 0.0F))
+							.endVertex();
+					worldrenderer.pos(worldborder.minX(), 256.0D, d9 + d12)
+							.tex((double) (f3 + f12 + f9), (double) (f3 + 0.0F)).endVertex();
+					worldrenderer.pos(worldborder.minX(), 0.0D, d9 + d12)
+							.tex((double) (f3 + f12 + f9), (double) (f3 + 128.0F)).endVertex();
+					worldrenderer.pos(worldborder.minX(), 0.0D, d9).tex((double) (f3 + f9), (double) (f3 + 128.0F))
+							.endVertex();
+					++d9;
+				}
+			}
 
-            d5 = Math.max(MathHelper.floor_double(d2 - d0), worldborder.minX());
-            d6 = Math.min(MathHelper.ceiling_double_int(d2 + d0), worldborder.maxX());
-            if (d4 > worldborder.maxZ() - d0) {
-                float f10 = 0.0F;
+			d5 = Math.max((double) MathHelper.floor_double(d2 - d0), worldborder.minX());
+			d6 = Math.min((double) MathHelper.ceiling_double_int(d2 + d0), worldborder.maxX());
+			if (d4 > worldborder.maxZ() - d0) {
+				float f10 = 0.0F;
 
-                for (double d10 = d5; d10 < d6; f10 += 0.5F) {
-                    double d13 = Math.min(1.0D, d6 - d10);
-                    float f13 = (float) d13 * 0.5F;
-                    worldrenderer.pos(d10, 256.0D, worldborder.maxZ()).tex(f3 + f10, f3 + 0.0F)
-                            .endVertex();
-                    worldrenderer.pos(d10 + d13, 256.0D, worldborder.maxZ())
-                            .tex(f3 + f13 + f10, f3 + 0.0F).endVertex();
-                    worldrenderer.pos(d10 + d13, 0.0D, worldborder.maxZ())
-                            .tex(f3 + f13 + f10, f3 + 128.0F).endVertex();
-                    worldrenderer.pos(d10, 0.0D, worldborder.maxZ()).tex(f3 + f10, f3 + 128.0F)
-                            .endVertex();
-                    ++d10;
-                }
+				for (double d10 = d5; d10 < d6; f10 += 0.5F) {
+					double d13 = Math.min(1.0D, d6 - d10);
+					float f13 = (float) d13 * 0.5F;
+					worldrenderer.pos(d10, 256.0D, worldborder.maxZ()).tex((double) (f3 + f10), (double) (f3 + 0.0F))
+							.endVertex();
+					worldrenderer.pos(d10 + d13, 256.0D, worldborder.maxZ())
+							.tex((double) (f3 + f13 + f10), (double) (f3 + 0.0F)).endVertex();
+					worldrenderer.pos(d10 + d13, 0.0D, worldborder.maxZ())
+							.tex((double) (f3 + f13 + f10), (double) (f3 + 128.0F)).endVertex();
+					worldrenderer.pos(d10, 0.0D, worldborder.maxZ()).tex((double) (f3 + f10), (double) (f3 + 128.0F))
+							.endVertex();
+					++d10;
+				}
 			}
 
 			if (d4 < worldborder.minZ() + d0) {
 				float f11 = 0.0F;
 
 				for (double d11 = d5; d11 < d6; f11 += 0.5F) {
-                    double d14 = Math.min(1.0D, d6 - d11);
-                    float f14 = (float) d14 * 0.5F;
-                    worldrenderer.pos(d11, 256.0D, worldborder.minZ()).tex(f3 + f11, f3 + 0.0F)
-                            .endVertex();
-                    worldrenderer.pos(d11 + d14, 256.0D, worldborder.minZ())
-                            .tex(f3 + f14 + f11, f3 + 0.0F).endVertex();
-                    worldrenderer.pos(d11 + d14, 0.0D, worldborder.minZ())
-                            .tex(f3 + f14 + f11, f3 + 128.0F).endVertex();
-                    worldrenderer.pos(d11, 0.0D, worldborder.minZ()).tex(f3 + f11, f3 + 128.0F)
-                            .endVertex();
-                    ++d11;
-                }
+					double d14 = Math.min(1.0D, d6 - d11);
+					float f14 = (float) d14 * 0.5F;
+					worldrenderer.pos(d11, 256.0D, worldborder.minZ()).tex((double) (f3 + f11), (double) (f3 + 0.0F))
+							.endVertex();
+					worldrenderer.pos(d11 + d14, 256.0D, worldborder.minZ())
+							.tex((double) (f3 + f14 + f11), (double) (f3 + 0.0F)).endVertex();
+					worldrenderer.pos(d11 + d14, 0.0D, worldborder.minZ())
+							.tex((double) (f3 + f14 + f11), (double) (f3 + 128.0F)).endVertex();
+					worldrenderer.pos(d11, 0.0D, worldborder.minZ()).tex((double) (f3 + f11), (double) (f3 + 128.0F))
+							.endVertex();
+					++d11;
+				}
 			}
 
 			tessellator.draw();
@@ -1767,7 +1773,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	}
 
 	public void playRecord(String s, BlockPos blockpos) {
-        ISound isound = this.mapSoundPositions.get(blockpos);
+		ISound isound = (ISound) this.mapSoundPositions.get(blockpos);
 		if (isound != null) {
 			this.mc.getSoundHandler().stopSound(isound);
 			this.mapSoundPositions.remove(blockpos);
@@ -1931,7 +1937,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 			if (Item.getItemById(j) instanceof ItemRecord) {
 				this.theWorld.playRecord(blockpos, "records." + ((ItemRecord) Item.getItemById(j)).recordName);
 			} else {
-                this.theWorld.playRecord(blockpos, null);
+				this.theWorld.playRecord(blockpos, (String) null);
 			}
 			break;
 		case 1006:
@@ -2005,36 +2011,36 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 				double d8 = (double) j1 * d20 + random.nextGaussian() * 0.01D;
 				double d10 = -0.03D + random.nextGaussian() * 0.01D;
 				double d12 = (double) k * d20 + random.nextGaussian() * 0.01D;
-                this.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d21, d4, d6, d8, d10, d12);
+				this.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d21, d4, d6, d8, d10, d12, new int[0]);
 			}
 
 			return;
 		case 2001:
 			Block block = Block.getBlockById(j & 4095);
 			if (block.getMaterial() != Material.air) {
-                this.mc.getSoundHandler()
-                        .playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getBreakSound()),
-                                (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F,
-                                (float) blockpos.getX() + 0.5F, (float) blockpos.getY() + 0.5F,
-                                (float) blockpos.getZ() + 0.5F));
-            }
+				this.mc.getSoundHandler()
+						.playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getBreakSound()),
+								(block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F,
+								(float) blockpos.getX() + 0.5F, (float) blockpos.getY() + 0.5F,
+								(float) blockpos.getZ() + 0.5F));
+			}
 
-            this.mc.effectRenderer.addBlockDestroyEffects(blockpos, block.getStateFromMeta(j >> 12 & 255));
-            break;
-            case 2002:
-                double d13 = blockpos.getX();
-                double d14 = blockpos.getY();
-                double d16 = blockpos.getZ();
+			this.mc.effectRenderer.addBlockDestroyEffects(blockpos, block.getStateFromMeta(j >> 12 & 255));
+			break;
+		case 2002:
+			double d13 = (double) blockpos.getX();
+			double d14 = (double) blockpos.getY();
+			double d16 = (double) blockpos.getZ();
 
-                for (int k1 = 0; k1 < 8; ++k1) {
-                    this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d13, d14, d16, random.nextGaussian() * 0.15D,
-                            random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D,
-                            Item.getIdFromItem(Items.potionitem), j);
-                }
+			for (int k1 = 0; k1 < 8; ++k1) {
+				this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d13, d14, d16, random.nextGaussian() * 0.15D,
+						random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D,
+						new int[] { Item.getIdFromItem(Items.potionitem), j });
+			}
 
-                int l1 = Items.potionitem.getColorFromDamage(j);
-                float f = (float) (l1 >> 16 & 255) / 255.0F;
-                float f1 = (float) (l1 >> 8 & 255) / 255.0F;
+			int l1 = Items.potionitem.getColorFromDamage(j);
+			float f = (float) (l1 >> 16 & 255) / 255.0F;
+			float f1 = (float) (l1 >> 8 & 255) / 255.0F;
 			float f2 = (float) (l1 >> 0 & 255) / 255.0F;
 			EnumParticleTypes enumparticletypes = EnumParticleTypes.SPELL;
 			if (Items.potionitem.isEffectInstant(j)) {
@@ -2046,10 +2052,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 				double d23 = random.nextDouble() * 3.141592653589793D * 2.0D;
 				double d24 = Math.cos(d23) * d22;
 				double d9 = 0.01D + random.nextDouble() * 0.5D;
-                double d11 = Math.sin(d23) * d22;
-                EntityFX entityfx = this.spawnEntityFX(enumparticletypes.getParticleID(),
-                        enumparticletypes.getShouldIgnoreRange(), d13 + d24 * 0.1D, d14 + 0.3D, d16 + d11 * 0.1D, d24,
-                        d9, d11);
+				double d11 = Math.sin(d23) * d22;
+				EntityFX entityfx = this.spawnEntityFX(enumparticletypes.getParticleID(),
+						enumparticletypes.getShouldIgnoreRange(), d13 + d24 * 0.1D, d14 + 0.3D, d16 + d11 * 0.1D, d24,
+						d9, d11, new int[0]);
 				if (entityfx != null) {
 					float f3 = 0.75F + random.nextFloat() * 0.25F;
 					entityfx.setRBGColorF(f * f3, f1 * f3, f2 * f3);
@@ -2061,32 +2067,32 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 					this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
 			break;
 		case 2003:
-            double d0 = (double) blockpos.getX() + 0.5D;
-            double d1 = blockpos.getY();
-            double d2 = (double) blockpos.getZ() + 0.5D;
+			double d0 = (double) blockpos.getX() + 0.5D;
+			double d1 = (double) blockpos.getY();
+			double d2 = (double) blockpos.getZ() + 0.5D;
 
 			for (int l = 0; l < 8; ++l) {
-                this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d0, d1, d2, random.nextGaussian() * 0.15D,
-                        random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D,
-                        Item.getIdFromItem(Items.ender_eye));
+				this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d0, d1, d2, random.nextGaussian() * 0.15D,
+						random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D,
+						new int[] { Item.getIdFromItem(Items.ender_eye) });
 			}
 
 			for (double d18 = 0.0D; d18 < 6.283185307179586D; d18 += 0.15707963267948966D) {
-                this.spawnParticle(EnumParticleTypes.PORTAL, d0 + Math.cos(d18) * 5.0D, d1 - 0.4D,
-                        d2 + Math.sin(d18) * 5.0D, Math.cos(d18) * -5.0D, 0.0D, Math.sin(d18) * -5.0D);
-                this.spawnParticle(EnumParticleTypes.PORTAL, d0 + Math.cos(d18) * 5.0D, d1 - 0.4D,
-                        d2 + Math.sin(d18) * 5.0D, Math.cos(d18) * -7.0D, 0.0D, Math.sin(d18) * -7.0D);
+				this.spawnParticle(EnumParticleTypes.PORTAL, d0 + Math.cos(d18) * 5.0D, d1 - 0.4D,
+						d2 + Math.sin(d18) * 5.0D, Math.cos(d18) * -5.0D, 0.0D, Math.sin(d18) * -5.0D, new int[0]);
+				this.spawnParticle(EnumParticleTypes.PORTAL, d0 + Math.cos(d18) * 5.0D, d1 - 0.4D,
+						d2 + Math.sin(d18) * 5.0D, Math.cos(d18) * -7.0D, 0.0D, Math.sin(d18) * -7.0D, new int[0]);
 			}
 
 			return;
 		case 2004:
 			for (int i1 = 0; i1 < 20; ++i1) {
-                double d3 = (double) blockpos.getX() + 0.5D + ((double) this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
-                double d5 = (double) blockpos.getY() + 0.5D + ((double) this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
-                double d7 = (double) blockpos.getZ() + 0.5D + ((double) this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
-                this.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d5, d7, 0.0D, 0.0D, 0.0D);
-                this.theWorld.spawnParticle(EnumParticleTypes.FLAME, d3, d5, d7, 0.0D, 0.0D, 0.0D);
-            }
+				double d3 = (double) blockpos.getX() + 0.5D + ((double) this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
+				double d5 = (double) blockpos.getY() + 0.5D + ((double) this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
+				double d7 = (double) blockpos.getZ() + 0.5D + ((double) this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
+				this.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d5, d7, 0.0D, 0.0D, 0.0D, new int[0]);
+				this.theWorld.spawnParticle(EnumParticleTypes.FLAME, d3, d5, d7, 0.0D, 0.0D, 0.0D, new int[0]);
+			}
 
 			return;
 		case 2005:
@@ -2097,8 +2103,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
 	public void sendBlockBreakProgress(int i, BlockPos blockpos, int j) {
 		if (j >= 0 && j < 10) {
-            DestroyBlockProgress destroyblockprogress = this.damagedBlocks
-                    .get(Integer.valueOf(i));
+			DestroyBlockProgress destroyblockprogress = (DestroyBlockProgress) this.damagedBlocks
+					.get(Integer.valueOf(i));
 			if (destroyblockprogress == null || destroyblockprogress.getPosition().getX() != blockpos.getX()
 					|| destroyblockprogress.getPosition().getY() != blockpos.getY()
 					|| destroyblockprogress.getPosition().getZ() != blockpos.getZ()) {

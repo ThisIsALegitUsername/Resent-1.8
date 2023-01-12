@@ -10,7 +10,7 @@ public abstract class Team {
 	 * Same as ==
 	 */
 	public boolean isSameTeam(Team other) {
-		return other != null && this == other;
+		return other == null ? false : this == other;
 	}
 
 	public abstract String getRegisteredName();
@@ -27,26 +27,26 @@ public abstract class Team {
 
 	public abstract Team.EnumVisible getDeathMessageVisibility();
 
-    public enum EnumVisible {
-        ALWAYS("always", 0), NEVER("never", 1), HIDE_FOR_OTHER_TEAMS("hideForOtherTeams", 2),
-        HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
+	public static enum EnumVisible {
+		ALWAYS("always", 0), NEVER("never", 1), HIDE_FOR_OTHER_TEAMS("hideForOtherTeams", 2),
+		HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
 
-        private static final Map<String, Team.EnumVisible> field_178828_g = Maps.newHashMap();
-        public final String field_178830_e;
-        public final int field_178827_f;
+		private static Map<String, Team.EnumVisible> field_178828_g = Maps.newHashMap();
+		public final String field_178830_e;
+		public final int field_178827_f;
 
-        public static String[] func_178825_a() {
-            return field_178828_g.keySet().toArray(new String[field_178828_g.size()]);
-        }
-
-		public static Team.EnumVisible func_178824_a(String parString1) {
-            return field_178828_g.get(parString1);
+		public static String[] func_178825_a() {
+			return (String[]) field_178828_g.keySet().toArray(new String[field_178828_g.size()]);
 		}
 
-        EnumVisible(String parString2, int parInt2) {
-            this.field_178830_e = parString2;
-            this.field_178827_f = parInt2;
-        }
+		public static Team.EnumVisible func_178824_a(String parString1) {
+			return (Team.EnumVisible) field_178828_g.get(parString1);
+		}
+
+		private EnumVisible(String parString2, int parInt2) {
+			this.field_178830_e = parString2;
+			this.field_178827_f = parInt2;
+		}
 
 		static {
 			for (Team.EnumVisible team$enumvisible : values()) {

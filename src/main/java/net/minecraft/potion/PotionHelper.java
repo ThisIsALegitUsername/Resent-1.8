@@ -16,7 +16,7 @@ import net.minecraft.util.IntegerCache;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -153,7 +153,7 @@ public class PotionHelper {
 		Integer integer = IntegerCache.func_181756_a(dataValue);
 		if (!bypassCache) {
 			if (DATAVALUE_COLORS.containsKey(integer)) {
-				return DATAVALUE_COLORS.get(integer).intValue();
+				return ((Integer) DATAVALUE_COLORS.get(integer)).intValue();
 			} else {
 				int i = calcPotionLiquidColor(getPotionEffects(integer.intValue(), false));
 				DATAVALUE_COLORS.put(integer, Integer.valueOf(i));
@@ -346,12 +346,12 @@ public class PotionHelper {
 
 		for (Potion potion : Potion.potionTypes) {
 			if (potion != null && (!potion.isUsable() || parFlag)) {
-                String s = potionRequirements.get(Integer.valueOf(potion.getId()));
+				String s = (String) potionRequirements.get(Integer.valueOf(potion.getId()));
 				if (s != null) {
 					int i = parsePotionEffects(s, 0, s.length(), parInt1);
 					if (i > 0) {
-                        int j = 0;
-                        String s1 = potionAmplifiers.get(Integer.valueOf(potion.getId()));
+						int j = 0;
+						String s1 = (String) potionAmplifiers.get(Integer.valueOf(potion.getId()));
 						if (s1 != null) {
 							j = parsePotionEffects(s1, 0, s1.length(), parInt1);
 							if (j < 0) {

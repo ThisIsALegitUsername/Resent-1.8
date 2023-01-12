@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -27,8 +27,8 @@ import net.minecraft.world.World;
  * 
  */
 public class EntityDropParticleFX extends EntityFX {
-	private final Material materialType;
-    private int bobTimer;
+	private Material materialType;
+	private int bobTimer;
 
 	protected EntityDropParticleFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
 			Material parMaterial) {
@@ -81,7 +81,7 @@ public class EntityDropParticleFX extends EntityFX {
 			this.particleBlue = 4.0F / (float) (40 - this.bobTimer + 8);
 		}
 
-        this.motionY -= this.particleGravity;
+		this.motionY -= (double) this.particleGravity;
 		if (this.bobTimer-- > 0) {
 			this.motionX *= 0.02D;
 			this.motionY *= 0.02D;
@@ -101,9 +101,9 @@ public class EntityDropParticleFX extends EntityFX {
 
 		if (this.onGround) {
 			if (this.materialType == Material.water) {
-                this.setDead();
-                this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, 0.0D,
-                        0.0D);
+				this.setDead();
+				this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, 0.0D,
+						0.0D, new int[0]);
 			} else {
 				this.setParticleTextureIndex(114);
 			}
@@ -118,9 +118,9 @@ public class EntityDropParticleFX extends EntityFX {
 		if (material.isLiquid() || material.isSolid()) {
 			double d0 = 0.0D;
 			if (iblockstate.getBlock() instanceof BlockLiquid) {
-                d0 = BlockLiquid
-                        .getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
-            }
+				d0 = (double) BlockLiquid
+						.getLiquidHeightPercent(((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue());
+			}
 
 			double d1 = (double) (MathHelper.floor_double(this.posY) + 1) - d0;
 			if (this.posY < d1) {

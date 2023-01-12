@@ -16,7 +16,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,7 +46,7 @@ public class NBTTagList extends NBTBase {
 	 */
 	void write(DataOutput parDataOutput) throws IOException {
 		if (!this.tagList.isEmpty()) {
-			this.tagType = this.tagList.get(0).getId();
+			this.tagType = ((NBTBase) this.tagList.get(0)).getId();
 		} else {
 			this.tagType = 0;
 		}
@@ -55,7 +55,7 @@ public class NBTTagList extends NBTBase {
 		parDataOutput.writeInt(this.tagList.size());
 
 		for (int i = 0; i < this.tagList.size(); ++i) {
-            this.tagList.get(i).write(parDataOutput);
+			((NBTBase) this.tagList.get(i)).write(parDataOutput);
 		}
 
 	}
@@ -148,7 +148,7 @@ public class NBTTagList extends NBTBase {
 	 * Removes a tag at the given index.
 	 */
 	public NBTBase removeTag(int i) {
-        return this.tagList.remove(i);
+		return (NBTBase) this.tagList.remove(i);
 	}
 
 	/**+
@@ -164,7 +164,7 @@ public class NBTTagList extends NBTBase {
 	 */
 	public NBTTagCompound getCompoundTagAt(int i) {
 		if (i >= 0 && i < this.tagList.size()) {
-            NBTBase nbtbase = this.tagList.get(i);
+			NBTBase nbtbase = (NBTBase) this.tagList.get(i);
 			return nbtbase.getId() == 10 ? (NBTTagCompound) nbtbase : new NBTTagCompound();
 		} else {
 			return new NBTTagCompound();
@@ -173,7 +173,7 @@ public class NBTTagList extends NBTBase {
 
 	public int[] getIntArrayAt(int i) {
 		if (i >= 0 && i < this.tagList.size()) {
-            NBTBase nbtbase = this.tagList.get(i);
+			NBTBase nbtbase = (NBTBase) this.tagList.get(i);
 			return nbtbase.getId() == 11 ? ((NBTTagIntArray) nbtbase).getIntArray() : new int[0];
 		} else {
 			return new int[0];
@@ -182,7 +182,7 @@ public class NBTTagList extends NBTBase {
 
 	public double getDoubleAt(int i) {
 		if (i >= 0 && i < this.tagList.size()) {
-            NBTBase nbtbase = this.tagList.get(i);
+			NBTBase nbtbase = (NBTBase) this.tagList.get(i);
 			return nbtbase.getId() == 6 ? ((NBTTagDouble) nbtbase).getDouble() : 0.0D;
 		} else {
 			return 0.0D;
@@ -191,7 +191,7 @@ public class NBTTagList extends NBTBase {
 
 	public float getFloatAt(int i) {
 		if (i >= 0 && i < this.tagList.size()) {
-            NBTBase nbtbase = this.tagList.get(i);
+			NBTBase nbtbase = (NBTBase) this.tagList.get(i);
 			return nbtbase.getId() == 5 ? ((NBTTagFloat) nbtbase).getFloat() : 0.0F;
 		} else {
 			return 0.0F;
@@ -204,7 +204,7 @@ public class NBTTagList extends NBTBase {
 	 */
 	public String getStringTagAt(int i) {
 		if (i >= 0 && i < this.tagList.size()) {
-            NBTBase nbtbase = this.tagList.get(i);
+			NBTBase nbtbase = (NBTBase) this.tagList.get(i);
 			return nbtbase.getId() == 8 ? nbtbase.getString() : nbtbase.toString();
 		} else {
 			return "";
@@ -215,7 +215,7 @@ public class NBTTagList extends NBTBase {
 	 * Get the tag at the given position
 	 */
 	public NBTBase get(int idx) {
-        return idx >= 0 && idx < this.tagList.size() ? this.tagList.get(idx) : new NBTTagEnd();
+		return (NBTBase) (idx >= 0 && idx < this.tagList.size() ? (NBTBase) this.tagList.get(idx) : new NBTTagEnd());
 	}
 
 	/**+

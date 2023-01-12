@@ -9,7 +9,7 @@ import net.lax1dude.eaglercraft.v1_8.netty.Unpooled;
 import net.minecraft.network.PacketBuffer;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -100,8 +100,8 @@ public class SkinPackets {
 		ret.writeByte(PACKET_GET_SKIN_BY_URL);
 		ret.writeUuid(skinId);
 		byte[] url = ArrayUtils.asciiString(skinUrl);
-		ret.writeShort(url.length);
-        ret.writeBytes(url);
+		ret.writeShort((int)url.length);
+		ret.writeBytes(url);
 		return ret;
 	}
 

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -43,15 +43,15 @@ public class ItemRedstone extends Item {
 			return false;
 		} else {
 			Block block = world.getBlockState(blockpos1).getBlock();
-			if (!world.canBlockBePlaced(block, blockpos1, false, enumfacing, null, itemstack)) {
-                return false;
-            } else if (Blocks.redstone_wire.canPlaceBlockAt(world, blockpos1)) {
-                --itemstack.stackSize;
-                world.setBlockState(blockpos1, Blocks.redstone_wire.getDefaultState());
-                return true;
-            } else {
-                return false;
-            }
+			if (!world.canBlockBePlaced(block, blockpos1, false, enumfacing, (Entity) null, itemstack)) {
+				return false;
+			} else if (Blocks.redstone_wire.canPlaceBlockAt(world, blockpos1)) {
+				--itemstack.stackSize;
+				world.setBlockState(blockpos1, Blocks.redstone_wire.getDefaultState());
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }

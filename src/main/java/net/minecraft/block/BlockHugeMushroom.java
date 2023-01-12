@@ -1,8 +1,10 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +21,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -43,7 +45,7 @@ public class BlockHugeMushroom extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.create("variant", BlockHugeMushroom.EnumType.class);
+		VARIANT = PropertyEnum.<BlockHugeMushroom.EnumType>create("variant", BlockHugeMushroom.EnumType.class);
 	}
 
 	/**+
@@ -57,16 +59,16 @@ public class BlockHugeMushroom extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-        switch (iblockstate.getValue(VARIANT)) {
-            case ALL_STEM:
-                return MapColor.clothColor;
-            case ALL_INSIDE:
-                return MapColor.sandColor;
-            case STEM:
-                return MapColor.sandColor;
-            default:
-                return super.getMapColor(iblockstate);
-        }
+		switch ((BlockHugeMushroom.EnumType) iblockstate.getValue(VARIANT)) {
+		case ALL_STEM:
+			return MapColor.clothColor;
+		case ALL_INSIDE:
+			return MapColor.sandColor;
+		case STEM:
+			return MapColor.sandColor;
+		default:
+			return super.getMapColor(iblockstate);
+		}
 	}
 
 	/**+
@@ -100,27 +102,27 @@ public class BlockHugeMushroom extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockHugeMushroom.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, VARIANT);
+		return new BlockState(this, new IProperty[] { VARIANT });
 	}
 
-    public enum EnumType implements IStringSerializable {
-        NORTH_WEST(1, "north_west"), NORTH(2, "north"), NORTH_EAST(3, "north_east"), WEST(4, "west"),
-        CENTER(5, "center"), EAST(6, "east"), SOUTH_WEST(7, "south_west"), SOUTH(8, "south"),
-        SOUTH_EAST(9, "south_east"), STEM(10, "stem"), ALL_INSIDE(0, "all_inside"), ALL_OUTSIDE(14, "all_outside"),
-        ALL_STEM(15, "all_stem");
+	public static enum EnumType implements IStringSerializable {
+		NORTH_WEST(1, "north_west"), NORTH(2, "north"), NORTH_EAST(3, "north_east"), WEST(4, "west"),
+		CENTER(5, "center"), EAST(6, "east"), SOUTH_WEST(7, "south_west"), SOUTH(8, "south"),
+		SOUTH_EAST(9, "south_east"), STEM(10, "stem"), ALL_INSIDE(0, "all_inside"), ALL_OUTSIDE(14, "all_outside"),
+		ALL_STEM(15, "all_stem");
 
-        private static final BlockHugeMushroom.EnumType[] META_LOOKUP = new BlockHugeMushroom.EnumType[16];
-        private final int meta;
-        private final String name;
+		private static final BlockHugeMushroom.EnumType[] META_LOOKUP = new BlockHugeMushroom.EnumType[16];
+		private final int meta;
+		private final String name;
 
-        EnumType(int meta, String name) {
-            this.meta = meta;
-            this.name = name;
-        }
+		private EnumType(int meta, String name) {
+			this.meta = meta;
+			this.name = name;
+		}
 
 		public int getMetadata() {
 			return this.meta;

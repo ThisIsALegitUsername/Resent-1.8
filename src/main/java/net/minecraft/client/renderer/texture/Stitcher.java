@@ -20,7 +20,7 @@ import net.minecraft.util.MathHelper;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -69,18 +69,18 @@ public class Stitcher {
 	}
 
 	public void doStitch() {
-        Stitcher.Holder[] astitcher$holder = this.setStitchHolders
-                .toArray(new Holder[this.setStitchHolders.size()]);
-        Arrays.sort(astitcher$holder);
+		Stitcher.Holder[] astitcher$holder = (Stitcher.Holder[]) this.setStitchHolders
+				.toArray(new Stitcher.Holder[this.setStitchHolders.size()]);
+		Arrays.sort(astitcher$holder);
 
-        for (Stitcher.Holder stitcher$holder : astitcher$holder) {
-            if (!this.allocateSlot(stitcher$holder)) {
-                String s = HString.format("Unable to fit: %s - size: %dx%d - Maybe try a lowerresolution resourcepack?",
-                        stitcher$holder.getAtlasSprite().getIconName(),
-                        Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()),
-                        Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()));
-                throw new StitcherException(stitcher$holder, s);
-            }
+		for (Stitcher.Holder stitcher$holder : astitcher$holder) {
+			if (!this.allocateSlot(stitcher$holder)) {
+				String s = HString.format("Unable to fit: %s - size: %dx%d - Maybe try a lowerresolution resourcepack?",
+						new Object[] { stitcher$holder.getAtlasSprite().getIconName(),
+								Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()),
+								Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()) });
+				throw new StitcherException(stitcher$holder, s);
+			}
 		}
 
 		if (this.forcePowerOf2) {
@@ -119,14 +119,14 @@ public class Stitcher {
 	 */
 	private boolean allocateSlot(Stitcher.Holder parHolder) {
 		for (int i = 0; i < this.stitchSlots.size(); ++i) {
-            if (this.stitchSlots.get(i).addSlot(parHolder)) {
-                return true;
-            }
+			if (((Stitcher.Slot) this.stitchSlots.get(i)).addSlot(parHolder)) {
+				return true;
+			}
 
 			parHolder.rotate();
-            if (this.stitchSlots.get(i).addSlot(parHolder)) {
-                return true;
-            }
+			if (((Stitcher.Slot) this.stitchSlots.get(i)).addSlot(parHolder)) {
+				return true;
+			}
 
 			parHolder.rotate();
 		}

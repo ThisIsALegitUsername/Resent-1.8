@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -54,19 +54,19 @@ public class ItemSnow extends ItemBlock {
 			}
 
 			if (block == this.block) {
-				int i = iblockstate.getValue(BlockSnow.LAYERS).intValue();
+				int i = ((Integer) iblockstate.getValue(BlockSnow.LAYERS)).intValue();
 				if (i <= 7) {
 					IBlockState iblockstate1 = iblockstate.withProperty(BlockSnow.LAYERS, Integer.valueOf(i + 1));
 					AxisAlignedBB axisalignedbb = this.block.getCollisionBoundingBox(world, blockpos1, iblockstate1);
 					if (axisalignedbb != null && world.checkNoEntityCollision(axisalignedbb)
 							&& world.setBlockState(blockpos1, iblockstate1, 2)) {
-                        world.playSoundEffect((float) blockpos1.getX() + 0.5F,
-                                (float) blockpos1.getY() + 0.5F, (float) blockpos1.getZ() + 0.5F,
-                                this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
-                                this.block.stepSound.getFrequency() * 0.8F);
-                        --itemstack.stackSize;
-                        return true;
-                    }
+						world.playSoundEffect((double) ((float) blockpos1.getX() + 0.5F),
+								(double) ((float) blockpos1.getY() + 0.5F), (double) ((float) blockpos1.getZ() + 0.5F),
+								this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
+								this.block.stepSound.getFrequency() * 0.8F);
+						--itemstack.stackSize;
+						return true;
+					}
 				}
 			}
 

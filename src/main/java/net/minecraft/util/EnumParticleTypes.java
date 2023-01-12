@@ -12,7 +12,7 @@ import com.google.common.collect.Maps;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -48,16 +48,16 @@ public enum EnumParticleTypes {
 	private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
 	private static final String[] PARTICLE_NAMES;
 
-	EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag, int argumentCountIn) {
-        this.particleName = particleNameIn;
-        this.particleID = particleIDIn;
-        this.shouldIgnoreRange = parFlag;
-        this.argumentCount = argumentCountIn;
-    }
+	private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag, int argumentCountIn) {
+		this.particleName = particleNameIn;
+		this.particleID = particleIDIn;
+		this.shouldIgnoreRange = parFlag;
+		this.argumentCount = argumentCountIn;
+	}
 
-    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag) {
-        this(particleNameIn, particleIDIn, parFlag, 0);
-    }
+	private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean parFlag) {
+		this(particleNameIn, particleIDIn, parFlag, 0);
+	}
 
 	public static String[] getParticleNames() {
 		return PARTICLE_NAMES;
@@ -87,7 +87,7 @@ public enum EnumParticleTypes {
 	 * Gets the relative EnumParticleTypes by id.
 	 */
 	public static EnumParticleTypes getParticleFromId(int particleId) {
-        return PARTICLES.get(Integer.valueOf(particleId));
+		return (EnumParticleTypes) PARTICLES.get(Integer.valueOf(particleId));
 	}
 
 	static {

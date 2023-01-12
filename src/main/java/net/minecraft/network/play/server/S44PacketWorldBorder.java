@@ -13,7 +13,7 @@ import net.minecraft.world.border.WorldBorder;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -55,7 +55,7 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
-		this.action = parPacketBuffer.readEnumValue(Action.class);
+		this.action = (S44PacketWorldBorder.Action) parPacketBuffer.readEnumValue(S44PacketWorldBorder.Action.class);
 		switch (this.action) {
 		case SET_SIZE:
 			this.targetSize = parPacketBuffer.readDouble();
@@ -154,17 +154,17 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
 			if (this.timeUntilTarget > 0L) {
 				border.setTransition(this.diameter, this.targetSize, this.timeUntilTarget);
 			} else {
-                border.setTransition(this.targetSize);
-            }
+				border.setTransition(this.targetSize);
+			}
 
-            border.setSize(this.size);
-            border.setWarningDistance(this.warningDistance);
-            border.setWarningTime(this.warningTime);
-        }
+			border.setSize(this.size);
+			border.setWarningDistance(this.warningDistance);
+			border.setWarningTime(this.warningTime);
+		}
 
-    }
+	}
 
-    public enum Action {
-        SET_SIZE, LERP_SIZE, SET_CENTER, INITIALIZE, SET_WARNING_TIME, SET_WARNING_BLOCKS
-    }
+	public static enum Action {
+		SET_SIZE, LERP_SIZE, SET_CENTER, INITIALIZE, SET_WARNING_TIME, SET_WARNING_BLOCKS;
+	}
 }

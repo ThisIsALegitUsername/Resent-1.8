@@ -14,7 +14,7 @@ import net.minecraft.world.chunk.Chunk;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -40,12 +40,12 @@ public class S26PacketMapChunkBulk implements Packet<INetHandlerPlayClient> {
 		this.xPositions = new int[i];
 		this.zPositions = new int[i];
 		this.chunksData = new S21PacketChunkData.Extracted[i];
-        this.isOverworld = !chunks.get(0).getWorld().provider.getHasNoSky();
+		this.isOverworld = !((Chunk) chunks.get(0)).getWorld().provider.getHasNoSky();
 
 		for (int j = 0; j < i; ++j) {
-            Chunk chunk = chunks.get(j);
-            S21PacketChunkData.Extracted s21packetchunkdata$extracted = S21PacketChunkData.func_179756_a(chunk, true,
-                    this.isOverworld, '\uffff');
+			Chunk chunk = (Chunk) chunks.get(j);
+			S21PacketChunkData.Extracted s21packetchunkdata$extracted = S21PacketChunkData.func_179756_a(chunk, true,
+					this.isOverworld, '\uffff');
 			this.xPositions[j] = chunk.xPosition;
 			this.zPositions[j] = chunk.zPosition;
 			this.chunksData[j] = s21packetchunkdata$extracted;

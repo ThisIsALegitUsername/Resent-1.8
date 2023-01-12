@@ -12,7 +12,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -25,15 +25,15 @@ import net.minecraft.world.World;
  * 
  */
 public class EntityLavaFX extends EntityFX {
-	private final float lavaParticleScale;
+	private float lavaParticleScale;
 
 	protected EntityLavaFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
 		this.motionX *= 0.800000011920929D;
 		this.motionY *= 0.800000011920929D;
-        this.motionZ *= 0.800000011920929D;
-        this.motionY = this.rand.nextFloat() * 0.4F + 0.05F;
-        this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
+		this.motionZ *= 0.800000011920929D;
+		this.motionY = (double) (this.rand.nextFloat() * 0.4F + 0.05F);
+		this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
 		this.particleScale *= this.rand.nextFloat() * 2.0F + 0.2F;
 		this.lavaParticleScale = this.particleScale;
 		this.particleMaxAge = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
@@ -80,8 +80,8 @@ public class EntityLavaFX extends EntityFX {
 
 		float f = (float) this.particleAge / (float) this.particleMaxAge;
 		if (this.rand.nextFloat() > f) {
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, this.motionX,
-                    this.motionY, this.motionZ);
+			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, this.motionX,
+					this.motionY, this.motionZ, new int[0]);
 		}
 
 		this.motionY -= 0.03D;

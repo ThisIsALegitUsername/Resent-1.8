@@ -35,36 +35,35 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class EntityWither extends EntityMob implements IBossDisplayData, IRangedAttackMob {
-    private final float[] field_82220_d = new float[2];
-    private final float[] field_82221_e = new float[2];
-    private final float[] field_82217_f = new float[2];
-    private final float[] field_82218_g = new float[2];
-    private final int[] field_82223_h = new int[2];
-    private final int[] field_82224_i = new int[2];
-    private int blockBreakCounter;
-    /**
-     * +
-     * Selector used to determine the entities a wither boss should
-     * attack.
-     */
-    private static final Predicate<Entity> attackEntitySelector = new Predicate<Entity>() {
-        public boolean apply(Entity entity) {
-            return entity instanceof EntityLivingBase
-                    && ((EntityLivingBase) entity).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
-        }
+	private float[] field_82220_d = new float[2];
+	private float[] field_82221_e = new float[2];
+	private float[] field_82217_f = new float[2];
+	private float[] field_82218_g = new float[2];
+	private int[] field_82223_h = new int[2];
+	private int[] field_82224_i = new int[2];
+	private int blockBreakCounter;
+	/**+
+	 * Selector used to determine the entities a wither boss should
+	 * attack.
+	 */
+	private static final Predicate<Entity> attackEntitySelector = new Predicate<Entity>() {
+		public boolean apply(Entity entity) {
+			return entity instanceof EntityLivingBase
+					&& ((EntityLivingBase) entity).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
+		}
 	};
 
 	public EntityWither(World worldIn) {
@@ -76,11 +75,11 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 	}
 
 	protected void entityInit() {
-        super.entityInit();
-        this.dataWatcher.addObject(17, Integer.valueOf(0));
-        this.dataWatcher.addObject(18, Integer.valueOf(0));
-        this.dataWatcher.addObject(19, Integer.valueOf(0));
-        this.dataWatcher.addObject(20, Integer.valueOf(0));
+		super.entityInit();
+		this.dataWatcher.addObject(17, new Integer(0));
+		this.dataWatcher.addObject(18, new Integer(0));
+		this.dataWatcher.addObject(19, new Integer(0));
+		this.dataWatcher.addObject(20, new Integer(0));
 	}
 
 	/**+
@@ -154,9 +153,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 				double d13 = this.func_82213_w(j + 1);
 				double d6 = entity1.posX - d11;
 				double d7 = entity1.posY + (double) entity1.getEyeHeight() - d12;
-                double d8 = entity1.posZ - d13;
-                double d9 = MathHelper.sqrt_double(d6 * d6 + d8 * d8);
-                float f = (float) (MathHelper.func_181159_b(d8, d6) * 180.0D / 3.1415927410125732D) - 90.0F;
+				double d8 = entity1.posZ - d13;
+				double d9 = (double) MathHelper.sqrt_double(d6 * d6 + d8 * d8);
+				float f = (float) (MathHelper.func_181159_b(d8, d6) * 180.0D / 3.1415927410125732D) - 90.0F;
 				float f1 = (float) (-(MathHelper.func_181159_b(d7, d9) * 180.0D / 3.1415927410125732D));
 				this.field_82220_d[j] = this.func_82204_b(this.field_82220_d[j], f1, 40.0F);
 				this.field_82221_e[j] = this.func_82204_b(this.field_82221_e[j], f, 10.0F);
@@ -171,25 +170,25 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 			double d10 = this.func_82214_u(l);
 			double d2 = this.func_82208_v(l);
 			double d4 = this.func_82213_w(l);
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
-                    d10 + this.rand.nextGaussian() * 0.30000001192092896D,
-                    d2 + this.rand.nextGaussian() * 0.30000001192092896D,
-                    d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+			this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
+					d10 + this.rand.nextGaussian() * 0.30000001192092896D,
+					d2 + this.rand.nextGaussian() * 0.30000001192092896D,
+					d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D, new int[0]);
 			if (flag && this.worldObj.rand.nextInt(4) == 0) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB,
-                        d10 + this.rand.nextGaussian() * 0.30000001192092896D,
-                        d2 + this.rand.nextGaussian() * 0.30000001192092896D,
-                        d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D,
-						0.5D);
+				this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB,
+						d10 + this.rand.nextGaussian() * 0.30000001192092896D,
+						d2 + this.rand.nextGaussian() * 0.30000001192092896D,
+						d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D,
+						0.5D, new int[0]);
 			}
 		}
 
 		if (this.getInvulTime() > 0) {
 			for (int i1 = 0; i1 < 3; ++i1) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian(),
-                        this.posY + (double) (this.rand.nextFloat() * 3.3F),
-                        this.posZ + this.rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D,
-                        0.8999999761581421D);
+				this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian() * 1.0D,
+						this.posY + (double) (this.rand.nextFloat() * 3.3F),
+						this.posZ + this.rand.nextGaussian() * 1.0D, 0.699999988079071D, 0.699999988079071D,
+						0.8999999761581421D, new int[0]);
 			}
 		}
 
@@ -305,7 +304,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 					}
 
 					if (flag) {
-                        this.worldObj.playAuxSFXAtEntity(null, 1012, new BlockPos(this), 0);
+						this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1012, new BlockPos(this), 0);
 					}
 				}
 			}
@@ -388,7 +387,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 	 * Launches a Wither skull toward (par2, par4, par6)
 	 */
 	private void launchWitherSkullToCoords(int x, double y, double z, double invulnerable, boolean parFlag) {
-        this.worldObj.playAuxSFXAtEntity(null, 1014, new BlockPos(this), 0);
+		this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1014, new BlockPos(this), 0);
 		double d0 = this.func_82214_u(x);
 		double d1 = this.func_82208_v(x);
 		double d2 = this.func_82213_w(x);

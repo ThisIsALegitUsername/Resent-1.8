@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class LogManager {
 	
-	private static final Map<String,Logger> loggerInstances = new HashMap<>();
+	private static final Map<String,Logger> loggerInstances = new HashMap();
 	
 	public static final Object logLock = new Object();
 	public static Level logLevel = Level.DEBUG;

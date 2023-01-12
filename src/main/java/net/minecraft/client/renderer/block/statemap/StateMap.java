@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -46,7 +46,7 @@ public class StateMap extends StateMapperBase {
 		LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap(iblockstate.getProperties());
 		String s;
 		if (this.name == null) {
-			s = Block.blockRegistry.getNameForObject(iblockstate.getBlock()).toString();
+			s = ((ResourceLocation) Block.blockRegistry.getNameForObject(iblockstate.getBlock())).toString();
 		} else {
 			s = this.name.getName(linkedhashmap.remove(this.name));
 		}

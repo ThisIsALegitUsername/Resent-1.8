@@ -1,14 +1,15 @@
 package net.minecraft.block.state;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
-import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 
 public abstract class BlockStateBase implements IBlockState {
 	private static final Joiner COMMA_JOINER = Joiner.on(',');
@@ -17,15 +18,15 @@ public abstract class BlockStateBase implements IBlockState {
 			if (entry == null) {
 				return "<NULL>";
 			} else {
-				IProperty iproperty = entry.getKey();
-				return iproperty.getName() + "=" + iproperty.getName(entry.getValue());
+				IProperty iproperty = (IProperty) entry.getKey();
+				return iproperty.getName() + "=" + iproperty.getName((Comparable) entry.getValue());
 			}
 		}
 	};
 
 	public <T extends Comparable<T>> IBlockState cycleProperty(IProperty<T> property) {
 		return this.withProperty(property,
-				cyclePropertyValue(property.getAllowedValues(), this.getValue(property)));
+				(T) cyclePropertyValue(property.getAllowedValues(), this.getValue(property)));
 	}
 
 	protected static <T> T cyclePropertyValue(Collection<T> values, T currentValue) {
@@ -37,7 +38,7 @@ public abstract class BlockStateBase implements IBlockState {
 					return (T) iterator.next();
 				}
 
-				return values.iterator().next();
+				return (T) values.iterator().next();
 			}
 		}
 

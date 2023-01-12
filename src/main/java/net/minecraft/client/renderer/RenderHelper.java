@@ -11,7 +11,7 @@ import net.minecraft.util.Vec3;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -24,12 +24,11 @@ import net.minecraft.util.Vec3;
  * 
  */
 public class RenderHelper {
-	/**
-     * +
-     * Float buffer used to set OpenGL material colors
-     */
-    private static final FloatBuffer colorBuffer = GLAllocation.createDirectFloatBuffer(16);
-    private static final Vec3 LIGHT0_POS = (new Vec3(0.20000000298023224D, 1.0D, -0.699999988079071D)).normalize();
+	/**+
+	 * Float buffer used to set OpenGL material colors
+	 */
+	private static FloatBuffer colorBuffer = GLAllocation.createDirectFloatBuffer(16);
+	private static final Vec3 LIGHT0_POS = (new Vec3(0.20000000298023224D, 1.0D, -0.699999988079071D)).normalize();
 	private static final Vec3 LIGHT1_POS = (new Vec3(-0.20000000298023224D, 1.0D, 0.699999988079071D)).normalize();
 
 	/**+

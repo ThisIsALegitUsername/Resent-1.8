@@ -16,16 +16,17 @@
 
 package com.google.common.base;
 
-import com.google.common.annotations.Beta;
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.CheckReturnValue;
 import java.util.Arrays;
 import java.util.BitSet;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.annotation.CheckReturnValue;
+
+import com.google.common.annotations.Beta;
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.annotations.GwtIncompatible;
 
 /**
  * Determines a true or false value for any Java {@code char} value, just as
@@ -913,7 +914,7 @@ public abstract class CharMatcher implements Predicate<Character> {
 		}
 
 		@Override
-		public CharMatcher precomputed() {
+		public final CharMatcher precomputed() {
 			return this;
 		}
 

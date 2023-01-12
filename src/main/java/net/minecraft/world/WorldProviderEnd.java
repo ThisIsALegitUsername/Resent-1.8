@@ -10,7 +10,7 @@ import net.minecraft.util.Vec3;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -59,7 +59,7 @@ public class WorldProviderEnd extends WorldProvider {
 		f2 = f2 * (f1 * 0.0F + 0.15F);
 		f3 = f3 * (f1 * 0.0F + 0.15F);
 		f4 = f4 * (f1 * 0.0F + 0.15F);
-		return new Vec3(f2, f3, f4);
+		return new Vec3((double) f2, (double) f3, (double) f4);
 	}
 
 	public boolean isSkyColored() {

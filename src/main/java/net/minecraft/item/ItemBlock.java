@@ -18,7 +18,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -60,24 +60,24 @@ public class ItemBlock extends Item {
 		if (itemstack.stackSize == 0) {
 			return false;
 		} else if (!entityplayer.canPlayerEdit(blockpos, enumfacing, itemstack)) {
-            return false;
-        } else if (world.canBlockBePlaced(this.block, blockpos, false, enumfacing, null, itemstack)) {
-            int i = this.getMetadata(itemstack.getMetadata());
-            IBlockState iblockstate1 = this.block.onBlockPlaced(world, blockpos, enumfacing, f, f1, f2, i,
-                    entityplayer);
-            if (world.setBlockState(blockpos, iblockstate1, 3)) {
-                iblockstate1 = world.getBlockState(blockpos);
-                if (iblockstate1.getBlock() == this.block) {
-                    setTileEntityNBT(world, entityplayer, blockpos, itemstack);
-                    this.block.onBlockPlacedBy(world, blockpos, iblockstate1, entityplayer, itemstack);
-                }
+			return false;
+		} else if (world.canBlockBePlaced(this.block, blockpos, false, enumfacing, (Entity) null, itemstack)) {
+			int i = this.getMetadata(itemstack.getMetadata());
+			IBlockState iblockstate1 = this.block.onBlockPlaced(world, blockpos, enumfacing, f, f1, f2, i,
+					entityplayer);
+			if (world.setBlockState(blockpos, iblockstate1, 3)) {
+				iblockstate1 = world.getBlockState(blockpos);
+				if (iblockstate1.getBlock() == this.block) {
+					setTileEntityNBT(world, entityplayer, blockpos, itemstack);
+					this.block.onBlockPlacedBy(world, blockpos, iblockstate1, entityplayer, itemstack);
+				}
 
-                world.playSoundEffect((float) blockpos.getX() + 0.5F,
-                        (float) blockpos.getY() + 0.5F, (float) blockpos.getZ() + 0.5F,
-                        this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
-                        this.block.stepSound.getFrequency() * 0.8F);
-                --itemstack.stackSize;
-            }
+				world.playSoundEffect((double) ((float) blockpos.getX() + 0.5F),
+						(double) ((float) blockpos.getY() + 0.5F), (double) ((float) blockpos.getZ() + 0.5F),
+						this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
+						this.block.stepSound.getFrequency() * 0.8F);
+				--itemstack.stackSize;
+			}
 
 			return true;
 		} else {
@@ -98,7 +98,7 @@ public class ItemBlock extends Item {
 			blockpos = blockpos.offset(enumfacing);
 		}
 
-        return world.canBlockBePlaced(this.block, blockpos, false, enumfacing, null, itemstack);
+		return world.canBlockBePlaced(this.block, blockpos, false, enumfacing, (Entity) null, itemstack);
 	}
 
 	/**+

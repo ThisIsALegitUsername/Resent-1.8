@@ -72,7 +72,7 @@ public final class HashMultiset<E> extends AbstractMapBasedMultiset<E> {
 	}
 
 	private HashMultiset(int distinctElements) {
-		super(Maps.newHashMapWithExpectedSize(distinctElements));
+		super(Maps.<E, Count>newHashMapWithExpectedSize(distinctElements));
 	}
 
 	/**
@@ -89,8 +89,8 @@ public final class HashMultiset<E> extends AbstractMapBasedMultiset<E> {
 	private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
 		int distinctElements = Serialization.readCount(stream);
-        setBackingMap(Maps.newHashMapWithExpectedSize(distinctElements));
-        Serialization.populateMultiset(this, stream, distinctElements);
+		setBackingMap(Maps.<E, Count>newHashMapWithExpectedSize(distinctElements));
+		Serialization.populateMultiset(this, stream, distinctElements);
 	}
 
 	@GwtIncompatible("Not needed in emulated source.")

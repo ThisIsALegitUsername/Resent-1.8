@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import net.lax1dude.eaglercraft.v1_8.json.JSONDataParserImpl;
 
 /**
- * Copyright (c) 2022 LAX1DUDE. All Rights Reserved.
+ * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -37,10 +37,10 @@ public class JSONDataParserString implements JSONDataParserImpl {
 					|| (s.indexOf('\'') == 0 && s.lastIndexOf('\'') == s.length() - 1)) {
 				return (new JSONObject("{\"E\":" + s + "}")).getString("E");
 			}else {
-				return data;
+				return (String)data;
 			}
 		}catch(JSONException ex) {
-            return data;
+			return (String)data;
 		}
 	}
 

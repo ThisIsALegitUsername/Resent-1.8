@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -9,11 +12,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -21,7 +26,7 @@ import java.util.List;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -54,7 +59,7 @@ public class BlockWall extends Block {
 	}
 
 	public static void bootstrapStates() {
-		VARIANT = PropertyEnum.create("variant", BlockWall.EnumType.class);
+		VARIANT = PropertyEnum.<BlockWall.EnumType>create("variant", BlockWall.EnumType.class);
 	}
 
 	/**+
@@ -129,7 +134,11 @@ public class BlockWall extends Block {
 
 	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
 		Block block = worldIn.getBlockState(pos).getBlock();
-		return block != Blocks.barrier && (block == this || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.gourd));
+		return block == Blocks.barrier ? false
+				: (block != this && !(block instanceof BlockFenceGate)
+						? (block.blockMaterial.isOpaque() && block.isFullCube() ? block.blockMaterial != Material.gourd
+								: false)
+						: true);
 	}
 
 	/**+
@@ -150,11 +159,11 @@ public class BlockWall extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-		return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockWall.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
-		return enumfacing != EnumFacing.DOWN || super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing);
+		return enumfacing == EnumFacing.DOWN ? super.shouldSideBeRendered(iblockaccess, blockpos, enumfacing) : true;
 	}
 
 	/**+
@@ -168,7 +177,7 @@ public class BlockWall extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-		return iblockstate.getValue(VARIANT).getMetadata();
+		return ((BlockWall.EnumType) iblockstate.getValue(VARIANT)).getMetadata();
 	}
 
 	/**+
@@ -185,18 +194,18 @@ public class BlockWall extends Block {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
+		return new BlockState(this, new IProperty[] { UP, NORTH, EAST, WEST, SOUTH, VARIANT });
 	}
 
-	public enum EnumType implements IStringSerializable {
+	public static enum EnumType implements IStringSerializable {
 		NORMAL(0, "cobblestone", "normal"), MOSSY(1, "mossy_cobblestone", "mossy");
 
 		private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
 		private final int meta;
 		private final String name;
-		private final String unlocalizedName;
+		private String unlocalizedName;
 
-		EnumType(int meta, String name, String unlocalizedName) {
+		private EnumType(int meta, String name, String unlocalizedName) {
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;

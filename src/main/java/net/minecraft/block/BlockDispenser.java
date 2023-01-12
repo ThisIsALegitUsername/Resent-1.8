@@ -1,13 +1,19 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.dispenser.*;
+import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -27,7 +33,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -67,7 +73,7 @@ public class BlockDispenser extends BlockContainer {
 
 	protected void dispense(World worldIn, BlockPos pos) {
 		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
-		TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
+		TileEntityDispenser tileentitydispenser = (TileEntityDispenser) blocksourceimpl.getBlockTileEntity();
 		if (tileentitydispenser != null) {
 			int i = tileentitydispenser.getDispenseSlot();
 			if (i < 0) {
@@ -85,7 +91,7 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
-		return dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
+		return (IBehaviorDispenseItem) dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
 	}
 
 	/**+
@@ -93,7 +99,7 @@ public class BlockDispenser extends BlockContainer {
 	 */
 	public void onNeighborBlockChange(World world, BlockPos blockpos, IBlockState iblockstate, Block var4) {
 		boolean flag = world.isBlockPowered(blockpos) || world.isBlockPowered(blockpos.up());
-		boolean flag1 = iblockstate.getValue(TRIGGERED).booleanValue();
+		boolean flag1 = ((Boolean) iblockstate.getValue(TRIGGERED)).booleanValue();
 		if (flag && !flag1) {
 			world.scheduleUpdate(blockpos, this, this.tickRate(world));
 			world.setBlockState(blockpos, iblockstate.withProperty(TRIGGERED, Boolean.valueOf(true)), 4);
@@ -205,8 +211,8 @@ public class BlockDispenser extends BlockContainer {
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
 		int i = 0;
-		i = i | iblockstate.getValue(FACING).getIndex();
-		if (iblockstate.getValue(TRIGGERED).booleanValue()) {
+		i = i | ((EnumFacing) iblockstate.getValue(FACING)).getIndex();
+		if (((Boolean) iblockstate.getValue(TRIGGERED)).booleanValue()) {
 			i |= 8;
 		}
 
@@ -214,6 +220,6 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	protected BlockState createBlockState() {
-		return new BlockState(this, FACING, TRIGGERED);
+		return new BlockState(this, new IProperty[] { FACING, TRIGGERED });
 	}
 }

@@ -1,7 +1,10 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -10,15 +13,13 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -31,8 +32,8 @@ import java.util.List;
  * 
  */
 public class BlockColored extends Block {
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color",
-            EnumDyeColor.class);
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
+			EnumDyeColor.class);
 
 	public BlockColored(Material materialIn) {
 		super(materialIn);
@@ -47,7 +48,7 @@ public class BlockColored extends Block {
 	 * the block.
 	 */
 	public int damageDropped(IBlockState iblockstate) {
-        return iblockstate.getValue(COLOR).getMetadata();
+		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
 	}
 
 	/**+
@@ -65,7 +66,7 @@ public class BlockColored extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState iblockstate) {
-        return iblockstate.getValue(COLOR).getMapColor();
+		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMapColor();
 	}
 
 	/**+
@@ -79,10 +80,10 @@ public class BlockColored extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState iblockstate) {
-        return iblockstate.getValue(COLOR).getMetadata();
+		return ((EnumDyeColor) iblockstate.getValue(COLOR)).getMetadata();
 	}
 
 	protected BlockState createBlockState() {
-        return new BlockState(this, COLOR);
+		return new BlockState(this, new IProperty[] { COLOR });
 	}
 }

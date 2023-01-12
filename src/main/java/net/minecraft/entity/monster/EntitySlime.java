@@ -26,7 +26,7 @@ import net.minecraft.world.chunk.Chunk;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -57,10 +57,10 @@ public class EntitySlime extends EntityLiving implements IMob {
 		this.dataWatcher.updateObject(16, Byte.valueOf((byte) size));
 		this.setSize(0.51000005F * (float) size, 0.51000005F * (float) size);
 		this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(size * size);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed)
-                .setBaseValue(0.2F + 0.1F * (float) size);
-        this.setHealth(this.getMaxHealth());
+		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double) (size * size));
+		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed)
+				.setBaseValue((double) (0.2F + 0.1F * (float) size));
+		this.setHealth(this.getMaxHealth());
 		this.experienceValue = size;
 	}
 
@@ -118,17 +118,17 @@ public class EntitySlime extends EntityLiving implements IMob {
 			int i = this.getSlimeSize();
 
 			for (int j = 0; j < i * 8; ++j) {
-                float f = this.rand.nextFloat() * 3.1415927F * 2.0F;
-                float f1 = this.rand.nextFloat() * 0.5F + 0.5F;
-                float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
-                float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
-                World world = this.worldObj;
-                EnumParticleTypes enumparticletypes = this.getParticleType();
-                double d0 = this.posX + (double) f2;
-                double d1 = this.posZ + (double) f3;
-                world.spawnParticle(enumparticletypes, d0, this.getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D
-                );
-            }
+				float f = this.rand.nextFloat() * 3.1415927F * 2.0F;
+				float f1 = this.rand.nextFloat() * 0.5F + 0.5F;
+				float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
+				float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
+				World world = this.worldObj;
+				EnumParticleTypes enumparticletypes = this.getParticleType();
+				double d0 = this.posX + (double) f2;
+				double d1 = this.posZ + (double) f3;
+				world.spawnParticle(enumparticletypes, d0, this.getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D,
+						new int[0]);
+			}
 
 			if (this.makesSoundOnLand()) {
 				this.playSound(this.getJumpSound(), this.getSoundVolume(),

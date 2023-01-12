@@ -16,7 +16,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -45,7 +45,7 @@ public class S23PacketBlockChange implements Packet<INetHandlerPlayClient> {
 	 */
 	public void readPacketData(PacketBuffer parPacketBuffer) throws IOException {
 		this.blockPosition = parPacketBuffer.readBlockPos();
-        this.blockState = Block.BLOCK_STATE_IDS.getByValue(parPacketBuffer.readVarIntFromBuffer());
+		this.blockState = (IBlockState) Block.BLOCK_STATE_IDS.getByValue(parPacketBuffer.readVarIntFromBuffer());
 	}
 
 	/**+

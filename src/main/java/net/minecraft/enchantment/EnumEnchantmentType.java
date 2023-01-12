@@ -13,7 +13,7 @@ import net.minecraft.item.ItemTool;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -43,15 +43,15 @@ public enum EnumEnchantmentType {
 			} else {
 				ItemArmor itemarmor = (ItemArmor) parItem;
 				return itemarmor.armorType == 0 ? this == ARMOR_HEAD
-                        : (itemarmor.armorType == 2 ? this == ARMOR_LEGS
-                        : (itemarmor.armorType == 1 ? this == ARMOR_TORSO
-                        : (itemarmor.armorType == 3 && this == ARMOR_FEET)));
+						: (itemarmor.armorType == 2 ? this == ARMOR_LEGS
+								: (itemarmor.armorType == 1 ? this == ARMOR_TORSO
+										: (itemarmor.armorType == 3 ? this == ARMOR_FEET : false)));
 			}
 		} else {
-            return parItem instanceof ItemSword ? this == WEAPON
-                    : (parItem instanceof ItemTool ? this == DIGGER
-                    : (parItem instanceof ItemBow ? this == BOW
-                    : (parItem instanceof ItemFishingRod && this == FISHING_ROD)));
+			return parItem instanceof ItemSword ? this == WEAPON
+					: (parItem instanceof ItemTool ? this == DIGGER
+							: (parItem instanceof ItemBow ? this == BOW
+									: (parItem instanceof ItemFishingRod ? this == FISHING_ROD : false)));
 		}
 	}
 }

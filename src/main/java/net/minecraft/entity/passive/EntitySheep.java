@@ -1,7 +1,10 @@
 package net.minecraft.entity.passive;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+
+import com.google.common.collect.Maps;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -21,15 +24,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-import java.util.Map;
-
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
  * 
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -56,7 +57,7 @@ public class EntitySheep extends EntityAnimal {
 	private int sheepTimer;
 
 	public static float[] func_175513_a(EnumDyeColor dyeColor) {
-		return DYE_TO_RGB.get(dyeColor);
+		return (float[]) DYE_TO_RGB.get(dyeColor);
 	}
 
 	public EntitySheep(World worldIn) {
@@ -83,8 +84,8 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	protected void entityInit() {
-        super.entityInit();
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+		super.entityInit();
+		this.dataWatcher.addObject(16, new Byte((byte) 0));
 	}
 
 	/**+
@@ -285,9 +286,9 @@ public class EntitySheep extends EntityAnimal {
 		int j = ((EntitySheep) mother).getFleeceColor().getDyeDamage();
 		this.inventoryCrafting.getStackInSlot(0).setItemDamage(i);
 		this.inventoryCrafting.getStackInSlot(1).setItemDamage(j);
-        ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting,
-                father.worldObj);
-        int k;
+		ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting,
+				((EntitySheep) father).worldObj);
+		int k;
 		if (itemstack != null && itemstack.getItem() == Items.dye) {
 			k = itemstack.getMetadata();
 		} else {

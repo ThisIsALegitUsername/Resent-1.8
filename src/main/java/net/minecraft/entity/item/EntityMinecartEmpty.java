@@ -1,5 +1,6 @@
 package net.minecraft.entity.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -9,7 +10,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -35,9 +36,13 @@ public class EntityMinecartEmpty extends EntityMinecart {
 	 */
 	public boolean interactFirst(EntityPlayer entityplayer) {
 		if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer
-                && this.riddenByEntity != entityplayer) {
-            return true;
-        } else return this.riddenByEntity == null || this.riddenByEntity == entityplayer;
+				&& this.riddenByEntity != entityplayer) {
+			return true;
+		} else if (this.riddenByEntity != null && this.riddenByEntity != entityplayer) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**+
@@ -47,7 +52,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
 	public void onActivatorRailPass(int var1, int var2, int var3, boolean flag) {
 		if (flag) {
 			if (this.riddenByEntity != null) {
-                this.riddenByEntity.mountEntity(null);
+				this.riddenByEntity.mountEntity((Entity) null);
 			}
 
 			if (this.getRollingAmplitude() == 0) {

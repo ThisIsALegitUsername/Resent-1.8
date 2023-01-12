@@ -11,7 +11,7 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
@@ -86,7 +86,13 @@ public class JsonBlendingMode {
 			return false;
 		} else {
 			JsonBlendingMode jsonblendingmode = (JsonBlendingMode) object;
-			return this.field_148112_f == jsonblendingmode.field_148112_f && (this.field_148115_e == jsonblendingmode.field_148115_e && (this.field_148114_d == jsonblendingmode.field_148114_d && (this.field_148119_h == jsonblendingmode.field_148119_h && (this.field_148113_g == jsonblendingmode.field_148113_g && (this.field_148117_c == jsonblendingmode.field_148117_c && this.field_148116_b == jsonblendingmode.field_148116_b)))));
+			return this.field_148112_f != jsonblendingmode.field_148112_f ? false
+					: (this.field_148115_e != jsonblendingmode.field_148115_e ? false
+							: (this.field_148114_d != jsonblendingmode.field_148114_d ? false
+									: (this.field_148119_h != jsonblendingmode.field_148119_h ? false
+											: (this.field_148113_g != jsonblendingmode.field_148113_g ? false
+													: (this.field_148117_c != jsonblendingmode.field_148117_c ? false
+															: this.field_148116_b == jsonblendingmode.field_148116_b)))));
 		}
 	}
 

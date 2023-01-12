@@ -1,6 +1,7 @@
 package net.minecraft.entity;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
+
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
@@ -10,7 +11,12 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
@@ -25,19 +31,17 @@ import net.minecraft.world.World;
 public abstract class EntityLiving extends EntityLivingBase {
 	public int livingSoundTime;
 	protected int experienceValue;
-    private final EntityBodyHelper bodyHelper;
-    private EntityLivingBase attackTarget;
-    /**
-     * +
-     * Equipment (armor and held item) for this entity.
-     */
-    private final ItemStack[] equipment = new ItemStack[5];
-    /**
-     * +
-     * Chances for each equipment piece from dropping when this
-     * entity dies.
-     */
-    protected float[] equipmentDropChances = new float[5];
+	private EntityBodyHelper bodyHelper;
+	private EntityLivingBase attackTarget;
+	/**+
+	 * Equipment (armor and held item) for this entity.
+	 */
+	private ItemStack[] equipment = new ItemStack[5];
+	/**+
+	 * Chances for each equipment piece from dropping when this
+	 * entity dies.
+	 */
+	protected float[] equipmentDropChances = new float[5];
 	private boolean canPickUpLoot;
 	private boolean persistenceRequired;
 	private boolean isLeashed;
@@ -150,12 +154,12 @@ public abstract class EntityLiving extends EntityLivingBase {
 			double d0 = this.rand.nextGaussian() * 0.02D;
 			double d1 = this.rand.nextGaussian() * 0.02D;
 			double d2 = this.rand.nextGaussian() * 0.02D;
-            double d3 = 10.0D;
-            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-                    this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - d0 * d3,
-                    this.posY + (double) (this.rand.nextFloat() * this.height) - d1 * d3,
-                    this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - d2 * d3,
-					d0, d1, d2);
+			double d3 = 10.0D;
+			this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+					this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - d0 * d3,
+					this.posY + (double) (this.rand.nextFloat() * this.height) - d1 * d3,
+					this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - d2 * d3,
+					d0, d1, d2, new int[0]);
 		}
 	}
 
@@ -434,10 +438,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 		} else {
 			d1 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D
 					- (this.posY + (double) this.getEyeHeight());
-        }
+		}
 
-        double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-        float f = (float) (MathHelper.func_181159_b(d2, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
+		double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+		float f = (float) (MathHelper.func_181159_b(d2, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
 		float f1 = (float) (-(MathHelper.func_181159_b(d1, d3) * 180.0D / 3.1415927410125732D));
 		this.rotationPitch = this.updateRotation(this.rotationPitch, f1, parFloat2);
 		this.rotationYaw = this.updateRotation(this.rotationYaw, f, parFloat1);
@@ -907,18 +911,17 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Set whether this Entity's AI is disabled
 	 */
 	public void setNoAI(boolean disable) {
-        this.dataWatcher.updateObject(15, Byte.valueOf((byte) (disable ? 1 : 0)));
-    }
+		this.dataWatcher.updateObject(15, Byte.valueOf((byte) (disable ? 1 : 0)));
+	}
 
-    /**
-     * +
-     * Get whether this Entity's AI is disabled
-     */
-    public boolean isAIDisabled() {
-        return this.dataWatcher.getWatchableObjectByte(15) != 0;
-    }
+	/**+
+	 * Get whether this Entity's AI is disabled
+	 */
+	public boolean isAIDisabled() {
+		return this.dataWatcher.getWatchableObjectByte(15) != 0;
+	}
 
-    public enum SpawnPlacementType {
-        ON_GROUND, IN_AIR, IN_WATER
-    }
+	public static enum SpawnPlacementType {
+		ON_GROUND, IN_AIR, IN_WATER;
+	}
 }

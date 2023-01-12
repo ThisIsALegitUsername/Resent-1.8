@@ -17,33 +17,33 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files are (c) 2022 LAX1DUDE. All Rights Reserved.
+ * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  * 
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- *
+ * 
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- *
+ * 
  * (please read the 'LICENSE' file this repo's root directory for more info) 
- *
+ * 
  */
 public class EntityLargeExplodeFX extends EntityFX {
-    private static final ResourceLocation EXPLOSION_TEXTURE = new ResourceLocation("textures/entity/explosion.png");
-    private int field_70581_a;
-    private final int field_70584_aq;
-    private final TextureManager theRenderEngine;
-    private final float field_70582_as;
+	private static final ResourceLocation EXPLOSION_TEXTURE = new ResourceLocation("textures/entity/explosion.png");
+	private int field_70581_a;
+	private int field_70584_aq;
+	private TextureManager theRenderEngine;
+	private float field_70582_as;
 
-    protected EntityLargeExplodeFX(TextureManager renderEngine, World worldIn, double xCoordIn, double yCoordIn,
-                                   double zCoordIn, double parDouble1, double parDouble2, double parDouble3) {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-        this.theRenderEngine = renderEngine;
-        this.field_70584_aq = 6 + this.rand.nextInt(4);
-        this.particleRed = this.particleGreen = this.particleBlue = this.rand.nextFloat() * 0.6F + 0.4F;
-        this.field_70582_as = 1.0F - (float) parDouble1 * 0.5F;
-    }
+	protected EntityLargeExplodeFX(TextureManager renderEngine, World worldIn, double xCoordIn, double yCoordIn,
+			double zCoordIn, double parDouble1, double parDouble2, double parDouble3) {
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
+		this.theRenderEngine = renderEngine;
+		this.field_70584_aq = 6 + this.rand.nextInt(4);
+		this.particleRed = this.particleGreen = this.particleBlue = this.rand.nextFloat() * 0.6F + 0.4F;
+		this.field_70582_as = 1.0F - (float) parDouble1 * 0.5F;
+	}
 
 	/**+
 	 * Renders the particle
@@ -65,25 +65,25 @@ public class EntityLargeExplodeFX extends EntityFX {
 			GlStateManager.disableLighting();
 			RenderHelper.disableStandardItemLighting();
 			worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
-            worldrenderer
-                    .pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10,
-                            f13 - f3 * f10 - f5 * f10)
-                    .tex(f7, f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+			worldrenderer
+					.pos((double) (f11 - f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
+							(double) (f13 - f3 * f10 - f5 * f10))
+					.tex((double) f7, (double) f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-            worldrenderer
-                    .pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10,
-                            f13 - f3 * f10 + f5 * f10)
-                    .tex(f7, f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+			worldrenderer
+					.pos((double) (f11 - f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
+							(double) (f13 - f3 * f10 + f5 * f10))
+					.tex((double) f7, (double) f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-            worldrenderer
-                    .pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10,
-                            f13 + f3 * f10 + f5 * f10)
-                    .tex(f6, f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+			worldrenderer
+					.pos((double) (f11 + f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
+							(double) (f13 + f3 * f10 + f5 * f10))
+					.tex((double) f6, (double) f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-            worldrenderer
-                    .pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10,
-                            f13 + f3 * f10 - f5 * f10)
-                    .tex(f6, f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
+			worldrenderer
+					.pos((double) (f11 + f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
+							(double) (f13 + f3 * f10 - f5 * f10))
+					.tex((double) f6, (double) f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
 					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 			Tessellator.getInstance().draw();
 			GlStateManager.enableLighting();

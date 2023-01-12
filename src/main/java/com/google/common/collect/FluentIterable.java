@@ -252,7 +252,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
 	 */
 	public final Optional<E> first() {
 		Iterator<E> iterator = iterable.iterator();
-		return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.absent();
+		return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.<E>absent();
 	}
 
 	/**
