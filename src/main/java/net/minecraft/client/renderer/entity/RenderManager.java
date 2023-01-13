@@ -378,7 +378,7 @@ public class RenderManager {
 							CrashReport.makeCrashReport(throwable1, "Post-rendering entity in world"));
 				}
 
-				if (this.debugBoundingBox && !entity.isInvisible() && !parFlag) {
+				if (this.debugBoundingBox && !entity.isInvisible() && !parFlag || W.hitboxes().isEnabled() && !parFlag && !W.hitboxes().old.getValue()) {
 					try {
 						this.renderDebugBoundingBox(entity, x, y, z, entityYaw, partialTicks);
 					} catch (Throwable throwable) {
@@ -401,23 +401,18 @@ public class RenderManager {
 									entity.boundingBox.minX-0.05-entity.posX
 											+ (entity.posX - renderPosX),
 									entity.boundingBox.minY
-											- 0.05
 											- entity.posY
 											+ (entity.posY - renderPosY),
 									entity.boundingBox.minZ
-											- 0.05
 											- entity.posZ
 											+ (entity.posZ - renderPosZ),
 									entity.boundingBox.maxX
-											+ 0.05
 											- entity.posX
 											+ (entity.posX - renderPosX),
 									entity.boundingBox.maxY
-											+ 0.1
 											- entity.posY
 											+ (entity.posY - renderPosY),
 									entity.boundingBox.maxZ
-											+ 0.05
 											- entity.posZ
 											+ (entity.posZ - renderPosZ)),
 							RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed(),

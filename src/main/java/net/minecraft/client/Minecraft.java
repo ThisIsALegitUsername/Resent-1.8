@@ -197,7 +197,7 @@ public class Minecraft implements IThreadListener {
 	private Timer timer = new Timer(20.0F);
 	public WorldClient theWorld;
 	public RenderGlobal renderGlobal;
-	private RenderManager renderManager;
+	public RenderManager renderManager;
 	private RenderItem renderItem;
 	private ItemRenderer itemRenderer;
 	public EntityPlayerSP thePlayer;
