@@ -6,7 +6,7 @@ import dev.resent.setting.BooleanSetting;
 
 public class ServerInfo extends RenderModule{
     public ServerInfo(){
-        super("Server info", Category.HUD, 4, 84, true);
+        super("Server info", Category.HUD, 4, 44, true);
         addSetting(tshadow);
     }
 

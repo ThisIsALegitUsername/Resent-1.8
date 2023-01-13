@@ -6,7 +6,7 @@ import dev.resent.setting.BooleanSetting;
 
 public class Ping extends RenderModule{
     public Ping(){
-        super("Ping Display", Category.HUD, 4, 74, true);
+        super("Ping Display", Category.HUD, 4, 54, true);
         addSetting(tshadow);
     }
 

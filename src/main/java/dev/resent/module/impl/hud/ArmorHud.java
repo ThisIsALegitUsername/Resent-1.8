@@ -13,7 +13,7 @@ public class ArmorHud extends RenderModule {
 	public ScaledResolution sr;
 
 	public ArmorHud() {
-		super("ArmorHud", Category.HUD, 50, 4, true);
+		super("ArmorHud", Category.HUD, 4, 4, true);
 		addSetting(helm, chestp, leg, boot, item);
 	}
 

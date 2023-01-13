@@ -6,15 +6,16 @@ import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
+import net.minecraft.client.Minecraft;
 
 public class ComboCounter extends RenderModule {
 
     public static boolean attacked = false;
     public static int combo = 0;
-    public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
+    public static BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
     
     public ComboCounter() {
-        super("ComboCounter", Category.HUD, 4, 4, true);
+        super("ComboCounter", Category.HUD, 4, 14, true);
         addSetting(tshadow);
     }
 
@@ -41,7 +42,7 @@ public class ComboCounter extends RenderModule {
 
     @Override
     public void draw() {
-        mc.fontRendererObj.drawString(combo + " Combo", this.x + 2, this.y + 2, -1, tshadow.getValue());
+        Minecraft.getMinecraft().fontRendererObj.drawString("[" + combo + " Combo]", this.x + 2, this.y + 2, -1, tshadow.getValue());
     }
 
 }

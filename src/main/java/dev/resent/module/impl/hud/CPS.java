@@ -12,7 +12,7 @@ import java.util.List;
 public class CPS extends RenderModule {
 
     public CPS() {
-        super("CPS", Category.HUD, 50, 4, true);
+        super("CPS", Category.HUD, 4, 84, true);
         addSetting(tshadow);
     }
 
@@ -21,7 +21,7 @@ public class CPS extends RenderModule {
     private long lastPressed;
 
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
-    public int getWidth() { return mc.fontRendererObj.getStringWidth("[CPS: 00]") + 4; }
+    public int getWidth() { return mc.fontRendererObj.getStringWidth("[00 CPS]") + 4; }
     public int getHeight() { return mc.fontRendererObj.FONT_HEIGHT+4; }
 
     @Override
@@ -39,7 +39,7 @@ public class CPS extends RenderModule {
         final long time = System.currentTimeMillis();
         FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-        mc.fontRendererObj.drawString("CPS: " + clicks.size(), this.x+2, this.y+2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("["+clicks.size()+"CPS]", this.x+2, this.y+2, -1, tshadow.getValue());
     }
 
 }

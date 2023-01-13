@@ -7,7 +7,7 @@ import dev.resent.setting.BooleanSetting;
 public class Health extends RenderModule {
 
     public Health(){
-        super("Health Display", Category.HUD, 4, 34, true);
+        super("Health Display", Category.HUD, 4, 64, true);
         addSetting(tshadow);
     }
 

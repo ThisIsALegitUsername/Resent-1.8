@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public class PotCounter extends RenderModule{
     public PotCounter(){
-        super("PotCounter", Category.HUD, 4, 64, true);
+        super("PotCounter", Category.HUD, 4, 74, true);
 		addSetting(tshadow);
     }
 

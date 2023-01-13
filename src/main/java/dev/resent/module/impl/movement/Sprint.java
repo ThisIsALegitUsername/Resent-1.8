@@ -13,7 +13,7 @@ public class Sprint extends RenderModule {
     public FontRenderer fr;
 
     public Sprint(){
-        super("ToggleSprint", Category.MOVEMENT, 4, 10, true);
+        super("ToggleSprint", Category.MOVEMENT, 4, 94, true);
         addSetting(drawn);
     }    
     
@@ -68,17 +68,11 @@ public class Sprint extends RenderModule {
     public void draw() {
         this.fr = mc.fontRendererObj;
         if(drawn.getValue())
-    	fr.drawStringWithShadow(getText(), getX() + getWidth() / 2 - ((getWidth() - 10) / 2), getY() + (getHeight() / 2 - fr.FONT_HEIGHT / 2), -1);
-    }
-    
-    @Override
-    public void renderLayout(int mouseX, int mouseY) {
-    	super.renderLayout(mouseX, mouseY);
-    	fr.drawStringWithShadow("[Sprinting [Toggled)]", getX() + getWidth() / 2 - ((getWidth() - 10) / 2), getY() + (getHeight() / 2 - fr.FONT_HEIGHT / 2), -1);
+    	fr.drawStringWithShadow(getText(), x + 2, y + 2, -1);
     }
     
     @Override
     public int getHeight() {
-    	return fr.FONT_HEIGHT + 3;
+    	return fr.FONT_HEIGHT + 2;
     }
 }

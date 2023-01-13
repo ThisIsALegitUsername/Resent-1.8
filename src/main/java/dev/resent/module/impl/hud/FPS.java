@@ -10,7 +10,7 @@ public class FPS extends RenderModule{
     public Minecraft mc = Minecraft.getMinecraft();
 
     public FPS(){
-        super("FPS", Category.HUD, 4, 24, true);
+        super("FPS", Category.HUD, 4, 14, true);
         addSetting(tshadow);
     }
     

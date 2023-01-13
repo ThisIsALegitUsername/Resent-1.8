@@ -12,7 +12,7 @@ public class Watermark extends RenderModule{
     public FontRenderer fr;
 
     public Watermark() {
-        super("Watermark", Category.HUD, 300, 4);
+        super("Watermark", Category.HUD, 100, 4);
     }
 
     @Override
