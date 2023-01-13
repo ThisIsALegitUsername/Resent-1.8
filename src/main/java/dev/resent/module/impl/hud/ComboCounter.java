@@ -15,7 +15,7 @@ public class ComboCounter extends RenderModule {
     public static BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
     
     public ComboCounter() {
-        super("ComboCounter", Category.HUD, 4, 14, true);
+        super("ComboCounter", Category.HUD, 4, 24, true);
         addSetting(tshadow);
     }
 
@@ -33,11 +33,11 @@ public class ComboCounter extends RenderModule {
     }
 
     public int getWidth() {
-        return mc.fontRendererObj.getStringWidth("[0 Combo]") + 4;
+        return Minecraft.getMinecraft().fontRendererObj.getStringWidth("[0 Combo]") + 4;
     }
 
     public int getHeight() {
-        return mc.fontRendererObj.FONT_HEIGHT + 4;
+        return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4;
     }
 
     @Override

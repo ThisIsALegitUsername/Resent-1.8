@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 public class Info extends RenderModule{
 
     public Info(){
-        super("Info", Category.HUD, 70, 4);
+        super("Info", Category.HUD, 150, 4);
         //addSetting(direction);
     }
 
