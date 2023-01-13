@@ -47,11 +47,11 @@ public class Freelook extends Mod {
         return perspectiveToggled ? cameraPitch : Minecraft.getMinecraft().thePlayer.rotationPitch;
     }
 
-    public boolean overriderMouse() {
+    public boolean overrideMouse() {
         if (Minecraft.getMinecraft().inGameHasFocus) {
             if (!perspectiveToggled)
                 return true;
-            Minecraft.getMinecraft().mouseHelper.mouseXYChange();
+            mc.mouseHelper.mouseXYChange();
             float f1 = Minecraft.getMinecraft().gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float f2 = f1 * f1 * f1 * 8.0F;
             float f3 = Minecraft.getMinecraft().mouseHelper.deltaX * f2;

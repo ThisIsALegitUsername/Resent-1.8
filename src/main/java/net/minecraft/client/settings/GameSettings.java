@@ -214,7 +214,7 @@ public class GameSettings {
 				this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat,
 				this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot,
 				this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindZoomCamera, this.keyBindFunction,
-				this.keyBindClose }, this.keyBindsHotbar);
+				this.keyBindClose, this.keyBindClickGui, this.keyBindFreelook }, this.keyBindsHotbar);
 		this.difficulty = EnumDifficulty.NORMAL;
 		this.lastServer = "";
 		this.fovSetting = 70.0F;

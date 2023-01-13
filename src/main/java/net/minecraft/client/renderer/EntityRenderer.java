@@ -422,7 +422,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void hurtCameraEffect(float partialTicks) {
-		if (this.mc.getRenderViewEntity() instanceof EntityLivingBase /* && !W.noHurtCam().isEnabled()*/) {
+		if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
 			EntityLivingBase entitylivingbase = (EntityLivingBase) this.mc.getRenderViewEntity();
 			float f = (float) entitylivingbase.hurtTime - partialTicks;
 			if (entitylivingbase.getHealth() <= 0.0F) {
@@ -857,7 +857,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		this.mc.mcProfiler.startSection("mouse");
 
-		if (this.mc.inGameHasFocus && flag) {
+		if (this.mc.inGameHasFocus && flag && ModManager.freelook.overrideMouse()) {
 			this.mc.mouseHelper.mouseXYChange();
 			float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
 			if (this.mc.gameSettings.keyBindZoomCamera.isKeyDown()) {
