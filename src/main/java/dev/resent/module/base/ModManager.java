@@ -27,7 +27,6 @@ import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.Fullbright;
 import dev.resent.module.impl.misc.MinimalViewBobbing;
-import dev.resent.module.impl.misc.NoHurtCam;
 import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.NoSwingDelay;
@@ -52,7 +51,7 @@ public class ModManager {
 	public static NoRain noRain = new NoRain();
 	public static DynamicFOV dynamicFOV = new DynamicFOV();
 	public static PotionHUD potionHud;
-	public static NoHurtCam noHurtCam = new NoHurtCam();
+	//public static NoHurtCam noHurtCam = new NoHurtCam();
 	public static Info coordinate;
 	public static FPS fps;
 	public static ReachDisplay reachDisplay;
@@ -107,7 +106,7 @@ public class ModManager {
 		register(noRain);
 		register(dynamicFOV);
 		register(sprint = new Sprint());
-		register(noHurtCam);
+		//register(noHurtCam);
 		register(autoGG = new AutoGG());
 		register(hitboxes);
 		//register(chunkBorders = new ChunkBorders());

@@ -8,7 +8,7 @@ import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.ClearChat;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
-import dev.resent.module.impl.misc.NoHurtCam;
+//import dev.resent.module.impl.misc.NoHurtCam;
 import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.Scoreboard;
@@ -18,7 +18,7 @@ public class W {
    
    public static NoRain noRain(){ return ModManager.noRain; }
    public static DynamicFOV dynamicFOV(){ return ModManager.dynamicFOV; }
-   public static NoHurtCam noHurtCam(){ return ModManager.noHurtCam; }
+   //public static NoHurtCam noHurtCam(){ return ModManager.noHurtCam; }
    public static AutoGG autoGG() { return ModManager.autoGG; }
    public static Freelook freelook(){ return ModManager.freelook; }
    public static ComboCounter comboCounter(){ return ModManager.comboCounter; }
