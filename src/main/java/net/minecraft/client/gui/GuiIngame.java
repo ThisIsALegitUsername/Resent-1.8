@@ -174,7 +174,6 @@ public class GuiIngame extends Gui {
 			Entity target = mc.pointedEntity;
 			if(!ModManager.crosshair.isEnabled())
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
-			GlStateManager.enableAlpha();
 			
 			if(target != null && ModManager.crosshair.isEnabled())
 			GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue());
