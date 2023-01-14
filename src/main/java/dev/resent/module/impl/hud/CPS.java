@@ -39,7 +39,7 @@ public class CPS extends RenderModule {
         final long time = System.currentTimeMillis();
         FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-        mc.fontRendererObj.drawString("["+clicks.size()+"CPS]", this.x+2, this.y+2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("["+clicks.size()+" CPS]", this.x+2, this.y+2, -1, tshadow.getValue());
     }
 
 }

@@ -1683,6 +1683,7 @@ public class Minecraft implements IThreadListener {
 			this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
 			this.playerController.setPlayerCapabilities(this.thePlayer);
 			this.renderViewEntity = this.thePlayer;
+			this.gameSettings.loadOptions();
 		} else {
 			this.thePlayer = null;
 		}

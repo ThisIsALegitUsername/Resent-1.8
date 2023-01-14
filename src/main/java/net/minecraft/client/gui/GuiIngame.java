@@ -169,16 +169,17 @@ public class GuiIngame extends Gui {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(icons);
 		GlStateManager.enableBlend();
+
 		if (this.showCrosshair()) {
-			Minecraft mc = Minecraft.getMinecraft();
-			Entity target = mc.pointedEntity;
-			if(!ModManager.crosshair.isEnabled())
-			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
-			
-			if(target != null && ModManager.crosshair.isEnabled())
+			//GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
+
+			if(Minecraft.getMinecraft().pointedEntity != null && ModManager.crosshair.isEnabled())
 			GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue());
+
 			this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
 		}
+
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		this.mc.mcProfiler.startSection("bossHealth");
