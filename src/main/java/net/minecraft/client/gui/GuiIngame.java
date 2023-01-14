@@ -1,12 +1,17 @@
 package net.minecraft.client.gui;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
@@ -15,15 +20,13 @@ import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.ui.mods.HUDConfigScreen;
 import dev.resent.util.misc.W;
 import dev.resent.util.render.RenderUtils;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -887,10 +890,32 @@ public class GuiIngame extends Gui {
         }
     }
 
+    private void attemptSwing() {
+        if(ModManager.animations.isEnabled()) {
+            if (this.mc.thePlayer.getItemInUseCount() > 0) {
+                final boolean mouseDown = this.mc.gameSettings.keyBindAttack.isKeyDown() && this.mc.gameSettings.keyBindUseItem.isKeyDown();
+                if (mouseDown && this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                    this.swingItem(this.mc.thePlayer);
+                }else if(mouseDown) {
+                    this.swingItem(this.mc.thePlayer);
+                }
+            }
+        }
+    }
+    
+    private void swingItem(EntityPlayerSP entityplayersp) {
+        final int swingAnimationEnd = entityplayersp.isPotionActive(Potion.digSpeed) ? (6 - (1 + entityplayersp.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1) : (entityplayersp.isPotionActive(Potion.digSlowdown) ? (6 + (1 + entityplayersp.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2) : 6);
+        if (!entityplayersp.isSwingInProgress || entityplayersp.swingProgressInt >= swingAnimationEnd / 2 || entityplayersp.swingProgressInt < 0) {
+            entityplayersp.swingProgressInt = -1;
+            entityplayersp.isSwingInProgress = true;
+        }
+    }
+    
     /**+
      * The update tick for the ingame UI
      */
     public void updateTick() {
+        attemptSwing();
         if (this.recordPlayingUpFor > 0) {
             --this.recordPlayingUpFor;
         }

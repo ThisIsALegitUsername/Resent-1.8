@@ -847,9 +847,6 @@ public abstract class EntityLivingBase extends Entity {
      * account.
      */
     private int getArmSwingAnimationEnd() {
-        if (ModManager.animations.isEnabled() && Minecraft.getMinecraft().theWorld != null) {
-            return 10;
-        }
 
         return this.isPotionActive(Potion.digSpeed) ? 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1 : (this.isPotionActive(Potion.digSlowdown) ? 6 + (1 + this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6);
     }

@@ -2,6 +2,7 @@ package net.minecraft.client.renderer;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -322,14 +323,14 @@ public class ItemRenderer {
                     case EAT:
                     case DRINK:
                         this.func_178104_a(entityplayersp, partialTicks);
-                        this.transformFirstPersonItem(f, 0.0F);
+                        this.transformFirstPersonItem(f, ModManager.animations.isEnabled() ? f1 : 0.0F);
                         break;
                     case BLOCK:
-                        this.transformFirstPersonItem(f, 0.0F);
+                        this.transformFirstPersonItem(f, ModManager.animations.isEnabled() ? f1 : 0.0F);
                         this.func_178103_d();
                         break;
                     case BOW:
-                        this.transformFirstPersonItem(f, 0.0F);
+                        this.transformFirstPersonItem(f, ModManager.animations.isEnabled() ? f1 : 0.0F);
                         this.func_178098_a(partialTicks, entityplayersp);
                 }
             } else {

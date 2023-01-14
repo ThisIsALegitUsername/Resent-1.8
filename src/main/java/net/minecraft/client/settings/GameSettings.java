@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
@@ -117,7 +118,7 @@ public class GameSettings {
     public float chatHeightUnfocused = 0.44366196F;
     public float chatHeightFocused = 1.0F;
     public boolean showInventoryAchievementHint = true;
-    public int mipmapLevels = 4;
+    public int mipmapLevels = 1;
     private Map<SoundCategory, Float> mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
     public float streamBytesPerPixel = 0.5F;
     public float streamMicVolume = 1.0F;
@@ -183,18 +184,18 @@ public class GameSettings {
     /**+
      * GUI scale
      */
-    public int guiScale = 3;
+    public int guiScale = 2;
     public int particleSetting;
     public String language;
     public boolean forceUnicodeFont;
-    public boolean hudFps = true;
-    public boolean hudCoords = true;
-    public boolean hudPlayer = true;
+    public boolean hudFps = false;
+    public boolean hudCoords = false;
+    public boolean hudPlayer = false;
     public boolean hudWorld = false;
     public boolean hudStats = false;
     public boolean hud24h = false;
     public boolean chunkFix = true;
-    public boolean fog = true;
+    public boolean fog = false;
     public int fxaa = 0;
 
     public GameSettings(Minecraft mcIn) {
@@ -229,14 +230,15 @@ public class GameSettings {
             );
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
-        this.fovSetting = 70.0F;
+        this.fovSetting = 80.0F;
         this.gammaSetting = 1.0F;
         this.language = EagRuntime.getConfiguration().getDefaultLocale();
         this.forceUnicodeFont = false;
         this.mc = mcIn;
+        ModManager.scoreboard.enabled = true;
         GameSettings.Options.RENDER_DISTANCE.setValueMax(18.0F);
 
-        this.renderDistanceChunks = 4;
+        this.renderDistanceChunks = 1;
         this.loadOptions();
     }
 
