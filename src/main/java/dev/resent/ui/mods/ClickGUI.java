@@ -1,7 +1,6 @@
 package dev.resent.ui.mods;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_DST_COLOR;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
+import java.io.IOException;
 
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
@@ -10,7 +9,6 @@ import dev.resent.setting.ModeSetting;
 import dev.resent.setting.Setting;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
-import java.io.IOException;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -147,12 +145,14 @@ public class ClickGUI extends GuiScreen {
                     );
 
                     if (m.hasSetting) {
+                        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                         //fr.drawString("o", this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
-                        GlStateManager.color(255, 0, 0);
                         GlStateManager.enableBlend();
                         GlStateManager.disableAlpha();
                         //GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
+                        if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT))
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
+                        GlStateManager.color(Color.RED.getRed(), Color.RED.getGreen(), Color.RED.getBlue());
                         Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                         GlStateManager.disableBlend();
                         GlStateManager.enableAlpha();
