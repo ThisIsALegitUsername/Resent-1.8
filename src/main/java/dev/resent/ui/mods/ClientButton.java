@@ -13,15 +13,10 @@ public class ClientButton extends GuiButton
     
     @Override
     public void drawButton(final Minecraft mc, final int mouseX, final int mouseY) {
-        if (this.visible) {
-            final FontRenderer fr = mc.fontRendererObj;
-            this.hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
-            Gui.drawRect(this.xPosition + this.width, this.yPosition + this.height, this.xPosition, this.yPosition, -1358954496);
-            int j = -1;
-            if (this.hovered) {
-                j = -11184641;
-            }
-            this.drawCenteredString(fr, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, j);
-        }
+        FontRenderer fr = mc.fontRendererObj;
+        this.hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
+        Gui.drawRect(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, hovered ? 0x30ffffff :0x20ffffff);
+
+        this.drawCenteredString(fr, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, -1);
     }
 }

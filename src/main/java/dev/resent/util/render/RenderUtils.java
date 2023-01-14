@@ -1,6 +1,8 @@
 package dev.resent.util.render;
 
 import dev.resent.setting.ModeSetting;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 public class RenderUtils {
@@ -55,4 +57,12 @@ public class RenderUtils {
         Gui.drawRect(width - 1, y, width, height, color);
         Gui.drawRect(x, height - 1, width, height, color);
     }
+
+    public static void drawCenteredScaledString(String text, int x,int y, int color, float scale){
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scale,scale,scale);
+        Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (x / scale), (int) (y / scale), color);
+        GlStateManager.popMatrix();
+    }
+
 }
