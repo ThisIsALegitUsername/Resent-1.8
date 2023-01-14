@@ -1,4 +1,4 @@
-package dev.resent.ui.mods;
+package dev.resent.ui;
 
 import java.io.IOException;
 

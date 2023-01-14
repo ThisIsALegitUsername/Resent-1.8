@@ -3,8 +3,8 @@ package dev.resent.module.impl.movement;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
-import dev.resent.ui.mods.ClickGUI;
-import dev.resent.ui.mods.HUDConfigScreen;
+import dev.resent.ui.ClickGUI;
+import dev.resent.ui.HUDConfigScreen;
 import net.minecraft.client.gui.FontRenderer;
 
 public class Sprint extends RenderModule {

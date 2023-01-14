@@ -1,4 +1,4 @@
-package dev.resent.ui.mods;
+package dev.resent.ui;
 
 import dev.resent.Resent;
 import dev.resent.module.base.RenderModule;
