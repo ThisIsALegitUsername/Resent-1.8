@@ -893,33 +893,11 @@ public class GuiIngame extends Gui {
             this.itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
         }
     }
-
-    private void attemptSwing() {
-        if(ModManager.animations.isEnabled()) {
-            if (this.mc.thePlayer.getItemInUseCount() > 0) {
-                final boolean mouseDown = this.mc.gameSettings.keyBindAttack.isKeyDown() && this.mc.gameSettings.keyBindUseItem.isKeyDown();
-                if (mouseDown && this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    this.swingItem(this.mc.thePlayer);
-                }else if(mouseDown) {
-                    this.swingItem(this.mc.thePlayer);
-                }
-            }
-        }
-    }
-    
-    private void swingItem(EntityPlayerSP entityplayersp) {
-        final int swingAnimationEnd = entityplayersp.isPotionActive(Potion.digSpeed) ? (6 - (1 + entityplayersp.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1) : (entityplayersp.isPotionActive(Potion.digSlowdown) ? (6 + (1 + entityplayersp.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2) : 6);
-        if (!entityplayersp.isSwingInProgress || entityplayersp.swingProgressInt >= swingAnimationEnd / 2 || entityplayersp.swingProgressInt < 0) {
-            entityplayersp.swingProgressInt = -1;
-            entityplayersp.isSwingInProgress = true;
-        }
-    }
     
     /**+
      * The update tick for the ingame UI
      */
     public void updateTick() {
-        attemptSwing();
         if (this.recordPlayingUpFor > 0) {
             --this.recordPlayingUpFor;
         }
