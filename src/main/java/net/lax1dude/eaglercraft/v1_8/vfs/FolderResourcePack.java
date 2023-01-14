@@ -15,7 +15,8 @@ package net.lax1dude.eaglercraft.v1_8.vfs;
  */
 
 public class FolderResourcePack extends net.lax1dude.eaglercraft.v1_8.internal.vfs.FolderResourcePack {
-	public FolderResourcePack(String resourcePackFileIn, String prefix) {
-		super(resourcePackFileIn, prefix);
-	}
+
+    public FolderResourcePack(String resourcePackFileIn, String prefix) {
+        super(resourcePackFileIn, prefix);
+    }
 }

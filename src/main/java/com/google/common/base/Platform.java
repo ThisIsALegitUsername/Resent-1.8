@@ -16,9 +16,8 @@
 
 package com.google.common.base;
 
-import java.lang.ref.WeakReference;
-
 import com.google.common.annotations.GwtCompatible;
+import java.lang.ref.WeakReference;
 
 /**
  * Methods factored out so that they can be emulated differently in GWT.
@@ -27,20 +26,20 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible(emulated = true)
 final class Platform {
-	private Platform() {
-	}
 
-	/** Calls {@link System#nanoTime()}. */
-	static long systemNanoTime() {
-		return System.nanoTime();
-	}
+    private Platform() {}
 
-	static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
-		return matcher.precomputedInternal();
-	}
+    /** Calls {@link System#nanoTime()}. */
+    static long systemNanoTime() {
+        return System.nanoTime();
+    }
 
-	static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
-		WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
-		return ref == null ? Optional.<T>absent() : Optional.of(enumClass.cast(ref.get()));
-	}
+    static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
+        return matcher.precomputedInternal();
+    }
+
+    static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
+        WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
+        return ref == null ? Optional.<T>absent() : Optional.of(enumClass.cast(ref.get()));
+    }
 }

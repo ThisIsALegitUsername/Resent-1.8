@@ -9,11 +9,11 @@ import java.lang.annotation.Target;
  * a qualifier nickname. Applying a nickname annotation X to a element Y should
  * be interpreted as having the same meaning as applying all of annotations of X
  * (other than QualifierNickname) to Y.
- * 
+ *
  * <p>
  * Thus, you might define a qualifier SocialSecurityNumber as follows:
  * </p>
- * 
+ *
  * <pre>
  * &#064;Documented
  * &#064;TypeQualifierNickname
@@ -26,5 +26,4 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface TypeQualifierNickname {
-
 }

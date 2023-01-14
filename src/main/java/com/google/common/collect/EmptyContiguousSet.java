@@ -10,17 +10,15 @@
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
-*/
+ */
 package com.google.common.collect;
-
-import java.io.Serializable;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
-import javax.annotation.Nullable;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
+import java.io.Serializable;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import javax.annotation.Nullable;
 
 /**
  * An empty contiguous set.
@@ -30,129 +28,131 @@ import com.google.common.annotations.GwtIncompatible;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("unchecked") // allow ungenerified Comparable types
 final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
-	EmptyContiguousSet(DiscreteDomain<C> domain) {
-		super(domain);
-	}
 
-	@Override
-	public C first() {
-		throw new NoSuchElementException();
-	}
+    EmptyContiguousSet(DiscreteDomain<C> domain) {
+        super(domain);
+    }
 
-	@Override
-	public C last() {
-		throw new NoSuchElementException();
-	}
+    @Override
+    public C first() {
+        throw new NoSuchElementException();
+    }
 
-	@Override
-	public int size() {
-		return 0;
-	}
+    @Override
+    public C last() {
+        throw new NoSuchElementException();
+    }
 
-	@Override
-	public ContiguousSet<C> intersection(ContiguousSet<C> other) {
-		return this;
-	}
+    @Override
+    public int size() {
+        return 0;
+    }
 
-	@Override
-	public Range<C> range() {
-		throw new NoSuchElementException();
-	}
+    @Override
+    public ContiguousSet<C> intersection(ContiguousSet<C> other) {
+        return this;
+    }
 
-	@Override
-	public Range<C> range(BoundType lowerBoundType, BoundType upperBoundType) {
-		throw new NoSuchElementException();
-	}
+    @Override
+    public Range<C> range() {
+        throw new NoSuchElementException();
+    }
 
-	@Override
-	ContiguousSet<C> headSetImpl(C toElement, boolean inclusive) {
-		return this;
-	}
+    @Override
+    public Range<C> range(BoundType lowerBoundType, BoundType upperBoundType) {
+        throw new NoSuchElementException();
+    }
 
-	@Override
-	ContiguousSet<C> subSetImpl(C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
-		return this;
-	}
+    @Override
+    ContiguousSet<C> headSetImpl(C toElement, boolean inclusive) {
+        return this;
+    }
 
-	@Override
-	ContiguousSet<C> tailSetImpl(C fromElement, boolean fromInclusive) {
-		return this;
-	}
+    @Override
+    ContiguousSet<C> subSetImpl(C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+        return this;
+    }
 
-	@GwtIncompatible("not used by GWT emulation")
-	@Override
-	int indexOf(Object target) {
-		return -1;
-	}
+    @Override
+    ContiguousSet<C> tailSetImpl(C fromElement, boolean fromInclusive) {
+        return this;
+    }
 
-	@Override
-	public UnmodifiableIterator<C> iterator() {
-		return Iterators.emptyIterator();
-	}
+    @GwtIncompatible("not used by GWT emulation")
+    @Override
+    int indexOf(Object target) {
+        return -1;
+    }
 
-	@GwtIncompatible("NavigableSet")
-	@Override
-	public UnmodifiableIterator<C> descendingIterator() {
-		return Iterators.emptyIterator();
-	}
+    @Override
+    public UnmodifiableIterator<C> iterator() {
+        return Iterators.emptyIterator();
+    }
 
-	@Override
-	boolean isPartialView() {
-		return false;
-	}
+    @GwtIncompatible("NavigableSet")
+    @Override
+    public UnmodifiableIterator<C> descendingIterator() {
+        return Iterators.emptyIterator();
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return true;
-	}
+    @Override
+    boolean isPartialView() {
+        return false;
+    }
 
-	@Override
-	public ImmutableList<C> asList() {
-		return ImmutableList.of();
-	}
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "[]";
-	}
+    @Override
+    public ImmutableList<C> asList() {
+        return ImmutableList.of();
+    }
 
-	@Override
-	public boolean equals(@Nullable Object object) {
-		if (object instanceof Set) {
-			Set<?> that = (Set<?>) object;
-			return that.isEmpty();
-		}
-		return false;
-	}
+    @Override
+    public String toString() {
+        return "[]";
+    }
 
-	@Override
-	public int hashCode() {
-		return 0;
-	}
+    @Override
+    public boolean equals(@Nullable Object object) {
+        if (object instanceof Set) {
+            Set<?> that = (Set<?>) object;
+            return that.isEmpty();
+        }
+        return false;
+    }
 
-	@GwtIncompatible("serialization")
-	private static final class SerializedForm<C extends Comparable> implements Serializable {
-		private final DiscreteDomain<C> domain;
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 
-		private SerializedForm(DiscreteDomain<C> domain) {
-			this.domain = domain;
-		}
+    @GwtIncompatible("serialization")
+    private static final class SerializedForm<C extends Comparable> implements Serializable {
 
-		private Object readResolve() {
-			return new EmptyContiguousSet<C>(domain);
-		}
+        private final DiscreteDomain<C> domain;
 
-		private static final long serialVersionUID = 0;
-	}
+        private SerializedForm(DiscreteDomain<C> domain) {
+            this.domain = domain;
+        }
 
-	@GwtIncompatible("serialization")
-	@Override
-	Object writeReplace() {
-		return new SerializedForm<C>(domain);
-	}
+        private Object readResolve() {
+            return new EmptyContiguousSet<C>(domain);
+        }
 
-	@GwtIncompatible("NavigableSet")
-	ImmutableSortedSet<C> createDescendingSet() {
-		return new EmptyImmutableSortedSet<C>(Ordering.natural().reverse());
-	}
+        private static final long serialVersionUID = 0;
+    }
+
+    @GwtIncompatible("serialization")
+    @Override
+    Object writeReplace() {
+        return new SerializedForm<C>(domain);
+    }
+
+    @GwtIncompatible("NavigableSet")
+    ImmutableSortedSet<C> createDescendingSet() {
+        return new EmptyImmutableSortedSet<C>(Ordering.natural().reverse());
+    }
 }

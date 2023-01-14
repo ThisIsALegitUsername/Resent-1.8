@@ -16,9 +16,8 @@
 
 package com.google.common.collect;
 
-import java.io.Serializable;
-
 import com.google.common.annotations.GwtCompatible;
+import java.io.Serializable;
 
 /**
  * An ordering that uses the natural order of the string representation of the
@@ -26,25 +25,25 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible(serializable = true)
 final class UsingToStringOrdering extends Ordering<Object> implements Serializable {
-	static final UsingToStringOrdering INSTANCE = new UsingToStringOrdering();
 
-	@Override
-	public int compare(Object left, Object right) {
-		return left.toString().compareTo(right.toString());
-	}
+    static final UsingToStringOrdering INSTANCE = new UsingToStringOrdering();
 
-	// preserve singleton-ness, so equals() and hashCode() work correctly
-	private Object readResolve() {
-		return INSTANCE;
-	}
+    @Override
+    public int compare(Object left, Object right) {
+        return left.toString().compareTo(right.toString());
+    }
 
-	@Override
-	public String toString() {
-		return "Ordering.usingToString()";
-	}
+    // preserve singleton-ness, so equals() and hashCode() work correctly
+    private Object readResolve() {
+        return INSTANCE;
+    }
 
-	private UsingToStringOrdering() {
-	}
+    @Override
+    public String toString() {
+        return "Ordering.usingToString()";
+    }
 
-	private static final long serialVersionUID = 0;
+    private UsingToStringOrdering() {}
+
+    private static final long serialVersionUID = 0;
 }

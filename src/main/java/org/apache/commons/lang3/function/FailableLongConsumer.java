@@ -29,44 +29,44 @@ import java.util.function.LongConsumer;
  */
 @FunctionalInterface
 public interface FailableLongConsumer<E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongConsumer NOP = t -> {
+        /* NOP */
+    };
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableLongConsumer NOP = t -> {
-		/* NOP */};
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongConsumer<E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <E extends Throwable> FailableLongConsumer<E> nop() {
-		return NOP;
-	}
+    /**
+     * Accepts the consumer.
+     *
+     * @param object the parameter for the consumable to accept
+     * @throws E Thrown when the consumer fails.
+     */
+    void accept(long object) throws E;
 
-	/**
-	 * Accepts the consumer.
-	 *
-	 * @param object the parameter for the consumable to accept
-	 * @throws E Thrown when the consumer fails.
-	 */
-	void accept(long object) throws E;
-
-	/**
-	 * Returns a composed {@code FailableLongConsumer} like
-	 * {@link LongConsumer#andThen(LongConsumer)}.
-	 *
-	 * @param after the operation to perform after this one.
-	 * @return a composed {@code FailableLongConsumer} like
-	 *         {@link LongConsumer#andThen(LongConsumer)}.
-	 * @throws NullPointerException if {@code after} is null
-	 */
-	default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {
-		Objects.requireNonNull(after);
-		return (final long t) -> {
-			accept(t);
-			after.accept(t);
-		};
-	}
+    /**
+     * Returns a composed {@code FailableLongConsumer} like
+     * {@link LongConsumer#andThen(LongConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableLongConsumer} like
+     *         {@link LongConsumer#andThen(LongConsumer)}.
+     * @throws NullPointerException if {@code after} is null
+     */
+    default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {
+        Objects.requireNonNull(after);
+        return (final long t) -> {
+            accept(t);
+            after.accept(t);
+        };
+    }
 }

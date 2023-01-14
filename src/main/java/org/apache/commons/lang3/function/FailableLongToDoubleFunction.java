@@ -28,27 +28,26 @@ import java.util.function.LongToDoubleFunction;
  */
 @FunctionalInterface
 public interface FailableLongToDoubleFunction<E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongToDoubleFunction NOP = t -> 0d;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableLongToDoubleFunction NOP = t -> 0d;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongToDoubleFunction<E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <E extends Throwable> FailableLongToDoubleFunction<E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function to the given argument.
-	 *
-	 * @param value the function argument
-	 * @return the function result
-	 * @throws E Thrown when the function fails.
-	 */
-	double applyAsDouble(long value) throws E;
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param value the function argument
+     * @return the function result
+     * @throws E Thrown when the function fails.
+     */
+    double applyAsDouble(long value) throws E;
 }

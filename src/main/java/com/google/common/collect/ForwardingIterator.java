@@ -16,9 +16,8 @@
 
 package com.google.common.collect;
 
-import java.util.Iterator;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.Iterator;
 
 /**
  * An iterator which forwards all its method calls to another iterator.
@@ -33,25 +32,24 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 public abstract class ForwardingIterator<T> extends ForwardingObject implements Iterator<T> {
 
-	/** Constructor for use by subclasses. */
-	protected ForwardingIterator() {
-	}
+    /** Constructor for use by subclasses. */
+    protected ForwardingIterator() {}
 
-	@Override
-	protected abstract Iterator<T> delegate();
+    @Override
+    protected abstract Iterator<T> delegate();
 
-	@Override
-	public boolean hasNext() {
-		return delegate().hasNext();
-	}
+    @Override
+    public boolean hasNext() {
+        return delegate().hasNext();
+    }
 
-	@Override
-	public T next() {
-		return delegate().next();
-	}
+    @Override
+    public T next() {
+        return delegate().next();
+    }
 
-	@Override
-	public void remove() {
-		delegate().remove();
-	}
+    @Override
+    public void remove() {
+        delegate().remove();
+    }
 }

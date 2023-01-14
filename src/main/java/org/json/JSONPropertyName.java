@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 
 @Documented
 @Retention(RUNTIME)
-@Target({METHOD})
+@Target({ METHOD })
 /**
  * Use this annotation on a getter method to override the Bean name
  * parser for Bean -&gt; JSONObject mapping. A value set to empty string <code>""</code>

@@ -1,116 +1,118 @@
 package net.minecraft.client.renderer.chunk;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
+import java.util.List;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.util.EnumWorldBlockLayer;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class ChunkCompileTaskGenerator {
-	private final RenderChunk renderChunk;
-	private final List<Runnable> listFinishRunnables = Lists.newArrayList();
-	private final ChunkCompileTaskGenerator.Type type;
-	private RegionRenderCacheBuilder regionRenderCacheBuilder;
-	private CompiledChunk compiledChunk;
-	private ChunkCompileTaskGenerator.Status status = ChunkCompileTaskGenerator.Status.PENDING;
-	private boolean finished;
-	public long goddamnFuckingTimeout = 0l;
-	public long time = 0;
 
-	public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn) {
-		this.renderChunk = renderChunkIn;
-		this.type = typeIn;
-	}
+    private final RenderChunk renderChunk;
+    private final List<Runnable> listFinishRunnables = Lists.newArrayList();
+    private final ChunkCompileTaskGenerator.Type type;
+    private RegionRenderCacheBuilder regionRenderCacheBuilder;
+    private CompiledChunk compiledChunk;
+    private ChunkCompileTaskGenerator.Status status = ChunkCompileTaskGenerator.Status.PENDING;
+    private boolean finished;
+    public long goddamnFuckingTimeout = 0l;
+    public long time = 0;
 
-	public ChunkCompileTaskGenerator.Status getStatus() {
-		return this.status;
-	}
+    public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn) {
+        this.renderChunk = renderChunkIn;
+        this.type = typeIn;
+    }
 
-	public RenderChunk getRenderChunk() {
-		return this.renderChunk;
-	}
+    public ChunkCompileTaskGenerator.Status getStatus() {
+        return this.status;
+    }
 
-	public CompiledChunk getCompiledChunk() {
-		return this.compiledChunk;
-	}
+    public RenderChunk getRenderChunk() {
+        return this.renderChunk;
+    }
 
-	public void setCompiledChunk(CompiledChunk compiledChunkIn) {
-		this.compiledChunk = compiledChunkIn;
-	}
+    public CompiledChunk getCompiledChunk() {
+        return this.compiledChunk;
+    }
 
-	public RegionRenderCacheBuilder getRegionRenderCacheBuilder() {
-		return this.regionRenderCacheBuilder;
-	}
+    public void setCompiledChunk(CompiledChunk compiledChunkIn) {
+        this.compiledChunk = compiledChunkIn;
+    }
 
-	public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
-		this.regionRenderCacheBuilder = regionRenderCacheBuilderIn;
-	}
+    public RegionRenderCacheBuilder getRegionRenderCacheBuilder() {
+        return this.regionRenderCacheBuilder;
+    }
 
-	public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
-		this.status = statusIn;
-	}
+    public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
+        this.regionRenderCacheBuilder = regionRenderCacheBuilderIn;
+    }
 
-	public void finish() {
-		if (this.type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK
-				&& this.status != ChunkCompileTaskGenerator.Status.DONE) {
-			this.renderChunk.setNeedsUpdate(true);
-		}
+    public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
+        this.status = statusIn;
+    }
 
-		this.finished = true;
-		this.status = ChunkCompileTaskGenerator.Status.DONE;
+    public void finish() {
+        if (this.type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK && this.status != ChunkCompileTaskGenerator.Status.DONE) {
+            this.renderChunk.setNeedsUpdate(true);
+        }
 
-		for (Runnable runnable : this.listFinishRunnables) {
-			runnable.run();
-		}
-	}
+        this.finished = true;
+        this.status = ChunkCompileTaskGenerator.Status.DONE;
 
-	public void addFinishRunnable(Runnable parRunnable) {
-		this.listFinishRunnables.add(parRunnable);
-		if (this.finished) {
-			parRunnable.run();
-		}
-	}
+        for (Runnable runnable : this.listFinishRunnables) {
+            runnable.run();
+        }
+    }
 
-	public ChunkCompileTaskGenerator.Type getType() {
-		return this.type;
-	}
+    public void addFinishRunnable(Runnable parRunnable) {
+        this.listFinishRunnables.add(parRunnable);
+        if (this.finished) {
+            parRunnable.run();
+        }
+    }
 
-	public boolean isFinished() {
-		return this.finished;
-	}
+    public ChunkCompileTaskGenerator.Type getType() {
+        return this.type;
+    }
 
-	public boolean canExecuteYet() {
-		if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-			return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
-		} else {
-			return true;
-		}
-	}
+    public boolean isFinished() {
+        return this.finished;
+    }
 
-	public static enum Status {
-		PENDING, COMPILING, UPLOADING, DONE;
-	}
+    public boolean canExecuteYet() {
+        if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
+            return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
+        } else {
+            return true;
+        }
+    }
 
-	public static enum Type {
-		REBUILD_CHUNK, RESORT_TRANSPARENCY;
-	}
+    public static enum Status {
+        PENDING,
+        COMPILING,
+        UPLOADING,
+        DONE
+    }
+
+    public static enum Type {
+        REBUILD_CHUNK,
+        RESORT_TRANSPARENCY
+    }
 }

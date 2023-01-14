@@ -29,44 +29,44 @@ import java.util.function.DoubleConsumer;
  */
 @FunctionalInterface
 public interface FailableDoubleConsumer<E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoubleConsumer NOP = t -> {
+        /* NOP */
+    };
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableDoubleConsumer NOP = t -> {
-		/* NOP */};
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableDoubleConsumer<E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <E extends Throwable> FailableDoubleConsumer<E> nop() {
-		return NOP;
-	}
+    /**
+     * Accepts the consumer.
+     *
+     * @param value the parameter for the consumable to accept
+     * @throws E Thrown when the consumer fails.
+     */
+    void accept(double value) throws E;
 
-	/**
-	 * Accepts the consumer.
-	 *
-	 * @param value the parameter for the consumable to accept
-	 * @throws E Thrown when the consumer fails.
-	 */
-	void accept(double value) throws E;
-
-	/**
-	 * Returns a composed {@code FailableDoubleConsumer} like
-	 * {@link DoubleConsumer#andThen(DoubleConsumer)}.
-	 *
-	 * @param after the operation to perform after this one.
-	 * @return a composed {@code FailableDoubleConsumer} like
-	 *         {@link DoubleConsumer#andThen(DoubleConsumer)}.
-	 * @throws NullPointerException when {@code after} is null.
-	 */
-	default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {
-		Objects.requireNonNull(after);
-		return (final double t) -> {
-			accept(t);
-			after.accept(t);
-		};
-	}
+    /**
+     * Returns a composed {@code FailableDoubleConsumer} like
+     * {@link DoubleConsumer#andThen(DoubleConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableDoubleConsumer} like
+     *         {@link DoubleConsumer#andThen(DoubleConsumer)}.
+     * @throws NullPointerException when {@code after} is null.
+     */
+    default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {
+        Objects.requireNonNull(after);
+        return (final double t) -> {
+            accept(t);
+            after.accept(t);
+        };
+    }
 }

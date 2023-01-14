@@ -16,15 +16,13 @@
 
 package com.google.common.collect;
 
+import com.google.common.annotations.GwtCompatible;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedSet;
-
 import javax.annotation.Nullable;
-
-import com.google.common.annotations.GwtCompatible;
 
 /**
  * Basic implementation of the {@link SortedSetMultimap} interface. It's a
@@ -36,111 +34,112 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V> implements SortedSetMultimap<K, V> {
-	/**
-	 * Creates a new multimap that uses the provided map.
-	 *
-	 * @param map place to store the mapping from each key to its corresponding
-	 *            values
-	 */
-	protected AbstractSortedSetMultimap(Map<K, Collection<V>> map) {
-		super(map);
-	}
 
-	@Override
-	abstract SortedSet<V> createCollection();
+    /**
+     * Creates a new multimap that uses the provided map.
+     *
+     * @param map place to store the mapping from each key to its corresponding
+     *            values
+     */
+    protected AbstractSortedSetMultimap(Map<K, Collection<V>> map) {
+        super(map);
+    }
 
-	@Override
-	SortedSet<V> createUnmodifiableEmptyCollection() {
-		Comparator<? super V> comparator = valueComparator();
-		if (comparator == null) {
-			return Collections.unmodifiableSortedSet(createCollection());
-		} else {
-			return ImmutableSortedSet.emptySet(valueComparator());
-		}
-	}
+    @Override
+    abstract SortedSet<V> createCollection();
 
-	// Following Javadoc copied from Multimap and SortedSetMultimap.
+    @Override
+    SortedSet<V> createUnmodifiableEmptyCollection() {
+        Comparator<? super V> comparator = valueComparator();
+        if (comparator == null) {
+            return Collections.unmodifiableSortedSet(createCollection());
+        } else {
+            return ImmutableSortedSet.emptySet(valueComparator());
+        }
+    }
 
-	/**
-	 * Returns a collection view of all values associated with a key. If no mappings
-	 * in the multimap have the provided key, an empty collection is returned.
-	 *
-	 * <p>
-	 * Changes to the returned collection will update the underlying multimap, and
-	 * vice versa.
-	 *
-	 * <p>
-	 * Because a {@code SortedSetMultimap} has unique sorted values for a given key,
-	 * this method returns a {@link SortedSet}, instead of the {@link Collection}
-	 * specified in the {@link Multimap} interface.
-	 */
-	@Override
-	public SortedSet<V> get(@Nullable K key) {
-		return (SortedSet<V>) super.get(key);
-	}
+    // Following Javadoc copied from Multimap and SortedSetMultimap.
 
-	/**
-	 * Removes all values associated with a given key. The returned collection is
-	 * immutable.
-	 *
-	 * <p>
-	 * Because a {@code SortedSetMultimap} has unique sorted values for a given key,
-	 * this method returns a {@link SortedSet}, instead of the {@link Collection}
-	 * specified in the {@link Multimap} interface.
-	 */
-	@Override
-	public SortedSet<V> removeAll(@Nullable Object key) {
-		return (SortedSet<V>) super.removeAll(key);
-	}
+    /**
+     * Returns a collection view of all values associated with a key. If no mappings
+     * in the multimap have the provided key, an empty collection is returned.
+     *
+     * <p>
+     * Changes to the returned collection will update the underlying multimap, and
+     * vice versa.
+     *
+     * <p>
+     * Because a {@code SortedSetMultimap} has unique sorted values for a given key,
+     * this method returns a {@link SortedSet}, instead of the {@link Collection}
+     * specified in the {@link Multimap} interface.
+     */
+    @Override
+    public SortedSet<V> get(@Nullable K key) {
+        return (SortedSet<V>) super.get(key);
+    }
 
-	/**
-	 * Stores a collection of values with the same key, replacing any existing
-	 * values for that key. The returned collection is immutable.
-	 *
-	 * <p>
-	 * Because a {@code SortedSetMultimap} has unique sorted values for a given key,
-	 * this method returns a {@link SortedSet}, instead of the {@link Collection}
-	 * specified in the {@link Multimap} interface.
-	 *
-	 * <p>
-	 * Any duplicates in {@code values} will be stored in the multimap once.
-	 */
-	@Override
-	public SortedSet<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
-		return (SortedSet<V>) super.replaceValues(key, values);
-	}
+    /**
+     * Removes all values associated with a given key. The returned collection is
+     * immutable.
+     *
+     * <p>
+     * Because a {@code SortedSetMultimap} has unique sorted values for a given key,
+     * this method returns a {@link SortedSet}, instead of the {@link Collection}
+     * specified in the {@link Multimap} interface.
+     */
+    @Override
+    public SortedSet<V> removeAll(@Nullable Object key) {
+        return (SortedSet<V>) super.removeAll(key);
+    }
 
-	/**
-	 * Returns a map view that associates each key with the corresponding values in
-	 * the multimap. Changes to the returned map, such as element removal, will
-	 * update the underlying multimap. The map does not support {@code setValue} on
-	 * its entries, {@code put}, or {@code putAll}.
-	 *
-	 * <p>
-	 * When passed a key that is present in the map, {@code
-	 * asMap().get(Object)} has the same behavior as {@link #get}, returning a live
-	 * collection. When passed a key that is not present, however, {@code
-	 * asMap().get(Object)} returns {@code null} instead of an empty collection.
-	 *
-	 * <p>
-	 * Though the method signature doesn't say so explicitly, the returned map has
-	 * {@link SortedSet} values.
-	 */
-	@Override
-	public Map<K, Collection<V>> asMap() {
-		return super.asMap();
-	}
+    /**
+     * Stores a collection of values with the same key, replacing any existing
+     * values for that key. The returned collection is immutable.
+     *
+     * <p>
+     * Because a {@code SortedSetMultimap} has unique sorted values for a given key,
+     * this method returns a {@link SortedSet}, instead of the {@link Collection}
+     * specified in the {@link Multimap} interface.
+     *
+     * <p>
+     * Any duplicates in {@code values} will be stored in the multimap once.
+     */
+    @Override
+    public SortedSet<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
+        return (SortedSet<V>) super.replaceValues(key, values);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Consequently, the values do not follow their natural ordering or the ordering
-	 * of the value comparator.
-	 */
-	@Override
-	public Collection<V> values() {
-		return super.values();
-	}
+    /**
+     * Returns a map view that associates each key with the corresponding values in
+     * the multimap. Changes to the returned map, such as element removal, will
+     * update the underlying multimap. The map does not support {@code setValue} on
+     * its entries, {@code put}, or {@code putAll}.
+     *
+     * <p>
+     * When passed a key that is present in the map, {@code
+     * asMap().get(Object)} has the same behavior as {@link #get}, returning a live
+     * collection. When passed a key that is not present, however, {@code
+     * asMap().get(Object)} returns {@code null} instead of an empty collection.
+     *
+     * <p>
+     * Though the method signature doesn't say so explicitly, the returned map has
+     * {@link SortedSet} values.
+     */
+    @Override
+    public Map<K, Collection<V>> asMap() {
+        return super.asMap();
+    }
 
-	private static final long serialVersionUID = 430848587173315748L;
+    /**
+     * {@inheritDoc}
+     *
+     * Consequently, the values do not follow their natural ordering or the ordering
+     * of the value comparator.
+     */
+    @Override
+    public Collection<V> values() {
+        return super.values();
+    }
+
+    private static final long serialVersionUID = 430848587173315748L;
 }

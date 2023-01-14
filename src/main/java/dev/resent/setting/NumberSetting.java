@@ -3,6 +3,7 @@ package dev.resent.setting;
 import net.minecraft.util.MathHelper;
 
 public class NumberSetting extends Setting {
+
     public float value;
     public float increment;
     public float decrement;
@@ -77,5 +78,4 @@ public class NumberSetting extends Setting {
         }
         this.value = MathHelper.clamp_float(newValue, min, max);
     }
-
 }

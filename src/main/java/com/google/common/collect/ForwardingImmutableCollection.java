@@ -26,6 +26,6 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible(emulated = true)
 class ForwardingImmutableCollection {
-	private ForwardingImmutableCollection() {
-	}
+
+    private ForwardingImmutableCollection() {}
 }

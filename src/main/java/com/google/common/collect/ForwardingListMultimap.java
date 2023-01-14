@@ -16,11 +16,9 @@
 
 package com.google.common.collect;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * A list multimap which forwards all its method calls to another list multimap.
@@ -35,25 +33,24 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 public abstract class ForwardingListMultimap<K, V> extends ForwardingMultimap<K, V> implements ListMultimap<K, V> {
 
-	/** Constructor for use by subclasses. */
-	protected ForwardingListMultimap() {
-	}
+    /** Constructor for use by subclasses. */
+    protected ForwardingListMultimap() {}
 
-	@Override
-	protected abstract ListMultimap<K, V> delegate();
+    @Override
+    protected abstract ListMultimap<K, V> delegate();
 
-	@Override
-	public List<V> get(@Nullable K key) {
-		return delegate().get(key);
-	}
+    @Override
+    public List<V> get(@Nullable K key) {
+        return delegate().get(key);
+    }
 
-	@Override
-	public List<V> removeAll(@Nullable Object key) {
-		return delegate().removeAll(key);
-	}
+    @Override
+    public List<V> removeAll(@Nullable Object key) {
+        return delegate().removeAll(key);
+    }
 
-	@Override
-	public List<V> replaceValues(K key, Iterable<? extends V> values) {
-		return delegate().replaceValues(key, values);
-	}
+    @Override
+    public List<V> replaceValues(K key, Iterable<? extends V> values) {
+        return delegate().replaceValues(key, values);
+    }
 }

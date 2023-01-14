@@ -58,8 +58,8 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface DeclareRoles {
-	/**
-	 * List of security role names.
-	 */
-	String[] value();
+    /**
+     * List of security role names.
+     */
+    String[] value();
 }

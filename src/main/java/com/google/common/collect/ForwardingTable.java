@@ -16,11 +16,10 @@
 
 package com.google.common.collect;
 
+import com.google.common.annotations.GwtCompatible;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-import com.google.common.annotations.GwtCompatible;
 
 /**
  * A table which forwards all its method calls to another table. Subclasses
@@ -34,115 +33,115 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public abstract class ForwardingTable<R, C, V> extends ForwardingObject implements Table<R, C, V> {
-	/** Constructor for use by subclasses. */
-	protected ForwardingTable() {
-	}
 
-	@Override
-	protected abstract Table<R, C, V> delegate();
+    /** Constructor for use by subclasses. */
+    protected ForwardingTable() {}
 
-	@Override
-	public Set<Cell<R, C, V>> cellSet() {
-		return delegate().cellSet();
-	}
+    @Override
+    protected abstract Table<R, C, V> delegate();
 
-	@Override
-	public void clear() {
-		delegate().clear();
-	}
+    @Override
+    public Set<Cell<R, C, V>> cellSet() {
+        return delegate().cellSet();
+    }
 
-	@Override
-	public Map<R, V> column(C columnKey) {
-		return delegate().column(columnKey);
-	}
+    @Override
+    public void clear() {
+        delegate().clear();
+    }
 
-	@Override
-	public Set<C> columnKeySet() {
-		return delegate().columnKeySet();
-	}
+    @Override
+    public Map<R, V> column(C columnKey) {
+        return delegate().column(columnKey);
+    }
 
-	@Override
-	public Map<C, Map<R, V>> columnMap() {
-		return delegate().columnMap();
-	}
+    @Override
+    public Set<C> columnKeySet() {
+        return delegate().columnKeySet();
+    }
 
-	@Override
-	public boolean contains(Object rowKey, Object columnKey) {
-		return delegate().contains(rowKey, columnKey);
-	}
+    @Override
+    public Map<C, Map<R, V>> columnMap() {
+        return delegate().columnMap();
+    }
 
-	@Override
-	public boolean containsColumn(Object columnKey) {
-		return delegate().containsColumn(columnKey);
-	}
+    @Override
+    public boolean contains(Object rowKey, Object columnKey) {
+        return delegate().contains(rowKey, columnKey);
+    }
 
-	@Override
-	public boolean containsRow(Object rowKey) {
-		return delegate().containsRow(rowKey);
-	}
+    @Override
+    public boolean containsColumn(Object columnKey) {
+        return delegate().containsColumn(columnKey);
+    }
 
-	@Override
-	public boolean containsValue(Object value) {
-		return delegate().containsValue(value);
-	}
+    @Override
+    public boolean containsRow(Object rowKey) {
+        return delegate().containsRow(rowKey);
+    }
 
-	@Override
-	public V get(Object rowKey, Object columnKey) {
-		return delegate().get(rowKey, columnKey);
-	}
+    @Override
+    public boolean containsValue(Object value) {
+        return delegate().containsValue(value);
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return delegate().isEmpty();
-	}
+    @Override
+    public V get(Object rowKey, Object columnKey) {
+        return delegate().get(rowKey, columnKey);
+    }
 
-	@Override
-	public V put(R rowKey, C columnKey, V value) {
-		return delegate().put(rowKey, columnKey, value);
-	}
+    @Override
+    public boolean isEmpty() {
+        return delegate().isEmpty();
+    }
 
-	@Override
-	public void putAll(Table<? extends R, ? extends C, ? extends V> table) {
-		delegate().putAll(table);
-	}
+    @Override
+    public V put(R rowKey, C columnKey, V value) {
+        return delegate().put(rowKey, columnKey, value);
+    }
 
-	@Override
-	public V remove(Object rowKey, Object columnKey) {
-		return delegate().remove(rowKey, columnKey);
-	}
+    @Override
+    public void putAll(Table<? extends R, ? extends C, ? extends V> table) {
+        delegate().putAll(table);
+    }
 
-	@Override
-	public Map<C, V> row(R rowKey) {
-		return delegate().row(rowKey);
-	}
+    @Override
+    public V remove(Object rowKey, Object columnKey) {
+        return delegate().remove(rowKey, columnKey);
+    }
 
-	@Override
-	public Set<R> rowKeySet() {
-		return delegate().rowKeySet();
-	}
+    @Override
+    public Map<C, V> row(R rowKey) {
+        return delegate().row(rowKey);
+    }
 
-	@Override
-	public Map<R, Map<C, V>> rowMap() {
-		return delegate().rowMap();
-	}
+    @Override
+    public Set<R> rowKeySet() {
+        return delegate().rowKeySet();
+    }
 
-	@Override
-	public int size() {
-		return delegate().size();
-	}
+    @Override
+    public Map<R, Map<C, V>> rowMap() {
+        return delegate().rowMap();
+    }
 
-	@Override
-	public Collection<V> values() {
-		return delegate().values();
-	}
+    @Override
+    public int size() {
+        return delegate().size();
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return (obj == this) || delegate().equals(obj);
-	}
+    @Override
+    public Collection<V> values() {
+        return delegate().values();
+    }
 
-	@Override
-	public int hashCode() {
-		return delegate().hashCode();
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return (obj == this) || delegate().equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return delegate().hashCode();
+    }
 }

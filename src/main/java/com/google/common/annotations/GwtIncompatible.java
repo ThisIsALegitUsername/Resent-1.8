@@ -41,11 +41,11 @@ import java.lang.annotation.Target;
 @Documented
 @GwtCompatible
 public @interface GwtIncompatible {
-	/**
-	 * Describes why the annotated element is incompatible with GWT. Since this is
-	 * generally due to a dependence on a type/method which GWT doesn't support, it
-	 * is sufficient to simply reference the unsupported type/method. E.g.
-	 * "Class.isInstance".
-	 */
-	String value();
+    /**
+     * Describes why the annotated element is incompatible with GWT. Since this is
+     * generally due to a dependence on a type/method which GWT doesn't support, it
+     * is sufficient to simply reference the unsupported type/method. E.g.
+     * "Class.isInstance".
+     */
+    String value();
 }

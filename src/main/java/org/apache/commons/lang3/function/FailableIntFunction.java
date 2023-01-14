@@ -29,28 +29,27 @@ import java.util.function.IntFunction;
  */
 @FunctionalInterface
 public interface FailableIntFunction<R, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntFunction NOP = t -> null;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableIntFunction NOP = t -> null;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <R> Return type.
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function.
-	 *
-	 * @param input the input for the function
-	 * @return the result of the function
-	 * @throws E Thrown when the function fails.
-	 */
-	R apply(int input) throws E;
+    /**
+     * Applies this function.
+     *
+     * @param input the input for the function
+     * @return the result of the function
+     * @throws E Thrown when the function fails.
+     */
+    R apply(int input) throws E;
 }

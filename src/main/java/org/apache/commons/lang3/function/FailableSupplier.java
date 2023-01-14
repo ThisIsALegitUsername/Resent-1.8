@@ -29,12 +29,11 @@ import java.util.function.Supplier;
  */
 @FunctionalInterface
 public interface FailableSupplier<R, E extends Throwable> {
-
-	/**
-	 * Supplies an object
-	 *
-	 * @return a result
-	 * @throws E if the supplier fails
-	 */
-	R get() throws E;
+    /**
+     * Supplies an object
+     *
+     * @return a result
+     * @throws E if the supplier fails
+     */
+    R get() throws E;
 }

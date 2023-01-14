@@ -20,6 +20,7 @@ import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
 
 public abstract class IDBKeyRange implements JSObject {
+
     @JSProperty
     public abstract JSObject getLower();
 
@@ -49,8 +50,7 @@ public abstract class IDBKeyRange implements JSObject {
         return upperBound(upper, false);
     }
 
-    @JSBody(params = { "lower", "upper", "lowerOpen", "upperOpen" },
-            script = "return IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen);")
+    @JSBody(params = { "lower", "upper", "lowerOpen", "upperOpen" }, script = "return IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen);")
     public static native IDBKeyRange bound(JSObject lower, JSObject upper, boolean lowerOpen, boolean upperOpen);
 
     public static IDBKeyRange bound(JSObject lower, JSObject upper) {

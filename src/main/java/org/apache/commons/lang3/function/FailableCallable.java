@@ -27,12 +27,11 @@ package org.apache.commons.lang3.function;
  */
 @FunctionalInterface
 public interface FailableCallable<R, E extends Throwable> {
-
-	/**
-	 * Calls the callable.
-	 *
-	 * @return The value returned from the callable
-	 * @throws E if the callable fails
-	 */
-	R call() throws E;
+    /**
+     * Calls the callable.
+     *
+     * @return The value returned from the callable
+     * @throws E if the callable fails
+     */
+    R call() throws E;
 }

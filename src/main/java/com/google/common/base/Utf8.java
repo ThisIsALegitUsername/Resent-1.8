@@ -40,167 +40,175 @@ import com.google.common.annotations.GwtCompatible;
 @Beta
 @GwtCompatible
 public final class Utf8 {
-	/**
-	 * Returns the number of bytes in the UTF-8-encoded form of {@code sequence}.
-	 * For a string, this method is equivalent to
-	 * {@code string.getBytes(UTF_8).length}, but is more efficient in both time and
-	 * space.
-	 *
-	 * @throws IllegalArgumentException if {@code sequence} contains ill-formed
-	 *                                  UTF-16 (unpaired surrogates)
-	 */
-	public static int encodedLength(CharSequence sequence) {
-		// Warning to maintainers: this implementation is highly optimized.
-		int utf16Length = sequence.length();
-		int utf8Length = utf16Length;
-		int i = 0;
 
-		// This loop optimizes for pure ASCII.
-		while (i < utf16Length && sequence.charAt(i) < 0x80) {
-			i++;
-		}
+    /**
+     * Returns the number of bytes in the UTF-8-encoded form of {@code sequence}.
+     * For a string, this method is equivalent to
+     * {@code string.getBytes(UTF_8).length}, but is more efficient in both time and
+     * space.
+     *
+     * @throws IllegalArgumentException if {@code sequence} contains ill-formed
+     *                                  UTF-16 (unpaired surrogates)
+     */
+    public static int encodedLength(CharSequence sequence) {
+        // Warning to maintainers: this implementation is highly optimized.
+        int utf16Length = sequence.length();
+        int utf8Length = utf16Length;
+        int i = 0;
 
-		// This loop optimizes for chars less than 0x800.
-		for (; i < utf16Length; i++) {
-			char c = sequence.charAt(i);
-			if (c < 0x800) {
-				utf8Length += ((0x7f - c) >>> 31); // branch free!
-			} else {
-				utf8Length += encodedLengthGeneral(sequence, i);
-				break;
-			}
-		}
+        // This loop optimizes for pure ASCII.
+        while (i < utf16Length && sequence.charAt(i) < 0x80) {
+            i++;
+        }
 
-		if (utf8Length < utf16Length) {
-			// Necessary and sufficient condition for overflow because of maximum 3x
-			// expansion
-			throw new IllegalArgumentException("UTF-8 length does not fit in int: " + (utf8Length + (1L << 32)));
-		}
-		return utf8Length;
-	}
+        // This loop optimizes for chars less than 0x800.
+        for (; i < utf16Length; i++) {
+            char c = sequence.charAt(i);
+            if (c < 0x800) {
+                utf8Length += ((0x7f - c) >>> 31); // branch free!
+            } else {
+                utf8Length += encodedLengthGeneral(sequence, i);
+                break;
+            }
+        }
 
-	private static int encodedLengthGeneral(CharSequence sequence, int start) {
-		int utf16Length = sequence.length();
-		int utf8Length = 0;
-		for (int i = start; i < utf16Length; i++) {
-			char c = sequence.charAt(i);
-			if (c < 0x800) {
-				utf8Length += (0x7f - c) >>> 31; // branch free!
-			} else {
-				utf8Length += 2;
-				// jdk7+: if (Character.isSurrogate(c)) {
-				if (Character.MIN_SURROGATE <= c && c <= Character.MAX_SURROGATE) {
-					// Check that we have a well-formed surrogate pair.
-					int cp = Character.codePointAt(sequence, i);
-					if (cp < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-						throw new IllegalArgumentException("Unpaired surrogate at index " + i);
-					}
-					i++;
-				}
-			}
-		}
-		return utf8Length;
-	}
+        if (utf8Length < utf16Length) {
+            // Necessary and sufficient condition for overflow because of maximum 3x
+            // expansion
+            throw new IllegalArgumentException("UTF-8 length does not fit in int: " + (utf8Length + (1L << 32)));
+        }
+        return utf8Length;
+    }
 
-	/**
-	 * Returns {@code true} if {@code bytes} is a <i>well-formed</i> UTF-8 byte
-	 * sequence according to Unicode 6.0. Note that this is a stronger criterion
-	 * than simply whether the bytes can be decoded. For example, some versions of
-	 * the JDK decoder will accept "non-shortest form" byte sequences, but encoding
-	 * never reproduces these. Such byte sequences are <i>not</i> considered
-	 * well-formed.
-	 *
-	 * <p>
-	 * This method returns {@code true} if and only if
-	 * {@code Arrays.equals(bytes, new
-	 * String(bytes, UTF_8).getBytes(UTF_8))} does, but is more efficient in both
-	 * time and space.
-	 */
-	public static boolean isWellFormed(byte[] bytes) {
-		return isWellFormed(bytes, 0, bytes.length);
-	}
+    private static int encodedLengthGeneral(CharSequence sequence, int start) {
+        int utf16Length = sequence.length();
+        int utf8Length = 0;
+        for (int i = start; i < utf16Length; i++) {
+            char c = sequence.charAt(i);
+            if (c < 0x800) {
+                utf8Length += (0x7f - c) >>> 31; // branch free!
+            } else {
+                utf8Length += 2;
+                // jdk7+: if (Character.isSurrogate(c)) {
+                if (Character.MIN_SURROGATE <= c && c <= Character.MAX_SURROGATE) {
+                    // Check that we have a well-formed surrogate pair.
+                    int cp = Character.codePointAt(sequence, i);
+                    if (cp < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+                        throw new IllegalArgumentException("Unpaired surrogate at index " + i);
+                    }
+                    i++;
+                }
+            }
+        }
+        return utf8Length;
+    }
 
-	/**
-	 * Returns whether the given byte array slice is a well-formed UTF-8 byte
-	 * sequence, as defined by {@link #isWellFormed(byte[])}. Note that this can be
-	 * false even when {@code
-	 * isWellFormed(bytes)} is true.
-	 *
-	 * @param bytes the input buffer
-	 * @param off   the offset in the buffer of the first byte to read
-	 * @param len   the number of bytes to read from the buffer
-	 */
-	public static boolean isWellFormed(byte[] bytes, int off, int len) {
-		int end = off + len;
-		checkPositionIndexes(off, end, bytes.length);
-		// Look for the first non-ASCII character.
-		for (int i = off; i < end; i++) {
-			if (bytes[i] < 0) {
-				return isWellFormedSlowPath(bytes, i, end);
-			}
-		}
-		return true;
-	}
+    /**
+     * Returns {@code true} if {@code bytes} is a <i>well-formed</i> UTF-8 byte
+     * sequence according to Unicode 6.0. Note that this is a stronger criterion
+     * than simply whether the bytes can be decoded. For example, some versions of
+     * the JDK decoder will accept "non-shortest form" byte sequences, but encoding
+     * never reproduces these. Such byte sequences are <i>not</i> considered
+     * well-formed.
+     *
+     * <p>
+     * This method returns {@code true} if and only if
+     * {@code Arrays.equals(bytes, new
+     * String(bytes, UTF_8).getBytes(UTF_8))} does, but is more efficient in both
+     * time and space.
+     */
+    public static boolean isWellFormed(byte[] bytes) {
+        return isWellFormed(bytes, 0, bytes.length);
+    }
 
-	private static boolean isWellFormedSlowPath(byte[] bytes, int off, int end) {
-		int index = off;
-		while (true) {
-			int byte1;
+    /**
+     * Returns whether the given byte array slice is a well-formed UTF-8 byte
+     * sequence, as defined by {@link #isWellFormed(byte[])}. Note that this can be
+     * false even when {@code
+     * isWellFormed(bytes)} is true.
+     *
+     * @param bytes the input buffer
+     * @param off   the offset in the buffer of the first byte to read
+     * @param len   the number of bytes to read from the buffer
+     */
+    public static boolean isWellFormed(byte[] bytes, int off, int len) {
+        int end = off + len;
+        checkPositionIndexes(off, end, bytes.length);
+        // Look for the first non-ASCII character.
+        for (int i = off; i < end; i++) {
+            if (bytes[i] < 0) {
+                return isWellFormedSlowPath(bytes, i, end);
+            }
+        }
+        return true;
+    }
 
-			// Optimize for interior runs of ASCII bytes.
-			do {
-				if (index >= end) {
-					return true;
-				}
-			} while ((byte1 = bytes[index++]) >= 0);
+    private static boolean isWellFormedSlowPath(byte[] bytes, int off, int end) {
+        int index = off;
+        while (true) {
+            int byte1;
 
-			if (byte1 < (byte) 0xE0) {
-				// Two-byte form.
-				if (index == end) {
-					return false;
-				}
-				// Simultaneously check for illegal trailing-byte in leading position
-				// and overlong 2-byte form.
-				if (byte1 < (byte) 0xC2 || bytes[index++] > (byte) 0xBF) {
-					return false;
-				}
-			} else if (byte1 < (byte) 0xF0) {
-				// Three-byte form.
-				if (index + 1 >= end) {
-					return false;
-				}
-				int byte2 = bytes[index++];
-				if (byte2 > (byte) 0xBF
-						// Overlong? 5 most significant bits must not all be zero.
-						|| (byte1 == (byte) 0xE0 && byte2 < (byte) 0xA0)
-						// Check for illegal surrogate codepoints.
-						|| (byte1 == (byte) 0xED && (byte) 0xA0 <= byte2)
-						// Third byte trailing-byte test.
-						|| bytes[index++] > (byte) 0xBF) {
-					return false;
-				}
-			} else {
-				// Four-byte form.
-				if (index + 2 >= end) {
-					return false;
-				}
-				int byte2 = bytes[index++];
-				if (byte2 > (byte) 0xBF
-						// Check that 1 <= plane <= 16. Tricky optimized form of:
-						// if (byte1 > (byte) 0xF4
-						// || byte1 == (byte) 0xF0 && byte2 < (byte) 0x90
-						// || byte1 == (byte) 0xF4 && byte2 > (byte) 0x8F)
-						|| (((byte1 << 28) + (byte2 - (byte) 0x90)) >> 30) != 0
-						// Third byte trailing-byte test
-						|| bytes[index++] > (byte) 0xBF
-						// Fourth byte trailing-byte test
-						|| bytes[index++] > (byte) 0xBF) {
-					return false;
-				}
-			}
-		}
-	}
+            // Optimize for interior runs of ASCII bytes.
+            do {
+                if (index >= end) {
+                    return true;
+                }
+            } while ((byte1 = bytes[index++]) >= 0);
 
-	private Utf8() {
-	}
+            if (byte1 < (byte) 0xE0) {
+                // Two-byte form.
+                if (index == end) {
+                    return false;
+                }
+                // Simultaneously check for illegal trailing-byte in leading position
+                // and overlong 2-byte form.
+                if (byte1 < (byte) 0xC2 || bytes[index++] > (byte) 0xBF) {
+                    return false;
+                }
+            } else if (byte1 < (byte) 0xF0) {
+                // Three-byte form.
+                if (index + 1 >= end) {
+                    return false;
+                }
+                int byte2 = bytes[index++];
+                if (
+                    byte2 > (byte) 0xBF ||
+                    // Overlong? 5 most significant bits must not all be zero.
+                    (byte1 == (byte) 0xE0 && byte2 < (byte) 0xA0) ||
+                    // Check for illegal surrogate codepoints.
+                    (byte1 == (byte) 0xED && (byte) 0xA0 <= byte2) ||
+                    // Third byte trailing-byte test.
+                    bytes[index++] >
+                    (byte) 0xBF
+                ) {
+                    return false;
+                }
+            } else {
+                // Four-byte form.
+                if (index + 2 >= end) {
+                    return false;
+                }
+                int byte2 = bytes[index++];
+                if (
+                    byte2 > (byte) 0xBF ||
+                    // Check that 1 <= plane <= 16. Tricky optimized form of:
+                    // if (byte1 > (byte) 0xF4
+                    // || byte1 == (byte) 0xF0 && byte2 < (byte) 0x90
+                    // || byte1 == (byte) 0xF4 && byte2 > (byte) 0x8F)
+                    (((byte1 << 28) + (byte2 - (byte) 0x90)) >> 30) !=
+                    0 ||
+                    // Third byte trailing-byte test
+                    bytes[index++] >
+                    (byte) 0xBF ||
+                    // Fourth byte trailing-byte test
+                    bytes[index++] >
+                    (byte) 0xBF
+                ) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    private Utf8() {}
 }

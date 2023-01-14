@@ -16,9 +16,8 @@
 
 package com.google.common.collect;
 
-import java.util.Iterator;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.Iterator;
 
 /**
  * An iterator that does not support {@link #remove}.
@@ -28,19 +27,19 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public abstract class UnmodifiableIterator<E> implements Iterator<E> {
-	/** Constructor for use by subclasses. */
-	protected UnmodifiableIterator() {
-	}
 
-	/**
-	 * Guaranteed to throw an exception and leave the underlying data unmodified.
-	 *
-	 * @throws UnsupportedOperationException always
-	 * @deprecated Unsupported operation.
-	 */
-	@Deprecated
-	@Override
-	public final void remove() {
-		throw new UnsupportedOperationException();
-	}
+    /** Constructor for use by subclasses. */
+    protected UnmodifiableIterator() {}
+
+    /**
+     * Guaranteed to throw an exception and leave the underlying data unmodified.
+     *
+     * @throws UnsupportedOperationException always
+     * @deprecated Unsupported operation.
+     */
+    @Deprecated
+    @Override
+    public final void remove() {
+        throw new UnsupportedOperationException();
+    }
 }

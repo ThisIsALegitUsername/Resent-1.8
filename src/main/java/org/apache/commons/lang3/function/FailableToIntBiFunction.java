@@ -30,30 +30,29 @@ import java.util.function.ToIntBiFunction;
  */
 @FunctionalInterface
 public interface FailableToIntBiFunction<T, U, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableToIntBiFunction NOP = (t, u) -> 0;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableToIntBiFunction NOP = (t, u) -> 0;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, E extends Throwable> FailableToIntBiFunction<T, U, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <T> the type of the first argument to the function
-	 * @param <U> the type of the second argument to the function
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <T, U, E extends Throwable> FailableToIntBiFunction<T, U, E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function to the given arguments.
-	 *
-	 * @param t the first function argument
-	 * @param u the second function argument
-	 * @return the function result
-	 * @throws E Thrown when the function fails.
-	 */
-	int applyAsInt(T t, U u) throws E;
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t the first function argument
+     * @param u the second function argument
+     * @return the function result
+     * @throws E Thrown when the function fails.
+     */
+    int applyAsInt(T t, U u) throws E;
 }

@@ -28,67 +28,66 @@ import java.util.function.LongUnaryOperator;
  * @since 3.11
  */
 public interface FailableLongUnaryOperator<E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongUnaryOperator NOP = t -> 0L;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableLongUnaryOperator NOP = t -> 0L;
+    /**
+     * Returns a unary operator that always returns its input argument.
+     *
+     * @param <E> Thrown exception.
+     * @return a unary operator that always returns its input argument
+     */
+    static <E extends Throwable> FailableLongUnaryOperator<E> identity() {
+        return t -> t;
+    }
 
-	/**
-	 * Returns a unary operator that always returns its input argument.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return a unary operator that always returns its input argument
-	 */
-	static <E extends Throwable> FailableLongUnaryOperator<E> identity() {
-		return t -> t;
-	}
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
-		return NOP;
-	}
+    /**
+     * Returns a composed {@code FailableDoubleUnaryOperator} like
+     * {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
+     *
+     * @param after the operator to apply after this one.
+     * @return a composed {@code FailableLongUnaryOperator} like
+     *         {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
+     * @throws NullPointerException if after is null.
+     * @see #compose(FailableLongUnaryOperator)
+     */
+    default FailableLongUnaryOperator<E> andThen(final FailableLongUnaryOperator<E> after) {
+        Objects.requireNonNull(after);
+        return (final long t) -> after.applyAsLong(applyAsLong(t));
+    }
 
-	/**
-	 * Returns a composed {@code FailableDoubleUnaryOperator} like
-	 * {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
-	 *
-	 * @param after the operator to apply after this one.
-	 * @return a composed {@code FailableLongUnaryOperator} like
-	 *         {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
-	 * @throws NullPointerException if after is null.
-	 * @see #compose(FailableLongUnaryOperator)
-	 */
-	default FailableLongUnaryOperator<E> andThen(final FailableLongUnaryOperator<E> after) {
-		Objects.requireNonNull(after);
-		return (final long t) -> after.applyAsLong(applyAsLong(t));
-	}
+    /**
+     * Applies this operator to the given operand.
+     *
+     * @param operand the operand
+     * @return the operator result
+     * @throws E Thrown when a consumer fails.
+     */
+    long applyAsLong(long operand) throws E;
 
-	/**
-	 * Applies this operator to the given operand.
-	 *
-	 * @param operand the operand
-	 * @return the operator result
-	 * @throws E Thrown when a consumer fails.
-	 */
-	long applyAsLong(long operand) throws E;
-
-	/**
-	 * Returns a composed {@code FailableLongUnaryOperator} like
-	 * {@link LongUnaryOperator#compose(LongUnaryOperator)}.
-	 *
-	 * @param before the operator to apply before this one.
-	 * @return a composed {@code FailableLongUnaryOperator} like
-	 *         {@link LongUnaryOperator#compose(LongUnaryOperator)}.
-	 * @throws NullPointerException if before is null.
-	 * @see #andThen(FailableLongUnaryOperator)
-	 */
-	default FailableLongUnaryOperator<E> compose(final FailableLongUnaryOperator<E> before) {
-		Objects.requireNonNull(before);
-		return (final long v) -> applyAsLong(before.applyAsLong(v));
-	}
+    /**
+     * Returns a composed {@code FailableLongUnaryOperator} like
+     * {@link LongUnaryOperator#compose(LongUnaryOperator)}.
+     *
+     * @param before the operator to apply before this one.
+     * @return a composed {@code FailableLongUnaryOperator} like
+     *         {@link LongUnaryOperator#compose(LongUnaryOperator)}.
+     * @throws NullPointerException if before is null.
+     * @see #andThen(FailableLongUnaryOperator)
+     */
+    default FailableLongUnaryOperator<E> compose(final FailableLongUnaryOperator<E> before) {
+        Objects.requireNonNull(before);
+        return (final long v) -> applyAsLong(before.applyAsLong(v));
+    }
 }

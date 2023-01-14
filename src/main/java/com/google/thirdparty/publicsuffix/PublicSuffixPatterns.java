@@ -38,6 +38,6 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 @Beta
 public final class PublicSuffixPatterns {
-	private PublicSuffixPatterns() {
-	}
+
+    private PublicSuffixPatterns() {}
 }

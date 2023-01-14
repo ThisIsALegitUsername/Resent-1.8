@@ -14,63 +14,63 @@ import net.minecraft.world.World;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class EntityMinecartChest extends EntityMinecartContainer {
-	public EntityMinecartChest(World worldIn) {
-		super(worldIn);
-	}
 
-	public EntityMinecartChest(World worldIn, double parDouble1, double parDouble2, double parDouble3) {
-		super(worldIn, parDouble1, parDouble2, parDouble3);
-	}
+    public EntityMinecartChest(World worldIn) {
+        super(worldIn);
+    }
 
-	public void killMinecart(DamageSource damagesource) {
-		super.killMinecart(damagesource);
-		if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-			this.dropItemWithOffset(Item.getItemFromBlock(Blocks.chest), 1, 0.0F);
-		}
+    public EntityMinecartChest(World worldIn, double parDouble1, double parDouble2, double parDouble3) {
+        super(worldIn, parDouble1, parDouble2, parDouble3);
+    }
 
-	}
+    public void killMinecart(DamageSource damagesource) {
+        super.killMinecart(damagesource);
+        if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
+            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.chest), 1, 0.0F);
+        }
+    }
 
-	/**+
-	 * Returns the number of slots in the inventory.
-	 */
-	public int getSizeInventory() {
-		return 27;
-	}
+    /**+
+     * Returns the number of slots in the inventory.
+     */
+    public int getSizeInventory() {
+        return 27;
+    }
 
-	public EntityMinecart.EnumMinecartType getMinecartType() {
-		return EntityMinecart.EnumMinecartType.CHEST;
-	}
+    public EntityMinecart.EnumMinecartType getMinecartType() {
+        return EntityMinecart.EnumMinecartType.CHEST;
+    }
 
-	public IBlockState getDefaultDisplayTile() {
-		return Blocks.chest.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
-	}
+    public IBlockState getDefaultDisplayTile() {
+        return Blocks.chest.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
+    }
 
-	public int getDefaultDisplayTileOffset() {
-		return 8;
-	}
+    public int getDefaultDisplayTileOffset() {
+        return 8;
+    }
 
-	public String getGuiID() {
-		return "minecraft:chest";
-	}
+    public String getGuiID() {
+        return "minecraft:chest";
+    }
 
-	public Container createContainer(InventoryPlayer inventoryplayer, EntityPlayer entityplayer) {
-		return new ContainerChest(inventoryplayer, this, entityplayer);
-	}
+    public Container createContainer(InventoryPlayer inventoryplayer, EntityPlayer entityplayer) {
+        return new ContainerChest(inventoryplayer, this, entityplayer);
+    }
 }

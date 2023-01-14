@@ -16,9 +16,8 @@
 
 package com.google.common.collect;
 
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
+import javax.annotation.Nullable;
 
 /**
  * Wraps an exception that occurred during a computation.
@@ -28,12 +27,13 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public class ComputationException extends RuntimeException {
-	/**
-	 * Creates a new instance with the given cause.
-	 */
-	public ComputationException(@Nullable Throwable cause) {
-		super(cause);
-	}
 
-	private static final long serialVersionUID = 0;
+    /**
+     * Creates a new instance with the given cause.
+     */
+    public ComputationException(@Nullable Throwable cause) {
+        super(cause);
+    }
+
+    private static final long serialVersionUID = 0;
 }

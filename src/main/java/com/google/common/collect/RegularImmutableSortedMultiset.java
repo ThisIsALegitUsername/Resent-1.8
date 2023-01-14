@@ -18,9 +18,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkPositionIndexes;
 import static com.google.common.collect.BoundType.CLOSED;
 
-import javax.annotation.Nullable;
-
 import com.google.common.primitives.Ints;
+import javax.annotation.Nullable;
 
 /**
  * An immutable sorted multiset with one or more distinct elements.
@@ -29,78 +28,77 @@ import com.google.common.primitives.Ints;
  */
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 final class RegularImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E> {
-	private final transient RegularImmutableSortedSet<E> elementSet;
-	private final transient int[] counts;
-	private final transient long[] cumulativeCounts;
-	private final transient int offset;
-	private final transient int length;
 
-	RegularImmutableSortedMultiset(RegularImmutableSortedSet<E> elementSet, int[] counts, long[] cumulativeCounts,
-			int offset, int length) {
-		this.elementSet = elementSet;
-		this.counts = counts;
-		this.cumulativeCounts = cumulativeCounts;
-		this.offset = offset;
-		this.length = length;
-	}
+    private final transient RegularImmutableSortedSet<E> elementSet;
+    private final transient int[] counts;
+    private final transient long[] cumulativeCounts;
+    private final transient int offset;
+    private final transient int length;
 
-	@Override
-	Entry<E> getEntry(int index) {
-		return Multisets.immutableEntry(elementSet.asList().get(index), counts[offset + index]);
-	}
+    RegularImmutableSortedMultiset(RegularImmutableSortedSet<E> elementSet, int[] counts, long[] cumulativeCounts, int offset, int length) {
+        this.elementSet = elementSet;
+        this.counts = counts;
+        this.cumulativeCounts = cumulativeCounts;
+        this.offset = offset;
+        this.length = length;
+    }
 
-	@Override
-	public Entry<E> firstEntry() {
-		return getEntry(0);
-	}
+    @Override
+    Entry<E> getEntry(int index) {
+        return Multisets.immutableEntry(elementSet.asList().get(index), counts[offset + index]);
+    }
 
-	@Override
-	public Entry<E> lastEntry() {
-		return getEntry(length - 1);
-	}
+    @Override
+    public Entry<E> firstEntry() {
+        return getEntry(0);
+    }
 
-	@Override
-	public int count(@Nullable Object element) {
-		int index = elementSet.indexOf(element);
-		return (index == -1) ? 0 : counts[index + offset];
-	}
+    @Override
+    public Entry<E> lastEntry() {
+        return getEntry(length - 1);
+    }
 
-	@Override
-	public int size() {
-		long size = cumulativeCounts[offset + length] - cumulativeCounts[offset];
-		return Ints.saturatedCast(size);
-	}
+    @Override
+    public int count(@Nullable Object element) {
+        int index = elementSet.indexOf(element);
+        return (index == -1) ? 0 : counts[index + offset];
+    }
 
-	@Override
-	public ImmutableSortedSet<E> elementSet() {
-		return elementSet;
-	}
+    @Override
+    public int size() {
+        long size = cumulativeCounts[offset + length] - cumulativeCounts[offset];
+        return Ints.saturatedCast(size);
+    }
 
-	@Override
-	public ImmutableSortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
-		return getSubMultiset(0, elementSet.headIndex(upperBound, checkNotNull(boundType) == CLOSED));
-	}
+    @Override
+    public ImmutableSortedSet<E> elementSet() {
+        return elementSet;
+    }
 
-	@Override
-	public ImmutableSortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
-		return getSubMultiset(elementSet.tailIndex(lowerBound, checkNotNull(boundType) == CLOSED), length);
-	}
+    @Override
+    public ImmutableSortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
+        return getSubMultiset(0, elementSet.headIndex(upperBound, checkNotNull(boundType) == CLOSED));
+    }
 
-	ImmutableSortedMultiset<E> getSubMultiset(int from, int to) {
-		checkPositionIndexes(from, to, length);
-		if (from == to) {
-			return emptyMultiset(comparator());
-		} else if (from == 0 && to == length) {
-			return this;
-		} else {
-			RegularImmutableSortedSet<E> subElementSet = (RegularImmutableSortedSet<E>) elementSet.getSubSet(from, to);
-			return new RegularImmutableSortedMultiset<E>(subElementSet, counts, cumulativeCounts, offset + from,
-					to - from);
-		}
-	}
+    @Override
+    public ImmutableSortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
+        return getSubMultiset(elementSet.tailIndex(lowerBound, checkNotNull(boundType) == CLOSED), length);
+    }
 
-	@Override
-	boolean isPartialView() {
-		return offset > 0 || length < counts.length;
-	}
+    ImmutableSortedMultiset<E> getSubMultiset(int from, int to) {
+        checkPositionIndexes(from, to, length);
+        if (from == to) {
+            return emptyMultiset(comparator());
+        } else if (from == 0 && to == length) {
+            return this;
+        } else {
+            RegularImmutableSortedSet<E> subElementSet = (RegularImmutableSortedSet<E>) elementSet.getSubSet(from, to);
+            return new RegularImmutableSortedMultiset<E>(subElementSet, counts, cumulativeCounts, offset + from, to - from);
+        }
+    }
+
+    @Override
+    boolean isPartialView() {
+        return offset > 0 || length < counts.length;
+    }
 }

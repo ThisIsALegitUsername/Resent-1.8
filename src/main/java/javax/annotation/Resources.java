@@ -58,8 +58,8 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface Resources {
-	/**
-	 * Array used for multiple resource declarations.
-	 */
-	Resource[] value();
+    /**
+     * Array used for multiple resource declarations.
+     */
+    Resource[] value();
 }

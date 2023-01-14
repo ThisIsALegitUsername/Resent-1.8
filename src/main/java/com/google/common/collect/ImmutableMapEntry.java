@@ -18,9 +18,8 @@ package com.google.common.collect;
 
 import static com.google.common.collect.CollectPreconditions.checkEntryNotNull;
 
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtIncompatible;
+import javax.annotation.Nullable;
 
 /**
  * Implementation of {@code Map.Entry} for {@link ImmutableMap} that adds extra
@@ -32,41 +31,43 @@ import com.google.common.annotations.GwtIncompatible;
  */
 @GwtIncompatible("unnecessary")
 abstract class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
-	ImmutableMapEntry(K key, V value) {
-		super(key, value);
-		checkEntryNotNull(key, value);
-	}
 
-	ImmutableMapEntry(ImmutableMapEntry<K, V> contents) {
-		super(contents.getKey(), contents.getValue());
-		// null check would be redundant
-	}
+    ImmutableMapEntry(K key, V value) {
+        super(key, value);
+        checkEntryNotNull(key, value);
+    }
 
-	@Nullable
-	abstract ImmutableMapEntry<K, V> getNextInKeyBucket();
+    ImmutableMapEntry(ImmutableMapEntry<K, V> contents) {
+        super(contents.getKey(), contents.getValue());
+        // null check would be redundant
+    }
 
-	@Nullable
-	abstract ImmutableMapEntry<K, V> getNextInValueBucket();
+    @Nullable
+    abstract ImmutableMapEntry<K, V> getNextInKeyBucket();
 
-	static final class TerminalEntry<K, V> extends ImmutableMapEntry<K, V> {
-		TerminalEntry(ImmutableMapEntry<K, V> contents) {
-			super(contents);
-		}
+    @Nullable
+    abstract ImmutableMapEntry<K, V> getNextInValueBucket();
 
-		TerminalEntry(K key, V value) {
-			super(key, value);
-		}
+    static final class TerminalEntry<K, V> extends ImmutableMapEntry<K, V> {
 
-		@Override
-		@Nullable
-		ImmutableMapEntry<K, V> getNextInKeyBucket() {
-			return null;
-		}
+        TerminalEntry(ImmutableMapEntry<K, V> contents) {
+            super(contents);
+        }
 
-		@Override
-		@Nullable
-		ImmutableMapEntry<K, V> getNextInValueBucket() {
-			return null;
-		}
-	}
+        TerminalEntry(K key, V value) {
+            super(key, value);
+        }
+
+        @Override
+        @Nullable
+        ImmutableMapEntry<K, V> getNextInKeyBucket() {
+            return null;
+        }
+
+        @Override
+        @Nullable
+        ImmutableMapEntry<K, V> getNextInValueBucket() {
+            return null;
+        }
+    }
 }

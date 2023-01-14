@@ -28,27 +28,26 @@ import java.util.function.IntToDoubleFunction;
  */
 @FunctionalInterface
 public interface FailableIntToDoubleFunction<E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntToDoubleFunction NOP = t -> 0d;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableIntToDoubleFunction NOP = t -> 0d;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function to the given argument.
-	 *
-	 * @param value the function argument
-	 * @return the function result
-	 * @throws E Thrown when the function fails.
-	 */
-	double applyAsDouble(int value) throws E;
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param value the function argument
+     * @return the function result
+     * @throws E Thrown when the function fails.
+     */
+    double applyAsDouble(int value) throws E;
 }

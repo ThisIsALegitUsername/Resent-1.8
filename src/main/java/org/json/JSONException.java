@@ -11,6 +11,7 @@ Public Domain.
  * @version 2015-12-09
  */
 public class JSONException extends RuntimeException {
+
     /** Serialization ID */
     private static final long serialVersionUID = 0;
 
@@ -26,7 +27,7 @@ public class JSONException extends RuntimeException {
 
     /**
      * Constructs a JSONException with an explanatory message and cause.
-     * 
+     *
      * @param message
      *            Detail about the reason for the exception.
      * @param cause
@@ -38,12 +39,11 @@ public class JSONException extends RuntimeException {
 
     /**
      * Constructs a new JSONException with the specified cause.
-     * 
+     *
      * @param cause
      *            The cause.
      */
     public JSONException(final Throwable cause) {
         super(cause.getMessage(), cause);
     }
-
 }

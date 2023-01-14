@@ -23,13 +23,13 @@ public interface IDBRequest extends EventTarget {
     String STATE_DONE = "done";
 
     @JSProperty
-	IDBError getError();
+    IDBError getError();
 
     @JSProperty
-	IDBRequestSource getSource();
+    IDBRequestSource getSource();
 
     @JSProperty
-	IDBTransaction getTransaction();
+    IDBTransaction getTransaction();
 
     @JSProperty
     String getReadyState();

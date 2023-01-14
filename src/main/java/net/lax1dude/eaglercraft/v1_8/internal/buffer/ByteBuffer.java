@@ -2,105 +2,103 @@ package net.lax1dude.eaglercraft.v1_8.internal.buffer;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public interface ByteBuffer extends Buffer {
+    ByteBuffer slice();
 
-	ByteBuffer slice();
+    ByteBuffer duplicate();
 
-	ByteBuffer duplicate();
+    ByteBuffer asReadOnlyBuffer();
 
-	ByteBuffer asReadOnlyBuffer();
+    byte get();
 
-	byte get();
+    ByteBuffer put(byte b);
 
-	ByteBuffer put(byte b);
+    byte get(int index);
 
-	byte get(int index);
+    ByteBuffer put(int index, byte b);
 
-	ByteBuffer put(int index, byte b);
+    ByteBuffer get(byte[] dst, int offset, int length);
 
-	ByteBuffer get(byte[] dst, int offset, int length);
+    ByteBuffer get(byte[] dst);
 
-	ByteBuffer get(byte[] dst);
+    ByteBuffer put(ByteBuffer src);
 
-	ByteBuffer put(ByteBuffer src);
+    ByteBuffer put(byte[] src, int offset, int length);
 
-	ByteBuffer put(byte[] src, int offset, int length);
+    ByteBuffer put(byte[] src);
 
-	ByteBuffer put(byte[] src);
+    int arrayOffset();
 
-	int arrayOffset();
+    ByteBuffer compact();
 
-	ByteBuffer compact();
+    char getChar();
 
-	char getChar();
+    ByteBuffer putChar(char value);
 
-	ByteBuffer putChar(char value);
+    char getChar(int index);
 
-	char getChar(int index);
+    ByteBuffer putChar(int index, char value);
 
-	ByteBuffer putChar(int index, char value);
+    public abstract short getShort();
 
-	public abstract short getShort();
+    ByteBuffer putShort(short value);
 
-	ByteBuffer putShort(short value);
+    short getShort(int index);
 
-	short getShort(int index);
+    ByteBuffer putShort(int index, short value);
 
-	ByteBuffer putShort(int index, short value);
+    ShortBuffer asShortBuffer();
 
-	ShortBuffer asShortBuffer();
+    int getInt();
 
-	int getInt();
+    ByteBuffer putInt(int value);
 
-	ByteBuffer putInt(int value);
+    int getInt(int index);
 
-	int getInt(int index);
+    ByteBuffer putInt(int index, int value);
 
-	ByteBuffer putInt(int index, int value);
+    IntBuffer asIntBuffer();
 
-	IntBuffer asIntBuffer();
+    long getLong();
 
-	long getLong();
+    ByteBuffer putLong(long value);
 
-	ByteBuffer putLong(long value);
+    long getLong(int index);
 
-	long getLong(int index);
+    ByteBuffer putLong(int index, long value);
 
-	ByteBuffer putLong(int index, long value);
+    float getFloat();
 
-	float getFloat();
+    ByteBuffer putFloat(float value);
 
-	ByteBuffer putFloat(float value);
+    float getFloat(int index);
 
-	float getFloat(int index);
+    ByteBuffer putFloat(int index, float value);
 
-	ByteBuffer putFloat(int index, float value);
+    FloatBuffer asFloatBuffer();
 
-	FloatBuffer asFloatBuffer();
+    ByteBuffer mark();
 
-	ByteBuffer mark();
+    ByteBuffer reset();
 
-	ByteBuffer reset();
+    ByteBuffer clear();
 
-	ByteBuffer clear();
+    ByteBuffer flip();
 
-	ByteBuffer flip();
+    ByteBuffer rewind();
 
-	ByteBuffer rewind();
+    ByteBuffer limit(int newLimit);
 
-	ByteBuffer limit(int newLimit);
-
-	ByteBuffer position(int newPosition);
-
+    ByteBuffer position(int newPosition);
 }

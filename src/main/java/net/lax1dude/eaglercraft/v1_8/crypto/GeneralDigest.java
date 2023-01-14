@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2000-2021 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
- * and associated documentation files (the "Software"), to deal in the Software without restriction, 
- * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
  *
@@ -16,7 +16,7 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
- * 
+ *
  */
 
 package net.lax1dude.eaglercraft.v1_8.crypto;
@@ -26,104 +26,105 @@ package net.lax1dude.eaglercraft.v1_8.crypto;
  * Applied Cryptography", pages 344 - 347.
  */
 public abstract class GeneralDigest {
-	private byte[] xBuf;
-	private int xBufOff;
 
-	private long byteCount;
+    private byte[] xBuf;
+    private int xBufOff;
 
-	/**
-	 * Standard constructor
-	 */
-	protected GeneralDigest() {
-		xBuf = new byte[4];
-		xBufOff = 0;
-	}
+    private long byteCount;
 
-	/**
-	 * Copy constructor. We are using copy constructors in place of the
-	 * Object.clone() interface as this interface is not supported by J2ME.
-	 */
-	protected GeneralDigest(GeneralDigest t) {
-		xBuf = new byte[t.xBuf.length];
-		System.arraycopy(t.xBuf, 0, xBuf, 0, t.xBuf.length);
+    /**
+     * Standard constructor
+     */
+    protected GeneralDigest() {
+        xBuf = new byte[4];
+        xBufOff = 0;
+    }
 
-		xBufOff = t.xBufOff;
-		byteCount = t.byteCount;
-	}
+    /**
+     * Copy constructor. We are using copy constructors in place of the
+     * Object.clone() interface as this interface is not supported by J2ME.
+     */
+    protected GeneralDigest(GeneralDigest t) {
+        xBuf = new byte[t.xBuf.length];
+        System.arraycopy(t.xBuf, 0, xBuf, 0, t.xBuf.length);
 
-	public void update(byte in) {
-		xBuf[xBufOff++] = in;
+        xBufOff = t.xBufOff;
+        byteCount = t.byteCount;
+    }
 
-		if (xBufOff == xBuf.length) {
-			processWord(xBuf, 0);
-			xBufOff = 0;
-		}
+    public void update(byte in) {
+        xBuf[xBufOff++] = in;
 
-		byteCount++;
-	}
+        if (xBufOff == xBuf.length) {
+            processWord(xBuf, 0);
+            xBufOff = 0;
+        }
 
-	public void update(byte[] in, int inOff, int len) {
-		//
-		// fill the current word
-		//
-		while ((xBufOff != 0) && (len > 0)) {
-			update(in[inOff]);
+        byteCount++;
+    }
 
-			inOff++;
-			len--;
-		}
+    public void update(byte[] in, int inOff, int len) {
+        //
+        // fill the current word
+        //
+        while ((xBufOff != 0) && (len > 0)) {
+            update(in[inOff]);
 
-		//
-		// process whole words.
-		//
-		while (len > xBuf.length) {
-			processWord(in, inOff);
+            inOff++;
+            len--;
+        }
 
-			inOff += xBuf.length;
-			len -= xBuf.length;
-			byteCount += xBuf.length;
-		}
+        //
+        // process whole words.
+        //
+        while (len > xBuf.length) {
+            processWord(in, inOff);
 
-		//
-		// load in the remainder.
-		//
-		while (len > 0) {
-			update(in[inOff]);
+            inOff += xBuf.length;
+            len -= xBuf.length;
+            byteCount += xBuf.length;
+        }
 
-			inOff++;
-			len--;
-		}
-	}
+        //
+        // load in the remainder.
+        //
+        while (len > 0) {
+            update(in[inOff]);
 
-	public void finish() {
-		long bitLength = (byteCount << 3);
+            inOff++;
+            len--;
+        }
+    }
 
-		//
-		// add the pad bytes.
-		//
-		update((byte) 128);
+    public void finish() {
+        long bitLength = (byteCount << 3);
 
-		while (xBufOff != 0) {
-			update((byte) 0);
-		}
+        //
+        // add the pad bytes.
+        //
+        update((byte) 128);
 
-		processLength(bitLength);
+        while (xBufOff != 0) {
+            update((byte) 0);
+        }
 
-		processBlock();
-	}
+        processLength(bitLength);
 
-	public void reset() {
-		byteCount = 0;
+        processBlock();
+    }
 
-		xBufOff = 0;
-		for (int i = 0; i < xBuf.length; i++) {
-			xBuf[i] = 0;
-		}
-	}
+    public void reset() {
+        byteCount = 0;
 
-	protected abstract void processWord(byte[] in, int inOff);
+        xBufOff = 0;
+        for (int i = 0; i < xBuf.length; i++) {
+            xBuf[i] = 0;
+        }
+    }
 
-	protected abstract void processLength(long bitLength);
+    protected abstract void processWord(byte[] in, int inOff);
 
-	protected abstract void processBlock();
+    protected abstract void processLength(long bitLength);
+
+    protected abstract void processBlock();
 }

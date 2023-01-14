@@ -5,7 +5,6 @@ import dev.resent.module.base.ModManager;
 import net.minecraft.client.Minecraft;
 
 public class Resent {
-    
     static {
         INSTANCE = new Resent();
     }
@@ -20,8 +19,5 @@ public class Resent {
         Resent.INSTANCE.modManager = new ModManager();
     }
 
-    public static void onEvent(Event e){
-        
-    }
-    
+    public static void onEvent(Event e) {}
 }

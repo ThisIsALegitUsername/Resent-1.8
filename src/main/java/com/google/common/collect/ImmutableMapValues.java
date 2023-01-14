@@ -16,13 +16,11 @@
 
 package com.google.common.collect;
 
-import java.io.Serializable;
-import java.util.Map.Entry;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
+import java.io.Serializable;
+import java.util.Map.Entry;
+import javax.annotation.Nullable;
 
 /**
  * {@code values()} implementation for {@link ImmutableMap}.
@@ -32,66 +30,68 @@ import com.google.common.annotations.GwtIncompatible;
  */
 @GwtCompatible(emulated = true)
 final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
-	private final ImmutableMap<K, V> map;
 
-	ImmutableMapValues(ImmutableMap<K, V> map) {
-		this.map = map;
-	}
+    private final ImmutableMap<K, V> map;
 
-	@Override
-	public int size() {
-		return map.size();
-	}
+    ImmutableMapValues(ImmutableMap<K, V> map) {
+        this.map = map;
+    }
 
-	@Override
-	public UnmodifiableIterator<V> iterator() {
-		return Maps.valueIterator(map.entrySet().iterator());
-	}
+    @Override
+    public int size() {
+        return map.size();
+    }
 
-	@Override
-	public boolean contains(@Nullable Object object) {
-		return object != null && Iterators.contains(iterator(), object);
-	}
+    @Override
+    public UnmodifiableIterator<V> iterator() {
+        return Maps.valueIterator(map.entrySet().iterator());
+    }
 
-	@Override
-	boolean isPartialView() {
-		return true;
-	}
+    @Override
+    public boolean contains(@Nullable Object object) {
+        return object != null && Iterators.contains(iterator(), object);
+    }
 
-	@Override
-	ImmutableList<V> createAsList() {
-		final ImmutableList<Entry<K, V>> entryList = map.entrySet().asList();
-		return new ImmutableAsList<V>() {
-			@Override
-			public V get(int index) {
-				return entryList.get(index).getValue();
-			}
+    @Override
+    boolean isPartialView() {
+        return true;
+    }
 
-			@Override
-			ImmutableCollection<V> delegateCollection() {
-				return ImmutableMapValues.this;
-			}
-		};
-	}
+    @Override
+    ImmutableList<V> createAsList() {
+        final ImmutableList<Entry<K, V>> entryList = map.entrySet().asList();
+        return new ImmutableAsList<V>() {
+            @Override
+            public V get(int index) {
+                return entryList.get(index).getValue();
+            }
 
-	@GwtIncompatible("serialization")
-	@Override
-	Object writeReplace() {
-		return new SerializedForm<V>(map);
-	}
+            @Override
+            ImmutableCollection<V> delegateCollection() {
+                return ImmutableMapValues.this;
+            }
+        };
+    }
 
-	@GwtIncompatible("serialization")
-	private static class SerializedForm<V> implements Serializable {
-		final ImmutableMap<?, V> map;
+    @GwtIncompatible("serialization")
+    @Override
+    Object writeReplace() {
+        return new SerializedForm<V>(map);
+    }
 
-		SerializedForm(ImmutableMap<?, V> map) {
-			this.map = map;
-		}
+    @GwtIncompatible("serialization")
+    private static class SerializedForm<V> implements Serializable {
 
-		Object readResolve() {
-			return map.values();
-		}
+        final ImmutableMap<?, V> map;
 
-		private static final long serialVersionUID = 0;
-	}
+        SerializedForm(ImmutableMap<?, V> map) {
+            this.map = map;
+        }
+
+        Object readResolve() {
+            return map.values();
+        }
+
+        private static final long serialVersionUID = 0;
+    }
 }

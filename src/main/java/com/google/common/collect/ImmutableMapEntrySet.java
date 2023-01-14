@@ -16,13 +16,11 @@
 
 package com.google.common.collect;
 
-import java.io.Serializable;
-import java.util.Map.Entry;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
+import java.io.Serializable;
+import java.util.Map.Entry;
+import javax.annotation.Nullable;
 
 /**
  * {@code entrySet()} implementation for {@link ImmutableMap}.
@@ -32,49 +30,50 @@ import com.google.common.annotations.GwtIncompatible;
  */
 @GwtCompatible(emulated = true)
 abstract class ImmutableMapEntrySet<K, V> extends ImmutableSet<Entry<K, V>> {
-	ImmutableMapEntrySet() {
-	}
 
-	abstract ImmutableMap<K, V> map();
+    ImmutableMapEntrySet() {}
 
-	@Override
-	public int size() {
-		return map().size();
-	}
+    abstract ImmutableMap<K, V> map();
 
-	@Override
-	public boolean contains(@Nullable Object object) {
-		if (object instanceof Entry) {
-			Entry<?, ?> entry = (Entry<?, ?>) object;
-			V value = map().get(entry.getKey());
-			return value != null && value.equals(entry.getValue());
-		}
-		return false;
-	}
+    @Override
+    public int size() {
+        return map().size();
+    }
 
-	@Override
-	boolean isPartialView() {
-		return map().isPartialView();
-	}
+    @Override
+    public boolean contains(@Nullable Object object) {
+        if (object instanceof Entry) {
+            Entry<?, ?> entry = (Entry<?, ?>) object;
+            V value = map().get(entry.getKey());
+            return value != null && value.equals(entry.getValue());
+        }
+        return false;
+    }
 
-	@GwtIncompatible("serialization")
-	@Override
-	Object writeReplace() {
-		return new EntrySetSerializedForm<K, V>(map());
-	}
+    @Override
+    boolean isPartialView() {
+        return map().isPartialView();
+    }
 
-	@GwtIncompatible("serialization")
-	private static class EntrySetSerializedForm<K, V> implements Serializable {
-		final ImmutableMap<K, V> map;
+    @GwtIncompatible("serialization")
+    @Override
+    Object writeReplace() {
+        return new EntrySetSerializedForm<K, V>(map());
+    }
 
-		EntrySetSerializedForm(ImmutableMap<K, V> map) {
-			this.map = map;
-		}
+    @GwtIncompatible("serialization")
+    private static class EntrySetSerializedForm<K, V> implements Serializable {
 
-		Object readResolve() {
-			return map.entrySet();
-		}
+        final ImmutableMap<K, V> map;
 
-		private static final long serialVersionUID = 0;
-	}
+        EntrySetSerializedForm(ImmutableMap<K, V> map) {
+            this.map = map;
+        }
+
+        Object readResolve() {
+            return map.entrySet();
+        }
+
+        private static final long serialVersionUID = 0;
+    }
 }

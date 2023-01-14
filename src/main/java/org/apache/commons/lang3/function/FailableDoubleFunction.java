@@ -29,28 +29,27 @@ import java.util.function.DoubleFunction;
  */
 @FunctionalInterface
 public interface FailableDoubleFunction<R, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoubleFunction NOP = t -> null;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableDoubleFunction NOP = t -> null;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <R> Return type.
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function.
-	 *
-	 * @param input the input for the function
-	 * @return the result of the function
-	 * @throws E Thrown when the function fails.
-	 */
-	R apply(double input) throws E;
+    /**
+     * Applies this function.
+     *
+     * @param input the input for the function
+     * @return the result of the function
+     * @throws E Thrown when the function fails.
+     */
+    R apply(double input) throws E;
 }

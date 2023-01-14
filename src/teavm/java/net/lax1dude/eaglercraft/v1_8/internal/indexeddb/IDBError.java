@@ -19,6 +19,7 @@ import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
 
 public abstract class IDBError implements JSObject {
+
     @JSProperty
     public abstract String getName();
 }

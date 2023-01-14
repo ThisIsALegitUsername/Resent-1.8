@@ -19,5 +19,5 @@ import org.teavm.jso.JSProperty;
 
 public interface IDBCursorRequest extends IDBRequest {
     @JSProperty
-	IDBCursor getResult();
+    IDBCursor getResult();
 }

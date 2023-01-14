@@ -16,10 +16,9 @@
 
 package com.google.common.base;
 
-import java.nio.charset.Charset;
-
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
+import java.nio.charset.Charset;
 
 /**
  * Contains constant definitions for the six standard {@link Charset} instances,
@@ -39,20 +38,19 @@ import com.google.common.annotations.GwtIncompatible;
  */
 @GwtCompatible(emulated = true)
 public final class Charsets {
-	private Charsets() {
-	}
 
-	/**
-	 * UTF-8: eight-bit UCS Transformation Format.
-	 *
-	 */
-	public static final Charset UTF_8 = Charset.forName("UTF-8");
+    private Charsets() {}
 
-	/*
-	 * Please do not add new Charset references to this class, unless those
-	 * character encodings are part of the set required to be supported by all Java
-	 * platform implementations! Any Charsets initialized here may cause unexpected
-	 * delays when this class is loaded. See the Charset Javadocs for the list of
-	 * built-in character encodings.
-	 */
+    /**
+     * UTF-8: eight-bit UCS Transformation Format.
+     *
+     */
+    public static final Charset UTF_8 = Charset.forName("UTF-8");
+    /*
+     * Please do not add new Charset references to this class, unless those
+     * character encodings are part of the set required to be supported by all Java
+     * platform implementations! Any Charsets initialized here may cause unexpected
+     * delays when this class is loaded. See the Charset Javadocs for the list of
+     * built-in character encodings.
+     */
 }

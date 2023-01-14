@@ -13,163 +13,159 @@ import net.minecraft.world.World;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class EntityGhast extends EntityFlying implements IMob {
-	/**+
-	 * The explosion radius of spawned fireballs.
-	 */
-	private int explosionStrength = 1;
 
-	public EntityGhast(World worldIn) {
-		super(worldIn);
-		this.setSize(4.0F, 4.0F);
-		this.isImmuneToFire = true;
-		this.experienceValue = 5;
-	}
+    /**+
+     * The explosion radius of spawned fireballs.
+     */
+    private int explosionStrength = 1;
 
-	public boolean isAttacking() {
-		return this.dataWatcher.getWatchableObjectByte(16) != 0;
-	}
+    public EntityGhast(World worldIn) {
+        super(worldIn);
+        this.setSize(4.0F, 4.0F);
+        this.isImmuneToFire = true;
+        this.experienceValue = 5;
+    }
 
-	public void setAttacking(boolean parFlag) {
-		this.dataWatcher.updateObject(16, Byte.valueOf((byte) (parFlag ? 1 : 0)));
-	}
+    public boolean isAttacking() {
+        return this.dataWatcher.getWatchableObjectByte(16) != 0;
+    }
 
-	public int getFireballStrength() {
-		return this.explosionStrength;
-	}
+    public void setAttacking(boolean parFlag) {
+        this.dataWatcher.updateObject(16, Byte.valueOf((byte) (parFlag ? 1 : 0)));
+    }
 
-	/**+
-	 * Called when the entity is attacked.
-	 */
-	public boolean attackEntityFrom(DamageSource damagesource, float f) {
-		if (this.isEntityInvulnerable(damagesource)) {
-			return false;
-		} else if ("fireball".equals(damagesource.getDamageType())
-				&& damagesource.getEntity() instanceof EntityPlayer) {
-			super.attackEntityFrom(damagesource, 1000.0F);
-			((EntityPlayer) damagesource.getEntity()).triggerAchievement(AchievementList.ghast);
-			return true;
-		} else {
-			return super.attackEntityFrom(damagesource, f);
-		}
-	}
+    public int getFireballStrength() {
+        return this.explosionStrength;
+    }
 
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
-	}
+    /**+
+     * Called when the entity is attacked.
+     */
+    public boolean attackEntityFrom(DamageSource damagesource, float f) {
+        if (this.isEntityInvulnerable(damagesource)) {
+            return false;
+        } else if ("fireball".equals(damagesource.getDamageType()) && damagesource.getEntity() instanceof EntityPlayer) {
+            super.attackEntityFrom(damagesource, 1000.0F);
+            ((EntityPlayer) damagesource.getEntity()).triggerAchievement(AchievementList.ghast);
+            return true;
+        } else {
+            return super.attackEntityFrom(damagesource, f);
+        }
+    }
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(100.0D);
-	}
+    protected void entityInit() {
+        super.entityInit();
+        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+    }
 
-	/**+
-	 * Returns the sound this mob makes while it's alive.
-	 */
-	protected String getLivingSound() {
-		return "mob.ghast.moan";
-	}
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(100.0D);
+    }
 
-	/**+
-	 * Returns the sound this mob makes when it is hurt.
-	 */
-	protected String getHurtSound() {
-		return "mob.ghast.scream";
-	}
+    /**+
+     * Returns the sound this mob makes while it's alive.
+     */
+    protected String getLivingSound() {
+        return "mob.ghast.moan";
+    }
 
-	/**+
-	 * Returns the sound this mob makes on death.
-	 */
-	protected String getDeathSound() {
-		return "mob.ghast.death";
-	}
+    /**+
+     * Returns the sound this mob makes when it is hurt.
+     */
+    protected String getHurtSound() {
+        return "mob.ghast.scream";
+    }
 
-	protected Item getDropItem() {
-		return Items.gunpowder;
-	}
+    /**+
+     * Returns the sound this mob makes on death.
+     */
+    protected String getDeathSound() {
+        return "mob.ghast.death";
+    }
 
-	/**+
-	 * Drop 0-2 items of this living's type
-	 */
-	protected void dropFewItems(boolean var1, int i) {
-		int j = this.rand.nextInt(2) + this.rand.nextInt(1 + i);
+    protected Item getDropItem() {
+        return Items.gunpowder;
+    }
 
-		for (int k = 0; k < j; ++k) {
-			this.dropItem(Items.ghast_tear, 1);
-		}
+    /**+
+     * Drop 0-2 items of this living's type
+     */
+    protected void dropFewItems(boolean var1, int i) {
+        int j = this.rand.nextInt(2) + this.rand.nextInt(1 + i);
 
-		j = this.rand.nextInt(3) + this.rand.nextInt(1 + i);
+        for (int k = 0; k < j; ++k) {
+            this.dropItem(Items.ghast_tear, 1);
+        }
 
-		for (int l = 0; l < j; ++l) {
-			this.dropItem(Items.gunpowder, 1);
-		}
+        j = this.rand.nextInt(3) + this.rand.nextInt(1 + i);
 
-	}
+        for (int l = 0; l < j; ++l) {
+            this.dropItem(Items.gunpowder, 1);
+        }
+    }
 
-	/**+
-	 * Returns the volume for the sounds this mob makes.
-	 */
-	protected float getSoundVolume() {
-		return 10.0F;
-	}
+    /**+
+     * Returns the volume for the sounds this mob makes.
+     */
+    protected float getSoundVolume() {
+        return 10.0F;
+    }
 
-	/**+
-	 * Checks if the entity's current position is a valid location
-	 * to spawn this entity.
-	 */
-	public boolean getCanSpawnHere() {
-		return this.rand.nextInt(20) == 0 && super.getCanSpawnHere()
-				&& this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
-	}
+    /**+
+     * Checks if the entity's current position is a valid location
+     * to spawn this entity.
+     */
+    public boolean getCanSpawnHere() {
+        return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+    }
 
-	/**+
-	 * Will return how many at most can spawn in a chunk at once.
-	 */
-	public int getMaxSpawnedInChunk() {
-		return 1;
-	}
+    /**+
+     * Will return how many at most can spawn in a chunk at once.
+     */
+    public int getMaxSpawnedInChunk() {
+        return 1;
+    }
 
-	/**+
-	 * (abstract) Protected helper method to write subclass entity
-	 * data to NBT.
-	 */
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setInteger("ExplosionPower", this.explosionStrength);
-	}
+    /**+
+     * (abstract) Protected helper method to write subclass entity
+     * data to NBT.
+     */
+    public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
+        super.writeEntityToNBT(nbttagcompound);
+        nbttagcompound.setInteger("ExplosionPower", this.explosionStrength);
+    }
 
-	/**+
-	 * (abstract) Protected helper method to read subclass entity
-	 * data from NBT.
-	 */
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
-		super.readEntityFromNBT(nbttagcompound);
-		if (nbttagcompound.hasKey("ExplosionPower", 99)) {
-			this.explosionStrength = nbttagcompound.getInteger("ExplosionPower");
-		}
+    /**+
+     * (abstract) Protected helper method to read subclass entity
+     * data from NBT.
+     */
+    public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
+        super.readEntityFromNBT(nbttagcompound);
+        if (nbttagcompound.hasKey("ExplosionPower", 99)) {
+            this.explosionStrength = nbttagcompound.getInteger("ExplosionPower");
+        }
+    }
 
-	}
-
-	public float getEyeHeight() {
-		return 2.6F;
-	}
-
+    public float getEyeHeight() {
+        return 2.6F;
+    }
 }

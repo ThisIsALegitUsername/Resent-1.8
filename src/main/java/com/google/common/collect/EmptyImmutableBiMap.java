@@ -16,9 +16,8 @@
 
 package com.google.common.collect;
 
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
+import javax.annotation.Nullable;
 
 /**
  * Bimap with no mappings.
@@ -28,57 +27,57 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("serial") // uses writeReplace(), not default serialization
 final class EmptyImmutableBiMap extends ImmutableBiMap<Object, Object> {
-	static final EmptyImmutableBiMap INSTANCE = new EmptyImmutableBiMap();
 
-	private EmptyImmutableBiMap() {
-	}
+    static final EmptyImmutableBiMap INSTANCE = new EmptyImmutableBiMap();
 
-	@Override
-	public ImmutableBiMap<Object, Object> inverse() {
-		return this;
-	}
+    private EmptyImmutableBiMap() {}
 
-	@Override
-	public int size() {
-		return 0;
-	}
+    @Override
+    public ImmutableBiMap<Object, Object> inverse() {
+        return this;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return true;
-	}
+    @Override
+    public int size() {
+        return 0;
+    }
 
-	@Override
-	public Object get(@Nullable Object key) {
-		return null;
-	}
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 
-	@Override
-	public ImmutableSet<Entry<Object, Object>> entrySet() {
-		return ImmutableSet.of();
-	}
+    @Override
+    public Object get(@Nullable Object key) {
+        return null;
+    }
 
-	@Override
-	ImmutableSet<Entry<Object, Object>> createEntrySet() {
-		throw new AssertionError("should never be called");
-	}
+    @Override
+    public ImmutableSet<Entry<Object, Object>> entrySet() {
+        return ImmutableSet.of();
+    }
 
-	@Override
-	public ImmutableSetMultimap<Object, Object> asMultimap() {
-		return ImmutableSetMultimap.of();
-	}
+    @Override
+    ImmutableSet<Entry<Object, Object>> createEntrySet() {
+        throw new AssertionError("should never be called");
+    }
 
-	@Override
-	public ImmutableSet<Object> keySet() {
-		return ImmutableSet.of();
-	}
+    @Override
+    public ImmutableSetMultimap<Object, Object> asMultimap() {
+        return ImmutableSetMultimap.of();
+    }
 
-	@Override
-	boolean isPartialView() {
-		return false;
-	}
+    @Override
+    public ImmutableSet<Object> keySet() {
+        return ImmutableSet.of();
+    }
 
-	Object readResolve() {
-		return INSTANCE; // preserve singleton property
-	}
+    @Override
+    boolean isPartialView() {
+        return false;
+    }
+
+    Object readResolve() {
+        return INSTANCE; // preserve singleton property
+    }
 }

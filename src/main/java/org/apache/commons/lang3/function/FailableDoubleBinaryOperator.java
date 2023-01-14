@@ -28,14 +28,13 @@ import java.util.function.DoubleBinaryOperator;
  */
 @FunctionalInterface
 public interface FailableDoubleBinaryOperator<E extends Throwable> {
-
-	/**
-	 * Applies this operator to the given operands.
-	 *
-	 * @param left  the first operand
-	 * @param right the second operand
-	 * @return the operator result
-	 * @throws E if the operation fails
-	 */
-	double applyAsDouble(double left, double right) throws E;
+    /**
+     * Applies this operator to the given operands.
+     *
+     * @param left  the first operand
+     * @param right the second operand
+     * @return the operator result
+     * @throws E if the operation fails
+     */
+    double applyAsDouble(double left, double right) throws E;
 }

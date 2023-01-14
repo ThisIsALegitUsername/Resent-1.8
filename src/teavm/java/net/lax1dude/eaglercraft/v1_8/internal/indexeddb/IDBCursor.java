@@ -29,7 +29,7 @@ public interface IDBCursor extends JSObject {
     String DIRECTION_PREVIOUS_UNIQUE = "prevunique";
 
     @JSProperty
-	IDBCursorSource getSource();
+    IDBCursorSource getSource();
 
     @JSProperty
     String getDirection();

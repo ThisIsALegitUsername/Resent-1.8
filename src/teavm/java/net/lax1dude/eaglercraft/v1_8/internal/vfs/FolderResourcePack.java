@@ -1,11 +1,10 @@
 package net.lax1dude.eaglercraft.v1_8.internal.vfs;
 
 import com.google.common.collect.Sets;
-import net.minecraft.client.resources.AbstractResourcePack;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
+import net.minecraft.client.resources.AbstractResourcePack;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
@@ -22,37 +21,38 @@ import java.util.Set;
  */
 
 public class FolderResourcePack extends AbstractResourcePack {
-	private final String prefix;
 
-	public FolderResourcePack(String resourcePackFileIn, String prefix) {
-		super(resourcePackFileIn);
-		this.prefix = prefix;
-	}
+    private final String prefix;
 
-	protected InputStream getInputStreamByName(String name) {
-		return SYS.VFS.getFile(prefix + this.resourcePackFile + "/" + name).getInputStream();
-	}
+    public FolderResourcePack(String resourcePackFileIn, String prefix) {
+        super(resourcePackFileIn);
+        this.prefix = prefix;
+    }
 
-	protected boolean hasResourceName(String name) {
-		return SYS.VFS.fileExists(prefix + this.resourcePackFile + "/" + name);
-	}
+    protected InputStream getInputStreamByName(String name) {
+        return SYS.VFS.getFile(prefix + this.resourcePackFile + "/" + name).getInputStream();
+    }
 
-	public Set<String> getResourceDomains() {
-		Set<String> set = Sets.<String>newHashSet();
-		String pfx = prefix + this.resourcePackFile + "/assets/";
-		List<String> files = SYS.VFS.listFiles(pfx);
+    protected boolean hasResourceName(String name) {
+        return SYS.VFS.fileExists(prefix + this.resourcePackFile + "/" + name);
+    }
 
-		for (String file : files) {
-			String s = file.substring(pfx.length());
-			int ind = s.indexOf('/');
-			if (ind != -1) s = s.substring(0, ind);
-			if (!s.equals(s.toLowerCase())) {
-				this.logNameNotLowercase(s);
-			} else {
-				set.add(s);
-			}
-		}
+    public Set<String> getResourceDomains() {
+        Set<String> set = Sets.<String>newHashSet();
+        String pfx = prefix + this.resourcePackFile + "/assets/";
+        List<String> files = SYS.VFS.listFiles(pfx);
 
-		return set;
-	}
+        for (String file : files) {
+            String s = file.substring(pfx.length());
+            int ind = s.indexOf('/');
+            if (ind != -1) s = s.substring(0, ind);
+            if (!s.equals(s.toLowerCase())) {
+                this.logNameNotLowercase(s);
+            } else {
+                set.add(s);
+            }
+        }
+
+        return set;
+    }
 }

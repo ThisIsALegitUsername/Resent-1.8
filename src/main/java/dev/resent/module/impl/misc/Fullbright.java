@@ -4,16 +4,16 @@ import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 
 public class Fullbright extends Mod {
-    
+
     public static Fullbright INSTANCE = new Fullbright();
 
-    public Fullbright(){
+    public Fullbright() {
         super("FullBright", Category.MISC);
     }
 
     @Override
     public void onEnable() {
-        if(mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null){
+        if (mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null) {
             mc.gameSettings.gammaSetting = 100;
         }
     }

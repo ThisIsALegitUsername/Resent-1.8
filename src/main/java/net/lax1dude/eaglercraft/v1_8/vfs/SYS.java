@@ -14,5 +14,4 @@ package net.lax1dude.eaglercraft.v1_8.vfs;
  *
  */
 
-public class SYS extends net.lax1dude.eaglercraft.v1_8.internal.vfs.SYS {
-}
+public class SYS extends net.lax1dude.eaglercraft.v1_8.internal.vfs.SYS {}

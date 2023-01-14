@@ -59,8 +59,8 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface RunAs {
-	/**
-	 * Name of a security role.
-	 */
-	String value();
+    /**
+     * Name of a security role.
+     */
+    String value();
 }

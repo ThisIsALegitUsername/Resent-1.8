@@ -21,7 +21,7 @@
  * <p>
  * This package is a part of the open-source
  * <a href="http://guava-libraries.googlecode.com">Guava libraries</a>.
- * 
+ *
  * <p>
  * See the Guava User Guide article on
  * <a href= "http://code.google.com/p/guava-libraries/wiki/MathExplained"> math

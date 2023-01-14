@@ -19,6 +19,7 @@ import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
 
 public abstract class IDBFactory implements JSObject {
+
     public static boolean isSupported() {
         return !getInstanceImpl().isUndefined();
     }
@@ -34,8 +35,7 @@ public abstract class IDBFactory implements JSObject {
         return factory;
     }
 
-    @JSBody(script = "return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || "
-            + "window.msIndexedDB;")
+    @JSBody(script = "return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || " + "window.msIndexedDB;")
     static native IDBFactory getInstanceImpl();
 
     public abstract IDBOpenDBRequest open(String name, int version);

@@ -28,12 +28,11 @@ import java.util.function.LongSupplier;
  */
 @FunctionalInterface
 public interface FailableLongSupplier<E extends Throwable> {
-
-	/**
-	 * Supplies a long.
-	 *
-	 * @return a result
-	 * @throws E if the supplier fails
-	 */
-	long getAsLong() throws E;
+    /**
+     * Supplies a long.
+     *
+     * @return a result
+     * @throws E if the supplier fails
+     */
+    long getAsLong() throws E;
 }

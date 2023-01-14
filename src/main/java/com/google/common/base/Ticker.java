@@ -36,31 +36,31 @@ import com.google.common.annotations.GwtCompatible;
 @Beta
 @GwtCompatible
 public abstract class Ticker {
-	/**
-	 * Constructor for use by subclasses.
-	 */
-	protected Ticker() {
-	}
 
-	/**
-	 * Returns the number of nanoseconds elapsed since this ticker's fixed point of
-	 * reference.
-	 */
-	public abstract long read();
+    /**
+     * Constructor for use by subclasses.
+     */
+    protected Ticker() {}
 
-	/**
-	 * A ticker that reads the current time using {@link System#nanoTime}.
-	 *
-	 * @since 10.0
-	 */
-	public static Ticker systemTicker() {
-		return SYSTEM_TICKER;
-	}
+    /**
+     * Returns the number of nanoseconds elapsed since this ticker's fixed point of
+     * reference.
+     */
+    public abstract long read();
 
-	private static final Ticker SYSTEM_TICKER = new Ticker() {
-		@Override
-		public long read() {
-			return Platform.systemNanoTime();
-		}
-	};
+    /**
+     * A ticker that reads the current time using {@link System#nanoTime}.
+     *
+     * @since 10.0
+     */
+    public static Ticker systemTicker() {
+        return SYSTEM_TICKER;
+    }
+
+    private static final Ticker SYSTEM_TICKER = new Ticker() {
+        @Override
+        public long read() {
+            return Platform.systemNanoTime();
+        }
+    };
 }

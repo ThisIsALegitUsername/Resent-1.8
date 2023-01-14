@@ -16,11 +16,9 @@
 
 package com.google.common.collect;
 
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.Map;
+import javax.annotation.Nullable;
 
 /**
  * Implementation of {@link ImmutableMultiset} with zero or more elements.
@@ -32,48 +30,49 @@ import com.google.common.annotations.GwtCompatible;
 @SuppressWarnings("serial")
 // uses writeReplace(), not default serialization
 class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
-	private final transient ImmutableMap<E, Integer> map;
-	private final transient int size;
 
-	RegularImmutableMultiset(ImmutableMap<E, Integer> map, int size) {
-		this.map = map;
-		this.size = size;
-	}
+    private final transient ImmutableMap<E, Integer> map;
+    private final transient int size;
 
-	@Override
-	boolean isPartialView() {
-		return map.isPartialView();
-	}
+    RegularImmutableMultiset(ImmutableMap<E, Integer> map, int size) {
+        this.map = map;
+        this.size = size;
+    }
 
-	@Override
-	public int count(@Nullable Object element) {
-		Integer value = map.get(element);
-		return (value == null) ? 0 : value;
-	}
+    @Override
+    boolean isPartialView() {
+        return map.isPartialView();
+    }
 
-	@Override
-	public int size() {
-		return size;
-	}
+    @Override
+    public int count(@Nullable Object element) {
+        Integer value = map.get(element);
+        return (value == null) ? 0 : value;
+    }
 
-	@Override
-	public boolean contains(@Nullable Object element) {
-		return map.containsKey(element);
-	}
+    @Override
+    public int size() {
+        return size;
+    }
 
-	@Override
-	public ImmutableSet<E> elementSet() {
-		return map.keySet();
-	}
+    @Override
+    public boolean contains(@Nullable Object element) {
+        return map.containsKey(element);
+    }
 
-	@Override
-	Entry<E> getEntry(int index) {
-		Map.Entry<E, Integer> mapEntry = map.entrySet().asList().get(index);
-		return Multisets.immutableEntry(mapEntry.getKey(), mapEntry.getValue());
-	}
+    @Override
+    public ImmutableSet<E> elementSet() {
+        return map.keySet();
+    }
 
-	@Override
-	public int hashCode() {
-		return map.hashCode();
-	}
+    @Override
+    Entry<E> getEntry(int index) {
+        Map.Entry<E, Integer> mapEntry = map.entrySet().asList().get(index);
+        return Multisets.immutableEntry(mapEntry.getKey(), mapEntry.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return map.hashCode();
+    }
 }

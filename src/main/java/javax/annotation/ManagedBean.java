@@ -56,20 +56,20 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @Retention(RUNTIME)
 public @interface ManagedBean {
-	/**
-	 * The name of the Managed Bean. Managed Bean names must be unique within a Java
-	 * EE module. For each named Managed Bean, Java EE containers must make
-	 * available the following entries in JNDI, using the same naming scheme used
-	 * for EJB components.
-	 * <p>
-	 * In the application namespace:
-	 * <p>
-	 * java:app/&lt;module-name&gt;/&lt;bean-name&gt;
-	 * <p>
-	 * In the module namespace of the module containing the Managed Bean:
-	 * <p>
-	 * java:module/&lt;bean-name&gt;
-	 *
-	 */
-	public String value() default "";
+    /**
+     * The name of the Managed Bean. Managed Bean names must be unique within a Java
+     * EE module. For each named Managed Bean, Java EE containers must make
+     * available the following entries in JNDI, using the same naming scheme used
+     * for EJB components.
+     * <p>
+     * In the application namespace:
+     * <p>
+     * java:app/&lt;module-name&gt;/&lt;bean-name&gt;
+     * <p>
+     * In the module namespace of the module containing the Managed Bean:
+     * <p>
+     * java:module/&lt;bean-name&gt;
+     *
+     */
+    public String value() default "";
 }

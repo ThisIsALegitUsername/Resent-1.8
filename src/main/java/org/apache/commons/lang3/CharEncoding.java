@@ -50,110 +50,109 @@ import java.nio.charset.IllegalCharsetNameException;
 @Deprecated
 public class CharEncoding {
 
-	/**
-	 * <p>
-	 * ISO Latin Alphabet #1, also known as ISO-LATIN-1.
-	 * </p>
-	 *
-	 * <p>
-	 * Every implementation of the Java platform is required to support this
-	 * character encoding.
-	 * </p>
-	 */
-	public static final String ISO_8859_1 = "ISO-8859-1";
+    /**
+     * <p>
+     * ISO Latin Alphabet #1, also known as ISO-LATIN-1.
+     * </p>
+     *
+     * <p>
+     * Every implementation of the Java platform is required to support this
+     * character encoding.
+     * </p>
+     */
+    public static final String ISO_8859_1 = "ISO-8859-1";
 
-	/**
-	 * <p>
-	 * Seven-bit ASCII, also known as ISO646-US, also known as the Basic Latin block
-	 * of the Unicode character set.
-	 * </p>
-	 *
-	 * <p>
-	 * Every implementation of the Java platform is required to support this
-	 * character encoding.
-	 * </p>
-	 */
-	public static final String US_ASCII = "US-ASCII";
+    /**
+     * <p>
+     * Seven-bit ASCII, also known as ISO646-US, also known as the Basic Latin block
+     * of the Unicode character set.
+     * </p>
+     *
+     * <p>
+     * Every implementation of the Java platform is required to support this
+     * character encoding.
+     * </p>
+     */
+    public static final String US_ASCII = "US-ASCII";
 
-	/**
-	 * <p>
-	 * Sixteen-bit Unicode Transformation Format, byte order specified by a
-	 * mandatory initial byte-order mark (either order accepted on input, big-endian
-	 * used on output).
-	 * </p>
-	 *
-	 * <p>
-	 * Every implementation of the Java platform is required to support this
-	 * character encoding.
-	 * </p>
-	 */
-	public static final String UTF_16 = "UTF-16";
+    /**
+     * <p>
+     * Sixteen-bit Unicode Transformation Format, byte order specified by a
+     * mandatory initial byte-order mark (either order accepted on input, big-endian
+     * used on output).
+     * </p>
+     *
+     * <p>
+     * Every implementation of the Java platform is required to support this
+     * character encoding.
+     * </p>
+     */
+    public static final String UTF_16 = "UTF-16";
 
-	/**
-	 * <p>
-	 * Sixteen-bit Unicode Transformation Format, big-endian byte order.
-	 * </p>
-	 *
-	 * <p>
-	 * Every implementation of the Java platform is required to support this
-	 * character encoding.
-	 * </p>
-	 */
-	public static final String UTF_16BE = "UTF-16BE";
+    /**
+     * <p>
+     * Sixteen-bit Unicode Transformation Format, big-endian byte order.
+     * </p>
+     *
+     * <p>
+     * Every implementation of the Java platform is required to support this
+     * character encoding.
+     * </p>
+     */
+    public static final String UTF_16BE = "UTF-16BE";
 
-	/**
-	 * <p>
-	 * Sixteen-bit Unicode Transformation Format, little-endian byte order.
-	 * </p>
-	 *
-	 * <p>
-	 * Every implementation of the Java platform is required to support this
-	 * character encoding.
-	 * </p>
-	 */
-	public static final String UTF_16LE = "UTF-16LE";
+    /**
+     * <p>
+     * Sixteen-bit Unicode Transformation Format, little-endian byte order.
+     * </p>
+     *
+     * <p>
+     * Every implementation of the Java platform is required to support this
+     * character encoding.
+     * </p>
+     */
+    public static final String UTF_16LE = "UTF-16LE";
 
-	/**
-	 * <p>
-	 * Eight-bit Unicode Transformation Format.
-	 * </p>
-	 *
-	 * <p>
-	 * Every implementation of the Java platform is required to support this
-	 * character encoding.
-	 * </p>
-	 */
-	public static final String UTF_8 = "UTF-8";
+    /**
+     * <p>
+     * Eight-bit Unicode Transformation Format.
+     * </p>
+     *
+     * <p>
+     * Every implementation of the Java platform is required to support this
+     * character encoding.
+     * </p>
+     */
+    public static final String UTF_8 = "UTF-8";
 
-	/**
-	 * <p>
-	 * Returns whether the named charset is supported.
-	 * </p>
-	 *
-	 * <p>
-	 * This is similar to <a href=
-	 * "http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
-	 * java.nio.charset.Charset.isSupported(String)</a> but handles more formats
-	 * </p>
-	 *
-	 * @param name the name of the requested charset; may be either a canonical name
-	 *             or an alias, null returns false
-	 * @return {@code true} if the charset is available in the current Java virtual
-	 *         machine
-	 * @deprecated Please use {@link Charset#isSupported(String)} instead, although
-	 *             be aware that {@code null} values are not accepted by that method
-	 *             and an {@link IllegalCharsetNameException} may be thrown.
-	 */
-	@Deprecated
-	public static boolean isSupported(final String name) {
-		if (name == null) {
-			return false;
-		}
-		try {
-			return Charset.isSupported(name);
-		} catch (final IllegalCharsetNameException ex) {
-			return false;
-		}
-	}
-
+    /**
+     * <p>
+     * Returns whether the named charset is supported.
+     * </p>
+     *
+     * <p>
+     * This is similar to <a href=
+     * "http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
+     * java.nio.charset.Charset.isSupported(String)</a> but handles more formats
+     * </p>
+     *
+     * @param name the name of the requested charset; may be either a canonical name
+     *             or an alias, null returns false
+     * @return {@code true} if the charset is available in the current Java virtual
+     *         machine
+     * @deprecated Please use {@link Charset#isSupported(String)} instead, although
+     *             be aware that {@code null} values are not accepted by that method
+     *             and an {@link IllegalCharsetNameException} may be thrown.
+     */
+    @Deprecated
+    public static boolean isSupported(final String name) {
+        if (name == null) {
+            return false;
+        }
+        try {
+            return Charset.isSupported(name);
+        } catch (final IllegalCharsetNameException ex) {
+            return false;
+        }
+    }
 }

@@ -33,47 +33,46 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface FailableBiFunction<T, U, R, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableBiFunction NOP = (t, u) -> null;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableBiFunction NOP = (t, u) -> null;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> Consumed type 1.
+     * @param <U> Consumed type 2.
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <T> Consumed type 1.
-	 * @param <U> Consumed type 2.
-	 * @param <R> Return type.
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
-		return NOP;
-	}
+    /**
+     * Returns a composed {@code FailableBiFunction} that like
+     * {@link BiFunction#andThen(Function)}.
+     *
+     * @param <V>   the output type of the {@code after} function, and of the
+     *              composed function.
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableBiFunction} that like
+     *         {@link BiFunction#andThen(Function)}.
+     * @throws NullPointerException when {@code after} is null.
+     */
+    default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
+        Objects.requireNonNull(after);
+        return (final T t, final U u) -> after.apply(apply(t, u));
+    }
 
-	/**
-	 * Returns a composed {@code FailableBiFunction} that like
-	 * {@link BiFunction#andThen(Function)}.
-	 *
-	 * @param <V>   the output type of the {@code after} function, and of the
-	 *              composed function.
-	 * @param after the operation to perform after this one.
-	 * @return a composed {@code FailableBiFunction} that like
-	 *         {@link BiFunction#andThen(Function)}.
-	 * @throws NullPointerException when {@code after} is null.
-	 */
-	default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
-		Objects.requireNonNull(after);
-		return (final T t, final U u) -> after.apply(apply(t, u));
-	}
-
-	/**
-	 * Applies this function.
-	 *
-	 * @param input1 the first input for the function
-	 * @param input2 the second input for the function
-	 * @return the result of the function
-	 * @throws E Thrown when the function fails.
-	 */
-	R apply(T input1, U input2) throws E;
+    /**
+     * Applies this function.
+     *
+     * @param input1 the first input for the function
+     * @param input2 the second input for the function
+     * @return the result of the function
+     * @throws E Thrown when the function fails.
+     */
+    R apply(T input1, U input2) throws E;
 }

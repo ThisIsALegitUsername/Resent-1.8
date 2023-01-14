@@ -16,10 +16,9 @@ package com.google.common.base;
 
 import static com.google.common.base.Preconditions.format;
 
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
+import javax.annotation.Nullable;
 
 /**
  * Static convenience methods that serve the same purpose as Java language
@@ -28,7 +27,7 @@ import com.google.common.annotations.GwtCompatible;
  * assertions</a>, except that they are always enabled. These methods should be
  * used instead of Java assertions whenever there is a chance the check may fail
  * "in real life". Example:
- * 
+ *
  * <pre>
  * {
  * 	&#64;code
@@ -74,7 +73,7 @@ import com.google.common.annotations.GwtCompatible;
  * eagerly, and autoboxing and varargs array creation may happen as well, even
  * when the verification succeeds and the message ends up unneeded.
  * Performance-sensitive verification checks should continue to use usual form:
- * 
+ *
  * <pre>
  * {
  * 	&#64;code
@@ -109,79 +108,77 @@ import com.google.common.annotations.GwtCompatible;
 @Beta
 @GwtCompatible
 public final class Verify {
-	/**
-	 * Ensures that {@code expression} is {@code true}, throwing a
-	 * {@code VerifyException} with no message otherwise.
-	 */
-	public static void verify(boolean expression) {
-		if (!expression) {
-			throw new VerifyException();
-		}
-	}
 
-	/**
-	 * Ensures that {@code expression} is {@code true}, throwing a
-	 * {@code VerifyException} with a custom message otherwise.
-	 *
-	 * @param expression           a boolean expression
-	 * @param errorMessageTemplate a template for the exception message should the
-	 *                             check fail. The message is formed by replacing
-	 *                             each {@code %s} placeholder in the template with
-	 *                             an argument. These are matched by position - the
-	 *                             first {@code %s} gets
-	 *                             {@code errorMessageArgs[0]}, etc. Unmatched
-	 *                             arguments will be appended to the formatted
-	 *                             message in square braces. Unmatched placeholders
-	 *                             will be left as-is.
-	 * @param errorMessageArgs     the arguments to be substituted into the message
-	 *                             template. Arguments are converted to strings
-	 *                             using {@link String#valueOf(Object)}.
-	 * @throws VerifyException if {@code expression} is {@code false}
-	 */
-	public static void verify(boolean expression, @Nullable String errorMessageTemplate,
-			@Nullable Object... errorMessageArgs) {
-		if (!expression) {
-			throw new VerifyException(format(errorMessageTemplate, errorMessageArgs));
-		}
-	}
+    /**
+     * Ensures that {@code expression} is {@code true}, throwing a
+     * {@code VerifyException} with no message otherwise.
+     */
+    public static void verify(boolean expression) {
+        if (!expression) {
+            throw new VerifyException();
+        }
+    }
 
-	/**
-	 * Ensures that {@code reference} is non-null, throwing a
-	 * {@code VerifyException} with a default message otherwise.
-	 *
-	 * @return {@code reference}, guaranteed to be non-null, for convenience
-	 */
-	public static <T> T verifyNotNull(@Nullable T reference) {
-		return verifyNotNull(reference, "expected a non-null reference");
-	}
+    /**
+     * Ensures that {@code expression} is {@code true}, throwing a
+     * {@code VerifyException} with a custom message otherwise.
+     *
+     * @param expression           a boolean expression
+     * @param errorMessageTemplate a template for the exception message should the
+     *                             check fail. The message is formed by replacing
+     *                             each {@code %s} placeholder in the template with
+     *                             an argument. These are matched by position - the
+     *                             first {@code %s} gets
+     *                             {@code errorMessageArgs[0]}, etc. Unmatched
+     *                             arguments will be appended to the formatted
+     *                             message in square braces. Unmatched placeholders
+     *                             will be left as-is.
+     * @param errorMessageArgs     the arguments to be substituted into the message
+     *                             template. Arguments are converted to strings
+     *                             using {@link String#valueOf(Object)}.
+     * @throws VerifyException if {@code expression} is {@code false}
+     */
+    public static void verify(boolean expression, @Nullable String errorMessageTemplate, @Nullable Object... errorMessageArgs) {
+        if (!expression) {
+            throw new VerifyException(format(errorMessageTemplate, errorMessageArgs));
+        }
+    }
 
-	/**
-	 * Ensures that {@code reference} is non-null, throwing a
-	 * {@code VerifyException} with a custom message otherwise.
-	 *
-	 * @param errorMessageTemplate a template for the exception message should the
-	 *                             check fail. The message is formed by replacing
-	 *                             each {@code %s} placeholder in the template with
-	 *                             an argument. These are matched by position - the
-	 *                             first {@code %s} gets
-	 *                             {@code errorMessageArgs[0]}, etc. Unmatched
-	 *                             arguments will be appended to the formatted
-	 *                             message in square braces. Unmatched placeholders
-	 *                             will be left as-is.
-	 * @param errorMessageArgs     the arguments to be substituted into the message
-	 *                             template. Arguments are converted to strings
-	 *                             using {@link String#valueOf(Object)}.
-	 * @return {@code reference}, guaranteed to be non-null, for convenience
-	 */
-	public static <T> T verifyNotNull(@Nullable T reference, @Nullable String errorMessageTemplate,
-			@Nullable Object... errorMessageArgs) {
-		verify(reference != null, errorMessageTemplate, errorMessageArgs);
-		return reference;
-	}
+    /**
+     * Ensures that {@code reference} is non-null, throwing a
+     * {@code VerifyException} with a default message otherwise.
+     *
+     * @return {@code reference}, guaranteed to be non-null, for convenience
+     */
+    public static <T> T verifyNotNull(@Nullable T reference) {
+        return verifyNotNull(reference, "expected a non-null reference");
+    }
 
-	// TODO(kevinb): consider <T> T verifySingleton(Iterable<T>) to take over for
-	// Iterables.getOnlyElement()
+    /**
+     * Ensures that {@code reference} is non-null, throwing a
+     * {@code VerifyException} with a custom message otherwise.
+     *
+     * @param errorMessageTemplate a template for the exception message should the
+     *                             check fail. The message is formed by replacing
+     *                             each {@code %s} placeholder in the template with
+     *                             an argument. These are matched by position - the
+     *                             first {@code %s} gets
+     *                             {@code errorMessageArgs[0]}, etc. Unmatched
+     *                             arguments will be appended to the formatted
+     *                             message in square braces. Unmatched placeholders
+     *                             will be left as-is.
+     * @param errorMessageArgs     the arguments to be substituted into the message
+     *                             template. Arguments are converted to strings
+     *                             using {@link String#valueOf(Object)}.
+     * @return {@code reference}, guaranteed to be non-null, for convenience
+     */
+    public static <T> T verifyNotNull(@Nullable T reference, @Nullable String errorMessageTemplate, @Nullable Object... errorMessageArgs) {
+        verify(reference != null, errorMessageTemplate, errorMessageArgs);
+        return reference;
+    }
 
-	private Verify() {
-	}
+    // TODO(kevinb): consider <T> T verifySingleton(Iterable<T>) to take over for
+    // Iterables.getOnlyElement()
+
+    private Verify() {}
 }

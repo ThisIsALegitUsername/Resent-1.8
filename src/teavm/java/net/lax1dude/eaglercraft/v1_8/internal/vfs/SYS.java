@@ -1,10 +1,5 @@
 package net.lax1dude.eaglercraft.v1_8.internal.vfs;
 
-import net.lax1dude.eaglercraft.v1_8.crypto.SHA1Digest;
-import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.ArrayBufferInputStream;
-import net.lax1dude.eaglercraft.v1_8.internal.vfs.VirtualFilesystem.VFSHandle;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,6 +11,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import net.lax1dude.eaglercraft.v1_8.crypto.SHA1Digest;
+import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.ArrayBufferInputStream;
+import net.lax1dude.eaglercraft.v1_8.internal.vfs.VirtualFilesystem.VFSHandle;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
@@ -33,160 +32,163 @@ import java.util.zip.ZipInputStream;
 
 public class SYS {
 
-	public static final VirtualFilesystem VFS;
-	
-	static {
-		VFSHandle vh = VirtualFilesystem.openVFS("_net_lax1dude_eaglercraft_v1_8_VirtualFilesystem_");
-		
-		if(vh.vfs == null) {
-			System.err.println("Could not init filesystem!");
-		}
-		
-		VFS = vh.vfs;
+    public static final VirtualFilesystem VFS;
 
-		List<String> srp = getResourcePackNames(true);
-		for (String name : srp) {
-			if (System.currentTimeMillis() - Long.parseLong(name.substring(name.lastIndexOf('_') + 1)) >= 604800000L) {
-				deleteResourcePack(name, true);
-			}
-		}
-	}
+    static {
+        VFSHandle vh = VirtualFilesystem.openVFS("_net_lax1dude_eaglercraft_v1_8_VirtualFilesystem_");
 
-	public static final void loadRemoteResourcePack(String url, String hash, Consumer<String> cb, Consumer<Runnable> ast, Runnable loading) {
-		if (!hash.matches("^[a-f0-9]{40}$")) {
-			cb.accept(null);
-			return;
-		}
-		List<String> srpPre = getResourcePackNames(true);
-		String alreadyHere = srpPre.stream().filter(s -> s.startsWith(hash + "_")).findFirst().orElse(null);
-		if (alreadyHere != null) {
-			cb.accept(alreadyHere);
-			return;
-		}
-		PlatformRuntime.downloadRemoteURI(url, ab -> {
-			ast.accept(() -> {
-				if (ab == null) {
-					cb.accept(null);
-					return;
-				}
-				List<String> srp = getResourcePackNames(true);
-				// delete old server resource packs - todo: test
-				if (srp.size() > 5) {
-					srp.sort(Comparator.comparingLong(val -> Long.parseLong(val.substring(val.lastIndexOf('_') + 1))));
-					for (int i = 0; i < srp.size() - 5; i++) {
-						deleteResourcePack(srp.get(i), true);
-					}
-				}
-				String packName = hash + "_" + System.currentTimeMillis();
-				loading.run();
-				boolean success = loadResourcePack(packName + ".zip", new ArrayBufferInputStream(ab), hash);
-				if (success) {
-					cb.accept(packName);
-					return;
-				}
-				cb.accept(null);
-			});
-		});
-	}
+        if (vh.vfs == null) {
+            System.err.println("Could not init filesystem!");
+        }
 
-	public static final boolean loadResourcePack(String name, InputStream is, String hash) {
-		BufferedInputStream bis = new BufferedInputStream(is);
+        VFS = vh.vfs;
 
-		bis.mark(Integer.MAX_VALUE);
+        List<String> srp = getResourcePackNames(true);
+        for (String name : srp) {
+            if (System.currentTimeMillis() - Long.parseLong(name.substring(name.lastIndexOf('_') + 1)) >= 604800000L) {
+                deleteResourcePack(name, true);
+            }
+        }
+    }
 
-		if (hash != null) {
-			try {
-				SHA1Digest digest = new SHA1Digest();
-				byte[] buffer = new byte[16000];
-				int read = 0;
+    public static final void loadRemoteResourcePack(String url, String hash, Consumer<String> cb, Consumer<Runnable> ast, Runnable loading) {
+        if (!hash.matches("^[a-f0-9]{40}$")) {
+            cb.accept(null);
+            return;
+        }
+        List<String> srpPre = getResourcePackNames(true);
+        String alreadyHere = srpPre.stream().filter(s -> s.startsWith(hash + "_")).findFirst().orElse(null);
+        if (alreadyHere != null) {
+            cb.accept(alreadyHere);
+            return;
+        }
+        PlatformRuntime.downloadRemoteURI(
+            url,
+            ab -> {
+                ast.accept(() -> {
+                    if (ab == null) {
+                        cb.accept(null);
+                        return;
+                    }
+                    List<String> srp = getResourcePackNames(true);
+                    // delete old server resource packs - todo: test
+                    if (srp.size() > 5) {
+                        srp.sort(Comparator.comparingLong(val -> Long.parseLong(val.substring(val.lastIndexOf('_') + 1))));
+                        for (int i = 0; i < srp.size() - 5; i++) {
+                            deleteResourcePack(srp.get(i), true);
+                        }
+                    }
+                    String packName = hash + "_" + System.currentTimeMillis();
+                    loading.run();
+                    boolean success = loadResourcePack(packName + ".zip", new ArrayBufferInputStream(ab), hash);
+                    if (success) {
+                        cb.accept(packName);
+                        return;
+                    }
+                    cb.accept(null);
+                });
+            }
+        );
+    }
 
-				while ((read = bis.read(buffer)) > 0) {
-					digest.update(buffer, 0, read);
-				}
+    public static final boolean loadResourcePack(String name, InputStream is, String hash) {
+        BufferedInputStream bis = new BufferedInputStream(is);
 
-				byte[] sha1sum = new byte[20];
-				digest.doFinal(sha1sum, 0);
-				bis.reset();
-				if (!hash.equals((new BigInteger(1, sha1sum)).toString(16))) {
-					return false;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
+        bis.mark(Integer.MAX_VALUE);
 
-		String packName = name.substring(0, name.lastIndexOf('.')).replace('/', '_');
-		try {
-			int prefixLen = Integer.MAX_VALUE;
-			ZipInputStream ziss = new ZipInputStream(bis);
-			ZipEntry zipEntryy;
-			while ((zipEntryy = ziss.getNextEntry()) != null) {
-				String zn;
-				if (!zipEntryy.isDirectory() && ((zn = zipEntryy.getName()).equals("pack.mcmeta") || zn.endsWith("/pack.mcmeta"))) {
-					int currPrefixLen = zn.length() - 11;
-					if (prefixLen > currPrefixLen) {
-						prefixLen = currPrefixLen;
-					}
-				}
-			}
-			if (prefixLen == Integer.MAX_VALUE) {
-				prefixLen = 0;
-			}
+        if (hash != null) {
+            try {
+                SHA1Digest digest = new SHA1Digest();
+                byte[] buffer = new byte[16000];
+                int read = 0;
 
-			bis.reset();
+                while ((read = bis.read(buffer)) > 0) {
+                    digest.update(buffer, 0, read);
+                }
 
-			ZipInputStream zis = new ZipInputStream(bis);
-			byte[] bb = new byte[16000];
-			ZipEntry zipEntry;
-			while ((zipEntry = zis.getNextEntry()) != null) {
-				if (zipEntry.isDirectory()) continue;
-				if (zipEntry.getName().length() <= prefixLen) continue;
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				int len;
-				while ((len = zis.read(bb)) != -1) {
-					baos.write(bb, 0, len);
-				}
-				baos.close();
-				SYS.VFS.getFile((hash == null ? "resourcepacks/" : "srp/") + packName + "/" + zipEntry.getName().substring(prefixLen)).setAllBytes(baos.toByteArray());
-			}
-			zis.closeEntry();
-			zis.close();
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+                byte[] sha1sum = new byte[20];
+                digest.doFinal(sha1sum, 0);
+                bis.reset();
+                if (!hash.equals((new BigInteger(1, sha1sum)).toString(16))) {
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
 
-	public static final List<String> getResourcePackNames() {
-		return getResourcePackNames(false);
-	}
+        String packName = name.substring(0, name.lastIndexOf('.')).replace('/', '_');
+        try {
+            int prefixLen = Integer.MAX_VALUE;
+            ZipInputStream ziss = new ZipInputStream(bis);
+            ZipEntry zipEntryy;
+            while ((zipEntryy = ziss.getNextEntry()) != null) {
+                String zn;
+                if (!zipEntryy.isDirectory() && ((zn = zipEntryy.getName()).equals("pack.mcmeta") || zn.endsWith("/pack.mcmeta"))) {
+                    int currPrefixLen = zn.length() - 11;
+                    if (prefixLen > currPrefixLen) {
+                        prefixLen = currPrefixLen;
+                    }
+                }
+            }
+            if (prefixLen == Integer.MAX_VALUE) {
+                prefixLen = 0;
+            }
 
-	private static final List<String> getResourcePackNames(boolean srp) {
-		List<String> res = new ArrayList<>();
-		List<String> resourcePackFiles = SYS.VFS.listFiles(srp ? "srp/" : "resourcepacks/");
-		for (String path : resourcePackFiles) {
-			String trimmed = path.substring(srp ? 4 : 14);
-			trimmed = trimmed.substring(0, trimmed.indexOf('/'));
-			boolean hasIt = false;
-			for (String alreadyHas : res) {
-				if (trimmed.equals(alreadyHas)) {
-					hasIt = true;
-					break;
-				}
-			}
-			if (hasIt) continue;
-			res.add(trimmed);
-		}
-		return res;
-	}
+            bis.reset();
 
-	public static final void deleteResourcePack(String packName) {
-		deleteResourcePack(packName, false);
-	}
+            ZipInputStream zis = new ZipInputStream(bis);
+            byte[] bb = new byte[16000];
+            ZipEntry zipEntry;
+            while ((zipEntry = zis.getNextEntry()) != null) {
+                if (zipEntry.isDirectory()) continue;
+                if (zipEntry.getName().length() <= prefixLen) continue;
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                int len;
+                while ((len = zis.read(bb)) != -1) {
+                    baos.write(bb, 0, len);
+                }
+                baos.close();
+                SYS.VFS.getFile((hash == null ? "resourcepacks/" : "srp/") + packName + "/" + zipEntry.getName().substring(prefixLen)).setAllBytes(baos.toByteArray());
+            }
+            zis.closeEntry();
+            zis.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	private static final void deleteResourcePack(String packName, boolean srp) {
-		SYS.VFS.deleteFiles((srp ? "srp/" : "resourcepacks/") + packName);
-	}
+    public static final List<String> getResourcePackNames() {
+        return getResourcePackNames(false);
+    }
+
+    private static final List<String> getResourcePackNames(boolean srp) {
+        List<String> res = new ArrayList<>();
+        List<String> resourcePackFiles = SYS.VFS.listFiles(srp ? "srp/" : "resourcepacks/");
+        for (String path : resourcePackFiles) {
+            String trimmed = path.substring(srp ? 4 : 14);
+            trimmed = trimmed.substring(0, trimmed.indexOf('/'));
+            boolean hasIt = false;
+            for (String alreadyHas : res) {
+                if (trimmed.equals(alreadyHas)) {
+                    hasIt = true;
+                    break;
+                }
+            }
+            if (hasIt) continue;
+            res.add(trimmed);
+        }
+        return res;
+    }
+
+    public static final void deleteResourcePack(String packName) {
+        deleteResourcePack(packName, false);
+    }
+
+    private static final void deleteResourcePack(String packName, boolean srp) {
+        SYS.VFS.deleteFiles((srp ? "srp/" : "resourcepacks/") + packName);
+    }
 }

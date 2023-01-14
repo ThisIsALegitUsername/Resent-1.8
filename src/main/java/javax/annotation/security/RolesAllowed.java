@@ -63,8 +63,8 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
 public @interface RolesAllowed {
-	/**
-	 * List of roles that are permitted access.
-	 */
-	String[] value();
+    /**
+     * List of roles that are permitted access.
+     */
+    String[] value();
 }

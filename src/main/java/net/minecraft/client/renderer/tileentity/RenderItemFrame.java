@@ -34,176 +34,170 @@ import net.minecraft.world.storage.MapData;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class RenderItemFrame extends Render<EntityItemFrame> {
-	private static final ResourceLocation mapBackgroundTextures = new ResourceLocation(
-			"textures/map/map_background.png");
-	private final Minecraft mc = Minecraft.getMinecraft();
-	private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
-	private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
-	private RenderItem itemRenderer;
 
-	public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
-		super(renderManagerIn);
-		this.itemRenderer = itemRendererIn;
-	}
+    private static final ResourceLocation mapBackgroundTextures = new ResourceLocation("textures/map/map_background.png");
+    private final Minecraft mc = Minecraft.getMinecraft();
+    private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
+    private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
+    private RenderItem itemRenderer;
 
-	/**+
-	 * Actually renders the given argument. This is a synthetic
-	 * bridge method, always casting down its argument and then
-	 * handing it off to a worker function which does the actual
-	 * work. In all probabilty, the class Render is generic
-	 * (Render<T extends Entity>) and this method has signature
-	 * public void func_76986_a(T entity, double d, double d1,
-	 * double d2, float f, float f1). But JAD is pre 1.5 so doe
-	 */
-	public void doRender(EntityItemFrame entityitemframe, double d0, double d1, double d2, float var8, float var9) {
-		GlStateManager.pushMatrix();
-		BlockPos blockpos = entityitemframe.getHangingPosition();
-		double d3 = (double) blockpos.getX() - entityitemframe.posX + d0;
-		double d4 = (double) blockpos.getY() - entityitemframe.posY + d1;
-		double d5 = (double) blockpos.getZ() - entityitemframe.posZ + d2;
-		GlStateManager.translate(d3 + 0.5D, d4 + 0.5D, d5 + 0.5D);
-		GlStateManager.rotate(180.0F - entityitemframe.rotationYaw, 0.0F, 1.0F, 0.0F);
-		this.renderManager.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
-		ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
-		IBakedModel ibakedmodel;
-		if (entityitemframe.getDisplayedItem() != null
-				&& entityitemframe.getDisplayedItem().getItem() == Items.filled_map) {
-			ibakedmodel = modelmanager.getModel(this.mapModel);
-		} else {
-			ibakedmodel = modelmanager.getModel(this.itemFrameModel);
-		}
+    public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
+        super(renderManagerIn);
+        this.itemRenderer = itemRendererIn;
+    }
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
-		blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.enableLighting();
-		GlStateManager.enableColorMaterial();
-		GlStateManager.popMatrix();
-		GlStateManager.translate(0.0F, 0.0F, 0.4375F);
-		this.renderItem(entityitemframe);
-		GlStateManager.popMatrix();
-		this.renderName(entityitemframe,
-				d0 + (double) ((float) entityitemframe.facingDirection.getFrontOffsetX() * 0.3F), d1 - 0.25D,
-				d2 + (double) ((float) entityitemframe.facingDirection.getFrontOffsetZ() * 0.3F));
-		GlStateManager.enableLighting();
-		GlStateManager.enableColorMaterial();
-	}
+    /**+
+     * Actually renders the given argument. This is a synthetic
+     * bridge method, always casting down its argument and then
+     * handing it off to a worker function which does the actual
+     * work. In all probabilty, the class Render is generic
+     * (Render<T extends Entity>) and this method has signature
+     * public void func_76986_a(T entity, double d, double d1,
+     * double d2, float f, float f1). But JAD is pre 1.5 so doe
+     */
+    public void doRender(EntityItemFrame entityitemframe, double d0, double d1, double d2, float var8, float var9) {
+        GlStateManager.pushMatrix();
+        BlockPos blockpos = entityitemframe.getHangingPosition();
+        double d3 = (double) blockpos.getX() - entityitemframe.posX + d0;
+        double d4 = (double) blockpos.getY() - entityitemframe.posY + d1;
+        double d5 = (double) blockpos.getZ() - entityitemframe.posZ + d2;
+        GlStateManager.translate(d3 + 0.5D, d4 + 0.5D, d5 + 0.5D);
+        GlStateManager.rotate(180.0F - entityitemframe.rotationYaw, 0.0F, 1.0F, 0.0F);
+        this.renderManager.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
+        ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
+        IBakedModel ibakedmodel;
+        if (entityitemframe.getDisplayedItem() != null && entityitemframe.getDisplayedItem().getItem() == Items.filled_map) {
+            ibakedmodel = modelmanager.getModel(this.mapModel);
+        } else {
+            ibakedmodel = modelmanager.getModel(this.itemFrameModel);
+        }
 
-	/**+
-	 * Returns the location of an entity's texture. Doesn't seem to
-	 * be called unless you call Render.bindEntityTexture.
-	 */
-	protected ResourceLocation getEntityTexture(EntityItemFrame var1) {
-		return null;
-	}
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+        blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.enableLighting();
+        GlStateManager.enableColorMaterial();
+        GlStateManager.popMatrix();
+        GlStateManager.translate(0.0F, 0.0F, 0.4375F);
+        this.renderItem(entityitemframe);
+        GlStateManager.popMatrix();
+        this.renderName(entityitemframe, d0 + (double) ((float) entityitemframe.facingDirection.getFrontOffsetX() * 0.3F), d1 - 0.25D, d2 + (double) ((float) entityitemframe.facingDirection.getFrontOffsetZ() * 0.3F));
+        GlStateManager.enableLighting();
+        GlStateManager.enableColorMaterial();
+    }
 
-	private void renderItem(EntityItemFrame itemFrame) {
-		ItemStack itemstack = itemFrame.getDisplayedItem();
-		if (itemstack != null) {
-			EntityItem entityitem = new EntityItem(itemFrame.worldObj, 0.0D, 0.0D, 0.0D, itemstack);
-			Item item = entityitem.getEntityItem().getItem();
-			entityitem.getEntityItem().stackSize = 1;
-			entityitem.hoverStart = 0.0F;
-			GlStateManager.pushMatrix();
-			GlStateManager.disableLighting();
-			int i = itemFrame.getRotation();
-			if (item == Items.filled_map) {
-				i = i % 4 * 2;
-			}
+    /**+
+     * Returns the location of an entity's texture. Doesn't seem to
+     * be called unless you call Render.bindEntityTexture.
+     */
+    protected ResourceLocation getEntityTexture(EntityItemFrame var1) {
+        return null;
+    }
 
-			GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
-			if (item == Items.filled_map) {
-				this.renderManager.renderEngine.bindTexture(mapBackgroundTextures);
-				GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-				float f = 0.0078125F;
-				GlStateManager.scale(f, f, f);
-				GlStateManager.translate(-64.0F, -64.0F, 0.0F);
-				MapData mapdata = Items.filled_map.getMapData(entityitem.getEntityItem(), itemFrame.worldObj);
-				GlStateManager.translate(0.0F, 0.0F, -1.0F);
-				if (mapdata != null) {
-					this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
-				}
-			} else {
-				GlStateManager.scale(0.5F, 0.5F, 0.5F);
-				if (!this.itemRenderer.shouldRenderItemIn3D(entityitem.getEntityItem()) || item instanceof ItemSkull) {
-					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-				}
+    private void renderItem(EntityItemFrame itemFrame) {
+        ItemStack itemstack = itemFrame.getDisplayedItem();
+        if (itemstack != null) {
+            EntityItem entityitem = new EntityItem(itemFrame.worldObj, 0.0D, 0.0D, 0.0D, itemstack);
+            Item item = entityitem.getEntityItem().getItem();
+            entityitem.getEntityItem().stackSize = 1;
+            entityitem.hoverStart = 0.0F;
+            GlStateManager.pushMatrix();
+            GlStateManager.disableLighting();
+            int i = itemFrame.getRotation();
+            if (item == Items.filled_map) {
+                i = i % 4 * 2;
+            }
 
-				GlStateManager.pushLightCoords();
-				RenderHelper.enableStandardItemLighting();
-				this.itemRenderer.func_181564_a(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
-				RenderHelper.disableStandardItemLighting();
-				GlStateManager.popLightCoords();
-			}
+            GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+            if (item == Items.filled_map) {
+                this.renderManager.renderEngine.bindTexture(mapBackgroundTextures);
+                GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+                float f = 0.0078125F;
+                GlStateManager.scale(f, f, f);
+                GlStateManager.translate(-64.0F, -64.0F, 0.0F);
+                MapData mapdata = Items.filled_map.getMapData(entityitem.getEntityItem(), itemFrame.worldObj);
+                GlStateManager.translate(0.0F, 0.0F, -1.0F);
+                if (mapdata != null) {
+                    this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
+                }
+            } else {
+                GlStateManager.scale(0.5F, 0.5F, 0.5F);
+                if (!this.itemRenderer.shouldRenderItemIn3D(entityitem.getEntityItem()) || item instanceof ItemSkull) {
+                    GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+                }
 
-			GlStateManager.enableLighting();
-			GlStateManager.popMatrix();
-		}
-	}
+                GlStateManager.pushLightCoords();
+                RenderHelper.enableStandardItemLighting();
+                this.itemRenderer.func_181564_a(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+                RenderHelper.disableStandardItemLighting();
+                GlStateManager.popLightCoords();
+            }
 
-	protected void renderName(EntityItemFrame entityitemframe, double d0, double d1, double d2) {
-		if (Minecraft.isGuiEnabled() && entityitemframe.getDisplayedItem() != null
-				&& entityitemframe.getDisplayedItem().hasDisplayName()
-				&& this.renderManager.pointedEntity == entityitemframe) {
-			float f = 1.6F;
-			float f1 = 0.016666668F * f;
-			double d3 = entityitemframe.getDistanceSqToEntity(this.renderManager.livingPlayer);
-			float f2 = entityitemframe.isSneaking() ? 32.0F : 64.0F;
-			if (d3 < (double) (f2 * f2)) {
-				String s = entityitemframe.getDisplayedItem().getDisplayName();
-				if (entityitemframe.isSneaking()) {
-					FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
-					GlStateManager.pushMatrix();
-					GlStateManager.translate((float) d0 + 0.0F, (float) d1 + entityitemframe.height + 0.5F, (float) d2);
-					EaglercraftGPU.glNormal3f(0.0F, 1.0F, 0.0F);
-					GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-					GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-					GlStateManager.scale(-f1, -f1, f1);
-					GlStateManager.disableLighting();
-					GlStateManager.translate(0.0F, 0.25F / f1, 0.0F);
-					GlStateManager.depthMask(false);
-					GlStateManager.enableBlend();
-					GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-					Tessellator tessellator = Tessellator.getInstance();
-					WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-					int i = fontrenderer.getStringWidth(s) / 2;
-					GlStateManager.disableTexture2D();
-					worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-					worldrenderer.pos((double) (-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					worldrenderer.pos((double) (-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					worldrenderer.pos((double) (i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					worldrenderer.pos((double) (i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-					tessellator.draw();
-					GlStateManager.enableTexture2D();
-					GlStateManager.depthMask(true);
-					fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
-					GlStateManager.enableLighting();
-					GlStateManager.disableBlend();
-					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-					GlStateManager.popMatrix();
-				} else {
-					this.renderLivingLabel(entityitemframe, s, d0, d1, d2, 64);
-				}
-			}
-		}
+            GlStateManager.enableLighting();
+            GlStateManager.popMatrix();
+        }
+    }
 
-	}
+    protected void renderName(EntityItemFrame entityitemframe, double d0, double d1, double d2) {
+        if (Minecraft.isGuiEnabled() && entityitemframe.getDisplayedItem() != null && entityitemframe.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entityitemframe) {
+            float f = 1.6F;
+            float f1 = 0.016666668F * f;
+            double d3 = entityitemframe.getDistanceSqToEntity(this.renderManager.livingPlayer);
+            float f2 = entityitemframe.isSneaking() ? 32.0F : 64.0F;
+            if (d3 < (double) (f2 * f2)) {
+                String s = entityitemframe.getDisplayedItem().getDisplayName();
+                if (entityitemframe.isSneaking()) {
+                    FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate((float) d0 + 0.0F, (float) d1 + entityitemframe.height + 0.5F, (float) d2);
+                    EaglercraftGPU.glNormal3f(0.0F, 1.0F, 0.0F);
+                    GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+                    GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                    GlStateManager.scale(-f1, -f1, f1);
+                    GlStateManager.disableLighting();
+                    GlStateManager.translate(0.0F, 0.25F / f1, 0.0F);
+                    GlStateManager.depthMask(false);
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                    Tessellator tessellator = Tessellator.getInstance();
+                    WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                    int i = fontrenderer.getStringWidth(s) / 2;
+                    GlStateManager.disableTexture2D();
+                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                    worldrenderer.pos((double) (-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double) (-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double) (i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((double) (i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    tessellator.draw();
+                    GlStateManager.enableTexture2D();
+                    GlStateManager.depthMask(true);
+                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
+                    GlStateManager.enableLighting();
+                    GlStateManager.disableBlend();
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.popMatrix();
+                } else {
+                    this.renderLivingLabel(entityitemframe, s, d0, d1, d2, 64);
+                }
+            }
+        }
+    }
 }

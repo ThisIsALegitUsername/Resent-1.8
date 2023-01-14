@@ -1,148 +1,141 @@
 package net.minecraft.client.settings;
 
-import java.util.List;
-import java.util.Set;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
+import java.util.List;
+import java.util.Set;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class KeyBinding implements Comparable<KeyBinding> {
-	private static final List<KeyBinding> keybindArray = Lists.newArrayList();
-	private static final IntHashMap<KeyBinding> hash = new IntHashMap();
-	private static final Set<String> keybindSet = Sets.newHashSet();
-	private final String keyDescription;
-	private final int keyCodeDefault;
-	private final String keyCategory;
-	public int keyCode;
-	public boolean pressed;
-	private int pressTime;
 
-	public static void onTick(int keyCode) {
-		if (keyCode != 0) {
-			KeyBinding keybinding = (KeyBinding) hash.lookup(keyCode);
-			if (keybinding != null) {
-				++keybinding.pressTime;
-			}
+    private static final List<KeyBinding> keybindArray = Lists.newArrayList();
+    private static final IntHashMap<KeyBinding> hash = new IntHashMap();
+    private static final Set<String> keybindSet = Sets.newHashSet();
+    private final String keyDescription;
+    private final int keyCodeDefault;
+    private final String keyCategory;
+    public int keyCode;
+    public boolean pressed;
+    private int pressTime;
 
-		}
-	}
+    public static void onTick(int keyCode) {
+        if (keyCode != 0) {
+            KeyBinding keybinding = (KeyBinding) hash.lookup(keyCode);
+            if (keybinding != null) {
+                ++keybinding.pressTime;
+            }
+        }
+    }
 
-	public static void setKeyBindState(int keyCode, boolean pressed) {
-		if (keyCode != 0) {
-			KeyBinding keybinding = (KeyBinding) hash.lookup(keyCode);
-			if (keybinding != null) {
-				keybinding.pressed = pressed;
-			}
+    public static void setKeyBindState(int keyCode, boolean pressed) {
+        if (keyCode != 0) {
+            KeyBinding keybinding = (KeyBinding) hash.lookup(keyCode);
+            if (keybinding != null) {
+                keybinding.pressed = pressed;
+            }
+        }
+    }
 
-		}
-	}
+    public static void unPressAllKeys() {
+        for (KeyBinding keybinding : keybindArray) {
+            keybinding.unpressKey();
+        }
+    }
 
-	public static void unPressAllKeys() {
-		for (KeyBinding keybinding : keybindArray) {
-			keybinding.unpressKey();
-		}
+    public static void resetKeyBindingArrayAndHash() {
+        hash.clearMap();
 
-	}
+        for (KeyBinding keybinding : keybindArray) {
+            hash.addKey(keybinding.keyCode, keybinding);
+        }
+    }
 
-	public static void resetKeyBindingArrayAndHash() {
-		hash.clearMap();
+    public static Set<String> getKeybinds() {
+        return keybindSet;
+    }
 
-		for (KeyBinding keybinding : keybindArray) {
-			hash.addKey(keybinding.keyCode, keybinding);
-		}
+    public KeyBinding(String description, int keyCode, String category) {
+        this.keyDescription = description;
+        this.keyCode = keyCode;
+        this.keyCodeDefault = keyCode;
+        this.keyCategory = category;
+        keybindArray.add(this);
+        hash.addKey(keyCode, this);
+        keybindSet.add(category);
+    }
 
-	}
+    /**+
+     * Returns true if the key is pressed (used for continuous
+     * querying). Should be used in tickers.
+     */
+    public boolean isKeyDown() {
+        return this.pressed;
+    }
 
-	public static Set<String> getKeybinds() {
-		return keybindSet;
-	}
+    public String getKeyCategory() {
+        return this.keyCategory;
+    }
 
-	public KeyBinding(String description, int keyCode, String category) {
-		this.keyDescription = description;
-		this.keyCode = keyCode;
-		this.keyCodeDefault = keyCode;
-		this.keyCategory = category;
-		keybindArray.add(this);
-		hash.addKey(keyCode, this);
-		keybindSet.add(category);
-	}
+    /**+
+     * Returns true on the initial key press. For continuous
+     * querying use {@link isKeyDown()}. Should be used in key
+     * events.
+     */
+    public boolean isPressed() {
+        if (this.pressTime == 0) {
+            return false;
+        } else {
+            --this.pressTime;
+            return true;
+        }
+    }
 
-	/**+
-	 * Returns true if the key is pressed (used for continuous
-	 * querying). Should be used in tickers.
-	 */
-	public boolean isKeyDown() {
-		return this.pressed;
-	}
+    private void unpressKey() {
+        this.pressTime = 0;
+        this.pressed = false;
+    }
 
-	public String getKeyCategory() {
-		return this.keyCategory;
-	}
+    public String getKeyDescription() {
+        return this.keyDescription;
+    }
 
-	/**+
-	 * Returns true on the initial key press. For continuous
-	 * querying use {@link isKeyDown()}. Should be used in key
-	 * events.
-	 */
-	public boolean isPressed() {
-		if (this.pressTime == 0) {
-			return false;
-		} else {
-			--this.pressTime;
-			return true;
-		}
-	}
+    public int getKeyCodeDefault() {
+        return this.keyCodeDefault;
+    }
 
-	private void unpressKey() {
-		this.pressTime = 0;
-		this.pressed = false;
-	}
+    public int getKeyCode() {
+        return this.keyCode;
+    }
 
-	public String getKeyDescription() {
-		return this.keyDescription;
-	}
+    public void setKeyCode(int keyCode) {
+        this.keyCode = keyCode;
+    }
 
-	public int getKeyCodeDefault() {
-		return this.keyCodeDefault;
-	}
+    public int compareTo(KeyBinding keybinding) {
+        int i = I18n.format(this.keyCategory, new Object[0]).compareTo(I18n.format(keybinding.keyCategory, new Object[0]));
+        if (i == 0) {
+            i = I18n.format(this.keyDescription, new Object[0]).compareTo(I18n.format(keybinding.keyDescription, new Object[0]));
+        }
 
-	public int getKeyCode() {
-		return this.keyCode;
-	}
-
-	public void setKeyCode(int keyCode) {
-		this.keyCode = keyCode;
-	}
-
-	public int compareTo(KeyBinding keybinding) {
-		int i = I18n.format(this.keyCategory, new Object[0])
-				.compareTo(I18n.format(keybinding.keyCategory, new Object[0]));
-		if (i == 0) {
-			i = I18n.format(this.keyDescription, new Object[0])
-					.compareTo(I18n.format(keybinding.keyDescription, new Object[0]));
-		}
-
-		return i;
-	}
+        return i;
+    }
 }

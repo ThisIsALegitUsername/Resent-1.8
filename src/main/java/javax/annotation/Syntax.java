@@ -3,7 +3,6 @@ package javax.annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
 import javax.annotation.meta.TypeQualifier;
 import javax.annotation.meta.When;
 
@@ -19,27 +18,27 @@ import javax.annotation.meta.When;
 @TypeQualifier(applicableTo = CharSequence.class)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Syntax {
-	/**
-	 * Value indicating the particular syntax denoted by this annotation. Different
-	 * tools will recognize different syntaxes, but some proposed canonical values
-	 * are:
-	 * <ul>
-	 * <li>"Java"
-	 * <li>"RegEx"
-	 * <li>"JavaScript"
-	 * <li>"Ruby"
-	 * <li>"Groovy"
-	 * <li>"SQL"
-	 * <li>"FormatString"
-	 * </ul>
-	 * <p>
-	 * Syntax names can be followed by a colon and a list of key value pairs,
-	 * separated by commas. For example, "SQL:dialect=Oracle,version=2.3". Tools
-	 * should ignore any keys they don't recognize.
-	 *
-	 * @return a name indicating the particular syntax.
-	 */
-	String value();
+    /**
+     * Value indicating the particular syntax denoted by this annotation. Different
+     * tools will recognize different syntaxes, but some proposed canonical values
+     * are:
+     * <ul>
+     * <li>"Java"
+     * <li>"RegEx"
+     * <li>"JavaScript"
+     * <li>"Ruby"
+     * <li>"Groovy"
+     * <li>"SQL"
+     * <li>"FormatString"
+     * </ul>
+     * <p>
+     * Syntax names can be followed by a colon and a list of key value pairs,
+     * separated by commas. For example, "SQL:dialect=Oracle,version=2.3". Tools
+     * should ignore any keys they don't recognize.
+     *
+     * @return a name indicating the particular syntax.
+     */
+    String value();
 
-	When when() default When.ALWAYS;
+    When when() default When.ALWAYS;
 }

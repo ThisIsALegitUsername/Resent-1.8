@@ -53,138 +53,137 @@ import java.nio.charset.Charset;
  */
 public abstract class CharSink implements OutputSupplier<Writer> {
 
-	/**
-	 * Constructor for use by subclasses.
-	 */
-	protected CharSink() {
-	}
+    /**
+     * Constructor for use by subclasses.
+     */
+    protected CharSink() {}
 
-	/**
-	 * Opens a new {@link Writer} for writing to this sink. This method should
-	 * return a new, independent writer each time it is called.
-	 *
-	 * <p>
-	 * The caller is responsible for ensuring that the returned writer is closed.
-	 *
-	 * @throws IOException if an I/O error occurs in the process of opening the
-	 *                     writer
-	 */
-	public abstract Writer openStream() throws IOException;
+    /**
+     * Opens a new {@link Writer} for writing to this sink. This method should
+     * return a new, independent writer each time it is called.
+     *
+     * <p>
+     * The caller is responsible for ensuring that the returned writer is closed.
+     *
+     * @throws IOException if an I/O error occurs in the process of opening the
+     *                     writer
+     */
+    public abstract Writer openStream() throws IOException;
 
-	/**
-	 * This method is a temporary method provided for easing migration from
-	 * suppliers to sources and sinks.
-	 *
-	 * @since 15.0
-	 * @deprecated This method is only provided for temporary compatibility with the
-	 *             {@link OutputSupplier} interface and should not be called
-	 *             directly. Use {@link #openStream} instead. This method is
-	 *             scheduled for removal in Guava 18.0.
-	 */
-	@Override
-	@Deprecated
-	public final Writer getOutput() throws IOException {
-		return openStream();
-	}
+    /**
+     * This method is a temporary method provided for easing migration from
+     * suppliers to sources and sinks.
+     *
+     * @since 15.0
+     * @deprecated This method is only provided for temporary compatibility with the
+     *             {@link OutputSupplier} interface and should not be called
+     *             directly. Use {@link #openStream} instead. This method is
+     *             scheduled for removal in Guava 18.0.
+     */
+    @Override
+    @Deprecated
+    public final Writer getOutput() throws IOException {
+        return openStream();
+    }
 
-	/**
-	 * Opens a new buffered {@link Writer} for writing to this sink. The returned
-	 * stream is not required to be a {@link BufferedWriter} in order to allow
-	 * implementations to simply delegate to {@link #openStream()} when the stream
-	 * returned by that method does not benefit from additional buffering. This
-	 * method should return a new, independent writer each time it is called.
-	 *
-	 * <p>
-	 * The caller is responsible for ensuring that the returned writer is closed.
-	 *
-	 * @throws IOException if an I/O error occurs in the process of opening the
-	 *                     writer
-	 * @since 15.0 (in 14.0 with return type {@link BufferedWriter})
-	 */
-	public Writer openBufferedStream() throws IOException {
-		Writer writer = openStream();
-		return (writer instanceof BufferedWriter) ? (BufferedWriter) writer : new BufferedWriter(writer);
-	}
+    /**
+     * Opens a new buffered {@link Writer} for writing to this sink. The returned
+     * stream is not required to be a {@link BufferedWriter} in order to allow
+     * implementations to simply delegate to {@link #openStream()} when the stream
+     * returned by that method does not benefit from additional buffering. This
+     * method should return a new, independent writer each time it is called.
+     *
+     * <p>
+     * The caller is responsible for ensuring that the returned writer is closed.
+     *
+     * @throws IOException if an I/O error occurs in the process of opening the
+     *                     writer
+     * @since 15.0 (in 14.0 with return type {@link BufferedWriter})
+     */
+    public Writer openBufferedStream() throws IOException {
+        Writer writer = openStream();
+        return (writer instanceof BufferedWriter) ? (BufferedWriter) writer : new BufferedWriter(writer);
+    }
 
-	/**
-	 * Writes the given character sequence to this sink.
-	 *
-	 * @throws IOException if an I/O error in the process of writing to this sink
-	 */
-	public void write(CharSequence charSequence) throws IOException {
-		checkNotNull(charSequence);
+    /**
+     * Writes the given character sequence to this sink.
+     *
+     * @throws IOException if an I/O error in the process of writing to this sink
+     */
+    public void write(CharSequence charSequence) throws IOException {
+        checkNotNull(charSequence);
 
-		Closer closer = Closer.create();
-		try {
-			Writer out = closer.register(openStream());
-			out.append(charSequence);
-			out.flush(); // https://code.google.com/p/guava-libraries/issues/detail?id=1330
-		} catch (Throwable e) {
-			throw closer.rethrow(e);
-		} finally {
-			closer.close();
-		}
-	}
+        Closer closer = Closer.create();
+        try {
+            Writer out = closer.register(openStream());
+            out.append(charSequence);
+            out.flush(); // https://code.google.com/p/guava-libraries/issues/detail?id=1330
+        } catch (Throwable e) {
+            throw closer.rethrow(e);
+        } finally {
+            closer.close();
+        }
+    }
 
-	/**
-	 * Writes the given lines of text to this sink with each line (including the
-	 * last) terminated with the operating system's default line separator. This
-	 * method is equivalent to
-	 * {@code writeLines(lines, System.getProperty("line.separator"))}.
-	 *
-	 * @throws IOException if an I/O error occurs in the process of writing to this
-	 *                     sink
-	 */
-	public void writeLines(Iterable<? extends CharSequence> lines) throws IOException {
-		writeLines(lines, System.getProperty("line.separator"));
-	}
+    /**
+     * Writes the given lines of text to this sink with each line (including the
+     * last) terminated with the operating system's default line separator. This
+     * method is equivalent to
+     * {@code writeLines(lines, System.getProperty("line.separator"))}.
+     *
+     * @throws IOException if an I/O error occurs in the process of writing to this
+     *                     sink
+     */
+    public void writeLines(Iterable<? extends CharSequence> lines) throws IOException {
+        writeLines(lines, System.getProperty("line.separator"));
+    }
 
-	/**
-	 * Writes the given lines of text to this sink with each line (including the
-	 * last) terminated with the given line separator.
-	 *
-	 * @throws IOException if an I/O error occurs in the process of writing to this
-	 *                     sink
-	 */
-	public void writeLines(Iterable<? extends CharSequence> lines, String lineSeparator) throws IOException {
-		checkNotNull(lines);
-		checkNotNull(lineSeparator);
+    /**
+     * Writes the given lines of text to this sink with each line (including the
+     * last) terminated with the given line separator.
+     *
+     * @throws IOException if an I/O error occurs in the process of writing to this
+     *                     sink
+     */
+    public void writeLines(Iterable<? extends CharSequence> lines, String lineSeparator) throws IOException {
+        checkNotNull(lines);
+        checkNotNull(lineSeparator);
 
-		Closer closer = Closer.create();
-		try {
-			Writer out = closer.register(openBufferedStream());
-			for (CharSequence line : lines) {
-				out.append(line).append(lineSeparator);
-			}
-			out.flush(); // https://code.google.com/p/guava-libraries/issues/detail?id=1330
-		} catch (Throwable e) {
-			throw closer.rethrow(e);
-		} finally {
-			closer.close();
-		}
-	}
+        Closer closer = Closer.create();
+        try {
+            Writer out = closer.register(openBufferedStream());
+            for (CharSequence line : lines) {
+                out.append(line).append(lineSeparator);
+            }
+            out.flush(); // https://code.google.com/p/guava-libraries/issues/detail?id=1330
+        } catch (Throwable e) {
+            throw closer.rethrow(e);
+        } finally {
+            closer.close();
+        }
+    }
 
-	/**
-	 * Writes all the text from the given {@link Readable} (such as a
-	 * {@link Reader}) to this sink. Does not close {@code readable} if it is
-	 * {@code Closeable}.
-	 *
-	 * @throws IOException if an I/O error occurs in the process of reading from
-	 *                     {@code readable} or writing to this sink
-	 */
-	public long writeFrom(Readable readable) throws IOException {
-		checkNotNull(readable);
+    /**
+     * Writes all the text from the given {@link Readable} (such as a
+     * {@link Reader}) to this sink. Does not close {@code readable} if it is
+     * {@code Closeable}.
+     *
+     * @throws IOException if an I/O error occurs in the process of reading from
+     *                     {@code readable} or writing to this sink
+     */
+    public long writeFrom(Readable readable) throws IOException {
+        checkNotNull(readable);
 
-		Closer closer = Closer.create();
-		try {
-			Writer out = closer.register(openStream());
-			long written = CharStreams.copy(readable, out);
-			out.flush(); // https://code.google.com/p/guava-libraries/issues/detail?id=1330
-			return written;
-		} catch (Throwable e) {
-			throw closer.rethrow(e);
-		} finally {
-			closer.close();
-		}
-	}
+        Closer closer = Closer.create();
+        try {
+            Writer out = closer.register(openStream());
+            long written = CharStreams.copy(readable, out);
+            out.flush(); // https://code.google.com/p/guava-libraries/issues/detail?id=1330
+            return written;
+        } catch (Throwable e) {
+            throw closer.rethrow(e);
+        } finally {
+            closer.close();
+        }
+    }
 }

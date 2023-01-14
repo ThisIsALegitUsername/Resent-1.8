@@ -2,66 +2,63 @@ package net.lax1dude.eaglercraft.v1_8.internal.buffer;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public interface FloatBuffer extends Buffer {
+    FloatBuffer slice();
 
-	FloatBuffer slice();
+    FloatBuffer duplicate();
 
-	FloatBuffer duplicate();
+    FloatBuffer asReadOnlyBuffer();
 
-	FloatBuffer asReadOnlyBuffer();
+    float get();
 
-	float get();
+    FloatBuffer put(float b);
 
-	FloatBuffer put(float b);
+    float get(int index);
 
-	float get(int index);
+    FloatBuffer put(int index, float b);
 
-	FloatBuffer put(int index, float b);
+    float getElement(int index);
 
-	float getElement(int index);
+    void putElement(int index, float value);
 
-	void putElement(int index, float value);
+    FloatBuffer get(float[] dst, int offset, int length);
 
-	FloatBuffer get(float[] dst, int offset, int length);
+    FloatBuffer get(float[] dst);
 
-	FloatBuffer get(float[] dst);
+    FloatBuffer put(FloatBuffer src);
 
-	FloatBuffer put(FloatBuffer src);
+    FloatBuffer put(float[] src, int offset, int length);
 
-	FloatBuffer put(float[] src, int offset, int length);
+    FloatBuffer put(float[] src);
 
-	FloatBuffer put(float[] src);
+    int getArrayOffset();
 
-	int getArrayOffset();
+    FloatBuffer compact();
 
-	FloatBuffer compact();
+    boolean isDirect();
 
-	boolean isDirect();
+    FloatBuffer mark();
 
-	FloatBuffer mark();
+    FloatBuffer reset();
 
-	FloatBuffer reset();
+    FloatBuffer clear();
 
-	FloatBuffer clear();
+    FloatBuffer flip();
 
-	FloatBuffer flip();
+    FloatBuffer rewind();
 
-	FloatBuffer rewind();
+    FloatBuffer limit(int newLimit);
 
-	FloatBuffer limit(int newLimit);
-
-	FloatBuffer position(int newPosition);
-	
+    FloatBuffer position(int newPosition);
 }
-

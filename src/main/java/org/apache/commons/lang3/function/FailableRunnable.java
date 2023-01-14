@@ -26,11 +26,10 @@ package org.apache.commons.lang3.function;
  */
 @FunctionalInterface
 public interface FailableRunnable<E extends Throwable> {
-
-	/**
-	 * Runs the function.
-	 *
-	 * @throws E Thrown when the function fails.
-	 */
-	void run() throws E;
+    /**
+     * Runs the function.
+     *
+     * @throws E Thrown when the function fails.
+     */
+    void run() throws E;
 }

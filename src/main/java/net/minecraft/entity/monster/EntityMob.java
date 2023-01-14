@@ -13,140 +13,137 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 public abstract class EntityMob extends EntityCreature implements IMob {
-	public EntityMob(World worldIn) {
-		super(worldIn);
-		this.experienceValue = 5;
-	}
 
-	/**+
-	 * Called frequently so the entity can update its state every
-	 * tick as required. For example, zombies and skeletons use this
-	 * to react to sunlight and start to burn.
-	 */
-	public void onLivingUpdate() {
-		this.updateArmSwingProgress();
-		float f = this.getBrightness(1.0F);
-		if (f > 0.5F) {
-			this.entityAge += 2;
-		}
+    public EntityMob(World worldIn) {
+        super(worldIn);
+        this.experienceValue = 5;
+    }
 
-		super.onLivingUpdate();
-	}
+    /**+
+     * Called frequently so the entity can update its state every
+     * tick as required. For example, zombies and skeletons use this
+     * to react to sunlight and start to burn.
+     */
+    public void onLivingUpdate() {
+        this.updateArmSwingProgress();
+        float f = this.getBrightness(1.0F);
+        if (f > 0.5F) {
+            this.entityAge += 2;
+        }
 
-	protected String getSwimSound() {
-		return "game.hostile.swim";
-	}
+        super.onLivingUpdate();
+    }
 
-	protected String getSplashSound() {
-		return "game.hostile.swim.splash";
-	}
+    protected String getSwimSound() {
+        return "game.hostile.swim";
+    }
 
-	/**+
-	 * Called when the entity is attacked.
-	 */
-	public boolean attackEntityFrom(DamageSource damagesource, float f) {
-		if (this.isEntityInvulnerable(damagesource)) {
-			return false;
-		} else if (super.attackEntityFrom(damagesource, f)) {
-			Entity entity = damagesource.getEntity();
-			return this.riddenByEntity != entity && this.ridingEntity != entity ? true : true;
-		} else {
-			return false;
-		}
-	}
+    protected String getSplashSound() {
+        return "game.hostile.swim.splash";
+    }
 
-	/**+
-	 * Returns the sound this mob makes when it is hurt.
-	 */
-	protected String getHurtSound() {
-		return "game.hostile.hurt";
-	}
+    /**+
+     * Called when the entity is attacked.
+     */
+    public boolean attackEntityFrom(DamageSource damagesource, float f) {
+        if (this.isEntityInvulnerable(damagesource)) {
+            return false;
+        } else if (super.attackEntityFrom(damagesource, f)) {
+            Entity entity = damagesource.getEntity();
+            return this.riddenByEntity != entity && this.ridingEntity != entity ? true : true;
+        } else {
+            return false;
+        }
+    }
 
-	/**+
-	 * Returns the sound this mob makes on death.
-	 */
-	protected String getDeathSound() {
-		return "game.hostile.die";
-	}
+    /**+
+     * Returns the sound this mob makes when it is hurt.
+     */
+    protected String getHurtSound() {
+        return "game.hostile.hurt";
+    }
 
-	protected String getFallSoundString(int i) {
-		return i > 4 ? "game.hostile.hurt.fall.big" : "game.hostile.hurt.fall.small";
-	}
+    /**+
+     * Returns the sound this mob makes on death.
+     */
+    protected String getDeathSound() {
+        return "game.hostile.die";
+    }
 
-	public boolean attackEntityAsMob(Entity entity) {
-		float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
-		int i = 0;
-		if (entity instanceof EntityLivingBase) {
-			f += EnchantmentHelper.func_152377_a(this.getHeldItem(),
-					((EntityLivingBase) entity).getCreatureAttribute());
-			i += EnchantmentHelper.getKnockbackModifier(this);
-		}
+    protected String getFallSoundString(int i) {
+        return i > 4 ? "game.hostile.hurt.fall.big" : "game.hostile.hurt.fall.small";
+    }
 
-		boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
-		if (flag) {
-			if (i > 0) {
-				entity.addVelocity(
-						(double) (-MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F), 0.1D,
-						(double) (MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F));
-				this.motionX *= 0.6D;
-				this.motionZ *= 0.6D;
-			}
+    public boolean attackEntityAsMob(Entity entity) {
+        float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+        int i = 0;
+        if (entity instanceof EntityLivingBase) {
+            f += EnchantmentHelper.func_152377_a(this.getHeldItem(), ((EntityLivingBase) entity).getCreatureAttribute());
+            i += EnchantmentHelper.getKnockbackModifier(this);
+        }
 
-			int j = EnchantmentHelper.getFireAspectModifier(this);
-			if (j > 0) {
-				entity.setFire(j * 4);
-			}
+        boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+        if (flag) {
+            if (i > 0) {
+                entity.addVelocity((double) (-MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F));
+                this.motionX *= 0.6D;
+                this.motionZ *= 0.6D;
+            }
 
-			this.applyEnchantments(this, entity);
-		}
+            int j = EnchantmentHelper.getFireAspectModifier(this);
+            if (j > 0) {
+                entity.setFire(j * 4);
+            }
 
-		return flag;
-	}
+            this.applyEnchantments(this, entity);
+        }
 
-	public float getBlockPathWeight(BlockPos blockpos) {
-		return 0.5F - this.worldObj.getLightBrightness(blockpos);
-	}
+        return flag;
+    }
 
-	/**+
-	 * Checks to make sure the light is not too bright where the mob
-	 * is spawning
-	 */
-	protected boolean isValidLightLevel() {
-		BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
-		if (this.worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
-			return false;
-		} else {
-			int i = this.worldObj.getLightFromNeighbors(blockpos);
-			if (this.worldObj.isThundering()) {
-				int j = this.worldObj.getSkylightSubtracted();
-				this.worldObj.setSkylightSubtracted(10);
-				i = this.worldObj.getLightFromNeighbors(blockpos);
-				this.worldObj.setSkylightSubtracted(j);
-			}
+    public float getBlockPathWeight(BlockPos blockpos) {
+        return 0.5F - this.worldObj.getLightBrightness(blockpos);
+    }
 
-			return i <= this.rand.nextInt(8);
-		}
-	}
+    /**+
+     * Checks to make sure the light is not too bright where the mob
+     * is spawning
+     */
+    protected boolean isValidLightLevel() {
+        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        if (this.worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+            return false;
+        } else {
+            int i = this.worldObj.getLightFromNeighbors(blockpos);
+            if (this.worldObj.isThundering()) {
+                int j = this.worldObj.getSkylightSubtracted();
+                this.worldObj.setSkylightSubtracted(10);
+                i = this.worldObj.getLightFromNeighbors(blockpos);
+                this.worldObj.setSkylightSubtracted(j);
+            }
 
-	/**+
-	 * Checks if the entity's current position is a valid location
-	 * to spawn this entity.
-	 */
-	public boolean getCanSpawnHere() {
-		return this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel()
-				&& super.getCanSpawnHere();
-	}
+            return i <= this.rand.nextInt(8);
+        }
+    }
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
-	}
+    /**+
+     * Checks if the entity's current position is a valid location
+     * to spawn this entity.
+     */
+    public boolean getCanSpawnHere() {
+        return this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
+    }
 
-	/**+
-	 * Entity won't drop items or experience points if this returns
-	 * false
-	 */
-	protected boolean canDropLoot() {
-		return true;
-	}
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+    }
+
+    /**+
+     * Entity won't drop items or experience points if this returns
+     * false
+     */
+    protected boolean canDropLoot() {
+        return true;
+    }
 }

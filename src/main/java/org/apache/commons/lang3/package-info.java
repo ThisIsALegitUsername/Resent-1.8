@@ -197,7 +197,7 @@
  * </p>
  *
  * <h4>Using toMap</h4>
- * 
+ *
  * <pre>
  * <code>
  * Map colorMap = ArrayUtils.toMap(new String[][] {{

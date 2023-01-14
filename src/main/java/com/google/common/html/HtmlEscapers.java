@@ -41,33 +41,39 @@ import com.google.common.escape.Escapers;
 @Beta
 @GwtCompatible
 public final class HtmlEscapers {
-	/**
-	 * Returns an {@link Escaper} instance that escapes HTML metacharacters as
-	 * specified by <a href="http://www.w3.org/TR/html4/">HTML 4.01</a>. The
-	 * resulting strings can be used both in attribute values and in <em>most</em>
-	 * elements' text contents, provided that the HTML document's character encoding
-	 * can encode any non-ASCII code points in the input (as UTF-8 and other Unicode
-	 * encodings can).
-	 *
-	 *
-	 * <p>
-	 * <b>Note</b>: This escaper only performs minimal escaping to make content
-	 * structurally compatible with HTML. Specifically, it does not perform entity
-	 * replacement (symbolic or numeric), so it does not replace non-ASCII code
-	 * points with character references. This escaper escapes only the following
-	 * five ASCII characters: {@code '"&<>}.
-	 */
-	public static Escaper htmlEscaper() {
-		return HTML_ESCAPER;
-	}
 
-	// For each xxxEscaper() method, please add links to external reference pages
-	// that are considered authoritative for the behavior of that escaper.
+    /**
+     * Returns an {@link Escaper} instance that escapes HTML metacharacters as
+     * specified by <a href="http://www.w3.org/TR/html4/">HTML 4.01</a>. The
+     * resulting strings can be used both in attribute values and in <em>most</em>
+     * elements' text contents, provided that the HTML document's character encoding
+     * can encode any non-ASCII code points in the input (as UTF-8 and other Unicode
+     * encodings can).
+     *
+     *
+     * <p>
+     * <b>Note</b>: This escaper only performs minimal escaping to make content
+     * structurally compatible with HTML. Specifically, it does not perform entity
+     * replacement (symbolic or numeric), so it does not replace non-ASCII code
+     * points with character references. This escaper escapes only the following
+     * five ASCII characters: {@code '"&<>}.
+     */
+    public static Escaper htmlEscaper() {
+        return HTML_ESCAPER;
+    }
 
-	private static final Escaper HTML_ESCAPER = Escapers.builder().addEscape('"', "&quot;")
-			// Note: "&apos;" is not defined in HTML 4.01.
-			.addEscape('\'', "&#39;").addEscape('&', "&amp;").addEscape('<', "&lt;").addEscape('>', "&gt;").build();
+    // For each xxxEscaper() method, please add links to external reference pages
+    // that are considered authoritative for the behavior of that escaper.
 
-	private HtmlEscapers() {
-	}
+    private static final Escaper HTML_ESCAPER = Escapers
+        .builder()
+        .addEscape('"', "&quot;")
+        // Note: "&apos;" is not defined in HTML 4.01.
+        .addEscape('\'', "&#39;")
+        .addEscape('&', "&amp;")
+        .addEscape('<', "&lt;")
+        .addEscape('>', "&gt;")
+        .build();
+
+    private HtmlEscapers() {}
 }

@@ -1,11 +1,9 @@
 package net.minecraft.client.gui;
 
+import com.google.common.collect.Lists;
+import dev.resent.util.misc.W;
 import java.util.Iterator;
 import java.util.List;
-
-import com.google.common.collect.Lists;
-
-import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -17,328 +15,318 @@ import net.minecraft.util.MathHelper;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class GuiNewChat extends Gui {
-	private static final Logger logger = LogManager.getLogger();
-	private final Minecraft mc;
-	/**+
-	 * A list of messages previously sent through the chat GUI
-	 */
-	private final List<String> sentMessages = Lists.newArrayList();
-	/**+
-	 * Chat lines to be displayed in the chat box
-	 */
-	private final List<ChatLine> chatLines = Lists.newArrayList();
-	private final List<ChatLine> field_146253_i = Lists.newArrayList();
-	private int scrollPos;
-	private boolean isScrolled;
 
-	public GuiNewChat(Minecraft mcIn) {
-		this.mc = mcIn;
-	}
+    private static final Logger logger = LogManager.getLogger();
+    private final Minecraft mc;
+    /**+
+     * A list of messages previously sent through the chat GUI
+     */
+    private final List<String> sentMessages = Lists.newArrayList();
+    /**+
+     * Chat lines to be displayed in the chat box
+     */
+    private final List<ChatLine> chatLines = Lists.newArrayList();
+    private final List<ChatLine> field_146253_i = Lists.newArrayList();
+    private int scrollPos;
+    private boolean isScrolled;
 
-	public void drawChat(int parInt1) {
-		if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
-			int i = this.getLineCount();
-			boolean flag = false;
-			int j = 0;
-			int k = this.field_146253_i.size();
-			float f = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
-			if (k > 0) {
-				if (this.getChatOpen()) {
-					flag = true;
-				}
+    public GuiNewChat(Minecraft mcIn) {
+        this.mc = mcIn;
+    }
 
-				float f1 = this.getChatScale();
-				int l = MathHelper.ceiling_float_int((float) this.getChatWidth() / f1);
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(2.0F, 20.0F, 0.0F);
-				GlStateManager.scale(f1, f1, 1.0F);
+    public void drawChat(int parInt1) {
+        if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
+            int i = this.getLineCount();
+            boolean flag = false;
+            int j = 0;
+            int k = this.field_146253_i.size();
+            float f = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
+            if (k > 0) {
+                if (this.getChatOpen()) {
+                    flag = true;
+                }
 
-				for (int i1 = 0; i1 + this.scrollPos < this.field_146253_i.size() && i1 < i; ++i1) {
-					ChatLine chatline = (ChatLine) this.field_146253_i.get(i1 + this.scrollPos);
-					if (chatline != null) {
-						int j1 = parInt1 - chatline.getUpdatedCounter();
-						if (j1 < 200 || flag) {
-							double d0 = (double) j1 / 200.0D;
-							d0 = 1.0D - d0;
-							d0 = d0 * 10.0D;
-							d0 = MathHelper.clamp_double(d0, 0.0D, 1.0D);
-							d0 = d0 * d0;
-							int l1 = (int) (255.0D * d0);
-							if (flag) {
-								l1 = 255;
-							}
+                float f1 = this.getChatScale();
+                int l = MathHelper.ceiling_float_int((float) this.getChatWidth() / f1);
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(2.0F, 20.0F, 0.0F);
+                GlStateManager.scale(f1, f1, 1.0F);
 
-							l1 = (int) ((float) l1 * f);
-							++j;
-							if (l1 > 3) {
-								byte b0 = 0;
-								int i2 = -i1 * 9;
-								if(!W.clearChat().isEnabled())
-								drawRect(b0, i2 - 9, b0 + l + 4, i2, l1 / 2 << 24);
-								String s = chatline.getChatComponent().getFormattedText();
-								GlStateManager.enableBlend();
-								this.mc.fontRendererObj.drawStringWithShadow(s, (float) b0, (float) (i2 - 8),
-										16777215 + (l1 << 24));
-								GlStateManager.disableAlpha();
-								GlStateManager.disableBlend();
-							}
-						}
-					}
-				}
+                for (int i1 = 0; i1 + this.scrollPos < this.field_146253_i.size() && i1 < i; ++i1) {
+                    ChatLine chatline = (ChatLine) this.field_146253_i.get(i1 + this.scrollPos);
+                    if (chatline != null) {
+                        int j1 = parInt1 - chatline.getUpdatedCounter();
+                        if (j1 < 200 || flag) {
+                            double d0 = (double) j1 / 200.0D;
+                            d0 = 1.0D - d0;
+                            d0 = d0 * 10.0D;
+                            d0 = MathHelper.clamp_double(d0, 0.0D, 1.0D);
+                            d0 = d0 * d0;
+                            int l1 = (int) (255.0D * d0);
+                            if (flag) {
+                                l1 = 255;
+                            }
 
-				if (flag) {
-					int j2 = this.mc.fontRendererObj.FONT_HEIGHT;
-					GlStateManager.translate(-3.0F, 0.0F, 0.0F);
-					int k2 = k * j2 + k;
-					int l2 = j * j2 + j;
-					int i3 = this.scrollPos * l2 / k;
-					int k1 = l2 * l2 / k2;
-					if (k2 != l2) {
-						int j3 = i3 > 0 ? 170 : 96;
-						int k3 = this.isScrolled ? 13382451 : 3355562;
-						drawRect(0, -i3, 2, -i3 - k1, k3 + (j3 << 24));
-						drawRect(2, -i3, 1, -i3 - k1, 13421772 + (j3 << 24));
-					}
-				}
+                            l1 = (int) ((float) l1 * f);
+                            ++j;
+                            if (l1 > 3) {
+                                byte b0 = 0;
+                                int i2 = -i1 * 9;
+                                if (!W.clearChat().isEnabled()) drawRect(b0, i2 - 9, b0 + l + 4, i2, l1 / 2 << 24);
+                                String s = chatline.getChatComponent().getFormattedText();
+                                GlStateManager.enableBlend();
+                                this.mc.fontRendererObj.drawStringWithShadow(s, (float) b0, (float) (i2 - 8), 16777215 + (l1 << 24));
+                                GlStateManager.disableAlpha();
+                                GlStateManager.disableBlend();
+                            }
+                        }
+                    }
+                }
 
-				GlStateManager.popMatrix();
-			}
-		}
-	}
+                if (flag) {
+                    int j2 = this.mc.fontRendererObj.FONT_HEIGHT;
+                    GlStateManager.translate(-3.0F, 0.0F, 0.0F);
+                    int k2 = k * j2 + k;
+                    int l2 = j * j2 + j;
+                    int i3 = this.scrollPos * l2 / k;
+                    int k1 = l2 * l2 / k2;
+                    if (k2 != l2) {
+                        int j3 = i3 > 0 ? 170 : 96;
+                        int k3 = this.isScrolled ? 13382451 : 3355562;
+                        drawRect(0, -i3, 2, -i3 - k1, k3 + (j3 << 24));
+                        drawRect(2, -i3, 1, -i3 - k1, 13421772 + (j3 << 24));
+                    }
+                }
 
-	/**+
-	 * Clears the chat.
-	 */
-	public void clearChatMessages() {
-		this.field_146253_i.clear();
-		this.chatLines.clear();
-		this.sentMessages.clear();
-	}
+                GlStateManager.popMatrix();
+            }
+        }
+    }
 
-	public void printChatMessage(IChatComponent parIChatComponent) {
-		this.printChatMessageWithOptionalDeletion(parIChatComponent, 0);
-	}
+    /**+
+     * Clears the chat.
+     */
+    public void clearChatMessages() {
+        this.field_146253_i.clear();
+        this.chatLines.clear();
+        this.sentMessages.clear();
+    }
 
-	/**+
-	 * prints the ChatComponent to Chat. If the ID is not 0, deletes
-	 * an existing Chat Line of that ID from the GUI
-	 */
-	public void printChatMessageWithOptionalDeletion(IChatComponent parIChatComponent, int parInt1) {
-		this.setChatLine(parIChatComponent, parInt1, this.mc.ingameGUI.getUpdateCounter(), false);
-		logger.info("[CHAT] " + parIChatComponent.getUnformattedText());
-	}
+    public void printChatMessage(IChatComponent parIChatComponent) {
+        this.printChatMessageWithOptionalDeletion(parIChatComponent, 0);
+    }
 
-	private void setChatLine(IChatComponent parIChatComponent, int parInt1, int parInt2, boolean parFlag) {
-		if (parInt1 != 0) {
-			this.deleteChatLine(parInt1);
-		}
+    /**+
+     * prints the ChatComponent to Chat. If the ID is not 0, deletes
+     * an existing Chat Line of that ID from the GUI
+     */
+    public void printChatMessageWithOptionalDeletion(IChatComponent parIChatComponent, int parInt1) {
+        this.setChatLine(parIChatComponent, parInt1, this.mc.ingameGUI.getUpdateCounter(), false);
+        logger.info("[CHAT] " + parIChatComponent.getUnformattedText());
+    }
 
-		int i = MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale());
-		List list = GuiUtilRenderComponents.func_178908_a(parIChatComponent, i, this.mc.fontRendererObj, false, false);
-		boolean flag = this.getChatOpen();
+    private void setChatLine(IChatComponent parIChatComponent, int parInt1, int parInt2, boolean parFlag) {
+        if (parInt1 != 0) {
+            this.deleteChatLine(parInt1);
+        }
 
-		for (IChatComponent ichatcomponent : (List<IChatComponent>) list) {
-			if (flag && this.scrollPos > 0) {
-				this.isScrolled = true;
-				this.scroll(1);
-			}
+        int i = MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale());
+        List list = GuiUtilRenderComponents.func_178908_a(parIChatComponent, i, this.mc.fontRendererObj, false, false);
+        boolean flag = this.getChatOpen();
 
-			this.field_146253_i.add(0, new ChatLine(parInt2, ichatcomponent, parInt1));
-		}
+        for (IChatComponent ichatcomponent : (List<IChatComponent>) list) {
+            if (flag && this.scrollPos > 0) {
+                this.isScrolled = true;
+                this.scroll(1);
+            }
 
-		while (this.field_146253_i.size() > 100) {
-			this.field_146253_i.remove(this.field_146253_i.size() - 1);
-		}
+            this.field_146253_i.add(0, new ChatLine(parInt2, ichatcomponent, parInt1));
+        }
 
-		if (!parFlag) {
-			this.chatLines.add(0, new ChatLine(parInt2, parIChatComponent, parInt1));
+        while (this.field_146253_i.size() > 100) {
+            this.field_146253_i.remove(this.field_146253_i.size() - 1);
+        }
 
-			while (this.chatLines.size() > 100) {
-				this.chatLines.remove(this.chatLines.size() - 1);
-			}
-		}
+        if (!parFlag) {
+            this.chatLines.add(0, new ChatLine(parInt2, parIChatComponent, parInt1));
 
-	}
+            while (this.chatLines.size() > 100) {
+                this.chatLines.remove(this.chatLines.size() - 1);
+            }
+        }
+    }
 
-	public void refreshChat() {
-		this.field_146253_i.clear();
-		this.resetScroll();
+    public void refreshChat() {
+        this.field_146253_i.clear();
+        this.resetScroll();
 
-		for (int i = this.chatLines.size() - 1; i >= 0; --i) {
-			ChatLine chatline = (ChatLine) this.chatLines.get(i);
-			this.setChatLine(chatline.getChatComponent(), chatline.getChatLineID(), chatline.getUpdatedCounter(), true);
-		}
+        for (int i = this.chatLines.size() - 1; i >= 0; --i) {
+            ChatLine chatline = (ChatLine) this.chatLines.get(i);
+            this.setChatLine(chatline.getChatComponent(), chatline.getChatLineID(), chatline.getUpdatedCounter(), true);
+        }
+    }
 
-	}
+    /**+
+     * Gets the list of messages previously sent through the chat
+     * GUI
+     */
+    public List<String> getSentMessages() {
+        return this.sentMessages;
+    }
 
-	/**+
-	 * Gets the list of messages previously sent through the chat
-	 * GUI
-	 */
-	public List<String> getSentMessages() {
-		return this.sentMessages;
-	}
+    /**+
+     * Adds this string to the list of sent messages, for recall
+     * using the up/down arrow keys
+     */
+    public void addToSentMessages(String parString1) {
+        if (this.sentMessages.isEmpty() || !((String) this.sentMessages.get(this.sentMessages.size() - 1)).equals(parString1)) {
+            this.sentMessages.add(parString1);
+        }
+    }
 
-	/**+
-	 * Adds this string to the list of sent messages, for recall
-	 * using the up/down arrow keys
-	 */
-	public void addToSentMessages(String parString1) {
-		if (this.sentMessages.isEmpty()
-				|| !((String) this.sentMessages.get(this.sentMessages.size() - 1)).equals(parString1)) {
-			this.sentMessages.add(parString1);
-		}
+    /**+
+     * Resets the chat scroll (executed when the GUI is closed,
+     * among others)
+     */
+    public void resetScroll() {
+        this.scrollPos = 0;
+        this.isScrolled = false;
+    }
 
-	}
+    /**+
+     * Scrolls the chat by the given number of lines.
+     */
+    public void scroll(int parInt1) {
+        this.scrollPos += parInt1;
+        int i = this.field_146253_i.size();
+        if (this.scrollPos > i - this.getLineCount()) {
+            this.scrollPos = i - this.getLineCount();
+        }
 
-	/**+
-	 * Resets the chat scroll (executed when the GUI is closed,
-	 * among others)
-	 */
-	public void resetScroll() {
-		this.scrollPos = 0;
-		this.isScrolled = false;
-	}
+        if (this.scrollPos <= 0) {
+            this.scrollPos = 0;
+            this.isScrolled = false;
+        }
+    }
 
-	/**+
-	 * Scrolls the chat by the given number of lines.
-	 */
-	public void scroll(int parInt1) {
-		this.scrollPos += parInt1;
-		int i = this.field_146253_i.size();
-		if (this.scrollPos > i - this.getLineCount()) {
-			this.scrollPos = i - this.getLineCount();
-		}
+    /**+
+     * Gets the chat component under the mouse
+     */
+    public IChatComponent getChatComponent(int parInt1, int parInt2) {
+        if (!this.getChatOpen()) {
+            return null;
+        } else {
+            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+            int i = scaledresolution.getScaleFactor();
+            float f = this.getChatScale();
+            int j = parInt1 / i - 3;
+            int k = parInt2 / i - 27;
+            j = MathHelper.floor_float((float) j / f);
+            k = MathHelper.floor_float((float) k / f);
+            if (j >= 0 && k >= 0) {
+                int l = Math.min(this.getLineCount(), this.field_146253_i.size());
+                if (j <= MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale()) && k < this.mc.fontRendererObj.FONT_HEIGHT * l + l) {
+                    int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
+                    if (i1 >= 0 && i1 < this.field_146253_i.size()) {
+                        ChatLine chatline = (ChatLine) this.field_146253_i.get(i1);
+                        int j1 = 0;
 
-		if (this.scrollPos <= 0) {
-			this.scrollPos = 0;
-			this.isScrolled = false;
-		}
+                        for (IChatComponent ichatcomponent : chatline.getChatComponent()) {
+                            if (ichatcomponent instanceof ChatComponentText) {
+                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText) ichatcomponent).getChatComponentText_TextValue(), false));
+                                if (j1 > j) {
+                                    return ichatcomponent;
+                                }
+                            }
+                        }
+                    }
 
-	}
+                    return null;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+    }
 
-	/**+
-	 * Gets the chat component under the mouse
-	 */
-	public IChatComponent getChatComponent(int parInt1, int parInt2) {
-		if (!this.getChatOpen()) {
-			return null;
-		} else {
-			ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-			int i = scaledresolution.getScaleFactor();
-			float f = this.getChatScale();
-			int j = parInt1 / i - 3;
-			int k = parInt2 / i - 27;
-			j = MathHelper.floor_float((float) j / f);
-			k = MathHelper.floor_float((float) k / f);
-			if (j >= 0 && k >= 0) {
-				int l = Math.min(this.getLineCount(), this.field_146253_i.size());
-				if (j <= MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale())
-						&& k < this.mc.fontRendererObj.FONT_HEIGHT * l + l) {
-					int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
-					if (i1 >= 0 && i1 < this.field_146253_i.size()) {
-						ChatLine chatline = (ChatLine) this.field_146253_i.get(i1);
-						int j1 = 0;
+    /**+
+     * Returns true if the chat GUI is open
+     */
+    public boolean getChatOpen() {
+        return this.mc.currentScreen instanceof GuiChat;
+    }
 
-						for (IChatComponent ichatcomponent : chatline.getChatComponent()) {
-							if (ichatcomponent instanceof ChatComponentText) {
-								j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(
-										((ChatComponentText) ichatcomponent).getChatComponentText_TextValue(), false));
-								if (j1 > j) {
-									return ichatcomponent;
-								}
-							}
-						}
-					}
+    /**+
+     * finds and deletes a Chat line by ID
+     */
+    public void deleteChatLine(int parInt1) {
+        Iterator iterator = this.field_146253_i.iterator();
 
-					return null;
-				} else {
-					return null;
-				}
-			} else {
-				return null;
-			}
-		}
-	}
+        while (iterator.hasNext()) {
+            ChatLine chatline = (ChatLine) iterator.next();
+            if (chatline.getChatLineID() == parInt1) {
+                iterator.remove();
+            }
+        }
 
-	/**+
-	 * Returns true if the chat GUI is open
-	 */
-	public boolean getChatOpen() {
-		return this.mc.currentScreen instanceof GuiChat;
-	}
+        iterator = this.chatLines.iterator();
 
-	/**+
-	 * finds and deletes a Chat line by ID
-	 */
-	public void deleteChatLine(int parInt1) {
-		Iterator iterator = this.field_146253_i.iterator();
+        while (iterator.hasNext()) {
+            ChatLine chatline1 = (ChatLine) iterator.next();
+            if (chatline1.getChatLineID() == parInt1) {
+                iterator.remove();
+                break;
+            }
+        }
+    }
 
-		while (iterator.hasNext()) {
-			ChatLine chatline = (ChatLine) iterator.next();
-			if (chatline.getChatLineID() == parInt1) {
-				iterator.remove();
-			}
-		}
+    public int getChatWidth() {
+        return calculateChatboxWidth(this.mc.gameSettings.chatWidth);
+    }
 
-		iterator = this.chatLines.iterator();
+    public int getChatHeight() {
+        return calculateChatboxHeight(this.getChatOpen() ? this.mc.gameSettings.chatHeightFocused : this.mc.gameSettings.chatHeightUnfocused);
+    }
 
-		while (iterator.hasNext()) {
-			ChatLine chatline1 = (ChatLine) iterator.next();
-			if (chatline1.getChatLineID() == parInt1) {
-				iterator.remove();
-				break;
-			}
-		}
+    /**+
+     * Returns the chatscale from mc.gameSettings.chatScale
+     */
+    public float getChatScale() {
+        return this.mc.gameSettings.chatScale;
+    }
 
-	}
+    public static int calculateChatboxWidth(float parFloat1) {
+        short short1 = 320;
+        byte b0 = 40;
+        return MathHelper.floor_float(parFloat1 * (float) (short1 - b0) + (float) b0);
+    }
 
-	public int getChatWidth() {
-		return calculateChatboxWidth(this.mc.gameSettings.chatWidth);
-	}
+    public static int calculateChatboxHeight(float parFloat1) {
+        short short1 = 180;
+        byte b0 = 20;
+        return MathHelper.floor_float(parFloat1 * (float) (short1 - b0) + (float) b0);
+    }
 
-	public int getChatHeight() {
-		return calculateChatboxHeight(
-				this.getChatOpen() ? this.mc.gameSettings.chatHeightFocused : this.mc.gameSettings.chatHeightUnfocused);
-	}
-
-	/**+
-	 * Returns the chatscale from mc.gameSettings.chatScale
-	 */
-	public float getChatScale() {
-		return this.mc.gameSettings.chatScale;
-	}
-
-	public static int calculateChatboxWidth(float parFloat1) {
-		short short1 = 320;
-		byte b0 = 40;
-		return MathHelper.floor_float(parFloat1 * (float) (short1 - b0) + (float) b0);
-	}
-
-	public static int calculateChatboxHeight(float parFloat1) {
-		short short1 = 180;
-		byte b0 = 20;
-		return MathHelper.floor_float(parFloat1 * (float) (short1 - b0) + (float) b0);
-	}
-
-	public int getLineCount() {
-		return this.getChatHeight() / 9;
-	}
+    public int getLineCount() {
+        return this.getChatHeight() / 9;
+    }
 }

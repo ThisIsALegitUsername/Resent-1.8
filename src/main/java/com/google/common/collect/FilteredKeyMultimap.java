@@ -17,6 +17,8 @@ package com.google.common.collect;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkPositionIndex;
 
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.base.Predicate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -24,11 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.base.Predicate;
 
 /**
  * Implementation of {@link Multimaps#filterKeys(Multimap, Predicate)}.
@@ -37,182 +35,188 @@ import com.google.common.base.Predicate;
  */
 @GwtCompatible
 class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
-	final Multimap<K, V> unfiltered;
-	final Predicate<? super K> keyPredicate;
 
-	FilteredKeyMultimap(Multimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
-		this.unfiltered = checkNotNull(unfiltered);
-		this.keyPredicate = checkNotNull(keyPredicate);
-	}
+    final Multimap<K, V> unfiltered;
+    final Predicate<? super K> keyPredicate;
 
-	@Override
-	public Multimap<K, V> unfiltered() {
-		return unfiltered;
-	}
+    FilteredKeyMultimap(Multimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
+        this.unfiltered = checkNotNull(unfiltered);
+        this.keyPredicate = checkNotNull(keyPredicate);
+    }
 
-	@Override
-	public Predicate<? super Entry<K, V>> entryPredicate() {
-		return Maps.keyPredicateOnEntries(keyPredicate);
-	}
+    @Override
+    public Multimap<K, V> unfiltered() {
+        return unfiltered;
+    }
 
-	@Override
-	public int size() {
-		int size = 0;
-		for (Collection<V> collection : asMap().values()) {
-			size += collection.size();
-		}
-		return size;
-	}
+    @Override
+    public Predicate<? super Entry<K, V>> entryPredicate() {
+        return Maps.keyPredicateOnEntries(keyPredicate);
+    }
 
-	@Override
-	public boolean containsKey(@Nullable Object key) {
-		if (unfiltered.containsKey(key)) {
-			@SuppressWarnings("unchecked") // k is equal to a K, if not one itself
-			K k = (K) key;
-			return keyPredicate.apply(k);
-		}
-		return false;
-	}
+    @Override
+    public int size() {
+        int size = 0;
+        for (Collection<V> collection : asMap().values()) {
+            size += collection.size();
+        }
+        return size;
+    }
 
-	@Override
-	public Collection<V> removeAll(Object key) {
-		return containsKey(key) ? unfiltered.removeAll(key) : unmodifiableEmptyCollection();
-	}
+    @Override
+    public boolean containsKey(@Nullable Object key) {
+        if (unfiltered.containsKey(key)) {
+            @SuppressWarnings("unchecked") // k is equal to a K, if not one itself
+            K k = (K) key;
+            return keyPredicate.apply(k);
+        }
+        return false;
+    }
 
-	Collection<V> unmodifiableEmptyCollection() {
-		if (unfiltered instanceof SetMultimap) {
-			return ImmutableSet.of();
-		} else {
-			return ImmutableList.of();
-		}
-	}
+    @Override
+    public Collection<V> removeAll(Object key) {
+        return containsKey(key) ? unfiltered.removeAll(key) : unmodifiableEmptyCollection();
+    }
 
-	@Override
-	public void clear() {
-		keySet().clear();
-	}
+    Collection<V> unmodifiableEmptyCollection() {
+        if (unfiltered instanceof SetMultimap) {
+            return ImmutableSet.of();
+        } else {
+            return ImmutableList.of();
+        }
+    }
 
-	@Override
-	Set<K> createKeySet() {
-		return Sets.filter(unfiltered.keySet(), keyPredicate);
-	}
+    @Override
+    public void clear() {
+        keySet().clear();
+    }
 
-	@Override
-	public Collection<V> get(K key) {
-		if (keyPredicate.apply(key)) {
-			return unfiltered.get(key);
-		} else if (unfiltered instanceof SetMultimap) {
-			return new AddRejectingSet<K, V>(key);
-		} else {
-			return new AddRejectingList<K, V>(key);
-		}
-	}
+    @Override
+    Set<K> createKeySet() {
+        return Sets.filter(unfiltered.keySet(), keyPredicate);
+    }
 
-	static class AddRejectingSet<K, V> extends ForwardingSet<V> {
-		final K key;
+    @Override
+    public Collection<V> get(K key) {
+        if (keyPredicate.apply(key)) {
+            return unfiltered.get(key);
+        } else if (unfiltered instanceof SetMultimap) {
+            return new AddRejectingSet<K, V>(key);
+        } else {
+            return new AddRejectingList<K, V>(key);
+        }
+    }
 
-		AddRejectingSet(K key) {
-			this.key = key;
-		}
+    static class AddRejectingSet<K, V> extends ForwardingSet<V> {
 
-		@Override
-		public boolean add(V element) {
-			throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
-		}
+        final K key;
 
-		@Override
-		public boolean addAll(Collection<? extends V> collection) {
-			checkNotNull(collection);
-			throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
-		}
+        AddRejectingSet(K key) {
+            this.key = key;
+        }
 
-		@Override
-		protected Set<V> delegate() {
-			return Collections.emptySet();
-		}
-	}
+        @Override
+        public boolean add(V element) {
+            throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+        }
 
-	static class AddRejectingList<K, V> extends ForwardingList<V> {
-		final K key;
+        @Override
+        public boolean addAll(Collection<? extends V> collection) {
+            checkNotNull(collection);
+            throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+        }
 
-		AddRejectingList(K key) {
-			this.key = key;
-		}
+        @Override
+        protected Set<V> delegate() {
+            return Collections.emptySet();
+        }
+    }
 
-		@Override
-		public boolean add(V v) {
-			add(0, v);
-			return true;
-		}
+    static class AddRejectingList<K, V> extends ForwardingList<V> {
 
-		@Override
-		public boolean addAll(Collection<? extends V> collection) {
-			addAll(0, collection);
-			return true;
-		}
+        final K key;
 
-		@Override
-		public void add(int index, V element) {
-			checkPositionIndex(index, 0);
-			throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
-		}
+        AddRejectingList(K key) {
+            this.key = key;
+        }
 
-		@Override
-		public boolean addAll(int index, Collection<? extends V> elements) {
-			checkNotNull(elements);
-			checkPositionIndex(index, 0);
-			throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
-		}
+        @Override
+        public boolean add(V v) {
+            add(0, v);
+            return true;
+        }
 
-		@Override
-		protected List<V> delegate() {
-			return Collections.emptyList();
-		}
-	}
+        @Override
+        public boolean addAll(Collection<? extends V> collection) {
+            addAll(0, collection);
+            return true;
+        }
 
-	@Override
-	Iterator<Entry<K, V>> entryIterator() {
-		throw new AssertionError("should never be called");
-	}
+        @Override
+        public void add(int index, V element) {
+            checkPositionIndex(index, 0);
+            throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+        }
 
-	@Override
-	Collection<Entry<K, V>> createEntries() {
-		return new Entries();
-	}
+        @Override
+        public boolean addAll(int index, Collection<? extends V> elements) {
+            checkNotNull(elements);
+            checkPositionIndex(index, 0);
+            throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+        }
 
-	class Entries extends ForwardingCollection<Entry<K, V>> {
-		@Override
-		protected Collection<Entry<K, V>> delegate() {
-			return Collections2.filter(unfiltered.entries(), entryPredicate());
-		}
+        @Override
+        protected List<V> delegate() {
+            return Collections.emptyList();
+        }
+    }
 
-		@Override
-		@SuppressWarnings("unchecked")
-		public boolean remove(@Nullable Object o) {
-			if (o instanceof Entry) {
-				Entry<?, ?> entry = (Entry<?, ?>) o;
-				if (unfiltered.containsKey(entry.getKey())
-						// if this holds, then we know entry.getKey() is a K
-						&& keyPredicate.apply((K) entry.getKey())) {
-					return unfiltered.remove(entry.getKey(), entry.getValue());
-				}
-			}
-			return false;
-		}
-	}
+    @Override
+    Iterator<Entry<K, V>> entryIterator() {
+        throw new AssertionError("should never be called");
+    }
 
-	@Override
-	Collection<V> createValues() {
-		return new FilteredMultimapValues<K, V>(this);
-	}
+    @Override
+    Collection<Entry<K, V>> createEntries() {
+        return new Entries();
+    }
 
-	@Override
-	Map<K, Collection<V>> createAsMap() {
-		return Maps.filterKeys(unfiltered.asMap(), keyPredicate);
-	}
+    class Entries extends ForwardingCollection<Entry<K, V>> {
 
-	@Override
-	Multiset<K> createKeys() {
-		return Multisets.filter(unfiltered.keys(), keyPredicate);
-	}
+        @Override
+        protected Collection<Entry<K, V>> delegate() {
+            return Collections2.filter(unfiltered.entries(), entryPredicate());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean remove(@Nullable Object o) {
+            if (o instanceof Entry) {
+                Entry<?, ?> entry = (Entry<?, ?>) o;
+                if (
+                    unfiltered.containsKey(entry.getKey()) &&
+                    // if this holds, then we know entry.getKey() is a K
+                    keyPredicate.apply((K) entry.getKey())
+                ) {
+                    return unfiltered.remove(entry.getKey(), entry.getValue());
+                }
+            }
+            return false;
+        }
+    }
+
+    @Override
+    Collection<V> createValues() {
+        return new FilteredMultimapValues<K, V>(this);
+    }
+
+    @Override
+    Map<K, Collection<V>> createAsMap() {
+        return Maps.filterKeys(unfiltered.asMap(), keyPredicate);
+    }
+
+    @Override
+    Multiset<K> createKeys() {
+        return Multisets.filter(unfiltered.keys(), keyPredicate);
+    }
 }

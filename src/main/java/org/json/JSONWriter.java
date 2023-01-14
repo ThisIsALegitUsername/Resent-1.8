@@ -38,6 +38,7 @@ Public Domain.
  * @version 2016-08-08
  */
 public class JSONWriter {
+
     private static final int maxdepth = 200;
 
     /**
@@ -100,9 +101,9 @@ public class JSONWriter {
                 }
                 this.writer.append(string);
             } catch (IOException e) {
-            	// Android as of API 25 does not support this exception constructor
-            	// however we won't worry about it. If an exception is happening here
-            	// it will just throw a "Method not found" exception instead.
+                // Android as of API 25 does not support this exception constructor
+                // however we won't worry about it. If an exception is happening here
+                // it will just throw a "Method not found" exception instead.
                 throw new JSONException(e);
             }
             if (this.mode == 'o') {
@@ -142,17 +143,15 @@ public class JSONWriter {
      */
     private JSONWriter end(char m, char c) throws JSONException {
         if (this.mode != m) {
-            throw new JSONException(m == 'a'
-                ? "Misplaced endArray."
-                : "Misplaced endObject.");
+            throw new JSONException(m == 'a' ? "Misplaced endArray." : "Misplaced endObject.");
         }
         this.pop(m);
         try {
             this.writer.append(c);
         } catch (IOException e) {
-        	// Android as of API 25 does not support this exception constructor
-        	// however we won't worry about it. If an exception is happening here
-        	// it will just throw a "Method not found" exception instead.
+            // Android as of API 25 does not support this exception constructor
+            // however we won't worry about it. If an exception is happening here
+            // it will just throw a "Method not found" exception instead.
             throw new JSONException(e);
         }
         this.comma = true;
@@ -195,9 +194,9 @@ public class JSONWriter {
             try {
                 JSONObject topObject = this.stack[this.top - 1];
                 // don't use the built in putOnce method to maintain Android support
-				if(topObject.has(string)) {
-					throw new JSONException("Duplicate key \"" + string + "\"");
-				}
+                if (topObject.has(string)) {
+                    throw new JSONException("Duplicate key \"" + string + "\"");
+                }
                 topObject.put(string, true);
                 if (this.comma) {
                     this.writer.append(',');
@@ -208,15 +207,14 @@ public class JSONWriter {
                 this.mode = 'o';
                 return this;
             } catch (IOException e) {
-            	// Android as of API 25 does not support this exception constructor
-            	// however we won't worry about it. If an exception is happening here
-            	// it will just throw a "Method not found" exception instead.
+                // Android as of API 25 does not support this exception constructor
+                // however we won't worry about it. If an exception is happening here
+                // it will just throw a "Method not found" exception instead.
                 throw new JSONException(e);
             }
         }
         throw new JSONException("Misplaced key.");
     }
-
 
     /**
      * Begin appending a new object. All keys and values until the balancing
@@ -238,9 +236,7 @@ public class JSONWriter {
             return this;
         }
         throw new JSONException("Misplaced object.");
-
     }
-
 
     /**
      * Pop an array or object scope.
@@ -256,11 +252,7 @@ public class JSONWriter {
             throw new JSONException("Nesting error.");
         }
         this.top -= 1;
-        this.mode = this.top == 0
-            ? 'd'
-            : this.stack[this.top - 1] == null
-            ? 'a'
-            : 'k';
+        this.mode = this.top == 0 ? 'd' : this.stack[this.top - 1] == null ? 'a' : 'k';
     }
 
     /**
@@ -320,7 +312,7 @@ public class JSONWriter {
         if (value instanceof Number) {
             // not all Numbers may match actual JSON Numbers. i.e. Fractions or Complex
             final String numberAsString = JSONObject.numberToString((Number) value);
-            if(JSONObject.NUMBER_PATTERN.matcher(numberAsString).matches()) {
+            if (JSONObject.NUMBER_PATTERN.matcher(numberAsString).matches()) {
                 // Close enough to a JSON number that we will return it unquoted
                 return numberAsString;
             }
@@ -328,8 +320,7 @@ public class JSONWriter {
             // Instead we will quote it as a string
             return JSONObject.quote(numberAsString);
         }
-        if (value instanceof Boolean || value instanceof JSONObject
-                || value instanceof JSONArray) {
+        if (value instanceof Boolean || value instanceof JSONObject || value instanceof JSONArray) {
             return value.toString();
         }
         if (value instanceof Map) {
@@ -343,8 +334,8 @@ public class JSONWriter {
         if (value.getClass().isArray()) {
             return new JSONArray(value).toString();
         }
-        if(value instanceof Enum<?>){
-            return JSONObject.quote(((Enum<?>)value).name());
+        if (value instanceof Enum<?>) {
+            return JSONObject.quote(((Enum<?>) value).name());
         }
         return JSONObject.quote(value.toString());
     }
@@ -379,7 +370,6 @@ public class JSONWriter {
     public JSONWriter value(long l) throws JSONException {
         return this.append(Long.toString(l));
     }
-
 
     /**
      * Append an object value.

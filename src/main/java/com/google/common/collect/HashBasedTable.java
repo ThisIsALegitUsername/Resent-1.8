@@ -18,14 +18,12 @@ package com.google.common.collect;
 
 import static com.google.common.collect.CollectPreconditions.checkNonnegative;
 
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.base.Supplier;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Nullable;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.base.Supplier;
 
 /**
  * Implementation of {@link Table} using hash tables.
@@ -47,7 +45,7 @@ import com.google.common.base.Supplier;
  * Note that this implementation is not synchronized. If multiple threads access
  * this table concurrently and one of the threads modifies the table, it must be
  * synchronized externally.
- * 
+ *
  * <p>
  * See the Guava User Guide article on <a href=
  * "http://code.google.com/p/guava-libraries/wiki/NewCollectionTypesExplained#Table">
@@ -58,97 +56,99 @@ import com.google.common.base.Supplier;
  */
 @GwtCompatible(serializable = true)
 public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
-	private static class Factory<C, V> implements Supplier<Map<C, V>>, Serializable {
-		final int expectedSize;
 
-		Factory(int expectedSize) {
-			this.expectedSize = expectedSize;
-		}
+    private static class Factory<C, V> implements Supplier<Map<C, V>>, Serializable {
 
-		@Override
-		public Map<C, V> get() {
-			return Maps.newHashMapWithExpectedSize(expectedSize);
-		}
+        final int expectedSize;
 
-		private static final long serialVersionUID = 0;
-	}
+        Factory(int expectedSize) {
+            this.expectedSize = expectedSize;
+        }
 
-	/**
-	 * Creates an empty {@code HashBasedTable}.
-	 */
-	public static <R, C, V> HashBasedTable<R, C, V> create() {
-		return new HashBasedTable<R, C, V>(new HashMap<R, Map<C, V>>(), new Factory<C, V>(0));
-	}
+        @Override
+        public Map<C, V> get() {
+            return Maps.newHashMapWithExpectedSize(expectedSize);
+        }
 
-	/**
-	 * Creates an empty {@code HashBasedTable} with the specified map sizes.
-	 *
-	 * @param expectedRows        the expected number of distinct row keys
-	 * @param expectedCellsPerRow the expected number of column key / value mappings
-	 *                            in each row
-	 * @throws IllegalArgumentException if {@code expectedRows} or {@code
-	 *     expectedCellsPerRow}      is negative
-	 */
-	public static <R, C, V> HashBasedTable<R, C, V> create(int expectedRows, int expectedCellsPerRow) {
-		checkNonnegative(expectedCellsPerRow, "expectedCellsPerRow");
-		Map<R, Map<C, V>> backingMap = Maps.newHashMapWithExpectedSize(expectedRows);
-		return new HashBasedTable<R, C, V>(backingMap, new Factory<C, V>(expectedCellsPerRow));
-	}
+        private static final long serialVersionUID = 0;
+    }
 
-	/**
-	 * Creates a {@code HashBasedTable} with the same mappings as the specified
-	 * table.
-	 *
-	 * @param table the table to copy
-	 * @throws NullPointerException if any of the row keys, column keys, or values
-	 *                              in {@code table} is null
-	 */
-	public static <R, C, V> HashBasedTable<R, C, V> create(Table<? extends R, ? extends C, ? extends V> table) {
-		HashBasedTable<R, C, V> result = create();
-		result.putAll(table);
-		return result;
-	}
+    /**
+     * Creates an empty {@code HashBasedTable}.
+     */
+    public static <R, C, V> HashBasedTable<R, C, V> create() {
+        return new HashBasedTable<R, C, V>(new HashMap<R, Map<C, V>>(), new Factory<C, V>(0));
+    }
 
-	HashBasedTable(Map<R, Map<C, V>> backingMap, Factory<C, V> factory) {
-		super(backingMap, factory);
-	}
+    /**
+     * Creates an empty {@code HashBasedTable} with the specified map sizes.
+     *
+     * @param expectedRows        the expected number of distinct row keys
+     * @param expectedCellsPerRow the expected number of column key / value mappings
+     *                            in each row
+     * @throws IllegalArgumentException if {@code expectedRows} or {@code
+     *     expectedCellsPerRow}      is negative
+     */
+    public static <R, C, V> HashBasedTable<R, C, V> create(int expectedRows, int expectedCellsPerRow) {
+        checkNonnegative(expectedCellsPerRow, "expectedCellsPerRow");
+        Map<R, Map<C, V>> backingMap = Maps.newHashMapWithExpectedSize(expectedRows);
+        return new HashBasedTable<R, C, V>(backingMap, new Factory<C, V>(expectedCellsPerRow));
+    }
 
-	// Overriding so NullPointerTester test passes.
+    /**
+     * Creates a {@code HashBasedTable} with the same mappings as the specified
+     * table.
+     *
+     * @param table the table to copy
+     * @throws NullPointerException if any of the row keys, column keys, or values
+     *                              in {@code table} is null
+     */
+    public static <R, C, V> HashBasedTable<R, C, V> create(Table<? extends R, ? extends C, ? extends V> table) {
+        HashBasedTable<R, C, V> result = create();
+        result.putAll(table);
+        return result;
+    }
 
-	@Override
-	public boolean contains(@Nullable Object rowKey, @Nullable Object columnKey) {
-		return super.contains(rowKey, columnKey);
-	}
+    HashBasedTable(Map<R, Map<C, V>> backingMap, Factory<C, V> factory) {
+        super(backingMap, factory);
+    }
 
-	@Override
-	public boolean containsColumn(@Nullable Object columnKey) {
-		return super.containsColumn(columnKey);
-	}
+    // Overriding so NullPointerTester test passes.
 
-	@Override
-	public boolean containsRow(@Nullable Object rowKey) {
-		return super.containsRow(rowKey);
-	}
+    @Override
+    public boolean contains(@Nullable Object rowKey, @Nullable Object columnKey) {
+        return super.contains(rowKey, columnKey);
+    }
 
-	@Override
-	public boolean containsValue(@Nullable Object value) {
-		return super.containsValue(value);
-	}
+    @Override
+    public boolean containsColumn(@Nullable Object columnKey) {
+        return super.containsColumn(columnKey);
+    }
 
-	@Override
-	public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
-		return super.get(rowKey, columnKey);
-	}
+    @Override
+    public boolean containsRow(@Nullable Object rowKey) {
+        return super.containsRow(rowKey);
+    }
 
-	@Override
-	public boolean equals(@Nullable Object obj) {
-		return super.equals(obj);
-	}
+    @Override
+    public boolean containsValue(@Nullable Object value) {
+        return super.containsValue(value);
+    }
 
-	@Override
-	public V remove(@Nullable Object rowKey, @Nullable Object columnKey) {
-		return super.remove(rowKey, columnKey);
-	}
+    @Override
+    public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
+        return super.get(rowKey, columnKey);
+    }
 
-	private static final long serialVersionUID = 0;
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public V remove(@Nullable Object rowKey, @Nullable Object columnKey) {
+        return super.remove(rowKey, columnKey);
+    }
+
+    private static final long serialVersionUID = 0;
 }

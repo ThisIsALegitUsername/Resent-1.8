@@ -27,46 +27,46 @@ import java.util.Objects;
  */
 public class CalendarUtils {
 
-	/**
-	 * The singleton instance for {@link Calendar#getInstance()}.
-	 */
-	public static final CalendarUtils INSTANCE = new CalendarUtils(Calendar.getInstance());
+    /**
+     * The singleton instance for {@link Calendar#getInstance()}.
+     */
+    public static final CalendarUtils INSTANCE = new CalendarUtils(Calendar.getInstance());
 
-	private final Calendar calendar;
+    private final Calendar calendar;
 
-	/**
-	 * Creates an instance for the given Calendar.
-	 *
-	 * @param calendar A Calendar.
-	 */
-	public CalendarUtils(final Calendar calendar) {
-		this.calendar = Objects.requireNonNull(calendar, "calendar");
-	}
+    /**
+     * Creates an instance for the given Calendar.
+     *
+     * @param calendar A Calendar.
+     */
+    public CalendarUtils(final Calendar calendar) {
+        this.calendar = Objects.requireNonNull(calendar, "calendar");
+    }
 
-	/**
-	 * Gets the current day of month.
-	 *
-	 * @return the current day of month.
-	 */
-	public int getDayOfMonth() {
-		return calendar.get(Calendar.DAY_OF_MONTH);
-	}
+    /**
+     * Gets the current day of month.
+     *
+     * @return the current day of month.
+     */
+    public int getDayOfMonth() {
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
 
-	/**
-	 * Gets the current month.
-	 *
-	 * @return the current month.
-	 */
-	public int getMonth() {
-		return calendar.get(Calendar.MONTH);
-	}
+    /**
+     * Gets the current month.
+     *
+     * @return the current month.
+     */
+    public int getMonth() {
+        return calendar.get(Calendar.MONTH);
+    }
 
-	/**
-	 * Gets the current year.
-	 *
-	 * @return the current year.
-	 */
-	public int getYear() {
-		return calendar.get(Calendar.YEAR);
-	}
+    /**
+     * Gets the current year.
+     *
+     * @return the current year.
+     */
+    public int getYear() {
+        return calendar.get(Calendar.YEAR);
+    }
 }

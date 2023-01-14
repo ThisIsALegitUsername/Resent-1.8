@@ -28,67 +28,66 @@ import java.util.function.IntUnaryOperator;
  * @since 3.11
  */
 public interface FailableIntUnaryOperator<E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntUnaryOperator NOP = t -> 0;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableIntUnaryOperator NOP = t -> 0;
+    /**
+     * Returns a unary operator that always returns its input argument.
+     *
+     * @param <E> Thrown exception.
+     * @return a unary operator that always returns its input argument
+     */
+    static <E extends Throwable> FailableIntUnaryOperator<E> identity() {
+        return t -> t;
+    }
 
-	/**
-	 * Returns a unary operator that always returns its input argument.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return a unary operator that always returns its input argument
-	 */
-	static <E extends Throwable> FailableIntUnaryOperator<E> identity() {
-		return t -> t;
-	}
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
-		return NOP;
-	}
+    /**
+     * Returns a composed {@code FailableDoubleUnaryOperator} like
+     * {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
+     *
+     * @param after the operator to apply after this one.
+     * @return a composed {@code FailableIntUnaryOperator} like
+     *         {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
+     * @throws NullPointerException if after is null.
+     * @see #compose(FailableIntUnaryOperator)
+     */
+    default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) {
+        Objects.requireNonNull(after);
+        return (final int t) -> after.applyAsInt(applyAsInt(t));
+    }
 
-	/**
-	 * Returns a composed {@code FailableDoubleUnaryOperator} like
-	 * {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
-	 *
-	 * @param after the operator to apply after this one.
-	 * @return a composed {@code FailableIntUnaryOperator} like
-	 *         {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
-	 * @throws NullPointerException if after is null.
-	 * @see #compose(FailableIntUnaryOperator)
-	 */
-	default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) {
-		Objects.requireNonNull(after);
-		return (final int t) -> after.applyAsInt(applyAsInt(t));
-	}
+    /**
+     * Applies this operator to the given operand.
+     *
+     * @param operand the operand
+     * @return the operator result
+     * @throws E Thrown when a consumer fails.
+     */
+    int applyAsInt(int operand) throws E;
 
-	/**
-	 * Applies this operator to the given operand.
-	 *
-	 * @param operand the operand
-	 * @return the operator result
-	 * @throws E Thrown when a consumer fails.
-	 */
-	int applyAsInt(int operand) throws E;
-
-	/**
-	 * Returns a composed {@code FailableIntUnaryOperator} like
-	 * {@link IntUnaryOperator#compose(IntUnaryOperator)}.
-	 *
-	 * @param before the operator to apply before this one.
-	 * @return a composed {@code FailableIntUnaryOperator} like
-	 *         {@link IntUnaryOperator#compose(IntUnaryOperator)}.
-	 * @throws NullPointerException if before is null.
-	 * @see #andThen(FailableIntUnaryOperator)
-	 */
-	default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) {
-		Objects.requireNonNull(before);
-		return (final int v) -> applyAsInt(before.applyAsInt(v));
-	}
+    /**
+     * Returns a composed {@code FailableIntUnaryOperator} like
+     * {@link IntUnaryOperator#compose(IntUnaryOperator)}.
+     *
+     * @param before the operator to apply before this one.
+     * @return a composed {@code FailableIntUnaryOperator} like
+     *         {@link IntUnaryOperator#compose(IntUnaryOperator)}.
+     * @throws NullPointerException if before is null.
+     * @see #andThen(FailableIntUnaryOperator)
+     */
+    default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) {
+        Objects.requireNonNull(before);
+        return (final int v) -> applyAsInt(before.applyAsInt(v));
+    }
 }

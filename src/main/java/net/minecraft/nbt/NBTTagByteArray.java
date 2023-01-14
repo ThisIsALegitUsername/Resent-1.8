@@ -7,78 +7,78 @@ import java.util.Arrays;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class NBTTagByteArray extends NBTBase {
-	private byte[] data;
 
-	NBTTagByteArray() {
-	}
+    private byte[] data;
 
-	public NBTTagByteArray(byte[] data) {
-		this.data = data;
-	}
+    NBTTagByteArray() {}
 
-	/**+
-	 * Write the actual data contents of the tag, implemented in NBT
-	 * extension classes
-	 */
-	void write(DataOutput output) throws IOException {
-		output.writeInt(this.data.length);
-		output.write(this.data);
-	}
+    public NBTTagByteArray(byte[] data) {
+        this.data = data;
+    }
 
-	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
-		sizeTracker.read(192L);
-		int i = input.readInt();
-		sizeTracker.read((long) (8 * i));
-		this.data = new byte[i];
-		input.readFully(this.data);
-	}
+    /**+
+     * Write the actual data contents of the tag, implemented in NBT
+     * extension classes
+     */
+    void write(DataOutput output) throws IOException {
+        output.writeInt(this.data.length);
+        output.write(this.data);
+    }
 
-	/**+
-	 * Gets the type byte for the tag.
-	 */
-	public byte getId() {
-		return (byte) 7;
-	}
+    void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
+        sizeTracker.read(192L);
+        int i = input.readInt();
+        sizeTracker.read((long) (8 * i));
+        this.data = new byte[i];
+        input.readFully(this.data);
+    }
 
-	public String toString() {
-		return "[" + this.data.length + " bytes]";
-	}
+    /**+
+     * Gets the type byte for the tag.
+     */
+    public byte getId() {
+        return (byte) 7;
+    }
 
-	/**+
-	 * Creates a clone of the tag.
-	 */
-	public NBTBase copy() {
-		byte[] abyte = new byte[this.data.length];
-		System.arraycopy(this.data, 0, abyte, 0, this.data.length);
-		return new NBTTagByteArray(abyte);
-	}
+    public String toString() {
+        return "[" + this.data.length + " bytes]";
+    }
 
-	public boolean equals(Object object) {
-		return super.equals(object) ? Arrays.equals(this.data, ((NBTTagByteArray) object).data) : false;
-	}
+    /**+
+     * Creates a clone of the tag.
+     */
+    public NBTBase copy() {
+        byte[] abyte = new byte[this.data.length];
+        System.arraycopy(this.data, 0, abyte, 0, this.data.length);
+        return new NBTTagByteArray(abyte);
+    }
 
-	public int hashCode() {
-		return super.hashCode() ^ Arrays.hashCode(this.data);
-	}
+    public boolean equals(Object object) {
+        return super.equals(object) ? Arrays.equals(this.data, ((NBTTagByteArray) object).data) : false;
+    }
 
-	public byte[] getByteArray() {
-		return this.data;
-	}
+    public int hashCode() {
+        return super.hashCode() ^ Arrays.hashCode(this.data);
+    }
+
+    public byte[] getByteArray() {
+        return this.data;
+    }
 }

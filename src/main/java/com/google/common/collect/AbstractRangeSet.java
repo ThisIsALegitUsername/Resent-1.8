@@ -22,82 +22,82 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  */
 abstract class AbstractRangeSet<C extends Comparable> implements RangeSet<C> {
-	AbstractRangeSet() {
-	}
 
-	@Override
-	public boolean contains(C value) {
-		return rangeContaining(value) != null;
-	}
+    AbstractRangeSet() {}
 
-	@Override
-	public abstract Range<C> rangeContaining(C value);
+    @Override
+    public boolean contains(C value) {
+        return rangeContaining(value) != null;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return asRanges().isEmpty();
-	}
+    @Override
+    public abstract Range<C> rangeContaining(C value);
 
-	@Override
-	public void add(Range<C> range) {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public boolean isEmpty() {
+        return asRanges().isEmpty();
+    }
 
-	@Override
-	public void remove(Range<C> range) {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void add(Range<C> range) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public void clear() {
-		remove(Range.<C>all());
-	}
+    @Override
+    public void remove(Range<C> range) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public boolean enclosesAll(RangeSet<C> other) {
-		for (Range<C> range : other.asRanges()) {
-			if (!encloses(range)) {
-				return false;
-			}
-		}
-		return true;
-	}
+    @Override
+    public void clear() {
+        remove(Range.<C>all());
+    }
 
-	@Override
-	public void addAll(RangeSet<C> other) {
-		for (Range<C> range : other.asRanges()) {
-			add(range);
-		}
-	}
+    @Override
+    public boolean enclosesAll(RangeSet<C> other) {
+        for (Range<C> range : other.asRanges()) {
+            if (!encloses(range)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-	@Override
-	public void removeAll(RangeSet<C> other) {
-		for (Range<C> range : other.asRanges()) {
-			remove(range);
-		}
-	}
+    @Override
+    public void addAll(RangeSet<C> other) {
+        for (Range<C> range : other.asRanges()) {
+            add(range);
+        }
+    }
 
-	@Override
-	public abstract boolean encloses(Range<C> otherRange);
+    @Override
+    public void removeAll(RangeSet<C> other) {
+        for (Range<C> range : other.asRanges()) {
+            remove(range);
+        }
+    }
 
-	@Override
-	public boolean equals(@Nullable Object obj) {
-		if (obj == this) {
-			return true;
-		} else if (obj instanceof RangeSet) {
-			RangeSet<?> other = (RangeSet<?>) obj;
-			return this.asRanges().equals(other.asRanges());
-		}
-		return false;
-	}
+    @Override
+    public abstract boolean encloses(Range<C> otherRange);
 
-	@Override
-	public final int hashCode() {
-		return asRanges().hashCode();
-	}
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof RangeSet) {
+            RangeSet<?> other = (RangeSet<?>) obj;
+            return this.asRanges().equals(other.asRanges());
+        }
+        return false;
+    }
 
-	@Override
-	public final String toString() {
-		return asRanges().toString();
-	}
+    @Override
+    public final int hashCode() {
+        return asRanges().hashCode();
+    }
+
+    @Override
+    public final String toString() {
+        return asRanges().toString();
+    }
 }

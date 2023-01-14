@@ -20,7 +20,7 @@ import org.teavm.jso.dom.events.EventListener;
 
 public interface IDBOpenDBRequest extends IDBRequest {
     @JSProperty
-	IDBDatabase getResult();
+    IDBDatabase getResult();
 
     @JSProperty
     void setOnBlocked(EventHandler handler);

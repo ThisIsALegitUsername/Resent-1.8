@@ -33,16 +33,15 @@ import java.io.IOException;
  */
 @Deprecated
 public interface OutputSupplier<T> {
-
-	/**
-	 * Returns an object that encapsulates a writable resource.
-	 * <p>
-	 * Like {@link Iterable#iterator}, this method may be called repeatedly to get
-	 * independent channels to the same underlying resource.
-	 * <p>
-	 * Where the channel maintains a position within the resource, moving that
-	 * cursor within one channel should not affect the starting position of channels
-	 * returned by other calls.
-	 */
-	T getOutput() throws IOException;
+    /**
+     * Returns an object that encapsulates a writable resource.
+     * <p>
+     * Like {@link Iterable#iterator}, this method may be called repeatedly to get
+     * independent channels to the same underlying resource.
+     * <p>
+     * Where the channel maintains a position within the resource, moving that
+     * cursor within one channel should not affect the starting position of channels
+     * returned by other calls.
+     */
+    T getOutput() throws IOException;
 }

@@ -17,60 +17,61 @@ import net.minecraft.world.World;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class BlockWorkbench extends Block {
-	protected BlockWorkbench() {
-		super(Material.wood);
-		this.setCreativeTab(CreativeTabs.tabDecorations);
-	}
 
-	public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState var3, EntityPlayer entityplayer,
-			EnumFacing var5, float var6, float var7, float var8) {
-		return true;
-	}
+    protected BlockWorkbench() {
+        super(Material.wood);
+        this.setCreativeTab(CreativeTabs.tabDecorations);
+    }
 
-	public static class InterfaceCraftingTable implements IInteractionObject {
-		private final World world;
-		private final BlockPos position;
+    public boolean onBlockActivated(World world, BlockPos blockpos, IBlockState var3, EntityPlayer entityplayer, EnumFacing var5, float var6, float var7, float var8) {
+        return true;
+    }
 
-		public InterfaceCraftingTable(World worldIn, BlockPos pos) {
-			this.world = worldIn;
-			this.position = pos;
-		}
+    public static class InterfaceCraftingTable implements IInteractionObject {
 
-		public String getName() {
-			return null;
-		}
+        private final World world;
+        private final BlockPos position;
 
-		public boolean hasCustomName() {
-			return false;
-		}
+        public InterfaceCraftingTable(World worldIn, BlockPos pos) {
+            this.world = worldIn;
+            this.position = pos;
+        }
 
-		public IChatComponent getDisplayName() {
-			return new ChatComponentTranslation(Blocks.crafting_table.getUnlocalizedName() + ".name", new Object[0]);
-		}
+        public String getName() {
+            return null;
+        }
 
-		public Container createContainer(InventoryPlayer inventoryplayer, EntityPlayer var2) {
-			return new ContainerWorkbench(inventoryplayer, this.world, this.position);
-		}
+        public boolean hasCustomName() {
+            return false;
+        }
 
-		public String getGuiID() {
-			return "minecraft:crafting_table";
-		}
-	}
+        public IChatComponent getDisplayName() {
+            return new ChatComponentTranslation(Blocks.crafting_table.getUnlocalizedName() + ".name", new Object[0]);
+        }
+
+        public Container createContainer(InventoryPlayer inventoryplayer, EntityPlayer var2) {
+            return new ContainerWorkbench(inventoryplayer, this.world, this.position);
+        }
+
+        public String getGuiID() {
+            return "minecraft:crafting_table";
+        }
+    }
 }

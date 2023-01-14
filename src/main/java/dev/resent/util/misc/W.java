@@ -15,18 +15,49 @@ import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
 
 public class W {
-   
-   public static NoRain noRain(){ return ModManager.noRain; }
-   public static DynamicFOV dynamicFOV(){ return ModManager.dynamicFOV; }
-   //public static NoHurtCam noHurtCam(){ return ModManager.noHurtCam; }
-   public static AutoGG autoGG() { return ModManager.autoGG; }
-   public static Freelook freelook(){ return ModManager.freelook; }
-   public static ComboCounter comboCounter(){ return ModManager.comboCounter; }
-   public static Hitboxes hitboxes(){ return ModManager.hitboxes; }
-   public static NoParticles noParticles(){ return ModManager.noParticles; }
-   public static Scoreboard scoreboard(){ return ModManager.scoreboard; }
-   public static SelfNametag selfNametag(){ return ModManager.selfNametag; }
-   public static ClearChat clearChat(){ return ModManager.clearChat; }
-   public static FPSB fpsb() { return ModManager.fpsb; }
 
+    public static NoRain noRain() {
+        return ModManager.noRain;
+    }
+
+    public static DynamicFOV dynamicFOV() {
+        return ModManager.dynamicFOV;
+    }
+
+    //public static NoHurtCam noHurtCam(){ return ModManager.noHurtCam; }
+    public static AutoGG autoGG() {
+        return ModManager.autoGG;
+    }
+
+    public static Freelook freelook() {
+        return ModManager.freelook;
+    }
+
+    public static ComboCounter comboCounter() {
+        return ModManager.comboCounter;
+    }
+
+    public static Hitboxes hitboxes() {
+        return ModManager.hitboxes;
+    }
+
+    public static NoParticles noParticles() {
+        return ModManager.noParticles;
+    }
+
+    public static Scoreboard scoreboard() {
+        return ModManager.scoreboard;
+    }
+
+    public static SelfNametag selfNametag() {
+        return ModManager.selfNametag;
+    }
+
+    public static ClearChat clearChat() {
+        return ModManager.clearChat;
+    }
+
+    public static FPSB fpsb() {
+        return ModManager.fpsb;
+    }
 }

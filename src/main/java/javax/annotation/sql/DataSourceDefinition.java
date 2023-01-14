@@ -70,7 +70,7 @@ import java.lang.annotation.Target;
  * annotation element, the precedence order is undefined and implementation
  * specific:
  * <p>
- * 
+ *
  * <pre>
  *   &#064;DataSourceDefinition(name="java:global/MyApp/MyDataSource",
  *      className="org.apache.derby.jdbc.ClientDataSource",
@@ -92,7 +92,7 @@ import java.lang.annotation.Target;
  * annotation element, the annotation element value takes precedence. For
  * example:
  * <p>
- * 
+ *
  * <pre>
  *   &#064;DataSourceDefinition(name="java:global/MyApp/MyDataSource",
  *      className="org.apache.derby.jdbc.ClientDataSource",
@@ -129,7 +129,7 @@ import java.lang.annotation.Target;
  * configuration property may be ignored.
  * <p>
  * Examples: <br>
- * 
+ *
  * <pre>
  *   &#064;DataSourceDefinition(name="java:global/MyApp/MyDataSource",
  *      className="com.foobar.MyDataSource",
@@ -138,11 +138,11 @@ import java.lang.annotation.Target;
  *      user="lance",
  *      password="secret"
  *   )
- * 
+ *
  * </pre>
  * <p>
  * Using a <code>URL</code>: <br>
- * 
+ *
  * <pre>
  *  &#064;DataSourceDefinition(name="java:global/MyApp/MyDataSource",
  *    className="org.apache.derby.jdbc.ClientDataSource",
@@ -153,7 +153,7 @@ import java.lang.annotation.Target;
  * </pre>
  * <p>
  * An example lookup of the DataSource from an EJB:
- * 
+ *
  * <pre>
  * &#064;Stateless
  * public class MyStatelessEJB {
@@ -163,7 +163,7 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  * <p>
- * 
+ *
  * @see javax.sql.DataSource
  * @see javax.sql.XADataSource
  * @see javax.sql.ConnectionPoolDataSource
@@ -173,183 +173,182 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(DataSourceDefinitions.class)
 public @interface DataSourceDefinition {
+    /**
+     * JNDI name by which the data source will be registered.
+     *
+     * @since 1.1
+     */
+    String name();
 
-	/**
-	 * JNDI name by which the data source will be registered.
-	 * 
-	 * @since 1.1
-	 */
-	String name();
+    /**
+     * Name of a DataSource class that implements <code>javax.sql.DataSource</code>
+     * or <code>javax.sql.XADataSource</code> or
+     * <code>javax.sql.ConnectionPoolDataSource</code>.
+     *
+     * @since 1.1
+     */
+    String className();
 
-	/**
-	 * Name of a DataSource class that implements <code>javax.sql.DataSource</code>
-	 * or <code>javax.sql.XADataSource</code> or
-	 * <code>javax.sql.ConnectionPoolDataSource</code>.
-	 * 
-	 * @since 1.1
-	 */
-	String className();
+    /**
+     * Description of this data source
+     *
+     * @since 1.1
+     */
+    String description() default "";
 
-	/**
-	 * Description of this data source
-	 * 
-	 * @since 1.1
-	 */
-	String description() default "";
+    /**
+     * A JDBC URL. If the <code>url</code> annotation element contains a DataSource
+     * property that was also specified using the corresponding annotation element,
+     * the precedence order is undefined and implementation specific.
+     *
+     * @since 1.1
+     */
+    String url() default "";
 
-	/**
-	 * A JDBC URL. If the <code>url</code> annotation element contains a DataSource
-	 * property that was also specified using the corresponding annotation element,
-	 * the precedence order is undefined and implementation specific.
-	 * 
-	 * @since 1.1
-	 */
-	String url() default "";
+    /**
+     * User name to use for connection authentication.
+     *
+     * @since 1.1
+     */
+    String user() default "";
 
-	/**
-	 * User name to use for connection authentication.
-	 * 
-	 * @since 1.1
-	 */
-	String user() default "";
+    /**
+     * Password to use for connection authentication.
+     *
+     * @since 1.1
+     */
+    String password() default "";
 
-	/**
-	 * Password to use for connection authentication.
-	 * 
-	 * @since 1.1
-	 */
-	String password() default "";
+    /**
+     * Name of a database on a server.
+     *
+     * @since 1.1
+     */
+    String databaseName() default "";
 
-	/**
-	 * Name of a database on a server.
-	 * 
-	 * @since 1.1
-	 */
-	String databaseName() default "";
+    /**
+     * Port number where a server is listening for requests.
+     *
+     * @since 1.1
+     */
+    int portNumber() default -1;
 
-	/**
-	 * Port number where a server is listening for requests.
-	 * 
-	 * @since 1.1
-	 */
-	int portNumber() default -1;
+    /**
+     * Database server name.
+     *
+     * @since 1.1
+     */
+    String serverName() default "localhost";
 
-	/**
-	 * Database server name.
-	 * 
-	 * @since 1.1
-	 */
-	String serverName() default "localhost";
+    /**
+     * Isolation level for connections. The Isolation level must be one of the
+     * following:
+     * <p>
+     * <ul>
+     * <li>Connection.TRANSACTION_NONE,
+     * <li>Connection.TRANSACTION_READ_ UNCOMMITTED,
+     * <li>Connection.TRANSACTION_READ_COMMITTED,
+     * <li>Connection.TRANSACTION_REPEATABLE_READ,
+     * <li>Connection.TRANSACTION_SERIALIZABLE
+     * </ul>
+     * <p>
+     * Default is vendor-specific.
+     *
+     * @since 1.1
+     */
+    int isolationLevel() default -1;
 
-	/**
-	 * Isolation level for connections. The Isolation level must be one of the
-	 * following:
-	 * <p>
-	 * <ul>
-	 * <li>Connection.TRANSACTION_NONE,
-	 * <li>Connection.TRANSACTION_READ_ UNCOMMITTED,
-	 * <li>Connection.TRANSACTION_READ_COMMITTED,
-	 * <li>Connection.TRANSACTION_REPEATABLE_READ,
-	 * <li>Connection.TRANSACTION_SERIALIZABLE
-	 * </ul>
-	 * <p>
-	 * Default is vendor-specific.
-	 * 
-	 * @since 1.1
-	 */
-	int isolationLevel() default -1;
+    /**
+     * Set to <code>false</code> if connections should not participate in
+     * transactions.
+     * <p>
+     * Default is to enlist in a transaction when one is active or becomes active.
+     *
+     * @since 1.1
+     */
+    boolean transactional() default true;
 
-	/**
-	 * Set to <code>false</code> if connections should not participate in
-	 * transactions.
-	 * <p>
-	 * Default is to enlist in a transaction when one is active or becomes active.
-	 * 
-	 * @since 1.1
-	 */
-	boolean transactional() default true;
+    /**
+     * Number of connections that should be created when a connection pool is
+     * initialized.
+     * <p>
+     * Default is vendor-specific
+     *
+     * @since 1.1
+     */
+    int initialPoolSize() default -1;
 
-	/**
-	 * Number of connections that should be created when a connection pool is
-	 * initialized.
-	 * <p>
-	 * Default is vendor-specific
-	 * 
-	 * @since 1.1
-	 */
-	int initialPoolSize() default -1;
+    /**
+     * Maximum number of connections that should be concurrently allocated for a
+     * connection pool.
+     * <p>
+     * Default is vendor-specific.
+     *
+     * @since 1.1
+     */
+    int maxPoolSize() default -1;
 
-	/**
-	 * Maximum number of connections that should be concurrently allocated for a
-	 * connection pool.
-	 * <p>
-	 * Default is vendor-specific.
-	 * 
-	 * @since 1.1
-	 */
-	int maxPoolSize() default -1;
+    /**
+     * Minimum number of connections that should be allocated for a connection pool.
+     * <p>
+     * Default is vendor-specific.
+     *
+     * @since 1.1
+     */
+    int minPoolSize() default -1;
 
-	/**
-	 * Minimum number of connections that should be allocated for a connection pool.
-	 * <p>
-	 * Default is vendor-specific.
-	 * 
-	 * @since 1.1
-	 */
-	int minPoolSize() default -1;
+    /**
+     * The number of seconds that a physical connection should remain unused in the
+     * pool before the connection is closed for a connection pool.
+     * <p>
+     * Default is vendor-specific
+     *
+     * @since 1.1
+     */
+    int maxIdleTime() default -1;
 
-	/**
-	 * The number of seconds that a physical connection should remain unused in the
-	 * pool before the connection is closed for a connection pool.
-	 * <p>
-	 * Default is vendor-specific
-	 * 
-	 * @since 1.1
-	 */
-	int maxIdleTime() default -1;
+    /**
+     * The total number of statements that a connection pool should keep open. A
+     * value of 0 indicates that the caching of statements is disabled for a
+     * connection pool.
+     * <p>
+     * Default is vendor-specific
+     *
+     * @since 1.1
+     */
+    int maxStatements() default -1;
 
-	/**
-	 * The total number of statements that a connection pool should keep open. A
-	 * value of 0 indicates that the caching of statements is disabled for a
-	 * connection pool.
-	 * <p>
-	 * Default is vendor-specific
-	 * 
-	 * @since 1.1
-	 */
-	int maxStatements() default -1;
+    /**
+     * Used to specify vendor-specific properties and less commonly used
+     * <code>DataSource</code> properties such as:
+     * <p>
+     * <ul>
+     * <li>dataSourceName
+     * <li>networkProtocol
+     * <li>propertyCycle
+     * <li>roleName
+     * </ul>
+     * <p>
+     * Properties are specified using the format: <i>propertyName=propertyValue</i>
+     * with one property per array element.
+     * <p>
+     * If a DataSource property is specified in the <code>properties</code> element
+     * and the annotation element for the property is also specified, the annotation
+     * element value takes precedence.
+     *
+     * @since 1.1
+     */
+    String[] properties() default {};
 
-	/**
-	 * Used to specify vendor-specific properties and less commonly used
-	 * <code>DataSource</code> properties such as:
-	 * <p>
-	 * <ul>
-	 * <li>dataSourceName
-	 * <li>networkProtocol
-	 * <li>propertyCycle
-	 * <li>roleName
-	 * </ul>
-	 * <p>
-	 * Properties are specified using the format: <i>propertyName=propertyValue</i>
-	 * with one property per array element.
-	 * <p>
-	 * If a DataSource property is specified in the <code>properties</code> element
-	 * and the annotation element for the property is also specified, the annotation
-	 * element value takes precedence.
-	 * 
-	 * @since 1.1
-	 */
-	String[] properties() default {};
-
-	/**
-	 * Sets the maximum time in seconds that this data source will wait while
-	 * attempting to connect to a database. A value of zero specifies that the
-	 * timeout is the default system timeout if there is one; otherwise, it
-	 * specifies that there is no timeout.
-	 * <p>
-	 * Default is vendor-specific.
-	 * 
-	 * @since 1.1
-	 */
-	int loginTimeout() default 0;
+    /**
+     * Sets the maximum time in seconds that this data source will wait while
+     * attempting to connect to a database. A value of zero specifies that the
+     * timeout is the default system timeout if there is one; otherwise, it
+     * specifies that there is no timeout.
+     * <p>
+     * Default is vendor-specific.
+     *
+     * @since 1.1
+     */
+    int loginTimeout() default 0;
 }

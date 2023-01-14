@@ -17,11 +17,9 @@ package com.google.common.collect;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Comparator;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.Comparator;
+import javax.annotation.Nullable;
 
 /**
  * An empty immutable sorted map.
@@ -31,81 +29,82 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 final class EmptyImmutableSortedMap<K, V> extends ImmutableSortedMap<K, V> {
-	private final transient ImmutableSortedSet<K> keySet;
 
-	EmptyImmutableSortedMap(Comparator<? super K> comparator) {
-		this.keySet = ImmutableSortedSet.emptySet(comparator);
-	}
+    private final transient ImmutableSortedSet<K> keySet;
 
-	EmptyImmutableSortedMap(Comparator<? super K> comparator, ImmutableSortedMap<K, V> descendingMap) {
-		super(descendingMap);
-		this.keySet = ImmutableSortedSet.emptySet(comparator);
-	}
+    EmptyImmutableSortedMap(Comparator<? super K> comparator) {
+        this.keySet = ImmutableSortedSet.emptySet(comparator);
+    }
 
-	@Override
-	public V get(@Nullable Object key) {
-		return null;
-	}
+    EmptyImmutableSortedMap(Comparator<? super K> comparator, ImmutableSortedMap<K, V> descendingMap) {
+        super(descendingMap);
+        this.keySet = ImmutableSortedSet.emptySet(comparator);
+    }
 
-	@Override
-	public ImmutableSortedSet<K> keySet() {
-		return keySet;
-	}
+    @Override
+    public V get(@Nullable Object key) {
+        return null;
+    }
 
-	@Override
-	public int size() {
-		return 0;
-	}
+    @Override
+    public ImmutableSortedSet<K> keySet() {
+        return keySet;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return true;
-	}
+    @Override
+    public int size() {
+        return 0;
+    }
 
-	@Override
-	public ImmutableCollection<V> values() {
-		return ImmutableList.of();
-	}
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "{}";
-	}
+    @Override
+    public ImmutableCollection<V> values() {
+        return ImmutableList.of();
+    }
 
-	@Override
-	boolean isPartialView() {
-		return false;
-	}
+    @Override
+    public String toString() {
+        return "{}";
+    }
 
-	@Override
-	public ImmutableSet<Entry<K, V>> entrySet() {
-		return ImmutableSet.of();
-	}
+    @Override
+    boolean isPartialView() {
+        return false;
+    }
 
-	@Override
-	ImmutableSet<Entry<K, V>> createEntrySet() {
-		throw new AssertionError("should never be called");
-	}
+    @Override
+    public ImmutableSet<Entry<K, V>> entrySet() {
+        return ImmutableSet.of();
+    }
 
-	@Override
-	public ImmutableSetMultimap<K, V> asMultimap() {
-		return ImmutableSetMultimap.of();
-	}
+    @Override
+    ImmutableSet<Entry<K, V>> createEntrySet() {
+        throw new AssertionError("should never be called");
+    }
 
-	@Override
-	public ImmutableSortedMap<K, V> headMap(K toKey, boolean inclusive) {
-		checkNotNull(toKey);
-		return this;
-	}
+    @Override
+    public ImmutableSetMultimap<K, V> asMultimap() {
+        return ImmutableSetMultimap.of();
+    }
 
-	@Override
-	public ImmutableSortedMap<K, V> tailMap(K fromKey, boolean inclusive) {
-		checkNotNull(fromKey);
-		return this;
-	}
+    @Override
+    public ImmutableSortedMap<K, V> headMap(K toKey, boolean inclusive) {
+        checkNotNull(toKey);
+        return this;
+    }
 
-	@Override
-	ImmutableSortedMap<K, V> createDescendingMap() {
-		return new EmptyImmutableSortedMap<K, V>(Ordering.from(comparator()).reverse(), this);
-	}
+    @Override
+    public ImmutableSortedMap<K, V> tailMap(K fromKey, boolean inclusive) {
+        checkNotNull(fromKey);
+        return this;
+    }
+
+    @Override
+    ImmutableSortedMap<K, V> createDescendingMap() {
+        return new EmptyImmutableSortedMap<K, V>(Ordering.from(comparator()).reverse(), this);
+    }
 }

@@ -6,7 +6,8 @@ public enum Category {
     MISC("Misc");
 
     public final String name;
-    Category(String name){
+
+    Category(String name) {
         this.name = name;
     }
 }

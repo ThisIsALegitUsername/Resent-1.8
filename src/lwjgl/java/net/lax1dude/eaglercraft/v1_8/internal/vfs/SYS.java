@@ -21,21 +21,21 @@ import java.util.function.Consumer;
 
 public class SYS {
 
-	public static final Object VFS = null;
+    public static final Object VFS = null;
 
-	public static final void loadRemoteResourcePack(String url, String hash, Consumer<String> cb, Consumer<Runnable> ast, Runnable loading) {
-		return;
-	}
+    public static final void loadRemoteResourcePack(String url, String hash, Consumer<String> cb, Consumer<Runnable> ast, Runnable loading) {
+        return;
+    }
 
-	public static final boolean loadResourcePack(String name, InputStream data, String hash) {
-		return false;
-	}
+    public static final boolean loadResourcePack(String name, InputStream data, String hash) {
+        return false;
+    }
 
-	public static final List<String> getResourcePackNames() {
-		return new ArrayList<>();
-	}
+    public static final List<String> getResourcePackNames() {
+        return new ArrayList<>();
+    }
 
-	public static final void deleteResourcePack(String packName) {
-		//
-	}
+    public static final void deleteResourcePack(String packName) {
+        //
+    }
 }

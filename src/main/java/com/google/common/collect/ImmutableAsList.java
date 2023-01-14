@@ -16,12 +16,11 @@
 
 package com.google.common.collect;
 
+import com.google.common.annotations.GwtCompatible;
+import com.google.common.annotations.GwtIncompatible;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
 
 /**
  * List returned by {@link ImmutableCollection#asList} that delegates
@@ -33,56 +32,58 @@ import com.google.common.annotations.GwtIncompatible;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial")
 abstract class ImmutableAsList<E> extends ImmutableList<E> {
-	abstract ImmutableCollection<E> delegateCollection();
 
-	@Override
-	public boolean contains(Object target) {
-		// The collection's contains() is at least as fast as ImmutableList's
-		// and is often faster.
-		return delegateCollection().contains(target);
-	}
+    abstract ImmutableCollection<E> delegateCollection();
 
-	@Override
-	public int size() {
-		return delegateCollection().size();
-	}
+    @Override
+    public boolean contains(Object target) {
+        // The collection's contains() is at least as fast as ImmutableList's
+        // and is often faster.
+        return delegateCollection().contains(target);
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return delegateCollection().isEmpty();
-	}
+    @Override
+    public int size() {
+        return delegateCollection().size();
+    }
 
-	@Override
-	boolean isPartialView() {
-		return delegateCollection().isPartialView();
-	}
+    @Override
+    public boolean isEmpty() {
+        return delegateCollection().isEmpty();
+    }
 
-	/**
-	 * Serialized form that leads to the same performance as the original list.
-	 */
-	@GwtIncompatible("serialization")
-	static class SerializedForm implements Serializable {
-		final ImmutableCollection<?> collection;
+    @Override
+    boolean isPartialView() {
+        return delegateCollection().isPartialView();
+    }
 
-		SerializedForm(ImmutableCollection<?> collection) {
-			this.collection = collection;
-		}
+    /**
+     * Serialized form that leads to the same performance as the original list.
+     */
+    @GwtIncompatible("serialization")
+    static class SerializedForm implements Serializable {
 
-		Object readResolve() {
-			return collection.asList();
-		}
+        final ImmutableCollection<?> collection;
 
-		private static final long serialVersionUID = 0;
-	}
+        SerializedForm(ImmutableCollection<?> collection) {
+            this.collection = collection;
+        }
 
-	@GwtIncompatible("serialization")
-	private void readObject(ObjectInputStream stream) throws InvalidObjectException {
-		throw new InvalidObjectException("Use SerializedForm");
-	}
+        Object readResolve() {
+            return collection.asList();
+        }
 
-	@GwtIncompatible("serialization")
-	@Override
-	Object writeReplace() {
-		return new SerializedForm(delegateCollection());
-	}
+        private static final long serialVersionUID = 0;
+    }
+
+    @GwtIncompatible("serialization")
+    private void readObject(ObjectInputStream stream) throws InvalidObjectException {
+        throw new InvalidObjectException("Use SerializedForm");
+    }
+
+    @GwtIncompatible("serialization")
+    @Override
+    Object writeReplace() {
+        return new SerializedForm(delegateCollection());
+    }
 }

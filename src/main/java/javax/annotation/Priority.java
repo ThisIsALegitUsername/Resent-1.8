@@ -71,8 +71,8 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 public @interface Priority {
-	/**
-	 * The priority value.
-	 */
-	int value();
+    /**
+     * The priority value.
+     */
+    int value();
 }

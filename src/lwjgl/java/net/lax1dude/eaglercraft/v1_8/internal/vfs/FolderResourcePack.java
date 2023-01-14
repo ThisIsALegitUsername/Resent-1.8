@@ -1,12 +1,11 @@
 package net.lax1dude.eaglercraft.v1_8.internal.vfs;
 
 import com.google.common.collect.Sets;
-import net.minecraft.client.resources.AbstractResourcePack;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Set;
+import net.minecraft.client.resources.AbstractResourcePack;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
@@ -23,19 +22,20 @@ import java.util.Set;
  */
 
 public class FolderResourcePack extends AbstractResourcePack {
-	public FolderResourcePack(String resourcePackFileIn, String prefix) {
-		super(resourcePackFileIn);
-	}
 
-	protected InputStream getInputStreamByName(String name) {
-		return new BufferedInputStream(new ByteArrayInputStream(new byte[0]));
-	}
+    public FolderResourcePack(String resourcePackFileIn, String prefix) {
+        super(resourcePackFileIn);
+    }
 
-	protected boolean hasResourceName(String name) {
-		return false;
-	}
+    protected InputStream getInputStreamByName(String name) {
+        return new BufferedInputStream(new ByteArrayInputStream(new byte[0]));
+    }
 
-	public Set<String> getResourceDomains() {
-		return Sets.<String>newHashSet();
-	}
+    protected boolean hasResourceName(String name) {
+        return false;
+    }
+
+    public Set<String> getResourceDomains() {
+        return Sets.<String>newHashSet();
+    }
 }

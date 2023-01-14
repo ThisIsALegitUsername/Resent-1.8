@@ -4,9 +4,8 @@ import dev.resent.setting.ModeSetting;
 import net.minecraft.client.gui.Gui;
 
 public class RenderUtils {
-    
-    public static int getColor(ModeSetting asdf) {
 
+    public static int getColor(ModeSetting asdf) {
         switch (asdf.getValue()) {
             case "Red":
                 return new Color(255, 0, 0, 140).getRGB();
@@ -56,5 +55,4 @@ public class RenderUtils {
         Gui.drawRect(width - 1, y, width, height, color);
         Gui.drawRect(x, height - 1, width, height, color);
     }
-
 }

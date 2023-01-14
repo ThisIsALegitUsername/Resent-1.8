@@ -16,11 +16,9 @@
 
 package com.google.common.collect;
 
-import java.util.NoSuchElementException;
-
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.NoSuchElementException;
+import javax.annotation.Nullable;
 
 /**
  * This class provides a skeletal implementation of the {@code Iterator}
@@ -30,7 +28,7 @@ import com.google.common.annotations.GwtCompatible;
  *
  * <p>
  * Example:
- * 
+ *
  * <pre>
  * {
  * 	&#64;code
@@ -48,38 +46,39 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public abstract class AbstractSequentialIterator<T> extends UnmodifiableIterator<T> {
-	private T nextOrNull;
 
-	/**
-	 * Creates a new iterator with the given first element, or, if {@code
-	 * firstOrNull} is null, creates a new empty iterator.
-	 */
-	protected AbstractSequentialIterator(@Nullable T firstOrNull) {
-		this.nextOrNull = firstOrNull;
-	}
+    private T nextOrNull;
 
-	/**
-	 * Returns the element that follows {@code previous}, or returns {@code null} if
-	 * no elements remain. This method is invoked during each call to
-	 * {@link #next()} in order to compute the result of a <i>future</i> call to
-	 * {@code next()}.
-	 */
-	protected abstract T computeNext(T previous);
+    /**
+     * Creates a new iterator with the given first element, or, if {@code
+     * firstOrNull} is null, creates a new empty iterator.
+     */
+    protected AbstractSequentialIterator(@Nullable T firstOrNull) {
+        this.nextOrNull = firstOrNull;
+    }
 
-	@Override
-	public final boolean hasNext() {
-		return nextOrNull != null;
-	}
+    /**
+     * Returns the element that follows {@code previous}, or returns {@code null} if
+     * no elements remain. This method is invoked during each call to
+     * {@link #next()} in order to compute the result of a <i>future</i> call to
+     * {@code next()}.
+     */
+    protected abstract T computeNext(T previous);
 
-	@Override
-	public final T next() {
-		if (!hasNext()) {
-			throw new NoSuchElementException();
-		}
-		try {
-			return nextOrNull;
-		} finally {
-			nextOrNull = computeNext(nextOrNull);
-		}
-	}
+    @Override
+    public final boolean hasNext() {
+        return nextOrNull != null;
+    }
+
+    @Override
+    public final T next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        try {
+            return nextOrNull;
+        } finally {
+            nextOrNull = computeNext(nextOrNull);
+        }
+    }
 }

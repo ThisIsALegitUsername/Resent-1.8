@@ -28,12 +28,11 @@ import java.util.function.IntSupplier;
  */
 @FunctionalInterface
 public interface FailableIntSupplier<E extends Throwable> {
-
-	/**
-	 * Supplies an int.
-	 *
-	 * @return a result
-	 * @throws E if the supplier fails
-	 */
-	int getAsInt() throws E;
+    /**
+     * Supplies an int.
+     *
+     * @return a result
+     * @throws E if the supplier fails
+     */
+    int getAsInt() throws E;
 }

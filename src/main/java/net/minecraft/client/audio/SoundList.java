@@ -1,126 +1,128 @@
 package net.minecraft.client.audio;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
+import java.util.List;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
- * 
+ *
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
- * 
+ *
  * EaglercraftX 1.8 patch files are (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public class SoundList {
-	private final List<SoundList.SoundEntry> soundList = Lists.newArrayList();
-	private boolean replaceExisting;
-	private SoundCategory category;
 
-	public List<SoundList.SoundEntry> getSoundList() {
-		return this.soundList;
-	}
+    private final List<SoundList.SoundEntry> soundList = Lists.newArrayList();
+    private boolean replaceExisting;
+    private SoundCategory category;
 
-	public boolean canReplaceExisting() {
-		return this.replaceExisting;
-	}
+    public List<SoundList.SoundEntry> getSoundList() {
+        return this.soundList;
+    }
 
-	public void setReplaceExisting(boolean parFlag) {
-		this.replaceExisting = parFlag;
-	}
+    public boolean canReplaceExisting() {
+        return this.replaceExisting;
+    }
 
-	public SoundCategory getSoundCategory() {
-		return this.category;
-	}
+    public void setReplaceExisting(boolean parFlag) {
+        this.replaceExisting = parFlag;
+    }
 
-	public void setSoundCategory(SoundCategory soundCat) {
-		this.category = soundCat;
-	}
+    public SoundCategory getSoundCategory() {
+        return this.category;
+    }
 
-	public static class SoundEntry {
-		private String name;
-		private float volume = 1.0F;
-		private float pitch = 1.0F;
-		private int weight = 1;
-		private SoundList.SoundEntry.Type type = SoundList.SoundEntry.Type.FILE;
-		private boolean streaming = false;
+    public void setSoundCategory(SoundCategory soundCat) {
+        this.category = soundCat;
+    }
 
-		public String getSoundEntryName() {
-			return this.name;
-		}
+    public static class SoundEntry {
 
-		public void setSoundEntryName(String nameIn) {
-			this.name = nameIn;
-		}
+        private String name;
+        private float volume = 1.0F;
+        private float pitch = 1.0F;
+        private int weight = 1;
+        private SoundList.SoundEntry.Type type = SoundList.SoundEntry.Type.FILE;
+        private boolean streaming = false;
 
-		public float getSoundEntryVolume() {
-			return this.volume;
-		}
+        public String getSoundEntryName() {
+            return this.name;
+        }
 
-		public void setSoundEntryVolume(float volumeIn) {
-			this.volume = volumeIn;
-		}
+        public void setSoundEntryName(String nameIn) {
+            this.name = nameIn;
+        }
 
-		public float getSoundEntryPitch() {
-			return this.pitch;
-		}
+        public float getSoundEntryVolume() {
+            return this.volume;
+        }
 
-		public void setSoundEntryPitch(float pitchIn) {
-			this.pitch = pitchIn;
-		}
+        public void setSoundEntryVolume(float volumeIn) {
+            this.volume = volumeIn;
+        }
 
-		public int getSoundEntryWeight() {
-			return this.weight;
-		}
+        public float getSoundEntryPitch() {
+            return this.pitch;
+        }
 
-		public void setSoundEntryWeight(int weightIn) {
-			this.weight = weightIn;
-		}
+        public void setSoundEntryPitch(float pitchIn) {
+            this.pitch = pitchIn;
+        }
 
-		public SoundList.SoundEntry.Type getSoundEntryType() {
-			return this.type;
-		}
+        public int getSoundEntryWeight() {
+            return this.weight;
+        }
 
-		public void setSoundEntryType(SoundList.SoundEntry.Type typeIn) {
-			this.type = typeIn;
-		}
+        public void setSoundEntryWeight(int weightIn) {
+            this.weight = weightIn;
+        }
 
-		public boolean isStreaming() {
-			return this.streaming;
-		}
+        public SoundList.SoundEntry.Type getSoundEntryType() {
+            return this.type;
+        }
 
-		public void setStreaming(boolean isStreaming) {
-			this.streaming = isStreaming;
-		}
+        public void setSoundEntryType(SoundList.SoundEntry.Type typeIn) {
+            this.type = typeIn;
+        }
 
-		public static enum Type {
-			FILE("file"), SOUND_EVENT("event");
+        public boolean isStreaming() {
+            return this.streaming;
+        }
 
-			private final String field_148583_c;
+        public void setStreaming(boolean isStreaming) {
+            this.streaming = isStreaming;
+        }
 
-			private Type(String parString2) {
-				this.field_148583_c = parString2;
-			}
+        public static enum Type {
+            FILE("file"),
+            SOUND_EVENT("event");
 
-			public static SoundList.SoundEntry.Type getType(String parString1) {
-				for (SoundList.SoundEntry.Type soundlist$soundentry$type : values()) {
-					if (soundlist$soundentry$type.field_148583_c.equals(parString1)) {
-						return soundlist$soundentry$type;
-					}
-				}
+            private final String field_148583_c;
 
-				return null;
-			}
-		}
-	}
+            private Type(String parString2) {
+                this.field_148583_c = parString2;
+            }
+
+            public static SoundList.SoundEntry.Type getType(String parString1) {
+                for (SoundList.SoundEntry.Type soundlist$soundentry$type : values()) {
+                    if (soundlist$soundentry$type.field_148583_c.equals(parString1)) {
+                        return soundlist$soundentry$type;
+                    }
+                }
+
+                return null;
+            }
+        }
+    }
 }

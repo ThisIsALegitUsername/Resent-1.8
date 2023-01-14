@@ -30,130 +30,131 @@ import java.util.Arrays;
  * @author Dimitris Andreou
  */
 final class MessageDigestHashFunction extends AbstractStreamingHashFunction implements Serializable {
-	private final MessageDigest prototype;
-	private final int bytes;
-	private final boolean supportsClone;
-	private final String toString;
 
-	MessageDigestHashFunction(String algorithmName, String toString) {
-		this.prototype = getMessageDigest(algorithmName);
-		this.bytes = prototype.getDigestLength();
-		this.toString = checkNotNull(toString);
-		this.supportsClone = supportsClone();
-	}
+    private final MessageDigest prototype;
+    private final int bytes;
+    private final boolean supportsClone;
+    private final String toString;
 
-	MessageDigestHashFunction(String algorithmName, int bytes, String toString) {
-		this.toString = checkNotNull(toString);
-		this.prototype = getMessageDigest(algorithmName);
-		int maxLength = prototype.getDigestLength();
-		checkArgument(bytes >= 4 && bytes <= maxLength, "bytes (%s) must be >= 4 and < %s", bytes, maxLength);
-		this.bytes = bytes;
-		this.supportsClone = supportsClone();
-	}
+    MessageDigestHashFunction(String algorithmName, String toString) {
+        this.prototype = getMessageDigest(algorithmName);
+        this.bytes = prototype.getDigestLength();
+        this.toString = checkNotNull(toString);
+        this.supportsClone = supportsClone();
+    }
 
-	private boolean supportsClone() {
-		try {
-			prototype.clone();
-			return true;
-		} catch (CloneNotSupportedException e) {
-			return false;
-		}
-	}
+    MessageDigestHashFunction(String algorithmName, int bytes, String toString) {
+        this.toString = checkNotNull(toString);
+        this.prototype = getMessageDigest(algorithmName);
+        int maxLength = prototype.getDigestLength();
+        checkArgument(bytes >= 4 && bytes <= maxLength, "bytes (%s) must be >= 4 and < %s", bytes, maxLength);
+        this.bytes = bytes;
+        this.supportsClone = supportsClone();
+    }
 
-	@Override
-	public int bits() {
-		return bytes * Byte.SIZE;
-	}
+    private boolean supportsClone() {
+        try {
+            prototype.clone();
+            return true;
+        } catch (CloneNotSupportedException e) {
+            return false;
+        }
+    }
 
-	@Override
-	public String toString() {
-		return toString;
-	}
+    @Override
+    public int bits() {
+        return bytes * Byte.SIZE;
+    }
 
-	private static MessageDigest getMessageDigest(String algorithmName) {
-		try {
-			return MessageDigest.getInstance(algorithmName);
-		} catch (NoSuchAlgorithmException e) {
-			throw new AssertionError(e);
-		}
-	}
+    @Override
+    public String toString() {
+        return toString;
+    }
 
-	@Override
-	public Hasher newHasher() {
-		if (supportsClone) {
-			try {
-				return new MessageDigestHasher((MessageDigest) prototype.clone(), bytes);
-			} catch (CloneNotSupportedException e) {
-				// falls through
-			}
-		}
-		return new MessageDigestHasher(getMessageDigest(prototype.getAlgorithm()), bytes);
-	}
+    private static MessageDigest getMessageDigest(String algorithmName) {
+        try {
+            return MessageDigest.getInstance(algorithmName);
+        } catch (NoSuchAlgorithmException e) {
+            throw new AssertionError(e);
+        }
+    }
 
-	private static final class SerializedForm implements Serializable {
-		private final String algorithmName;
-		private final int bytes;
-		private final String toString;
+    @Override
+    public Hasher newHasher() {
+        if (supportsClone) {
+            try {
+                return new MessageDigestHasher((MessageDigest) prototype.clone(), bytes);
+            } catch (CloneNotSupportedException e) {
+                // falls through
+            }
+        }
+        return new MessageDigestHasher(getMessageDigest(prototype.getAlgorithm()), bytes);
+    }
 
-		private SerializedForm(String algorithmName, int bytes, String toString) {
-			this.algorithmName = algorithmName;
-			this.bytes = bytes;
-			this.toString = toString;
-		}
+    private static final class SerializedForm implements Serializable {
 
-		private Object readResolve() {
-			return new MessageDigestHashFunction(algorithmName, bytes, toString);
-		}
+        private final String algorithmName;
+        private final int bytes;
+        private final String toString;
 
-		private static final long serialVersionUID = 0;
-	}
+        private SerializedForm(String algorithmName, int bytes, String toString) {
+            this.algorithmName = algorithmName;
+            this.bytes = bytes;
+            this.toString = toString;
+        }
 
-	Object writeReplace() {
-		return new SerializedForm(prototype.getAlgorithm(), bytes, toString);
-	}
+        private Object readResolve() {
+            return new MessageDigestHashFunction(algorithmName, bytes, toString);
+        }
 
-	/**
-	 * Hasher that updates a message digest.
-	 */
-	private static final class MessageDigestHasher extends AbstractByteHasher {
+        private static final long serialVersionUID = 0;
+    }
 
-		private final MessageDigest digest;
-		private final int bytes;
-		private boolean done;
+    Object writeReplace() {
+        return new SerializedForm(prototype.getAlgorithm(), bytes, toString);
+    }
 
-		private MessageDigestHasher(MessageDigest digest, int bytes) {
-			this.digest = digest;
-			this.bytes = bytes;
-		}
+    /**
+     * Hasher that updates a message digest.
+     */
+    private static final class MessageDigestHasher extends AbstractByteHasher {
 
-		@Override
-		protected void update(byte b) {
-			checkNotDone();
-			digest.update(b);
-		}
+        private final MessageDigest digest;
+        private final int bytes;
+        private boolean done;
 
-		@Override
-		protected void update(byte[] b) {
-			checkNotDone();
-			digest.update(b);
-		}
+        private MessageDigestHasher(MessageDigest digest, int bytes) {
+            this.digest = digest;
+            this.bytes = bytes;
+        }
 
-		@Override
-		protected void update(byte[] b, int off, int len) {
-			checkNotDone();
-			digest.update(b, off, len);
-		}
+        @Override
+        protected void update(byte b) {
+            checkNotDone();
+            digest.update(b);
+        }
 
-		private void checkNotDone() {
-			checkState(!done, "Cannot re-use a Hasher after calling hash() on it");
-		}
+        @Override
+        protected void update(byte[] b) {
+            checkNotDone();
+            digest.update(b);
+        }
 
-		@Override
-		public HashCode hash() {
-			checkNotDone();
-			done = true;
-			return (bytes == digest.getDigestLength()) ? HashCode.fromBytesNoCopy(digest.digest())
-					: HashCode.fromBytesNoCopy(Arrays.copyOf(digest.digest(), bytes));
-		}
-	}
+        @Override
+        protected void update(byte[] b, int off, int len) {
+            checkNotDone();
+            digest.update(b, off, len);
+        }
+
+        private void checkNotDone() {
+            checkState(!done, "Cannot re-use a Hasher after calling hash() on it");
+        }
+
+        @Override
+        public HashCode hash() {
+            checkNotDone();
+            done = true;
+            return (bytes == digest.getDigestLength()) ? HashCode.fromBytesNoCopy(digest.digest()) : HashCode.fromBytesNoCopy(Arrays.copyOf(digest.digest(), bytes));
+        }
+    }
 }

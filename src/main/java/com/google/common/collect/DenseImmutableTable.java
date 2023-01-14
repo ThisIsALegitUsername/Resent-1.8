@@ -16,12 +16,10 @@ package com.google.common.collect;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import com.google.common.annotations.GwtCompatible;
 import java.util.Map;
-
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-
-import com.google.common.annotations.GwtCompatible;
 
 /**
  * A {@code RegularImmutableTable} optimized for dense data.
@@ -29,250 +27,256 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 @Immutable
 final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> {
-	private final ImmutableMap<R, Integer> rowKeyToIndex;
-	private final ImmutableMap<C, Integer> columnKeyToIndex;
-	private final ImmutableMap<R, Map<C, V>> rowMap;
-	private final ImmutableMap<C, Map<R, V>> columnMap;
-	private final int[] rowCounts;
-	private final int[] columnCounts;
-	private final V[][] values;
-	private final int[] iterationOrderRow;
-	private final int[] iterationOrderColumn;
 
-	private static <E> ImmutableMap<E, Integer> makeIndex(ImmutableSet<E> set) {
-		ImmutableMap.Builder<E, Integer> indexBuilder = ImmutableMap.builder();
-		int i = 0;
-		for (E key : set) {
-			indexBuilder.put(key, i);
-			i++;
-		}
-		return indexBuilder.build();
-	}
+    private final ImmutableMap<R, Integer> rowKeyToIndex;
+    private final ImmutableMap<C, Integer> columnKeyToIndex;
+    private final ImmutableMap<R, Map<C, V>> rowMap;
+    private final ImmutableMap<C, Map<R, V>> columnMap;
+    private final int[] rowCounts;
+    private final int[] columnCounts;
+    private final V[][] values;
+    private final int[] iterationOrderRow;
+    private final int[] iterationOrderColumn;
 
-	DenseImmutableTable(ImmutableList<Cell<R, C, V>> cellList, ImmutableSet<R> rowSpace, ImmutableSet<C> columnSpace) {
-		@SuppressWarnings("unchecked")
-		V[][] array = (V[][]) new Object[rowSpace.size()][columnSpace.size()];
-		this.values = array;
-		this.rowKeyToIndex = makeIndex(rowSpace);
-		this.columnKeyToIndex = makeIndex(columnSpace);
-		rowCounts = new int[rowKeyToIndex.size()];
-		columnCounts = new int[columnKeyToIndex.size()];
-		int[] iterationOrderRow = new int[cellList.size()];
-		int[] iterationOrderColumn = new int[cellList.size()];
-		for (int i = 0; i < cellList.size(); i++) {
-			Cell<R, C, V> cell = cellList.get(i);
-			R rowKey = cell.getRowKey();
-			C columnKey = cell.getColumnKey();
-			int rowIndex = rowKeyToIndex.get(rowKey);
-			int columnIndex = columnKeyToIndex.get(columnKey);
-			V existingValue = values[rowIndex][columnIndex];
-			checkArgument(existingValue == null, "duplicate key: (%s, %s)", rowKey, columnKey);
-			values[rowIndex][columnIndex] = cell.getValue();
-			rowCounts[rowIndex]++;
-			columnCounts[columnIndex]++;
-			iterationOrderRow[i] = rowIndex;
-			iterationOrderColumn[i] = columnIndex;
-		}
-		this.iterationOrderRow = iterationOrderRow;
-		this.iterationOrderColumn = iterationOrderColumn;
-		this.rowMap = new RowMap();
-		this.columnMap = new ColumnMap();
-	}
+    private static <E> ImmutableMap<E, Integer> makeIndex(ImmutableSet<E> set) {
+        ImmutableMap.Builder<E, Integer> indexBuilder = ImmutableMap.builder();
+        int i = 0;
+        for (E key : set) {
+            indexBuilder.put(key, i);
+            i++;
+        }
+        return indexBuilder.build();
+    }
 
-	/**
-	 * An immutable map implementation backed by an indexed nullable array.
-	 */
-	private abstract static class ImmutableArrayMap<K, V> extends ImmutableMap<K, V> {
-		private final int size;
+    DenseImmutableTable(ImmutableList<Cell<R, C, V>> cellList, ImmutableSet<R> rowSpace, ImmutableSet<C> columnSpace) {
+        @SuppressWarnings("unchecked")
+        V[][] array = (V[][]) new Object[rowSpace.size()][columnSpace.size()];
+        this.values = array;
+        this.rowKeyToIndex = makeIndex(rowSpace);
+        this.columnKeyToIndex = makeIndex(columnSpace);
+        rowCounts = new int[rowKeyToIndex.size()];
+        columnCounts = new int[columnKeyToIndex.size()];
+        int[] iterationOrderRow = new int[cellList.size()];
+        int[] iterationOrderColumn = new int[cellList.size()];
+        for (int i = 0; i < cellList.size(); i++) {
+            Cell<R, C, V> cell = cellList.get(i);
+            R rowKey = cell.getRowKey();
+            C columnKey = cell.getColumnKey();
+            int rowIndex = rowKeyToIndex.get(rowKey);
+            int columnIndex = columnKeyToIndex.get(columnKey);
+            V existingValue = values[rowIndex][columnIndex];
+            checkArgument(existingValue == null, "duplicate key: (%s, %s)", rowKey, columnKey);
+            values[rowIndex][columnIndex] = cell.getValue();
+            rowCounts[rowIndex]++;
+            columnCounts[columnIndex]++;
+            iterationOrderRow[i] = rowIndex;
+            iterationOrderColumn[i] = columnIndex;
+        }
+        this.iterationOrderRow = iterationOrderRow;
+        this.iterationOrderColumn = iterationOrderColumn;
+        this.rowMap = new RowMap();
+        this.columnMap = new ColumnMap();
+    }
 
-		ImmutableArrayMap(int size) {
-			this.size = size;
-		}
+    /**
+     * An immutable map implementation backed by an indexed nullable array.
+     */
+    private abstract static class ImmutableArrayMap<K, V> extends ImmutableMap<K, V> {
 
-		abstract ImmutableMap<K, Integer> keyToIndex();
+        private final int size;
 
-		// True if getValue never returns null.
-		private boolean isFull() {
-			return size == keyToIndex().size();
-		}
+        ImmutableArrayMap(int size) {
+            this.size = size;
+        }
 
-		K getKey(int index) {
-			return keyToIndex().keySet().asList().get(index);
-		}
+        abstract ImmutableMap<K, Integer> keyToIndex();
 
-		@Nullable
-		abstract V getValue(int keyIndex);
+        // True if getValue never returns null.
+        private boolean isFull() {
+            return size == keyToIndex().size();
+        }
 
-		@Override
-		ImmutableSet<K> createKeySet() {
-			return isFull() ? keyToIndex().keySet() : super.createKeySet();
-		}
+        K getKey(int index) {
+            return keyToIndex().keySet().asList().get(index);
+        }
 
-		@Override
-		public int size() {
-			return size;
-		}
+        @Nullable
+        abstract V getValue(int keyIndex);
 
-		@Override
-		public V get(@Nullable Object key) {
-			Integer keyIndex = keyToIndex().get(key);
-			return (keyIndex == null) ? null : getValue(keyIndex);
-		}
+        @Override
+        ImmutableSet<K> createKeySet() {
+            return isFull() ? keyToIndex().keySet() : super.createKeySet();
+        }
 
-		@Override
-		ImmutableSet<Entry<K, V>> createEntrySet() {
-			return new ImmutableMapEntrySet<K, V>() {
-				@Override
-				ImmutableMap<K, V> map() {
-					return ImmutableArrayMap.this;
-				}
+        @Override
+        public int size() {
+            return size;
+        }
 
-				@Override
-				public UnmodifiableIterator<Entry<K, V>> iterator() {
-					return new AbstractIterator<Entry<K, V>>() {
-						private int index = -1;
-						private final int maxIndex = keyToIndex().size();
+        @Override
+        public V get(@Nullable Object key) {
+            Integer keyIndex = keyToIndex().get(key);
+            return (keyIndex == null) ? null : getValue(keyIndex);
+        }
 
-						@Override
-						protected Entry<K, V> computeNext() {
-							for (index++; index < maxIndex; index++) {
-								V value = getValue(index);
-								if (value != null) {
-									return Maps.immutableEntry(getKey(index), value);
-								}
-							}
-							return endOfData();
-						}
-					};
-				}
-			};
-		}
-	}
+        @Override
+        ImmutableSet<Entry<K, V>> createEntrySet() {
+            return new ImmutableMapEntrySet<K, V>() {
+                @Override
+                ImmutableMap<K, V> map() {
+                    return ImmutableArrayMap.this;
+                }
 
-	private final class Row extends ImmutableArrayMap<C, V> {
-		private final int rowIndex;
+                @Override
+                public UnmodifiableIterator<Entry<K, V>> iterator() {
+                    return new AbstractIterator<Entry<K, V>>() {
+                        private int index = -1;
+                        private final int maxIndex = keyToIndex().size();
 
-		Row(int rowIndex) {
-			super(rowCounts[rowIndex]);
-			this.rowIndex = rowIndex;
-		}
+                        @Override
+                        protected Entry<K, V> computeNext() {
+                            for (index++; index < maxIndex; index++) {
+                                V value = getValue(index);
+                                if (value != null) {
+                                    return Maps.immutableEntry(getKey(index), value);
+                                }
+                            }
+                            return endOfData();
+                        }
+                    };
+                }
+            };
+        }
+    }
 
-		@Override
-		ImmutableMap<C, Integer> keyToIndex() {
-			return columnKeyToIndex;
-		}
+    private final class Row extends ImmutableArrayMap<C, V> {
 
-		@Override
-		V getValue(int keyIndex) {
-			return values[rowIndex][keyIndex];
-		}
+        private final int rowIndex;
 
-		@Override
-		boolean isPartialView() {
-			return true;
-		}
-	}
+        Row(int rowIndex) {
+            super(rowCounts[rowIndex]);
+            this.rowIndex = rowIndex;
+        }
 
-	private final class Column extends ImmutableArrayMap<R, V> {
-		private final int columnIndex;
+        @Override
+        ImmutableMap<C, Integer> keyToIndex() {
+            return columnKeyToIndex;
+        }
 
-		Column(int columnIndex) {
-			super(columnCounts[columnIndex]);
-			this.columnIndex = columnIndex;
-		}
+        @Override
+        V getValue(int keyIndex) {
+            return values[rowIndex][keyIndex];
+        }
 
-		@Override
-		ImmutableMap<R, Integer> keyToIndex() {
-			return rowKeyToIndex;
-		}
+        @Override
+        boolean isPartialView() {
+            return true;
+        }
+    }
 
-		@Override
-		V getValue(int keyIndex) {
-			return values[keyIndex][columnIndex];
-		}
+    private final class Column extends ImmutableArrayMap<R, V> {
 
-		@Override
-		boolean isPartialView() {
-			return true;
-		}
-	}
+        private final int columnIndex;
 
-	private final class RowMap extends ImmutableArrayMap<R, Map<C, V>> {
-		private RowMap() {
-			super(rowCounts.length);
-		}
+        Column(int columnIndex) {
+            super(columnCounts[columnIndex]);
+            this.columnIndex = columnIndex;
+        }
 
-		@Override
-		ImmutableMap<R, Integer> keyToIndex() {
-			return rowKeyToIndex;
-		}
+        @Override
+        ImmutableMap<R, Integer> keyToIndex() {
+            return rowKeyToIndex;
+        }
 
-		@Override
-		Map<C, V> getValue(int keyIndex) {
-			return new Row(keyIndex);
-		}
+        @Override
+        V getValue(int keyIndex) {
+            return values[keyIndex][columnIndex];
+        }
 
-		@Override
-		boolean isPartialView() {
-			return false;
-		}
-	}
+        @Override
+        boolean isPartialView() {
+            return true;
+        }
+    }
 
-	private final class ColumnMap extends ImmutableArrayMap<C, Map<R, V>> {
-		private ColumnMap() {
-			super(columnCounts.length);
-		}
+    private final class RowMap extends ImmutableArrayMap<R, Map<C, V>> {
 
-		@Override
-		ImmutableMap<C, Integer> keyToIndex() {
-			return columnKeyToIndex;
-		}
+        private RowMap() {
+            super(rowCounts.length);
+        }
 
-		@Override
-		Map<R, V> getValue(int keyIndex) {
-			return new Column(keyIndex);
-		}
+        @Override
+        ImmutableMap<R, Integer> keyToIndex() {
+            return rowKeyToIndex;
+        }
 
-		@Override
-		boolean isPartialView() {
-			return false;
-		}
-	}
+        @Override
+        Map<C, V> getValue(int keyIndex) {
+            return new Row(keyIndex);
+        }
 
-	@Override
-	public ImmutableMap<C, Map<R, V>> columnMap() {
-		return columnMap;
-	}
+        @Override
+        boolean isPartialView() {
+            return false;
+        }
+    }
 
-	@Override
-	public ImmutableMap<R, Map<C, V>> rowMap() {
-		return rowMap;
-	}
+    private final class ColumnMap extends ImmutableArrayMap<C, Map<R, V>> {
 
-	@Override
-	public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
-		Integer rowIndex = rowKeyToIndex.get(rowKey);
-		Integer columnIndex = columnKeyToIndex.get(columnKey);
-		return ((rowIndex == null) || (columnIndex == null)) ? null : values[rowIndex][columnIndex];
-	}
+        private ColumnMap() {
+            super(columnCounts.length);
+        }
 
-	@Override
-	public int size() {
-		return iterationOrderRow.length;
-	}
+        @Override
+        ImmutableMap<C, Integer> keyToIndex() {
+            return columnKeyToIndex;
+        }
 
-	@Override
-	Cell<R, C, V> getCell(int index) {
-		int rowIndex = iterationOrderRow[index];
-		int columnIndex = iterationOrderColumn[index];
-		R rowKey = rowKeySet().asList().get(rowIndex);
-		C columnKey = columnKeySet().asList().get(columnIndex);
-		V value = values[rowIndex][columnIndex];
-		return cellOf(rowKey, columnKey, value);
-	}
+        @Override
+        Map<R, V> getValue(int keyIndex) {
+            return new Column(keyIndex);
+        }
 
-	@Override
-	V getValue(int index) {
-		return values[iterationOrderRow[index]][iterationOrderColumn[index]];
-	}
+        @Override
+        boolean isPartialView() {
+            return false;
+        }
+    }
+
+    @Override
+    public ImmutableMap<C, Map<R, V>> columnMap() {
+        return columnMap;
+    }
+
+    @Override
+    public ImmutableMap<R, Map<C, V>> rowMap() {
+        return rowMap;
+    }
+
+    @Override
+    public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
+        Integer rowIndex = rowKeyToIndex.get(rowKey);
+        Integer columnIndex = columnKeyToIndex.get(columnKey);
+        return ((rowIndex == null) || (columnIndex == null)) ? null : values[rowIndex][columnIndex];
+    }
+
+    @Override
+    public int size() {
+        return iterationOrderRow.length;
+    }
+
+    @Override
+    Cell<R, C, V> getCell(int index) {
+        int rowIndex = iterationOrderRow[index];
+        int columnIndex = iterationOrderColumn[index];
+        R rowKey = rowKeySet().asList().get(rowIndex);
+        C columnKey = columnKeySet().asList().get(columnIndex);
+        V value = values[rowIndex][columnIndex];
+        return cellOf(rowKey, columnKey, value);
+    }
+
+    @Override
+    V getValue(int index) {
+        return values[iterationOrderRow[index]][iterationOrderColumn[index]];
+    }
 }

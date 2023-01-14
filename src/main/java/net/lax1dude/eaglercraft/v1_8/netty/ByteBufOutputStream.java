@@ -36,109 +36,109 @@ import java.nio.charset.StandardCharsets;
  */
 public class ByteBufOutputStream extends OutputStream implements DataOutput {
 
-	private final ByteBuf buffer;
-	private final int startIndex;
-	private final DataOutputStream utf8out = new DataOutputStream(this);
+    private final ByteBuf buffer;
+    private final int startIndex;
+    private final DataOutputStream utf8out = new DataOutputStream(this);
 
-	/**
-	 * Creates a new stream which writes data to the specified {@code buffer}.
-	 */
-	public ByteBufOutputStream(ByteBuf buffer) {
-		if (buffer == null) {
-			throw new NullPointerException("buffer");
-		}
-		this.buffer = buffer;
-		startIndex = buffer.writerIndex();
-	}
+    /**
+     * Creates a new stream which writes data to the specified {@code buffer}.
+     */
+    public ByteBufOutputStream(ByteBuf buffer) {
+        if (buffer == null) {
+            throw new NullPointerException("buffer");
+        }
+        this.buffer = buffer;
+        startIndex = buffer.writerIndex();
+    }
 
-	/**
-	 * Returns the number of written bytes by this stream so far.
-	 */
-	public int writtenBytes() {
-		return buffer.writerIndex() - startIndex;
-	}
+    /**
+     * Returns the number of written bytes by this stream so far.
+     */
+    public int writtenBytes() {
+        return buffer.writerIndex() - startIndex;
+    }
 
-	@Override
-	public void write(byte[] b, int off, int len) throws IOException {
-		if (len == 0) {
-			return;
-		}
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        if (len == 0) {
+            return;
+        }
 
-		buffer.writeBytes(b, off, len);
-	}
+        buffer.writeBytes(b, off, len);
+    }
 
-	@Override
-	public void write(byte[] b) throws IOException {
-		buffer.writeBytes(b);
-	}
+    @Override
+    public void write(byte[] b) throws IOException {
+        buffer.writeBytes(b);
+    }
 
-	@Override
-	public void write(int b) throws IOException {
-		buffer.writeByte(b);
-	}
+    @Override
+    public void write(int b) throws IOException {
+        buffer.writeByte(b);
+    }
 
-	@Override
-	public void writeBoolean(boolean v) throws IOException {
-		buffer.writeBoolean(v);
-	}
+    @Override
+    public void writeBoolean(boolean v) throws IOException {
+        buffer.writeBoolean(v);
+    }
 
-	@Override
-	public void writeByte(int v) throws IOException {
-		buffer.writeByte(v);
-	}
+    @Override
+    public void writeByte(int v) throws IOException {
+        buffer.writeByte(v);
+    }
 
-	@Override
-	public void writeBytes(String s) throws IOException {
-		buffer.writeBytes(s.getBytes(StandardCharsets.UTF_8));
-	}
+    @Override
+    public void writeBytes(String s) throws IOException {
+        buffer.writeBytes(s.getBytes(StandardCharsets.UTF_8));
+    }
 
-	@Override
-	public void writeChar(int v) throws IOException {
-		buffer.writeChar(v);
-	}
+    @Override
+    public void writeChar(int v) throws IOException {
+        buffer.writeChar(v);
+    }
 
-	@Override
-	public void writeChars(String s) throws IOException {
-		int len = s.length();
-		for (int i = 0; i < len; i++) {
-			buffer.writeChar(s.charAt(i));
-		}
-	}
+    @Override
+    public void writeChars(String s) throws IOException {
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
+            buffer.writeChar(s.charAt(i));
+        }
+    }
 
-	@Override
-	public void writeDouble(double v) throws IOException {
-		buffer.writeDouble(v);
-	}
+    @Override
+    public void writeDouble(double v) throws IOException {
+        buffer.writeDouble(v);
+    }
 
-	@Override
-	public void writeFloat(float v) throws IOException {
-		buffer.writeFloat(v);
-	}
+    @Override
+    public void writeFloat(float v) throws IOException {
+        buffer.writeFloat(v);
+    }
 
-	@Override
-	public void writeInt(int v) throws IOException {
-		buffer.writeInt(v);
-	}
+    @Override
+    public void writeInt(int v) throws IOException {
+        buffer.writeInt(v);
+    }
 
-	@Override
-	public void writeLong(long v) throws IOException {
-		buffer.writeLong(v);
-	}
+    @Override
+    public void writeLong(long v) throws IOException {
+        buffer.writeLong(v);
+    }
 
-	@Override
-	public void writeShort(int v) throws IOException {
-		buffer.writeShort((short) v);
-	}
+    @Override
+    public void writeShort(int v) throws IOException {
+        buffer.writeShort((short) v);
+    }
 
-	@Override
-	public void writeUTF(String s) throws IOException {
-		utf8out.writeUTF(s);
-	}
+    @Override
+    public void writeUTF(String s) throws IOException {
+        utf8out.writeUTF(s);
+    }
 
-	/**
-	 * Returns the buffer where this stream is writing data.
-	 */
-	public ByteBuf buffer() {
-		return buffer;
-	}
+    /**
+     * Returns the buffer where this stream is writing data.
+     */
+    public ByteBuf buffer() {
+        return buffer;
+    }
 }

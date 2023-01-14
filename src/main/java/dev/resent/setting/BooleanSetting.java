@@ -1,6 +1,7 @@
 package dev.resent.setting;
 
-public class BooleanSetting extends Setting{
+public class BooleanSetting extends Setting {
+
     public boolean value;
 
     public BooleanSetting(String name, String description, boolean value) {
@@ -9,8 +10,15 @@ public class BooleanSetting extends Setting{
         this.gameSetting = false;
     }
 
-    public boolean getValue() { return value; }
-    public void setValue(boolean value) { this.value = value; }
-    public void toggle(){ this.value = !this.value;}
+    public boolean getValue() {
+        return value;
+    }
 
+    public void setValue(boolean value) {
+        this.value = value;
+    }
+
+    public void toggle() {
+        this.value = !this.value;
+    }
 }

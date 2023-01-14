@@ -29,28 +29,27 @@ import java.util.function.ToDoubleFunction;
  */
 @FunctionalInterface
 public interface FailableToDoubleFunction<T, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableToDoubleFunction NOP = t -> 0d;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableToDoubleFunction NOP = t -> 0d;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> the type of the argument to the function
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableToDoubleFunction<T, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <T> the type of the argument to the function
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <T, E extends Throwable> FailableToDoubleFunction<T, E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function to the given arguments.
-	 *
-	 * @param t the first function argument
-	 * @return the function result
-	 * @throws E Thrown when the function fails.
-	 */
-	double applyAsDouble(T t) throws E;
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t the first function argument
+     * @return the function result
+     * @throws E Thrown when the function fails.
+     */
+    double applyAsDouble(T t) throws E;
 }

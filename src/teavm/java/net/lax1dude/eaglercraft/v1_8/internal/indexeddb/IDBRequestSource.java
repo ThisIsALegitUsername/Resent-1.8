@@ -17,5 +17,4 @@ package net.lax1dude.eaglercraft.v1_8.internal.indexeddb;
 
 import org.teavm.jso.JSObject;
 
-public interface IDBRequestSource extends JSObject {
-}
+public interface IDBRequestSource extends JSObject {}

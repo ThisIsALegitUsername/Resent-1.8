@@ -24,10 +24,10 @@ public interface IDBTransaction extends JSObject, EventTarget {
     String getMode();
 
     @JSProperty
-	IDBDatabase getDb();
+    IDBDatabase getDb();
 
     @JSProperty
-	IDBError getError();
+    IDBError getError();
 
     IDBObjectStore objectStore(String name);
 

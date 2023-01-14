@@ -5,7 +5,8 @@ import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
 
-public class Hitboxes extends Mod{
+public class Hitboxes extends Mod {
+
     public Hitboxes() {
         super("Hitboxes", Category.HUD, true);
         addSetting(color, old);
@@ -13,5 +14,4 @@ public class Hitboxes extends Mod{
 
     public static ModeSetting color = new ModeSetting("Color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
     public static BooleanSetting old = new BooleanSetting("1.7 Hitboxes", "", true);
-
 }

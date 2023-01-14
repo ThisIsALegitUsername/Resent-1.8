@@ -2,66 +2,63 @@ package net.lax1dude.eaglercraft.v1_8.internal.buffer;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
- * 
+ *
  * WITH THE EXCEPTION OF PATCH FILES, MINIFIED JAVASCRIPT, AND ALL FILES
  * NORMALLY FOUND IN AN UNMODIFIED MINECRAFT RESOURCE PACK, YOU ARE NOT ALLOWED
  * TO SHARE, DISTRIBUTE, OR REPURPOSE ANY FILE USED BY OR PRODUCED BY THE
  * SOFTWARE IN THIS REPOSITORY WITHOUT PRIOR PERMISSION FROM THE PROJECT AUTHOR.
- * 
+ *
  * NOT FOR COMMERCIAL OR MALICIOUS USE
- * 
- * (please read the 'LICENSE' file this repo's root directory for more info) 
- * 
+ *
+ * (please read the 'LICENSE' file this repo's root directory for more info)
+ *
  */
 public interface IntBuffer extends Buffer {
+    IntBuffer slice();
 
-	IntBuffer slice();
+    IntBuffer duplicate();
 
-	IntBuffer duplicate();
+    IntBuffer asReadOnlyBuffer();
 
-	IntBuffer asReadOnlyBuffer();
+    int get();
 
-	int get();
+    IntBuffer put(int b);
 
-	IntBuffer put(int b);
+    int get(int index);
 
-	int get(int index);
+    IntBuffer put(int index, int b);
 
-	IntBuffer put(int index, int b);
+    int getElement(int index);
 
-	int getElement(int index);
+    void putElement(int index, int value);
 
-	void putElement(int index, int value);
+    IntBuffer get(int[] dst, int offset, int length);
 
-	IntBuffer get(int[] dst, int offset, int length);
+    IntBuffer get(int[] dst);
 
-	IntBuffer get(int[] dst);
+    IntBuffer put(IntBuffer src);
 
-	IntBuffer put(IntBuffer src);
+    IntBuffer put(int[] src, int offset, int length);
 
-	IntBuffer put(int[] src, int offset, int length);
+    IntBuffer put(int[] src);
 
-	IntBuffer put(int[] src);
+    int getArrayOffset();
 
-	int getArrayOffset();
+    IntBuffer compact();
 
-	IntBuffer compact();
+    boolean isDirect();
 
-	boolean isDirect();
+    IntBuffer mark();
 
-	IntBuffer mark();
+    IntBuffer reset();
 
-	IntBuffer reset();
+    IntBuffer clear();
 
-	IntBuffer clear();
+    IntBuffer flip();
 
-	IntBuffer flip();
+    IntBuffer rewind();
 
-	IntBuffer rewind();
+    IntBuffer limit(int newLimit);
 
-	IntBuffer limit(int newLimit);
-
-	IntBuffer position(int newPosition);
-	
+    IntBuffer position(int newPosition);
 }
-

@@ -31,47 +31,47 @@ import java.util.function.BiConsumer;
  */
 @FunctionalInterface
 public interface FailableBiConsumer<T, U, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableBiConsumer NOP = (t, u) -> {
+        /* NOP */
+    };
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableBiConsumer NOP = (t, u) -> {
-		/* NOP */};
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> Consumed type 1.
+     * @param <U> Consumed type 2.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <T> Consumed type 1.
-	 * @param <U> Consumed type 2.
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
-		return NOP;
-	}
+    /**
+     * Accepts the consumer.
+     *
+     * @param t the first parameter for the consumable to accept
+     * @param u the second parameter for the consumable to accept
+     * @throws E Thrown when the consumer fails.
+     */
+    void accept(T t, U u) throws E;
 
-	/**
-	 * Accepts the consumer.
-	 *
-	 * @param t the first parameter for the consumable to accept
-	 * @param u the second parameter for the consumable to accept
-	 * @throws E Thrown when the consumer fails.
-	 */
-	void accept(T t, U u) throws E;
-
-	/**
-	 * Returns a composed {@code FailableBiConsumer} like
-	 * {@link BiConsumer#andThen(BiConsumer)}.
-	 *
-	 * @param after the operation to perform after this one.
-	 * @return a composed {@code FailableBiConsumer} like
-	 *         {@link BiConsumer#andThen(BiConsumer)}.
-	 * @throws NullPointerException when {@code after} is null.
-	 */
-	default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
-		Objects.requireNonNull(after);
-		return (t, u) -> {
-			accept(t, u);
-			after.accept(t, u);
-		};
-	}
+    /**
+     * Returns a composed {@code FailableBiConsumer} like
+     * {@link BiConsumer#andThen(BiConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableBiConsumer} like
+     *         {@link BiConsumer#andThen(BiConsumer)}.
+     * @throws NullPointerException when {@code after} is null.
+     */
+    default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
+        Objects.requireNonNull(after);
+        return (t, u) -> {
+            accept(t, u);
+            after.accept(t, u);
+        };
+    }
 }

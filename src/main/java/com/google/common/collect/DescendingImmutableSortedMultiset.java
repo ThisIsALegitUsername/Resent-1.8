@@ -23,59 +23,60 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 final class DescendingImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E> {
-	private final transient ImmutableSortedMultiset<E> forward;
 
-	DescendingImmutableSortedMultiset(ImmutableSortedMultiset<E> forward) {
-		this.forward = forward;
-	}
+    private final transient ImmutableSortedMultiset<E> forward;
 
-	@Override
-	public int count(@Nullable Object element) {
-		return forward.count(element);
-	}
+    DescendingImmutableSortedMultiset(ImmutableSortedMultiset<E> forward) {
+        this.forward = forward;
+    }
 
-	@Override
-	public Entry<E> firstEntry() {
-		return forward.lastEntry();
-	}
+    @Override
+    public int count(@Nullable Object element) {
+        return forward.count(element);
+    }
 
-	@Override
-	public Entry<E> lastEntry() {
-		return forward.firstEntry();
-	}
+    @Override
+    public Entry<E> firstEntry() {
+        return forward.lastEntry();
+    }
 
-	@Override
-	public int size() {
-		return forward.size();
-	}
+    @Override
+    public Entry<E> lastEntry() {
+        return forward.firstEntry();
+    }
 
-	@Override
-	public ImmutableSortedSet<E> elementSet() {
-		return forward.elementSet().descendingSet();
-	}
+    @Override
+    public int size() {
+        return forward.size();
+    }
 
-	@Override
-	Entry<E> getEntry(int index) {
-		return forward.entrySet().asList().reverse().get(index);
-	}
+    @Override
+    public ImmutableSortedSet<E> elementSet() {
+        return forward.elementSet().descendingSet();
+    }
 
-	@Override
-	public ImmutableSortedMultiset<E> descendingMultiset() {
-		return forward;
-	}
+    @Override
+    Entry<E> getEntry(int index) {
+        return forward.entrySet().asList().reverse().get(index);
+    }
 
-	@Override
-	public ImmutableSortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
-		return forward.tailMultiset(upperBound, boundType).descendingMultiset();
-	}
+    @Override
+    public ImmutableSortedMultiset<E> descendingMultiset() {
+        return forward;
+    }
 
-	@Override
-	public ImmutableSortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
-		return forward.headMultiset(lowerBound, boundType).descendingMultiset();
-	}
+    @Override
+    public ImmutableSortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
+        return forward.tailMultiset(upperBound, boundType).descendingMultiset();
+    }
 
-	@Override
-	boolean isPartialView() {
-		return forward.isPartialView();
-	}
+    @Override
+    public ImmutableSortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
+        return forward.headMultiset(lowerBound, boundType).descendingMultiset();
+    }
+
+    @Override
+    boolean isPartialView() {
+        return forward.isPartialView();
+    }
 }

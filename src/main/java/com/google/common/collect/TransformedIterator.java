@@ -18,9 +18,8 @@ package com.google.common.collect;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Iterator;
-
 import com.google.common.annotations.GwtCompatible;
+import java.util.Iterator;
 
 /**
  * An iterator that transforms a backing iterator; for internal use. This avoids
@@ -30,26 +29,27 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 abstract class TransformedIterator<F, T> implements Iterator<T> {
-	final Iterator<? extends F> backingIterator;
 
-	TransformedIterator(Iterator<? extends F> backingIterator) {
-		this.backingIterator = checkNotNull(backingIterator);
-	}
+    final Iterator<? extends F> backingIterator;
 
-	abstract T transform(F from);
+    TransformedIterator(Iterator<? extends F> backingIterator) {
+        this.backingIterator = checkNotNull(backingIterator);
+    }
 
-	@Override
-	public final boolean hasNext() {
-		return backingIterator.hasNext();
-	}
+    abstract T transform(F from);
 
-	@Override
-	public final T next() {
-		return transform(backingIterator.next());
-	}
+    @Override
+    public final boolean hasNext() {
+        return backingIterator.hasNext();
+    }
 
-	@Override
-	public final void remove() {
-		backingIterator.remove();
-	}
+    @Override
+    public final T next() {
+        return transform(backingIterator.next());
+    }
+
+    @Override
+    public final void remove() {
+        backingIterator.remove();
+    }
 }

@@ -20,6 +20,7 @@ import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
 
 public abstract class IDBObjectStoreParameters implements JSObject {
+
     @JSBody(script = "return {};")
     public static native IDBObjectStoreParameters create();
 

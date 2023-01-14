@@ -16,9 +16,8 @@
 
 package com.google.common.io;
 
-import java.io.IOException;
-
 import com.google.common.annotations.Beta;
+import java.io.IOException;
 
 /**
  * A callback to be used with the streaming {@code readLines} methods.
@@ -32,15 +31,14 @@ import com.google.common.annotations.Beta;
  */
 @Beta
 public interface LineProcessor<T> {
+    /**
+     * This method will be called once for each line.
+     *
+     * @param line the line read from the input, without delimiter
+     * @return true to continue processing, false to stop
+     */
+    boolean processLine(String line) throws IOException;
 
-	/**
-	 * This method will be called once for each line.
-	 *
-	 * @param line the line read from the input, without delimiter
-	 * @return true to continue processing, false to stop
-	 */
-	boolean processLine(String line) throws IOException;
-
-	/** Return the result of processing all the lines. */
-	T getResult();
+    /** Return the result of processing all the lines. */
+    T getResult();
 }

@@ -14,10 +14,9 @@
 
 package com.google.common.base;
 
-import javax.annotation.Nullable;
-
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
+import javax.annotation.Nullable;
 
 /**
  * Exception thrown upon the failure of a <a href=
@@ -30,12 +29,12 @@ import com.google.common.annotations.GwtCompatible;
 @Beta
 @GwtCompatible
 public class VerifyException extends RuntimeException {
-	/** Constructs a {@code VerifyException} with no message. */
-	public VerifyException() {
-	}
 
-	/** Constructs a {@code VerifyException} with the message {@code message}. */
-	public VerifyException(@Nullable String message) {
-		super(message);
-	}
+    /** Constructs a {@code VerifyException} with no message. */
+    public VerifyException() {}
+
+    /** Constructs a {@code VerifyException} with the message {@code message}. */
+    public VerifyException(@Nullable String message) {
+        super(message);
+    }
 }

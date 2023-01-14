@@ -30,30 +30,29 @@ import java.util.function.ToDoubleBiFunction;
  */
 @FunctionalInterface
 public interface FailableToDoubleBiFunction<T, U, E extends Throwable> {
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableToDoubleBiFunction NOP = (t, u) -> 0d;
 
-	/** NOP singleton */
-	@SuppressWarnings("rawtypes")
-	FailableToDoubleBiFunction NOP = (t, u) -> 0d;
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
+        return NOP;
+    }
 
-	/**
-	 * Returns The NOP singleton.
-	 *
-	 * @param <T> the type of the first argument to the function
-	 * @param <U> the type of the second argument to the function
-	 * @param <E> Thrown exception.
-	 * @return The NOP singleton.
-	 */
-	static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
-		return NOP;
-	}
-
-	/**
-	 * Applies this function to the given arguments.
-	 *
-	 * @param t the first function argument
-	 * @param u the second function argument
-	 * @return the function result
-	 * @throws E Thrown when the function fails.
-	 */
-	double applyAsDouble(T t, U u) throws E;
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t the first function argument
+     * @param u the second function argument
+     * @return the function result
+     * @throws E Thrown when the function fails.
+     */
+    double applyAsDouble(T t, U u) throws E;
 }

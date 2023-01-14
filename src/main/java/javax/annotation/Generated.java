@@ -75,7 +75,7 @@ import java.lang.annotation.Target;
  * The <code>comment</code> element is a place holder for any comments that the
  * code generator may want to include in the generated code.
  * </p>
- * 
+ *
  * @since 1.6, Common Annotations 1.0
  */
 
@@ -83,21 +83,21 @@ import java.lang.annotation.Target;
 @Retention(SOURCE)
 @Target({ PACKAGE, TYPE, ANNOTATION_TYPE, METHOD, CONSTRUCTOR, FIELD, LOCAL_VARIABLE, PARAMETER })
 public @interface Generated {
-	/**
-	 * The value element must have the name of the code generator. The recommended
-	 * convention is to use the fully qualified name of the code generator. For
-	 * example: <code>com.acme.generator.CodeGen</code>.
-	 */
-	String[] value();
+    /**
+     * The value element must have the name of the code generator. The recommended
+     * convention is to use the fully qualified name of the code generator. For
+     * example: <code>com.acme.generator.CodeGen</code>.
+     */
+    String[] value();
 
-	/**
-	 * Date when the source was generated.
-	 */
-	String date() default "";
+    /**
+     * Date when the source was generated.
+     */
+    String date() default "";
 
-	/**
-	 * A place holder for any comments that the code generator may want to include
-	 * in the generated code.
-	 */
-	String comments() default "";
+    /**
+     * A place holder for any comments that the code generator may want to include
+     * in the generated code.
+     */
+    String comments() default "";
 }

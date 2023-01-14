@@ -20,24 +20,23 @@ public class Freelook extends Mod {
         super("FreeLook", Category.HUD);
     }
 
-    public void smh(){
-            if(W.freelook().isEnabled())
-            perspectiveToggled = !perspectiveToggled;
+    public void smh() {
+        if (W.freelook().isEnabled()) perspectiveToggled = !perspectiveToggled;
 
-            cameraYaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
-            cameraPitch = Minecraft.getMinecraft().thePlayer.rotationPitch;
+        cameraYaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
+        cameraPitch = Minecraft.getMinecraft().thePlayer.rotationPitch;
 
-            if (perspectiveToggled && W.freelook().isEnabled()) {
-                previousePrespective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
-                Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
-            } else {
-                Minecraft.getMinecraft().gameSettings.thirdPersonView = previousePrespective;
-            }
+        if (perspectiveToggled && W.freelook().isEnabled()) {
+            previousePrespective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
+            Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
+        } else {
+            Minecraft.getMinecraft().gameSettings.thirdPersonView = previousePrespective;
+        }
 
-    if (Keyboard.getEventKey() == 6 && Minecraft.getMinecraft().gameSettings.keyBindFunction.pressed) {
-        perspectiveToggled = false;
+        if (Keyboard.getEventKey() == 6 && Minecraft.getMinecraft().gameSettings.keyBindFunction.pressed) {
+            perspectiveToggled = false;
+        }
     }
-}
 
     public float getCameraYaw() {
         return perspectiveToggled ? cameraYaw : Minecraft.getMinecraft().thePlayer.rotationYaw;
@@ -49,8 +48,7 @@ public class Freelook extends Mod {
 
     public boolean overrideMouse() {
         if (Minecraft.getMinecraft().inGameHasFocus) {
-            if (!perspectiveToggled)
-                return true;
+            if (!perspectiveToggled) return true;
             mc.mouseHelper.mouseXYChange();
             float f1 = Minecraft.getMinecraft().gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float f2 = f1 * f1 * f1 * 8.0F;
@@ -58,10 +56,8 @@ public class Freelook extends Mod {
             float f4 = Minecraft.getMinecraft().mouseHelper.deltaY * f2;
             cameraYaw += f3 * 0.15F;
             cameraPitch += f4 * 0.15F;
-            if (cameraPitch > 90.0F)
-                cameraPitch = -90.0F;
-            if (cameraPitch < -90.0F)
-                cameraPitch = 90.0F;
+            if (cameraPitch > 90.0F) cameraPitch = -90.0F;
+            if (cameraPitch < -90.0F) cameraPitch = 90.0F;
         }
         return false;
     }

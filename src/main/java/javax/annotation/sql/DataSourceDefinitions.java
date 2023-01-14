@@ -47,13 +47,12 @@ import java.lang.annotation.Target;
 
 /**
  * Declares one or more <code>DataSourceDefinition</code> annotations.
- * 
+ *
  * @see javax.annotation.sql.DataSourceDefinition
  * @since Common Annotations 1.1
  */
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DataSourceDefinitions {
-	DataSourceDefinition[] value();
-
+    DataSourceDefinition[] value();
 }

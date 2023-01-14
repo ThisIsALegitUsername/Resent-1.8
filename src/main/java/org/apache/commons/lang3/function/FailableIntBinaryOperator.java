@@ -28,14 +28,13 @@ import java.util.function.IntBinaryOperator;
  */
 @FunctionalInterface
 public interface FailableIntBinaryOperator<E extends Throwable> {
-
-	/**
-	 * Applies this operator to the given operands.
-	 *
-	 * @param left  the first operand
-	 * @param right the second operand
-	 * @return the operator result
-	 * @throws E if the operation fails
-	 */
-	int applyAsInt(int left, int right) throws E;
+    /**
+     * Applies this operator to the given operands.
+     *
+     * @param left  the first operand
+     * @param right the second operand
+     * @return the operator result
+     * @throws E if the operation fails
+     */
+    int applyAsInt(int left, int right) throws E;
 }
