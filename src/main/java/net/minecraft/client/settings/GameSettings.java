@@ -99,8 +99,8 @@ public class GameSettings {
     public boolean chatLinksPrompt = true;
     public float chatOpacity = 1.0F;
     public boolean snooperEnabled = true;
-    public boolean enableVsync = true;
-    public boolean allowBlockAlternatives = true;
+    public boolean enableVsync = false;
+    public boolean allowBlockAlternatives = false;
     public boolean reducedDebugInfo = false;
     public boolean hideServerAddress;
     public boolean advancedItemTooltips;
@@ -118,7 +118,7 @@ public class GameSettings {
     public float chatHeightUnfocused = 0.44366196F;
     public float chatHeightFocused = 1.0F;
     public boolean showInventoryAchievementHint = true;
-    public int mipmapLevels = 1;
+    public int mipmapLevels = 0;
     private Map<SoundCategory, Float> mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
     public float streamBytesPerPixel = 0.5F;
     public float streamMicVolume = 1.0F;
@@ -132,7 +132,7 @@ public class GameSettings {
     public int streamChatUserFilter = 0;
     public int streamMicToggleBehavior = 0;
     public boolean field_181150_U = true;
-    public boolean field_181151_V = true;
+    public boolean field_181151_V = false;
     public KeyBinding keyBindForward = new KeyBinding("key.forward", 17, "key.categories.movement");
     public KeyBinding keyBindLeft = new KeyBinding("key.left", 30, "key.categories.movement");
     public KeyBinding keyBindBack = new KeyBinding("key.back", 31, "key.categories.movement");
@@ -230,7 +230,7 @@ public class GameSettings {
             );
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
-        this.fovSetting = 80.0F;
+        this.fovSetting = 70.0F;
         this.gammaSetting = 1.0F;
         this.language = EagRuntime.getConfiguration().getDefaultLocale();
         this.forceUnicodeFont = false;
