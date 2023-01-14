@@ -145,17 +145,15 @@ public class ClickGUI extends GuiScreen {
                     );
 
                     if (m.hasSetting) {
-                        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                         //fr.drawString("o", this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
                         GlStateManager.enableBlend();
-                        GlStateManager.disableAlpha();
+                        GlStateManager.color(1.0f, 1.0f, 1.0f, 255f);
                         //GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
                         if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT))
+                        GlStateManager.color(1,1,1,0.5f);
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
-                        GlStateManager.color(Color.RED.getRed(), Color.RED.getGreen(), Color.RED.getBlue());
                         Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                         GlStateManager.disableBlend();
-                        GlStateManager.enableAlpha();
                         //RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
                         //fr.drawString("+", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
                         //fr.drawString(" x", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
