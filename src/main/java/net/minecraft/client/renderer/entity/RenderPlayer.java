@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
 import dev.resent.cosmetic.impl.CrystalWings;
-import dev.resent.cosmetic.impl.DragonWings;
 import dev.resent.cosmetic.impl.Glasses;
+import dev.resent.cosmetic.impl.Halo;
 import dev.resent.cosmetic.impl.TopHat;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -64,7 +64,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new TopHat(this));
         this.addLayer(new Glasses(this));
         this.addLayer(new CrystalWings(this));
-        this.addLayer(new DragonWings(this));
+        this.addLayer(new Halo(this));
     }
 
     public ModelBiped getMainModel() {
