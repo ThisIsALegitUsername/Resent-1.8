@@ -30,9 +30,11 @@ public class Halo extends CosmeticBase {
         if (CosmeticController.renderHalo(player)) {
             GlStateManager.pushMatrix();
             this.playerRenderer.bindTexture(Halo.HALOBLUE);
+            if(player.isSneaking()) {
+                GlStateManager.translate(0, 0.225, 0);
+              }
             GlStateManager.color(1, 1, 1);
             this.modelHalo.render(player, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch, scale);
-            GlStateManager.color(1.0f, 1.0f, 1.0f);
             GlStateManager.popMatrix();
         }
     }

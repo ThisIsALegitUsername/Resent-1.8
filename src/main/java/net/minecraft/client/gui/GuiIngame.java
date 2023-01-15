@@ -171,6 +171,7 @@ public class GuiIngame extends Gui {
         GlStateManager.enableBlend();
 
         if (this.showCrosshair()) {
+            GlStateManager.pushMatrix();
             GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
             GlStateManager.disableAlpha();
             
@@ -179,6 +180,7 @@ public class GuiIngame extends Gui {
 
             
             this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
+            GlStateManager.popMatrix();
         }
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
