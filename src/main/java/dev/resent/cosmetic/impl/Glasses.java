@@ -103,7 +103,7 @@ public class Glasses extends CosmeticBase {
  
     public void render(Entity entityIn, float limbSwing, float limbSwingAmout, float ageInTicks, float headYaw, float headPitch, float scale) {
       GlStateManager.pushMatrix();
-      GlStateManager.translate(0, -1, 0);
+      GlStateManager.translate(0, -0.1, -0.05);
       GlStateManager.color(0, 0, 0);
         Glasses1.render(scale);
         Glasses2.render(scale);
