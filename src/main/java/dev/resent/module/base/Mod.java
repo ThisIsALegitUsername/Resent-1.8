@@ -3,6 +3,7 @@ package dev.resent.module.base;
 import dev.resent.Resent;
 import dev.resent.event.impl.Event;
 import dev.resent.setting.Setting;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

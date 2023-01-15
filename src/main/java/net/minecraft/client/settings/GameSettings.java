@@ -11,6 +11,7 @@ import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
 import dev.resent.setting.Setting;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;

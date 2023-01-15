@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
+import dev.resent.cosmetic.impl.TopHat;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -57,6 +58,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new LayerDeadmau5Head(this));
         this.addLayer(new LayerCape(this));
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
+        this.addLayer(new TopHat(this));
     }
 
     public ModelBiped getMainModel() {
