@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import dev.resent.cosmetic.impl.CrystalWings;
+import dev.resent.cosmetic.impl.Glasses;
 import dev.resent.cosmetic.impl.TopHat;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -60,6 +61,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new LayerCape(this));
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
         this.addLayer(new TopHat(this));
+        this.addLayer(new Glasses(this));
         this.addLayer(new CrystalWings(this));
     }
 

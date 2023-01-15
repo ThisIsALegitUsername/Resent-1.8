@@ -19,6 +19,7 @@ import dev.resent.module.impl.misc.Animations;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
 import dev.resent.module.impl.misc.ClearChat;
+import dev.resent.module.impl.misc.Cosmetics;
 import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
@@ -40,8 +41,7 @@ public class ModManager {
     public List<Mod> modules = new ArrayList<>();
     public Minecraft mc = Minecraft.getMinecraft();
 
-    public static String currentModDragging = null;
-
+    public static Cosmetics cosmetics = new Cosmetics();
     public static Sprint sprint;
     public static CPS cps;
     public static KeyStrokes keyStrokes;
@@ -78,6 +78,7 @@ public class ModManager {
 
     public ModManager() {
         //Hud
+        register(cosmetics);
         register(ping = new Ping());
         register(serverInfo = new ServerInfo());
         register(watermark = new Watermark());
