@@ -1,7 +1,6 @@
 package dev.resent.cosmetic.impl;
 
 import dev.resent.cosmetic.CosmeticBase;
-import dev.resent.cosmetic.CosmeticController;
 import dev.resent.cosmetic.CosmeticModelBase;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -11,15 +10,14 @@ import net.minecraft.entity.Entity;
 
 public class Glasses extends CosmeticBase {
   private final GlassesRenderer glassesModel;
-
+ 
   public Glasses(RenderPlayer renderPlayer) {
     super(renderPlayer);
     this.glassesModel = new GlassesRenderer(renderPlayer);
   }
-
+ 
   @Override
   public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float headYaw, float headPitch, float scale) {
-    if(CosmeticController.renderGlasses(player)){
     GlStateManager.pushMatrix();
     if(player.isSneaking()) {
       GlStateManager.translate(0, 0.225, 0);
@@ -29,10 +27,9 @@ public class Glasses extends CosmeticBase {
     this.glassesModel.render(player, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch, scale);
     GlStateManager.popMatrix();
   }
-  }
-  
+ 
   public class GlassesRenderer extends CosmeticModelBase{
-
+ 
       ModelRenderer Glasses1;
       ModelRenderer Glasses2;
       ModelRenderer Glasses3;
@@ -42,12 +39,12 @@ public class Glasses extends CosmeticBase {
       ModelRenderer Glasses7;
       ModelRenderer Glasses8;
       ModelRenderer Glasses9;
-    
+ 
     public GlassesRenderer(RenderPlayer player) {
       super(player);
         textureWidth = 64;
         textureHeight = 32;
-        
+ 
           Glasses1 = new ModelRenderer(this, 0, 0);
           Glasses1.addBox(0F, 0F, 0F, 4, 2, 1);
           Glasses1.setRotationPoint(-5F, -3F, -5F);
@@ -106,6 +103,7 @@ public class Glasses extends CosmeticBase {
  
     public void render(Entity entityIn, float limbSwing, float limbSwingAmout, float ageInTicks, float headYaw, float headPitch, float scale) {
       GlStateManager.pushMatrix();
+      GlStateManager.translate(0, -1, 0);
       GlStateManager.color(0, 0, 0);
         Glasses1.render(scale);
         Glasses2.render(scale);
@@ -116,10 +114,11 @@ public class Glasses extends CosmeticBase {
         Glasses7.render(scale);
         Glasses8.render(scale);
         Glasses9.render(scale);
+        GlStateManager.color(1, 1, 1);
       GlStateManager.popMatrix();
     }  
   }
-  
+ 
     private void setRotation(ModelRenderer model, float x, float y, float z)
     {
       model.rotateAngleX = x;
