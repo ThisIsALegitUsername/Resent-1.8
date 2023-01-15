@@ -18,6 +18,11 @@ public class CosmeticController {
     public static boolean renderGlasses(AbstractClientPlayer player){
         return ModManager.cosmetics.isEnabled() && Cosmetics.show.getValue() && shouldRender(player) && Cosmetics.glasses.getValue();
     }
+
+    public static boolean renderDragonWings(AbstractClientPlayer player){
+        return ModManager.cosmetics.isEnabled() && Cosmetics.show.getValue() && shouldRender(player) && Cosmetics.dragonwings.getValue();
+    }
+
     
     public static float[] getTopHatColor(AbstractClientPlayer player){ return new float[]{1, 0, 0}; }
     public static float[] getCrystalWingsColor(AbstractClientPlayer player){ return new float[]{1, 1, 1}; }

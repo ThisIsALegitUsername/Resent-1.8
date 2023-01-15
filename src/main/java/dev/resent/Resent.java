@@ -10,7 +10,7 @@ public class Resent {
     }
 
     public static String NAME = "Resent";
-    public static String VERSION = "3.3.1";
+    public static String VERSION = "3.3.2";
     public static Minecraft mc = Minecraft.getMinecraft();
     public static Resent INSTANCE;
     public ModManager modManager;
