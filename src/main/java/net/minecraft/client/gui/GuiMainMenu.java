@@ -3,7 +3,6 @@ package net.minecraft.client.gui;
 import dev.resent.ui.ClientButton;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.profile.GuiScreenEditProfile;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
@@ -45,5 +44,10 @@ public class GuiMainMenu extends GuiScreen {
             }
         }
         super.actionPerformed(button);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
     }
 }

@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
@@ -8,7 +9,9 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -293,6 +296,7 @@ public abstract class Render<T extends Entity> {
     public FontRenderer getFontRendererFromRenderManager() {
         return this.renderManager.getFontRenderer();
     }
+    
 
     /**+
      * Renders an entity's name above its head
@@ -317,6 +321,12 @@ public abstract class Render<T extends Entity> {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             byte b0 = 0;
+
+            if(entityIn instanceof AbstractClientPlayer){
+                Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("eagler:gui/logo.png"));
+                Gui.drawModalRectWithCustomSizedTexture(-fontrenderer.getStringWidth(entityIn.getDisplayName().getFormattedText()) / 2 -12, -2, 10, 10, 10, 10, 10, 10);
+            }
+
             if (str.equals("deadmau5")) {
                 b0 = -10;
             }
