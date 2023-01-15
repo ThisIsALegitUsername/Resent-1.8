@@ -11,6 +11,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SMOOTH;
 import com.google.common.collect.Lists;
 import dev.resent.Resent;
 import dev.resent.ui.ClickGUI;
+import dev.resent.ui.PreGUI;
 import dev.resent.util.misc.W;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1406,7 +1407,7 @@ public class Minecraft implements IThreadListener {
             }
 
             if (this.gameSettings.keyBindClickGui.isPressed()) {
-                this.displayGuiScreen(new ClickGUI());
+                this.displayGuiScreen(new PreGUI());
             }
 
             while (this.gameSettings.keyBindDrop.isPressed()) {
