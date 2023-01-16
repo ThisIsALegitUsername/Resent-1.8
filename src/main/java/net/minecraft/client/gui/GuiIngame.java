@@ -354,13 +354,13 @@ public class GuiIngame extends Gui {
             this.zLevel = -90.0F;
 
             simpleAnimation.setAnimation(entityplayer.inventory.currentItem * 20, ModManager.hotbar.getSpeed());
-            int itemX = i - 91 + ((int) simpleAnimation.getValue());
+            int itemX = i - 90 + ((int) simpleAnimation.getValue());
 
             if(!ModManager.hotbar.isEnabled()){
                 this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
                 this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
             }else {
-                drawRect(itemX, sr.getScaledHeight() - 22, itemX + 22, sr.getScaledHeight(), new Color(230, 230, 230, 180).getRGB());
+                drawRect(itemX, sr.getScaledHeight() - 21, itemX + 24, sr.getScaledHeight(), new Color(230, 230, 230, 180).getRGB());
             }
 
             this.zLevel = f;

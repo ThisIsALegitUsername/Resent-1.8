@@ -6,7 +6,7 @@ import dev.resent.setting.ModeSetting;
 
 public class HotbarAnimation extends Mod{
     public HotbarAnimation(){
-        super("Hotbar animation", Category.MISC, true);
+        super("Hotbar", Category.MISC, true);
         addSetting(speed);
     }
 

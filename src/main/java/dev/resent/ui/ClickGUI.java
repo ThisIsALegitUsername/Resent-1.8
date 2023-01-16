@@ -143,6 +143,7 @@ public class ClickGUI extends GuiScreen {
         // white line
         Gui.drawRect(x - 8, height + 29, width + 33, height + 30, -1);
 
+        GlStateManager.popMatrix();
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
@@ -227,8 +228,6 @@ public class ClickGUI extends GuiScreen {
                 // height+33+fr.FONT_HEIGHT+2+fr.getStringWidth("<"), new Color(200, 200,
                 // 200,90).getRGB());
             }
-
-            GlStateManager.popMatrix();
 
             if (xo > width / 2) {
                 xo = 0;
