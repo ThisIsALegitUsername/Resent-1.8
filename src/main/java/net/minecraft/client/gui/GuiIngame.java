@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_DST_COLOR;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
@@ -14,12 +14,15 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
+import dev.resent.animation.SimpleAnimation;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.impl.misc.Crosshair;
+import dev.resent.module.impl.misc.HotbarAnimation;
 import dev.resent.ui.HUDConfigScreen;
 import dev.resent.util.misc.W;
+import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
@@ -27,7 +30,6 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -340,6 +342,8 @@ public class GuiIngame extends Gui {
         GlStateManager.enableAlpha();
     }
 
+    public SimpleAnimation simpleAnimation = new SimpleAnimation(0.0F);
+    
     protected void renderTooltip(ScaledResolution sr, float partialTicks) {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -348,8 +352,17 @@ public class GuiIngame extends Gui {
             int i = sr.getScaledWidth() / 2;
             float f = this.zLevel;
             this.zLevel = -90.0F;
-            this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+
+            simpleAnimation.setAnimation(entityplayer.inventory.currentItem * 20, ModManager.hotbar.getSpeed());
+            int itemX = i - 91 + ((int) simpleAnimation.getValue());
+
+            if(!ModManager.hotbar.isEnabled()){
+                this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+                this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+            }else {
+                drawRect(itemX, sr.getScaledHeight() - 22, itemX + 22, sr.getScaledHeight(), new Color(230, 230, 230, 180).getRGB());
+            }
+
             this.zLevel = f;
             GlStateManager.enableRescaleNormal();
             GlStateManager.enableBlend();

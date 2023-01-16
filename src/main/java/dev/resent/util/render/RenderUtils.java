@@ -65,4 +65,11 @@ public class RenderUtils {
         GlStateManager.popMatrix();
     }
 
+    public static void startScale(float x, float y, float scale) {
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x, y, 0);
+        GlStateManager.scale(scale, scale, 1);
+        GlStateManager.translate(-x, -y, 0);
+    }
+
 }

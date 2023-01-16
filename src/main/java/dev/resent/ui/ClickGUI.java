@@ -3,6 +3,9 @@ package dev.resent.ui;
 import java.io.IOException;
 
 import dev.resent.Resent;
+import dev.resent.animation.Animation;
+import dev.resent.animation.Direction;
+import dev.resent.animation.impl.EaseBackIn;
 import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
@@ -22,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ClickGUI extends GuiScreen {
 
+    public Animation introAnimation;
     public Mod modWatching = null;
     public ScaledResolution sr;
     public int x, y, width, height;
@@ -95,6 +99,13 @@ public class ClickGUI extends GuiScreen {
         }
     }
 
+    public static void startScale(float x, float y, float scale) {
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x, y, 0);
+        GlStateManager.scale(scale, scale, 1);
+        GlStateManager.translate(-x, -y, 0);
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float par3) {
         sr = new ScaledResolution(mc);
@@ -108,6 +119,8 @@ public class ClickGUI extends GuiScreen {
         x = sr.getScaledWidth() / 8 + xo;
         y = sr.getScaledHeight() - 10 + xy;
         int off = 0;
+
+        startScale(((this.x) + (this.x + this.width)) / 2, ((this.y) + (this.y + this.height)) / 2, (float) introAnimation.getValue());
 
         // background
         Gui.drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
@@ -215,6 +228,8 @@ public class ClickGUI extends GuiScreen {
                 // 200,90).getRGB());
             }
 
+            GlStateManager.popMatrix();
+
             if (xo > width / 2) {
                 xo = 0;
                 off += 3;
@@ -234,12 +249,17 @@ public class ClickGUI extends GuiScreen {
 
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(true);
+        introAnimation.setDirection(Direction.BACKWARDS);
+			if(introAnimation.isDone(Direction.BACKWARDS)) {
+				mc.displayGuiScreen(null);
+		}
         mc.gameSettings.saveOptions();
     }
 
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
+        introAnimation = new EaseBackIn(450, 1, 2);
     }
 
     protected void keyTyped(char par1, int par2) {

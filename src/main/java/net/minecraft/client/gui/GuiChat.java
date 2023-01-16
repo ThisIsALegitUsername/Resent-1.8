@@ -1,8 +1,13 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.collect.Lists;
+
+import dev.resent.animation.SimpleAnimation;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -15,7 +20,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import org.apache.commons.lang3.StringUtils;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -269,11 +273,14 @@ public class GuiChat extends GuiScreen {
         }
     }
 
+    private SimpleAnimation animation = new SimpleAnimation(0.0F);
+
     /**+
      * Draws the screen and all the components in it. Args : mouseX,
      * mouseY, renderPartialTicks
      */
     public void drawScreen(int i, int j, float f) {
+        animation.setAnimation(30, 20);
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);

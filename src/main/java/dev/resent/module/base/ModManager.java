@@ -24,6 +24,7 @@ import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.Fullbright;
+import dev.resent.module.impl.misc.HotbarAnimation;
 import dev.resent.module.impl.misc.MinimalViewBobbing;
 import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
@@ -50,6 +51,7 @@ public class ModManager {
     public static NoRain noRain = new NoRain();
     public static DynamicFOV dynamicFOV = new DynamicFOV();
     public static PotionHUD potionHud;
+    public static HotbarAnimation hotbar = new HotbarAnimation();
     //public static NoHurtCam noHurtCam = new NoHurtCam();
     public static Info coordinate;
     public static FPS fps;
@@ -79,6 +81,7 @@ public class ModManager {
     public ModManager() {
         //Hud
         register(cosmetics);
+        register(hotbar);
         register(ping = new Ping());
         register(serverInfo = new ServerInfo());
         register(watermark = new Watermark());
