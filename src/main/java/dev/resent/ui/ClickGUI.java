@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import dev.resent.Resent;
 import dev.resent.animation.Animation;
-import dev.resent.animation.Direction;
 import dev.resent.animation.impl.EaseBackIn;
 import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
@@ -14,7 +13,6 @@ import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
-import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -40,7 +38,7 @@ public class ClickGUI extends GuiScreen {
         int xy = -30;
 
         sr = new ScaledResolution(mc);
-        fr = Minecraft.getMinecraft().fontRendererObj;
+        fr = Minecraft.getMinecraft().resentFont;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;
@@ -114,7 +112,7 @@ public class ClickGUI extends GuiScreen {
         int xo = 0;
         int xy = -30;
 
-        fr = Minecraft.getMinecraft().fontRendererObj;
+        fr = Minecraft.getMinecraft().resentFont;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;

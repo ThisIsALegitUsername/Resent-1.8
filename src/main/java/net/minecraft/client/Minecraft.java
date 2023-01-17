@@ -378,7 +378,7 @@ public class Minecraft implements IThreadListener {
         this.mcSoundHandler = new SoundHandler(this.mcResourceManager, this.gameSettings);
         this.mcResourceManager.registerReloadListener(this.mcSoundHandler);
         this.mcMusicTicker = new MusicTicker(this);
-        this.resentFont = new FontRenderer(this.gameSettings, new ResourceLocation("eagler:gui/arial.png"), this.renderEngine, false);
+        this.resentFont = new FontRenderer(this.gameSettings, new ResourceLocation("eagler:gui/ascii.png"), this.renderEngine, false);
         this.fontRendererObj = new EaglerFontRenderer(this.gameSettings, new ResourceLocation("textures/font/ascii.png"), this.renderEngine, false);
 
         if (this.gameSettings.language != null) {
