@@ -204,6 +204,7 @@ public class Minecraft implements IThreadListener {
     public EffectRenderer effectRenderer;
     private final Session session;
     private boolean isGamePaused;
+    public FontRenderer resentFont;
     public FontRenderer fontRendererObj;
     public FontRenderer standardGalacticFontRenderer;
     public GuiScreen currentScreen;
@@ -377,12 +378,17 @@ public class Minecraft implements IThreadListener {
         this.mcSoundHandler = new SoundHandler(this.mcResourceManager, this.gameSettings);
         this.mcResourceManager.registerReloadListener(this.mcSoundHandler);
         this.mcMusicTicker = new MusicTicker(this);
+        this.resentFont = new FontRenderer(this.gameSettings, new ResourceLocation("eagler:gui/arial.png"), this.renderEngine, false);
         this.fontRendererObj = new EaglerFontRenderer(this.gameSettings, new ResourceLocation("textures/font/ascii.png"), this.renderEngine, false);
+
         if (this.gameSettings.language != null) {
             this.fontRendererObj.setUnicodeFlag(this.isUnicode());
             this.fontRendererObj.setBidiFlag(this.mcLanguageManager.isCurrentLanguageBidirectional());
+            this.resentFont.setUnicodeFlag(this.isUnicode());
+            this.resentFont.setBidiFlag(this.mcLanguageManager.isCurrentLanguageBidirectional());
         }
 
+        this.mcResourceManager.registerReloadListener(this.resentFont);
         this.standardGalacticFontRenderer = new EaglerFontRenderer(this.gameSettings, new ResourceLocation("textures/font/ascii_sga.png"), this.renderEngine, false);
         this.mcResourceManager.registerReloadListener(this.fontRendererObj);
         this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);

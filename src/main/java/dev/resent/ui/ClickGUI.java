@@ -14,6 +14,7 @@ import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
+import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -248,11 +249,8 @@ public class ClickGUI extends GuiScreen {
 
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(true);
-        introAnimation.setDirection(Direction.BACKWARDS);
-			if(introAnimation.isDone(Direction.BACKWARDS)) {
-				mc.displayGuiScreen(null);
-		}
         mc.gameSettings.saveOptions();
+        
     }
 
     @Override
