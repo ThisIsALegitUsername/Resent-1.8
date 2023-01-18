@@ -19,37 +19,19 @@ public class KeyStrokes extends RenderModule {
 
     public KeyStrokes() {
         super("Keystrokes", Category.HUD, 25, 4, true);
-        addSetting(chroma, sneak, transparent, lmbcps, rmbcps, tshadow, jump, color, colorp, gcolor, gcolorp, size);
+        addSetting(chroma, sneak, transparent, tshadow, jump, color, colorp, gcolor, gcolorp, size);
     }
 
     public BooleanSetting chroma = new BooleanSetting("Rainbow", "", false);
     public BooleanSetting sneak = new BooleanSetting("Sneak", "", false);
     public BooleanSetting jump = new BooleanSetting("Jump", "", true);
     public BooleanSetting transparent = new BooleanSetting("Transparent", "", false);
-    public BooleanSetting lmbcps = new BooleanSetting("LMB cps counter", "", true);
-    public BooleanSetting rmbcps = new BooleanSetting("RMB cps counter", "", true);
     public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", false);
     public ModeSetting size = new ModeSetting("Size", "", "Small", "Normal", "Large");
     public ModeSetting color = new ModeSetting("Unpressed text color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
     public ModeSetting colorp = new ModeSetting("Pressed text color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
     public ModeSetting gcolor = new ModeSetting("Pressed button color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
     public ModeSetting gcolorp = new ModeSetting("Unpressed button color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
-
-    public boolean wKey = Keyboard.isKeyDown(mc.gameSettings.keyBindForward.getKeyCode());
-    public boolean aKey = Keyboard.isKeyDown(mc.gameSettings.keyBindLeft.getKeyCode());
-    public boolean sKey = Keyboard.isKeyDown(mc.gameSettings.keyBindBack.getKeyCode());
-    public boolean dKey = Keyboard.isKeyDown(mc.gameSettings.keyBindRight.getKeyCode());
-    public boolean spaceKey = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode());
-    public boolean pressed = Keyboard.isKeyDown(mc.gameSettings.keyBindAttack.getKeyCode());
-    public boolean rpressed = Keyboard.isKeyDown(mc.gameSettings.keyBindUseItem.getKeyCode());
-
-    public int getColor(int id, int opacity){
-        if(id == 1){
-
-        }
-
-        return -1;
-    }
 
     public float getSize(ModeSetting size) {
         if (size.getValue() == "Small") return 0.75f;
@@ -61,6 +43,14 @@ public class KeyStrokes extends RenderModule {
     @Override
     public void draw() {
 
+        boolean wKey = Keyboard.isKeyDown(mc.gameSettings.keyBindForward.getKeyCode());
+        boolean aKey = Keyboard.isKeyDown(mc.gameSettings.keyBindLeft.getKeyCode());
+        boolean sKey = Keyboard.isKeyDown(mc.gameSettings.keyBindBack.getKeyCode());
+        boolean dKey = Keyboard.isKeyDown(mc.gameSettings.keyBindRight.getKeyCode());
+        boolean spaceKey = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode());
+        boolean pressed = Keyboard.isKeyDown(mc.gameSettings.keyBindAttack.getKeyCode());
+        boolean rpressed = Keyboard.isKeyDown(mc.gameSettings.keyBindUseItem.getKeyCode());
+        
         GlStateManager.pushMatrix();
 
         GlStateManager.translate(this.x + 1, this.y + 1, 0);
@@ -98,18 +88,6 @@ public class KeyStrokes extends RenderModule {
         mc.fontRendererObj.drawString("RMB", this.x + 40 + 3 + 40 / 2 - mc.fontRendererObj.getStringWidth("RMB") / 2, (this.y + 60 + 25 / 2) - mc.fontRendererObj.FONT_HEIGHT / 2 - 3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(1) ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
 
         GlStateManager.popMatrix();
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(this.x + 1, this.y + 1, 0);
-        GlStateManager.scale(getSize(this.size), getSize(this.size), getSize(this.size));
-        GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
-        GlStateManager.translate(this.x + 41, this.y + 82, 0);
-        GlStateManager.scale(0.5f, 0.5f, 0);
-        GlStateManager.translate(-(this.x + 41), -(this.y + 82), 0);
-
-        if (lmbcps.getValue()) mc.fontRendererObj.drawString(CPSUtils.getLeftCPS() + " CPS", this.x - 10, this.y + 72, Mouse.isButtonDown(0) ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-        if (rmbcps.getValue()) mc.fontRendererObj.drawString(CPSUtils.getRightCPS() + " CPS", this.x + 70, this.y + 72, Mouse.isButtonDown(1) ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-        GlStateManager.popMatrix();
-
         GlStateManager.pushMatrix();
         GlStateManager.translate(this.x + 1, this.y + 1, 0);
         GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
