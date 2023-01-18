@@ -102,7 +102,7 @@ public class Gui {
      * specified colors (ARGB format). Args : x1, y1, x2, y2,
      * topColor, bottomColor
      */
-    protected void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
+    public void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
         float f = (float) (startColor >> 24 & 255) / 255.0F;
         float f1 = (float) (startColor >> 16 & 255) / 255.0F;
         float f2 = (float) (startColor >> 8 & 255) / 255.0F;

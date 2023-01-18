@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import dev.resent.Resent;
 import dev.resent.animation.Animation;
+import dev.resent.animation.Direction;
 import dev.resent.animation.impl.EaseBackIn;
 import dev.resent.module.base.Mod;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.setting.ModeSetting;
 import dev.resent.setting.Setting;
+import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
@@ -30,6 +32,7 @@ public class ClickGUI extends GuiScreen {
     public int x, y, width, height;
     public int offset = 0;
     public FontRenderer fr;
+    public boolean close = false;
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
@@ -98,13 +101,6 @@ public class ClickGUI extends GuiScreen {
         }
     }
 
-    public static void startScale(float x, float y, float scale) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, 0);
-        GlStateManager.scale(scale, scale, 1);
-        GlStateManager.translate(-x, -y, 0);
-    }
-
     @Override
     public void drawScreen(int mouseX, int mouseY, float par3) {
         sr = new ScaledResolution(mc);
@@ -119,7 +115,14 @@ public class ClickGUI extends GuiScreen {
         y = sr.getScaledHeight() - 10 + xy;
         int off = 0;
 
-        startScale(((this.x) + (this.x + this.width)) / 2, ((this.y) + (this.y + this.height)) / 2, (float) introAnimation.getValue());
+        if(close) {
+			introAnimation.setDirection(Direction.BACKWARDS);
+			if(introAnimation.isDone(Direction.BACKWARDS)) {
+				mc.displayGuiScreen(null);
+			}
+		}
+        
+        GlUtils.startScale(((this.x) + (this.x + this.width)) / 2, ((this.y) + (this.y + this.height)) / 2, (float) introAnimation.getValue());
 
         // background
         Gui.drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
@@ -139,10 +142,9 @@ public class ClickGUI extends GuiScreen {
         // RenderUtils.drawRectOutline(width+15, height-5, width+26, height+8, new Color(200, 200, 200, 90).getRGB());
         fr.drawString("X", width + 18, height - 2, -1);
 
+        GlUtils.stopScale();
         // white line
         Gui.drawRect(x - 8, height + 29, width + 33, height + 30, -1);
-
-        GlStateManager.popMatrix();
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
@@ -259,7 +261,7 @@ public class ClickGUI extends GuiScreen {
 
     protected void keyTyped(char par1, int par2) {
         if (par2 == 0x01 || par2 == Minecraft.getMinecraft().gameSettings.keyBindClickGui.keyCode) {
-            mc.displayGuiScreen(null);
+            close = true;
         }
     }
 

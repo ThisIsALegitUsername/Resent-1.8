@@ -1,5 +1,8 @@
 package dev.resent.module.base;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.CPS;
 import dev.resent.module.impl.hud.ComboCounter;
@@ -33,8 +36,6 @@ import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Tooltips;
 import dev.resent.module.impl.movement.Sprint;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 
 public class ModManager {
