@@ -70,7 +70,7 @@ public class GuiOverlayDebug extends Gui {
 		this.fontRenderer = mc.fontRendererObj;
 	}
 
-	public void renderDebugInfo(ScaledResolution scaledResolutionIn, float partialTicks) {
+	public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
 		int ww = scaledResolutionIn.getScaledWidth();
 		int hh = scaledResolutionIn.getScaledHeight();
 		this.mc.mcProfiler.startSection("debug");
@@ -92,10 +92,6 @@ public class GuiOverlayDebug extends Gui {
 
 			if (this.mc.gameSettings.hudCoords) {
 				drawXYZ(2, i);
-			}
-
-			if (this.mc.gameSettings.hudPlayer) {
-				drawPlayer(ww - 3, 3, partialTicks);
 			}
 		}
 
@@ -259,59 +255,6 @@ public class GuiOverlayDebug extends Gui {
 		this.fontRenderer.drawStringWithShadow("Biome: " + EnumChatFormatting.AQUA + biome.biomeName, x, y - 19,
 				0xFFFFFF);
 		this.fontRenderer.drawStringWithShadow(lightString + " " + tempString, x, y - 8, 0xFFFFFF);
-	}
-
-	private void drawPlayer(int x, int y, float partialTicks) {
-		Entity e = mc.getRenderViewEntity();
-		if (e != null && e instanceof EntityLivingBase) {
-			EntityLivingBase ent = (EntityLivingBase) e;
-			GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-			GlStateManager.enableDepth();
-			GlStateManager.enableColorMaterial();
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) x - 10, (float) y + 36, 50.0F);
-			GlStateManager.scale(-17.0F, 17.0F, 17.0F);
-			GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-			float f = ent.renderYawOffset;
-			float f1 = ent.rotationYaw;
-			float f2 = ent.prevRotationYaw;
-			float f3 = ent.prevRotationYawHead;
-			float f4 = ent.rotationYawHead;
-			float f5 = ent.prevRenderYawOffset;
-			GlStateManager.rotate(115.0F, 0.0F, 1.0F, 0.0F);
-			RenderHelper.enableStandardItemLighting();
-			float f6 = ent.prevRenderYawOffset + (ent.renderYawOffset - ent.prevRenderYawOffset) * partialTicks;
-			ent.rotationYawHead -= f6;
-			ent.prevRotationYawHead -= f6;
-			ent.rotationYawHead *= 0.5f;
-			ent.prevRotationYawHead *= 0.5f;
-			ent.renderYawOffset = 0.0f;
-			ent.prevRenderYawOffset = 0.0f;
-			ent.prevRotationYaw = 0.0f;
-			ent.rotationYaw = 0.0f;
-			GlStateManager.rotate(-135.0F
-					- (ent.prevRotationYawHead + (ent.rotationYawHead - ent.prevRotationYawHead) * partialTicks) * 0.5F,
-					0.0F, 1.0F, 0.0F);
-			GlStateManager.rotate(ent.rotationPitch * 0.2f, 1.0F, 0.0F, 0.0F);
-			RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-			rendermanager.setPlayerViewY(180.0F);
-			rendermanager.setRenderShadow(false);
-			rendermanager.renderEntityWithPosYaw(ent, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
-			rendermanager.setRenderShadow(true);
-			ent.renderYawOffset = f;
-			ent.rotationYaw = f1;
-			ent.prevRotationYaw = f2;
-			ent.prevRotationYawHead = f3;
-			ent.rotationYawHead = f4;
-			ent.prevRenderYawOffset = f5;
-			GlStateManager.popMatrix();
-			RenderHelper.disableStandardItemLighting();
-			GlStateManager.disableDepth();
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GlStateManager.disableTexture2D();
-			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-		}
 	}
 
 	private void drawHideHUD(int x, int y, int fade) {

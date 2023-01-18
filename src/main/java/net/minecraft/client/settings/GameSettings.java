@@ -191,7 +191,7 @@ public class GameSettings {
 	public boolean forceUnicodeFont;
 	public boolean hudFps = true;
 	public boolean hudCoords = true;
-	public boolean hudPlayer = true;
+	public boolean hudPlayer = false;
 	public boolean hudWorld = false;
 	public boolean hudStats = false;
 	public boolean hud24h = false;

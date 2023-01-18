@@ -13,12 +13,14 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
@@ -129,11 +131,7 @@ public class GuiIngame extends Gui {
 		int j = scaledresolution.getScaledHeight();
 		this.mc.entityRenderer.setupOverlayRendering();
 		GlStateManager.enableBlend();
-		if (Minecraft.isFancyGraphicsEnabled()) {
-			this.renderVignette(this.mc.thePlayer.getBrightness(partialTicks), scaledresolution);
-		} else {
-			GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-		}
+		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 
 		ItemStack itemstack = this.mc.thePlayer.inventory.armorItemInSlot(3);
 		if (this.mc.gameSettings.thirdPersonView == 0 && itemstack != null
@@ -153,15 +151,6 @@ public class GuiIngame extends Gui {
 			this.spectatorGui.renderTooltip(scaledresolution, partialTicks);
 		} else {
 			this.renderTooltip(scaledresolution, partialTicks);
-		}
-
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(icons);
-		GlStateManager.enableBlend();
-		if (this.showCrosshair()) {
-			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
-			GlStateManager.enableAlpha();
-			this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
 		}
 
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
@@ -208,7 +197,7 @@ public class GuiIngame extends Gui {
 			this.renderDemo(scaledresolution);
 		}
 
-		this.overlayDebug.renderDebugInfo(scaledresolution, partialTicks);
+		this.overlayDebug.renderDebugInfo(scaledresolution);
 
 		if (this.recordPlayingUpFor > 0) {
 			this.mc.mcProfiler.startSection("overlayMessage");
@@ -316,6 +305,17 @@ public class GuiIngame extends Gui {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
 		GlStateManager.enableAlpha();
+	}
+
+	public void renderGameOverlayCrosshairs(int scaledResWidth, int scaledResHeight) {
+		if (this.showCrosshair()) {
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			this.mc.getTextureManager().bindTexture(icons);
+			GlStateManager.enableBlend();
+			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
+			GlStateManager.enableAlpha();
+			this.drawTexturedModalRect(scaledResWidth / 2 - 7, scaledResHeight / 2 - 7, 0, 0, 16, 16);
+		}
 	}
 
 	protected void renderTooltip(ScaledResolution sr, float partialTicks) {
@@ -560,6 +560,7 @@ public class GuiIngame extends Gui {
 			}
 
 			this.mc.mcProfiler.startSection("armor");
+			this.mc.getTextureManager().bindTexture(icons);
 
 			for (int i3 = 0; i3 < 10; ++i3) {
 				if (k2 > 0) {
@@ -791,7 +792,7 @@ public class GuiIngame extends Gui {
 	 * Renders a Vignette arount the entire screen that changes with
 	 * light level.
 	 */
-	private void renderVignette(float parFloat1, ScaledResolution parScaledResolution) {
+	public void renderVignette(float parFloat1, int scaledWidth, int scaledHeight) {
 		parFloat1 = 1.0F - parFloat1;
 		parFloat1 = MathHelper.clamp_float(parFloat1, 0.0F, 1.0F);
 		WorldBorder worldborder = this.mc.theWorld.getWorldBorder();
@@ -821,10 +822,9 @@ public class GuiIngame extends Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(0.0D, (double) parScaledResolution.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), (double) parScaledResolution.getScaledHeight(),
-				-90.0D).tex(1.0D, 1.0D).endVertex();
-		worldrenderer.pos((double) parScaledResolution.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+		worldrenderer.pos(0.0D, (double) scaledHeight, -90.0D).tex(0.0D, 1.0D).endVertex();
+		worldrenderer.pos((double) scaledWidth, scaledHeight, -90.0D).tex(1.0D, 1.0D).endVertex();
+		worldrenderer.pos((double) scaledWidth, 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
 		worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
 		tessellator.draw();
 		GlStateManager.depthMask(true);
@@ -964,6 +964,59 @@ public class GuiIngame extends Gui {
 				this.field_175195_w = this.field_175199_z + this.field_175192_A + this.field_175193_B;
 			}
 
+		}
+	}
+
+	public void drawEaglerPlayerOverlay(int x, int y, float partialTicks) {
+		Entity e = mc.getRenderViewEntity();
+		if (e != null && e instanceof EntityLivingBase) {
+			EntityLivingBase ent = (EntityLivingBase) e;
+			GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+			GlStateManager.enableDepth();
+			GlStateManager.enableColorMaterial();
+			GlStateManager.pushMatrix();
+			GlStateManager.translate((float) x - 10, (float) y + 36, 50.0F);
+			GlStateManager.scale(-17.0F, 17.0F, 17.0F);
+			GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+			float f = ent.renderYawOffset;
+			float f1 = ent.rotationYaw;
+			float f2 = ent.prevRotationYaw;
+			float f3 = ent.prevRotationYawHead;
+			float f4 = ent.rotationYawHead;
+			float f5 = ent.prevRenderYawOffset;
+			GlStateManager.rotate(115.0F, 0.0F, 1.0F, 0.0F);
+			RenderHelper.enableStandardItemLighting();
+			float f6 = ent.prevRenderYawOffset + (ent.renderYawOffset - ent.prevRenderYawOffset) * partialTicks;
+			ent.rotationYawHead -= f6;
+			ent.prevRotationYawHead -= f6;
+			ent.rotationYawHead *= 0.5f;
+			ent.prevRotationYawHead *= 0.5f;
+			ent.renderYawOffset = 0.0f;
+			ent.prevRenderYawOffset = 0.0f;
+			ent.prevRotationYaw = 0.0f;
+			ent.rotationYaw = 0.0f;
+			GlStateManager.rotate(-135.0F
+					- (ent.prevRotationYawHead + (ent.rotationYawHead - ent.prevRotationYawHead) * partialTicks) * 0.5F,
+					0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(ent.rotationPitch * 0.2f, 1.0F, 0.0F, 0.0F);
+			RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+			rendermanager.setPlayerViewY(180.0F);
+			rendermanager.setRenderShadow(false);
+			rendermanager.renderEntityWithPosYaw(ent, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+			rendermanager.setRenderShadow(true);
+			ent.renderYawOffset = f;
+			ent.rotationYaw = f1;
+			ent.prevRotationYaw = f2;
+			ent.prevRotationYawHead = f3;
+			ent.rotationYawHead = f4;
+			ent.prevRenderYawOffset = f5;
+			GlStateManager.popMatrix();
+			RenderHelper.disableStandardItemLighting();
+			GlStateManager.disableDepth();
+			GlStateManager.disableRescaleNormal();
+			GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+			GlStateManager.disableTexture2D();
+			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 		}
 	}
 
