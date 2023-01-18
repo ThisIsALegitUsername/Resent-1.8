@@ -111,10 +111,8 @@ public class SpriteLevelMixer {
 
         shaderProgram = _wglCreateProgram();
 
-        _wglAttachShader(shaderProgram, vshLocal);
-        _wglAttachShader(shaderProgram, frag);
-
-        _wglBindAttribLocation(shaderProgram, 0, "a_position2f");
+		_wglAttachShader(shaderProgram, vshLocal);
+		_wglAttachShader(shaderProgram, frag);
 
         _wglLinkProgram(shaderProgram);
 

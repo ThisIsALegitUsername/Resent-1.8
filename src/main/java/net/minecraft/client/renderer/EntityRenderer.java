@@ -17,6 +17,7 @@ import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.EffectPipelineFXAA;
+import net.lax1dude.eaglercraft.v1_8.opengl.GameOverlayFramebuffer;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
@@ -84,109 +85,79 @@ import net.minecraft.world.biome.BiomeGenBase;
  *
  */
 public class EntityRenderer implements IResourceManagerReloadListener {
+	private static final Logger logger = LogManager.getLogger();
+	private static final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
+	private static final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
+	public static boolean anaglyphEnable;
+	public static int anaglyphField;
+	private Minecraft mc;
+	private final IResourceManager resourceManager;
+	private EaglercraftRandom random = new EaglercraftRandom();
+	private float farPlaneDistance;
+	public final ItemRenderer itemRenderer;
+	private final MapItemRenderer theMapItemRenderer;
+	private int rendererUpdateCount;
+	private Entity pointedEntity;
+	private MouseFilter mouseFilterXAxis = new MouseFilter();
+	private MouseFilter mouseFilterYAxis = new MouseFilter();
+	private float thirdPersonDistance = 4.0F;
+	/**+
+	 * Third person distance temp
+	 */
+	private float thirdPersonDistanceTemp = 4.0F;
+	private float smoothCamYaw;
+	private float smoothCamPitch;
+	private float smoothCamFilterX;
+	private float smoothCamFilterY;
+	private float smoothCamPartialTicks;
+	private float fovModifierHand;
+	private float fovModifierHandPrev;
+	private float bossColorModifier;
+	private float bossColorModifierPrev;
+	private boolean cloudFog;
+	private boolean renderHand = true;
+	private boolean drawBlockOutline = true;
+	/**+
+	 * Previous frame time in milliseconds
+	 */
+	private long prevFrameTime = Minecraft.getSystemTime();
+	private long renderEndNanoTime;
+	private final DynamicTexture lightmapTexture;
+	private final int[] lightmapColors;
+	private final ResourceLocation locationLightMap;
+	private boolean lightmapUpdateNeeded;
+	private float torchFlickerX;
+	private float torchFlickerDX;
+	private int rainSoundCounter;
+	private float[] rainXCoords = new float[1024];
+	private float[] rainYCoords = new float[1024];
+	/**+
+	 * Fog color buffer
+	 */
+	private FloatBuffer fogColorBuffer = GLAllocation.createDirectFloatBuffer(16);
+	private float fogColorRed;
+	private float fogColorGreen;
+	private float fogColorBlue;
+	private float fogColor2;
+	private float fogColor1;
+	private int debugViewDirection = 0;
+	private boolean debugView = false;
+	private double cameraZoom = 1.0D;
+	private double cameraYaw;
+	private double cameraPitch;
+	private int frameCount;
+	private GameOverlayFramebuffer overlayFramebuffer;
 
-    private static final Logger logger = LogManager.getLogger();
-    private static final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
-    private static final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
-    public static boolean anaglyphEnable;
-    public static int anaglyphField;
-    private Minecraft mc;
-    private final IResourceManager resourceManager;
-    private EaglercraftRandom random = new EaglercraftRandom();
-    private float farPlaneDistance;
-    public final ItemRenderer itemRenderer;
-    private final MapItemRenderer theMapItemRenderer;
-    private int rendererUpdateCount;
-    private Entity pointedEntity;
-    private MouseFilter mouseFilterXAxis = new MouseFilter();
-    private MouseFilter mouseFilterYAxis = new MouseFilter();
-    private float thirdPersonDistance = 4.0F;
-    /**+
-     * Third person distance temp
-     */
-    private float thirdPersonDistanceTemp = 4.0F;
-    private float smoothCamYaw;
-    private float smoothCamPitch;
-    private float smoothCamFilterX;
-    private float smoothCamFilterY;
-    private float smoothCamPartialTicks;
-    private float fovModifierHand;
-    private float fovModifierHandPrev;
-    private float bossColorModifier;
-    private float bossColorModifierPrev;
-    private boolean cloudFog;
-    private boolean renderHand = true;
-    private boolean drawBlockOutline = true;
-    /**+
-     * Previous frame time in milliseconds
-     */
-    private long prevFrameTime = Minecraft.getSystemTime();
-    private long renderEndNanoTime;
-    private final DynamicTexture lightmapTexture;
-    private final int[] lightmapColors;
-    private final ResourceLocation locationLightMap;
-    private boolean lightmapUpdateNeeded;
-    private float torchFlickerX;
-    private float torchFlickerDX;
-    private int rainSoundCounter;
-    private float[] rainXCoords = new float[1024];
-    private float[] rainYCoords = new float[1024];
-    /**+
-     * Fog color buffer
-     */
-    private FloatBuffer fogColorBuffer = GLAllocation.createDirectFloatBuffer(16);
-    private float fogColorRed;
-    private float fogColorGreen;
-    private float fogColorBlue;
-    private float fogColor2;
-    private float fogColor1;
-    private int debugViewDirection = 0;
-    private boolean debugView = false;
-    private double cameraZoom = 1.0D;
-    private double cameraYaw;
-    private double cameraPitch;
-    private static final ResourceLocation[] shaderResourceLocations = new ResourceLocation[] {
-        new ResourceLocation("shaders/post/notch.json"),
-        new ResourceLocation("shaders/post/fxaa.json"),
-        new ResourceLocation("shaders/post/art.json"),
-        new ResourceLocation("shaders/post/bumpy.json"),
-        new ResourceLocation("shaders/post/blobs2.json"),
-        new ResourceLocation("shaders/post/pencil.json"),
-        new ResourceLocation("shaders/post/color_convolve.json"),
-        new ResourceLocation("shaders/post/deconverge.json"),
-        new ResourceLocation("shaders/post/flip.json"),
-        new ResourceLocation("shaders/post/invert.json"),
-        new ResourceLocation("shaders/post/ntsc.json"),
-        new ResourceLocation("shaders/post/outline.json"),
-        new ResourceLocation("shaders/post/phosphor.json"),
-        new ResourceLocation("shaders/post/scan_pincushion.json"),
-        new ResourceLocation("shaders/post/sobel.json"),
-        new ResourceLocation("shaders/post/bits.json"),
-        new ResourceLocation("shaders/post/desaturate.json"),
-        new ResourceLocation("shaders/post/green.json"),
-        new ResourceLocation("shaders/post/blur.json"),
-        new ResourceLocation("shaders/post/wobble.json"),
-        new ResourceLocation("shaders/post/blobs.json"),
-        new ResourceLocation("shaders/post/antialias.json"),
-        new ResourceLocation("shaders/post/creeper.json"),
-        new ResourceLocation("shaders/post/spider.json")
-    };
-    public static final int shaderCount = shaderResourceLocations.length;
-    private int shaderIndex;
-    private boolean useShader;
-    private int frameCount;
-
-    public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn) {
-        this.shaderIndex = shaderCount;
-        this.useShader = false;
-        this.frameCount = 0;
-        this.mc = mcIn;
-        this.resourceManager = resourceManagerIn;
-        this.itemRenderer = mcIn.getItemRenderer();
-        this.theMapItemRenderer = new MapItemRenderer(mcIn.getTextureManager());
-        this.lightmapTexture = new DynamicTexture(16, 16);
-        this.locationLightMap = mcIn.getTextureManager().getDynamicTextureLocation("lightMap", this.lightmapTexture);
-        this.lightmapColors = this.lightmapTexture.getTextureData();
+	public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn) {
+		this.frameCount = 0;
+		this.mc = mcIn;
+		this.resourceManager = resourceManagerIn;
+		this.itemRenderer = mcIn.getItemRenderer();
+		this.theMapItemRenderer = new MapItemRenderer(mcIn.getTextureManager());
+		this.lightmapTexture = new DynamicTexture(16, 16);
+		this.locationLightMap = mcIn.getTextureManager().getDynamicTextureLocation("lightMap", this.lightmapTexture);
+		this.lightmapColors = this.lightmapTexture.getTextureData();
+		this.overlayFramebuffer = new GameOverlayFramebuffer();
 
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GlStateManager.matrixMode(GL_TEXTURE);
@@ -214,9 +185,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     public void func_181022_b() {}
 
-    public void switchUseShader() {
-        this.useShader = !this.useShader;
-    }
+	public void switchUseShader() {
+	}
 
     /**+
      * What shader to use when spectating this entity
@@ -225,9 +195,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     public void activateNextShader() {}
 
-    private void loadShader(ResourceLocation resourceLocationIn) {
-        this.useShader = false;
-    }
+	private void loadShader(ResourceLocation resourceLocationIn) {
+	}
 
     public void onResourceManagerReload(IResourceManager var1) {}
 
@@ -860,28 +829,64 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
         }
 
-        this.mc.mcProfiler.endSection();
-        if (!this.mc.skipRenderWorld) {
-            anaglyphEnable = this.mc.gameSettings.anaglyph;
-            final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-            int l = scaledresolution.getScaledWidth();
-            int i1 = scaledresolution.getScaledHeight();
-            final int j1 = Mouse.getX() * l / this.mc.displayWidth;
-            final int k1 = i1 - Mouse.getY() * i1 / this.mc.displayHeight - 1;
-            int l1 = this.mc.gameSettings.limitFramerate;
-            if (this.mc.theWorld != null) {
-                this.mc.mcProfiler.startSection("level");
-                int i = Math.min(Minecraft.getDebugFPS(), l1);
-                i = Math.max(i, 60);
-                long j = System.nanoTime() - parLong1;
-                long k = Math.max((long) (1000000000 / i / 4) - j, 0L);
-                this.renderWorld(parFloat1, System.nanoTime() + k);
-                this.renderEndNanoTime = System.nanoTime();
-                this.mc.mcProfiler.endStartSection("gui");
-                if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
-                    GlStateManager.alphaFunc(GL_GREATER, 0.1F);
-                    this.mc.ingameGUI.renderGameOverlay(parFloat1);
-                }
+		this.mc.mcProfiler.endSection();
+		if (!this.mc.skipRenderWorld) {
+			anaglyphEnable = this.mc.gameSettings.anaglyph;
+			final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+			int l = scaledresolution.getScaledWidth();
+			int i1 = scaledresolution.getScaledHeight();
+			final int j1 = Mouse.getX() * l / this.mc.displayWidth;
+			final int k1 = i1 - Mouse.getY() * i1 / this.mc.displayHeight - 1;
+			int l1 = this.mc.gameSettings.limitFramerate;
+			if (this.mc.theWorld != null) {
+				this.mc.mcProfiler.startSection("level");
+				int i = Math.min(Minecraft.getDebugFPS(), l1);
+				i = Math.max(i, 60);
+				long j = System.nanoTime() - parLong1;
+				long k = Math.max((long) (1000000000 / i / 4) - j, 0L);
+				this.renderWorld(parFloat1, System.nanoTime() + k);
+				this.renderEndNanoTime = System.nanoTime();
+				this.mc.mcProfiler.endStartSection("gui");
+				if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
+					GlStateManager.alphaFunc(GL_GREATER, 0.1F);
+					long framebufferAge = this.overlayFramebuffer.getAge();
+					if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
+						this.overlayFramebuffer.beginRender(mc.displayWidth, mc.displayHeight);
+						GlStateManager.colorMask(true, true, true, true);
+						GlStateManager.clearColor(0.0f, 0.0f, 0.0f, 0.0f);
+						GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+						this.mc.ingameGUI.renderGameOverlay(parFloat1);
+						this.overlayFramebuffer.endRender();
+					}
+					this.setupOverlayRendering();
+					GlStateManager.enableBlend();
+					if (Minecraft.isFancyGraphicsEnabled()) {
+						this.mc.ingameGUI.renderVignette(parFloat1, l, i1);
+					}
+					this.mc.ingameGUI.renderGameOverlayCrosshairs(l, i1);
+					GlStateManager.bindTexture(this.overlayFramebuffer.getTexture());
+					GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+					GlStateManager.enableBlend();
+					GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					GlStateManager.disableAlpha();
+					GlStateManager.disableDepth();
+					GlStateManager.depthMask(false);
+					Tessellator tessellator = Tessellator.getInstance();
+					WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+					worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+					worldrenderer.pos(0.0D, (double) i1, -90.0D).tex(0.0D, 0.0D).endVertex();
+					worldrenderer.pos((double) l, (double) i1, -90.0D).tex(1.0D, 0.0D).endVertex();
+					worldrenderer.pos((double) l, 0.0D, -90.0D).tex(1.0D, 1.0D).endVertex();
+					worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 1.0D).endVertex();
+					tessellator.draw();
+					GlStateManager.depthMask(true);
+					GlStateManager.enableDepth();
+					GlStateManager.enableAlpha();
+					GlStateManager.disableBlend();
+					if (this.mc.gameSettings.hudPlayer) { // give the player model HUD good fps
+						this.mc.ingameGUI.drawEaglerPlayerOverlay(l - 3, 3, parFloat1);
+					}
+				}
 
                 this.mc.mcProfiler.endSection();
             } else {

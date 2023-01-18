@@ -69,34 +69,30 @@ public class GuiOverlayDebug extends Gui {
         this.fontRenderer = mc.fontRendererObj;
     }
 
-    public void renderDebugInfo(ScaledResolution scaledResolutionIn, float partialTicks) {
-        int ww = scaledResolutionIn.getScaledWidth();
-        int hh = scaledResolutionIn.getScaledHeight();
-        this.mc.mcProfiler.startSection("debug");
-        if (this.mc.gameSettings.showDebugInfo) {
-            GlStateManager.pushMatrix();
-            this.renderDebugInfoLeft();
-            this.renderDebugInfoRight(scaledResolutionIn);
-            GlStateManager.popMatrix();
-            if (this.mc.gameSettings.field_181657_aC) {
-                this.func_181554_e();
-            }
-        } else {
-            int i = 2;
+	public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
+		int ww = scaledResolutionIn.getScaledWidth();
+		int hh = scaledResolutionIn.getScaledHeight();
+		this.mc.mcProfiler.startSection("debug");
+		if (this.mc.gameSettings.showDebugInfo) {
+			GlStateManager.pushMatrix();
+			this.renderDebugInfoLeft();
+			this.renderDebugInfoRight(scaledResolutionIn);
+			GlStateManager.popMatrix();
+			if (this.mc.gameSettings.field_181657_aC) {
+				this.func_181554_e();
+			}
+		} else {
+			int i = 2;
 
             if (this.mc.gameSettings.hudFps) {
                 drawFPS(2, i);
                 i += 9;
             }
 
-            if (this.mc.gameSettings.hudCoords) {
-                drawXYZ(2, i);
-            }
-
-            if (this.mc.gameSettings.hudPlayer) {
-                drawPlayer(ww - 3, 3, partialTicks);
-            }
-        }
+			if (this.mc.gameSettings.hudCoords) {
+				drawXYZ(2, i);
+			}
+		}
 
         if (this.mc.currentScreen == null || !(this.mc.currentScreen instanceof GuiChat)) {
             if (this.mc.gameSettings.hudStats) {
@@ -230,61 +226,11 @@ public class GuiOverlayDebug extends Gui {
 
         String tempString = "Temp: " + ((blockLight > 11 || temp > 0.15f) ? EnumChatFormatting.YELLOW : EnumChatFormatting.AQUA) + HString.format("%.2f", temp) + EnumChatFormatting.WHITE;
 
-        this.fontRenderer.drawStringWithShadow(timeString, x, y - 30, 0xFFFFFF);
-        this.fontRenderer.drawStringWithShadow("Biome: " + EnumChatFormatting.AQUA + biome.biomeName, x, y - 19, 0xFFFFFF);
-        this.fontRenderer.drawStringWithShadow(lightString + " " + tempString, x, y - 8, 0xFFFFFF);
-    }
-
-    private void drawPlayer(int x, int y, float partialTicks) {
-        Entity e = mc.getRenderViewEntity();
-        if (e != null && e instanceof EntityLivingBase) {
-            EntityLivingBase ent = (EntityLivingBase) e;
-            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            GlStateManager.enableDepth();
-            GlStateManager.enableColorMaterial();
-            GlStateManager.pushMatrix();
-            GlStateManager.translate((float) x - 10, (float) y + 36, 50.0F);
-            GlStateManager.scale(-17.0F, 17.0F, 17.0F);
-            GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-            float f = ent.renderYawOffset;
-            float f1 = ent.rotationYaw;
-            float f2 = ent.prevRotationYaw;
-            float f3 = ent.prevRotationYawHead;
-            float f4 = ent.rotationYawHead;
-            float f5 = ent.prevRenderYawOffset;
-            GlStateManager.rotate(115.0F, 0.0F, 1.0F, 0.0F);
-            RenderHelper.enableStandardItemLighting();
-            float f6 = ent.prevRenderYawOffset + (ent.renderYawOffset - ent.prevRenderYawOffset) * partialTicks;
-            ent.rotationYawHead -= f6;
-            ent.prevRotationYawHead -= f6;
-            ent.rotationYawHead *= 0.5f;
-            ent.prevRotationYawHead *= 0.5f;
-            ent.renderYawOffset = 0.0f;
-            ent.prevRenderYawOffset = 0.0f;
-            ent.prevRotationYaw = 0.0f;
-            ent.rotationYaw = 0.0f;
-            GlStateManager.rotate(-135.0F - (ent.prevRotationYawHead + (ent.rotationYawHead - ent.prevRotationYawHead) * partialTicks) * 0.5F, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(ent.rotationPitch * 0.2f, 1.0F, 0.0F, 0.0F);
-            RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-            rendermanager.setPlayerViewY(180.0F);
-            rendermanager.setRenderShadow(false);
-            rendermanager.renderEntityWithPosYaw(ent, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
-            rendermanager.setRenderShadow(true);
-            ent.renderYawOffset = f;
-            ent.rotationYaw = f1;
-            ent.prevRotationYaw = f2;
-            ent.prevRotationYawHead = f3;
-            ent.rotationYawHead = f4;
-            ent.prevRenderYawOffset = f5;
-            GlStateManager.popMatrix();
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.disableDepth();
-            GlStateManager.disableRescaleNormal();
-            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-            GlStateManager.disableTexture2D();
-            GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-        }
-    }
+		this.fontRenderer.drawStringWithShadow(timeString, x, y - 30, 0xFFFFFF);
+		this.fontRenderer.drawStringWithShadow("Biome: " + EnumChatFormatting.AQUA + biome.biomeName, x, y - 19,
+				0xFFFFFF);
+		this.fontRenderer.drawStringWithShadow(lightString + " " + tempString, x, y - 8, 0xFFFFFF);
+	}
 
     private void drawHideHUD(int x, int y, int fade) {
         drawCenteredString(fontRenderer, I18n.format("options.hud.note"), x, y, 0xEECC00 | (fade << 24));
