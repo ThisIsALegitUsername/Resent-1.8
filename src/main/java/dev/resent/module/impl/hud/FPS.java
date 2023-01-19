@@ -1,5 +1,6 @@
 package dev.resent.module.impl.hud;
 
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
@@ -17,19 +18,21 @@ public class FPS extends RenderModule {
     public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
 
     public int getWidth() {
-        return mc.fontRendererObj.getStringWidth("[FPS: " + Minecraft.debugFPS + "]") + 4;
+        return mc.fontRendererObj.getStringWidth(getText()) + 4;
     }
 
     public int getHeight() {
         return mc.fontRendererObj.FONT_HEIGHT + 4;
     }
 
+    public String getText(){
+        return "[FPS: " + Minecraft.debugFPS + "]";
+    }
+
     @Override
     public void draw() {
         if (mc.thePlayer != null) {
-            if (this.isEnabled()) {
-                mc.fontRendererObj.drawString("[FPS: " + Minecraft.debugFPS + "]", this.x + 2, this.y + 2, -1, tshadow.getValue());
-            }
+            mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
         }
     }
 }

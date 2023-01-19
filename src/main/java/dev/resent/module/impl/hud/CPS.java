@@ -3,6 +3,7 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
@@ -35,7 +36,7 @@ public class CPS extends RenderModule {
 
     @Override
     public void draw() {
-        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 
     public String getText(){

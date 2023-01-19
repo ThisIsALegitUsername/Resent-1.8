@@ -27,6 +27,7 @@ import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.Fullbright;
+import dev.resent.module.impl.misc.HUD;
 import dev.resent.module.impl.misc.HotbarAnimation;
 import dev.resent.module.impl.misc.MinimalViewBobbing;
 import dev.resent.module.impl.misc.NoParticles;
@@ -78,11 +79,13 @@ public class ModManager {
     public static Ping ping;
     public static ServerInfo serverInfo;
     public static Crosshair crosshair = new Crosshair();
+    public static HUD hud = new HUD();
 
     public ModManager() {
         //Hud
         register(cosmetics);
         register(hotbar);
+        register(hud = new HUD());
         register(ping = new Ping());
         register(serverInfo = new ServerInfo());
         register(watermark = new Watermark());
@@ -120,7 +123,7 @@ public class ModManager {
         register(animations);
     }
 
-    public void register(Mod m) {
+    public void register(final Mod m) {
         this.modules.add(m);
     }
 }

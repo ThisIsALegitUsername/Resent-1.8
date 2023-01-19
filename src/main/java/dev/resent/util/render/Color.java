@@ -32,7 +32,7 @@ public class Color {
     /**
      * The color dark gray.  In the default sRGB space.
      */
-    public static final Color darkGray = new Color(64, 64, 64);
+    public static final Color darkGray = new Color(240, 240, 240);
 
     /**
      * The color dark gray.  In the default sRGB space.

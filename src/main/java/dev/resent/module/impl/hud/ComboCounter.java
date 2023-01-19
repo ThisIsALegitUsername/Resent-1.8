@@ -2,17 +2,17 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.event.impl.Event;
 import dev.resent.event.impl.EventAttack;
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class ComboCounter extends RenderModule {
 
     public static boolean attacked = false;
     public static int combo = 0;
-    public static BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
+    public static BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
     public ComboCounter() {
         super("ComboCounter", Category.HUD, 4, 24, true);
@@ -33,15 +33,19 @@ public class ComboCounter extends RenderModule {
     }
 
     public int getWidth() {
-        return Minecraft.getMinecraft().fontRendererObj.getStringWidth("[0 Combo]") + 4;
+        return mc.fontRendererObj.getStringWidth(getText()) + 4;
     }
 
     public int getHeight() {
-        return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4;
+        return mc.fontRendererObj.FONT_HEIGHT + 4;
+    }
+
+    private String getText(){
+        return "["+combo+" Combo]";
     }
 
     @Override
     public void draw() {
-        Minecraft.getMinecraft().fontRendererObj.drawString("[" + combo + " Combo]", this.x + 2, this.y + 2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 }
