@@ -576,6 +576,8 @@ public class GuiIngame extends Gui {
 				this.lastSystemTime = Minecraft.getSystemTime();
 			}
 
+			GlStateManager.enableBlend();
+			GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 			this.playerHealth = i;
 			int j = this.lastPlayerHealth;
 			this.rand.setSeed((long) (this.updateCounter * 312871));

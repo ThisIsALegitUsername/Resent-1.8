@@ -44,24 +44,25 @@ public class GlStateManager {
     static float stateColorA = 1.0f;
     static int stateColorSerial = 0;
 
-    static float stateShaderBlendSrcColorR = 1.0f;
-    static float stateShaderBlendSrcColorG = 1.0f;
-    static float stateShaderBlendSrcColorB = 1.0f;
-    static float stateShaderBlendSrcColorA = 1.0f;
-    static float stateShaderBlendAddColorR = 0.0f;
-    static float stateShaderBlendAddColorG = 0.0f;
-    static float stateShaderBlendAddColorB = 0.0f;
-    static float stateShaderBlendAddColorA = 0.0f;
-    static int stateShaderBlendColorSerial = 0;
-    static boolean stateEnableShaderBlendColor = false;
+	static float stateShaderBlendSrcColorR = 1.0f;
+	static float stateShaderBlendSrcColorG = 1.0f;
+	static float stateShaderBlendSrcColorB = 1.0f;
+	static float stateShaderBlendSrcColorA = 1.0f;
+	static float stateShaderBlendAddColorR = 0.0f;
+	static float stateShaderBlendAddColorG = 0.0f;
+	static float stateShaderBlendAddColorB = 0.0f;
+	static float stateShaderBlendAddColorA = 0.0f;
+	static int stateShaderBlendColorSerial = 0;
+	static boolean stateEnableShaderBlendColor = false;
+	
+	static boolean stateBlend = false;
+	static int stateBlendEquation = -1;
+	static int stateBlendSRC = -1;
+	static int stateBlendDST = -1;
+	static boolean stateEnableOverlayFramebufferBlending = false;
 
-    static boolean stateBlend = false;
-    static int stateBlendEquation = -1;
-    static int stateBlendSRC = -1;
-    static int stateBlendDST = -1;
-
-    static boolean stateAlphaTest = false;
-    static float stateAlphaTestRef = 0.1f;
+	static boolean stateAlphaTest = false;
+	static float stateAlphaTestRef = 0.1f;
 
     static boolean stateMaterial = false;
     static boolean stateLighting = false;
@@ -332,25 +333,29 @@ public class GlStateManager {
         }
     }
 
-    public static final void blendFunc(int srcFactor, int dstFactor) {
-        int srcBits = (srcFactor | (srcFactor << 16));
-        int dstBits = (dstFactor | (dstFactor << 16));
-        if (srcBits != stateBlendSRC || dstBits != stateBlendDST) {
-            _wglBlendFunc(srcFactor, dstFactor);
-            stateBlendSRC = srcBits;
-            stateBlendDST = dstBits;
-        }
-    }
+	public static final void blendFunc(int srcFactor, int dstFactor) {
+		if(stateEnableOverlayFramebufferBlending) {
+			tryBlendFuncSeparate(srcFactor, dstFactor, 0, 1);
+			return;
+		}
+		int srcBits = (srcFactor | (srcFactor << 16));
+		int dstBits = (dstFactor | (dstFactor << 16));
+		if(srcBits != stateBlendSRC || dstBits != stateBlendDST) {
+			_wglBlendFunc(srcFactor, dstFactor);
+			stateBlendSRC = srcBits;
+			stateBlendDST = dstBits;
+		}
+	}
 
-    public static final void tryBlendFuncSeparate(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
-        int srcBits = (srcFactor | (srcFactorAlpha << 16));
-        int dstBits = (dstFactor | (dstFactorAlpha << 16));
-        if (srcBits != stateBlendSRC || dstBits != stateBlendDST) {
-            _wglBlendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
-            stateBlendSRC = srcBits;
-            stateBlendDST = dstBits;
-        }
-    }
+	public static final void tryBlendFuncSeparate(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
+		int srcBits = (srcFactor | (srcFactorAlpha << 16));
+		int dstBits = (dstFactor | (dstFactorAlpha << 16));
+		if(srcBits != stateBlendSRC || dstBits != stateBlendDST) {
+			_wglBlendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+			stateBlendSRC = srcBits;
+			stateBlendDST = dstBits;
+		}
+	}
 
     public static final void setShaderBlendSrc(float r, float g, float b, float a) {
         stateShaderBlendSrcColorR = r;
