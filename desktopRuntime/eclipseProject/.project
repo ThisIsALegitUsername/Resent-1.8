@@ -18,12 +18,12 @@
 		<link>
 			<name>src_lwjgl_java</name>
 			<type>2</type>
-			<location>/workspace/Resent-1.8/eaglercraftx/src/lwjgl/java</location>
+			<location>/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/src/lwjgl/java</location>
 		</link>
 		<link>
 			<name>src_main_java</name>
 			<type>2</type>
-			<location>/workspace/Resent-1.8/eaglercraftx/src/main/java</location>
+			<location>/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/src/main/java</location>
 		</link>
 	</linkedResources>
 </projectDescription>

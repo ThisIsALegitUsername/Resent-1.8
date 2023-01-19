@@ -892,7 +892,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						GlStateManager.colorMask(true, true, true, true);
 						GlStateManager.clearColor(0.0f, 0.0f, 0.0f, 0.0f);
 						GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+						GlStateManager.enableOverlayFramebufferBlending();
 						this.mc.ingameGUI.renderGameOverlay(parFloat1);
+						GlStateManager.disableOverlayFramebufferBlending();
 						this.overlayFramebuffer.endRender();
 					}
 					this.setupOverlayRendering();
@@ -904,7 +906,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					GlStateManager.bindTexture(this.overlayFramebuffer.getTexture());
 					GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 					GlStateManager.enableBlend();
-					GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					GlStateManager.blendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 					GlStateManager.disableAlpha();
 					GlStateManager.disableDepth();
 					GlStateManager.depthMask(false);
