@@ -59,6 +59,8 @@ public class Mod {
                 RenderUtils.drawRect(left, top, right, bottom, new Color(255, 255, 255, 200).getRGB());
             case 3: 
                 RenderUtils.drawRect(left, top, right, bottom, new Color(0, 0, 0, 140).getRGB());
+            case 4:
+                RenderUtils.drawChromaRect(left, top, right, bottom);
         }
     }
 
