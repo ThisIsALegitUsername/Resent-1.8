@@ -20,7 +20,7 @@ public class KeyStrokes extends RenderModule {
         super("Keystrokes", Category.HUD, 25, 4, true);
         addSetting(chroma, sneak, transparent, tshadow, jump, color, colorp, gcolor, gcolorp, size);
     }
-
+ 
     public BooleanSetting chroma = new BooleanSetting("Rainbow", "", false);
     public BooleanSetting sneak = new BooleanSetting("Sneak", "", false);
     public BooleanSetting jump = new BooleanSetting("Jump", "", true);
@@ -57,6 +57,7 @@ public class KeyStrokes extends RenderModule {
         GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
 
         if (!transparent.getValue()) {
+
             //W
             Gui.drawRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, wKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // S

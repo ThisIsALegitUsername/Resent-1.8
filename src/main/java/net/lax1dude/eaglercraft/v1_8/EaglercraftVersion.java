@@ -7,11 +7,11 @@ public class EaglercraftVersion {
 	
 	/// Customize these to fit your fork:
 	
-	public static final String projectForkName = "EaglercraftX";
-	public static final String projectForkVersion = "u13";
-	public static final String projectForkVendor = "lax1dude";
+	public static final String projectForkName = "Resent";
+	public static final String projectForkVersion = "3.3.2";
+	public static final String projectForkVendor = "Nitwit";
 	
-	public static final String projectForkURL = "https://gitlab.com/lax1dude/eaglercraftx-1.8";
+	public static final String projectForkURL = "https://github.com/ThisIsALegitUsername/Resent-web";
 	
 	//////////////////////////////////////////////////////////////////////
 	
