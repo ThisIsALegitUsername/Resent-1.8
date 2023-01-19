@@ -6,6 +6,7 @@ import java.util.List;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
+import dev.resent.util.misc.FuncUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 
 public class CPS extends RenderModule {
@@ -25,7 +26,7 @@ public class CPS extends RenderModule {
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
     public int getWidth() {
-        return mc.fontRendererObj.getStringWidth("[00 CPS]") + 4;
+        return mc.fontRendererObj.getStringWidth("[00 | 00]") + 4;
     }
 
     public int getHeight() {
@@ -63,13 +64,13 @@ public class CPS extends RenderModule {
 
     public int getLMB() {
         final long time = System.currentTimeMillis();
-        this.clicksLMB.removeIf(aLong -> aLong + 1000 < time);
+        FuncUtils.removeIf(clicksLMB, aLong -> aLong + 1000 < time);
         return this.clicksLMB.size();
     }
     
     public int getRMB() {
         final long time = System.currentTimeMillis();
-        this.clicksRMB.removeIf(aLong -> aLong + 1000 < time);
+        FuncUtils.removeIf(clicksRMB, aLong -> aLong + 1000 < time);
         return this.clicksRMB.size();
     }
 

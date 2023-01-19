@@ -1,17 +1,30 @@
 package net.minecraft.client.gui;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_DST_COLOR;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import dev.resent.Resent;
+import dev.resent.animation.SimpleAnimation;
+import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
+import dev.resent.module.base.RenderModule;
+import dev.resent.module.impl.misc.Crosshair;
+import dev.resent.ui.HUDConfigScreen;
+import dev.resent.util.misc.W;
+import dev.resent.util.render.Color;
+import dev.resent.util.render.RenderUtils;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
+import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
@@ -73,7 +86,7 @@ public class GuiIngame extends Gui {
 	private static final ResourceLocation pumpkinBlurTexPath = new ResourceLocation("textures/misc/pumpkinblur.png");
 	private final EaglercraftRandom rand = new EaglercraftRandom();
 	private final Minecraft mc;
-	private final RenderItem itemRenderer;
+	public static RenderItem itemRenderer;
 	private final GuiNewChat persistantChatGUI;
 	private int updateCounter;
 	/**+
@@ -111,7 +124,7 @@ public class GuiIngame extends Gui {
 
 	public GuiIngame(Minecraft mcIn) {
 		this.mc = mcIn;
-		this.itemRenderer = mcIn.getRenderItem();
+		itemRenderer = mcIn.getRenderItem();
 		this.overlayDebug = new GuiOverlayDebug(mcIn);
 		this.spectatorGui = new GuiSpectator(mcIn);
 		this.persistantChatGUI = new GuiNewChat(mcIn);
@@ -277,7 +290,7 @@ public class GuiIngame extends Gui {
 
 		ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective
 				: scoreboard.getObjectiveInDisplaySlot(1);
-		if (scoreobjective1 != null) {
+		if (scoreobjective1 != null && W.scoreboard().isEnabled()) {
 			this.renderScoreboard(scoreobjective1, scaledresolution);
 		}
 
@@ -302,6 +315,14 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
+        for (Mod m : Resent.INSTANCE.modManager.modules) {
+            if (m.isEnabled() && (m instanceof RenderModule)) {
+                if (!(mc.currentScreen instanceof HUDConfigScreen)) {
+                    ((RenderModule) m).draw();
+                }
+            }
+        }
+
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
 		GlStateManager.enableAlpha();
@@ -314,10 +335,18 @@ public class GuiIngame extends Gui {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
+
+            if (Minecraft.getMinecraft().pointedEntity != null && ModManager.crosshair.isEnabled()){
+                GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue());
+                GlStateManager.disableAlpha();
+            }
+            
 			this.drawTexturedModalRect(scaledResWidth / 2 - 7, scaledResHeight / 2 - 7, 0, 0, 16, 16);
 		}
 	}
 
+    public SimpleAnimation simpleAnimation = new SimpleAnimation(0.0F);
+    
 	protected void renderTooltip(ScaledResolution sr, float partialTicks) {
 		if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -326,9 +355,19 @@ public class GuiIngame extends Gui {
 			int i = sr.getScaledWidth() / 2;
 			float f = this.zLevel;
 			this.zLevel = -90.0F;
-			this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-			this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20,
+
+            simpleAnimation.setAnimation(entityplayer.inventory.currentItem * 20, ModManager.hotbar.getSpeed());
+            int itemX = i - 90 + ((int) simpleAnimation.getValue());
+
+            if(!ModManager.hotbar.isEnabled()){
+			    this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+			    this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20,
 					sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+            }else {
+                drawRect(itemX, sr.getScaledHeight() - 21, itemX + 24, sr.getScaledHeight(), new Color(230, 230, 230, 180).getRGB());
+            }
+
+
 			this.zLevel = f;
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.enableBlend();
@@ -504,6 +543,7 @@ public class GuiIngame extends Gui {
 			int l = parScaledResolution.getScaledWidth() - b0 + 2;
 			drawRect(k1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
 			this.getFontRenderer().drawString(s1, k1, k, 553648127);
+            if (W.scoreboard().numbers.getValue())
 			this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 			if (j == arraylist1.size()) {
 				String s3 = parScoreObjective.getDisplayName();
@@ -881,12 +921,12 @@ public class GuiIngame extends Gui {
 				GlStateManager.translate((float) (-(xPos + 8)), (float) (-(yPos + 12)), 0.0F);
 			}
 
-			this.itemRenderer.renderItemAndEffectIntoGUI(itemstack, xPos, yPos);
+			itemRenderer.renderItemAndEffectIntoGUI(itemstack, xPos, yPos);
 			if (f > 0.0F) {
 				GlStateManager.popMatrix();
 			}
 
-			this.itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
+			itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
 		}
 	}
 
