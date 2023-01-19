@@ -10,7 +10,6 @@ import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 
 public class KeyStrokes extends RenderModule {
     public static KeyStrokes INSTANCE = new KeyStrokes();
@@ -59,23 +58,23 @@ public class KeyStrokes extends RenderModule {
         if (!transparent.getValue()) {
 
             //W
-            Gui.drawRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, wKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            drawRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, wKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // S
-            Gui.drawRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55, sKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            drawRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55, sKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // A
-            Gui.drawRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55, aKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            drawRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55, aKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // D
-            Gui.drawRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, dKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            drawRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, dKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // LMB
-            Gui.drawRect(this.x + 3, this.y + 57, this.x + 41, this.y + 82, pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            drawRect(this.x + 3, this.y + 57, this.x + 41, this.y + 82, pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // RMB
-            Gui.drawRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, rpressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            drawRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, rpressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
 
             // Jump
-            if (jump.getValue()) Gui.drawRect(this.x + 3, this.y + 84, this.x + 85 - 3, this.y + 105 - 6, spaceKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            if (jump.getValue()) drawRect(this.x + 3, this.y + 84, this.x + 85 - 3, this.y + 105 - 6, spaceKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
 
             // Sneak
-            if (sneak.getValue()) Gui.drawRect(this.x + 3, jump.getValue() ? this.y + 102 : this.y + 84, this.x + 85 - 3, jump.getValue() ? this.y + 120 - 3 : this.y + 105 - 6, mc.gameSettings.keyBindSneak.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            if (sneak.getValue()) drawRect(this.x + 3, jump.getValue() ? this.y + 102 : this.y + 84, this.x + 85 - 3, jump.getValue() ? this.y + 120 - 3 : this.y + 105 - 6, mc.gameSettings.keyBindSneak.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
         }
 
         mc.fontRendererObj.drawString("W", this.x + 25 + 5 + (25 / 2 - mc.fontRendererObj.getStringWidth("W") + 4), this.y + 8 + 3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : wKey ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());

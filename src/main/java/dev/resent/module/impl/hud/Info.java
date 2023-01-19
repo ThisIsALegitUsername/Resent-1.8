@@ -32,7 +32,7 @@ public class Info extends RenderModule {
         int pz = (int) mc.thePlayer.posZ;
         //int rot = MathHelper.floor_double(this.mc.thePlayer.rotationYaw*4/360+0.5) & 3;
         if (mc.thePlayer != null) {
-            Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), new Color(0, 0, 0, 200).getRGB());
+            drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), new Color(0, 0, 0, 200).getRGB());
             mc.fontRendererObj.drawStringWithShadow(" X: " + px, this.x + 5, this.y + 14, -1);
             mc.fontRendererObj.drawStringWithShadow(" Y: " + py, this.x + 5, this.y + 24, -1);
             mc.fontRendererObj.drawStringWithShadow(" Z: " + pz, this.x + 5, this.y + 34, -1);

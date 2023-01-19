@@ -104,7 +104,7 @@ public void drawScreen(int mouseX, int mouseY, float par3) {
                         b.getValue() ? Color.GREEN.getRGB() : Color.RED.getRGB());
 
                 //Draw outline fill
-                Gui.drawRect(this.x+4+5, height-1-fh*-(off)-offset, this.x+11+5,
+                drawRect(this.x+4+5, height-1-fh*-(off)-offset, this.x+11+5,
                         height-3-fh*(-off)+fh-offset, isMouseInside(mouseX, mouseY, this.x+4+5,
                                 height-1-fh*-(off)-offset, this.x+11+5,
                                 height-3-fh*(-off)+fh-offset) ? Color.LIGHT_GRAY.getRGB() : Color.GRAY.getRGB());

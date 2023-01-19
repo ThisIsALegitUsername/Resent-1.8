@@ -125,10 +125,10 @@ public class ClickGUI extends GuiScreen {
         GlUtils.startScale(((this.x) + (this.x + this.width)) / 2, ((this.y) + (this.y + this.height)) / 2, (float) introAnimation.getValue());
 
         // background
-        Gui.drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
+        drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
         fr.drawString(Resent.NAME + " Client " + Resent.VERSION, x + 8, height - 2, -1);
         RenderUtils.drawRectOutline(GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, GuiScreen.height - y - fr.FONT_HEIGHT, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), GuiScreen.height - y + 5, -1);
-        Gui.drawRect(
+        drawRect(
             GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 4,
             GuiScreen.height - y - fr.FONT_HEIGHT + 1,
             GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1,
@@ -144,14 +144,14 @@ public class ClickGUI extends GuiScreen {
 
         GlUtils.stopScale();
         // white line
-        Gui.drawRect(x - 8, height + 29, width + 33, height + 30, -1);
+        drawRect(x - 8, height + 29, width + 33, height + 30, -1);
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20) {
                     // Enabled outline
                     RenderUtils.drawRectOutline(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
-                    Gui.drawRect(
+                    drawRect(
                         this.x + 10 + xo - 1 + 10,
                         height - 2 - fh * -(off) + 50 - 1 - offset,
                         this.x + 90 + xo - 1 + 22,
@@ -172,7 +172,7 @@ public class ClickGUI extends GuiScreen {
                         //RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
                         //fr.drawString("+", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
                         //fr.drawString(" x", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
-                        // Gui.drawRect(this.x+90+xo-1+10, height-2-fh*-(off)+51-1-offset,
+                        // drawRect(this.x+90+xo-1+10, height-2-fh*-(off)+51-1-offset,
                         // this.x+90+xo-1+21, height+30-fh*(-off)+30-1+2-1-offset, -1);
                     }
 
@@ -190,7 +190,7 @@ public class ClickGUI extends GuiScreen {
                     if (s instanceof BooleanSetting) {
                         b = (BooleanSetting) s;
                         RenderUtils.drawRectOutline(this.x + 6 + 6, height - fr.FONT_HEIGHT + 50 + var, this.x + 15 + 6, height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var, b.getValue() ? Color.GREEN.getRGB() : Color.RED.getRGB());
-                        Gui.drawRect(
+                        drawRect(
                             this.x + 6 + 1 + 6,
                             height - fr.FONT_HEIGHT + 50 + var + 1,
                             this.x + 15 - 1 + 6,

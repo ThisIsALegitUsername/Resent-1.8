@@ -1,12 +1,15 @@
 package dev.resent.module.base;
 
-import dev.resent.Resent;
-import dev.resent.event.impl.Event;
-import dev.resent.setting.Setting;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import dev.resent.Resent;
+import dev.resent.event.impl.Event;
+import dev.resent.module.Theme;
+import dev.resent.setting.Setting;
+import dev.resent.util.render.Color;
+import dev.resent.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 
 public class Mod {
@@ -37,7 +40,6 @@ public class Mod {
     }
 
     public void onEnable() {}
-
     public void onDisable() {}
 
     public void toggle() {
@@ -49,10 +51,20 @@ public class Mod {
         }
     }
 
+    protected void drawRect(int left, int top, int right, int bottom, int color){
+        switch(Theme.getId()){
+            case 1:
+                RenderUtils.drawRect(left, top, right, bottom, color);
+            case 2:
+                RenderUtils.drawRect(left, top, right, bottom, new Color(255, 255, 255, 200).getRGB());
+            case 3: 
+                RenderUtils.drawRect(left, top, right, bottom, new Color(0, 0, 0, 140).getRGB());
+        }
+    }
+
     public void onEvent(Event e) {
         for (int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++) {
             if (!Resent.INSTANCE.modManager.modules.get(i).isEnabled()) continue;
-
             Resent.INSTANCE.modManager.modules.get(i).onEvent(e);
         }
     }
@@ -62,11 +74,7 @@ public class Mod {
         if (this.enabled) onEnable(); else onDisable();
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+    public boolean isEnabled() { return enabled; }
+    public String getName() { return name; }
 
-    public String getName() {
-        return name;
-    }
 }
