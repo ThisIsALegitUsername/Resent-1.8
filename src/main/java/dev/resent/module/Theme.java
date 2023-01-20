@@ -1,7 +1,6 @@
 package dev.resent.module;
 
 import dev.resent.module.impl.misc.HUD;
-import dev.resent.util.render.Color;
 import dev.resent.util.render.RainbowUtil;
 
 public class Theme {
@@ -14,10 +13,6 @@ public class Theme {
         switch(id){
             case 1:
                 return -1;
-            case 2:
-                return Color.black.getRGB();
-            case 3:
-                return Color.white.getRGB();
             case 50:
                 return RainbowUtil.getRainbow(4f, 0.8f, 0.85f);
         }
@@ -28,10 +23,6 @@ public class Theme {
         switch(HUD.theme.getValue()){
             case "Classic":
                 return 1;
-            case "Light":
-                return 2;
-            case "Dark":
-                return 3;
             case "Rainbow":
                 return 50;
 

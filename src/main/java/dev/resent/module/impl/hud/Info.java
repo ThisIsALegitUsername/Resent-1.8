@@ -37,7 +37,7 @@ public class Info extends RenderModule {
             mc.fontRendererObj.drawStringWithShadow(" Y: " + py, this.x + 5, this.y + 24, Theme.getFontColor(Theme.getId()));
             mc.fontRendererObj.drawStringWithShadow(" Z: " + pz, this.x + 5, this.y + 34, Theme.getFontColor(Theme.getId()));
             if (!direction.getValue()) yes = 6;
-            //if (direction.getValue()) {
+            //if (direction.getVtalue()) {
             //  mc.fontRendererObj.drawStringWithShadow(" Dir: " + Direction.directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth(" X:  " + px), this.y + 14, Theme.getFontColor(Theme.getId()));
             mc.fontRendererObj.drawStringWithShadow(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(px, py, pz)).biomeName, this.x + 5, this.y + 44, Theme.getFontColor(Theme.getId()));
             //mc.fontRendererObj.drawStringWithShadow("  A: " + MathHelper.floor_double((double)mc.thePlayer.rotationYaw>360 || mc.thePlayer.rotationYaw<-360 ? mc.thePlayer.rotationYaw-360 : mc.thePlayer.rotationYaw) + "°", this.x + mc.fontRendererObj.getStringWidth(" D: N  "), this.y + 44, Theme.getFontColor(Theme.getId()));

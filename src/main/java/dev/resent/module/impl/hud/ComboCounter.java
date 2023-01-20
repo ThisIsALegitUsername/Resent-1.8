@@ -6,6 +6,7 @@ import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class ComboCounter extends RenderModule {
@@ -33,11 +34,11 @@ public class ComboCounter extends RenderModule {
     }
 
     public int getWidth() {
-        return mc.fontRendererObj.getStringWidth(getText()) + 4;
+        return Minecraft.getMinecraft().fontRendererObj.getStringWidth(getText()) + 4;
     }
 
     public int getHeight() {
-        return mc.fontRendererObj.FONT_HEIGHT + 4;
+        return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4;
     }
 
     private String getText(){
@@ -46,6 +47,6 @@ public class ComboCounter extends RenderModule {
 
     @Override
     public void draw() {
-        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
+        Minecraft.getMinecraft().fontRendererObj.drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 }

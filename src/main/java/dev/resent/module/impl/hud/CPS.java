@@ -1,77 +1,45 @@
 package dev.resent.module.impl.hud;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
 import dev.resent.util.misc.FuncUtils;
-import net.lax1dude.eaglercraft.v1_8.Keyboard;
+import net.lax1dude.eaglercraft.v1_8.Mouse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CPS extends RenderModule {
 
-    private List<Long> clicksLMB = new ArrayList<Long>();
-    private List<Long> clicksRMB = new ArrayList<Long>();
-    private boolean wasPressedLMB;
-    private long lastPressedLMB;
-    private boolean wasPressedRMB;
-    private long lastPressedRMB;
-    
     public CPS() {
-        super("CPS", Category.HUD, 4, 84, true);
+        super("CPS", Category.HUD, 50, 4, true);
         addSetting(tshadow);
     }
 
+    private final List<Long> clicks = new ArrayList<>();
+    private boolean wasPressed;
+    private long lastPressed;
+
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
-
-    public int getWidth() {
-        return mc.fontRendererObj.getStringWidth("[00 | 00]") + 4;
-    }
-
-    public int getHeight() {
-        return mc.fontRendererObj.FONT_HEIGHT + 4;
-    }
+    public int getWidth() { return mc.fontRendererObj.getStringWidth("[CPS: 00]") + 4; }
+    public int getHeight() { return mc.fontRendererObj.FONT_HEIGHT+4; }
 
     @Override
     public void draw() {
+        final boolean pressed = Mouse.isButtonDown(0) || Mouse.isButtonDown(1);
 
-        boolean pressedLMB = Keyboard.isKeyDown(mc.gameSettings.keyBindAttack.getKeyCode());
-        if(pressedLMB != this.wasPressedLMB) {
-            this.lastPressedLMB = System.currentTimeMillis();
-            this.wasPressedLMB = pressedLMB;
-            if(pressedLMB) {
-                this.clicksLMB.add(this.lastPressedLMB);
-            }
-        }
-        
-        boolean pressedRMB = Keyboard.isKeyDown(mc.gameSettings.keyBindUseItem.getKeyCode());
-        
-        if(pressedRMB != this.wasPressedRMB) {
-            this.lastPressedRMB = System.currentTimeMillis();
-            this.wasPressedRMB = pressedRMB;
-            if(pressedRMB){
-                this.clicksRMB.add(this.lastPressedRMB);
+        if(pressed != wasPressed){
+            lastPressed = System.currentTimeMillis();
+            wasPressed = pressed;
+            if(pressed){
+                this.clicks.add(lastPressed);
             }
         }
 
         final long time = System.currentTimeMillis();
-        FuncUtils.removeIf(clicksRMB, aLong -> aLong + 1000 < time);
-        FuncUtils.removeIf(clicksLMB, aLong -> aLong + 1000 < time);
-        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
-    }
+        FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-    public String getText(){
-        return "[ " + getLMB() + " | " + getRMB() + " ]";
-    }
-
-    public int getLMB() {
-        return this.clicksLMB.size();
-    }
-    
-    public int getRMB() {
-        return this.clicksRMB.size();
+        mc.fontRendererObj.drawString("[CPS: " + clicks.size() + "]", this.x+2, this.y+2, -1, tshadow.getValue());
     }
 
 }

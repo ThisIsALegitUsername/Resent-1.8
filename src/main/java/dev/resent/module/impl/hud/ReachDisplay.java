@@ -7,12 +7,13 @@ import dev.resent.event.impl.EventAttack;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 
 public class ReachDisplay extends RenderModule {
 
     public static final DecimalFormat df2 = new DecimalFormat("0.00");
-    public static double range;
+    public double range;
 
     public ReachDisplay() {
         super("ReachDisplay", Category.HUD, 4, 34);
@@ -33,12 +34,11 @@ public class ReachDisplay extends RenderModule {
 
     @Override
     public void onEvent(Event e) {
-        if (e instanceof EventAttack && e.isPre() && isEnabled()) {
-            Vec3 vec3 = this.mc.getRenderViewEntity().getPositionEyes(1.0f);
-            range = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
-            if (range > 3.0f && !mc.playerController.isInCreativeMode()) {
-                range = 3.0f;
-            }
+        if(e instanceof EventAttack){
+        if (this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY && this.isEnabled() && this.mc.objectMouseOver.entityHit.getEntityId() == ((EventAttack)e).target.getEntityId()) {
+            final Vec3 vec3 = this.mc.getRenderViewEntity().getPositionEyes(1.0f);
+            this.range = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
+        }
         }
     }
 }
