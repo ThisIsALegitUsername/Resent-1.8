@@ -19,17 +19,10 @@ public class Sprint extends RenderModule {
     public int lastKeyHeldTicks = 0;
     public int keyHeldTicks = 0;
     public boolean toggled = false;
-    String text = "";
+    public boolean clickDebounce = false;
 
-    @Override
-    public int getWidth() {
-        return fr.getStringWidth(text)+2;
-    }
-
-    @Override
-    public void draw() {
-        this.fr = mc.fontRendererObj;
-
+    private String getText() {
+        String text = "";
         if (mc.thePlayer.capabilities.isFlying) {
             text = "               [Flying]";
         }
@@ -37,9 +30,7 @@ public class Sprint extends RenderModule {
         if (mc.gameSettings.keyBindSprint.isKeyDown()) {
             keyHeldTicks += 1;
             text = "[Sprinting (Key Held)] ";
-        }
-        
-        if (!mc.gameSettings.keyBindSprint.isKeyDown()) {
+        } else if (!mc.gameSettings.keyBindSprint.isKeyDown()) {
             keyHeldTicks = 0;
         }
 
@@ -52,8 +43,20 @@ public class Sprint extends RenderModule {
             text = "[Sprinting (Toggled)]";
         }
 
+        lastKeyHeldTicks = keyHeldTicks;
+        return text;
+    }
+
+    @Override
+    public int getWidth() {
+        return fr.getStringWidth(getText());
+    }
+
+    @Override
+    public void draw() {
+        this.fr = mc.fontRendererObj;
         if (drawn.getValue())
-        fr.drawStringWithShadow(text, x + 2, y + 2, Theme.getFontColor(Theme.getId()));
+        fr.drawStringWithShadow(getText(), x + 2, y + 2, Theme.getFontColor(Theme.getId()));
     }
 
     @Override

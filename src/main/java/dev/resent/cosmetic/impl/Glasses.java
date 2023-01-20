@@ -1,6 +1,7 @@
 package dev.resent.cosmetic.impl;
 
 import dev.resent.cosmetic.CosmeticBase;
+import dev.resent.cosmetic.CosmeticController;
 import dev.resent.cosmetic.CosmeticModelBase;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -18,6 +19,7 @@ public class Glasses extends CosmeticBase {
  
   @Override
   public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float headYaw, float headPitch, float scale) {
+    if(CosmeticController.renderGlasses(player)){
     GlStateManager.pushMatrix();
     if(player.isSneaking()) {
       GlStateManager.translate(0, 0.225, 0);
@@ -26,6 +28,7 @@ public class Glasses extends CosmeticBase {
     GlStateManager.rotate(headPitch, 1.0F, 0.0F, 0.0F);
     this.glassesModel.render(player, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch, scale);
     GlStateManager.popMatrix();
+  }
   }
  
   public class GlassesRenderer extends CosmeticModelBase{
