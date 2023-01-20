@@ -1,10 +1,12 @@
 package dev.resent.module.impl.hud;
 
+import java.text.DecimalFormat;
+
 import dev.resent.event.impl.Event;
 import dev.resent.event.impl.EventAttack;
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import java.text.DecimalFormat;
 import net.minecraft.util.Vec3;
 
 public class ReachDisplay extends RenderModule {
@@ -26,7 +28,7 @@ public class ReachDisplay extends RenderModule {
 
     @Override
     public void draw() {
-        mc.fontRendererObj.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, -1);
+        mc.fontRendererObj.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()));
     }
 
     @Override

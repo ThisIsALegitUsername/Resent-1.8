@@ -9,8 +9,10 @@ import dev.resent.event.impl.Event;
 import dev.resent.module.Theme;
 import dev.resent.setting.Setting;
 import dev.resent.util.render.Color;
+import dev.resent.util.render.RainbowUtil;
 import dev.resent.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 
 public class Mod {
 
@@ -59,8 +61,8 @@ public class Mod {
                 RenderUtils.drawRect(left, top, right, bottom, new Color(255, 255, 255, 200).getRGB());
             case 3: 
                 RenderUtils.drawRect(left, top, right, bottom, new Color(0, 0, 0, 140).getRGB());
-            case 4:
-                RenderUtils.drawChromaRect(left, top, right, bottom);
+            case 50:
+                Gui.drawRect(left, top, right, bottom, RainbowUtil.getRainbow(4, 0.8f, 0.85f));
         }
     }
 

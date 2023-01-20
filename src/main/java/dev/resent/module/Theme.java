@@ -13,11 +13,11 @@ public class Theme {
     public static int getFontColor(int id, int opacity){
         switch(id){
             case 1:
-                return Color.white.getRGB();
+                return -1;
             case 2:
                 return Color.black.getRGB();
             case 3:
-                return Color.white.getGreen();
+                return Color.white.getRGB();
             case 50:
                 return RainbowUtil.getRainbow(4f, 0.8f, 0.85f);
         }

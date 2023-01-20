@@ -1,5 +1,6 @@
 package dev.resent.module.impl.hud;
 
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.setting.BooleanSetting;
@@ -35,6 +36,6 @@ public class PotCounter extends RenderModule {
             }
         }
 
-        mc.fontRendererObj.drawString("[" + potinv + " Pots]", this.x + 2, this.y + 2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("[" + potinv + " Pots]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 }

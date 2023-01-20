@@ -92,7 +92,7 @@ public class GuiScreenModule extends GuiScreen {
     public void drawScreen(int mx, int my, float par3) {
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
 
-        drawRect(0, 0, MathHelper.clamp_int(this.width / 4, 200, this.width / 4), this.height, 0xFF090909);
+        Gui.drawRect(0, 0, MathHelper.clamp_int(this.width / 4, 200, this.width / 4), this.height, 0xFF090909);
         if (!this.watchingMod && this.modWatching == null) {
             int i = 0;
         for (int z = 0; z < Resent.INSTANCE.modManager.modules.size(); z++) {
@@ -103,18 +103,18 @@ public class GuiScreenModule extends GuiScreen {
                     int y = (fontRenderer.FONT_HEIGHT*2+45) + 60 * i + 10 - offset;
                     int width = MathHelper.clamp_int(this.width / 4, 200, this.width / 4) - 10 - x;
                     int height = frho - y;
-                    drawRect(10, (10 + fontRenderer.FONT_HEIGHT * 2 + 15 + 10 + 10) + 60 * i + 10 - offset,
+                    Gui.drawRect(10, (10 + fontRenderer.FONT_HEIGHT * 2 + 15 + 10 + 10) + 60 * i + 10 - offset,
                             MathHelper.clamp_int(this.width / 4, 200, this.width / 4) - 10,
                             frho, 0xff1c1c1c);
                     fontRenderer.drawString(m.name, 20,
                             (10 + fontRenderer.FONT_HEIGHT * 2 + 15 + 10 + 10) + 60 * i + 10 - offset + 10, -1);
 
-                    drawRect(x, y, x + width, y + 1, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
-                    drawRect(x, y, x + 1, y + height, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
-                    drawRect(x + width - 1, y, x + width, y + height, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
-                    drawRect(x, y + height - 1, x + width, y + height, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
+                    Gui.drawRect(x, y, x + width, y + 1, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
+                    Gui.drawRect(x, y, x + 1, y + height, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
+                    Gui.drawRect(x + width - 1, y, x + width, y + height, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
+                    Gui.drawRect(x, y + height - 1, x + width, y + height, m.isEnabled() ? 0xff009e00 : 0xff9e0000);
 
-                        drawRect(x + 5, y + height - 5 - 15, x + width - 5, y + height - 5, 0xff333333);
+                        Gui.drawRect(x + 5, y + height - 5 - 15, x + width - 5, y + height - 5, 0xff333333);
                         fontRenderer.drawString("Settings",
                                 (x + width / 2) - fontRenderer.getStringWidth("Settings") / 2,
                                 y + height - 5 - 15 + fontRenderer.FONT_HEIGHT / 2, -1);
@@ -122,7 +122,7 @@ public class GuiScreenModule extends GuiScreen {
                     i++;
                 }
             }
-                drawRect(0, 0, MathHelper.clamp_int(this.width / 4, 200, this.width / 4),
+                Gui.drawRect(0, 0, MathHelper.clamp_int(this.width / 4, 200, this.width / 4),
                         10 + fontRenderer.FONT_HEIGHT * 2 + 15 + 10, 0xFF090909);
                 this.search.drawTextBox();
                 fontRenderer.drawString(screenTitle + " - ClickGui", this.width / 4 / 2 - fontRenderer.getStringWidth(screenTitle + "") / 2,
@@ -130,10 +130,10 @@ public class GuiScreenModule extends GuiScreen {
                         -1);
             } else {
                 int frho3 = (10+fontRenderer.FONT_HEIGHT+6)/2/2;
-    		drawRect(frho3, frho3, frho3+(10+fontRenderer.FONT_HEIGHT+6)/2, frho3+(10+fontRenderer.FONT_HEIGHT+6)/2,0xff1c1c1c);
+    		Gui.drawRect(frho3, frho3, frho3+(10+fontRenderer.FONT_HEIGHT+6)/2, frho3+(10+fontRenderer.FONT_HEIGHT+6)/2,0xff1c1c1c);
     		fontRenderer.drawString("<", frho3+frho3-fontRenderer.getStringWidth("<")/2, frho3+frho3-fontRenderer.FONT_HEIGHT/2, -1);
     		fontRenderer.drawString(screenTitle + " - "+modWatching.name, MathHelper.clamp_int(this.width/4, 200, this.width/4)/2-fontRenderer.getStringWidth(screenTitle + " - "+modWatching.name)/2, 10, -1);
-    		drawRect(0, 10+fontRenderer.FONT_HEIGHT+6, MathHelper.clamp_int(this.width/4, 200, this.width/4), 10+fontRenderer.FONT_HEIGHT+7, -1);
+    		Gui.drawRect(0, 10+fontRenderer.FONT_HEIGHT+6, MathHelper.clamp_int(this.width/4, 200, this.width/4), 10+fontRenderer.FONT_HEIGHT+7, -1);
     		int i = 0;
     		Mod m = this.modWatching;
             for (int amongus = 0; amongus < m.settings.size(); amongus++) {
@@ -148,16 +148,16 @@ public class GuiScreenModule extends GuiScreen {
                     int frho1 =  (10 + fontRenderer.FONT_HEIGHT * 2 + 15 + 10 + 10);
                     int width = MathHelper.clamp_int(this.width / 4, 200, this.width / 4) - 10 - x;
                     int height = (fontRenderer.FONT_HEIGHT*2+45)+60*i+60-offset-y;
-                    drawRect(10, y,
+                    Gui.drawRect(10, y,
                             MathHelper.clamp_int(this.width / 4, 200, this.width / 4) - 10,
                            frho1 + 60 * i + 60 - offset, 0xff1c1c1c);
                     fontRenderer.drawString(s.name, 20,frho1 + 60 * i + 10 - offset + 10, -1);
 
                     if (bS != null) {
-                        drawRect(x, y, x + width, y + 1, bS.getValue() ? 0xff009e00 : 0xff9e0000);
-                        drawRect(x, y, x + 1, y + height, bS.getValue() ? 0xff009e00 : 0xff9e0000);
-                        drawRect(x + width - 1, y, x + width, y + height, bS.getValue() ? 0xff009e00 : 0xff9e0000);
-                        drawRect(x, y + height - 1, x + width, y + height, bS.getValue() ? 0xff009e00 : 0xff9e0000);
+                        Gui.drawRect(x, y, x + width, y + 1, bS.getValue() ? 0xff009e00 : 0xff9e0000);
+                        Gui.drawRect(x, y, x + 1, y + height, bS.getValue() ? 0xff009e00 : 0xff9e0000);
+                        Gui.drawRect(x + width - 1, y, x + width, y + height, bS.getValue() ? 0xff009e00 : 0xff9e0000);
+                        Gui.drawRect(x, y + height - 1, x + width, y + height, bS.getValue() ? 0xff009e00 : 0xff9e0000);
                     }
                     i++;
                 }

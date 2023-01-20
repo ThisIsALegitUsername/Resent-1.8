@@ -33,6 +33,19 @@ public class RenderUtils {
         return -1;
     }
 
+    public static void drawChromaString(String string, int x, int y, boolean shadow) {
+        Minecraft mc = Minecraft.getMinecraft();
+
+        int xTmp = x;
+        for (char textChar : string.toCharArray()) {
+            long l = System.currentTimeMillis() - (xTmp * 10 - y * 10);
+            int i = Color.HSBtoRGB(l % (int) 2000.0F / 2000.0F, 0.8F, 0.8F);
+            String tmp = String.valueOf(textChar);
+            mc.fontRendererObj.drawString(tmp, xTmp, y, i, shadow);
+            xTmp += mc.fontRendererObj.getCharWidth(textChar);
+        }
+    }
+
     public static void drawRect(int left, int top, int right, int bottom, int color) {
         if (left < right) {
             int i = left;
@@ -66,31 +79,6 @@ public class RenderUtils {
         GlStateManager.disableBlend();
     }
 
-    public static void drawChromaRect(int x, int y, int width, int height) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float)x, (float)(y + height), (float)0.0f);
-        GlStateManager.rotate((float)-90.0f, (float)0.0f, (float)0.0f, (float)1.0f);
-        int p_drawGradientRect_6_ = Color.HSBtoRGB((float)((System.currentTimeMillis() - (long)(x + width / 2) * 10L - (long)y * 10L) % 2000L) / 2000.0f, 0.8f, 0.8f);
-        float lvt_11_1_ = (float)(p_drawGradientRect_6_ >> 24 & 0xFF) / 255.0f;
-        float lvt_12_1_ = (float)(p_drawGradientRect_6_ >> 16 & 0xFF) / 255.0f;
-        float lvt_13_1_ = (float)(p_drawGradientRect_6_ >> 8 & 0xFF) / 255.0f;
-        float lvt_14_1_ = (float)(p_drawGradientRect_6_ & 0xFF) / 255.0f;
-        GlStateManager.disableTexture2D();
-        GlStateManager.enableBlend();
-        GlStateManager.enableAlpha();
-        GlStateManager.tryBlendFuncSeparate((int)770, (int)771, (int)1, (int)0);
-        GlStateManager.shadeModel((int)7425);
-        Tessellator lvt_15_1_ = Tessellator.getInstance();
-        WorldRenderer lvt_16_1_ = lvt_15_1_.getWorldRenderer();
-        lvt_16_1_.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        lvt_16_1_.pos((double)height, (double)width, 0).color(lvt_12_1_, lvt_13_1_, lvt_14_1_, lvt_11_1_).endVertex();
-        lvt_15_1_.draw();
-        GlStateManager.shadeModel((int)7424);
-        GlStateManager.disableBlend();
-        GlStateManager.enableTexture2D();
-        GlStateManager.popMatrix();
-    }
-
     public static Color getColorWithoutRGB(ModeSetting asdf) {
         switch (asdf.getValue()) {
             case "Red":
@@ -114,12 +102,12 @@ public class RenderUtils {
     }
 
     public static void drawRectOutline(int x, int y, int width, int height, int color) {
-        drawRect(x, y, width, y + 1, color);
-        drawRect(x, y, x + 1, height, color);
-        drawRect(width - 1, y, width, height, color);
-        drawRect(x, height - 1, width, height, color);
+        Gui.drawRect(x, y, width, y + 1, color);
+        Gui.drawRect(x, y, x + 1, height, color);
+        Gui.drawRect(width - 1, y, width, height, color);
+        Gui.drawRect(x, height - 1, width, height, color);
     }
-
+    
     public static void drawCenteredScaledString(String text, int x,int y, int color, float scale){
         GlStateManager.pushMatrix();
         GlStateManager.scale(scale,scale,scale);

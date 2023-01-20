@@ -58,11 +58,11 @@ public class RenderModule extends Mod {
 
         boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + this.getHeight();
 
-        drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
-        drawRect(this.x, this.y, this.x + this.getWidth(), this.y + 1, -1);
-        drawRect(this.x, this.y, this.x + 1, this.y + getHeight(), -1);
-        drawRect(this.x + this.getWidth() - 1, this.y, this.x + getWidth(), this.y + this.getHeight(), -1);
-        drawRect(this.x, this.y + this.getHeight() - 1, this.x + getWidth(), this.y + this.getHeight(), -1);
+        Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
+        Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + 1, -1);
+        Gui.drawRect(this.x, this.y, this.x + 1, this.y + getHeight(), -1);
+        Gui.drawRect(this.x + this.getWidth() - 1, this.y, this.x + getWidth(), this.y + this.getHeight(), -1);
+        Gui.drawRect(this.x, this.y + this.getHeight() - 1, this.x + getWidth(), this.y + this.getHeight(), -1);
 
         boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth());
         boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight());

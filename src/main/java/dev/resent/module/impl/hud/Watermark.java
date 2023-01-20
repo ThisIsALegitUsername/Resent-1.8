@@ -1,6 +1,7 @@
 package dev.resent.module.impl.hud;
 
 import dev.resent.Resent;
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.util.render.Color;
@@ -27,7 +28,7 @@ public class Watermark extends RenderModule {
         GlStateManager.scale(2f, 2f, 2f);
         int i = fr.drawString(Resent.NAME + " client", (this.x + 1) / 2, (this.y + 1) / 2, Color.RED.getRGB(), true);
         GlStateManager.scale(0.5f, 0.5f, 0.5f);
-        fr.drawString(Resent.VERSION + "", (i * 2), this.y + (fr.FONT_HEIGHT * 2 - 7), -1, true);
+        fr.drawString(Resent.VERSION + "", (i * 2), this.y + (fr.FONT_HEIGHT * 2 - 7), Theme.getFontColor(Theme.getId()), true);
         GlStateManager.popMatrix();
     }
 }

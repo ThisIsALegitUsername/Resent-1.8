@@ -36,10 +36,6 @@ public class CPS extends RenderModule {
 
     @Override
     public void draw() {
-        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
-    }
-
-    public String getText(){
 
         boolean pressedLMB = Keyboard.isKeyDown(mc.gameSettings.keyBindAttack.getKeyCode());
         if(pressedLMB != this.wasPressedLMB) {
@@ -55,23 +51,26 @@ public class CPS extends RenderModule {
         if(pressedRMB != this.wasPressedRMB) {
             this.lastPressedRMB = System.currentTimeMillis();
             this.wasPressedRMB = pressedRMB;
-            if(pressedRMB) {
+            if(pressedRMB){
                 this.clicksRMB.add(this.lastPressedRMB);
             }
         }
 
+        final long time = System.currentTimeMillis();
+        FuncUtils.removeIf(clicksRMB, aLong -> aLong + 1000 < time);
+        FuncUtils.removeIf(clicksLMB, aLong -> aLong + 1000 < time);
+        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
+    }
+
+    public String getText(){
         return "[ " + getLMB() + " | " + getRMB() + " ]";
     }
 
     public int getLMB() {
-        final long time = System.currentTimeMillis();
-        FuncUtils.removeIf(clicksLMB, aLong -> aLong + 1000 < time);
         return this.clicksLMB.size();
     }
     
     public int getRMB() {
-        final long time = System.currentTimeMillis();
-        FuncUtils.removeIf(clicksRMB, aLong -> aLong + 1000 < time);
         return this.clicksRMB.size();
     }
 
