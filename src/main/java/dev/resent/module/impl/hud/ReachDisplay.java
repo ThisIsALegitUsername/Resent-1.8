@@ -35,7 +35,9 @@ public class ReachDisplay extends RenderModule {
     @Override
     public void onEvent(Event e) {
         if(e instanceof EventAttack){
+            System.out.println("debug rdisp");
         if (this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY && this.isEnabled() && this.mc.objectMouseOver.entityHit.getEntityId() == ((EventAttack)e).target.getEntityId()) {
+            System.out.println("debug rdisp 2");
             final Vec3 vec3 = this.mc.getRenderViewEntity().getPositionEyes(1.0f);
             this.range = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
         }

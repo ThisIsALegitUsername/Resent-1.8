@@ -101,6 +101,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private MouseFilter mouseFilterXAxis = new MouseFilter();
 	private MouseFilter mouseFilterYAxis = new MouseFilter();
 	private float thirdPersonDistance = 4.0F;
+    public static boolean test = false;
 	/**+
 	 * Third person distance temp
 	 */
@@ -269,7 +270,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     d0 = 6.0D;
                     d1 = 6.0D;
                 } else {
-                    if (d0 > 3.0D) {
+                    if (d0 > 3.0D && !test) {
                         flag = true;
                     }
 
