@@ -2,7 +2,7 @@ package dev.resent.module.impl.misc;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
-import dev.resent.setting.BooleanSetting;
+import dev.resent.module.setting.BooleanSetting;
 
 public class Scoreboard extends Mod {
 

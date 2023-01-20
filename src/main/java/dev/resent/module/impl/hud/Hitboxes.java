@@ -2,8 +2,8 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
-import dev.resent.setting.BooleanSetting;
-import dev.resent.setting.ModeSetting;
+import dev.resent.module.setting.BooleanSetting;
+import dev.resent.module.setting.ModeSetting;
 
 public class Hitboxes extends Mod {
 

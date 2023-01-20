@@ -1,4 +1,4 @@
-package dev.resent.setting;
+package dev.resent.module.setting;
 
 public class BooleanSetting extends Setting {
 

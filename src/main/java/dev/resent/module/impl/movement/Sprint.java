@@ -3,7 +3,7 @@ package dev.resent.module.impl.movement;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.setting.BooleanSetting;
+import dev.resent.module.setting.BooleanSetting;
 import net.minecraft.client.gui.FontRenderer;
 
 public class Sprint extends RenderModule {

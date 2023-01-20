@@ -2,7 +2,7 @@ package dev.resent.module.impl.misc;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
-import dev.resent.setting.ModeSetting;
+import dev.resent.module.setting.ModeSetting;
 
 public class HotbarAnimation extends Mod{
     public HotbarAnimation(){

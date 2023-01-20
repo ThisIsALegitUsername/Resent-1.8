@@ -2,7 +2,7 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.setting.BooleanSetting;
+import dev.resent.module.setting.BooleanSetting;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;

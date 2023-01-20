@@ -1,4 +1,4 @@
-package dev.resent.setting;
+package dev.resent.module.setting;
 
 import java.util.ArrayList;
 import java.util.Collections;

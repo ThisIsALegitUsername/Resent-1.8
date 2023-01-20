@@ -7,7 +7,7 @@ import java.util.List;
 import dev.resent.Resent;
 import dev.resent.event.impl.Event;
 import dev.resent.module.Theme;
-import dev.resent.setting.Setting;
+import dev.resent.module.setting.Setting;
 import dev.resent.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

@@ -2,8 +2,8 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.setting.BooleanSetting;
-import dev.resent.setting.ModeSetting;
+import dev.resent.module.setting.BooleanSetting;
+import dev.resent.module.setting.ModeSetting;
 import dev.resent.util.render.RainbowUtil;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;

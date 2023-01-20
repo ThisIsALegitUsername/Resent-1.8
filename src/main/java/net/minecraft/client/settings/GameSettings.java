@@ -8,9 +8,9 @@ import dev.resent.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderModule;
-import dev.resent.setting.BooleanSetting;
-import dev.resent.setting.ModeSetting;
-import dev.resent.setting.Setting;
+import dev.resent.module.setting.BooleanSetting;
+import dev.resent.module.setting.ModeSetting;
+import dev.resent.module.setting.Setting;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

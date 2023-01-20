@@ -5,7 +5,7 @@ import dev.resent.event.impl.EventAttack;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.setting.BooleanSetting;
+import dev.resent.module.setting.BooleanSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 

@@ -5,12 +5,12 @@ import dev.resent.module.base.ModManager;
 import net.minecraft.client.Minecraft;
 
 public class Resent {
+
     static {
         INSTANCE = new Resent();
     }
 
-    public static String NAME = "Resent";
-    public static String VERSION = "3.3.2";
+    public static String NAME = "Resent", VERSION = "3.3.2";
     public static Minecraft mc = Minecraft.getMinecraft();
     public static Resent INSTANCE;
     public ModManager modManager;
