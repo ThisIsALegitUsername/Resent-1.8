@@ -890,7 +890,7 @@ public abstract class EntityLivingBase extends Entity {
      * sets the dead flag. Used when you fall off the bottom of the
      * world.
      */
-    protected void kill() {
+    public void kill() {
         this.attackEntityFrom(DamageSource.outOfWorld, 4.0F);
     }
 

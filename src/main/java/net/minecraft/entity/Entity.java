@@ -331,7 +331,7 @@ public abstract class Entity {
      * sets the dead flag. Used when you fall off the bottom of the
      * world.
      */
-    protected void kill() {
+    public void kill() {
         this.setDead();
     }
 

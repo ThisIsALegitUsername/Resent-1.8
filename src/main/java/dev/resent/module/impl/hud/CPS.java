@@ -1,13 +1,14 @@
 package dev.resent.module.impl.hud;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.util.misc.FuncUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CPS extends RenderModule {
 
@@ -39,7 +40,7 @@ public class CPS extends RenderModule {
         final long time = System.currentTimeMillis();
         FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-        mc.fontRendererObj.drawString("[CPS: " + clicks.size() + "]", this.x+2, this.y+2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("[CPS: " + clicks.size() + "]", this.x+2, this.y+2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 
 }

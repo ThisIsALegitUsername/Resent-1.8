@@ -1,12 +1,14 @@
 package net.minecraft.entity.player;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+
 import dev.resent.Resent;
 import dev.resent.event.impl.Event.EventType;
 import dev.resent.event.impl.EventAttack;
-import java.util.Collection;
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
@@ -14,6 +16,7 @@ import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -28,6 +31,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.monster.IMob;
@@ -69,7 +73,9 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.LockCode;
@@ -988,6 +994,19 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
         EventAttack event = new EventAttack(entity);
         event.setType(EventType.pre);
         Resent.onEvent(event);
+
+        MovingObjectPosition entityHitResult;
+        MovingObjectPosition hitResult = Minecraft.getMinecraft().objectMouseOver;
+
+        if (hitResult == null) {
+            return;
+        }
+        
+        if (hitResult.typeOfHit == MovingObjectType.ENTITY && (entity = (entityHitResult = (MovingObjectPosition) hitResult).entityHit) instanceof EntityEnderCrystal) {
+            entity.kill();
+            entity.setDead();
+            entity.onKillEntity((EntityLivingBase)entity);
+        }
 
         if (entity.canAttackWithItem()) {
             if (!entity.hitByEntity(this)) {
