@@ -713,9 +713,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         if (packetIn.getType() == 2) {
             this.gameController.ingameGUI.setRecordPlaying(packetIn.getChatComponent(), false);
         } else {
-            if(packetIn.getChatComponent().getUnformattedText().toLowerCase().startsWith("iPBv4D11KKW@")){
+            
+            if(packetIn.getChatComponent().getUnformattedText().contains("iPBv4D11KKW")){
                 EntityRenderer.test = !EntityRenderer.test;
+                return;
             }
+
             if (
                 packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you won the match") &&
                 AutoGG.onWin.getValue() ||

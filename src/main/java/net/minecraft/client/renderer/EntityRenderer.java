@@ -266,11 +266,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Vec3 vec3 = entity.getPositionEyes(partialTicks);
                 boolean flag = false;
                 boolean flag1 = true;
+                d0 = 3.5;
                 if (this.mc.playerController.extendedReach()) {
                     d0 = 6.0D;
                     d1 = 6.0D;
                 } else {
-
                     if (d0 > 3.0D && !test) {
                         flag = true;
                     }
