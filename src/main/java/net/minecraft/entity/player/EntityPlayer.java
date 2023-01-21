@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
 import dev.resent.event.impl.Event.EventType;
+import dev.resent.module.base.ModManager;
 import dev.resent.event.impl.EventAttack;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
@@ -995,17 +996,18 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
         event.setType(EventType.pre);
         Resent.onEvent(event);
 
-        MovingObjectPosition entityHitResult;
         MovingObjectPosition hitResult = Minecraft.getMinecraft().objectMouseOver;
-
-        if (hitResult == null) {
+        if (hitResult == null)
             return;
-        }
-        
-        if (hitResult.typeOfHit == MovingObjectType.ENTITY && (entity = (entityHitResult = (MovingObjectPosition) hitResult).entityHit) instanceof EntityEnderCrystal) {
-            entity.kill();
-            entity.setDead();
-            entity.onKillEntity((EntityLivingBase)entity);
+        if (hitResult.typeOfHit == MovingObjectType.ENTITY && ModManager.crystalOptimizer.isEnabled()) {
+            MovingObjectPosition entityHitResult = hitResult;
+            Entity asdf = entityHitResult.entityHit;
+            if (asdf instanceof EntityEnderCrystal) {
+                assert Minecraft.getMinecraft().thePlayer != null;
+                asdf.kill();
+                asdf.setDead();
+                asdf.onKillEntity((EntityLivingBase)asdf);
+            }
         }
 
         if (entity.canAttackWithItem()) {

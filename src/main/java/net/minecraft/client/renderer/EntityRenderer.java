@@ -270,6 +270,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     d0 = 6.0D;
                     d1 = 6.0D;
                 } else {
+
                     if (d0 > 3.0D && !test) {
                         flag = true;
                     }

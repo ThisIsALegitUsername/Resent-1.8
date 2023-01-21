@@ -24,6 +24,7 @@ import dev.resent.module.impl.misc.AutoRespawn;
 import dev.resent.module.impl.misc.ClearChat;
 import dev.resent.module.impl.misc.Cosmetics;
 import dev.resent.module.impl.misc.Crosshair;
+import dev.resent.module.impl.misc.CrystalOptimizer;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.Fullbright;
@@ -80,11 +81,13 @@ public class ModManager {
     public static ServerInfo serverInfo;
     public static Crosshair crosshair = new Crosshair();
     public static HUD hud = new HUD();
+    public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
 
     public ModManager() {
         //Hud
         register(cosmetics);
         register(hotbar);
+        register(crystalOptimizer);
         register(hud = new HUD());
         register(ping = new Ping());
         register(serverInfo = new ServerInfo());

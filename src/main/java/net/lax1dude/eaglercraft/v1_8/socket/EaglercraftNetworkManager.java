@@ -1,6 +1,9 @@
 package net.lax1dude.eaglercraft.v1_8.socket;
 
 import java.io.IOException;
+
+import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.CrystalOptimizer;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumEaglerConnectionState;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformNetworking;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -12,6 +15,7 @@ import net.minecraft.network.EnumPacketDirection;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
