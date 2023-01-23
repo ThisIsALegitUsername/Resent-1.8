@@ -10,14 +10,14 @@ import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class ComboCounter extends RenderModule {
 
-    public static boolean attacked = false;
-    public static int combo = 0;
-    public static BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
-
     public ComboCounter() {
         super("ComboCounter", Category.HUD, 4, 24, true);
         addSetting(tshadow);
     }
+
+    public static boolean attacked = false;
+    public static int combo = 0;
+    public static BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
     public void onAttack(Entity e) {
         if (this.isEnabled()) {
@@ -32,13 +32,8 @@ public class ComboCounter extends RenderModule {
         }
     }
 
-    public int getWidth() {
-        return Minecraft.getMinecraft().fontRendererObj.getStringWidth(getText()) + 4;
-    }
-
-    public int getHeight() {
-        return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4;
-    }
+    public int getWidth() { return Minecraft.getMinecraft().fontRendererObj.getStringWidth(getText()) + 4; }
+    public int getHeight() { return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4; }
 
     private String getText(){
         return "["+combo+" Combo]";
@@ -46,6 +41,9 @@ public class ComboCounter extends RenderModule {
 
     @Override
     public void draw() {
+        if(Minecraft.getMinecraft().thePlayer.hurtTime > 3 && this.enabled){
+            combo = 0;
+        }
         Minecraft.getMinecraft().fontRendererObj.drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 }
