@@ -1,12 +1,11 @@
 package dev.resent.module.impl.hud;
 
-import dev.resent.event.impl.Event;
-import dev.resent.event.impl.EventAttack;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 
 public class ComboCounter extends RenderModule {
@@ -20,9 +19,8 @@ public class ComboCounter extends RenderModule {
         addSetting(tshadow);
     }
 
-    public void onEvent(Event e) {
-        if (e instanceof EventAttack && isEnabled()) {
-            System.out.println("debug cc");
+    public void onAttack(Entity e) {
+        if (this.isEnabled()) {
             attacked = true;
         }
     }

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import dev.resent.Resent;
-import dev.resent.event.impl.Event;
 import dev.resent.module.Theme;
 import dev.resent.module.setting.Setting;
 import dev.resent.util.render.RenderUtils;
@@ -60,17 +58,12 @@ public class Mod {
         }
     }
 
-    public void onEvent(Event e) {
-        for (int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++) {
-            if (!Resent.INSTANCE.modManager.modules.get(i).isEnabled()) continue;
-            Resent.INSTANCE.modManager.modules.get(i).onEvent(e);
-        }
-    }
-
     public void setEnabled(boolean state) {
         this.enabled = state;
         if (this.enabled) onEnable(); else onDisable();
     }
+
+
 
     public boolean isEnabled() { return enabled; }
     public String getName() { return name; }

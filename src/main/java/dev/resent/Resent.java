@@ -1,6 +1,5 @@
 package dev.resent;
 
-import dev.resent.event.impl.Event;
 import dev.resent.module.base.ModManager;
 import net.minecraft.client.Minecraft;
 
@@ -18,6 +17,4 @@ public class Resent {
     public void init() {
         Resent.INSTANCE.modManager = new ModManager();
     }
-
-    public static void onEvent(Event e) {}
 }

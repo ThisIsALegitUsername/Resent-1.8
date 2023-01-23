@@ -2,12 +2,10 @@ package dev.resent.module.impl.hud;
 
 import java.text.DecimalFormat;
 
-import dev.resent.event.impl.Event;
-import dev.resent.event.impl.EventAttack;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 
 public class ReachDisplay extends RenderModule {
@@ -32,15 +30,10 @@ public class ReachDisplay extends RenderModule {
         mc.fontRendererObj.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()));
     }
 
-    @Override
-    public void onEvent(Event e) {
-        if(e instanceof EventAttack){
-            System.out.println("debug rdisp");
-        if (this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY && this.isEnabled() && this.mc.objectMouseOver.entityHit.getEntityId() == ((EventAttack)e).target.getEntityId()) {
-            System.out.println("debug rdisp 2");
+    public void onAttack(Entity e){
+        if(this.isEnabled()){
             final Vec3 vec3 = this.mc.getRenderViewEntity().getPositionEyes(1.0f);
             this.range = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
-        }
         }
     }
 }
