@@ -4,11 +4,7 @@
 
 <!--
 
-This file is from ${date}, there is no official eagler download link anymore, check the websites and discords of your favorite eagler servers for new versions
-
-Be aware that some server owners are lazy and do not update their client regularly
-
-Compile it yourself here: https://gitlab.com/lax1dude/eaglercraftx-1.8/
+This file is from ${date}. Check the resent client discord for the newest version.
 
 -->
 
@@ -41,7 +37,15 @@ Compile it yourself here: https://gitlab.com/lax1dude/eaglercraftx-1.8/
 
 // %%%%%%%%% launch options %%%%%%%%%%%%
 
-window.eaglercraftXOpts = { container: "game_frame" };
+window.eaglercraftXOpts = { 
+	container: "game_frame"
+	servers: [
+		{addr: "wss://blobcraft.minecraft.pe", name: "BlobCraft"},
+		{addr: "wss://blobcraft.tk", name: "BlobCraft2"},
+		{addr: "wss://zentic.org", name: "Zentic"},
+		{addr: "wss://zentic.engineous.repl.co", name: "Zentic2"}
+	]
+};
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
