@@ -38,7 +38,7 @@ This file is from ${date}. Check the resent client discord for the newest versio
 // %%%%%%%%% launch options %%%%%%%%%%%%
 
 window.eaglercraftXOpts = { 
-	container: "game_frame"
+	container: "game_frame",
 	servers: [
 		{addr: "wss://blobcraft.minecraft.pe", name: "BlobCraft"},
 		{addr: "wss://blobcraft.tk", name: "BlobCraft2"},
