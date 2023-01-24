@@ -41,7 +41,7 @@ public class ClickGUI extends GuiScreen {
         int xy = -30;
 
         sr = new ScaledResolution(mc);
-        fr = Minecraft.getMinecraft().resentFont;
+        fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;
@@ -108,7 +108,7 @@ public class ClickGUI extends GuiScreen {
         int xo = 0;
         int xy = -30;
 
-        fr = Minecraft.getMinecraft().resentFont;
+        fr = Minecraft.getMinecraft().fontRendererObj;
         width = GuiScreen.width - x;
         height = GuiScreen.height - y;
         x = sr.getScaledWidth() / 8 + xo;

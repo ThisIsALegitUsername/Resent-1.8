@@ -23,7 +23,7 @@ public class GuiMainMenu extends GuiScreen {
         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/background.webp"));
         Gui.drawModalRectWithCustomSizedTexture(0, 0, 0.0f, 0.0f, this.width, this.height, this.width + 21, this.height + 50);
         final String s1 = "Copyright " + EnumChatFormatting.RED + EnumChatFormatting.BOLD + "M" + EnumChatFormatting.RESET + "ojang AB";
-        this.drawString(Minecraft.getMinecraft().resentFont, s1, this.width - Minecraft.getMinecraft().resentFont.getStringWidth(s1) - 2, this.height - 10, -1);
+        this.drawString(Minecraft.getMinecraft().fontRendererObj, s1, this.width - Minecraft.getMinecraft().fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
         RenderUtils.drawCenteredScaledString("" + EnumChatFormatting.AQUA + EnumChatFormatting.BOLD + "Resent", this.width / 2, this.height / 2 - 50, -1, 3f);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
