@@ -47,8 +47,6 @@ public class KeyStrokes extends RenderModule {
         boolean sKey = Keyboard.isKeyDown(mc.gameSettings.keyBindBack.getKeyCode());
         boolean dKey = Keyboard.isKeyDown(mc.gameSettings.keyBindRight.getKeyCode());
         boolean spaceKey = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode());
-        boolean pressed = Keyboard.isKeyDown(mc.gameSettings.keyBindAttack.getKeyCode());
-        boolean rpressed = Keyboard.isKeyDown(mc.gameSettings.keyBindUseItem.getKeyCode());
         
         GlStateManager.pushMatrix();
 
@@ -67,9 +65,9 @@ public class KeyStrokes extends RenderModule {
             // D
             Gui.drawRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, dKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // LMB
-            Gui.drawRect(this.x + 3, this.y + 57, this.x + 41, this.y + 82, pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            Gui.drawRect(this.x + 3, this.y + 57, this.x + 41, this.y + 82, mc.gameSettings.keyBindAttack.isPressed() ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
             // RMB
-            Gui.drawRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, rpressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+            Gui.drawRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, mc.gameSettings.keyBindUseItem.isPressed() ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
 
             // Jump
             if (jump.getValue()) Gui.drawRect(this.x + 3, this.y + 84, this.x + 85 - 3, this.y + 105 - 6, spaceKey ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
