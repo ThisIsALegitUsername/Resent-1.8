@@ -153,6 +153,7 @@ public class GuiIngame extends Gui {
 			this.renderTooltip(scaledresolution, partialTicks);
 		}
 
+		this.mc.getTextureManager().bindTexture(icons);
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		this.mc.mcProfiler.startSection("bossHealth");
 		this.renderBossHealth();
@@ -503,14 +504,14 @@ public class GuiIngame extends Gui {
 			int k = j1 - j * this.getFontRenderer().FONT_HEIGHT;
 			int l = parScaledResolution.getScaledWidth() - b0 + 2;
 			drawRect(k1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
-			this.getFontRenderer().drawString(s1, k1, k, 553648127);
-			this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
+			this.getFontRenderer().drawString(s1, k1, k, 0xFFFFFFFF);
+			this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 0xFFFFFFFF);
 			if (j == arraylist1.size()) {
 				String s3 = parScoreObjective.getDisplayName();
 				drawRect(k1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
 				drawRect(k1 - 2, k - 1, l, k, 1342177280);
 				this.getFontRenderer().drawString(s3, k1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2,
-						k - this.getFontRenderer().FONT_HEIGHT, 553648127);
+						k - this.getFontRenderer().FONT_HEIGHT, 0xFFFFFFFF);
 			}
 		}
 
@@ -562,7 +563,6 @@ public class GuiIngame extends Gui {
 			}
 
 			this.mc.mcProfiler.startSection("armor");
-			this.mc.getTextureManager().bindTexture(icons);
 
 			for (int i3 = 0; i3 < 10; ++i3) {
 				if (k2 > 0) {
