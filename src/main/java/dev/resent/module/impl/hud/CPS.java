@@ -7,7 +7,7 @@ import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.util.misc.FuncUtils;
-import net.lax1dude.eaglercraft.v1_8.Mouse;
+import net.lax1dude.eaglercraft.v1_8.Keyboard;
 
 public class CPS extends RenderModule {
 
@@ -26,7 +26,7 @@ public class CPS extends RenderModule {
 
     @Override
     public void draw() {
-        final boolean pressed = Mouse.isButtonDown(0) || Mouse.isButtonDown(1);
+        final boolean pressed = Keyboard.isKeyDown(mc.gameSettings.keyBindAttack.keyCode) || Keyboard.isKeyDown(mc.gameSettings.keyBindUseItem.keyCode);
 
         if(pressed != wasPressed){
             lastPressed = System.currentTimeMillis();
