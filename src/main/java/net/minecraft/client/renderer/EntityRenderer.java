@@ -91,58 +91,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.BossStatus;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MouseFilter;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.BossStatus;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MouseFilter;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.biome.BiomeGenBase;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -938,10 +886,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						GlStateManager.enableOverlayFramebufferBlending();
 						this.mc.ingameGUI.renderGameOverlay(parFloat1);
                         for (Mod m : Resent.INSTANCE.modManager.modules) {
-                            if (m.isEnabled() && (m instanceof RenderModule)) {
-                                if (!(mc.currentScreen instanceof HUDConfigScreen)) {
-                                    ((RenderModule) m).draw();
-                                }
+                            if (m.isEnabled() && m instanceof RenderModule && !(mc.currentScreen instanceof HUDConfigScreen)) {
+                                ((RenderModule) m).draw();
                             }
                         }
 						GlStateManager.disableOverlayFramebufferBlending();

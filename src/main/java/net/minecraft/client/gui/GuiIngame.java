@@ -13,13 +13,9 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-import dev.resent.Resent;
 import dev.resent.animation.SimpleAnimation;
-import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
-import dev.resent.module.base.RenderModule;
 import dev.resent.module.impl.misc.Crosshair;
-import dev.resent.ui.HUDConfigScreen;
 import dev.resent.util.misc.W;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;

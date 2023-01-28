@@ -43,18 +43,16 @@ public class RenderModule extends Mod {
         }
     }
 
-    private void draggingFix(int mouseX, int mouseY) {
+    public void renderLayout(int mouseX, int mouseY) {
+
+        resize();
+        draw();
+
         if (this.dragging) {
             this.x = mouseX + this.lastX;
             this.y = mouseY + this.lastY;
             if (!Mouse.isButtonDown(0)) this.dragging = false;
         }
-    }
-
-    public void renderLayout(int mouseX, int mouseY) {
-        resize();
-        draw();
-        draggingFix(mouseX, mouseY);
 
         boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + this.getHeight();
 
@@ -75,6 +73,7 @@ public class RenderModule extends Mod {
                 }
             }
         }
+        
     }
 
     public int getX() {

@@ -3,17 +3,18 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.resent.animation.SimpleAnimation;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
 import dev.resent.util.misc.FuncUtils;
+import dev.resent.util.render.Color;
 import dev.resent.util.render.RainbowUtil;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 
 public class KeyStrokes extends RenderModule{
 
@@ -62,12 +63,26 @@ public class KeyStrokes extends RenderModule{
         FuncUtils.removeIf(clicks2, beenRightTime -> beenRightTime + 1200L < rightTime + 200L);
         return this.clicks2.size();
     }
+
+	public static SimpleAnimation wOpacityAnimation = new SimpleAnimation(0), aOpacityAnimation = new SimpleAnimation(0), dOpacityAnimation = new SimpleAnimation(0), sOpacityAnimation = new SimpleAnimation(0), jumpOpacityAnimation = new SimpleAnimation(0);
 	
     @Override
 	public void draw() {
 
 		boolean pressed = mc.gameSettings.keyBindAttack.pressed;
         boolean rpressed = mc.gameSettings.keyBindUseItem.pressed;
+		boolean wKey = mc.gameSettings.keyBindForward.pressed;
+		boolean aKey = mc.gameSettings.keyBindLeft.pressed;
+		boolean dKey = mc.gameSettings.keyBindRight.pressed;
+		boolean sKey = mc.gameSettings.keyBindBack.pressed;
+		boolean jumpKey = mc.gameSettings.keyBindJump.pressed;
+
+		wOpacityAnimation.setAnimation(wKey ? 0.8f*255 : 0, 14);
+		aOpacityAnimation.setAnimation(aKey ? 0.8f*255 : 0, 14);
+		dOpacityAnimation.setAnimation(dKey ? 0.8f*255 : 0, 14);
+		sOpacityAnimation.setAnimation(sKey ? 0.8f*255 : 0, 14);
+		jumpOpacityAnimation.setAnimation(jumpKey ? 0.8f*255 : 0, 14);
+
         if (pressed != this.wasPressed) {
             this.lastPressed = System.currentTimeMillis();
             this.wasPressed = pressed;
@@ -89,46 +104,46 @@ public class KeyStrokes extends RenderModule{
 
             if (!transparent.getValue()) {
 			//W
-			Gui.drawRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3,
-					mc.gameSettings.keyBindForward.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, 8,
+					wKey ? getColor(gcolor) : getColor(gcolorp));
 			// S
-			Gui.drawRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55,
-					mc.gameSettings.keyBindBack.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55, 8,
+					sKey ? getColor(gcolor) : getColor(gcolorp));
 			// A
-			Gui.drawRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55,
-					mc.gameSettings.keyBindLeft.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55, 8,
+					aKey ? getColor(gcolor) : getColor(gcolorp));
 			// D
-			Gui.drawRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25,
-					mc.gameSettings.keyBindRight.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, 8,
+					dKey ? getColor(gcolor) : getColor(gcolorp));
 			// LMB
-			Gui.drawRect(this.x+3, this.y+57, this.x+41, this.y+82,
-					mc.gameSettings.keyBindAttack.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x+3, this.y+57, this.x+41, this.y+82, 8,
+					pressed ? getColor(gcolor) : getColor(gcolorp));
 			// RMB
-			Gui.drawRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3,
-					mc.gameSettings.keyBindUseItem.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, 8,
+					rpressed ? getColor(gcolor) : getColor(gcolorp));
 
 			// Jump
 			if(jump.getValue())
-			Gui.drawRect(this.x + 3, this.y+84, this.x+85-3,
-					this.y + 105 - 6, mc.gameSettings.keyBindJump.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 3, this.y+84, this.x+85-3,
+					this.y + 105 - 6, 8, jumpKey ? getColor(gcolor) : getColor(gcolorp));
 		}
 		
 		// Sneak
 		if (sneak.getValue() && !transparent.getValue())
-			Gui.drawRect(this.x + 3, jump.getValue() ? this.y+102 : this.y+84, this.x+85-3,
-					jump.getValue() ? this.y+120-3 : this.y+105-6, mc.gameSettings.keyBindSneak.pressed ? RenderUtils.getColor(gcolor) : RenderUtils.getColor(gcolorp));
+			RenderUtils.drawRoundedRect(this.x + 3, jump.getValue() ? this.y+102 : this.y+84, this.x+85-3,
+					jump.getValue() ? this.y+120-3 : this.y+105-6, mc.gameSettings.keyBindSneak.pressed ? getColor(gcolor) : getColor(gcolorp));
 
 		
-		mc.fontRendererObj.drawString("W", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("W") + 4), this.y+8+3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindForward.pressed ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-		mc.fontRendererObj.drawString("S", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("S") + 4), this.y+38, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindBack.pressed ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-		mc.fontRendererObj.drawString("A", this.x+3+(25/2-mc.fontRendererObj.getStringWidth("A") + 4), this.y+38, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindLeft.pressed ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-		mc.fontRendererObj.drawString("D", this.x+-3+25+25+10+(25/2-mc.fontRendererObj.getStringWidth("D") + 4), this.y+38, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindRight.pressed  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("W", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("W") + 4), this.y+8+3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : wKey ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("S", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("S") + 4), this.y+38, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : sKey ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("A", this.x+3+(25/2-mc.fontRendererObj.getStringWidth("A") + 4), this.y+38, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : aKey ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("D", this.x+-3+25+25+10+(25/2-mc.fontRendererObj.getStringWidth("D") + 4), this.y+38, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : dKey  ? getColor(colorp) : getColor(color), tshadow.getValue());
 		if(jump.getValue())
-		mc.fontRendererObj.drawString("\u00A7m-------", this.x+85+(25/2-mc.fontRendererObj.getStringWidth("u00A7m-------") + 4), this.y+92-3, (chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindJump.pressed  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color)), tshadow.getValue());
+		mc.fontRendererObj.drawString("\u00A7m------", this.x+85+(25/2-mc.fontRendererObj.getStringWidth("u00A7m------") + 4), this.y+92-3, (chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : jumpKey  ? getColor(colorp) : getColor(color)), tshadow.getValue());
 		if(sneak.getValue())
-		mc.fontRendererObj.drawString("Sneak", this.x+38+3+(25/2-mc.fontRendererObj.getStringWidth("Sneak") + 4), jump.getValue() ? this.y+92+15+1-3 : this.y+92-4, (chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindSneak.pressed  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color)), tshadow.getValue());
-		mc.fontRendererObj.drawString("LMB", this.x+3+40/2-mc.fontRendererObj.getStringWidth("LMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(0)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
-		mc.fontRendererObj.drawString("RMB", this.x+40+3+40/2-mc.fontRendererObj.getStringWidth("RMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(1)  ? RenderUtils.getColor(colorp) : RenderUtils.getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("Sneak", this.x+38+3+(25/2-mc.fontRendererObj.getStringWidth("Sneak") + 4), jump.getValue() ? this.y+92+15+1-3 : this.y+92-4, (chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : mc.gameSettings.keyBindSneak.pressed  ? getColor(colorp) : getColor(color)), tshadow.getValue());
+		mc.fontRendererObj.drawString("LMB", this.x+3+40/2-mc.fontRendererObj.getStringWidth("LMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(0)  ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("RMB", this.x+40+3+40/2-mc.fontRendererObj.getStringWidth("RMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, chroma.getValue() ? RainbowUtil.getRainbow(4f, 0.8f, 0.85f) : Mouse.isButtonDown(1)  ? getColor(colorp) : getColor(color), tshadow.getValue());
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(this.x + 1, this.y + 1, 0);
@@ -138,5 +153,28 @@ public class KeyStrokes extends RenderModule{
 
 		GlStateManager.popMatrix();
 	}
+
+    public static int getColor(ModeSetting asdf) {
+
+        switch (asdf.getValue()) {
+            case "Red":
+                return new Color(255, 0, 0, 140).getRGB();
+            case "Yellow":
+                return new Color(255, 255, 0, 140).getRGB();
+            case "Green":
+                return new Color(0, 255, 0, 140).getRGB();
+            case "Blue":
+                return new Color(0, 0, 255, 140).getRGB();
+            case "Orange":
+                return new Color(255, 165, 0, 140).getRGB();
+            case "Pink":
+                return new Color(255, 102, 255, 140).getRGB();
+            case "Black":
+                return new Color(0, 0, 0, 140).getRGB();
+            case "White":
+                return new Color(255, 255, 255, 140).getRGB();
+        }
+        return -1;
+    }
 
 }

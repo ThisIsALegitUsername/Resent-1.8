@@ -1,6 +1,7 @@
 package dev.resent.util.render;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
 import dev.resent.module.setting.ModeSetting;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -11,28 +12,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class RenderUtils {
-
-    public static int getColor(ModeSetting asdf) {
-        switch (asdf.getValue()) {
-            case "Red":
-                return new Color(255, 0, 0, 140).getRGB();
-            case "Yellow":
-                return new Color(255, 255, 0, 140).getRGB();
-            case "Green":
-                return new Color(0, 255, 0, 140).getRGB();
-            case "Blue":
-                return new Color(0, 0, 255, 140).getRGB();
-            case "Orange":
-                return new Color(255, 165, 0, 140).getRGB();
-            case "Pink":
-                return new Color(255, 102, 255, 140).getRGB();
-            case "Black":
-                return new Color(0, 0, 0, 140).getRGB();
-            case "White":
-                return new Color(255, 255, 255, 140).getRGB();
-        }
-        return -1;
-    }
     
     public static void drawChromaString(String string, int x, int y, boolean shadow) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -45,6 +24,91 @@ public class RenderUtils {
             mc.fontRendererObj.drawString(tmp, xTmp, y, i, shadow);
             xTmp += mc.fontRendererObj.getCharWidth(textChar);
         }
+    }
+
+    public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color) {
+        final float f1 = (color >> 24 & 0xFF) / 255.0f;
+        final float f2 = (color >> 16 & 0xFF) / 255.0f;
+        final float f3 = (color >> 8 & 0xFF) / 255.0f;
+        final float f4 = (color & 0xFF) / 255.0f;
+        GlStateManager.color(f2, f3, f4, f1);
+        drawRoundedRect(paramInt1, paramInt2, paramInt3, paramInt4, radius);
+    }
+
+    public static void drawRoundedRect(final float paramFloat1, final float paramFloat2, final float paramFloat3, final float paramFloat4, final float paramFloat5) {
+        final int i = 18;
+        final float f1 = 90.0f / i;
+
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableCull();
+        GlStateManager.enableColorMaterial();
+        GlStateManager.blendFunc(770, 771);
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.shadeModel(7425);
+        worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX);
+        
+        worldrenderer.pos(paramFloat1 + paramFloat5, paramFloat2, 0).endVertex();
+        worldrenderer.pos(paramFloat1 + paramFloat5, paramFloat4, 0).endVertex();
+        worldrenderer.pos(paramFloat3 - paramFloat5, paramFloat2, 0).endVertex();
+        worldrenderer.pos(paramFloat3 - paramFloat5, paramFloat4, 0).endVertex();
+        tessellator.draw();
+        worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(paramFloat1, paramFloat2 + paramFloat5, 0).endVertex();
+        worldrenderer.pos(paramFloat1 + paramFloat5, paramFloat2 + paramFloat5, 0).endVertex();
+        worldrenderer.pos(paramFloat1, paramFloat4 - paramFloat5, 0).endVertex();
+        worldrenderer.pos(paramFloat1 + paramFloat5, paramFloat4 - paramFloat5, 0).endVertex();
+        tessellator.draw();
+        worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(paramFloat3, paramFloat2 + paramFloat5, 0).endVertex();
+        worldrenderer.pos(paramFloat3 - paramFloat5, paramFloat2 + paramFloat5, 0).endVertex();
+        worldrenderer.pos(paramFloat3, paramFloat4 - paramFloat5, 0).endVertex();
+        worldrenderer.pos(paramFloat3 - paramFloat5, paramFloat4 - paramFloat5, 0).endVertex();
+        tessellator.draw();
+        worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
+        float f2 = paramFloat3 - paramFloat5;
+        float f3 = paramFloat2 + paramFloat5;
+        worldrenderer.pos(f2, f3, 0).endVertex();
+        for (int j = 0; j <= i; ++j) {
+            final float f4 = j * f1;
+            worldrenderer.pos((float)(f2 + paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 - paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+        }
+        tessellator.draw();
+        worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
+        f2 = paramFloat1 + paramFloat5;
+        f3 = paramFloat2 + paramFloat5;
+        worldrenderer.pos(f2, f3, 0).endVertex();
+        for (int j = 0; j <= i; ++j) {
+            final float f4 = j * f1;
+            worldrenderer.pos((float)(f2 - paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 - paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+        }
+        tessellator.draw();
+        worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
+        f2 = paramFloat1 + paramFloat5;
+        f3 = paramFloat4 - paramFloat5;
+        worldrenderer.pos(f2, f3, 0).endVertex();
+        for (int j = 0; j <= i; ++j) {
+            final float f4 = j * f1;
+            worldrenderer.pos((float)(f2 - paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 + paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+        }
+        tessellator.draw();
+        worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
+        f2 = paramFloat3 - paramFloat5;
+        f3 = paramFloat4 - paramFloat5;
+        worldrenderer.pos(f2, f3, 0).endVertex();
+        for (int j = 0; j <= i; ++j) {
+            final float f4 = j * f1;
+            worldrenderer.pos((float)(f2 + paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 + paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+        }
+        tessellator.draw();
+        GlStateManager.shadeModel(7424);
+        GlStateManager.enableCull();
+        GlStateManager.disableBlend();
+        GlStateManager.disableColorMaterial();
+        GlStateManager.enableTexture2D();
     }
 
     public static void drawRect(int left, int top, int right, int bottom, int color) {
