@@ -5,7 +5,7 @@ import java.io.IOException;
 import dev.resent.Resent;
 import dev.resent.animation.Animation;
 import dev.resent.animation.Direction;
-import dev.resent.animation.impl.SmoothStepAnimation;
+import dev.resent.module.Theme;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
@@ -256,7 +256,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
-        introAnimation = new SmoothStepAnimation(750, 1);
+        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 750, 1, 2, 3.8f, 1.25f, false);
         //introAnimation = new ElasticAnimation(750, 1, 3.8f, 1.35f, false);
     }
 

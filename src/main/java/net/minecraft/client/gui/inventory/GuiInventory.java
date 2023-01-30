@@ -1,9 +1,8 @@
 package net.minecraft.client.gui.inventory;
 
-import dev.resent.util.misc.GlUtils;
-import dev.resent.animation.impl.DecelerateAnimation;
-import dev.resent.animation.impl.EaseBackIn;
 import dev.resent.animation.Animation;
+import dev.resent.module.Theme;
+import dev.resent.util.misc.GlUtils;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.minecraft.client.Minecraft;
@@ -64,7 +63,7 @@ public class GuiInventory extends InventoryEffectRenderer {
      */
     public void initGui() {
         this.buttonList.clear();
-        openAnim = new DecelerateAnimation(450, 1);
+        openAnim = Theme.getAnimation(Theme.getAnimationId(), 450, 1, 2, 3.8f, 1.35f, false);
         if (this.mc.playerController.isInCreativeMode()) {
             this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.thePlayer));
         } else {

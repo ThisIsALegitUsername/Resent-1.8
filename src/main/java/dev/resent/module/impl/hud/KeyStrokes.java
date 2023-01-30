@@ -3,7 +3,7 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.resent.animation.SimpleAnimation;
+//import dev.resent.animation.SimpleAnimation;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
@@ -64,7 +64,7 @@ public class KeyStrokes extends RenderModule{
         return this.clicks2.size();
     }
 
-	public static SimpleAnimation wOpacityAnimation = new SimpleAnimation(0), aOpacityAnimation = new SimpleAnimation(0), dOpacityAnimation = new SimpleAnimation(0), sOpacityAnimation = new SimpleAnimation(0), jumpOpacityAnimation = new SimpleAnimation(0);
+	//public static SimpleAnimation wOpacityAnimation = new SimpleAnimation(0), aOpacityAnimation = new SimpleAnimation(0), dOpacityAnimation = new SimpleAnimation(0), sOpacityAnimation = new SimpleAnimation(0), jumpOpacityAnimation = new SimpleAnimation(0);
 	
     @Override
 	public void draw() {
@@ -77,11 +77,11 @@ public class KeyStrokes extends RenderModule{
 		boolean sKey = mc.gameSettings.keyBindBack.pressed;
 		boolean jumpKey = mc.gameSettings.keyBindJump.pressed;
 
-		wOpacityAnimation.setAnimation(wKey ? 0.8f*255 : 0, 14);
-		aOpacityAnimation.setAnimation(aKey ? 0.8f*255 : 0, 14);
-		dOpacityAnimation.setAnimation(dKey ? 0.8f*255 : 0, 14);
-		sOpacityAnimation.setAnimation(sKey ? 0.8f*255 : 0, 14);
-		jumpOpacityAnimation.setAnimation(jumpKey ? 0.8f*255 : 0, 14);
+		// wOpacityAnimation.setAnimation(wKey ? 0.8f*255 : 0, 14);
+		// aOpacityAnimation.setAnimation(aKey ? 0.8f*255 : 0, 14);
+		// dOpacityAnimation.setAnimation(dKey ? 0.8f*255 : 0, 14);
+		// sOpacityAnimation.setAnimation(sKey ? 0.8f*255 : 0, 14);
+		// jumpOpacityAnimation.setAnimation(jumpKey ? 0.8f*255 : 0, 14);
 
         if (pressed != this.wasPressed) {
             this.lastPressed = System.currentTimeMillis();

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.Lists;
 
 import dev.resent.animation.SimpleAnimation;
+import dev.resent.util.misc.GlUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -281,6 +282,7 @@ public class GuiChat extends GuiScreen {
      */
     public void drawScreen(int i, int j, float f) {
         animation.setAnimation(30, 20);
+        GlUtils.startTranslate(0, 29 - (int) animation.getValue());
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -293,6 +295,7 @@ public class GuiChat extends GuiScreen {
             exitButton.yPosition = 3 + mc.guiAchievement.getHeight();
         }
 
+        GlUtils.stopTranslate();
         super.drawScreen(i, j, f);
     }
 

@@ -15,5 +15,12 @@ public class GlUtils {
         GlStateManager.popMatrix();
     }
 
+    public static void startTranslate(float x, float y) {
+    	GlStateManager.pushMatrix();
+    	GlStateManager.translate(x, y, 0);
+    }
     
+    public static void stopTranslate() {
+    	GlStateManager.popMatrix();
+    }    
 }

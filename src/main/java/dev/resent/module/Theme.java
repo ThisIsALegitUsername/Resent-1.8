@@ -25,12 +25,12 @@ public class Theme {
         return -1;
     }
 
-    public static Animation getAnimation(int id, int ms, int endpoint, float... etc){
+    public static Animation getAnimation(int id, int ms, int endpoint, float easeAmount, float elasticity, float smooth, boolean moreElasticity){
         switch(id){
             case 1:
-                return new EaseBackIn(ms, endpoint, etc[0]);
+                return new EaseBackIn(ms, endpoint, easeAmount);
             case 2:
-                return new ElasticAnimation(ms, endpoint, etc[0], etc[1], false);
+                return new ElasticAnimation(ms, endpoint, elasticity, smooth, moreElasticity);
             case 3:
                 return new EaseInOutQuad(ms, endpoint);
             case 4:
