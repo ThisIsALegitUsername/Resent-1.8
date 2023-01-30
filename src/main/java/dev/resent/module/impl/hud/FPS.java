@@ -32,7 +32,7 @@ public class FPS extends RenderModule {
     @Override
     public void draw() {
         if (mc.thePlayer != null) {
-            mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
+            mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), tshadow.getValue());
         }
     }
 }

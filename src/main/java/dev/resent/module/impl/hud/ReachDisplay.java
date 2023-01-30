@@ -27,7 +27,7 @@ public class ReachDisplay extends RenderModule {
 
     @Override
     public void draw() {
-        mc.fontRendererObj.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()));
+        mc.fontRendererObj.drawStringWithShadow("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()));
     }
 
     public void onAttack(Entity e){

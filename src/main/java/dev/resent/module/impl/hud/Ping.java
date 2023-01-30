@@ -18,12 +18,12 @@ public class Ping extends RenderModule {
     public void draw() {
         int ms = 0;
         if (mc.isSingleplayer()) {
-            ms = Theme.getFontColor(Theme.getId());
+            ms = Theme.getFontColor(Theme.getFontId());
         }
         ms = (int) mc.getCurrentServerData().pingToServer;
 
         this.setHeight(mc.fontRendererObj.FONT_HEIGHT + 4);
         this.setWidth(mc.fontRendererObj.getStringWidth("[" + ms + " ms]") + 4);
-        mc.fontRendererObj.drawString("[" + ms + " ms]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
+        mc.fontRendererObj.drawString("[" + ms + " ms]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), tshadow.getValue());
     }
 }

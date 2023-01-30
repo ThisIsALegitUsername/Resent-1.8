@@ -33,14 +33,14 @@ public class Info extends RenderModule {
         //int rot = MathHelper.floor_double(this.mc.thePlayer.rotationYaw*4/360+0.5) & 3;
         if (mc.thePlayer != null) {
             drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), new Color(0, 0, 0, 200).getRGB());
-            mc.fontRendererObj.drawStringWithShadow(" X: " + px, this.x + 5, this.y + 14, Theme.getFontColor(Theme.getId()));
-            mc.fontRendererObj.drawStringWithShadow(" Y: " + py, this.x + 5, this.y + 24, Theme.getFontColor(Theme.getId()));
-            mc.fontRendererObj.drawStringWithShadow(" Z: " + pz, this.x + 5, this.y + 34, Theme.getFontColor(Theme.getId()));
+            mc.fontRendererObj.drawStringWithShadow(" X: " + px, this.x + 5, this.y + 14, Theme.getFontColor(Theme.getFontId()));
+            mc.fontRendererObj.drawStringWithShadow(" Y: " + py, this.x + 5, this.y + 24, Theme.getFontColor(Theme.getFontId()));
+            mc.fontRendererObj.drawStringWithShadow(" Z: " + pz, this.x + 5, this.y + 34, Theme.getFontColor(Theme.getFontId()));
             if (!direction.getValue()) yes = 6;
             //if (direction.getVtalue()) {
-            //  mc.fontRendererObj.drawStringWithShadow(" Dir: " + Direction.directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth(" X:  " + px), this.y + 14, Theme.getFontColor(Theme.getId()));
-            mc.fontRendererObj.drawStringWithShadow(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(px, py, pz)).biomeName, this.x + 5, this.y + 44, Theme.getFontColor(Theme.getId()));
-            //mc.fontRendererObj.drawStringWithShadow("  A: " + MathHelper.floor_double((double)mc.thePlayer.rotationYaw>360 || mc.thePlayer.rotationYaw<-360 ? mc.thePlayer.rotationYaw-360 : mc.thePlayer.rotationYaw) + "°", this.x + mc.fontRendererObj.getStringWidth(" D: N  "), this.y + 44, Theme.getFontColor(Theme.getId()));
+            //  mc.fontRendererObj.drawStringWithShadow(" Dir: " + Direction.directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth(" X:  " + px), this.y + 14, Theme.getFontColor(Theme.getFontId()));
+            mc.fontRendererObj.drawStringWithShadow(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(px, py, pz)).biomeName, this.x + 5, this.y + 44, Theme.getFontColor(Theme.getFontId()));
+            //mc.fontRendererObj.drawStringWithShadow("  A: " + MathHelper.floor_double((double)mc.thePlayer.rotationYaw>360 || mc.thePlayer.rotationYaw<-360 ? mc.thePlayer.rotationYaw-360 : mc.thePlayer.rotationYaw) + "°", this.x + mc.fontRendererObj.getStringWidth(" D: N  "), this.y + 44, Theme.getFontColor(Theme.getFontId()));
             yes = 7;
             //}
 

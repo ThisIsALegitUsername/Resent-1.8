@@ -67,7 +67,7 @@ public class Sprint extends RenderModule {
     @Override
     public void draw() {
         this.fr = mc.fontRendererObj;
-        if (drawn.getValue()) fr.drawStringWithShadow(getText(), x + 2, y + 2, Theme.getFontColor(Theme.getId()));
+        if (drawn.getValue()) fr.drawStringWithShadow(getText(), x + 2, y + 2, Theme.getFontColor(Theme.getFontId()));
     }
 
     @Override

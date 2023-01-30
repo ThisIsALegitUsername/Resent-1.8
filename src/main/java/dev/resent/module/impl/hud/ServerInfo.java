@@ -23,7 +23,7 @@ public class ServerInfo extends RenderModule {
     }
 
     public void draw() {
-        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
+        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), tshadow.getValue());
     }
 
     public String getText() {
