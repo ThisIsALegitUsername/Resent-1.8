@@ -1,5 +1,8 @@
 package net.minecraft.client.gui.inventory;
 
+import dev.resent.util.misc.GlUtils;
+import dev.resent.animation.impl.EaseBackIn;
+import dev.resent.animation.Animation;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.minecraft.client.Minecraft;
@@ -52,6 +55,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         this.updateActivePotionEffects();
     }
 
+    public Animation openAnim;
     /**+
      * Adds the buttons (and other controls) to the screen in
      * question. Called when the GUI is displayed and when the
@@ -59,6 +63,7 @@ public class GuiInventory extends InventoryEffectRenderer {
      */
     public void initGui() {
         this.buttonList.clear();
+        openAnim = new EaseBackIn(450, 1, 2);
         if (this.mc.playerController.isInCreativeMode()) {
             this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.thePlayer));
         } else {
@@ -88,6 +93,7 @@ public class GuiInventory extends InventoryEffectRenderer {
      * Args : renderPartialTicks, mouseX, mouseY
      */
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
+        GlUtils.startScale(this.width/2, this.height/2, (float)openAnim.getValue());
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(inventoryBackground);
         int i = this.guiLeft;
@@ -96,6 +102,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         GlStateManager.enableDepth();
         drawEntityOnScreen(i + 51, j + 75, 30, (float) (i + 51) - this.oldMouseX, (float) (j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);
         GlStateManager.disableDepth();
+        GlUtils.stopScale();
     }
 
     /**+

@@ -1,7 +1,6 @@
 package dev.resent;
 
 import dev.resent.module.base.ModManager;
-import net.minecraft.client.Minecraft;
 
 public class Resent {
 
@@ -9,8 +8,7 @@ public class Resent {
         INSTANCE = new Resent();
     }
 
-    public static String NAME = "Resent", VERSION = "3.3.2";
-    public static Minecraft mc = Minecraft.getMinecraft();
+    public static String NAME = "Resent", VERSION = "3.4";
     public static Resent INSTANCE;
     public ModManager modManager;
 

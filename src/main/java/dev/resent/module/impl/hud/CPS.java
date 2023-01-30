@@ -3,6 +3,7 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
@@ -20,7 +21,7 @@ public class CPS extends RenderModule {
     private long lastPressed;
 
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
-    public int getWidth() { return mc.fontRendererObj.getStringWidth("[CPS: 00]") + 4; }
+    public int getWidth() { return mc.fontRendererObj.getStringWidth("[CPS: "+ clicks.size() + "]") + 4; }
     public int getHeight() { return mc.fontRendererObj.FONT_HEIGHT+4; }
 
     @Override
@@ -39,7 +40,7 @@ public class CPS extends RenderModule {
         final long time = System.currentTimeMillis();
         FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-        mc.fontRendererObj.drawString("CPS: " + clicks.size(), this.x+2, this.y+2, -1, tshadow.getValue());
+        mc.fontRendererObj.drawString("[CPS: " + clicks.size() + "]", this.x+2, this.y+2, Theme.getFontColor(Theme.getId()), tshadow.getValue());
     }
 
 }

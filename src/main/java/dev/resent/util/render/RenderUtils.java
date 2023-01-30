@@ -13,15 +13,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class RenderUtils {
     
-    public static void drawChromaString(String string, int x, int y, boolean shadow) {
+    public static void drawChromaString(String string, int param1, int param2, boolean shadow) {
         Minecraft mc = Minecraft.getMinecraft();
 
-        int xTmp = x;
+        int xTmp = param1;
         for (char textChar : string.toCharArray()) {
-            long l = System.currentTimeMillis() - (xTmp * 10 - y * 10);
+            long l = System.currentTimeMillis() - (xTmp * 10 - param2 * 10);
             int i = Color.HSBtoRGB(l % (int) 2000.0F / 2000.0F, 0.8F, 0.8F);
             String tmp = String.valueOf(textChar);
-            mc.fontRendererObj.drawString(tmp, xTmp, y, i, shadow);
+            mc.fontRendererObj.drawString(tmp, xTmp, param2, i, shadow);
             xTmp += mc.fontRendererObj.getCharWidth(textChar);
         }
     }
@@ -166,25 +166,25 @@ public class RenderUtils {
         return Color.WHITE;
     }
 
-    public static void drawRectOutline(int x, int y, int width, int height, int color) {
-        Gui.drawRect(x, y, width, y + 1, color);
-        Gui.drawRect(x, y, x + 1, height, color);
-        Gui.drawRect(width - 1, y, width, height, color);
-        Gui.drawRect(x, height - 1, width, height, color);
+    public static void drawRectOutline(int param1, int param2, int width1, int height1, int color) {
+        Gui.drawRect(param1, param2, width1, param2 + 1, color);
+        Gui.drawRect(param1, param2, param1 + 1, height1, color);
+        Gui.drawRect(width1 - 1, param2, width1, height1, color);
+        Gui.drawRect(param1, height1 - 1, width1, height1, color);
     }
     
-    public static void drawCenteredScaledString(String text, int x,int y, int color, float scale){
+    public static void drawCenteredScaledString(String text, int param1,int param2, int color, float scale){
         GlStateManager.pushMatrix();
         GlStateManager.scale(scale,scale,scale);
-        Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (x / scale), (int) (y / scale), color);
+        Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (param1 / scale), (int) (param2 / scale), color);
         GlStateManager.popMatrix();
     }
 
-    public static void startScale(float x, float y, float scale) {
+    public static void startScale(float param1, float param2, float scale) {
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, 0);
+        GlStateManager.translate(param1, param2, 0);
         GlStateManager.scale(scale, scale, 1);
-        GlStateManager.translate(-x, -y, 0);
+        GlStateManager.translate(-param1, -param2, 0);
     }
 
 }

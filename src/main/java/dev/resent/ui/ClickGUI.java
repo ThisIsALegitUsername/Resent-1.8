@@ -5,7 +5,7 @@ import java.io.IOException;
 import dev.resent.Resent;
 import dev.resent.animation.Animation;
 import dev.resent.animation.Direction;
-import dev.resent.animation.impl.EaseBackIn;
+import dev.resent.animation.impl.ElasticAnimation;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
@@ -142,13 +142,13 @@ public class ClickGUI extends GuiScreen {
         // RenderUtils.drawRectOutline(width+15, height-5, width+26, height+8, new Color(200, 200, 200, 90).getRGB());
         fr.drawString("X", width + 18, height - 2, -1);
 
-        GlUtils.stopScale();
         // white line
         drawRect(x - 8, height + 29, width + 33, height + 30, -1);
+        GlUtils.stopScale();
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (this.modWatching == null) {
                 int fh = fr.FONT_HEIGHT;
-                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20) {
+                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20 && introAnimation.isDone()) {
                     // Enabled outline
                     RenderUtils.drawRectOutline(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
                     drawRect(
@@ -256,7 +256,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
-        introAnimation = new EaseBackIn(450, 1, 2);
+        introAnimation = new ElasticAnimation(750, 1, 3.8f, 1.35f, false);
     }
 
     protected void keyTyped(char par1, int par2) {

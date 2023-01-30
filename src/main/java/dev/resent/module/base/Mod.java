@@ -50,11 +50,10 @@ public class Mod {
     }
 
     protected void drawRect(int left, int top, int right, int bottom, int color){
-        switch(Theme.getId()){
-            case 1:
-                RenderUtils.drawRect(left, top, right, bottom, color);
-            case 50:
-                Gui.drawRect(left, top, right, bottom, color);
+        if(Theme.getRounded()){
+            RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color);
+        }else {
+            Gui.drawRect(left, top, right, bottom, color);
         }
     }
 

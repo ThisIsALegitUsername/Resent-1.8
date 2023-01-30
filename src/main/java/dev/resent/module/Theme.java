@@ -29,5 +29,9 @@ public class Theme {
         }
         return -1;
     }
+
+    public static boolean getRounded(){
+        return HUD.round.getValue();
+    }
     
 }
