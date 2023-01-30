@@ -5,6 +5,7 @@ import java.io.IOException;
 import dev.resent.Resent;
 import dev.resent.animation.Animation;
 import dev.resent.animation.Direction;
+import dev.resent.animation.impl.EaseInOutQuad;
 import dev.resent.animation.impl.ElasticAnimation;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
@@ -256,7 +257,8 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
-        introAnimation = new ElasticAnimation(750, 1, 3.8f, 1.35f, false);
+        introAnimation = new EaseInOutQuad(750, 1);
+        //introAnimation = new ElasticAnimation(750, 1, 3.8f, 1.35f, false);
     }
 
     protected void keyTyped(char par1, int par2) {
