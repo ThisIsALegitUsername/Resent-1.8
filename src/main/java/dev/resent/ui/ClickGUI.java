@@ -51,7 +51,7 @@ public class ClickGUI extends GuiScreen {
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             int fh = fr.FONT_HEIGHT;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.hasSetting) {
+            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.hasSetting && modWatching == null) {
                 // Open settings
                 this.modWatching = m;
             } else if (isMouseInside(mouseX, mouseY, x - fr.FONT_HEIGHT + 2, height + 27 + fr.FONT_HEIGHT + 2, x - fr.FONT_HEIGHT + 6 + fr.getStringWidth("<"), height + 33 + fr.FONT_HEIGHT + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
@@ -256,7 +256,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
-        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 750, 1, 2, 3.8f, 1.25f, false);
+        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 750, 1, 2, 3.8f, 1.35f, false);
         //introAnimation = new ElasticAnimation(750, 1, 3.8f, 1.35f, false);
     }
 
