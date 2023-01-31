@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class RenderUtils {
     
-    public static void drawChromaString(String string, int param1, int param2, boolean shadow) {
+    /*public static void drawChromaString(String string, int param1, int param2, boolean shadow) {
         Minecraft mc = Minecraft.getMinecraft();
 
         int xTmp = param1;
@@ -24,7 +24,7 @@ public class RenderUtils {
             mc.fontRendererObj.drawString(tmp, xTmp, param2, i, shadow);
             xTmp += mc.fontRendererObj.getCharWidth(textChar);
         }
-    }
+    }*/
 
     public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;
@@ -111,39 +111,6 @@ public class RenderUtils {
         GlStateManager.enableTexture2D();
     }
 
-    public static void drawRect(int left, int top, int right, int bottom, int color) {
-        if (left < right) {
-            int i = left;
-            left = right;
-            right = i;
-        }
-
-        if (top < bottom) {
-            int j = top;
-            top = bottom;
-            bottom = j;
-        }
-
-        float f3 = (float) (color >> 24 & 255) / 255.0F;
-        float f = (float) (color >> 16 & 255) / 255.0F;
-        float f1 = (float) (color >> 8 & 255) / 255.0F;
-        float f2 = (float) (color & 255) / 255.0F;
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-        GlStateManager.color(f, f1, f2, f3);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos((double) left, (double) bottom, 0.0D).endVertex();
-        worldrenderer.pos((double) right, (double) bottom, 0.0D).endVertex();
-        worldrenderer.pos((double) right, (double) top, 0.0D).endVertex();
-        worldrenderer.pos((double) left, (double) top, 0.0D).endVertex();
-        tessellator.draw();
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
-    }
-
     public static Color getColorWithoutRGB(ModeSetting asdf) {
         switch (asdf.getValue()) {
             case "Red":
@@ -178,13 +145,6 @@ public class RenderUtils {
         GlStateManager.scale(scale,scale,scale);
         Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (param1 / scale), (int) (param2 / scale), color);
         GlStateManager.popMatrix();
-    }
-
-    public static void startScale(float param1, float param2, float scale) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(param1, param2, 0);
-        GlStateManager.scale(scale, scale, 1);
-        GlStateManager.translate(-param1, -param2, 0);
     }
 
 }
