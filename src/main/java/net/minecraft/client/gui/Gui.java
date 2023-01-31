@@ -139,7 +139,11 @@ public class Gui {
      * Args : renderer, string, x, y, color
      */
     public static void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
-        fontRendererIn.drawString(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), (float) y, color, false);
+        fontRendererIn.drawString(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), (float) y, color, true);
+    }
+
+    public static void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color, boolean dropshadow) {
+        fontRendererIn.drawString(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), (float) y, color, dropshadow);
     }
 
     /**+

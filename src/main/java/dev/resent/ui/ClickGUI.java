@@ -256,8 +256,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
-        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 750, 1, 2, 3.8f, 1.35f, false);
-        //introAnimation = new ElasticAnimation(750, 1, 3.8f, 1.35f, false);
+        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 500, 1, 3, 3.8f, 1.35f, false);
     }
 
     protected void keyTyped(char par1, int par2) {

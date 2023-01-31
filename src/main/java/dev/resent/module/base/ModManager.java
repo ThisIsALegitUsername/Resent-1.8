@@ -8,7 +8,6 @@ import dev.resent.module.impl.hud.CPS;
 import dev.resent.module.impl.hud.ComboCounter;
 import dev.resent.module.impl.hud.FPS;
 import dev.resent.module.impl.hud.Freelook;
-import dev.resent.module.impl.hud.Health;
 import dev.resent.module.impl.hud.Hitboxes;
 import dev.resent.module.impl.hud.Info;
 import dev.resent.module.impl.hud.KeyStrokes;
@@ -62,7 +61,6 @@ public class ModManager {
     public static Freelook freelook;
     public static ComboCounter comboCounter = new ComboCounter();
     public static Hitboxes hitboxes = new Hitboxes();
-    public static Health health;
     public static AutoRespawn autoRespawn;
     //public static ChunkBorders chunkBorders;
     public static NoParticles noParticles = new NoParticles();
@@ -99,7 +97,6 @@ public class ModManager {
         register(comboCounter);
         register(coordinate = new Info());
         register(fps = new FPS());
-        register(health = new Health());
         register(potCounter = new PotCounter());
 
         //Mechanic

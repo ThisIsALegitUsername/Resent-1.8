@@ -2811,7 +2811,7 @@ public abstract class World implements IBlockAccess {
      * Returns horizon height for use in rendering the sky.
      */
     public double getHorizon() {
-        return this.worldInfo.getTerrainType() == WorldType.FLAT ? 0.0D : 63.0D;
+        return 0;
     }
 
     /**+
