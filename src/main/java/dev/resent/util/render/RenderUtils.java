@@ -1,8 +1,5 @@
 package dev.resent.util.render;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
-
 import dev.resent.module.setting.ModeSetting;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
@@ -13,18 +10,19 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class RenderUtils {
     
-    /*public static void drawChromaString(String string, int param1, int param2, boolean shadow) {
-        Minecraft mc = Minecraft.getMinecraft();
-
-        int xTmp = param1;
-        for (char textChar : string.toCharArray()) {
-            long l = System.currentTimeMillis() - (xTmp * 10 - param2 * 10);
-            int i = Color.HSBtoRGB(l % (int) 2000.0F / 2000.0F, 0.8F, 0.8F);
-            String tmp = String.valueOf(textChar);
-            mc.fontRendererObj.drawString(tmp, xTmp, param2, i, shadow);
+    public static void drawChromaString(final String string, final int x, final int y, final boolean shadow) {
+        final Minecraft mc = Minecraft.getMinecraft();
+        int xTmp = x;
+        char[] charArray;
+        for (int length = (charArray = string.toCharArray()).length, j = 0; j < length; ++j) {
+            final char textChar = charArray[j];
+            final long l = System.currentTimeMillis() - (xTmp * 10 - y * 10);
+            final int i = Color.HSBtoRGB(l % 2000L / 2000.0f, 0.8f, 0.8f);
+            final String tmp = String.valueOf(textChar);
+            mc.fontRendererObj.drawString(tmp, (float)xTmp, (float)y, i, shadow);
             xTmp += mc.fontRendererObj.getCharWidth(textChar);
         }
-    }*/
+    }
 
     public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;

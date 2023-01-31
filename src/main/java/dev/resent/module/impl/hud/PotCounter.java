@@ -3,7 +3,6 @@ package dev.resent.module.impl.hud;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.module.setting.BooleanSetting;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -11,11 +10,9 @@ public class PotCounter extends RenderModule {
 
     public PotCounter() {
         super("PotCounter", Category.HUD, 4, 74, true);
-        addSetting(tshadow);
     }
 
     public int potinv = 0;
-    public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
 
     public int getWidth() {
         return mc.fontRendererObj.getStringWidth("[" + potinv + " Pots]") + 4;
@@ -36,6 +33,6 @@ public class PotCounter extends RenderModule {
             }
         }
 
-        mc.fontRendererObj.drawString("[" + potinv + " Pots]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), tshadow.getValue());
+        drawString("[" + potinv + " Pots]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 }

@@ -3,7 +3,6 @@ package dev.resent.module.impl.hud;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.module.setting.BooleanSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
@@ -12,12 +11,10 @@ public class ComboCounter extends RenderModule {
 
     public ComboCounter() {
         super("ComboCounter", Category.HUD, 4, 24, true);
-        addSetting(tshadow);
     }
 
     public static boolean attacked = false;
     public static int combo = 0;
-    public static BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
     public void onAttack(Entity e) {
         if (this.isEnabled()) {
@@ -44,6 +41,6 @@ public class ComboCounter extends RenderModule {
         if(Minecraft.getMinecraft().thePlayer.hurtTime > 3 && this.enabled){
             combo = 0;
         }
-        Minecraft.getMinecraft().fontRendererObj.drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), tshadow.getValue());
+        Minecraft.getMinecraft().fontRendererObj.drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 }

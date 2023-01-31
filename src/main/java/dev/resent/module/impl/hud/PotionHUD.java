@@ -60,9 +60,9 @@ public class PotionHUD extends RenderModule {
                 } else if (potioneffect.getAmplifier() == 3) {
                     s1 = String.valueOf(String.valueOf(s1)) + " " + I18n.format("enchantment.level.4", new Object[0]);
                 } 
-                mc.fontRendererObj.drawString(s1, (getX() + 21), (getY() + i2 - 14), 16777215, true);
+                drawString(s1, (getX() + 21), (getY() + i2 - 14), 16777215, true);
                 String s2 = Potion.getDurationString(potioneffect);
-                mc.fontRendererObj.drawString(s2, (getX() + 21), (getY() + i2 + 10 - 14), 8355711, true);
+                drawString(s2, (getX() + 21), (getY() + i2 + 10 - 14), 8355711, true);
                 i2 += l;
             } 
         } 

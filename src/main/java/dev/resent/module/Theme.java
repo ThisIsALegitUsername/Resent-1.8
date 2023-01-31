@@ -48,7 +48,8 @@ public class Theme {
                 return 1;
             case "Rainbow":
                 return 50;
-
+            case "Chroma":
+                return 6942069;
         }
         return -1;
     }
@@ -71,6 +72,10 @@ public class Theme {
 
     public static boolean getRounded(){
         return HUD.round.getValue();
+    }
+
+    public static boolean getTextShadow(){
+        return HUD.tshadow.getValue();
     }
     
 }

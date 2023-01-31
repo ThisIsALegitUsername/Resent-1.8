@@ -57,6 +57,16 @@ public class Mod {
         }
     }
 
+    protected int drawString(String text, int x, int y, int color, boolean idk){
+        if(color == 6942069){
+            RenderUtils.drawChromaString(text, x, y, idk);
+        }else {
+            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, color, idk);
+        }
+        
+        return x;
+    }
+
     public void setEnabled(boolean state) {
         this.enabled = state;
         if (this.enabled) onEnable(); else onDisable();

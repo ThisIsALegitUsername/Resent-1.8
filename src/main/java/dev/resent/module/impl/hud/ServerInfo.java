@@ -3,16 +3,12 @@ package dev.resent.module.impl.hud;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
-import dev.resent.module.setting.BooleanSetting;
 
 public class ServerInfo extends RenderModule {
 
     public ServerInfo() {
         super("Server info", Category.HUD, 4, 44, true);
-        addSetting(tshadow);
     }
-
-    public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", true);
 
     public int getWidth() {
         return mc.fontRendererObj.getStringWidth(getText()) + 4;
@@ -23,7 +19,7 @@ public class ServerInfo extends RenderModule {
     }
 
     public void draw() {
-        mc.fontRendererObj.drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), tshadow.getValue());
+        drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 
     public String getText() {

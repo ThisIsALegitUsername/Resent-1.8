@@ -18,7 +18,6 @@ public class Watermark extends RenderModule {
 
     @Override
     public void draw() {
-        fr = mc.fontRendererObj;
         this.setHeight(fr.FONT_HEIGHT * 2 + 4);
         this.setWidth(fr.getStringWidth(Resent.NAME + " client 3.2 ") * 2);
 
@@ -26,9 +25,9 @@ public class Watermark extends RenderModule {
         GlStateManager.translate(this.x + 1, this.y + 1, 0);
         GlStateManager.translate(-(this.x + 1), -(this.y + 1), 0);
         GlStateManager.scale(2f, 2f, 2f);
-        int i = fr.drawString(Resent.NAME + " client", (this.x + 1) / 2, (this.y + 1) / 2, Color.RED.getRGB(), true);
+        int i = drawString(Resent.NAME + " client", (this.x + 1) / 2, (this.y + 1) / 2, Color.RED.getRGB(), Theme.getTextShadow());
         GlStateManager.scale(0.5f, 0.5f, 0.5f);
-        fr.drawString(Resent.VERSION + "", (i * 2), this.y + (fr.FONT_HEIGHT * 2 - 7), Theme.getFontColor(Theme.getFontId()), true);
+        drawString(Resent.VERSION + "", (i * 2), this.y + (fr.FONT_HEIGHT * 2 - 7), Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
         GlStateManager.popMatrix();
     }
 }
