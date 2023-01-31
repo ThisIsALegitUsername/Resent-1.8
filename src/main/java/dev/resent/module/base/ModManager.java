@@ -17,7 +17,6 @@ import dev.resent.module.impl.hud.PotCounter;
 import dev.resent.module.impl.hud.PotionHUD;
 import dev.resent.module.impl.hud.ReachDisplay;
 import dev.resent.module.impl.hud.ServerInfo;
-import dev.resent.module.impl.hud.Watermark;
 import dev.resent.module.impl.misc.Animations;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
@@ -74,7 +73,6 @@ public class ModManager {
     public static FPSB fpsb = new FPSB();
     public static Animations animations = new Animations();
     public static MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
-    public static Watermark watermark;
     public static NoSwingDelay noSwingDelay;
     public static PotCounter potCounter;
     public static Ping ping;
@@ -91,7 +89,6 @@ public class ModManager {
         register(hud = new HUD());
         register(ping = new Ping());
         register(serverInfo = new ServerInfo());
-        register(watermark = new Watermark());
         register(freelook = new Freelook());
         register(fpsb);
         register(keyStrokes = new KeyStrokes());

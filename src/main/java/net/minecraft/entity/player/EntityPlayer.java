@@ -999,12 +999,12 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
             return;
         if (hitResult.typeOfHit == MovingObjectType.ENTITY && ModManager.crystalOptimizer.isEnabled()) {
             MovingObjectPosition entityHitResult = hitResult;
-            Entity asdf = entityHitResult.entityHit;
-            if (asdf instanceof EntityEnderCrystal) {
+            Entity crystal = entityHitResult.entityHit;
+            if (crystal instanceof EntityEnderCrystal) {
                 assert Minecraft.getMinecraft().thePlayer != null;
-                asdf.kill();
-                asdf.setDead();
-                asdf.onKillEntity((EntityLivingBase)asdf);
+                crystal.kill();
+                crystal.setDead();
+                crystal.onKillEntity((EntityLivingBase)crystal);
             }
         }
 

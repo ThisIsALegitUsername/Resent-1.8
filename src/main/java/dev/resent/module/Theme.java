@@ -21,6 +21,8 @@ public class Theme {
                 return -1;
             case 50:
                 return RainbowUtil.getRainbow(4f, 0.8f, 0.85f);
+            case 6942069:
+                return 6942069;
         }
         return -1;
     }
