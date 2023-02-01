@@ -21,12 +21,11 @@ public class KeyStrokes extends RenderModule{
 
     public KeyStrokes(){
 		super("Keystrokes", Category.HUD, 25, 4, true);
-		addSetting(sneak, tshadow, jump, color, colorp, gcolor, gcolorp);
+		addSetting(sneak, jump, color, colorp, gcolor, gcolorp);
     }
 
 	public BooleanSetting sneak = new BooleanSetting("Sneak", "", false);
 	public BooleanSetting jump = new BooleanSetting("Jump", "", true);
-	public BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", false);
 	public ModeSetting color = new ModeSetting("Unpressed text color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
 	public ModeSetting colorp = new ModeSetting("Pressed text color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
 	public ModeSetting gcolor = new ModeSetting("Pressed button color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
