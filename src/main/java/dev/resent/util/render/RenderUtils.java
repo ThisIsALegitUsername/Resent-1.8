@@ -24,7 +24,7 @@ public class RenderUtils {
         }
     }
 
-    public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color) {
+    public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... rounded) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;
         final float f2 = (color >> 16 & 0xFF) / 255.0f;
         final float f3 = (color >> 8 & 0xFF) / 255.0f;

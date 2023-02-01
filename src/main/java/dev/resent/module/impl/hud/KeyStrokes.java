@@ -93,32 +93,32 @@ public class KeyStrokes extends RenderModule{
 
 			//W
 			RenderUtils.drawRoundedRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, 4,
-					wKey ? getColor(gcolor) : getColor(gcolorp));
+					wKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 			// S
 			RenderUtils.drawRoundedRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55, 4,
-					sKey ? getColor(gcolor) : getColor(gcolorp));
+					sKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 			// A
 			RenderUtils.drawRoundedRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55, 4,
-					aKey ? getColor(gcolor) : getColor(gcolorp));
+					aKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 			// D
 			RenderUtils.drawRoundedRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, 4,
-					dKey ? getColor(gcolor) : getColor(gcolorp));
+					dKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 			// LMB
 			RenderUtils.drawRoundedRect(this.x+3, this.y+57, this.x+41, this.y+82, 4,
-					pressed ? getColor(gcolor) : getColor(gcolorp));
+					pressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 			// RMB
 			RenderUtils.drawRoundedRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, 4,
-					rpressed ? getColor(gcolor) : getColor(gcolorp));
+					rpressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 
 			// Jump
 			if(jump.getValue())
 			RenderUtils.drawRoundedRect(this.x + 3, this.y+84, this.x+85-3,
-					this.y + 105 - 6, 4, jumpKey ? getColor(gcolor) : getColor(gcolorp));
+					this.y + 105 - 6, 4, jumpKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 		
 		// Sneak
 		if (sneak.getValue())
 			RenderUtils.drawRoundedRect(this.x + 3, jump.getValue() ? this.y+102 : this.y+84, this.x+85-3,
-					jump.getValue() ? this.y+120-3 : this.y+105-6, 4, mc.gameSettings.keyBindSneak.pressed ? getColor(gcolor) : getColor(gcolorp));
+					jump.getValue() ? this.y+120-3 : this.y+105-6, 4, mc.gameSettings.keyBindSneak.pressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 
 		
 		mc.fontRendererObj.drawString("W", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("W") + 4), this.y+8+3, wKey ? getColor(colorp) : getColor(color), Theme.getTextShadow());
