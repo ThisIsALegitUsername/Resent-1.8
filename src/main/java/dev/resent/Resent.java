@@ -4,6 +4,8 @@ import dev.resent.module.base.ModManager;
 
 public class Resent {
 
+    public static boolean hasInit = false;
+
     static {
         INSTANCE = new Resent();
     }
@@ -14,5 +16,6 @@ public class Resent {
 
     public void init() {
         Resent.INSTANCE.modManager = new ModManager();
+        hasInit = true;
     }
 }

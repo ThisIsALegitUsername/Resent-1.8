@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dev.resent.annotation.Module;
 import dev.resent.module.Theme;
 import dev.resent.module.setting.Setting;
 import dev.resent.util.render.RenderUtils;
@@ -21,6 +22,16 @@ public class Mod {
     public boolean hasSetting;
 
     public List<Setting> settings = new ArrayList<>();
+
+    public Mod(){
+        Module modInfo;
+        if(getClass().isAnnotationPresent(Module.class)){
+            modInfo = getClass().getAnnotation(Module.class);
+            this.name = modInfo.name();
+            this.category = modInfo.category();
+            this.hasSetting = modInfo.hasSetting();
+        }
+    }
 
     public Mod(String name, Category cat) {
         this.name = name;
