@@ -30,7 +30,7 @@ public class Mod {
             this.name = modInfo.name();
             this.category = modInfo.category();
             this.hasSetting = modInfo.hasSetting();
-        }
+                }
     }
 
     public Mod(String name, Category cat) {

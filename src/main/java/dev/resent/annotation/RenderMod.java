@@ -14,5 +14,5 @@ public @interface RenderMod {
     Category category();
     int x();
     int y();
-    boolean hasSetting();
+    boolean hasSetting() default false;
 }

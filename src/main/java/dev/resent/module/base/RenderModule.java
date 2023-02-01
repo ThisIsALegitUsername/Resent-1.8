@@ -1,6 +1,7 @@
 package dev.resent.module.base;
 
 import dev.resent.annotation.RenderMod;
+import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -70,21 +71,15 @@ public class RenderModule extends Mod {
         boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + this.getHeight();
 
         Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
-        Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + 1, -1);
-        Gui.drawRect(this.x, this.y, this.x + 1, this.y + getHeight(), -1);
-        Gui.drawRect(this.x + this.getWidth() - 1, this.y, this.x + getWidth(), this.y + this.getHeight(), -1);
-        Gui.drawRect(this.x, this.y + this.getHeight() - 1, this.x + getWidth(), this.y + this.getHeight(), -1);
+        RenderUtils.drawRectOutline(this.x, this.y, this.x+this.getWidth(), this.y+this.getHeight(), -1);
 
         boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth());
         boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight());
-        if (mouseOverX && mouseOverY) {
-            if (Mouse.isButtonDown(0)) {
-                if (!this.dragging) {
-                    this.lastX = x - mouseX;
-                    this.lastY = y - mouseY;
-                    this.dragging = true;
-                }
-            }
+
+        if (mouseOverX && mouseOverY && Mouse.isButtonDown(0) && !this.dragging) {
+            this.lastX = x - mouseX;
+            this.lastY = y - mouseY;
+            this.dragging = true;
         }
         
     }

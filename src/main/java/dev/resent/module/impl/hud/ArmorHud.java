@@ -1,5 +1,6 @@
 package dev.resent.module.impl.hud;
 
+import dev.resent.annotation.RenderMod;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.module.setting.BooleanSetting;
@@ -8,14 +9,12 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 
+@RenderMod(name = "ArmorHud", category = Category.HUD, x = 15, y = 4, hasSetting = true)
 public class ArmorHud extends RenderModule {
 
     public ScaledResolution sr;
 
-    public ArmorHud() {
-        super("ArmorHud", Category.HUD, 4, 4, true);
-        addSetting(helm, chestp, leg, boot, item);
-    }
+    public ArmorHud() { addSetting(helm, chestp, leg, boot, item); }
 
     public static BooleanSetting helm = new BooleanSetting("Helmet", "", true);
     public static BooleanSetting chestp = new BooleanSetting("Chestplate", "", true);
@@ -23,13 +22,8 @@ public class ArmorHud extends RenderModule {
     public static BooleanSetting boot = new BooleanSetting("Boots", "", true);
     public static BooleanSetting item = new BooleanSetting("Item", "", true);
 
-    public int getWidth() {
-        return 20;
-    }
-
-    public int getHeight() {
-        return 96;
-    }
+    public int getWidth() { return 20; }
+    public int getHeight() { return 96; }
 
     @Override
     public void draw() {
