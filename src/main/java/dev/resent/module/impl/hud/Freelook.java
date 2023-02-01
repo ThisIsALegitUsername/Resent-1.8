@@ -1,6 +1,6 @@
 package dev.resent.module.impl.hud;
 
-import dev.resent.Resent;
+import dev.resent.annotation.Module;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 import dev.resent.util.misc.W;
@@ -8,6 +8,7 @@ import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.minecraft.client.Minecraft;
 
 @SuppressWarnings("all")
+@Module(name = "Freelook", category = Category.HUD)
 public class Freelook extends Mod {
 
     public static float cameraYaw = 0.0F;

@@ -3,6 +3,7 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.resent.annotation.RenderMod;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
@@ -14,13 +15,13 @@ import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.Minecraft;
 
+@RenderMod(name = "Keystrokes", category = Category.HUD, x = 25, y = 4, hasSetting = true)
 public class KeyStrokes extends RenderModule{
 
     public static KeyStrokes INSTANCE = new KeyStrokes();
 	private Minecraft mc = Minecraft.getMinecraft();
 
     public KeyStrokes(){
-		super("Keystrokes", Category.HUD, 25, 4, true);
 		addSetting(sneak, jump, color, colorp, gcolor, gcolorp);
     }
 
@@ -138,21 +139,21 @@ public class KeyStrokes extends RenderModule{
 
         switch (asdf.getValue()) {
             case "Red":
-                return new Color(255, 0, 0, 140).getRGB();
+                return new Color(255, 0, 0, 208).getRGB();
             case "Yellow":
-                return new Color(255, 255, 0, 140).getRGB();
+                return new Color(255, 255, 0, 208).getRGB();
             case "Green":
-                return new Color(0, 255, 0, 140).getRGB();
+                return new Color(0, 255, 0, 208).getRGB();
             case "Blue":
-                return new Color(0, 0, 255, 140).getRGB();
+                return new Color(0, 0, 255, 208).getRGB();
             case "Orange":
-                return new Color(255, 165, 0, 140).getRGB();
+                return new Color(255, 165, 0, 208).getRGB();
             case "Pink":
-                return new Color(255, 102, 255, 140).getRGB();
+                return new Color(255, 102, 255, 208).getRGB();
             case "Black":
-                return new Color(0, 0, 0, 140).getRGB();
+                return new Color(0, 0, 0, 208).getRGB();
             case "White":
-                return new Color(255, 255, 255, 140).getRGB();
+                return new Color(255, 255, 255, 208).getRGB();
         }
         return -1;
     }
