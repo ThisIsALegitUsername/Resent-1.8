@@ -1,15 +1,14 @@
 package dev.resent.module.impl.misc;
 
+import dev.resent.annotation.Module;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
 
+@Module(name = "Cosmetics", category = Category.MISC, hasSetting = true)
 public class Cosmetics extends Mod{
-    public Cosmetics(){
-       super("Cosmetics", Category.MISC, true);
-        addSetting(who, show, halo, crystalwings, glasses, hat);
-    }
+    public Cosmetics(){ addSetting(who, show, halo, crystalwings, glasses, hat); }
 
     public static BooleanSetting show = new BooleanSetting("Show cosmetics", "", true);
     public static BooleanSetting crystalwings = new BooleanSetting("Crystal wings", "", false);
