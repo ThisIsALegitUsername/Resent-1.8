@@ -5,7 +5,7 @@ import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
 
-@RenderModule()
+@RenderModule(name = "Ping display", category = Category.HUD, x = 4, y = 50)
 public class Ping extends RenderMod {
 
     public Ping() {
