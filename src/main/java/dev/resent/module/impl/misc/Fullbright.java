@@ -1,15 +1,11 @@
 package dev.resent.module.impl.misc;
 
+import dev.resent.annotation.Module;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 
+@Module(name = "FullBright", category = Category.MISC)
 public class Fullbright extends Mod {
-
-    public static Fullbright INSTANCE = new Fullbright();
-
-    public Fullbright() {
-        super("FullBright", Category.MISC);
-    }
 
     @Override
     public void onEnable() {
