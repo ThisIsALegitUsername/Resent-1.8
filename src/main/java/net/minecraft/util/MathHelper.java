@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import dev.resent.module.impl.misc.FPSB;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 
@@ -35,20 +34,20 @@ public class MathHelper {
     private static final double field_181163_d;
     private static final double[] field_181164_e;
     private static final double[] field_181165_f;
-    public static boolean fps = FPSB.yes;
+    public static boolean fastMath = false;
 
     /**+
      * sin looked up in a table
      */
     public static float sin(float parFloat1) {
-        return fps ? SIN_TABLE_FAST[(int) (parFloat1 * 651.8986f) & 4095] : SIN_TABLE[(int) (parFloat1 * 10430.378F) & '\uffff'];
+        return fastMath ? SIN_TABLE_FAST[(int) (parFloat1 * 651.8986f) & 4095] : SIN_TABLE[(int) (parFloat1 * 10430.378F) & '\uffff'];
     }
 
     /**+
      * cos looked up in the sin table with the appropriate offset
      */
     public static float cos(float value) {
-        return fps ? SIN_TABLE_FAST[(int) ((value + ((float) Math.PI / 2f)) * 651.8986f) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & '\uffff'];
+        return fastMath ? SIN_TABLE_FAST[(int) ((value + ((float) Math.PI / 2f)) * 651.8986f) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & '\uffff'];
     }
 
     public static float sqrt_float(float value) {
