@@ -1,13 +1,11 @@
 package dev.resent.module.impl.misc;
 
+import dev.resent.annotation.Module;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 
+@Module(name = "AutoRespawn", category = Category.MISC)
 public class AutoRespawn extends Mod {
-
-    public AutoRespawn() {
-        super("AutoRespawn", Category.MISC);
-    }
 
     public void onTick() {
         if (this.isEnabled()) {
@@ -16,4 +14,5 @@ public class AutoRespawn extends Mod {
             }
         }
     }
+    
 }
