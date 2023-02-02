@@ -40,7 +40,6 @@ import dev.resent.module.impl.movement.Sprint;
 import net.minecraft.client.Minecraft;
 
 public class ModManager {
-
     public List<Mod> modules = new ArrayList<>();
     public Minecraft mc = Minecraft.getMinecraft();
 
@@ -123,7 +122,7 @@ public class ModManager {
         register(animations);
     }
 
-    public void register(final Mod m) {
+    public void register(Mod m) {
         this.modules.add(m);
     }
 }
