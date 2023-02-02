@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 
-@RenderMod(name = "ComboCounter", category = Category.HUD, x = 4, y = 24)
+@RenderMod(name = "ComboCounter", category = Category.HUD, x = 4, y = 14)
 public class ComboCounter extends RenderModule {
 
     public static boolean attacked = false;

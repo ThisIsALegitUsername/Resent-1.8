@@ -3,16 +3,14 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.resent.annotation.RenderMod;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
 import dev.resent.util.misc.FuncUtils;
 
+@RenderMod(name = "CPS", category = Category.HUD, x = 4, y = 26)
 public class CPS extends RenderModule {
-
-    public CPS() {
-        super("CPS", Category.HUD, 50, 4, true);
-    }
 
     private List<Long> clicks = new ArrayList<>();
     private boolean wasPressed;
