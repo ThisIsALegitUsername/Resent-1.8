@@ -10,7 +10,7 @@ import dev.resent.module.setting.Setting;
 import dev.resent.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 
-public class Mod {
+public abstract class Mod {
 
     public Minecraft mc = Minecraft.getMinecraft();
     public int keyCode;

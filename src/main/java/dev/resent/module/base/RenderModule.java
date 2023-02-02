@@ -6,7 +6,7 @@ import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
-public class RenderModule extends Mod {
+public abstract class RenderModule extends Mod {
 
     public int x, y, width, height;
     public int lastX;
