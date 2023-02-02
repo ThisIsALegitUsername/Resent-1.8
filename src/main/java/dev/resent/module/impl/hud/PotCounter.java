@@ -6,6 +6,7 @@ import dev.resent.module.base.RenderMod;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+@R
 public class PotCounter extends RenderMod {
 
     public PotCounter() {

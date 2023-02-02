@@ -8,10 +8,6 @@ import dev.resent.module.base.RenderMod;
 @RenderModule(name = "Ping display", category = Category.HUD, x = 4, y = 50)
 public class Ping extends RenderMod {
 
-    public Ping() {
-        super("Ping Display", Category.HUD, 4, 54, true);
-    }
-
     @Override
     public void draw() {
         int ms = 0;

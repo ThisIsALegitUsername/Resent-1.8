@@ -11,11 +11,6 @@ import net.minecraft.util.BlockPos;
 @RenderModule(name = "Info", category = Category.HUD, x = 140, y = 50)
 public class Info extends RenderMod {
 
-    public Info() {
-        super("Info", Category.HUD, 150, 4);
-        //addSetting(direction);
-    }
-
     public BooleanSetting direction = new BooleanSetting("Direction", "", true);
     public static int yes = 6;
 
