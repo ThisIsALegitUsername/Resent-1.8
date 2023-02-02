@@ -1,14 +1,14 @@
 package dev.resent.module.impl.misc;
 
+import dev.resent.annotation.Module;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.ModeSetting;
 
+@Module(name = "Hotbar", category = Category.MISC, hasSetting = true)
 public class HotbarAnimation extends Mod{
-    public HotbarAnimation(){
-        super("Hotbar", Category.MISC, true);
-        addSetting(speed);
-    }
+    
+    public HotbarAnimation(){  addSetting(speed); }
 
     public static ModeSetting speed = new ModeSetting("Speed", "", "Slow", "Fast", "Normal");
     
