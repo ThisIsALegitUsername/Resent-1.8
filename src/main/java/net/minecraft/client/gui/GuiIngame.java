@@ -325,9 +325,10 @@ public class GuiIngame extends Gui {
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
 
-            if (Minecraft.getMinecraft().pointedEntity != null && ModManager.crosshair.isEnabled()){
+            if (ModManager.crosshair.isEnabled()){
+				GlStateManager.disableAlpha();
+				if(Minecraft.getMinecraft().pointedEntity != null)
                 GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue());
-                GlStateManager.disableAlpha();
             }
             
 			this.drawTexturedModalRect(scaledResWidth / 2 - 7, scaledResHeight / 2 - 7, 0, 0, 16, 16);
