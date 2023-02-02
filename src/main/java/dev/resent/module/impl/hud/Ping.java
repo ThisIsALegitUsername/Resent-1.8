@@ -5,7 +5,7 @@ import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
 
-@RenderModule
+@RenderModule()
 public class Ping extends RenderMod {
 
     public Ping() {
