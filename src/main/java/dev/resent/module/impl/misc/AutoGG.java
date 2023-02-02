@@ -9,7 +9,6 @@ import dev.resent.module.setting.BooleanSetting;
 public class AutoGG extends Mod {
 
     public AutoGG() {
-        super("AutoGG", Category.MISC, true);
         addSetting(rep, onLose, onWin);
     }
 

@@ -5,9 +5,4 @@ import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 
 @Module(name = "Animations", category = Category.MISC)
-public class Animations extends Mod {
-
-    public Animations() {
-        super("Animations", Category.MISC);
-    }
-}
+public class Animations extends Mod { }
