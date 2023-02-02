@@ -1,11 +1,8 @@
 package dev.resent.module.impl.misc;
 
+import dev.resent.annotation.Module;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 
-public class NoSwingDelay extends Mod {
-
-    public NoSwingDelay() {
-        super("NoSwingDelay", Category.MISC);
-    }
-}
+@Module(name = "NoSwingDelay", category = Category.MISC)
+public class NoSwingDelay extends Mod { }
