@@ -1,9 +1,9 @@
 package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.RenderModule;
-import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
+import dev.resent.ui.Theme;
 
 @RenderModule(name = "Server info", category = Category.HUD, x = 4, y = 110)
 public class ServerInfo extends RenderMod {

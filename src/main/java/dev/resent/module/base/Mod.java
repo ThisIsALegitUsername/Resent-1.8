@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import dev.resent.annotation.Module;
-import dev.resent.module.Theme;
 import dev.resent.module.setting.Setting;
+import dev.resent.ui.Theme;
 import dev.resent.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 

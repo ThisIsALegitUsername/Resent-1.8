@@ -1,6 +1,8 @@
 package dev.resent.util.misc;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 
 public class GlUtils {
     
@@ -22,5 +24,12 @@ public class GlUtils {
     
     public static void stopTranslate() {
     	GlStateManager.popMatrix();
+    }
+
+    public static void drawCenteredScaledString(String text, int param1,int param2, int color, float scale){
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scale,scale,scale);
+        Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (param1 / scale), (int) (param2 / scale), color, false);
+        GlStateManager.popMatrix();
     }    
 }

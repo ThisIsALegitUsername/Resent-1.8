@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.resent.annotation.RenderModule;
-import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
+import dev.resent.ui.Theme;
 import dev.resent.util.misc.FuncUtils;
 
 @RenderModule(name = "CPS", category = Category.HUD, x = 4, y = 26)

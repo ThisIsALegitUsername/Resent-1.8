@@ -1,10 +1,10 @@
 package dev.resent.module.impl.movement;
 
 import dev.resent.annotation.RenderModule;
-import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
+import dev.resent.ui.Theme;
 
 @RenderModule(name = "ToggleSprint", category = Category.MOVEMENT, x = 4, y = 122, hasSetting = true)
 public class Sprint extends RenderMod {

@@ -1,4 +1,4 @@
-package dev.resent.module;
+package dev.resent.ui;
 
 import dev.resent.animation.Animation;
 import dev.resent.animation.impl.DecelerateAnimation;
@@ -7,7 +7,7 @@ import dev.resent.animation.impl.EaseInOutQuad;
 import dev.resent.animation.impl.ElasticAnimation;
 import dev.resent.animation.impl.SmoothStepAnimation;
 import dev.resent.module.impl.misc.HUD;
-import dev.resent.util.render.RainbowUtil;
+import dev.resent.util.render.RenderUtils;
 
 public class Theme {
 
@@ -20,7 +20,7 @@ public class Theme {
             case 1:
                 return -1;
             case 50:
-                return RainbowUtil.getRainbow(4f, 0.8f, 0.85f);
+                return RenderUtils.getRainbow(4f, 0.8f, 0.85f);
             case 6942069:
                 return 6942069;
         }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import dev.resent.Resent;
 import dev.resent.animation.Animation;
 import dev.resent.animation.Direction;
-import dev.resent.module.Theme;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;

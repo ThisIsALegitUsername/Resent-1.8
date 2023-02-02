@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import dev.resent.ui.ClientButton;
-import dev.resent.util.render.RenderUtils;
+import dev.resent.util.misc.GlUtils;
 import net.lax1dude.eaglercraft.v1_8.profile.GuiScreenEditProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
@@ -24,7 +24,7 @@ public class GuiMainMenu extends GuiScreen {
         Gui.drawModalRectWithCustomSizedTexture(0, 0, 0.0f, 0.0f, this.width, this.height, this.width + 21, this.height + 50);
         final String s1 = "Copyright " + EnumChatFormatting.RED + EnumChatFormatting.BOLD + "M" + EnumChatFormatting.RESET + "ojang AB";
         this.drawString(Minecraft.getMinecraft().fontRendererObj, s1, this.width - Minecraft.getMinecraft().fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
-        RenderUtils.drawCenteredScaledString("" + EnumChatFormatting.AQUA + EnumChatFormatting.BOLD + "Resent", this.width / 2, this.height / 2 - 50, -1, 3f);
+        GlUtils.drawCenteredScaledString("" + EnumChatFormatting.AQUA + EnumChatFormatting.BOLD + "Resent", this.width / 2, this.height / 2 - 50, -1, 3f);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
     

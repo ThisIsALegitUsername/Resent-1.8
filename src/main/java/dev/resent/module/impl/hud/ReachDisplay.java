@@ -3,9 +3,9 @@ package dev.resent.module.impl.hud;
 import java.text.DecimalFormat;
 
 import dev.resent.annotation.RenderModule;
-import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
+import dev.resent.ui.Theme;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 

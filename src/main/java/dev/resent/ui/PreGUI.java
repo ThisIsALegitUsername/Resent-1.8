@@ -1,5 +1,6 @@
 package dev.resent.ui;
 
+import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
@@ -20,7 +21,7 @@ public class PreGUI extends GuiScreen{
 
         Gui.drawRect(GuiScreen.width/2-30, GuiScreen.height/2+20, GuiScreen.width/2+50, GuiScreen.height/2+50, isMouseInside(i, j, GuiScreen.width/2-30, GuiScreen.height/2+20, GuiScreen.width/2+50, GuiScreen.height/2+50) ? 0x40FFFFFF : 0x50FFFFFF);
         RenderUtils.drawRectOutline(GuiScreen.width/2-30, GuiScreen.height/2+20, GuiScreen.width/2+50, GuiScreen.height/2+50, 0x080FFFFFF);
-        RenderUtils.drawCenteredScaledString("Mods", GuiScreen.width/2+10, GuiScreen.height/2+35-mc.fontRendererObj.FONT_HEIGHT/2, -1, 1.25f);
+        GlUtils.drawCenteredScaledString("Mods", GuiScreen.width/2+10, GuiScreen.height/2+35-mc.fontRendererObj.FONT_HEIGHT/2, -1, 1.25f);
 
         /*drawRect(GuiScreen.width/2-30, GuiScreen.height/2+55, GuiScreen.width/2+50, GuiScreen.height/2+85, isMouseInside(i, j, GuiScreen.width/2-30, GuiScreen.height/2+55, GuiScreen.width/2+50, GuiScreen.height/2+85) ? 0x40FFFFFF : 0x50FFFFFF);
         RenderUtils.drawRectOutline(GuiScreen.width/2-30, GuiScreen.height/2+55, GuiScreen.width/2+50, GuiScreen.height/2+85, 0x080FFFFFF);
