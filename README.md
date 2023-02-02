@@ -28,10 +28,8 @@ create a new class structured like the following:
 
 
 ```
+  @Module(name = "Example", category = Category.MISC) //theres another optional value, hasSetting, set to false by default.
   public class ExampleModule extends Mod {
-    public ExampleModule(){
-      super("Example", Category.MISC); //use super("Example", Category,MISC, true); to add a gear icon
-    }
     
     @Override //Overrides method in Mod class.
     public void onEnable(){
@@ -53,12 +51,10 @@ create a new class structured like the following:
 create a new class structured like this:
 
 ```
+@RenderModule(name = "ExampleRender", category = Category.MISC, x = 4, y = 4)
 public class ExampleRenderModule extends RenderModule {
-  public ExampleRenderModule(){
-    super("ExampleRender", Category.MISC, 4 /*starting X position of the module*/, 4 /*starting Y position of the module*/); //again, add a ",true" to the end if you want a gear icon.
-  }
   
-  //this method is called in GuiIngame to draw objects to the screen.
+  //this method is called in GuiIngame to draw stuff to the screen.
   public void draw(){
     mc.fontRendererObj.drawString("Test", this.getX(), this.getY(), -1 /* -1 is the color of the text. */);
   }
@@ -76,7 +72,6 @@ not too difficult to figure out on your own, here's an example:
 ```
 public class ExampleRenderModule extends RenderModule {
   public ExampleRenderModule(){
-    super("ExampleRender", Category.MISC, 4, 4, true);
     addSetting(example);
   }
   
@@ -92,32 +87,4 @@ public class ExampleRenderModule extends RenderModule {
 
 ^ this example was done with a booleansetting, its similar to a modesetting, too lazy to write a documentation for that cope.
 
-## Events
-
-create a new class like so:
-
-```
-public class EventUpdate extends Event {
-
-public boolean cancelled = false;
-
-@Override
-public boolean isCancelled(){
-  return this.cancelled;
-}
-
-@Override
-public void setCancelled(boolean cancelled){
-  this.cancelled = canceled;
-}
-```
-
-to hook the event, put this in:
-
-&nbsp;
-
-```
-EventUpdate e = new EventUpdate();
-Resent.onEvent(e);
-```
 
