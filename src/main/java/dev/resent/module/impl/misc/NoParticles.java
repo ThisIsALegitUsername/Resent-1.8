@@ -5,9 +5,4 @@ import dev.resent.module.base.Category;
 import dev.resent.module.base.Mod;
 
 @Module(name = "NoParticles", category = Category.MISC)
-public class NoParticles extends Mod {
-
-    public NoParticles() {
-        super("NoParticles", Category.MISC);
-    }
-}
+public class NoParticles extends Mod {}
