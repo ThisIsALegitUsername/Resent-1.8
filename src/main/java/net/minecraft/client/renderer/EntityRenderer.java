@@ -31,7 +31,7 @@ import com.google.common.base.Predicates;
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import dev.resent.ui.HUDConfigScreen;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
@@ -886,8 +886,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						GlStateManager.enableOverlayFramebufferBlending();
 						this.mc.ingameGUI.renderGameOverlay(parFloat1);
                         for (Mod m : Resent.INSTANCE.modManager.modules) {
-                            if (m.isEnabled() && m instanceof RenderModule && !(mc.currentScreen instanceof HUDConfigScreen)) {
-                                ((RenderModule) m).draw();
+                            if (m.isEnabled() && m instanceof RenderMod && !(mc.currentScreen instanceof HUDConfigScreen)) {
+                                ((RenderMod) m).draw();
                             }
                         }
 						GlStateManager.disableOverlayFramebufferBlending();

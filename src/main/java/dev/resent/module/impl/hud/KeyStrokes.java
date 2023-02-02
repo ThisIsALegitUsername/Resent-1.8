@@ -3,10 +3,10 @@ package dev.resent.module.impl.hud;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.resent.annotation.RenderMod;
+import dev.resent.annotation.RenderModule;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
 import dev.resent.util.misc.FuncUtils;
@@ -15,8 +15,8 @@ import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.Minecraft;
 
-@RenderMod(name = "Keystrokes", category = Category.HUD, x = 25, y = 4, hasSetting = true)
-public class KeyStrokes extends RenderModule{
+@RenderModule(name = "Keystrokes", category = Category.HUD, x = 25, y = 4, hasSetting = true)
+public class KeyStrokes extends RenderMod{
 
     public static KeyStrokes INSTANCE = new KeyStrokes();
 	private Minecraft mc = Minecraft.getMinecraft();

@@ -7,7 +7,7 @@ import com.google.common.collect.Sets;
 import dev.resent.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
 import dev.resent.module.setting.Setting;
@@ -1052,12 +1052,12 @@ public class GameSettings {
                             m.setEnabled(astring[1].equals("true"));
                         }
 
-                        List<RenderModule> rmodules = new ArrayList<>();
-                        if (m instanceof RenderModule) {
-                            rmodules.add((RenderModule) m);
+                        List<RenderMod> rmodules = new ArrayList<>();
+                        if (m instanceof RenderMod) {
+                            rmodules.add((RenderMod) m);
                         }
 
-                        for (RenderModule rmod : rmodules) {
+                        for (RenderMod rmod : rmodules) {
                             if (astring[0].equals(rmod.name + "_x")) {
                                 rmod.setX(Integer.parseInt(astring[1]));
                             }
@@ -1203,12 +1203,12 @@ public class GameSettings {
             for (Mod m : Resent.INSTANCE.modManager.modules) {
                 printwriter.println(m.name + ":" + m.isEnabled());
 
-                List<RenderModule> rmodules = new ArrayList<>();
-                if (m instanceof RenderModule) {
-                    rmodules.add((RenderModule) m);
+                List<RenderMod> rmodules = new ArrayList<>();
+                if (m instanceof RenderMod) {
+                    rmodules.add((RenderMod) m);
                 }
 
-                for (RenderModule rmod : rmodules) {
+                for (RenderMod rmod : rmodules) {
                     printwriter.println(rmod.name + "_x:" + rmod.getX());
                     printwriter.println(rmod.name + "_y:" + rmod.getY());
                     printwriter.println(rmod.name + "_lastx:" + rmod.lastX);

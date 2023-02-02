@@ -2,9 +2,9 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 
-public class Ping extends RenderModule {
+public class Ping extends RenderMod {
 
     public Ping() {
         super("Ping Display", Category.HUD, 4, 54, true);

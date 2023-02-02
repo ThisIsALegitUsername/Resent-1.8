@@ -1,23 +1,23 @@
 package dev.resent.module.base;
 
-import dev.resent.annotation.RenderMod;
+import dev.resent.annotation.RenderModule;
 import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
-public abstract class RenderModule extends Mod {
+public abstract class RenderMod extends Mod {
 
     public int x, y, width, height;
     public int lastX;
     public int lastY;
     private boolean dragging;
 
-    public RenderModule(){
+    public RenderMod(){
         super();
-        RenderMod modInfo;
-        if(getClass().isAnnotationPresent(RenderMod.class)){
-            modInfo = getClass().getAnnotation(RenderMod.class);
+        RenderModule modInfo;
+        if(getClass().isAnnotationPresent(RenderModule.class)){
+            modInfo = getClass().getAnnotation(RenderModule.class);
             this.name = modInfo.name();
             this.category = modInfo.category();
             this.hasSetting = modInfo.hasSetting();
@@ -26,13 +26,13 @@ public abstract class RenderModule extends Mod {
         }
     }
     
-    public RenderModule(String name, Category cat, int x, int y) {
+    public RenderMod(String name, Category cat, int x, int y) {
         super(name, cat);
         this.x = x;
         this.y = y;
     }
 
-    public RenderModule(String name, Category cat, int x, int y, boolean hasSetting) {
+    public RenderMod(String name, Category cat, int x, int y, boolean hasSetting) {
         super(name, cat, hasSetting);
         this.x = x;
         this.y = y;

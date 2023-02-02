@@ -9,7 +9,7 @@ import dev.resent.module.base.Category;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RenderMod {
+public @interface RenderModule {
     String name();
     Category category();
     int x();

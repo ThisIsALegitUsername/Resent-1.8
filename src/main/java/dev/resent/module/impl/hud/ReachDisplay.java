@@ -4,11 +4,11 @@ import java.text.DecimalFormat;
 
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 
-public class ReachDisplay extends RenderModule {
+public class ReachDisplay extends RenderMod {
 
     public static final DecimalFormat df2 = new DecimalFormat("0.00");
     public double range;

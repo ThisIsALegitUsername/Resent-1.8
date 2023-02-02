@@ -2,9 +2,9 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 
-public class ServerInfo extends RenderModule {
+public class ServerInfo extends RenderMod {
 
     public ServerInfo() {
         super("Server info", Category.HUD, 4, 44, true);

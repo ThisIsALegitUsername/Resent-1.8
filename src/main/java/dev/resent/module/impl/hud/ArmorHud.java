@@ -1,16 +1,16 @@
 package dev.resent.module.impl.hud;
 
-import dev.resent.annotation.RenderMod;
+import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 
-@RenderMod(name = "ArmorHud", category = Category.HUD, x = 15, y = 4, hasSetting = true)
-public class ArmorHud extends RenderModule {
+@RenderModule(name = "ArmorHud", category = Category.HUD, x = 15, y = 4, hasSetting = true)
+public class ArmorHud extends RenderMod {
 
     public ScaledResolution sr;
     public ArmorHud() { addSetting(helm, chestp, leg, boot, item); }

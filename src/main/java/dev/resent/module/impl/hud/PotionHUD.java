@@ -3,7 +3,7 @@ package dev.resent.module.impl.hud;
 import java.util.Collection;
 
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
 @SuppressWarnings("all")
-public class PotionHUD extends RenderModule {
+public class PotionHUD extends RenderMod {
 
     int i2 = 16;
 

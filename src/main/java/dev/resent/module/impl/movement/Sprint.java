@@ -2,10 +2,10 @@ package dev.resent.module.impl.movement;
 
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 
-public class Sprint extends RenderModule {
+public class Sprint extends RenderMod {
 
     public BooleanSetting drawn = new BooleanSetting("Text Drawn", "", true);
 

@@ -2,11 +2,11 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
-import dev.resent.module.base.RenderModule;
+import dev.resent.module.base.RenderMod;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-public class PotCounter extends RenderModule {
+public class PotCounter extends RenderMod {
 
     public PotCounter() {
         super("PotCounter", Category.HUD, 4, 74, true);
