@@ -9,7 +9,6 @@ import dev.resent.module.Theme;
 import dev.resent.module.setting.Setting;
 import dev.resent.util.render.RenderUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 
 public class Mod {
 
@@ -30,7 +29,7 @@ public class Mod {
             this.name = modInfo.name();
             this.category = modInfo.category();
             this.hasSetting = modInfo.hasSetting();
-                }
+        }
     }
 
     public Mod(String name, Category cat) {
@@ -61,11 +60,7 @@ public class Mod {
     }
 
     protected void drawRect(int left, int top, int right, int bottom, int color){
-        if(Theme.getRounded()){
-            RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color);
-        }else {
-            Gui.drawRect(left, top, right, bottom, color);
-        }
+        RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color, Theme.getRounded());
     }
 
     protected int drawString(String text, int x, int y, int color, boolean idk){

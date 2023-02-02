@@ -31,7 +31,7 @@ public class RenderUtils {
         final float f4 = (color & 0xFF) / 255.0f;
         GlStateManager.color(f2, f3, f4, f1);
         if(rounded[0]){
-        drawRoundedRect(paramInt1, paramInt2, paramInt3, paramInt4, radius);
+            drawRoundedRect(paramInt1, paramInt2, paramInt3, paramInt4, radius);
         }else {
             Gui.drawRect((int)paramInt1, (int)paramInt2, (int)paramInt3, (int)paramInt4, color);
         }
