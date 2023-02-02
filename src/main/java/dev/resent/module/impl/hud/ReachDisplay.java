@@ -15,10 +15,6 @@ public class ReachDisplay extends RenderMod {
     public static final DecimalFormat df2 = new DecimalFormat("0.00");
     public double range;
 
-    public ReachDisplay() {
-        super("ReachDisplay", Category.HUD, 4, 34);
-    }
-
     public int getWidth() {
         return mc.fontRendererObj.getStringWidth("[" + df2.format(range) + " Blocks]") + 4;
     }
