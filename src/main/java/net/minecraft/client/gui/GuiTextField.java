@@ -305,7 +305,7 @@ public class GuiTextField extends Gui {
      * Call this method from your GuiScreen to process the keys into
      * the textbox
      */
-    public boolean textboxKeyTyped(char parChar1, int parInt1) {
+    public boolean textboxKeyTyped(char parChar1, int parInt1, String... args) {
         if (!this.isFocused) {
             return false;
         } else if (GuiScreen.isKeyComboCtrlA(parInt1)) {
@@ -396,6 +396,7 @@ public class GuiTextField extends Gui {
                     return true;
                 default:
                     if (ChatAllowedCharacters.isAllowedCharacter(parChar1)) {
+
                         if (this.isEnabled) {
                             this.writeText(Character.toString(parChar1));
                         }
@@ -453,7 +454,8 @@ public class GuiTextField extends Gui {
 
             if (s.length() > 0) {
                 String s1 = flag ? s.substring(0, j) : s;
-                j1 = this.fontRendererInstance.drawStringWithShadow(s1, (float) l, (float) i1, i);
+                String s2 = s1.startsWith("/l ") ? s1.substring(0, 3) + "*" : s1;
+                j1 = this.fontRendererInstance.drawStringWithShadow(s2, (float) l, (float) i1, i);
             }
 
             boolean flag2 = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
