@@ -1,5 +1,6 @@
 package dev.resent.module.impl.hud;
 
+import dev.resent.annotation.RenderMod;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderModule;
@@ -7,11 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 
+@RenderMod(name = "ComboCounter", category = Category.HUD, x = 4, y = 24)
 public class ComboCounter extends RenderModule {
-
-    public ComboCounter() {
-        super("ComboCounter", Category.HUD, 4, 24, true);
-    }
 
     public static boolean attacked = false;
     public static int combo = 0;

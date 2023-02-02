@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 public class ArmorHud extends RenderModule {
 
     public ScaledResolution sr;
-
     public ArmorHud() { addSetting(helm, chestp, leg, boot, item); }
 
     public static BooleanSetting helm = new BooleanSetting("Helmet", "", true);
