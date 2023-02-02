@@ -2,6 +2,7 @@ package dev.resent.module.impl.hud;
 
 import java.util.Collection;
 
+import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -16,13 +17,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
 @SuppressWarnings("all")
+@RenderModule(name = "PotionHUD", category = Category.HUD, x = 4, y = 74)
 public class PotionHUD extends RenderMod {
 
     int i2 = 16;
-
-    public PotionHUD() {
-        super("PotionHUD", Category.HUD, 4, 350);
-    }
 
     public int getWidth() {
         return 100;
