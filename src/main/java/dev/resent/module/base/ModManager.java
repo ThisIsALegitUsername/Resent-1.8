@@ -34,16 +34,12 @@ import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
-import dev.resent.module.impl.misc.Test;
 import dev.resent.module.impl.misc.Tooltips;
 import dev.resent.module.impl.movement.Sprint;
-import net.minecraft.client.Minecraft;
 
 public class ModManager {
     public List<Mod> modules = new ArrayList<>();
-    public Minecraft mc = Minecraft.getMinecraft();
 
-    public static Test test;
     public static Cosmetics cosmetics = new Cosmetics();
     public static Sprint sprint;
     public static CPS cps;
@@ -81,8 +77,7 @@ public class ModManager {
     public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
 
     public ModManager() {
-        //Hud
-        register(test = new Test());
+        //HudZ
         register(cosmetics);
         register(hotbar);
         register(crystalOptimizer);

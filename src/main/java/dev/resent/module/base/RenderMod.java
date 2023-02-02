@@ -25,19 +25,6 @@ public abstract class RenderMod extends Mod {
             this.y = modInfo.y();
         }
     }
-    
-    public RenderMod(String name, Category cat, int x, int y) {
-        super(name, cat);
-        this.x = x;
-        this.y = y;
-    }
-
-    public RenderMod(String name, Category cat, int x, int y, boolean hasSetting) {
-        super(name, cat, hasSetting);
-        this.x = x;
-        this.y = y;
-        this.hasSetting = hasSetting;
-    }
 
     public void draw() {}
 

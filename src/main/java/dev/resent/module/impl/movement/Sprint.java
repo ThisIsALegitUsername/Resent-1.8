@@ -1,16 +1,17 @@
 package dev.resent.module.impl.movement;
 
+import dev.resent.annotation.RenderModule;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 
+@RenderModule(name = "ToggleSprint", category = Category.MOVEMENT, x = 4, y = 122, hasSetting = true)
 public class Sprint extends RenderMod {
 
     public BooleanSetting drawn = new BooleanSetting("Text Drawn", "", true);
 
     public Sprint() {
-        super("ToggleSprint", Category.MOVEMENT, 4, 94, true);
         addSetting(drawn);
     }
 

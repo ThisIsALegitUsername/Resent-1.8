@@ -17,10 +17,6 @@ public class Freelook extends Mod {
     public static boolean perspectiveToggled = false;
     public static boolean returnOnRelease = false;
 
-    public Freelook() {
-        super("FreeLook", Category.HUD);
-    }
-
     public void smh() {
         if (W.freelook().isEnabled()) perspectiveToggled = !perspectiveToggled;
 

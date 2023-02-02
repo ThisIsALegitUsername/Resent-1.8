@@ -32,17 +32,6 @@ public abstract class Mod {
         }
     }
 
-    public Mod(String name, Category cat) {
-        this.name = name;
-        this.category = cat;
-    }
-
-    public Mod(String name, Category cat, boolean hasSetting) {
-        this.name = name;
-        this.category = cat;
-        this.hasSetting = hasSetting;
-    }
-
     public void addSetting(Setting... settings) {
         this.settings.addAll(Arrays.asList(settings));
     }
