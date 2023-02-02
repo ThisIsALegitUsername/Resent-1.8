@@ -1,9 +1,11 @@
 package dev.resent.module.impl.hud;
 
+import dev.resent.annotation.RenderModule;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
 
+@RenderModule
 public class Ping extends RenderMod {
 
     public Ping() {

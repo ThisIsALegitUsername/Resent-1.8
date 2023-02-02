@@ -1,5 +1,6 @@
 package dev.resent.module.impl.hud;
 
+import dev.resent.annotation.RenderModule;
 import dev.resent.module.Theme;
 import dev.resent.module.base.Category;
 import dev.resent.module.base.RenderMod;
@@ -7,6 +8,7 @@ import dev.resent.module.setting.BooleanSetting;
 import dev.resent.util.render.Color;
 import net.minecraft.util.BlockPos;
 
+@RenderModule(name = "Info", category = Category.HUD, x = 140, y = 50)
 public class Info extends RenderMod {
 
     public Info() {

@@ -15,7 +15,7 @@ import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.Minecraft;
 
-@RenderModule(name = "Keystrokes", category = Category.HUD, x = 25, y = 4, hasSetting = true)
+@RenderModule(name = "Keystrokes", category = Category.HUD, x = 140, y = 150, hasSetting = true)
 public class KeyStrokes extends RenderMod{
 
     public static KeyStrokes INSTANCE = new KeyStrokes();
