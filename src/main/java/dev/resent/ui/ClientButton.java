@@ -5,8 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 
-public class ClientButton extends GuiButton
-{
+public class ClientButton extends GuiButton{
     public ClientButton(final int buttonId, final int x, final int y, final int widthIn, final int heightIn, final String buttonText) {
         super(buttonId, x, y, widthIn, heightIn, buttonText);
     }

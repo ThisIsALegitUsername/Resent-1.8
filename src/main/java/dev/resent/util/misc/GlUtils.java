@@ -29,7 +29,7 @@ public class GlUtils {
     public static void drawCenteredScaledString(String text, int param1,int param2, int color, float scale){
         GlStateManager.pushMatrix();
         GlStateManager.scale(scale,scale,scale);
-        Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (param1 / scale), (int) (param2 / scale), color, false);
+        Gui.drawCenteredString(Minecraft.getMinecraft().fontRendererObj, text, (int) (param1 / scale), (int) (param2 / scale), color, true);
         GlStateManager.popMatrix();
     }    
 }

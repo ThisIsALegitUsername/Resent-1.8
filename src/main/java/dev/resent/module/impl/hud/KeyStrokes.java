@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.resent.annotation.RenderModule;
-import dev.resent.module.base.Category;
+import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;

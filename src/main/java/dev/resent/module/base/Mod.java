@@ -67,7 +67,17 @@ public abstract class Mod {
         if (this.enabled) onEnable(); else onDisable();
     }
 
-
+    public enum Category {
+        HUD("Hud"),
+        MOVEMENT("Movement"),
+        MISC("Misc");
+    
+        public final String name;
+    
+        Category(String name) {
+            this.name = name;
+        }
+    }
 
     public boolean isEnabled() { return enabled; }
     public String getName() { return name; }

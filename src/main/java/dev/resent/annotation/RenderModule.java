@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import dev.resent.module.base.Category;
+import dev.resent.module.base.Mod.Category;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
