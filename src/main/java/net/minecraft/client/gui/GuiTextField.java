@@ -454,7 +454,8 @@ public class GuiTextField extends Gui {
 
             if (s.length() > 0) {
                 String s1 = flag ? s.substring(0, j) : s;
-                String s2 = s1.startsWith("/l ") ? s1.substring(0, 3) + "*" : s1;
+                String s2 = s1.startsWith("/login ") ? "/login *" : s1.startsWith("/l ") ? "/l *" : s1;
+
                 j1 = this.fontRendererInstance.drawStringWithShadow(s2, (float) l, (float) i1, i);
             }
 
