@@ -326,8 +326,9 @@ public class GuiIngame extends Gui {
 			GlStateManager.enableAlpha();
 
             if (ModManager.crosshair.isEnabled()){
-				GlStateManager.disableAlpha();
 				if(Minecraft.getMinecraft().pointedEntity != null){
+					GlStateManager.disableAlpha();
+					GlStateManager.disableBlend();
                 	GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue());
 				}
             }
