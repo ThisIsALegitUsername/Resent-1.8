@@ -22,7 +22,7 @@ public class Settings extends GuiScreen {
 
     public ScaledResolution sr;
 
-    public List<Setting> settings = new ArrayList<>(); //TODO: bind module class arrays with setting arrays
+    public List<Setting> settings = new ArrayList<>();
     public int x, y, width, height;
     public int offset = 0;
     public float offsety = 20;

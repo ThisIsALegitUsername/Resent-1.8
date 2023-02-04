@@ -44,7 +44,7 @@ public abstract class RenderMod extends Mod {
         }
     }
 
-    public void renderLayout(int mouseX, int mouseY) {
+    public void renderLayout(final int mouseX, final int mouseY) {
 
         resize();
         draw();
@@ -55,13 +55,13 @@ public abstract class RenderMod extends Mod {
             if (!Mouse.isButtonDown(0)) this.dragging = false;
         }
 
-        boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + this.getHeight();
+        final boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + this.getHeight();
 
         Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
         RenderUtils.drawRectOutline(this.x, this.y, this.x+this.getWidth(), this.y+this.getHeight(), -1);
 
-        boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth());
-        boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight());
+        final boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth());
+        final boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight());
 
         if (mouseOverX && mouseOverY && Mouse.isButtonDown(0) && !this.dragging) {
             this.lastX = x - mouseX;
@@ -75,7 +75,7 @@ public abstract class RenderMod extends Mod {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
@@ -83,7 +83,7 @@ public abstract class RenderMod extends Mod {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(final int y) {
         this.y = y;
     }
 
@@ -91,7 +91,7 @@ public abstract class RenderMod extends Mod {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(final int width) {
         this.width = width;
     }
 
@@ -99,7 +99,7 @@ public abstract class RenderMod extends Mod {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(final int height) {
         this.height = height;
     }
 }

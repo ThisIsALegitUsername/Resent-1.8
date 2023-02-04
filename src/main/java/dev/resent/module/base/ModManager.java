@@ -34,8 +34,8 @@ import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
+import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.misc.Tooltips;
-import dev.resent.module.impl.movement.Sprint;
 
 public class ModManager {
     public List<Mod> modules = new ArrayList<>();
@@ -117,7 +117,7 @@ public class ModManager {
         register(animations);
     }
 
-    public void register(Mod m) {
+    public void register(final Mod m) {
         this.modules.add(m);
     }
 }

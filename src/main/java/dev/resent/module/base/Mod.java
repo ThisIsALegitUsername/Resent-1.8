@@ -32,7 +32,7 @@ public abstract class Mod {
         }
     }
 
-    public void addSetting(Setting... settings) {
+    public void addSetting(final Setting... settings) {
         this.settings.addAll(Arrays.asList(settings));
     }
 
@@ -48,11 +48,11 @@ public abstract class Mod {
         }
     }
 
-    protected void drawRect(int left, int top, int right, int bottom, int color){
+    protected void drawRect(final int left, final int top, final int right, final int bottom, final int color){
         RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color, Theme.getRounded());
     }
 
-    protected int drawString(String text, int x, int y, int color, boolean idk){
+    protected int drawString(final String text, final int x, final int y, final int color, final boolean idk){
         if(color == 6942069){
             RenderUtils.drawChromaString(text, x, y, idk);
         }else {
@@ -62,7 +62,7 @@ public abstract class Mod {
         return x;
     }
 
-    public void setEnabled(boolean state) {
+    public void setEnabled(final boolean state) {
         this.enabled = state;
         if (this.enabled) onEnable(); else onDisable();
     }
@@ -74,7 +74,7 @@ public abstract class Mod {
     
         public final String name;
     
-        Category(String name) {
+        Category(final String name) {
             this.name = name;
         }
     }

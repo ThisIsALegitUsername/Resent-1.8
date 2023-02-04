@@ -27,6 +27,7 @@ public class KeyStrokes extends RenderMod{
 
 	public BooleanSetting sneak = new BooleanSetting("Sneak", "", false);
 	public BooleanSetting jump = new BooleanSetting("Jump", "", true);
+	public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", false);
 	public ModeSetting color = new ModeSetting("Unpressed text color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
 	public ModeSetting colorp = new ModeSetting("Pressed text color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
 	public ModeSetting gcolor = new ModeSetting("Pressed button color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
@@ -121,16 +122,16 @@ public class KeyStrokes extends RenderMod{
 					jump.getValue() ? this.y+120-3 : this.y+105-6, 4, mc.gameSettings.keyBindSneak.pressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
 
 		
-		mc.fontRendererObj.drawString("W", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("W") + 4), this.y+8+3, wKey ? getColor(colorp) : getColor(color), Theme.getTextShadow());
-		mc.fontRendererObj.drawString("S", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("S") + 4), this.y+38, sKey ? getColor(colorp) : getColor(color), Theme.getTextShadow());
-		mc.fontRendererObj.drawString("A", this.x+3+(25/2-mc.fontRendererObj.getStringWidth("A") + 4), this.y+38, aKey ? getColor(colorp) : getColor(color), Theme.getTextShadow());
-		mc.fontRendererObj.drawString("D", this.x+-3+25+25+10+(25/2-mc.fontRendererObj.getStringWidth("D") + 4), this.y+38, dKey  ? getColor(colorp) : getColor(color), Theme.getTextShadow());
+		mc.fontRendererObj.drawString("W", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("W") + 4), this.y+8+3, wKey ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("S", this.x+25+5+(25/2-mc.fontRendererObj.getStringWidth("S") + 4), this.y+38, sKey ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("A", this.x+3+(25/2-mc.fontRendererObj.getStringWidth("A") + 4), this.y+38, aKey ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("D", this.x+-3+25+25+10+(25/2-mc.fontRendererObj.getStringWidth("D") + 4), this.y+38, dKey  ? getColor(colorp) : getColor(color), tshadow.getValue());
 		if(jump.getValue())
-		mc.fontRendererObj.drawString("\u00A7m-------", this.x+85+(25/2-mc.fontRendererObj.getStringWidth("u00A7m-------") + 4), this.y+92-3,  jumpKey  ? getColor(colorp) : getColor(color), Theme.getTextShadow());
+		mc.fontRendererObj.drawString("\u00A7m-------", this.x+85+(25/2-mc.fontRendererObj.getStringWidth("u00A7m-------") + 4), this.y+92-3,  jumpKey  ? getColor(colorp) : getColor(color), tshadow.getValue());
 		if(sneak.getValue())
-		mc.fontRendererObj.drawString("Sneak", this.x+38+3+(25/2-mc.fontRendererObj.getStringWidth("Sneak") + 4), jump.getValue() ? this.y+92+15+1-3 : this.y+92-4, mc.gameSettings.keyBindSneak.pressed ? getColor(colorp) : getColor(color), Theme.getTextShadow());
-		mc.fontRendererObj.drawString("LMB", this.x+3+40/2-mc.fontRendererObj.getStringWidth("LMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, Mouse.isButtonDown(0)  ? getColor(colorp) : getColor(color), Theme.getTextShadow());
-		mc.fontRendererObj.drawString("RMB", this.x+40+3+40/2-mc.fontRendererObj.getStringWidth("RMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, Mouse.isButtonDown(1)  ? getColor(colorp) : getColor(color), Theme.getTextShadow());
+		mc.fontRendererObj.drawString("Sneak", this.x+38+3+(25/2-mc.fontRendererObj.getStringWidth("Sneak") + 4), jump.getValue() ? this.y+92+15+1-3 : this.y+92-4, mc.gameSettings.keyBindSneak.pressed ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("LMB", this.x+3+40/2-mc.fontRendererObj.getStringWidth("LMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, Mouse.isButtonDown(0)  ? getColor(colorp) : getColor(color), tshadow.getValue());
+		mc.fontRendererObj.drawString("RMB", this.x+40+3+40/2-mc.fontRendererObj.getStringWidth("RMB")/2, (this.y+60+25/2)-mc.fontRendererObj.FONT_HEIGHT/2-3, Mouse.isButtonDown(1)  ? getColor(colorp) : getColor(color), tshadow.getValue());
 		this.setHeight((25 + 5 + 25 + 5 + 25 + 25));
 		this.setWidth((25 + 5 + 25 + 5 + 30));
 	}

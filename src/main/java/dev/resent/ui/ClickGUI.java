@@ -162,17 +162,11 @@ public class ClickGUI extends GuiScreen {
                         //fr.drawString("o", this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
                         GlStateManager.enableBlend();
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 255f);
-                        //GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
                         if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT))
                         GlStateManager.color(1,1,1,0.5f);
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
                         Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                         GlStateManager.disableBlend();
-                        //RenderUtils.drawRectOutline(this.x+90+xo-1+10, height-2-fh*-(off)+51+1-offset, this.x+90+xo-1+10+fr.getStringWidth("o"), height-2-fh*-(off)+51+1-offset+fr.FONT_HEIGHT, -1);
-                        //fr.drawString("+", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
-                        //fr.drawString(" x", this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, -1);
-                        // drawRect(this.x+90+xo-1+10, height-2-fh*-(off)+51-1-offset,
-                        // this.x+90+xo-1+21, height+30-fh*(-off)+30-1+2-1-offset, -1);
                     }
 
                     fr.drawStringWithShadow(m.name, this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
@@ -190,9 +184,9 @@ public class ClickGUI extends GuiScreen {
                         b = (BooleanSetting) s;
                         RenderUtils.drawRectOutline(this.x + 6 + 6, height - fr.FONT_HEIGHT + 50 + var, this.x + 15 + 6, height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var, b.getValue() ? Color.GREEN.getRGB() : Color.RED.getRGB());
                         drawRect(
-                            this.x + 6 + 1 + 6,
+                            this.x + 13,
                             height - fr.FONT_HEIGHT + 50 + var + 1,
-                            this.x + 15 - 1 + 6,
+                            this.x + 20,
                             height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var - 1,
                             isMouseInside(mouseX, mouseY, this.x + 6 + 1 + 6, height - fr.FONT_HEIGHT + 50 + var + 1, this.x + 15 - 1 + 6, height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB()
                         );
@@ -200,22 +194,9 @@ public class ClickGUI extends GuiScreen {
 
                     if (s instanceof ModeSetting) {
                         mo = (ModeSetting) s;
-                        //RenderUtils.drawRectOutline(this.x+18+6-2, height-fr.FONT_HEIGHT+50+var, this.x+18+6+fr.getStringWidth(this.modWatching.settings.get(amogus).name + ": " + m.getValue() + 2), height-fr.FONT_HEIGHT+50+var+fr.FONT_HEIGHT, -1);
                     }
 
                     if (s instanceof ModeSetting) {
-                        /*RenderUtils.drawRectOutline(this.x+24-fr.FONT_HEIGHT-2,
-                               this.height-fr.FONT_HEIGHT+50+var, this.x+24,
-                               this.height-fr.FONT_HEIGHT+50+var+fr.FONT_HEIGHT, -1);
-                       RenderUtils.drawRectOutline(
-                               this.x + 24,
-                               this.height - fr.FONT_HEIGHT + 50 + var,
-                               this.x + 24
-                                       + fr.getStringWidth(
-                                               s.name + ": " + m.getValue())
-                                       + 2,
-                               this.height - fr.FONT_HEIGHT + 50 + var + fr.FONT_HEIGHT, -1);*/
-                        //RenderUtils.drawRectOutline(this.x+24, height-fr.FONT_HEIGHT+50+var, this.x+24+fr.getStringWidth(s.name+": "+m.getValue()), height-fr.FONT_HEIGHT+50+var+fr.FONT_HEIGHT, -1);
                         fr.drawStringWithShadow(s.name + ": " + mo.getValue(), this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
                     } else {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
@@ -223,10 +204,6 @@ public class ClickGUI extends GuiScreen {
 
                     var += fr.FONT_HEIGHT + 2;
                 }
-                // RenderUtils.drawRectOutline(x-fr.FONT_HEIGHT+2,
-                // height+27+fr.FONT_HEIGHT+2,x-fr.FONT_HEIGHT+6+fr.getStringWidth("<"),
-                // height+33+fr.FONT_HEIGHT+2+fr.getStringWidth("<"), new Color(200, 200,
-                // 200,90).getRGB());
             }
 
             if (xo > width / 2) {

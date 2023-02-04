@@ -885,14 +885,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 						GlStateManager.enableOverlayFramebufferBlending();
 						this.mc.ingameGUI.renderGameOverlay(parFloat1);
-                        for (Mod m : Resent.INSTANCE.modManager.modules) {
-                            if (m.isEnabled() && m instanceof RenderMod && !(mc.currentScreen instanceof HUDConfigScreen)) {
-                                ((RenderMod) m).draw();
-                            }
-                        }
 						GlStateManager.disableOverlayFramebufferBlending();
 						this.overlayFramebuffer.endRender();
 					}
+
+                    for (Mod m : Resent.INSTANCE.modManager.modules) {
+                        if (m.isEnabled() && m instanceof RenderMod && !(mc.currentScreen instanceof HUDConfigScreen)) {
+                            ((RenderMod) m).draw();
+                        }
+                    }
 					this.setupOverlayRendering();
 					GlStateManager.enableBlend();
 					if (Minecraft.isFancyGraphicsEnabled()) {

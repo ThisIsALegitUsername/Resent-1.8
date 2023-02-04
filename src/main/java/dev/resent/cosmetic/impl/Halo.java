@@ -42,7 +42,6 @@ public class Halo extends CosmeticBase {
     private class ModelHalo extends CosmeticModelBase
     {
         private ModelRenderer halo;
-        private boolean hat;
         
         public ModelHalo(final RenderPlayer player) {
             super(player);
@@ -70,7 +69,6 @@ public class Halo extends CosmeticBase {
         }
 
         public ModelRenderer bindTextureAndColor(final Color color, final ResourceLocation resourceLocation, final ModelRenderer colorModel, final ModelRenderer playerSkinModel) {
-            final boolean flag = false;
             Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
             return colorModel;
         }
