@@ -25,11 +25,11 @@ public class RenderUtils {
         }
     }
 
-    public static void drawChromaRectangle(int x, int y, int width, int height, boolean rounded) {
+    public static void drawChromaRectangle(int x, int y, int width, int height) {
 		int i = x;
 		while(true) {
 			if(i+10 <= width) {
-				drawRoundedRect(i, y, i+10, height, 4, RenderUtils.astolfoColorsDraw(i, GuiScreen.width,10000f), rounded);
+				Gui.drawRect(i, y, i+10, height,RenderUtils.astolfoColorsDraw(i, GuiScreen.width,10000f));
 			} else {
 				break;
 			}
@@ -37,8 +37,7 @@ public class RenderUtils {
 		}
 		if(width-i != 0) {
 			for(int h = i; h < width; h++) {
-				drawRoundedRect(h, y, h+1, height, 4, RenderUtils.astolfoColorsDraw(h, GuiScreen.width,10000f), rounded
-                );
+				Gui.drawRect(h, y, h+1, height,RenderUtils.astolfoColorsDraw(h, GuiScreen.width,10000f));
 			}
 		}
 	}

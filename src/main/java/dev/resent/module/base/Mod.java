@@ -49,9 +49,6 @@ public abstract class Mod {
     }
 
     protected void drawRect(final int left, final int top, final int right, final int bottom, final int color){
-        if(color == 6942069){
-            RenderUtils.drawChromaRectangle(left, top, right, bottom, Theme.getRounded());
-        }else
         RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color, Theme.getRounded());
     }
 
