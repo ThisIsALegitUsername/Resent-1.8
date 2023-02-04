@@ -28,11 +28,7 @@ import java.util.concurrent.Callable;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
-import dev.resent.Resent;
-import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
-import dev.resent.module.base.RenderMod;
-import dev.resent.ui.HUDConfigScreen;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
@@ -889,11 +885,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 						this.overlayFramebuffer.endRender();
 					}
 
-                    for (Mod m : Resent.INSTANCE.modManager.modules) {
-                        if (m.isEnabled() && m instanceof RenderMod && !(mc.currentScreen instanceof HUDConfigScreen)) {
-                            ((RenderMod) m).draw();
-                        }
-                    }
 					this.setupOverlayRendering();
 					GlStateManager.enableBlend();
 					if (Minecraft.isFancyGraphicsEnabled()) {

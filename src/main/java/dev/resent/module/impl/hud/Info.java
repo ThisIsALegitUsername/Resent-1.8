@@ -5,7 +5,6 @@ import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.ui.Theme;
-import dev.resent.util.render.Color;
 import net.minecraft.util.BlockPos;
 
 @RenderModule(name = "Info", category = Category.HUD, x = 140, y = 50)
@@ -29,7 +28,7 @@ public class Info extends RenderMod {
         int pz = (int) mc.thePlayer.posZ;
         //int rot = MathHelper.floor_double(this.mc.thePlayer.rotationYaw*4/360+0.5) & 3;
         if (mc.thePlayer != null) {
-            drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), new Color(0, 0, 0, 200).getRGB());
+            drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), Theme.getRectColor(Theme.getRectId()));
             drawString(" X: " + px, this.x + 5, this.y + 14, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
             drawString(" Y: " + py, this.x + 5, this.y + 24, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
             drawString(" Z: " + pz, this.x + 5, this.y + 34, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());

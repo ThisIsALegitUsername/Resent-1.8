@@ -5,6 +5,7 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
@@ -23,6 +24,41 @@ public class RenderUtils {
             xTmp += mc.fontRendererObj.getCharWidth(textChar);
         }
     }
+
+    public static void drawChromaRectangle(int x, int y, int width, int height, boolean rounded) {
+		int i = x;
+		while(true) {
+			if(i+10 <= width) {
+				drawRoundedRect(i, y, i+10, height, 4, RenderUtils.astolfoColorsDraw(i, GuiScreen.width,10000f), rounded);
+			} else {
+				break;
+			}
+			i+=10;
+		}
+		if(width-i != 0) {
+			for(int h = i; h < width; h++) {
+				drawRoundedRect(h, y, h+1, height, 4, RenderUtils.astolfoColorsDraw(h, GuiScreen.width,10000f), rounded
+                );
+			}
+		}
+	}
+
+    public static int astolfoColorsDraw(int yOffset, int yTotal, float speed) {
+        float hue = (float) (System.currentTimeMillis() % (int)speed) + ((yTotal - yOffset) * 9);
+        while (hue > speed) {
+           hue -= speed;
+        }
+        hue /= speed;
+        if (hue > 0.5) {
+           hue = 0.5F - (hue - 0.5f);
+        }
+        hue += 0.5F;
+        return Color.HSBtoRGB(hue, 0.5f, 1F);
+     }
+
+     public static int astolfoColorsDraw(int yOffset, int yTotal) {
+        return astolfoColorsDraw(yOffset, yTotal, 50000f);
+     }
 
     public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... rounded) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;

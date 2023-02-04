@@ -7,6 +7,7 @@ import dev.resent.animation.impl.EaseInOutQuad;
 import dev.resent.animation.impl.ElasticAnimation;
 import dev.resent.animation.impl.SmoothStepAnimation;
 import dev.resent.module.impl.misc.HUD;
+import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 
 public class Theme {
@@ -42,6 +43,26 @@ public class Theme {
         }
 
         return null;
+    }
+
+    public static int getRectColor(int id){
+        switch(getRectId()){
+            case 1:
+                return new Color(0, 0, 0, 200).getRGB();
+            case 6942069:
+                return 6942069;
+        }
+        return -1;
+    }
+
+    public static int getRectId(){
+        switch(HUD.rectTheme.getValue()){
+            case "Classic":
+                return 1;
+            case "Astolfo":
+                return 6942069;
+        }
+        return 1;
     }
 
     public static int getFontId(){
