@@ -26,8 +26,6 @@ public class TabGui extends RenderMod{
     }
 
     public void draw() {
-
-        GlUtils.startTranslate(this.x, this.y-50);
         Gui.drawRect(x+5, y+30.5, x+70, y+31.5+Category.values().length*16, 0x90000000);
         RenderUtils.drawChromaRectangle(x+7, y+33+current*16, x+68, y+45+current*16, 0xff900000);
 
@@ -52,7 +50,6 @@ public class TabGui extends RenderMod{
                 offset += 16;
             }
         }
-        GlUtils.stopTranslate();
     }
 
     public void onKey(int k){
