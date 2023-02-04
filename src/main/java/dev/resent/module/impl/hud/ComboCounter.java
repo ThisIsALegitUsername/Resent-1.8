@@ -39,6 +39,6 @@ public class ComboCounter extends RenderMod {
         if(Minecraft.getMinecraft().thePlayer.hurtTime > 3 && this.enabled){
             combo = 0;
         }
-        Minecraft.getMinecraft().fontRendererObj.drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 }

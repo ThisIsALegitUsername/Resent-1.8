@@ -3,6 +3,7 @@ package dev.resent.module.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.CPS;
 import dev.resent.module.impl.hud.ComboCounter;
@@ -35,6 +36,7 @@ import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Sprint;
+import dev.resent.module.impl.misc.TabGui;
 import dev.resent.module.impl.misc.Tooltips;
 
 public class ModManager {
@@ -75,10 +77,12 @@ public class ModManager {
     public static Crosshair crosshair = new Crosshair();
     public static HUD hud = new HUD();
     public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
+    public static TabGui tabGui = new TabGui();
 
     public ModManager() {
-        //HudZ
+        //Hud
         register(cosmetics);
+        register(tabGui);
         register(hotbar);
         register(crystalOptimizer);
         register(hud = new HUD());
@@ -115,6 +119,15 @@ public class ModManager {
         register(clearChat);
         register(tooltips = new Tooltips());
         register(animations);
+    }
+
+    public ArrayList<Mod> modsInCategory(Category c){
+        ArrayList<Mod> inCategory = new ArrayList<>();
+        for(Mod m : this.modules){
+            if(m.category == c)
+                inCategory.add(m);
+        }
+        return inCategory;
     }
 
     public void register(final Mod m) {

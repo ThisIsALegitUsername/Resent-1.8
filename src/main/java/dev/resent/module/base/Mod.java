@@ -69,11 +69,10 @@ public abstract class Mod {
 
     public enum Category {
         HUD("Hud"),
-        MOVEMENT("Movement"),
         MISC("Misc");
     
         public final String name;
-    
+        public int i;
         Category(final String name) {
             this.name = name;
         }

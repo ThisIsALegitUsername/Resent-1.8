@@ -24,6 +24,7 @@ import org.apache.commons.lang3.Validate;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
 import dev.resent.ui.PreGUI;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
@@ -1304,6 +1305,8 @@ public class Minecraft implements IThreadListener {
                         if (k == 1 || (k > -1 && k == this.gameSettings.keyBindClose.getKeyCode())) {
                             this.displayInGameMenu();
                         }
+
+                        ModManager.tabGui.onKey(k);
 
                         if (k == 32 && Keyboard.isKeyDown(61) && this.ingameGUI != null) {
                             this.ingameGUI.getChatGUI().clearChatMessages();

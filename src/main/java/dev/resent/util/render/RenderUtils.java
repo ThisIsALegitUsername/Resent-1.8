@@ -25,7 +25,7 @@ public class RenderUtils {
         }
     }
 
-    public static void drawChromaRectangle(int x, int y, int width, int height) {
+    public static void drawChromaRectangle(int x, int y, int width, int height, int colorbecauseidontwanttoremovecolor) {
 		int i = x;
 		while(true) {
 			if(i+10 <= width) {
