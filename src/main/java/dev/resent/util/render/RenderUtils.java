@@ -25,8 +25,8 @@ public class RenderUtils {
         }
     }
 
-    public static void drawChromaRectangle(int x, int y, int width, int height, int colorbecauseidontwanttoremovecolor) {
-		int i = x;
+    public static void drawChromaRectangle(float x, float y, float width, float height, int colorbecauseidontwanttoremovecolor) {
+		float i = x;
 		while(true) {
 			if(i+10 <= width) {
 				Gui.drawRect(i, y, i+10, height,RenderUtils.astolfoColorsDraw(i, GuiScreen.width,10000f));
@@ -36,13 +36,13 @@ public class RenderUtils {
 			i+=10;
 		}
 		if(width-i != 0) {
-			for(int h = i; h < width; h++) {
+			for(float h = i; h < width; h++) {
 				Gui.drawRect(h, y, h+1, height,RenderUtils.astolfoColorsDraw(h, GuiScreen.width,10000f));
 			}
 		}
 	}
 
-    public static int astolfoColorsDraw(int yOffset, int yTotal, float speed) {
+    public static int astolfoColorsDraw(float yOffset, int yTotal, float speed) {
         float hue = (float) (System.currentTimeMillis() % (int)speed) + ((yTotal - yOffset) * 9);
         while (hue > speed) {
            hue -= speed;
@@ -52,10 +52,10 @@ public class RenderUtils {
            hue = 0.5F - (hue - 0.5f);
         }
         hue += 0.5F;
-        return Color.HSBtoRGB(hue, 0.5f, 1F);
+        return Color.HSBtoRGB(hue, 0.5f, 1f);
      }
 
-     public static int astolfoColorsDraw(int yOffset, int yTotal) {
+     public static int astolfoColorsDraw(float yOffset, int yTotal) {
         return astolfoColorsDraw(yOffset, yTotal, 50000f);
      }
 

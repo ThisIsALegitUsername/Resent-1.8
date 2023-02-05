@@ -4,9 +4,8 @@ import dev.resent.Resent;
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.Mod.Category;
-import dev.resent.util.misc.GlUtils;
-import dev.resent.util.render.RenderUtils;
 import dev.resent.module.base.RenderMod;
+import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -18,20 +17,20 @@ public class TabGui extends RenderMod{
     public boolean expanded;
 
     public int getWidth(){
-        return expanded ? 90 : 70;
+        return expanded ? 100 : 75;
     }
 
     public int getHeight(){
-        return Category.values().length*16;
+        return Category.values().length*16+4;
     }
 
     public void draw() {
-        Gui.drawRect(x+5, y+30.5, x+70, y+31.5+Category.values().length*16, 0x90000000);
-        RenderUtils.drawChromaRectangle(x+7, y+33+current*16, x+68, y+45+current*16, 0xff900000);
+        Gui.drawRect(x+5, y+2, x+70, y+3+Category.values().length*16, 0x90000000);
+        RenderUtils.drawChromaRectangle(x+7, y+4.5f+current*16, x+68, y+16.5f+current*16, 0xff900000);
 
         int offset = 0;
         for(Category c : Category.values()){
-            Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(c.name, x+10, y+35+offset, -1);
+            Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(c.name, x+10, y+6.5f+offset, -1);
             offset += 16;
         }
 
@@ -41,12 +40,12 @@ public class TabGui extends RenderMod{
             if(Resent.INSTANCE.modManager.modsInCategory(category).size() == 0)
                 return;
 
-            Gui.drawRect(x+70, y+30.5, x+138, y+31.5+Resent.INSTANCE.modManager.modsInCategory(category).size()*16, 0x90000000);
-            RenderUtils.drawChromaRectangle(x+70, y+33+category.i*16, x+136, y+45+category.i*16, 0xff900000);
+            Gui.drawRect(x+70, y+2, x+138, y+3+Resent.INSTANCE.modManager.modsInCategory(category).size()*16, 0x90000000);
+            RenderUtils.drawChromaRectangle(x+70, y+4.5f+category.i*16, x+136, y+16.5f+category.i*16, 0xff900000);
 
             offset = 0;
             for(Mod m : Resent.INSTANCE.modManager.modsInCategory(category)){
-                Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(m.name, x+73, y+35+offset, -1);
+                Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(m.name, x+73, y+6.5f+offset, -1);
                 offset += 16;
             }
         }
