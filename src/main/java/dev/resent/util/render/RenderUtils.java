@@ -25,11 +25,11 @@ public class RenderUtils {
         }
     }
 
-    public static void drawChromaRectangle(float x, float y, float width, float height, int colorbecauseidontwanttoremovecolor) {
+    public static void drawChromaRectangle(float x, float y, float width, float height, float speed, int colorbecauseidontwanttoremovecolor) {
 		float i = x;
 		while(true) {
 			if(i+10 <= width) {
-				Gui.drawRect(i, y, i+10, height,RenderUtils.astolfoColorsDraw(i, GuiScreen.width,10000f));
+				Gui.drawRect(i, y, i+10, height,RenderUtils.astolfoColorsDraw(i, GuiScreen.width, speed*10000));
 			} else {
 				break;
 			}
@@ -37,7 +37,7 @@ public class RenderUtils {
 		}
 		if(width-i != 0) {
 			for(float h = i; h < width; h++) {
-				Gui.drawRect(h, y, h+1, height,RenderUtils.astolfoColorsDraw(h, GuiScreen.width,10000f));
+				Gui.drawRect(h, y, h+1, height,RenderUtils.astolfoColorsDraw(h, GuiScreen.width, speed*10000));
 			}
 		}
 	}
@@ -53,10 +53,6 @@ public class RenderUtils {
         }
         hue += 0.5F;
         return Color.HSBtoRGB(hue, 0.5f, 1f);
-     }
-
-     public static int astolfoColorsDraw(float yOffset, int yTotal) {
-        return astolfoColorsDraw(yOffset, yTotal, 50000f);
      }
 
     public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... rounded) {
