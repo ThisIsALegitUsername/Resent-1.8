@@ -169,7 +169,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private double cameraYaw;
 	private double cameraPitch;
 	private int frameCount;
-	private GameOverlayFramebuffer overlayFramebuffer;
+	public GameOverlayFramebuffer overlayFramebuffer;
 
 	public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn) {
 		this.frameCount = 0;
@@ -1013,7 +1013,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public void renderWorld(float partialTicks, long finishTimeNano) {
-        this.updateLightmap(partialTicks);
+        long framebufferAge = this.overlayFramebuffer.getAge();
+        if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
+            this.updateLightmap(partialTicks);
+        }
         if (this.mc.getRenderViewEntity() == null) {
             this.mc.setRenderViewEntity(this.mc.thePlayer);
         }
@@ -1154,11 +1157,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (!this.debugView) {
             this.enableLightmap();
             this.mc.mcProfiler.endStartSection("litParticles");
+            if(!W.noParticles().isEnabled())
             effectrenderer.renderLitParticles(entity, partialTicks);
             RenderHelper.disableStandardItemLighting();
             this.setupFog(0, partialTicks);
             this.mc.mcProfiler.endStartSection("particles");
-            if (!W.noParticles().isEnabled()) effectrenderer.renderParticles(entity, partialTicks);
+            if (!W.noParticles().isEnabled())
+            effectrenderer.renderParticles(entity, partialTicks);
             this.disableLightmap();
         }
 

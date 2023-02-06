@@ -37,7 +37,6 @@ import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.misc.TabGui;
-import dev.resent.module.impl.misc.Tooltips;
 
 public class ModManager {
     public List<Mod> modules = new ArrayList<>();
@@ -66,7 +65,6 @@ public class ModManager {
     public static Scoreboard scoreboard = new Scoreboard();
     public static SelfNametag selfNametag = new SelfNametag();
     public static ClearChat clearChat = new ClearChat();
-    public static Tooltips tooltips;
     public static FPSB fpsb = new FPSB();
     public static Animations animations = new Animations();
     public static MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
@@ -117,7 +115,6 @@ public class ModManager {
         register(scoreboard);
         //register(selfNametag = new SelfNametag());
         register(clearChat);
-        register(tooltips = new Tooltips());
         register(animations);
     }
 
