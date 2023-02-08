@@ -720,7 +720,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             }
 
             if (
-                packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you won the match") &&
+                packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("you won") &&
                 AutoGG.onWin.getValue() ||
                 packetIn.getChatComponent().getUnformattedText().toLowerCase().contains("was killed by") &&
                 packetIn.getChatComponent().getUnformattedText().contains(Minecraft.getMinecraft().thePlayer.getName()) ||
