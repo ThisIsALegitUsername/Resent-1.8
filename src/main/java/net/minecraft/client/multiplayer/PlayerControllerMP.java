@@ -332,13 +332,6 @@ public class PlayerControllerMP {
             if (this.currentGameType != WorldSettings.GameType.SPECTATOR) {
                 IBlockState iblockstate = worldIn.getBlockState(hitPos);
 
-                if(heldStack != null && heldStack.getItem().getUnlocalizedName().toLowerCase().contains("crystal")){
-                        EntityEnderCrystal entityendercrystal = new EntityEnderCrystal(worldIn, (double) ((float) hitPos.getX() + 0.5F), (double) ((float) hitPos.getY() + 0.5F), (double) ((float) hitPos.getZ() + 0.5F));
-                        worldIn.spawnEntityInWorld(entityendercrystal);
-                        if (!player.capabilities.isCreativeMode) {
-                            heldStack.stackSize--;
-                        }
-                }
                 if ((!player.isSneaking() || player.getHeldItem() == null) && iblockstate.getBlock().onBlockActivated(worldIn, hitPos, iblockstate, player, side, f, f1, f2)) {
                     flag = true;
                 }
@@ -351,6 +344,7 @@ public class PlayerControllerMP {
                 }
             }
 
+            
             this.netClientHandler.addToSendQueue(new C08PacketPlayerBlockPlacement(hitPos, side.getIndex(), player.inventory.getCurrentItem(), f, f1, f2));
             if (!flag && this.currentGameType != WorldSettings.GameType.SPECTATOR) {
                 if (heldStack == null) {
