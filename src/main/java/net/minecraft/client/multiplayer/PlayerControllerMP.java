@@ -1,6 +1,7 @@
 package net.minecraft.client.multiplayer;
 
 import java.io.IOException;
+
 import net.lax1dude.eaglercraft.v1_8.socket.EaglercraftNetworkManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,9 +11,11 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
@@ -328,6 +331,14 @@ public class PlayerControllerMP {
         } else {
             if (this.currentGameType != WorldSettings.GameType.SPECTATOR) {
                 IBlockState iblockstate = worldIn.getBlockState(hitPos);
+
+                if(heldStack != null && heldStack.getItem().getUnlocalizedName().toLowerCase().contains("crystal")){
+                        EntityEnderCrystal entityendercrystal = new EntityEnderCrystal(worldIn, (double) ((float) hitPos.getX() + 0.5F), (double) ((float) hitPos.getY() + 0.5F), (double) ((float) hitPos.getZ() + 0.5F));
+                        worldIn.spawnEntityInWorld(entityendercrystal);
+                        if (!player.capabilities.isCreativeMode) {
+                            heldStack.stackSize--;
+                        }
+                }
                 if ((!player.isSneaking() || player.getHeldItem() == null) && iblockstate.getBlock().onBlockActivated(worldIn, hitPos, iblockstate, player, side, f, f1, f2)) {
                     flag = true;
                 }
