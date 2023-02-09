@@ -207,7 +207,7 @@ public class Gui {
      * Draws a textured rectangle at z = 0. Args: x, y, u, v, width,
      * height, textureWidth, textureHeight
      */
-    public static void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
+    public static void drawModalRectWithCustomSizedTexture(double x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
         Tessellator tessellator = Tessellator.getInstance();

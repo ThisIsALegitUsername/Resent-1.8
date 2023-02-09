@@ -77,7 +77,6 @@ public class ClickGUI extends GuiScreen {
 
         if (modWatching != null) {
             int var = 0;
-            fr.drawString("<", x - fr.FONT_HEIGHT + 4, height + 29 + fr.FONT_HEIGHT + 2, -1);
             for (int asdf = 0; asdf < this.modWatching.settings.size(); asdf++) {
                 BooleanSetting b;
                 ModeSetting m;
@@ -161,12 +160,12 @@ public class ClickGUI extends GuiScreen {
                     if (m.hasSetting) {
                         //fr.drawString("o", this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT) ? new Color(105, 105, 105, 65).getRGB() : -1);
                         GlStateManager.enableBlend();
-                        GlStateManager.color(1.0f, 1.0f, 1.0f, 255f);
                         if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + fr.FONT_HEIGHT))
                         GlStateManager.color(1,1,1,0.5f);
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
                         Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                         GlStateManager.disableBlend();
+                        GlStateManager.color(1, 1, 1, 255);
                     }
 
                     fr.drawStringWithShadow(m.name, this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
@@ -177,26 +176,31 @@ public class ClickGUI extends GuiScreen {
                 fr.drawStringWithShadow("Resent - " + modWatching.name, GuiScreen.width / 2 - (fr.getStringWidth("Resent - " + modWatching.name) / 2), height + 29 - fr.FONT_HEIGHT - 2, -1);
 
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
+                    ModeSetting mo;
                     BooleanSetting b;
-                    ModeSetting mo = null;
                     Setting s = this.modWatching.settings.get(amogus);
                     if (s instanceof BooleanSetting) {
                         b = (BooleanSetting) s;
-                        RenderUtils.drawRectOutline(this.x + 6 + 6, height - fr.FONT_HEIGHT + 50 + var, this.x + 15 + 6, height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var, b.getValue() ? Color.GREEN.getRGB() : Color.RED.getRGB());
                         drawRect(
-                            this.x + 13,
-                            height - fr.FONT_HEIGHT + 50 + var + 1,
-                            this.x + 20,
-                            height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var - 1,
-                            isMouseInside(mouseX, mouseY, this.x + 6 + 1 + 6, height - fr.FONT_HEIGHT + 50 + var + 1, this.x + 15 - 1 + 6, height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB()
-                        );
+                            this.x + 11,
+                            height - fr.FONT_HEIGHT + 50 + var,
+                            this.x + 19,
+                            height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var-1,
+                            isMouseInside(
+                                mouseX, mouseY,
+                                this.x + 11,
+                                height - fr.FONT_HEIGHT + 50 + var,
+                                this.x + 19,
+                                height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var-1) ? new Color(0, 0, 200).getRGB() : new Color(0, 0, 230).getRGB());
+                                
+                            if(b.getValue()){
+                                mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
+                                Gui.drawModalRectWithCustomSizedTexture(this.x+11, height-fr.FONT_HEIGHT+50+var, 0, 0, 8, 8, 8, 8);
+                            }
                     }
 
                     if (s instanceof ModeSetting) {
                         mo = (ModeSetting) s;
-                    }
-
-                    if (s instanceof ModeSetting) {
                         fr.drawStringWithShadow(s.name + ": " + mo.getValue(), this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
                     } else {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
