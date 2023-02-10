@@ -1533,7 +1533,7 @@ public class Minecraft implements IThreadListener {
             }
         } else if (this.myNetworkManager != null) {
             this.mcProfiler.endStartSection("pendingConnection");
-            this.myNetworkManager.processReceivedPackets();
+            //this.myNetworkManager.processReceivedPackets();
         }
 
         if (this.theWorld != null) {
