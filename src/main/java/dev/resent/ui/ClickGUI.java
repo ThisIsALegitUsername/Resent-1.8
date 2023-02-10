@@ -191,7 +191,7 @@ public class ClickGUI extends GuiScreen {
                                 this.x + 11,
                                 height - fr.FONT_HEIGHT + 50 + var,
                                 this.x + 19,
-                                height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var-1) ? new Color(0, 0, 200).getRGB() : new Color(0, 0, 230).getRGB());
+                                height - fr.FONT_HEIGHT + 50 + fr.FONT_HEIGHT + var-1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
                                 
                             if(b.getValue()){
                                 mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
