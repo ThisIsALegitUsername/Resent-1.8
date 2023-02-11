@@ -8,9 +8,7 @@ import net.minecraft.client.gui.GuiScreen;
 
 public abstract class RenderMod extends Mod {
 
-    public int x, y, width, height;
-    public int lastX;
-    public int lastY;
+    public int x, y, lastX, lastY, width, height;
     private boolean dragging;
 
     public RenderMod(){
@@ -28,7 +26,8 @@ public abstract class RenderMod extends Mod {
 
     public void draw() {}
 
-    public void resize() {
+    public void renderLayout(final int mouseX, final int mouseY) {
+
         if ((getX() + getWidth()) > GuiScreen.width) {
             this.x = GuiScreen.width - getWidth();
             dragging = false;
@@ -42,11 +41,7 @@ public abstract class RenderMod extends Mod {
             this.y = 0;
             dragging = false;
         }
-    }
-
-    public void renderLayout(final int mouseX, final int mouseY) {
-
-        resize();
+        
         draw();
 
         if (this.dragging) {

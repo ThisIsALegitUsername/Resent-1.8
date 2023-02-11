@@ -2,6 +2,7 @@ package dev.resent.module.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
@@ -108,12 +109,9 @@ public class ModManager {
     }
 
     public ArrayList<Mod> modsInCategory(Category c){
-        ArrayList<Mod> inCategory = new ArrayList<>();
-        for(Mod m : this.modules){
-            if(m.getCategory() == c)
-                inCategory.add(m);
-        }
-        return inCategory;
+        ArrayList<Mod> inCat = (ArrayList<Mod>) this.modules.stream().filter(m -> m.getCategory() == c).collect(Collectors.toList());
+        
+        return inCat;
     }
 
     public void register(final Mod m) {
