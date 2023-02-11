@@ -913,12 +913,12 @@ public class GuiIngame extends Gui {
 				GlStateManager.translate((float) (-(xPos + 8)), (float) (-(yPos + 12)), 0.0F);
 			}
 
-			itemRenderer.renderItemAndEffectIntoGUI(itemstack, xPos, yPos);
+			this.itemRenderer.renderItemAndEffectIntoGUI(itemstack, xPos, yPos);
 			if (f > 0.0F) {
 				GlStateManager.popMatrix();
 			}
 
-			itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
+			this.itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
 		}
 	}
 
