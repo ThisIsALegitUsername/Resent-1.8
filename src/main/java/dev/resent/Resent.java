@@ -8,7 +8,7 @@ public class Resent {
         INSTANCE = new Resent();
     }
 
-    public static final String NAME = "Resent", VERSION = "3.4";
+    public static final String NAME = "Resent", VERSION = "3.5";
     public static final Resent INSTANCE;
     //private ISound uwu;
     public ModManager modManager;

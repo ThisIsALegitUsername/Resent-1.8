@@ -14,15 +14,10 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
-import dev.resent.ui.animation.SimpleAnimation;
-import dev.resent.module.base.Mod;
-import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
-import dev.resent.module.impl.misc.Crosshair;
-import dev.resent.ui.HUDConfigScreen;
+import dev.resent.ui.animation.SimpleAnimation;
 import dev.resent.util.misc.W;
 import dev.resent.util.render.Color;
-import dev.resent.util.render.RenderUtils;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -316,7 +311,7 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
-		Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled()).filter(RenderMod.class::isInstance).forEach(m -> ((RenderMod)m).draw());
+		Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(m -> ((RenderMod)m).draw());
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
@@ -330,11 +325,6 @@ public class GuiIngame extends Gui {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
 			GlStateManager.enableAlpha();
-
-            if (ModManager.crosshair.isEnabled() && Minecraft.getMinecraft().pointedEntity != null){
-            	GlStateManager.color(RenderUtils.getColorWithoutRGB(Crosshair.color).getRed(), RenderUtils.getColorWithoutRGB(Crosshair.color).getGreen(), RenderUtils.getColorWithoutRGB(Crosshair.color).getBlue(), 255);
-				GlStateManager.disableAlpha();
-            }
             
 			this.drawTexturedModalRect(scaledResWidth / 2 - 7, scaledResHeight / 2 - 7, 0, 0, 16, 16);
 		}

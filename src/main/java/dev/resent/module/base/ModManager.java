@@ -21,7 +21,6 @@ import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
 import dev.resent.module.impl.misc.ClearChat;
 import dev.resent.module.impl.misc.Cosmetics;
-import dev.resent.module.impl.misc.Crosshair;
 import dev.resent.module.impl.misc.CrystalOptimizer;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
@@ -63,7 +62,6 @@ public class ModManager {
     public static MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
     public static NoSwingDelay noSwingDelay;
     public static PotCounter potCounter;
-    public static Crosshair crosshair = new Crosshair();
     public static HUD hud = new HUD();
     public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
     public static TabGui tabGui = new TabGui();
@@ -87,7 +85,6 @@ public class ModManager {
         register(potCounter = new PotCounter());
 
         //Mechanic
-        register(crosshair);
         register(autoRespawn = new AutoRespawn());
         register(fullbright = new Fullbright());
         register(noSwingDelay = new NoSwingDelay());
