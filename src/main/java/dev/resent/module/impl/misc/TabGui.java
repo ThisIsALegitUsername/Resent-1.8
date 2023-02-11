@@ -17,7 +17,7 @@ public class TabGui extends RenderMod{
     public boolean expanded;
 
     public int getWidth(){
-        return expanded ? 140 : 70;
+        return expanded ? 139 : 70;
     }
 
     public int getHeight(){
@@ -26,7 +26,7 @@ public class TabGui extends RenderMod{
 
     public void draw() {
         Gui.drawRect(x, y, x+70, y+3+Category.values().length*16, 0x90000000);
-        RenderUtils.drawChromaRectangle(x, y+current*16, x+70, y+18.5f+current*16, 0.6f, 0xff900000);
+        RenderUtils.drawChromaRectangle(x, y+current*16, x+70, y+17f+current*16, 0.6f, 0xff900000);
 
         int offset = 0;
         for(Category c : Category.values()){
@@ -41,7 +41,7 @@ public class TabGui extends RenderMod{
                 return;
 
             Gui.drawRect(x+70, y, x+138, y+3+Resent.INSTANCE.modManager.modsInCategory(category).size()*16, 0x90000000);
-            RenderUtils.drawChromaRectangle(x+70, y+category.i*16, x+138, y+18.5f+category.i*16, 0.6f, 0xff900000);
+            RenderUtils.drawChromaRectangle(x+70, y+category.i*16, x+138, y+17f+category.i*16, 0.6f, 0xff900000);
 
             offset = 0;
             for(Mod m : Resent.INSTANCE.modManager.modsInCategory(category)){
