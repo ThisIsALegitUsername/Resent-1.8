@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Lists;
 
-import dev.resent.animation.SimpleAnimation;
+import dev.resent.ui.animation.SimpleAnimation;
 import dev.resent.util.misc.GlUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;

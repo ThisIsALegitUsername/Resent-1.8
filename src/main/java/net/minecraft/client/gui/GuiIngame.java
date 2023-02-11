@@ -14,7 +14,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import dev.resent.Resent;
-import dev.resent.animation.SimpleAnimation;
+import dev.resent.ui.animation.SimpleAnimation;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;

@@ -1,12 +1,12 @@
 package dev.resent.ui;
 
-import dev.resent.animation.Animation;
-import dev.resent.animation.impl.DecelerateAnimation;
-import dev.resent.animation.impl.EaseBackIn;
-import dev.resent.animation.impl.EaseInOutQuad;
-import dev.resent.animation.impl.ElasticAnimation;
-import dev.resent.animation.impl.SmoothStepAnimation;
 import dev.resent.module.impl.misc.HUD;
+import dev.resent.ui.animation.Animation;
+import dev.resent.ui.animation.impl.DecelerateAnimation;
+import dev.resent.ui.animation.impl.EaseBackIn;
+import dev.resent.ui.animation.impl.EaseInOutQuad;
+import dev.resent.ui.animation.impl.ElasticAnimation;
+import dev.resent.ui.animation.impl.SmoothStepAnimation;
 import dev.resent.util.render.RenderUtils;
 
 public class Theme {
