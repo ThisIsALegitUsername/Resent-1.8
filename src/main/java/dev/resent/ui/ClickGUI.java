@@ -33,7 +33,6 @@ public class ClickGUI extends GuiScreen {
     public FontRenderer fr;
     public boolean close = false;
 
-    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
@@ -99,7 +98,6 @@ public class ClickGUI extends GuiScreen {
         }
     }
 
-    @Override
     public void drawScreen(int mouseX, int mouseY, float par3) {
         sr = new ScaledResolution(mc);
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
@@ -131,13 +129,12 @@ public class ClickGUI extends GuiScreen {
             GuiScreen.height - y - 9 + 1,
             GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1,
             GuiScreen.height - y + 4,
-            isMouseInside(mouseX, mouseY, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 4, GuiScreen.height - y - 9 + 1, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1, GuiScreen.height - y + 4) ? new Color(105, 105, 105, 65).getRGB() : new Color(211, 211, 211, 65).getRGB()
+            isMouseInside(mouseX, mouseY, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 4, GuiScreen.height - y - 9 + 1, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1, GuiScreen.height - y + 4) ? new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB()
         );
 
         fr.drawStringWithShadow("Edit Layout", GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 1, GuiScreen.height - y - 9 + 9 / 2 - 1, -1);
 
         // close
-        // RenderUtils.drawRectOutline(width+15, height-5, width+26, height+8, new Color(200, 200, 200, 90).getRGB());
         fr.drawString("X", width + 18, height - 2, -1);
 
         // white line
@@ -158,14 +155,15 @@ public class ClickGUI extends GuiScreen {
                     );
 
                     if (m.hasSetting) {
-                        //fr.drawString("o", this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9) ? new Color(105, 105, 105, 65).getRGB() : -1);
-                        GlStateManager.enableBlend();
                         if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9))
-                        GlStateManager.color(1,1,1,0.5f);
-                        this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
-                        Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
-                        GlStateManager.disableBlend();
-                        GlStateManager.color(1, 1, 1, 255);
+                        GlStateManager.color(1,1,1,0.6f);
+                        else {
+                            GlStateManager.enableBlend();
+                            this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
+                            Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
+                            GlStateManager.color(1, 1, 1);
+                            GlStateManager.disableBlend();
+                        }
                     }
 
                     fr.drawStringWithShadow(m.name, this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
@@ -194,8 +192,9 @@ public class ClickGUI extends GuiScreen {
                                 height - 9 + 50 + 9 + var-1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
                                 
                             if(b.getValue()){
+                                GlStateManager.color(1, 1, 1);
                                 mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
-                                Gui.drawModalRectWithCustomSizedTexture(this.x+11, height-9+50+var, 0, 0, 8, 8, 8, 8);
+                                Gui.drawModalRectWithCustomSizedTexture(this.x+9, height+39+var, 0, 0, 12, 12, 12, 12);
                             }
                     }
 
