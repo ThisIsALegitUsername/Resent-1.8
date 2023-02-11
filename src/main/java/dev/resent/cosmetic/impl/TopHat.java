@@ -2,7 +2,6 @@ package dev.resent.cosmetic.impl;
 
 import dev.resent.cosmetic.CosmeticBase;
 import dev.resent.cosmetic.CosmeticController;
-import dev.resent.cosmetic.CosmeticModelBase;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelRenderer;
