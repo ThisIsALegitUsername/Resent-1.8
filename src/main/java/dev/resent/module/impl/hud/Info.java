@@ -24,7 +24,7 @@ public class Info extends RenderMod {
     }
 
     public int getHeight() {
-        return mc.fontRendererObj.FONT_HEIGHT * 6;
+        return mc.fontRendererObj.FONT_HEIGHT * 7;
     }
 
     @Override
