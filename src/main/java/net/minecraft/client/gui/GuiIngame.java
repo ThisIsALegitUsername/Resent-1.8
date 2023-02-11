@@ -316,11 +316,7 @@ public class GuiIngame extends Gui {
 			this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
-		for (Mod m : Resent.INSTANCE.modManager.modules) {
-			if (m.isEnabled() && m instanceof RenderMod && !(mc.currentScreen instanceof HUDConfigScreen)) {
-				((RenderMod) m).draw();
-			}
-		}
+		Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled()).filter(RenderMod.class::isInstance).forEach(m -> ((RenderMod)m).draw());
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();

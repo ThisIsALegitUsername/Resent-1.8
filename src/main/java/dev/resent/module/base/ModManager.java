@@ -47,7 +47,6 @@ public class ModManager {
     public static NoRain noRain = new NoRain();
     public static DynamicFOV dynamicFOV = new DynamicFOV();
     public static PotionHUD potionHud;
-    //public static NoHurtCam noHurtCam = new NoHurtCam();
     public static Info coordinate;
     public static FPS fps;
     public static ReachDisplay reachDisplay;
@@ -56,7 +55,6 @@ public class ModManager {
     public static ComboCounter comboCounter = new ComboCounter();
     public static Hitboxes hitboxes = new Hitboxes();
     public static AutoRespawn autoRespawn;
-    //public static ChunkBorders chunkBorders;
     public static NoParticles noParticles = new NoParticles();
     public static Scoreboard scoreboard = new Scoreboard();
     public static ClearChat clearChat = new ClearChat();
@@ -97,20 +95,17 @@ public class ModManager {
         register(noRain);
         register(dynamicFOV);
         register(sprint = new Sprint());
-        //register(noHurtCam);
         register(autoGG = new AutoGG());
         register(hitboxes);
-        //register(chunkBorders = new ChunkBorders());
         register(noParticles);
         register(scoreboard);
-        //register(selfNametag = new SelfNametag());
         register(clearChat);
         register(animations);
     }
 
     public ArrayList<Mod> modsInCategory(Category c){
         ArrayList<Mod> inCat = (ArrayList<Mod>) this.modules.stream().filter(m -> m.getCategory() == c).collect(Collectors.toList());
-        
+
         return inCat;
     }
 
