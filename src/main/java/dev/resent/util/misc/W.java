@@ -12,7 +12,6 @@ import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.Scoreboard;
-import dev.resent.module.impl.misc.SelfNametag;
 
 public class W {
 
@@ -24,7 +23,6 @@ public class W {
         return ModManager.dynamicFOV;
     }
 
-    //public static NoHurtCam noHurtCam(){ return ModManager.noHurtCam; }
     public static AutoGG autoGG() {
         return ModManager.autoGG;
     }
@@ -47,10 +45,6 @@ public class W {
 
     public static Scoreboard scoreboard() {
         return ModManager.scoreboard;
-    }
-
-    public static SelfNametag selfNametag() {
-        return ModManager.selfNametag;
     }
 
     public static ClearChat clearChat() {

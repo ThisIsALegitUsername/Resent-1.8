@@ -45,7 +45,7 @@ public class TabGui extends RenderMod{
 
             offset = 0;
             for(Mod m : Resent.INSTANCE.modManager.modsInCategory(category)){
-                Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(m.name, x+73, y+6.5f+offset, -1);
+                Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(m.getName(), x+73, y+6.5f+offset, -1);
                 offset += 16;
             }
         }
@@ -84,7 +84,7 @@ public class TabGui extends RenderMod{
             }
         }
         if (k ==KeyboardConstants.KEY_RIGHT){
-            if(expanded && Resent.INSTANCE.modManager.modsInCategory(category).size() != 0 && Resent.INSTANCE.modManager.modsInCategory(category).get(category.i).name != "TabGUI"){
+            if(expanded && Resent.INSTANCE.modManager.modsInCategory(category).size() != 0 && Resent.INSTANCE.modManager.modsInCategory(category).get(category.i).getName() != "TabGUI"){
                 Resent.INSTANCE.modManager.modsInCategory(category).get(category.i).toggle();
                 mc.gameSettings.saveOptions();
             }else {

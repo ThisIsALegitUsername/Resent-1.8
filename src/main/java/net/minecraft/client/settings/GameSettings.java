@@ -236,8 +236,8 @@ public class GameSettings {
         this.language = EagRuntime.getConfiguration().getDefaultLocale();
         this.forceUnicodeFont = false;
         this.mc = mcIn;
-        ModManager.scoreboard.enabled = true;
-        ModManager.fpsb.enabled = true;
+        ModManager.scoreboard.setEnabled(true);
+        ModManager.fpsb.setEnabled(true);
         GameSettings.Options.RENDER_DISTANCE.setValueMax(18.0F);
 
         this.renderDistanceChunks = 1;
@@ -1049,7 +1049,7 @@ public class GameSettings {
                     }
 
                     for (Mod m : Resent.INSTANCE.modManager.modules) {
-                        if (astring[0].equals(m.name)) {
+                        if (astring[0].equals(m.getName())) {
                             m.setEnabled(astring[1].equals("true"));
                         }
 
@@ -1059,28 +1059,28 @@ public class GameSettings {
                         }
 
                         for (RenderMod rmod : rmodules) {
-                            if (astring[0].equals(rmod.name + "_x")) {
+                            if (astring[0].equals(rmod.getName() + "_x")) {
                                 rmod.setX(Integer.parseInt(astring[1]));
                             }
-                            if (astring[0].equals(rmod.name + "_y")) {
+                            if (astring[0].equals(rmod.getName() + "_y")) {
                                 rmod.setY(Integer.parseInt(astring[1]));
                             }
-                            if (astring[0].equals(rmod.name + "_lastx")) {
+                            if (astring[0].equals(rmod.getName() + "_lastx")) {
                                 rmod.lastX = Integer.parseInt(astring[1]);
                             }
-                            if (astring[0].equals(rmod.name + "_lasty")) {
+                            if (astring[0].equals(rmod.getName() + "_lasty")) {
                                 rmod.lastY = Integer.parseInt(astring[1]);
                             }
                         }
 
                         for (Setting se : m.settings) {
                             if (se instanceof ModeSetting) {
-                                if (astring[0].equals(m.name + "_modesetting_" + se.name)) {
+                                if (astring[0].equals(m.getName() + "_modesetting_" + se.name)) {
                                     ((ModeSetting) se).setValue(astring[1]);
                                 }
                             }
                             if (se instanceof BooleanSetting) {
-                                if (astring[0].equals(m.name + "_boolsetting_" + se.name)) {
+                                if (astring[0].equals(m.getName() + "_boolsetting_" + se.name)) {
                                     ((BooleanSetting) se).setValue(astring[1].equals("true"));
                                 }
                             }
@@ -1202,7 +1202,7 @@ public class GameSettings {
             }
 
             for (Mod m : Resent.INSTANCE.modManager.modules) {
-                printwriter.println(m.name + ":" + m.isEnabled());
+                printwriter.println(m.getName() + ":" + m.isEnabled());
 
                 List<RenderMod> rmodules = new ArrayList<>();
                 if (m instanceof RenderMod) {
@@ -1210,18 +1210,18 @@ public class GameSettings {
                 }
 
                 for (RenderMod rmod : rmodules) {
-                    printwriter.println(rmod.name + "_x:" + rmod.getX());
-                    printwriter.println(rmod.name + "_y:" + rmod.getY());
-                    printwriter.println(rmod.name + "_lastx:" + rmod.lastX);
-                    printwriter.println(rmod.name + "_lastx:" + rmod.lastX);
+                    printwriter.println(rmod.getName() + "_x:" + rmod.getX());
+                    printwriter.println(rmod.getName() + "_y:" + rmod.getY());
+                    printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
+                    printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
                 }
 
                 for (Setting s : m.settings) {
                     if (s instanceof ModeSetting) {
-                        printwriter.println(m.name + "_modesetting_" + s.name + ":" + ((ModeSetting) s).getValue());
+                        printwriter.println(m.getName() + "_modesetting_" + s.name + ":" + ((ModeSetting) s).getValue());
                     }
                     if (s instanceof BooleanSetting) {
-                        printwriter.println(m.name + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
+                        printwriter.println(m.getName() + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
                     }
                 }
             }

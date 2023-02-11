@@ -31,7 +31,6 @@ import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
-import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.misc.TabGui;
 
@@ -59,7 +58,6 @@ public class ModManager {
     //public static ChunkBorders chunkBorders;
     public static NoParticles noParticles = new NoParticles();
     public static Scoreboard scoreboard = new Scoreboard();
-    public static SelfNametag selfNametag = new SelfNametag();
     public static ClearChat clearChat = new ClearChat();
     public static FPSB fpsb = new FPSB();
     public static Animations animations = new Animations();
@@ -112,7 +110,7 @@ public class ModManager {
     public ArrayList<Mod> modsInCategory(Category c){
         ArrayList<Mod> inCategory = new ArrayList<>();
         for(Mod m : this.modules){
-            if(m.category == c)
+            if(m.getCategory() == c)
                 inCategory.add(m);
         }
         return inCategory;

@@ -435,7 +435,7 @@ public class RenderManager {
         float f = entityIn.width / 2.0F;
         AxisAlignedBB axisalignedbb = entityIn.getEntityBoundingBox();
         AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX - entityIn.posX + parDouble1, axisalignedbb.minY - entityIn.posY + parDouble2, axisalignedbb.minZ - entityIn.posZ + parDouble3, axisalignedbb.maxX - entityIn.posX + parDouble1, axisalignedbb.maxY - entityIn.posY + parDouble2, axisalignedbb.maxZ - entityIn.posZ + parDouble3);
-        RenderGlobal.func_181563_a(axisalignedbb1, W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed() : 255, W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen() : 255, W.hitboxes().enabled ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue() : 255, 255);
+        RenderGlobal.func_181563_a(axisalignedbb1, W.hitboxes().isEnabled() ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getRed() : 255, W.hitboxes().isEnabled() ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getGreen() : 255, W.hitboxes().isEnabled() ? RenderUtils.getColorWithoutRGB(Hitboxes.color).getBlue() : 255, 255);
         if (entityIn instanceof EntityLivingBase) {
             float f1 = 0.01F;
             RenderGlobal.func_181563_a(new AxisAlignedBB(parDouble1 - (double) f, parDouble2 + (double) entityIn.getEyeHeight() - 0.009999999776482582D, parDouble3 - (double) f, parDouble1 + (double) f, parDouble2 + (double) entityIn.getEyeHeight() + 0.009999999776482582D, parDouble3 + (double) f), 255, 0, 0, 255);

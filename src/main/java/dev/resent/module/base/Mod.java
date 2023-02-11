@@ -12,13 +12,11 @@ import net.minecraft.client.Minecraft;
 
 public abstract class Mod {
 
-    public Minecraft mc = Minecraft.getMinecraft();
-    public int keyCode;
-
-    public String name;
-    public Category category;
-    public boolean enabled = false;
-    public boolean hasSetting;
+    protected Minecraft mc = Minecraft.getMinecraft();
+    private String name;
+    private Category category;
+    private boolean enabled = false;
+    private boolean hasSetting;
 
     public List<Setting> settings = new ArrayList<>();
 
@@ -26,26 +24,30 @@ public abstract class Mod {
         Module modInfo;
         if(getClass().isAnnotationPresent(Module.class)){
             modInfo = getClass().getAnnotation(Module.class);
-            this.name = modInfo.name();
-            this.category = modInfo.category();
-            this.hasSetting = modInfo.hasSetting();
+            this.setName(modInfo.name());
+            this.setCategory(modInfo.category());
+            this.setHasSetting(modInfo.hasSetting());
         }
     }
 
-    public void addSetting(final Setting... settings) {
-        this.settings.addAll(Arrays.asList(settings));
-    }
-
+    public void addSetting(final Setting... settings) { this.settings.addAll(Arrays.asList(settings)); }
     public void onEnable() {}
     public void onDisable() {}
 
     public void toggle() {
         this.enabled = !this.enabled;
-        if (this.enabled) {
+        onChange();
+    }
+
+    private void onChange(){
+        if(enabled)
             onEnable();
-        } else {
+        else
             onDisable();
-        }
+    }
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
+        onChange();
     }
 
     protected void drawRect(final int left, final int top, final int right, final int bottom, final int color){
@@ -62,11 +64,6 @@ public abstract class Mod {
         return x;
     }
 
-    public void setEnabled(final boolean state) {
-        this.enabled = state;
-        if (this.enabled) onEnable(); else onDisable();
-    }
-
     public enum Category {
         HUD("Hud"),
         MISC("Misc");
@@ -79,6 +76,11 @@ public abstract class Mod {
     }
 
     public boolean isEnabled() { return enabled; }
+    public boolean isHasSetting() { return hasSetting; }
     public String getName() { return name; }
+    public Category getCategory() { return category; }
+    public void setName(String name) { this.name = name; }
+    public void setCategory(Category category) { this.category = category; }
+    public void setHasSetting(boolean hasSetting) { this.hasSetting = hasSetting; }
 
 }

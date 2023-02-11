@@ -18,9 +18,9 @@ public abstract class RenderMod extends Mod {
         RenderModule modInfo;
         if(getClass().isAnnotationPresent(RenderModule.class)){
             modInfo = getClass().getAnnotation(RenderModule.class);
-            this.name = modInfo.name();
-            this.category = modInfo.category();
-            this.hasSetting = modInfo.hasSetting();
+            this.setName(modInfo.name());
+            this.setCategory(modInfo.category());
+            this.setHasSetting(modInfo.hasSetting());
             this.x = modInfo.x();
             this.y = modInfo.y();
         }

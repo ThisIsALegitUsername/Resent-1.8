@@ -49,7 +49,7 @@ public class ClickGUI extends GuiScreen {
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             int fh = 9;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.hasSetting && modWatching == null) {
+            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.isHasSetting() && modWatching == null) {
                 // Open settings
                 this.modWatching = m;
             } else if (isMouseInside(mouseX, mouseY, x - 9 + 2, height + 27 + 9 + 2, x - 9 + 6 + fr.getStringWidth("<"), height + 33 + 9 + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
@@ -154,7 +154,7 @@ public class ClickGUI extends GuiScreen {
                         isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() : new Color(211, 211, 211, 65).getRGB()
                     );
 
-                    if (m.hasSetting) {
+                    if (m.isHasSetting()) {
                         if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9))
                         GlStateManager.color(1,1,1,0.6f);
                         else {
@@ -166,12 +166,12 @@ public class ClickGUI extends GuiScreen {
                         }
                     }
 
-                    fr.drawStringWithShadow(m.name, this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
+                    fr.drawStringWithShadow(m.getName(), this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
                 }
             } else if (this.modWatching != null) {
                 int var = 0;
                 fr.drawString("<", x - 9 + 4, height + 29 + 9 + 2, -1);
-                fr.drawStringWithShadow("Resent - " + modWatching.name, GuiScreen.width / 2 - (fr.getStringWidth("Resent - " + modWatching.name) / 2), height + 29 - 9 - 2, -1);
+                fr.drawStringWithShadow("Resent - " + modWatching.getName(), GuiScreen.width / 2 - (fr.getStringWidth("Resent - " + modWatching.getName()) / 2), height + 29 - 9 - 2, -1);
 
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     ModeSetting mo;
