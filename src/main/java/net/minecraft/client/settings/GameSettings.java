@@ -1,26 +1,23 @@
 package net.minecraft.client.settings;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import dev.resent.Resent;
-import dev.resent.module.base.Mod;
-import dev.resent.module.base.ModManager;
-import dev.resent.module.base.RenderMod;
-import dev.resent.module.setting.BooleanSetting;
-import dev.resent.module.setting.ModeSetting;
-import dev.resent.module.setting.Setting;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.json.JSONArray;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+
+import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.ArrayUtils;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
@@ -41,7 +38,6 @@ import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
-import org.json.JSONArray;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -1048,44 +1044,8 @@ public class GameSettings {
                         }
                     }
 
-                    for (Mod m : Resent.INSTANCE.modManager.modules) {
-                        if (astring[0].equals(m.getName())) {
-                            m.setEnabled(astring[1].equals("true"));
-                        }
+                    Resent.INSTANCE.load(astring);
 
-                        List<RenderMod> rmodules = new ArrayList<>();
-                        if (m instanceof RenderMod) {
-                            rmodules.add((RenderMod) m);
-                        }
-
-                        for (RenderMod rmod : rmodules) {
-                            if (astring[0].equals(rmod.getName() + "_x")) {
-                                rmod.setX(Integer.parseInt(astring[1]));
-                            }
-                            if (astring[0].equals(rmod.getName() + "_y")) {
-                                rmod.setY(Integer.parseInt(astring[1]));
-                            }
-                            if (astring[0].equals(rmod.getName() + "_lastx")) {
-                                rmod.lastX = Integer.parseInt(astring[1]);
-                            }
-                            if (astring[0].equals(rmod.getName() + "_lasty")) {
-                                rmod.lastY = Integer.parseInt(astring[1]);
-                            }
-                        }
-
-                        for (Setting se : m.settings) {
-                            if (se instanceof ModeSetting) {
-                                if (astring[0].equals(m.getName() + "_modesetting_" + se.name)) {
-                                    ((ModeSetting) se).setValue(astring[1]);
-                                }
-                            }
-                            if (se instanceof BooleanSetting) {
-                                if (astring[0].equals(m.getName() + "_boolsetting_" + se.name)) {
-                                    ((BooleanSetting) se).setValue(astring[1].equals("true"));
-                                }
-                            }
-                        }
-                    }
                 } catch (Exception var8) {
                     logger.warn("Skipping bad option: " + s);
                 }
@@ -1201,30 +1161,7 @@ public class GameSettings {
                 printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + this.setModelParts.contains(enumplayermodelparts));
             }
 
-            for (Mod m : Resent.INSTANCE.modManager.modules) {
-                printwriter.println(m.getName() + ":" + m.isEnabled());
-
-                List<RenderMod> rmodules = new ArrayList<>();
-                if (m instanceof RenderMod) {
-                    rmodules.add((RenderMod) m);
-                }
-
-                for (RenderMod rmod : rmodules) {
-                    printwriter.println(rmod.getName() + "_x:" + rmod.getX());
-                    printwriter.println(rmod.getName() + "_y:" + rmod.getY());
-                    printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
-                    printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
-                }
-
-                for (Setting s : m.settings) {
-                    if (s instanceof ModeSetting) {
-                        printwriter.println(m.getName() + "_modesetting_" + s.name + ":" + ((ModeSetting) s).getValue());
-                    }
-                    if (s instanceof BooleanSetting) {
-                        printwriter.println(m.getName() + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
-                    }
-                }
-            }
+            Resent.INSTANCE.save(printwriter);
 
             printwriter.close();
 

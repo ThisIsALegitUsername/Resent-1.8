@@ -12,7 +12,6 @@ public abstract class RenderMod extends Mod {
     private boolean dragging;
 
     public RenderMod(){
-        super();
         RenderModule modInfo;
         if(getClass().isAnnotationPresent(RenderModule.class)){
             modInfo = getClass().getAnnotation(RenderModule.class);
@@ -25,7 +24,6 @@ public abstract class RenderMod extends Mod {
     }
 
     public void draw() {}
-
     public void renderLayout(final int mouseX, final int mouseY) {
 
         if ((getX() + getWidth()) > GuiScreen.width) {
