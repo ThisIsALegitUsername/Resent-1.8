@@ -3,7 +3,6 @@ package dev.resent;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
@@ -20,7 +19,6 @@ public class Resent {
 
     public static final String NAME = "Resent", VERSION = "3.5";
     public static final Resent INSTANCE;
-    //private ISound uwu;
     public ModManager modManager;
 
     public void init() {
@@ -28,38 +26,24 @@ public class Resent {
     }
 
     public void save(PrintWriter printwriter){
-        for (Mod m : Resent.INSTANCE.modManager.modules) {
-            printwriter.println(m.getName() + ":" + m.isEnabled());
 
-            /*Resent.INSTANCE.modManager.modules.stream().filter(RenderMod.class::isInstance).forEach(
-                rm -> {
-                printwriter.println(rm.getName() + "_x:" + ((RenderMod)m).getX());
-                printwriter.println(rm.getName() + "_y:" + ((RenderMod)m).getY());
-                printwriter.println(rm.getName() + "_lastx:" + ((RenderMod)m).lastX);
-                printwriter.println(rm.getName() + "_lasty:" + ((RenderMod)m).lastY);
-            });*/
-
-            List<RenderMod> rmodules = new ArrayList<>();
-            if (m instanceof RenderMod) {
-                rmodules.add((RenderMod) m);
-            }
-
-            for (RenderMod rmod : rmodules) {
-                printwriter.println(rmod.getName() + "_x:" + rmod.getX());
-                printwriter.println(rmod.getName() + "_y:" + rmod.getY());
-                printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
-                printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
-            }
-
-            for (Setting s : m.settings) {
-                if (s instanceof ModeSetting) {
-                    printwriter.println(m.getName() + "_modesetting_" + s.name + ":" + ((ModeSetting) s).getValue());
+        Resent.INSTANCE.modManager.modules.stream().forEach( m -> {
+                printwriter.println(m.getName() + ":" + m.isEnabled());
+                if(m instanceof RenderMod){
+                    printwriter.println(m.getName() + "_x:" + ((RenderMod)m).getX());
+                    printwriter.println(m.getName() + "_y:" + ((RenderMod)m).getY());
+                    printwriter.println(m.getName() + "_lastx:" + ((RenderMod)m).lastX);
+                    printwriter.println(m.getName() + "_lasty:" + ((RenderMod)m).lastY);
                 }
-                if (s instanceof BooleanSetting) {
-                    printwriter.println(m.getName() + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
-                }
-            }
-        }
+                m.settings.stream().forEach(s -> {
+                    if (s instanceof ModeSetting) {
+                        printwriter.println(m.getName() + "_modesetting_" + s.name + ":" + ((ModeSetting) s).getValue());
+                    }
+                    if (s instanceof BooleanSetting) {
+                        printwriter.println(m.getName() + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
+                    }
+                });
+        });
     }
 
     public void load(String[] astring){
@@ -102,6 +86,35 @@ public class Resent {
             }
         }
     }
+
+    //Legacy code below.
+
+        //private ISound uwu;
+
+        /*for (Mod m : Resent.INSTANCE.modManager.modules) {
+            printwriter.println(m.getName() + ":" + m.isEnabled());
+
+            List<RenderMod> rmodules = new ArrayList<>();
+            if (m instanceof RenderMod) {
+                rmodules.add((RenderMod) m);
+            }
+
+            for (RenderMod rmod : rmodules) {
+                printwriter.println(rmod.getName() + "_x:" + rmod.getX());
+                printwriter.println(rmod.getName() + "_y:" + rmod.getY());
+                printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
+                printwriter.println(rmod.getName() + "_lastx:" + rmod.lastX);
+            }
+
+            for (Setting s : m.settings) {
+                if (s instanceof ModeSetting) {
+                    printwriter.println(m.getName() + "_modesetting_" + s.name + ":" + ((ModeSetting) s).getValue());
+                }
+                if (s instanceof BooleanSetting) {
+                    printwriter.println(m.getName() + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
+                }
+            }
+        }*/
 
     /*public void playMusic(ResourceLocation loc){
         this.uwu = PositionedSoundRecord.create(loc);
