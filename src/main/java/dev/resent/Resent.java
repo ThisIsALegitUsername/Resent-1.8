@@ -6,6 +6,11 @@ import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MusicTicker;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.util.ResourceLocation;
 
 public class Resent {
 
@@ -80,14 +85,20 @@ public class Resent {
 
     //Legacy code below.
 
-        //private ISound uwu;
-
-    /*public void playMusic(ResourceLocation loc){
-        this.uwu = PositionedSoundRecord.create(loc);
-        if(uwu != null){
-            Minecraft.getMinecraft().getSoundHandler().stopSounds();
-            Minecraft.getMinecraft().getSoundHandler().playSound(uwu);
-        }
+    /*public void playMusic(){
+        MusicTicker player = Minecraft.getMinecraft().func_181535_r();
+        SoundHandler soundhandler = Minecraft.getMinecraft().getSoundHandler();
+        player.func_181557_a();
+        player.func_181558_a(MusicTicker.MusicType.RES);
+        soundhandler.resumeSounds();
     }*/
+
+    public void test(){
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("minecraft:music.res"), 1));
+    }
+
+    public void stopMusic(){
+        Minecraft.getMinecraft().getSoundHandler().stopSounds();
+    }
     
 }

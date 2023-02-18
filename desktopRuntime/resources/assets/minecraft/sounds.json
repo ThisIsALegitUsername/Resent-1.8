@@ -1888,6 +1888,15 @@
       }
     ]
   },
+  "music.res": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "music/res/ava",
+        "stream": true
+      }
+    ]
+  },
   "music.game": {
     "category": "music",
     "sounds": [
