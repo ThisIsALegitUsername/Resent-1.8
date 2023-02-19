@@ -1,6 +1,6 @@
 package dev.resent.ui;
 
-import dev.resent.Resent;
+import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;

@@ -1,16 +1,15 @@
 package dev.resent.ui;
 
-import dev.resent.Resent;
+import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
-@SuppressWarnings("all")
 public class HUDConfigScreen extends GuiScreen {
 
     public void initGui() {
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 148, "Back"));
+        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 148, 50, 11, "Back"));
     }
 
     public void onGuiClosed() {
@@ -20,11 +19,7 @@ public class HUDConfigScreen extends GuiScreen {
 
     public void drawScreen(int mx, int my, float par3) {
         this.drawDefaultBackground();
-        for (int i = 0; i < Resent.INSTANCE.modManager.modules.size(); i++) {
-            if (Resent.INSTANCE.modManager.modules.get(i).isEnabled() && (Resent.INSTANCE.modManager.modules.get(i) instanceof RenderMod)) {
-                ((RenderMod) Resent.INSTANCE.modManager.modules.get(i)).renderLayout(mx, my);
-            }
-        }
+        Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(rm -> ((RenderMod)rm).renderLayout(mx, my));
         super.drawScreen(mx, my, par3);
     }
 
@@ -32,9 +27,5 @@ public class HUDConfigScreen extends GuiScreen {
         if (par1GuiButton.id == 200) {
             this.mc.displayGuiScreen(new ClickGUI());
         }
-    }
-
-    public boolean doesGuiPauseGame() {
-        return false;
     }
 }

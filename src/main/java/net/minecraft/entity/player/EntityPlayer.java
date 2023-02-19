@@ -2,7 +2,8 @@ package net.minecraft.entity.player;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
-import dev.resent.Resent;
+
+import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import java.util.Collection;
 import java.util.List;

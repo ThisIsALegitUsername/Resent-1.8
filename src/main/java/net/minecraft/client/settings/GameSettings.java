@@ -4,7 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import dev.resent.Resent;
+
+import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

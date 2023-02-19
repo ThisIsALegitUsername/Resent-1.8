@@ -11,7 +11,8 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SMOOTH;
 
 import com.google.common.collect.Lists;
-import dev.resent.Resent;
+
+import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import dev.resent.ui.PreGUI;
 import dev.resent.util.misc.W;

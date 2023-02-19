@@ -8,7 +8,8 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import dev.resent.Resent;
+
+import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
 import dev.resent.ui.animation.SimpleAnimation;
 import dev.resent.util.misc.W;
