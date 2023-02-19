@@ -17,5 +17,4 @@ public class SmoothStepAnimation extends Animation {
         double x1 = x / (double) duration; //Used to force input to range from 0 - 1
         return -2 * Math.pow(x1, 3) + (3 * Math.pow(x1, 2));
     }
-
 }

@@ -38,8 +38,7 @@ public class Sprint extends RenderMod {
             toggled = !toggled;
         }
         if (toggled) {
-            if (mc.gameSettings.keyBindForward.pressed && !mc.thePlayer.isUsingItem()) 
-            mc.thePlayer.setSprinting(true);
+            if (mc.gameSettings.keyBindForward.pressed && !mc.thePlayer.isUsingItem()) mc.thePlayer.setSprinting(true);
             text = definitive ? text : "[Sprinting (Toggled)]";
         }
 
@@ -54,8 +53,7 @@ public class Sprint extends RenderMod {
 
     @Override
     public void draw() {
-        if (drawn.getValue())
-        drawString(getText(), x + 2, y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        if (drawn.getValue()) drawString(getText(), x + 2, y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 
     @Override

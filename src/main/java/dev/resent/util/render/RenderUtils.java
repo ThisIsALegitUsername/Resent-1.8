@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class RenderUtils {
-    
+
     public static void drawChromaString(final String string, final int x, final int y, final boolean shadow) {
         final Minecraft mc = Minecraft.getMinecraft();
         int xTmp = x;
@@ -20,40 +20,40 @@ public class RenderUtils {
             final long l = System.currentTimeMillis() - (xTmp * 10 - y * 10);
             final int i = Color.HSBtoRGB(l % 2000L / 2000.0f, 0.8f, 0.8f);
             final String tmp = String.valueOf(textChar);
-            mc.fontRendererObj.drawString(tmp, (float)xTmp, (float)y, i, shadow);
+            mc.fontRendererObj.drawString(tmp, (float) xTmp, (float) y, i, shadow);
             xTmp += mc.fontRendererObj.getCharWidth(textChar);
         }
     }
 
     public static void drawChromaRectangle(float x, float y, float width, float height, float speed, int colorbecauseidontwanttoremovecolor) {
-		float i = x;
-		while(true) {
-			if(i+10 <= width) {
-				Gui.drawRect(i, y, i+10, height,RenderUtils.astolfoColorsDraw(i, GuiScreen.width, speed*10000));
-			} else {
-				break;
-			}
-			i+=10;
-		}
-		if(width-i != 0) {
-			for(float h = i; h < width; h++) {
-				Gui.drawRect(h, y, h+1, height,RenderUtils.astolfoColorsDraw(h, GuiScreen.width, speed*10000));
-			}
-		}
-	}
+        float i = x;
+        while (true) {
+            if (i + 10 <= width) {
+                Gui.drawRect(i, y, i + 10, height, RenderUtils.astolfoColorsDraw(i, GuiScreen.width, speed * 10000));
+            } else {
+                break;
+            }
+            i += 10;
+        }
+        if (width - i != 0) {
+            for (float h = i; h < width; h++) {
+                Gui.drawRect(h, y, h + 1, height, RenderUtils.astolfoColorsDraw(h, GuiScreen.width, speed * 10000));
+            }
+        }
+    }
 
     public static int astolfoColorsDraw(float yOffset, int yTotal, float speed) {
-        float hue = (float) (System.currentTimeMillis() % (int)speed) + ((yTotal - yOffset) * 9);
+        float hue = (float) (System.currentTimeMillis() % (int) speed) + ((yTotal - yOffset) * 9);
         while (hue > speed) {
-           hue -= speed;
+            hue -= speed;
         }
         hue /= speed;
         if (hue > 0.5) {
-           hue = 0.5F - (hue - 0.5f);
+            hue = 0.5F - (hue - 0.5f);
         }
         hue += 0.5F;
         return Color.HSBtoRGB(hue, 0.5f, 1f);
-     }
+    }
 
     public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... rounded) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;
@@ -61,10 +61,10 @@ public class RenderUtils {
         final float f3 = (color >> 8 & 0xFF) / 255.0f;
         final float f4 = (color & 0xFF) / 255.0f;
         GlStateManager.color(f2, f3, f4, f1);
-        if(rounded[0]){
+        if (rounded[0]) {
             drawRoundedRect(paramInt1, paramInt2, paramInt3, paramInt4, radius);
-        }else {
-            Gui.drawRect((int)paramInt1, (int)paramInt2, (int)paramInt3, (int)paramInt4, color);
+        } else {
+            Gui.drawRect((int) paramInt1, (int) paramInt2, (int) paramInt3, (int) paramInt4, color);
         }
     }
 
@@ -83,7 +83,7 @@ public class RenderUtils {
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.shadeModel(7425);
         worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX);
-        
+
         worldrenderer.pos(paramFloat1 + paramFloat5, paramFloat2, 0).endVertex();
         worldrenderer.pos(paramFloat1 + paramFloat5, paramFloat4, 0).endVertex();
         worldrenderer.pos(paramFloat3 - paramFloat5, paramFloat2, 0).endVertex();
@@ -107,7 +107,7 @@ public class RenderUtils {
         worldrenderer.pos(f2, f3, 0).endVertex();
         for (int j = 0; j <= i; ++j) {
             final float f4 = j * f1;
-            worldrenderer.pos((float)(f2 + paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 - paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+            worldrenderer.pos((float) (f2 + paramFloat5 * Math.cos(Math.toRadians(f4))), (float) (f3 - paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
         }
         tessellator.draw();
         worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
@@ -116,7 +116,7 @@ public class RenderUtils {
         worldrenderer.pos(f2, f3, 0).endVertex();
         for (int j = 0; j <= i; ++j) {
             final float f4 = j * f1;
-            worldrenderer.pos((float)(f2 - paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 - paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+            worldrenderer.pos((float) (f2 - paramFloat5 * Math.cos(Math.toRadians(f4))), (float) (f3 - paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
         }
         tessellator.draw();
         worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
@@ -125,7 +125,7 @@ public class RenderUtils {
         worldrenderer.pos(f2, f3, 0).endVertex();
         for (int j = 0; j <= i; ++j) {
             final float f4 = j * f1;
-            worldrenderer.pos((float)(f2 - paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 + paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+            worldrenderer.pos((float) (f2 - paramFloat5 * Math.cos(Math.toRadians(f4))), (float) (f3 + paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
         }
         tessellator.draw();
         worldrenderer.begin(6, DefaultVertexFormats.POSITION_TEX);
@@ -134,7 +134,7 @@ public class RenderUtils {
         worldrenderer.pos(f2, f3, 0).endVertex();
         for (int j = 0; j <= i; ++j) {
             final float f4 = j * f1;
-            worldrenderer.pos((float)(f2 + paramFloat5 * Math.cos(Math.toRadians(f4))), (float)(f3 + paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
+            worldrenderer.pos((float) (f2 + paramFloat5 * Math.cos(Math.toRadians(f4))), (float) (f3 + paramFloat5 * Math.sin(Math.toRadians(f4))), 0).endVertex();
         }
         tessellator.draw();
         GlStateManager.shadeModel(7424);
@@ -172,7 +172,7 @@ public class RenderUtils {
         Gui.drawRect(width1 - 1, param2, width1, height1, color);
         Gui.drawRect(param1, height1 - 1, width1, height1, color);
     }
-    
+
     public static int getRainbow(float seconds, float saturation, float brightness) {
         float hue = (System.currentTimeMillis()) % (int) (seconds * 1000) / (seconds * 1000);
         int color = Color.HSBtoRGB(hue, saturation, brightness);
@@ -184,5 +184,4 @@ public class RenderUtils {
         rainbowState %= 360;
         return Color.HSBtoRGB((float) (rainbowState / 360.0f), 0.8f, 0.7f);
     }
-
 }

@@ -120,8 +120,8 @@ public class InstancedFontRenderer {
 
         shaderProgram = _wglCreateProgram();
 
-		_wglAttachShader(shaderProgram, vert);
-		_wglAttachShader(shaderProgram, frag);
+        _wglAttachShader(shaderProgram, vert);
+        _wglAttachShader(shaderProgram, frag);
 
         _wglLinkProgram(shaderProgram);
 

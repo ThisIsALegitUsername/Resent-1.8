@@ -21,23 +21,23 @@ class FixedFunctionShader {
         static final String FILENAME_VSH = "/assets/eagler/glsl/core.vsh";
         static final String FILENAME_FSH = "/assets/eagler/glsl/core.fsh";
 
-		static final String PRECISION_INT = "lowp";
-		static final String PRECISION_FLOAT = "mediump";
-		static final String PRECISION_SAMPLER = "lowp";
-		
-		static final String MACRO_ATTRIB_TEXTURE = "COMPILE_TEXTURE_ATTRIB";
-		static final String MACRO_ATTRIB_COLOR = "COMPILE_COLOR_ATTRIB";
-		static final String MACRO_ATTRIB_NORMAL = "COMPILE_NORMAL_ATTRIB";
-		static final String MACRO_ATTRIB_LIGHTMAP = "COMPILE_LIGHTMAP_ATTRIB";
-		
-		static final String MACRO_ENABLE_TEXTURE2D = "COMPILE_ENABLE_TEXTURE2D";
-		static final String MACRO_ENABLE_LIGHTMAP = "COMPILE_ENABLE_LIGHTMAP";
-		static final String MACRO_ENABLE_ALPHA_TEST = "COMPILE_ENABLE_ALPHA_TEST";
-		static final String MACRO_ENABLE_MC_LIGHTING = "COMPILE_ENABLE_MC_LIGHTING";
-		static final String MACRO_ENABLE_END_PORTAL = "COMPILE_ENABLE_TEX_GEN";
-		static final String MACRO_ENABLE_ANISOTROPIC_FIX = "COMPILE_ENABLE_ANISOTROPIC_FIX";
-		static final String MACRO_ENABLE_FOG = "COMPILE_ENABLE_FOG";
-		static final String MACRO_ENABLE_BLEND_ADD = "COMPILE_BLEND_ADD";
+        static final String PRECISION_INT = "lowp";
+        static final String PRECISION_FLOAT = "mediump";
+        static final String PRECISION_SAMPLER = "lowp";
+
+        static final String MACRO_ATTRIB_TEXTURE = "COMPILE_TEXTURE_ATTRIB";
+        static final String MACRO_ATTRIB_COLOR = "COMPILE_COLOR_ATTRIB";
+        static final String MACRO_ATTRIB_NORMAL = "COMPILE_NORMAL_ATTRIB";
+        static final String MACRO_ATTRIB_LIGHTMAP = "COMPILE_LIGHTMAP_ATTRIB";
+
+        static final String MACRO_ENABLE_TEXTURE2D = "COMPILE_ENABLE_TEXTURE2D";
+        static final String MACRO_ENABLE_LIGHTMAP = "COMPILE_ENABLE_LIGHTMAP";
+        static final String MACRO_ENABLE_ALPHA_TEST = "COMPILE_ENABLE_ALPHA_TEST";
+        static final String MACRO_ENABLE_MC_LIGHTING = "COMPILE_ENABLE_MC_LIGHTING";
+        static final String MACRO_ENABLE_END_PORTAL = "COMPILE_ENABLE_TEX_GEN";
+        static final String MACRO_ENABLE_ANISOTROPIC_FIX = "COMPILE_ENABLE_ANISOTROPIC_FIX";
+        static final String MACRO_ENABLE_FOG = "COMPILE_ENABLE_FOG";
+        static final String MACRO_ENABLE_BLEND_ADD = "COMPILE_BLEND_ADD";
 
         static final String ATTRIB_POSITION = "a_position3f";
         static final String ATTRIB_TEXTURE = "a_texture2f";

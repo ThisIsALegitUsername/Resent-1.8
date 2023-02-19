@@ -27,19 +27,24 @@ public class ComboCounter extends RenderMod {
         }
     }
 
-    public int getWidth() { return Minecraft.getMinecraft().fontRendererObj.getStringWidth(getText()) + 4; }
-    public int getHeight() { return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4; }
+    public int getWidth() {
+        return Minecraft.getMinecraft().fontRendererObj.getStringWidth(getText()) + 4;
+    }
 
-    private String getText(){
-        return "["+combo+" Combo]";
+    public int getHeight() {
+        return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 4;
+    }
+
+    private String getText() {
+        return "[" + combo + " Combo]";
     }
 
     @Override
     public void draw() {
-        if(Minecraft.getMinecraft().thePlayer.hurtTime > 3 && this.isEnabled()){
+        if (Minecraft.getMinecraft().thePlayer.hurtTime > 3 && this.isEnabled()) {
             combo = 0;
         }
-        
-        drawString("["+combo+" Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+
+        drawString("[" + combo + " Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 }

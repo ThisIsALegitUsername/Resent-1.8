@@ -1,8 +1,8 @@
 package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.Module;
-import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.Mod.Category;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.minecraft.client.Minecraft;

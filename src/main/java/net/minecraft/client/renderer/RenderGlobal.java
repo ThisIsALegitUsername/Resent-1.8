@@ -621,8 +621,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     RenderChunk renderchunk2 = this.func_181562_a(blockpos, renderchunk3, enumfacing1);
                     if (
                         (
-                            !flag1 ||
-                            !renderglobal$containerlocalrenderinformation1.setFacing.contains(enumfacing1.getOpposite()) // TODO:
+                            !flag1 || !renderglobal$containerlocalrenderinformation1.setFacing.contains(enumfacing1.getOpposite()) // TODO:
                         ) &&
                         (!flag1 || enumfacing2 == null || renderchunk3.getCompiledChunk().isVisible(enumfacing2.getOpposite(), enumfacing1)) &&
                         renderchunk2 != null &&

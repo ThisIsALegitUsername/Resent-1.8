@@ -396,7 +396,6 @@ public class GuiTextField extends Gui {
                     return true;
                 default:
                     if (ChatAllowedCharacters.isAllowedCharacter(parChar1)) {
-
                         if (this.isEnabled) {
                             this.writeText(Character.toString(parChar1));
                         }

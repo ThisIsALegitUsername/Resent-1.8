@@ -1,5 +1,11 @@
 package net.minecraft.client.settings;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
@@ -8,16 +14,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.json.JSONArray;
-
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
-import dev.resent.Resent;
-import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.ArrayUtils;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.EaglerInputStream;
@@ -38,6 +34,7 @@ import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
+import org.json.JSONArray;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -1045,7 +1042,6 @@ public class GameSettings {
                     }
 
                     Resent.INSTANCE.load(astring);
-
                 } catch (Exception var8) {
                     logger.warn("Skipping bad option: " + s);
                 }

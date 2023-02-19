@@ -1,8 +1,8 @@
 package dev.resent.module.impl.misc;
 
 import dev.resent.annotation.Module;
-import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.Mod.Category;
 
 @Module(name = "Animations", category = Category.MISC)
-public class Animations extends Mod { }
+public class Animations extends Mod {}

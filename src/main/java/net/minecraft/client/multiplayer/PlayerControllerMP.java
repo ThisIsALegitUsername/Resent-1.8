@@ -1,7 +1,6 @@
 package net.minecraft.client.multiplayer;
 
 import java.io.IOException;
-
 import net.lax1dude.eaglercraft.v1_8.socket.EaglercraftNetworkManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -344,7 +343,6 @@ public class PlayerControllerMP {
                 }
             }
 
-            
             this.netClientHandler.addToSendQueue(new C08PacketPlayerBlockPlacement(hitPos, side.getIndex(), player.inventory.getCurrentItem(), f, f1, f2));
             if (!flag && this.currentGameType != WorldSettings.GameType.SPECTATOR) {
                 if (heldStack == null) {

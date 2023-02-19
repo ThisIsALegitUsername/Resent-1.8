@@ -11,89 +11,86 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 @RenderModule(name = "TabGUI", category = Category.HUD, x = 30, y = 150)
-public class TabGui extends RenderMod{
+public class TabGui extends RenderMod {
 
     public int current = 0;
     public boolean expanded;
 
-    public int getWidth(){
+    public int getWidth() {
         return expanded ? 139 : 70;
     }
 
-    public int getHeight(){
-        return Category.values().length*16+4;
+    public int getHeight() {
+        return Category.values().length * 16 + 4;
     }
 
     public void draw() {
-        Gui.drawRect(x, y, x+70, y+3+Category.values().length*16, 0x90000000);
-        RenderUtils.drawChromaRectangle(x, y+current*16, x+70, y+18f+current*16, 0.6f, 0xff900000);
+        Gui.drawRect(x, y, x + 70, y + 3 + Category.values().length * 16, 0x90000000);
+        RenderUtils.drawChromaRectangle(x, y + current * 16, x + 70, y + 18f + current * 16, 0.6f, 0xff900000);
 
         int offset = 0;
-        for(Category c : Category.values()){
-            Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(c.name, x+10, y+6.5f+offset, -1);
+        for (Category c : Category.values()) {
+            Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(c.name, x + 10, y + 6.5f + offset, -1);
             offset += 16;
         }
 
-        if(expanded){
-
+        if (expanded) {
             Category category = Category.values()[current];
-            if(Resent.INSTANCE.modManager.modsInCategory(category).size() == 0)
-                return;
+            if (Resent.INSTANCE.modManager.modsInCategory(category).size() == 0) return;
 
-            Gui.drawRect(x+70, y, x+138, y+3+Resent.INSTANCE.modManager.modsInCategory(category).size()*16, 0x90000000);
-            RenderUtils.drawChromaRectangle(x+70, y+category.i*16, x+138, y+18f+category.i*16, 0.6f, 0xff900000);
+            Gui.drawRect(x + 70, y, x + 138, y + 3 + Resent.INSTANCE.modManager.modsInCategory(category).size() * 16, 0x90000000);
+            RenderUtils.drawChromaRectangle(x + 70, y + category.i * 16, x + 138, y + 18f + category.i * 16, 0.6f, 0xff900000);
 
             offset = 0;
-            for(Mod m : Resent.INSTANCE.modManager.modsInCategory(category)){
-                Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(m.getName(), x+73, y+6.5f+offset, -1);
+            for (Mod m : Resent.INSTANCE.modManager.modsInCategory(category)) {
+                Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(m.getName(), x + 73, y + 6.5f + offset, -1);
                 offset += 16;
             }
         }
     }
 
-    public void onKey(int k){
+    public void onKey(int k) {
         Category category = Category.values()[current];
-        if (k ==KeyboardConstants.KEY_UP) {
-            if(expanded){
-                if(category.i <= 0){
-                    category.i = Resent.INSTANCE.modManager.modsInCategory(category).size()-1;
-                }else{
+        if (k == KeyboardConstants.KEY_UP) {
+            if (expanded) {
+                if (category.i <= 0) {
+                    category.i = Resent.INSTANCE.modManager.modsInCategory(category).size() - 1;
+                } else {
                     --category.i;
                 }
-            }else {
-                if(current <= 0){
-                    current = Category.values().length-1;
-                }else {
+            } else {
+                if (current <= 0) {
+                    current = Category.values().length - 1;
+                } else {
                     --current;
                 }
             }
         }
-        if (k ==KeyboardConstants.KEY_DOWN) {
-            if(expanded){
-                if(category.i >= Resent.INSTANCE.modManager.modsInCategory(category).size() - 1){
+        if (k == KeyboardConstants.KEY_DOWN) {
+            if (expanded) {
+                if (category.i >= Resent.INSTANCE.modManager.modsInCategory(category).size() - 1) {
                     category.i = 0;
-                }else {
+                } else {
                     ++category.i;
                 }
-            }else {
-                if(current >= Category.values().length-1){
+            } else {
+                if (current >= Category.values().length - 1) {
                     current = 0;
-                }else {
+                } else {
                     ++current;
                 }
             }
         }
-        if (k ==KeyboardConstants.KEY_RIGHT){
-            if(expanded && Resent.INSTANCE.modManager.modsInCategory(category).size() != 0 && Resent.INSTANCE.modManager.modsInCategory(category).get(category.i).getName() != "TabGUI"){
+        if (k == KeyboardConstants.KEY_RIGHT) {
+            if (expanded && Resent.INSTANCE.modManager.modsInCategory(category).size() != 0 && Resent.INSTANCE.modManager.modsInCategory(category).get(category.i).getName() != "TabGUI") {
                 Resent.INSTANCE.modManager.modsInCategory(category).get(category.i).toggle();
                 mc.gameSettings.saveOptions();
-            }else {
+            } else {
                 expanded = true;
             }
         }
-        if (k ==KeyboardConstants.KEY_LEFT){
+        if (k == KeyboardConstants.KEY_LEFT) {
             expanded = false;
         }
     }
-    
 }

@@ -16,9 +16,8 @@
 
 package com.google.common.base;
 
-import java.nio.charset.Charset;
-
 import com.google.common.annotations.GwtCompatible;
+import java.nio.charset.Charset;
 
 /**
  * Contains constant definitions for the six standard {@link Charset} instances,

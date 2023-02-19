@@ -1,14 +1,10 @@
 package net.minecraft.client.gui;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.collect.Lists;
-
 import dev.resent.ui.animation.SimpleAnimation;
 import dev.resent.util.misc.GlUtils;
+import java.io.IOException;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -21,6 +17,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import org.apache.commons.lang3.StringUtils;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.

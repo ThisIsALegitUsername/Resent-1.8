@@ -12,46 +12,47 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 public class Halo extends CosmeticBase {
+
     private final ModelHalo modelHalo;
     private static final ResourceLocation HALOBLUE;
-    
+
     static {
         HALOBLUE = new ResourceLocation("eagler:gui/blue.jpeg");
     }
-    
+
     public Halo(final RenderPlayer renderPlayer) {
         super(renderPlayer);
         this.modelHalo = new ModelHalo(renderPlayer);
     }
-    
+
     @Override
     public void render(final AbstractClientPlayer player, final float limbSwing, final float limbSwingAmount, final float partialTicks, final float ageInTicks, final float headYaw, final float headPitch, final float scale) {
         if (CosmeticController.renderHalo(player)) {
             GlStateManager.pushMatrix();
             this.playerRenderer.bindTexture(Halo.HALOBLUE);
-            if(player.isSneaking()) {
+            if (player.isSneaking()) {
                 GlStateManager.translate(0, 0.225, 0);
-              }
+            }
             GlStateManager.color(1, 1, 1);
             this.modelHalo.render(player, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch, scale);
             GlStateManager.popMatrix();
         }
     }
-    
-    private class ModelHalo extends CosmeticModelBase
-    {
+
+    private class ModelHalo extends CosmeticModelBase {
+
         private ModelRenderer halo;
-        
+
         public ModelHalo(final RenderPlayer player) {
             super(player);
             (this.halo = new ModelRenderer(this.playerModel).setTextureSize(14, 2)).addBox(-3.0f, -12.5f, -4.0f, 6, 1, 1, 0.15f);
             this.halo.isHidden = true;
         }
-        
+
         @Override
         public void render(final Entity entityIn, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float headYaw, final float headPitch, final float scale) {
             GlStateManager.pushMatrix();
-            final float f = (float)Math.cos(ageInTicks / 10.0) / 20.0f;
+            final float f = (float) Math.cos(ageInTicks / 10.0) / 20.0f;
             GlStateManager.rotate(headYaw + ageInTicks / 2.0f, 0.0f, 1.0f, 0.0f);
             GlStateManager.translate(0.0f, f, 0.0f);
             Minecraft.getMinecraft().getTextureManager().bindTexture(Halo.HALOBLUE);
@@ -71,6 +72,5 @@ public class Halo extends CosmeticBase {
             Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
             return colorModel;
         }
-        
     }
 }

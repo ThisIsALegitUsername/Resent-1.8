@@ -11,12 +11,12 @@ import dev.resent.util.render.RenderUtils;
 
 public class Theme {
 
-    public static int getFontColor(int id){
+    public static int getFontColor(int id) {
         return getFontColor(id, 255);
     }
 
-    public static int getFontColor(int id, int opacity){
-        switch(id){
+    public static int getFontColor(int id, int opacity) {
+        switch (id) {
             case 1:
                 return -1;
             case 50:
@@ -27,8 +27,8 @@ public class Theme {
         return -1;
     }
 
-    public static Animation getAnimation(int id, int ms, int endpoint, float easeAmount, float elasticity, float smooth, boolean moreElasticity){
-        switch(id){
+    public static Animation getAnimation(int id, int ms, int endpoint, float easeAmount, float elasticity, float smooth, boolean moreElasticity) {
+        switch (id) {
             case 1:
                 return new EaseBackIn(ms, endpoint, easeAmount);
             case 2:
@@ -44,8 +44,8 @@ public class Theme {
         return null;
     }
 
-    public static int getFontId(){
-        switch(HUD.fontTheme.getValue()){
+    public static int getFontId() {
+        switch (HUD.fontTheme.getValue()) {
             case "Classic":
                 return 1;
             case "Rainbow":
@@ -56,8 +56,8 @@ public class Theme {
         return -1;
     }
 
-    public static int getAnimationId(){
-        switch(HUD.animationTheme.getValue()){
+    public static int getAnimationId() {
+        switch (HUD.animationTheme.getValue()) {
             case "Ease back in":
                 return 1;
             case "Elastic":
@@ -72,12 +72,11 @@ public class Theme {
         return -1;
     }
 
-    public static boolean getRounded(){
+    public static boolean getRounded() {
         return HUD.round.getValue();
     }
 
-    public static boolean getTextShadow(){
+    public static boolean getTextShadow() {
         return HUD.tshadow.getValue();
     }
-    
 }

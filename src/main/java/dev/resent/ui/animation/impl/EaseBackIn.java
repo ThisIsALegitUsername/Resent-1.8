@@ -4,6 +4,7 @@ import dev.resent.ui.animation.Animation;
 import dev.resent.ui.animation.Direction;
 
 public class EaseBackIn extends Animation {
+
     private final float easeAmount;
 
     public EaseBackIn(int ms, double endPoint, float easeAmount) {
@@ -27,5 +28,4 @@ public class EaseBackIn extends Animation {
         float shrink = easeAmount + 1;
         return Math.max(0, 1 + shrink * Math.pow(x1 - 1, 3) + easeAmount * Math.pow(x1 - 1, 2));
     }
-
 }

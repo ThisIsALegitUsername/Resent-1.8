@@ -3,7 +3,7 @@ package dev.resent.ui.animation;
 public abstract class Animation {
 
     public AnimationTimer timer = new AnimationTimer();
-    
+
     protected int duration;
 
     protected double endPoint;
@@ -31,7 +31,7 @@ public abstract class Animation {
     }
 
     public void reset() {
-    	timer.reset();
+        timer.reset();
     }
 
     public boolean isDone() {
@@ -55,8 +55,7 @@ public abstract class Animation {
 
     public double getValue() {
         if (direction == Direction.FORWARDS) {
-            if (isDone())
-                return endPoint;
+            if (isDone()) return endPoint;
             return (getEquation(timer.getTime()) * endPoint);
         } else {
             if (isDone()) return 0;
@@ -69,21 +68,21 @@ public abstract class Animation {
 
     protected abstract double getEquation(double x);
 
-	public double getEndPoint() {
-		return endPoint;
-	}
+    public double getEndPoint() {
+        return endPoint;
+    }
 
-	public void setEndPoint(double endPoint) {
-		this.endPoint = endPoint;
-	}
+    public void setEndPoint(double endPoint) {
+        this.endPoint = endPoint;
+    }
 
-	public int getDuration() {
-		return duration;
-	}
+    public int getDuration() {
+        return duration;
+    }
 
-	public Direction getDirection() {
-		return direction;
-	}
+    public Direction getDirection() {
+        return direction;
+    }
 }
 
 class AnimationTimer {
@@ -114,5 +113,4 @@ class AnimationTimer {
     public void setTime(long time) {
         lastMS = time;
     }
-
 }

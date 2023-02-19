@@ -11,9 +11,9 @@ public abstract class RenderMod extends Mod {
     public int x, y, lastX, lastY, width, height;
     private boolean dragging;
 
-    public RenderMod(){
+    public RenderMod() {
         RenderModule modInfo;
-        if(getClass().isAnnotationPresent(RenderModule.class)){
+        if (getClass().isAnnotationPresent(RenderModule.class)) {
             modInfo = getClass().getAnnotation(RenderModule.class);
             this.setName(modInfo.name());
             this.setCategory(modInfo.category());
@@ -24,8 +24,8 @@ public abstract class RenderMod extends Mod {
     }
 
     public void draw() {}
-    public void renderLayout(final int mouseX, final int mouseY) {
 
+    public void renderLayout(final int mouseX, final int mouseY) {
         if ((getX() + getWidth()) > GuiScreen.width) {
             this.x = GuiScreen.width - getWidth();
             dragging = false;
@@ -39,7 +39,7 @@ public abstract class RenderMod extends Mod {
             this.y = 0;
             dragging = false;
         }
-        
+
         draw();
 
         if (this.dragging) {
@@ -51,7 +51,7 @@ public abstract class RenderMod extends Mod {
         final boolean hovered = mouseX >= getX() && mouseY >= getY() && mouseX < getX() + getWidth() && mouseY < getY() + this.getHeight();
 
         Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
-        RenderUtils.drawRectOutline(this.x, this.y, this.x+this.getWidth(), this.y+this.getHeight(), -1);
+        RenderUtils.drawRectOutline(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), -1);
 
         final boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth());
         final boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight());
@@ -61,7 +61,6 @@ public abstract class RenderMod extends Mod {
             this.lastY = y - mouseY;
             this.dragging = true;
         }
-        
     }
 
     public int getX() {

@@ -47,13 +47,13 @@ public class WorldProviderHell extends WorldProvider {
     protected void generateLightBrightnessTable() {
         long framebufferAge = Minecraft.getMinecraft().entityRenderer.overlayFramebuffer.getAge();
         if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
-        float f = 0.1F;
+            float f = 0.1F;
 
-        for (int i = 0; i <= 15; ++i) {
-            float f1 = 1.0F - (float) i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+            for (int i = 0; i <= 15; ++i) {
+                float f1 = 1.0F - (float) i / 15.0F;
+                this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+            }
         }
-    }
     }
 
     /**+

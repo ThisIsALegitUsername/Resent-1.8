@@ -1,11 +1,10 @@
 package dev.resent.module.impl.hud;
 
-import java.text.DecimalFormat;
-
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.RenderMod;
 import dev.resent.ui.Theme;
+import java.text.DecimalFormat;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 
@@ -28,8 +27,8 @@ public class ReachDisplay extends RenderMod {
         drawString("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
     }
 
-    public void onAttack(Entity e){
-        if(this.isEnabled()){
+    public void onAttack(Entity e) {
+        if (this.isEnabled()) {
             final Vec3 vec3 = this.mc.getRenderViewEntity().getPositionEyes(1.0f);
             this.range = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
         }

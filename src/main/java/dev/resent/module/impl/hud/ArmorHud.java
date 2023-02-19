@@ -13,7 +13,10 @@ import net.minecraft.item.ItemStack;
 public class ArmorHud extends RenderMod {
 
     public ScaledResolution sr;
-    public ArmorHud() { addSetting(helm, chestp, leg, boot, item); }
+
+    public ArmorHud() {
+        addSetting(helm, chestp, leg, boot, item);
+    }
 
     public static BooleanSetting helm = new BooleanSetting("Helmet", "", true);
     public static BooleanSetting chestp = new BooleanSetting("Chestplate", "", true);
@@ -21,8 +24,13 @@ public class ArmorHud extends RenderMod {
     public static BooleanSetting boot = new BooleanSetting("Boots", "", true);
     public static BooleanSetting item = new BooleanSetting("Item", "", true);
 
-    public int getWidth() { return 20; }
-    public int getHeight() { return 96; }
+    public int getWidth() {
+        return 20;
+    }
+
+    public int getHeight() {
+        return 96;
+    }
 
     @Override
     public void draw() {

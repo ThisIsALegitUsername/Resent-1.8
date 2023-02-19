@@ -1,15 +1,13 @@
 package net.minecraft.entity;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Maps;
+import dev.resent.module.base.ModManager;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Maps;
-
-import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.minecraft.block.Block;
@@ -849,7 +847,6 @@ public abstract class EntityLivingBase extends Entity {
      * account.
      */
     private int getArmSwingAnimationEnd() {
-
         return this.isPotionActive(Potion.digSpeed) ? 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) * 1 : (this.isPotionActive(Potion.digSlowdown) ? 6 + (1 + this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6);
     }
 
@@ -1452,7 +1449,6 @@ public abstract class EntityLivingBase extends Entity {
      * interpolated look vector
      */
     public Vec3 getLook(float f) {
-
         if (this instanceof EntityPlayerSP) {
             return super.getLook(f);
         }

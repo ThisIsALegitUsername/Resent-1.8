@@ -14,9 +14,9 @@ public class GuiMainMenu extends GuiScreen {
     public void initGui() {
         this.buttonList.add(new ClientButton(2, this.width / 2 - 50, this.height / 2, 98, 16, "Multiplayer"));
         this.buttonList.add(new ClientButton(3, this.width / 2 - 50, this.height / 2 + 17, 98, 16, "Options"));
-        this.buttonList.add(new ClientButton(4, this.width/2-50, this.height/2+17*2, 98, 16, "Edit profile"));
+        this.buttonList.add(new ClientButton(4, this.width / 2 - 50, this.height / 2 + 17 * 2, 98, 16, "Edit profile"));
     }
-    
+
     @Override
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         this.drawDefaultBackground();
@@ -27,22 +27,25 @@ public class GuiMainMenu extends GuiScreen {
         GlUtils.drawCenteredScaledString("" + EnumChatFormatting.AQUA + EnumChatFormatting.BOLD + "Resent", this.width / 2, this.height / 2 - 50, -1, 3f);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
-    
+
     @Override
-    protected void actionPerformed(GuiButton button){
+    protected void actionPerformed(GuiButton button) {
         switch (button.id) {
-            case 2: {
-                this.mc.displayGuiScreen(new GuiMultiplayer(this));
-                break;
-            }
-            case 3: {
-                this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
-                break;
-            }
-            case 4: {
-                this.mc.displayGuiScreen(new GuiScreenEditProfile(this));
-                break;
-            }
+            case 2:
+                {
+                    this.mc.displayGuiScreen(new GuiMultiplayer(this));
+                    break;
+                }
+            case 3:
+                {
+                    this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
+                    break;
+                }
+            case 4:
+                {
+                    this.mc.displayGuiScreen(new GuiScreenEditProfile(this));
+                    break;
+                }
         }
         super.actionPerformed(button);
     }

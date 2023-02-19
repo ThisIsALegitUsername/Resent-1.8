@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.inventory;
 
-import dev.resent.ui.animation.Animation;
 import dev.resent.ui.Theme;
+import dev.resent.ui.animation.Animation;
 import dev.resent.util.misc.GlUtils;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
@@ -56,6 +56,7 @@ public class GuiInventory extends InventoryEffectRenderer {
     }
 
     public Animation openAnim;
+
     /**+
      * Adds the buttons (and other controls) to the screen in
      * question. Called when the GUI is displayed and when the
@@ -93,7 +94,7 @@ public class GuiInventory extends InventoryEffectRenderer {
      * Args : renderPartialTicks, mouseX, mouseY
      */
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-        GlUtils.startScale(this.width/2, this.height/2, (float)openAnim.getValue());
+        GlUtils.startScale(this.width / 2, this.height / 2, (float) openAnim.getValue());
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(inventoryBackground);
         int i = this.guiLeft;

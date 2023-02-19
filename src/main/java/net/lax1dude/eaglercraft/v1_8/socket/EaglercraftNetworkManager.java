@@ -1,9 +1,8 @@
 package net.lax1dude.eaglercraft.v1_8.socket;
 
-import java.io.IOException;
-
 import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.CrystalOptimizer;
+import java.io.IOException;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumEaglerConnectionState;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformNetworking;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;

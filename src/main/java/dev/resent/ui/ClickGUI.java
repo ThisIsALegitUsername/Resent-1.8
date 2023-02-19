@@ -1,17 +1,16 @@
 package dev.resent.ui;
 
-import java.io.IOException;
-
 import dev.resent.Resent;
-import dev.resent.ui.animation.Animation;
-import dev.resent.ui.animation.Direction;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
 import dev.resent.module.setting.ModeSetting;
 import dev.resent.module.setting.Setting;
+import dev.resent.ui.animation.Animation;
+import dev.resent.ui.animation.Direction;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
+import java.io.IOException;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -111,14 +110,14 @@ public class ClickGUI extends GuiScreen {
         y = sr.getScaledHeight() - 10 + xy;
         int off = 0;
 
-        if(close) {
-			introAnimation.setDirection(Direction.BACKWARDS);
-			if(introAnimation.isDone(Direction.BACKWARDS)) {
-				mc.displayGuiScreen(null);
-			}
-		}
-        
-        GlUtils.startScale((this.x + this.width)/2, (this.y + this.height) / 2, (float) introAnimation.getValue());
+        if (close) {
+            introAnimation.setDirection(Direction.BACKWARDS);
+            if (introAnimation.isDone(Direction.BACKWARDS)) {
+                mc.displayGuiScreen(null);
+            }
+        }
+
+        GlUtils.startScale((this.x + this.width) / 2, (this.y + this.height) / 2, (float) introAnimation.getValue());
 
         // background
         drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
@@ -155,12 +154,10 @@ public class ClickGUI extends GuiScreen {
                     );
 
                     if (m.isHasSetting()) {
-                        if(isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9))
-                        GlStateManager.color(1,1,1,0.6f);
-                        else {
+                        if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9)) GlStateManager.color(1, 1, 1, 0.6f); else {
                             GlStateManager.enableBlend();
                             this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
-                            Gui.drawModalRectWithCustomSizedTexture(this.x+99+xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
+                            Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                             GlStateManager.color(1, 1, 1);
                             GlStateManager.disableBlend();
                         }
@@ -179,23 +176,13 @@ public class ClickGUI extends GuiScreen {
                     Setting s = this.modWatching.settings.get(amogus);
                     if (s instanceof BooleanSetting) {
                         b = (BooleanSetting) s;
-                        drawRect(
-                            this.x + 11,
-                            height - 9 + 50 + var,
-                            this.x + 19,
-                            height - 9 + 50 + 9 + var-1,
-                            isMouseInside(
-                                mouseX, mouseY,
-                                this.x + 11,
-                                height - 9 + 50 + var,
-                                this.x + 19,
-                                height - 9 + 50 + 9 + var-1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
-                                
-                            if(b.getValue()){
-                                GlStateManager.color(1, 1, 1);
-                                mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
-                                Gui.drawModalRectWithCustomSizedTexture(this.x+9, height+39+var, 0, 0, 12, 12, 12, 12);
-                            }
+                        drawRect(this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1, isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
+
+                        if (b.getValue()) {
+                            GlStateManager.color(1, 1, 1);
+                            mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
+                            Gui.drawModalRectWithCustomSizedTexture(this.x + 9, height + 39 + var, 0, 0, 12, 12, 12, 12);
+                        }
                     }
 
                     if (s instanceof ModeSetting) {
@@ -229,7 +216,6 @@ public class ClickGUI extends GuiScreen {
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(true);
         mc.gameSettings.saveOptions();
-        
     }
 
     @Override

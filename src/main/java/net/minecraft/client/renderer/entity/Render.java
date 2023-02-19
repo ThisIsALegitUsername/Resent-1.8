@@ -296,7 +296,6 @@ public abstract class Render<T extends Entity> {
     public FontRenderer getFontRendererFromRenderManager() {
         return this.renderManager.getFontRenderer();
     }
-    
 
     /**+
      * Renders an entity's name above its head
@@ -322,9 +321,9 @@ public abstract class Render<T extends Entity> {
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             byte b0 = 0;
 
-            if(entityIn instanceof AbstractClientPlayer){
+            if (entityIn instanceof AbstractClientPlayer) {
                 Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("eagler:gui/logo.png"));
-                Gui.drawModalRectWithCustomSizedTexture(-fontrenderer.getStringWidth(entityIn.getDisplayName().getFormattedText()) / 2 -12, -2, 10, 10, 10, 10, 10, 10);
+                Gui.drawModalRectWithCustomSizedTexture(-fontrenderer.getStringWidth(entityIn.getDisplayName().getFormattedText()) / 2 - 12, -2, 10, 10, 10, 10, 10, 10);
             }
 
             if (str.equals("deadmau5")) {

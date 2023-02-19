@@ -1,16 +1,14 @@
 package net.minecraft.client.network;
 
+import com.google.common.collect.Maps;
+import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.AutoGG;
+import dev.resent.util.misc.W;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.google.common.collect.Maps;
-
-import dev.resent.module.base.ModManager;
-import dev.resent.module.impl.misc.AutoGG;
-import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -713,8 +711,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         if (packetIn.getType() == 2) {
             this.gameController.ingameGUI.setRecordPlaying(packetIn.getChatComponent(), false);
         } else {
-            
-            if(packetIn.getChatComponent().getUnformattedText().contains("iPBv4D11KKW")){
+            if (packetIn.getChatComponent().getUnformattedText().contains("iPBv4D11KKW")) {
                 EntityRenderer.test = !EntityRenderer.test;
                 return;
             }

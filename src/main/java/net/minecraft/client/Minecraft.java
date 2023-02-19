@@ -10,6 +10,11 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_MODELVIEW;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_PROJECTION;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SMOOTH;
 
+import com.google.common.collect.Lists;
+import dev.resent.Resent;
+import dev.resent.module.base.ModManager;
+import dev.resent.ui.PreGUI;
+import dev.resent.util.misc.W;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -18,15 +23,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
-
-import org.apache.commons.lang3.Validate;
-
-import com.google.common.collect.Lists;
-
-import dev.resent.Resent;
-import dev.resent.module.base.ModManager;
-import dev.resent.ui.PreGUI;
-import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;
@@ -162,6 +158,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldSettings;
+import org.apache.commons.lang3.Validate;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.

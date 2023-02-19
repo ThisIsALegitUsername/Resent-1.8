@@ -574,11 +574,9 @@ public final class ByteBufUtil {
                     return false;
                 }
                 if (
-                    (b1 & 0xFF) >
-                    0xF4 || // b1 invalid
+                    (b1 & 0xFF) > 0xF4 || // b1 invalid
                     (b1 & 0xFF) == 0xF0 &&
-                    (b2 & 0xFF) <
-                    0x90 || // b2 out of lower bound
+                    (b2 & 0xFF) < 0x90 || // b2 out of lower bound
                     (b1 & 0xFF) == 0xF4 &&
                     (b2 & 0xFF) > 0x8F
                 ) { // b2 out of upper bound

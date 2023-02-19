@@ -11,7 +11,6 @@ public class Fullbright extends Mod {
     @Override
     public void onEnable() {
         if (mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null) {
-            //Resent.INSTANCE.playMusic();
             Resent.INSTANCE.test();
             mc.gameSettings.gammaSetting = 100;
         }

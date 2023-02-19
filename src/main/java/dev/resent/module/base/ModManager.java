@@ -1,9 +1,5 @@
 package dev.resent.module.base;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.CPS;
@@ -33,8 +29,12 @@ import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.misc.TabGui;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModManager {
+
     public List<Mod> modules = new ArrayList<>();
 
     public static Cosmetics cosmetics = new Cosmetics();
@@ -100,7 +100,7 @@ public class ModManager {
         register(animations);
     }
 
-    public ArrayList<Mod> modsInCategory(Category c){
+    public ArrayList<Mod> modsInCategory(Category c) {
         ArrayList<Mod> inCat = (ArrayList<Mod>) this.modules.stream().filter(m -> m.getCategory() == c).collect(Collectors.toList());
 
         return inCat;

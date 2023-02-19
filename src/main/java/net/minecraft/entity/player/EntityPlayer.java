@@ -1,13 +1,11 @@
 package net.minecraft.entity.player;
 
-import java.util.Collection;
-import java.util.List;
-
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
-
 import dev.resent.Resent;
 import dev.resent.module.base.ModManager;
+import java.util.Collection;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
@@ -73,8 +71,8 @@ import net.minecraft.util.FoodStats;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.LockCode;
@@ -990,13 +988,11 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
      * Args: targetEntity
      */
     public void attackTargetEntityWithCurrentItem(Entity entity) {
-
         ModManager.reachDisplay.onAttack(entity);
         ModManager.comboCounter.onAttack(entity);
 
         MovingObjectPosition hitResult = Minecraft.getMinecraft().objectMouseOver;
-        if (hitResult == null)
-            return;
+        if (hitResult == null) return;
         if (hitResult.typeOfHit == MovingObjectType.ENTITY && ModManager.crystalOptimizer.isEnabled()) {
             MovingObjectPosition entityHitResult = hitResult;
             Entity crystal = entityHitResult.entityHit;
@@ -1004,7 +1000,7 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
                 assert Minecraft.getMinecraft().thePlayer != null;
                 crystal.kill();
                 crystal.setDead();
-                crystal.onKillEntity((EntityLivingBase)crystal);
+                crystal.onKillEntity((EntityLivingBase) crystal);
             }
         }
 
