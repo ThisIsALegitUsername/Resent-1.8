@@ -1,5 +1,7 @@
 package dev.resent.ui;
 
+import java.io.IOException;
+
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
@@ -10,11 +12,11 @@ import dev.resent.ui.animation.Direction;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
-import java.io.IOException;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -33,6 +35,7 @@ public class ClickGUI extends GuiScreen {
     public boolean close = false;
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
         int xy = -30;
