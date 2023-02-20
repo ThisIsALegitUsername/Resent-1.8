@@ -291,11 +291,15 @@ public class PlatformRuntime {
         TeaVMUtils.addEventListener(request, "progress", new EventListener<Event>() {
             @Override
             public void handleEvent(Event evt) {
-                int epkSize = Integer.parseInt(request.getResponseHeader("content-length"));
-                Event event = evt;
-                
-                LoadScreen.setClientVersion(Resent.VERSION);
-                LoadScreen.setBarProgress(event, epkSize);
+                try{
+                    int epkSize = Integer.parseInt(request.getResponseHeader("content-length"));
+                    Event event = evt;
+            
+                    LoadScreen.setClientVersion(Resent.VERSION);
+                    LoadScreen.setBarProgress(event, epkSize);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 

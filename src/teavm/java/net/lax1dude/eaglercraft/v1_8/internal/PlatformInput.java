@@ -299,6 +299,8 @@ public class PlatformInput {
                     }
             );
 
+        onBeforeCloseRegister();
+
         fullscreenQuery = fullscreenMediaQuery();
         if (keyboardLockSupported = checkKeyboardLockSupported()) {
             TeaVMUtils.addEventListener(
