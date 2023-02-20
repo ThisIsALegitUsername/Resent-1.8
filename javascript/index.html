@@ -118,7 +118,7 @@
 				function setBarProg(event, epkSize){
 					let progress = Math.round(event.loaded/1024/1024);
 					let size = Math.round(epkSize/1024/1024);
-					document.getElementById("progress").style.width = Math.round(progress/size)*100+4+"%";
+					document.getElementById("progress").style.width = (Math.round(progress/size*100)+4)+"%";
 					updateTextProgress(progress, size);
 				}
 
