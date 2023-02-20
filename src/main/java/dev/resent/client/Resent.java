@@ -13,7 +13,7 @@ public class Resent {
         INSTANCE = new Resent();
     }
 
-    public static final String NAME = "Resent", VERSION = "3.5";
+    public static final String NAME = "Resent", VERSION = "3.6";
     public static final Resent INSTANCE;
     public SoundManager soundManager;
     public ModManager modManager;

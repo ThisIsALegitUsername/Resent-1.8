@@ -323,35 +323,34 @@ public class GuiIngame extends Gui {
 
     public SimpleAnimation simpleAnimation = new SimpleAnimation(0.0F);
 
-    protected void renderTooltip(ScaledResolution sr, float partialTicks) {
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(widgetsTexPath);
-            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
-            int i = sr.getScaledWidth() / 2;
-            float f = this.zLevel;
-            this.zLevel = -90.0F;
+	protected void renderTooltip(ScaledResolution sr, float partialTicks) {
+		if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			this.mc.getTextureManager().bindTexture(widgetsTexPath);
+			EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+			int i = sr.getScaledWidth() / 2;
+			float f = this.zLevel;
+			this.zLevel = -90.0F;
+			this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+			this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20,
+					sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+			this.zLevel = f;
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.enableBlend();
+			GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+			RenderHelper.enableGUIStandardItemLighting();
 
-            int itemX = i - 90 + ((int) simpleAnimation.getValue());
-            drawRect(itemX, sr.getScaledHeight() - 21, itemX + 24, sr.getScaledHeight(), new Color(230, 230, 230, 180).getRGB());
+			for (int j = 0; j < 9; ++j) {
+				int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
+				int l = sr.getScaledHeight() - 16 - 3;
+				this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+			}
 
-            this.zLevel = f;
-            GlStateManager.enableRescaleNormal();
-            GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-            RenderHelper.enableGUIStandardItemLighting();
-
-            for (int j = 0; j < 9; ++j) {
-                int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
-                int l = sr.getScaledHeight() - 16 - 3;
-                this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
-            }
-
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.disableRescaleNormal();
-            GlStateManager.disableBlend();
-        }
-    }
+			RenderHelper.disableStandardItemLighting();
+			GlStateManager.disableRescaleNormal();
+			GlStateManager.disableBlend();
+		}
+	}
 
     public void renderHorseJumpBar(ScaledResolution parScaledResolution, int parInt1) {
         this.mc.mcProfiler.startSection("jumpBar");

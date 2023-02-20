@@ -1,31 +1,12 @@
 package net.lax1dude.eaglercraft.v1_8.internal;
 
-import com.jcraft.jzlib.DeflaterOutputStream;
-import com.jcraft.jzlib.GZIPInputStream;
-import com.jcraft.jzlib.GZIPOutputStream;
-import com.jcraft.jzlib.InflaterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.function.Consumer;
-import net.lax1dude.eaglercraft.v1_8.EaglercraftVersion;
-import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
-import net.lax1dude.eaglercraft.v1_8.internal.buffer.EaglerArrayBufferAllocator;
-import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
-import net.lax1dude.eaglercraft.v1_8.internal.buffer.IntBuffer;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.EPKLoader;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.EarlyLoadScreen;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.MainClass;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.MainClass.EPKFileEntry;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.TeaVMClientConfigAdapter;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.TeaVMUtils;
-import net.lax1dude.eaglercraft.v1_8.internal.teavm.WebGL2RenderingContext;
-import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
-import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
-import net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums;
-import net.lax1dude.eaglercraft.v1_8.profile.EaglerProfile;
+
 import org.teavm.interop.Async;
 import org.teavm.interop.AsyncCallback;
 import org.teavm.jso.JSBody;
@@ -46,6 +27,30 @@ import org.teavm.jso.dom.html.HTMLElement;
 import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.webaudio.MediaStream;
 import org.teavm.jso.webgl.WebGLFramebuffer;
+
+import com.jcraft.jzlib.DeflaterOutputStream;
+import com.jcraft.jzlib.GZIPInputStream;
+import com.jcraft.jzlib.GZIPOutputStream;
+import com.jcraft.jzlib.InflaterInputStream;
+
+import dev.resent.client.Resent;
+import dev.resent.javascript.LoadScreen;
+import net.lax1dude.eaglercraft.v1_8.EaglercraftVersion;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.EaglerArrayBufferAllocator;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
+import net.lax1dude.eaglercraft.v1_8.internal.buffer.IntBuffer;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.EPKLoader;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.EarlyLoadScreen;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.MainClass;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.MainClass.EPKFileEntry;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.TeaVMClientConfigAdapter;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.TeaVMUtils;
+import net.lax1dude.eaglercraft.v1_8.internal.teavm.WebGL2RenderingContext;
+import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
+import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
+import net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.v1_8.profile.EaglerProfile;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
@@ -147,6 +152,7 @@ public class PlatformRuntime {
             }
 
             logger.info("Decompressing: {}", logURL);
+            LoadScreen.remove();
 
             try {
                 EPKLoader.loadEPK(epkFileData, epkFiles[i].path, PlatformAssets.assets);
@@ -270,21 +276,28 @@ public class PlatformRuntime {
         request.setResponseType("arraybuffer");
         request.open("GET", assetPackageURI, true);
 
-        TeaVMUtils.addEventListener(
-            request,
-            "load",
-            new EventListener<Event>() {
-                @Override
-                public void handleEvent(Event evt) {
-                    int stat = request.getStatus();
-                    if (stat == 0 || (stat >= 200 && stat < 400)) {
-                        cb.complete((ArrayBuffer) request.getResponse());
-                    } else {
-                        cb.complete(null);
-                    }
+        TeaVMUtils.addEventListener(request, "load", new EventListener<Event>() {
+            @Override
+            public void handleEvent(Event evt) {
+                int stat = request.getStatus();
+                if(stat == 0 || (stat >= 200 && stat < 400)) {
+                    cb.complete((ArrayBuffer)request.getResponse());
+                }else {
+                    cb.complete(null);
                 }
             }
-        );
+        });
+
+        TeaVMUtils.addEventListener(request, "progress", new EventListener<Event>() {
+            @Override
+            public void handleEvent(Event evt) {
+                int epkSize = Integer.parseInt(request.getResponseHeader("content-length"));
+                Event event = evt;
+                
+                LoadScreen.setClientVersion(Resent.VERSION);
+                LoadScreen.setBarProgress(event, epkSize);
+            }
+        });
 
         TeaVMUtils.addEventListener(
             request,
