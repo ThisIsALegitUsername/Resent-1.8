@@ -1,13 +1,12 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import dev.resent.cape.CapeManager;
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -36,12 +35,9 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
     }
 
     public void doRenderLayer(AbstractClientPlayer abstractclientplayer, float var2, float var3, float f, float var5, float var6, float var7, float var8) {
-        if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && this.playerRenderer.getMainModel() instanceof ModelPlayer || abstractclientplayer == Minecraft.getMinecraft().thePlayer) {
+        if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && this.playerRenderer.getMainModel() instanceof ModelPlayer && ModManager.cape.isEnabled() && CapeManager.shouldRender(abstractclientplayer)) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            //this.playerRenderer.bindTexture(Cape.getCapeLocation());
-            if(CapeManager.capeLocation == null){
-                this.playerRenderer.bindTexture(new ResourceLocation("eagler:gui/unnamed.png"));
-            }else {
+            if(CapeManager.capeLocation != null){
                 this.playerRenderer.bindTexture(CapeManager.capeLocation);
             }
             GlStateManager.pushMatrix();

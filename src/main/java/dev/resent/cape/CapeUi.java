@@ -12,8 +12,8 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 public class CapeUi extends GuiScreen {
 
     public void initGui() {
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 148, "Back"));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 6 + 168, "Choose cape"));
+        buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 128, "Back"));
+        buttonList.add(new GuiButton(1, width / 2 - 100, height / 6 + 150, "Choose cape"));
     }
 
     public void onGuiClosed() {
@@ -43,7 +43,7 @@ public class CapeUi extends GuiScreen {
 
     protected void actionPerformed(GuiButton par1GuiButton) {
         if (par1GuiButton.id == 200) {
-            this.mc.displayGuiScreen(null);
+            mc.displayGuiScreen(null);
         }else if(par1GuiButton.id == 1){
             CapeManager.displayChooser();
         }
