@@ -1,10 +1,7 @@
 package dev.resent.cape;
 
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
-import net.lax1dude.eaglercraft.v1_8.internal.FileChooserResult;
-import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
 
 public class CapeManager {
@@ -15,7 +12,7 @@ public class CapeManager {
 
     public static ResourceLocation capeLocation;
 
-    public static void loadCape(){
+    /*public static void loadCape(){
         CapeManager.free();
         if (EagRuntime.fileChooserHasResult()) {
             FileChooserResult result = EagRuntime.getFileChooserResult();
@@ -29,7 +26,7 @@ public class CapeManager {
                 }
             }
         }
-    }
+    }*/
 
     public static void free(){
         Minecraft.getMinecraft().getTextureManager().deleteTexture(capeLocation);

@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity.layers;
 
+import dev.resent.cape.CapeManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -35,10 +36,14 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
     }
 
     public void doRenderLayer(AbstractClientPlayer abstractclientplayer, float var2, float var3, float f, float var5, float var6, float var7, float var8) {
-        if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && this.playerRenderer.getMainModel() instanceof ModelPlayer || abstractclientplayer.getName().equals(Minecraft.getMinecraft().thePlayer.getName())) {
+        if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && this.playerRenderer.getMainModel() instanceof ModelPlayer || abstractclientplayer == Minecraft.getMinecraft().thePlayer) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             //this.playerRenderer.bindTexture(Cape.getCapeLocation());
-            this.playerRenderer.bindTexture(new ResourceLocation("eagler:gui/unnamed.png"));
+            if(CapeManager.capeLocation == null){
+                this.playerRenderer.bindTexture(new ResourceLocation("eagler:gui/unnamed.png"));
+            }else {
+                this.playerRenderer.bindTexture(CapeManager.capeLocation);
+            }
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 0.0F, 0.125F);
             double d0 = abstractclientplayer.prevChasingPosX + (abstractclientplayer.chasingPosX - abstractclientplayer.prevChasingPosX) * (double) f - (abstractclientplayer.prevPosX + (abstractclientplayer.posX - abstractclientplayer.prevPosX) * (double) f);
