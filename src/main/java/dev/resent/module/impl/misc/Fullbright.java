@@ -11,7 +11,7 @@ public class Fullbright extends Mod {
     @Override
     public void onEnable() {
         if (mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null) {
-            Resent.INSTANCE.soundManager.playAvasDedication();
+            //Resent.INSTANCE.soundManager.playAvasDedication();
             mc.gameSettings.gammaSetting = 100;
         }
     }
@@ -19,7 +19,7 @@ public class Fullbright extends Mod {
     @Override
     public void onDisable() {
         if (mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null) {
-            Resent.INSTANCE.soundManager.stopMusic();
+            //Resent.INSTANCE.soundManager.stopMusic();
             mc.gameSettings.gammaSetting = 1;
         }
     }

@@ -3,6 +3,9 @@ package net.minecraft.client.renderer.entity;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import com.google.common.collect.Lists;
+
+import dev.resent.module.base.ModManager;
+
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -380,10 +383,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     protected boolean canRenderName(T entitylivingbase) {
-        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
-        if (entitylivingbase instanceof EntityPlayer && entitylivingbase != entityplayersp) {
+        if (entitylivingbase instanceof EntityPlayer && entitylivingbase != Minecraft.getMinecraft().thePlayer || entitylivingbase instanceof EntityPlayer && ModManager.selfNametag.isEnabled()) {
             Team team = entitylivingbase.getTeam();
-            Team team1 = entityplayersp.getTeam();
+            Team team1 = Minecraft.getMinecraft().thePlayer.getTeam();
             if (team != null) {
                 Team.EnumVisible team$enumvisible = team.getNameTagVisibility();
                 switch (team$enumvisible) {
@@ -401,7 +403,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        return Minecraft.isGuiEnabled() && entitylivingbase != this.renderManager.livingPlayer && !entitylivingbase.isInvisibleToPlayer(entityplayersp) && entitylivingbase.riddenByEntity == null;
+        if(Minecraft.isGuiEnabled() && ModManager.selfNametag.isEnabled() && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
+            return true;
+
+        return Minecraft.isGuiEnabled() && entitylivingbase != this.renderManager.livingPlayer && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) && entitylivingbase.riddenByEntity == null;
     }
 
     public void setRenderOutlines(boolean renderOutlinesIn) {

@@ -1,5 +1,9 @@
 package dev.resent.module.base;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.CPS;
@@ -27,11 +31,9 @@ import dev.resent.module.impl.misc.NoParticles;
 import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
+import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.misc.TabGui;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ModManager {
 
@@ -65,9 +67,11 @@ public class ModManager {
     public static HUD hud = new HUD();
     public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
     public static TabGui tabGui = new TabGui();
+    public static SelfNametag selfNametag = new SelfNametag();
 
     public ModManager() {
         //Hud
+        register(selfNametag);
         register(cosmetics);
         register(tabGui);
         register(crystalOptimizer);

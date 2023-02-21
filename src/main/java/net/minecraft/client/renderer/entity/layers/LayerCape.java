@@ -1,11 +1,12 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -34,9 +35,10 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
     }
 
     public void doRenderLayer(AbstractClientPlayer abstractclientplayer, float var2, float var3, float f, float var5, float var6, float var7, float var8) {
-        if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && abstractclientplayer.isWearing(EnumPlayerModelParts.CAPE) && abstractclientplayer.getLocationCape() != null && this.playerRenderer.getMainModel() instanceof ModelPlayer) {
+        if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && this.playerRenderer.getMainModel() instanceof ModelPlayer || abstractclientplayer.getName().equals(Minecraft.getMinecraft().thePlayer.getName())) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.playerRenderer.bindTexture(abstractclientplayer.getLocationCape());
+            //this.playerRenderer.bindTexture(Cape.getCapeLocation());
+            this.playerRenderer.bindTexture(new ResourceLocation("eagler:gui/unnamed.png"));
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 0.0F, 0.125F);
             double d0 = abstractclientplayer.prevChasingPosX + (abstractclientplayer.chasingPosX - abstractclientplayer.prevChasingPosX) * (double) f - (abstractclientplayer.prevPosX + (abstractclientplayer.posX - abstractclientplayer.prevPosX) * (double) f);

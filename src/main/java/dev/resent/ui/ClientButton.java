@@ -1,6 +1,5 @@
 package dev.resent.ui;
 
-import dev.resent.util.render.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
