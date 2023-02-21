@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.CPS;
+import dev.resent.module.impl.hud.Cape;
 import dev.resent.module.impl.hud.ComboCounter;
 import dev.resent.module.impl.hud.FPS;
 import dev.resent.module.impl.hud.Freelook;
@@ -68,9 +69,11 @@ public class ModManager {
     public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
     public static TabGui tabGui = new TabGui();
     public static SelfNametag selfNametag = new SelfNametag();
+    public Cape cape = new Cape();
 
     public ModManager() {
         //Hud
+        register(cape);
         register(selfNametag);
         register(cosmetics);
         register(tabGui);
