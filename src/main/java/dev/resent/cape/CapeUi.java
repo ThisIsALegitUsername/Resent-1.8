@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 public class CapeUi extends GuiScreen {
 
     public void initGui() {
-        buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 128, "Back"));
+        buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 128, "Close"));
         buttonList.add(new GuiButton(1, width / 2 - 100, height / 6 + 150, "Choose cape"));
     }
 

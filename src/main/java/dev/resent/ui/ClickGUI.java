@@ -5,6 +5,7 @@ import java.io.IOException;
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.setting.BooleanSetting;
+import dev.resent.module.setting.CustomRectSettingDraw;
 import dev.resent.module.setting.ModeSetting;
 import dev.resent.module.setting.Setting;
 import dev.resent.ui.animation.Animation;
@@ -85,14 +86,21 @@ public class ClickGUI extends GuiScreen {
 
                 if (s instanceof BooleanSetting) {
                     b = (BooleanSetting) s;
-                    if (isMouseInside(mouseX, mouseY, this.x + 6 + 1 + 6, height - 9 + 50 - offset + var + 1, this.x + 15 - 1 + 6, height - 9 + 50 + 9 - offset + var - 1) && mouseButton == 0) {
+                    if (isMouseInside(mouseX, mouseY, this.x + 13, height - 9 + 50 - offset + var + 1, this.x + 20, height - 9 + 50 + 9 - offset + var - 1) && mouseButton == 0) {
                         b.toggle();
                     }
                 }
 
                 if (s instanceof ModeSetting) {
                     m = (ModeSetting) s;
-                    if (isMouseInside(mouseX, mouseY, this.x + 24, height - 9 + 50 + var, this.x + 24 + fr.getStringWidth(s.name + ": " + m.getValue()), height - 9 + 50 + var + 9) && mouseButton == 0) m.next();
+                    if (isMouseInside(mouseX, mouseY, this.x + 24, height - 9 + 50 + var, this.x + 24 + fr.getStringWidth(s.name + ": " + m.getValue()), height - 9 + 50 + var + 9) && mouseButton == 0)
+                        m.next();
+                }
+
+                if(s instanceof CustomRectSettingDraw){
+                    if(isMouseInside(mouseX, mouseY, x+20, height+41+var, x+24+fr.getStringWidth(s.name), height+var+50)){
+                        ((CustomRectSettingDraw)s).onChange();
+                    }
                 }
 
                 var += 9 + 2;
@@ -157,13 +165,14 @@ public class ClickGUI extends GuiScreen {
                     );
 
                     if (m.isHasSetting()) {
+                        GlStateManager.enableBlend();
+                        GlStateManager.color(1, 1, 1);
+                        this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
+                        Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                         if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9)) GlStateManager.color(1, 1, 1, 0.6f); else {
-                            GlStateManager.enableBlend();
-                            this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
-                            Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
-                            GlStateManager.color(1, 1, 1);
-                            GlStateManager.disableBlend();
+                            GlStateManager.color(1, 1, 1, 0.75f);
                         }
+                        GlStateManager.disableBlend();
                     }
 
                     fr.drawStringWithShadow(m.getName(), this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
@@ -191,8 +200,9 @@ public class ClickGUI extends GuiScreen {
                     if (s instanceof ModeSetting) {
                         mo = (ModeSetting) s;
                         fr.drawStringWithShadow(s.name + ": " + mo.getValue(), this.x + 18 + 6, height - 9 + 50 + var, -1);
-                    } else {
-                        fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - 9 + 50 + var, -1);
+                    } else if(s instanceof CustomRectSettingDraw){
+                        Gui.drawRect(x+20, height+41+var, x+24+fr.getStringWidth(s.name), height+var+50, new Color(255, 255, 255, 70).getRGB());
+                        fr.drawStringWithShadow(s.name, this.x + 24, height +41 + var, -1);
                     }
 
                     var += 9 + 2;
