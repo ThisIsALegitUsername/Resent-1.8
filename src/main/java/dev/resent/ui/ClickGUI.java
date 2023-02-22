@@ -94,7 +94,7 @@ public class ClickGUI extends GuiScreen {
                 }
 
                 if(s instanceof CustomRectSettingDraw){
-                    if(isMouseInside(mouseX, mouseY, x+20, height+41+var, x+24+fr.getStringWidth(s.name), height+var+50)){
+                    if(isMouseInside(mouseX, mouseY, x+20, height+36.5+var, x+24+fr.getStringWidth(s.name), height+var+54.5)){
                         ((CustomRectSettingDraw)s).onChange();
                     }
                 }
@@ -165,9 +165,9 @@ public class ClickGUI extends GuiScreen {
                         GlStateManager.color(1, 1, 1);
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
                         Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
-                        if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9)) GlStateManager.color(1, 1, 1, 0.6f); else {
-                            GlStateManager.color(1, 1, 1, 0.75f);
-                        }
+                        //if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9)) GlStateManager.color(1, 1, 1, 0.6f); else {
+                            //GlStateManager.color(1, 1, 1, 0.75f);
+                        //}
                         GlStateManager.disableBlend();
                     }
 
@@ -180,24 +180,26 @@ public class ClickGUI extends GuiScreen {
 
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     Setting s = this.modWatching.settings.get(amogus);
+                    if(s instanceof CustomRectSettingDraw){
+                        Gui.drawRect(x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(0, 0, 130, 70).getRGB() : new Color(0, 0, 100, 70).getRGB());
+                        RenderUtils.drawRectOutline(x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51, -1);
+                        fr.drawStringWithShadow(s.name, this.x + 24, height +41 + var, -1);
+                        var += 3;
+                    }
                     if (s instanceof BooleanSetting) {
                         drawRect(this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1, isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
-
+                        fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
                         if (((BooleanSetting)s).getValue()) {
                             GlStateManager.color(1, 1, 1);
                             mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
                             Gui.drawModalRectWithCustomSizedTexture(this.x + 9, height + 39 + var, 0, 0, 12, 12, 12, 12);
                         }
                     }
-
                     if (s instanceof ModeSetting) {
                         fr.drawStringWithShadow(s.name + ": " + ((ModeSetting)s).getValue(), this.x + 18 + 6, height - 9 + 50 + var, -1);
-                    } else if(s instanceof CustomRectSettingDraw){
-                        Gui.drawRect(x+20, height+36.5+var, x+28+fr.getStringWidth(s.name), height+var+54.5, new Color(255, 255, 255, 70).getRGB());
-                        fr.drawStringWithShadow(s.name, this.x + 24, height +41 + var, -1);
                     }
 
-                    var += 9 + 2;
+                    var += 11;
                 }
             }
 
@@ -214,7 +216,7 @@ public class ClickGUI extends GuiScreen {
         return false;
     }
 
-    public boolean isMouseInside(int mouseX, int mouseY, int x, int y, int width, int height) {
+    public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
         return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height);
     }
 
