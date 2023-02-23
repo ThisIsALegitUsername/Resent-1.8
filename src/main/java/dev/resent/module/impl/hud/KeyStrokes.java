@@ -38,13 +38,6 @@ public class KeyStrokes extends RenderMod {
     public boolean wasPressed2;
     public long lastPressed2;
 
-    public float getSize(ModeSetting size) {
-        if (size.getValue() == "Small") return 0.75f;
-        if (size.getValue() == "Normal") return 1.0f;
-        if (size.getValue() == "Large") return 1.25f;
-        return 1.0f;
-    }
-
     public int getLeftCPS() {
         final long leftTime = System.currentTimeMillis() + 100L;
         FuncUtils.removeIf(clicks, beenLeftTime -> beenLeftTime + 1200L < leftTime + 200L);

@@ -20,6 +20,6 @@ public class Cape extends Mod{
     public ModeSetting amogus = new ModeSetting("amogus", "", "asdfasdf", "asdfasdf 1");
 
     public Cape(){
-        addSetting(open, ratio, amogus);
+        addSetting(amogus, open, ratio);
     }
 }

@@ -22,6 +22,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
@@ -89,7 +90,7 @@ public class ClickGUI extends GuiScreen {
                 }
 
                 if (s instanceof ModeSetting) {
-                    if (isMouseInside(mouseX, mouseY, this.x + 24, height - 9 + 50 + var, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue()), height - 9 + 50 + var + 9) && mouseButton == 0)
+                    if (isMouseInside(mouseX, mouseY, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue()), height - 9 + 50 + var, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue() + " >"), height - 9 + 50 + var + 9) && mouseButton == 0)
                         ((ModeSetting)s).next();
                 }
 
@@ -165,9 +166,6 @@ public class ClickGUI extends GuiScreen {
                         GlStateManager.color(1, 1, 1);
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
                         Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
-                        //if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 + 1 - offset, this.x + 90 + xo - 1 + 10 + fr.getStringWidth("o"), height - 2 - fh * -(off) + 51 + 1 - offset + 9)) GlStateManager.color(1, 1, 1, 0.6f); else {
-                            //GlStateManager.color(1, 1, 1, 0.75f);
-                        //}
                         GlStateManager.disableBlend();
                     }
 
@@ -181,8 +179,8 @@ public class ClickGUI extends GuiScreen {
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     Setting s = this.modWatching.settings.get(amogus);
                     if(s instanceof CustomRectSettingDraw){
-                        Gui.drawRect(x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(0, 0, 130, 70).getRGB() : new Color(0, 0, 100, 70).getRGB());
-                        RenderUtils.drawRectOutline(x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51, -1);
+                        Gui.drawRect(x+21, height+39+var, x+27+fr.getStringWidth(s.name), height+var+51, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(20, 20, 100, 70).getRGB() : new Color(20, 50, 170).getRGB());
+                        RenderUtils.drawRectOutline(x+21, height+39+var, x+27+fr.getStringWidth(s.name), height+var+51, -1);
                         fr.drawStringWithShadow(s.name, this.x + 24, height +41 + var, -1);
                         var += 3;
                     }
@@ -196,7 +194,7 @@ public class ClickGUI extends GuiScreen {
                         }
                     }
                     if (s instanceof ModeSetting) {
-                        fr.drawStringWithShadow(s.name + ": " + ((ModeSetting)s).getValue(), this.x + 18 + 6, height - 9 + 50 + var, -1);
+                        fr.drawStringWithShadow(s.name + ": " + ((ModeSetting)s).getValue() + EnumChatFormatting.RED + " >", this.x + 18 + 6, height - 9 + 50 + var, -1);
                     }
 
                     var += 11;

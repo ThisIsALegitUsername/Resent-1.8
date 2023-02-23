@@ -1094,12 +1094,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         RenderHelper.disableStandardItemLighting();
         this.mc.mcProfiler.endStartSection("terrain_setup");
-        new Thread() {
-            public void run() {
-                renderglobal.setupTerrain(entity, (double) partialTicks, frustum, frameCount++, mc.thePlayer.isSpectator());
-            }
-        }
-            .start();
+        renderglobal.setupTerrain(entity, (double) partialTicks, frustum, frameCount++, mc.thePlayer.isSpectator());
+
         if (pass == 0 || pass == 2) {
             this.mc.mcProfiler.endStartSection("updatechunks");
             this.mc.renderGlobal.updateChunks(finishTimeNano);
