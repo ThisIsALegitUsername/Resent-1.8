@@ -6,6 +6,7 @@ build
 bin
 proxyServer/bin
 proxyServer/rundir
+desktopRuntime/eclipseProject/*
 desktopRuntime/_eagstorage*
 desktopRuntime/eclipseProject/bin*
 desktopRuntime/hs_err_*

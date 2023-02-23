@@ -34,7 +34,6 @@ import com.jcraft.jzlib.GZIPOutputStream;
 import com.jcraft.jzlib.InflaterInputStream;
 
 import dev.resent.client.Resent;
-import dev.resent.javascript.LoadScreen;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftVersion;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.EaglerArrayBufferAllocator;
@@ -152,7 +151,7 @@ public class PlatformRuntime {
             }
 
             logger.info("Decompressing: {}", logURL);
-            LoadScreen.remove();
+            remove();
 
             try {
                 EPKLoader.loadEPK(epkFileData, epkFiles[i].path, PlatformAssets.assets);
@@ -177,6 +176,15 @@ public class PlatformRuntime {
 
         logger.info("Platform initialization complete");
     }
+
+    @JSBody(params = { "event", "epkSize" }, script = "setBarProg(event, epkSize)")
+    public static native void setBarProgress(Event event, int epkSize);
+
+    @JSBody(params = { "version" }, script = "setVersion(version)")
+    public static native void setClientVersion(String version);
+
+    @JSBody( script = "die()")
+    public static native void remove();
 
     @JSBody(params = {}, script = "return {antialias: false, depth: false, powerPreference: \"high-performance\", desynchronized: true, preserveDrawingBuffer: false, premultipliedAlpha: false, alpha: false};")
     public static native JSObject youEagler();
@@ -295,8 +303,8 @@ public class PlatformRuntime {
                     int epkSize = Integer.parseInt(request.getResponseHeader("content-length"));
                     Event event = evt;
             
-                    LoadScreen.setClientVersion(Resent.VERSION);
-                    LoadScreen.setBarProgress(event, epkSize);
+                    setClientVersion(Resent.VERSION);
+                    setBarProgress(event, epkSize);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

@@ -20,7 +20,7 @@ public class GuiMainMenu extends GuiScreen {
     @Override
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         this.drawDefaultBackground();
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/background.webp"));
+        this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/background.jpg"));
         Gui.drawModalRectWithCustomSizedTexture(0, 0, 0.0f, 0.0f, this.width, this.height, this.width + 21, this.height + 50);
         final String s1 = "Copyright " + EnumChatFormatting.RED + EnumChatFormatting.BOLD + "M" + EnumChatFormatting.RESET + "ojang AB";
         this.drawString(Minecraft.getMinecraft().fontRendererObj, s1, this.width - Minecraft.getMinecraft().fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
