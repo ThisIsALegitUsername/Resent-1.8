@@ -33,9 +33,10 @@ public class CapeUi extends GuiScreen {
                 ImageData loadedCape = ImageData.loadImageFile(result.fileData);
                 if(loadedCape != null){
                     CapeManager.capeLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("uploadedcape", new DynamicTexture(loadedCape));
+                    Minecraft.getMinecraft().displayGuiScreen(null);
                     //Minecraft.getMinecraft().getTextureManager().bindTexture(CapeManager.capeLocation);
                 } else {
-                    EagRuntime.showPopup("The selected file '" + result.fileName + "' is not a PNG file!");
+                    EagRuntime.showPopup("The selected file '" + result.fileName + "' is not an image file!");
                 }
             }
         }

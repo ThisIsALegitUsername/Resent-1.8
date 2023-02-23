@@ -95,7 +95,7 @@ public class ClickGUI extends GuiScreen {
                 }
 
                 if(s instanceof CustomRectSettingDraw){
-                    if(isMouseInside(mouseX, mouseY, x+20, height+36.5+var, x+24+fr.getStringWidth(s.name), height+var+54.5)){
+                    if(isMouseInside(mouseX, mouseY, x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53)){
                         ((CustomRectSettingDraw)s).onChange();
                     }
                 }
@@ -179,8 +179,8 @@ public class ClickGUI extends GuiScreen {
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     Setting s = this.modWatching.settings.get(amogus);
                     if(s instanceof CustomRectSettingDraw){
-                        Gui.drawRect(x+21, height+39+var, x+27+fr.getStringWidth(s.name), height+var+51, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(20, 20, 100, 70).getRGB() : new Color(20, 50, 170).getRGB());
-                        RenderUtils.drawRectOutline(x+21, height+39+var, x+27+fr.getStringWidth(s.name), height+var+51, -1);
+                        Gui.drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(20, 20, 100, 70).getRGB() : new Color(20, 50, 170).getRGB());
+                        RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
                         fr.drawStringWithShadow(s.name, this.x + 24, height +41 + var, -1);
                         var += 3;
                     }
