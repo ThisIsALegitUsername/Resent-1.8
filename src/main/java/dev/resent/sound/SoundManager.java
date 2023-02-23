@@ -62,7 +62,7 @@ public class SoundManager {
     }
 
     // <3
-    public void playAv(){
+    public void playAva(){
         ISound sound = PositionedSoundRecord.create(new ResourceLocation("minecraft:music.res"), 1);
         Minecraft.getMinecraft().getSoundHandler().stopSounds();
         Minecraft.getMinecraft().getSoundHandler().playSound(sound);

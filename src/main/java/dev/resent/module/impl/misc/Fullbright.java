@@ -7,10 +7,13 @@ import dev.resent.module.base.Mod.Category;
 @Module(name = "FullBright", category = Category.MISC)
 public class Fullbright extends Mod {
 
+    public float previousGamma;
+
     @Override
     public void onEnable() {
         if (mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null) {
-            //Resent.INSTANCE.soundManager.playAvasDedication();
+            //Resent.INSTANCE.soundManager.playAva();
+            previousGamma = mc.gameSettings.gammaSetting;
             mc.gameSettings.gammaSetting = 100;
         }
     }
@@ -19,7 +22,7 @@ public class Fullbright extends Mod {
     public void onDisable() {
         if (mc.thePlayer != null && mc.theWorld != null && mc.gameSettings != null) {
             //Resent.INSTANCE.soundManager.stopMusic();
-            mc.gameSettings.gammaSetting = 1;
+            mc.gameSettings.gammaSetting = previousGamma;
         }
     }
 }

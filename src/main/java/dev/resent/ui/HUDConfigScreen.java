@@ -2,7 +2,6 @@ package dev.resent.ui;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
-import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -13,7 +12,6 @@ public class HUDConfigScreen extends GuiScreen {
     }
 
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
         mc.gameSettings.saveOptions();
     }
 

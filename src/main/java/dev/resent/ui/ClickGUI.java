@@ -181,7 +181,7 @@ public class ClickGUI extends GuiScreen {
                     if(s instanceof CustomRectSettingDraw){
                         Gui.drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(20, 20, 100, 70).getRGB() : new Color(20, 50, 170).getRGB());
                         RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
-                        fr.drawStringWithShadow(s.name, this.x + 24, height +41 + var, -1);
+                        fr.drawStringWithShadow(s.name, this.x + 24, height +43 + var, -1);
                         var += 3;
                     }
                     if (s instanceof BooleanSetting) {
