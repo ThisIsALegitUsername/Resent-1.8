@@ -13,6 +13,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 
@@ -61,9 +62,10 @@ public class SoundManager {
     }
 
     // <3
-    public void playAvasDedication(){
+    public void playAv(){
+        ISound sound = PositionedSoundRecord.create(new ResourceLocation("minecraft:music.res"), 1);
         Minecraft.getMinecraft().getSoundHandler().stopSounds();
-        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("minecraft:music.res"), 1));
+        Minecraft.getMinecraft().getSoundHandler().playSound(sound);
     }
 
     public void stopMusic() {
