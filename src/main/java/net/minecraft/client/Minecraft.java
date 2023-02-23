@@ -25,6 +25,7 @@ import com.google.common.collect.Lists;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
+import dev.resent.ui.PreGUI;
 import dev.resent.util.misc.W;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
@@ -37,6 +38,7 @@ import net.lax1dude.eaglercraft.v1_8.futures.FutureTask;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFuture;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFutureTask;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumPlatformType;
+import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -1359,6 +1361,10 @@ public class Minecraft implements IThreadListener {
                         }
 
                         ModManager.tabGui.onKey(k);
+
+						if(k == this.gameSettings.keyBindClickGui.getKeyCode()){
+							this.displayGuiScreen(new PreGUI());
+						}
 
 						if (k == 32 && Keyboard.isKeyDown(61) && this.ingameGUI != null) {
 							this.ingameGUI.getChatGUI().clearChatMessages();
