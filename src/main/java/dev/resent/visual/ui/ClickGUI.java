@@ -149,12 +149,15 @@ public class ClickGUI extends GuiScreen {
         fr.drawString("X", width + 18, height - 2, -1);
         
         //categories
-        fr.drawStringWithShadow("All", x+5, height+16, -1);
-        fr.drawStringWithShadow("Hud", x+27f, height+16, -1);
+        RenderUtils.drawRectOutline(x+0.8d, height+14, x+20, height+25, -1);
+        RenderUtils.drawRectOutline(x+23d, height+14, x+47, height+25, -1);
+        RenderUtils.drawRectOutline(x+50, height+14, x+75, height+25, -1);
+        drawRect(x+0.8d, height+14, x+20, height+25, isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        drawRect(x+23d, height+14, x+47, height+25, isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        drawRect(x+50, height+14, x+75, height+25, isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        fr.drawStringWithShadow("All", x+5f, height+16, -1);
+        fr.drawStringWithShadow("Hud", x+26.5f, height+16, -1);
         fr.drawStringWithShadow("Misc", x+53, height+16, -1);
-        drawRect(x, height+14, x+20, height+25, isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
-        drawRect(x+24, height+14, x+46, height+25, isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
-        drawRect(x+50, height+14, x+74, height+25, isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
         
         //white line
         drawRect(x - 8, height + 29, width + 33, height + 30, -1);

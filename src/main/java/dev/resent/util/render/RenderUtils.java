@@ -166,7 +166,7 @@ public class RenderUtils {
         return Color.WHITE;
     }
 
-    public static void drawRectOutline(int param1, int param2, int width1, int height1, int color) {
+    public static void drawRectOutline(double param1, double param2, double width1, double height1, int color) {
         Gui.drawRect(param1, param2, width1, param2 + 1, color);
         Gui.drawRect(param1, param2, param1 + 1, height1, color);
         Gui.drawRect(width1 - 1, param2, width1, height1, color);
