@@ -111,6 +111,10 @@ public class ModManager {
     }
 
     public ArrayList<Mod> modsInCategory(Category c) {
+    	if(c == null) {
+    		return (ArrayList<Mod>) modules;
+    	}
+    	
         ArrayList<Mod> inCat = (ArrayList<Mod>) this.modules.stream().filter(m -> m.getCategory() == c).collect(Collectors.toList());
 
         return inCat;

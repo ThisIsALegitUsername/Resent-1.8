@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.CustomRectSettingDraw;
 import dev.resent.module.base.setting.ModeSetting;
@@ -35,22 +36,28 @@ public class ClickGUI extends GuiScreen {
     public int offset = 0;
     public FontRenderer fr;
     public boolean close = false;
+    public Category selectedCategory = null;
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
-        int xy = -30;
-
-        sr = new ScaledResolution(mc);
-        fr = Minecraft.getMinecraft().fontRendererObj;
-        width = GuiScreen.width - x;
-        height = GuiScreen.height - y;
-        x = sr.getScaledWidth() / 8 + xo;
-        y = sr.getScaledHeight() - 10 + xy;
         int off = 0;
+        
+        if(isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25)) {
+        	selectedCategory = null;
+        }else if(isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25)) {
+        	selectedCategory = Category.HUD;
+        }else if(isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25)) {
+        	selectedCategory = Category.MISC;
+        }
+        
+        if (isMouseInside(mouseX, mouseY, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5) && mouseButton == 0) {
+            mc.displayGuiScreen(new HUDConfigScreen());
+            this.modWatching = null;
+        }
 
-        for (Mod m : Resent.INSTANCE.modManager.modules) {
+        for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory) ) {
             int fh = 9;
 
             if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.isHasSetting() && modWatching == null) {
@@ -66,9 +73,6 @@ public class ClickGUI extends GuiScreen {
             } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
                 // Toggle mod
                 m.toggle();
-            } else if (isMouseInside(mouseX, mouseY, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, GuiScreen.height - y - 9, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), GuiScreen.height - y + 5) && mouseButton == 0) {
-                mc.displayGuiScreen(new HUDConfigScreen());
-                this.modWatching = null;
             }
             if (xo > width / 2) {
                 xo = 0;
@@ -109,13 +113,12 @@ public class ClickGUI extends GuiScreen {
         sr = new ScaledResolution(mc);
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
-        int xy = -30;
 
         fr = Minecraft.getMinecraft().fontRendererObj;
-        width = GuiScreen.width - x;
-        height = GuiScreen.height - y;
+        width = sr.getScaledWidth() - x;
+        height = sr.getScaledHeight() - y;
         x = sr.getScaledWidth() / 8 + xo;
-        y = sr.getScaledHeight() - 10 + xy;
+        y = sr.getScaledHeight() - 40;
         int off = 0;
 
         if (close) {
@@ -130,29 +133,38 @@ public class ClickGUI extends GuiScreen {
         // background
         drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
         fr.drawString(Resent.NAME + " Client " + Resent.VERSION, x + 8, height - 2, -1);
-        RenderUtils.drawRectOutline(GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, GuiScreen.height - y - 9, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), GuiScreen.height - y + 5, -1);
+        
+        RenderUtils.drawRectOutline(sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5, -1);
         drawRect(
-            GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 4,
-            GuiScreen.height - y - 9 + 1,
-            GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1,
-            GuiScreen.height - y + 4,
-            isMouseInside(mouseX, mouseY, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 - 4, GuiScreen.height - y - 9 + 1, GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1, GuiScreen.height - y + 4) ? new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB()
+            sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 4,
+            sr.getScaledHeight() - y - 9 + 1,
+            sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1,
+            sr.getScaledHeight() - y + 4,
+            isMouseInside(mouseX, mouseY, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 4, sr.getScaledHeight() - y - 9 + 1, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1, sr.getScaledHeight() - y + 4) ? new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB()
         );
 
-        fr.drawStringWithShadow("Edit Layout", GuiScreen.width / 2 - fr.getStringWidth("Edit Layout") / 2 + 1, GuiScreen.height - y - 9 + 9 / 2 - 1, -1);
+        fr.drawStringWithShadow("Edit Layout", sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 1, sr.getScaledHeight() - y - 9 + 9 / 2 - 1, -1);
 
         // close
         fr.drawString("X", width + 18, height - 2, -1);
-
-        // white line
+        
+        //categories
+        fr.drawStringWithShadow("All", x+5, height+16, -1);
+        fr.drawStringWithShadow("Hud", x+27f, height+16, -1);
+        fr.drawStringWithShadow("Misc", x+53, height+16, -1);
+        drawRect(x, height+14, x+20, height+25, isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        drawRect(x+24, height+14, x+46, height+25, isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        drawRect(x+50, height+14, x+74, height+25, isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        
+        //white line
         drawRect(x - 8, height + 29, width + 33, height + 30, -1);
         GlUtils.stopScale();
-        for (Mod m : Resent.INSTANCE.modManager.modules) {
+        for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (this.modWatching == null) {
                 int fh = 9;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20 && introAnimation.isDone()) {
                     // Enabled outline
-                    RenderUtils.drawRectOutline(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
+                    RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
                     drawRect(
                         this.x + 10 + xo - 1 + 10,
                         height - 2 - fh * -(off) + 50 - 1 - offset,
@@ -174,7 +186,7 @@ public class ClickGUI extends GuiScreen {
             } else if (this.modWatching != null) {
                 int var = 0;
                 fr.drawString("<", x - 9 + 4, height + 29 + 9 + 2, -1);
-                fr.drawStringWithShadow("Resent - " + modWatching.getName(), GuiScreen.width / 2 - (fr.getStringWidth("Resent - " + modWatching.getName()) / 2), height + 29 - 9 - 2, -1);
+                fr.drawStringWithShadow("Resent - " + modWatching.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + modWatching.getName()) / 2), height + 29 - 9 - 2, -1);
 
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     Setting s = this.modWatching.settings.get(amogus);
