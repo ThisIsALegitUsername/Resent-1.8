@@ -2,13 +2,14 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.module.base.setting.BooleanSetting;
+import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.module.base.RenderMod;
-import dev.resent.module.setting.BooleanSetting;
-import dev.resent.module.setting.ModeSetting;
-import dev.resent.ui.Theme;
 import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
+import dev.resent.visual.ui.Theme;
+
 import java.util.ArrayList;
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.Mouse;

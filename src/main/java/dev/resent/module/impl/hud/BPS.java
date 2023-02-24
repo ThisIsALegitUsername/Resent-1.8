@@ -4,8 +4,8 @@ import java.text.DecimalFormat;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.visual.ui.Theme;
 import dev.resent.module.base.RenderMod;
-import dev.resent.ui.Theme;
 
 @RenderModule(name = "BPS", category = Category.HUD, x = 4, y = 16)
 public class BPS extends RenderMod{

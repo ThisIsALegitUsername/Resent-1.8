@@ -2,10 +2,10 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.RenderMod;
-import dev.resent.module.setting.BooleanSetting;
-import dev.resent.ui.Theme;
 import dev.resent.util.render.Color;
+import dev.resent.visual.ui.Theme;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 

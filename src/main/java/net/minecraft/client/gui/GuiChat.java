@@ -1,8 +1,10 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import dev.resent.ui.animation.SimpleAnimation;
+
 import dev.resent.util.misc.GlUtils;
+import dev.resent.visual.ui.animation.SimpleAnimation;
+
 import java.io.IOException;
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;

@@ -1,9 +1,9 @@
 package net.minecraft.client.renderer.entity;
 
-import dev.resent.cosmetic.impl.CrystalWings;
-import dev.resent.cosmetic.impl.Glasses;
-import dev.resent.cosmetic.impl.Halo;
-import dev.resent.cosmetic.impl.TopHat;
+import dev.resent.visual.cosmetic.impl.CrystalWings;
+import dev.resent.visual.cosmetic.impl.Glasses;
+import dev.resent.visual.cosmetic.impl.Halo;
+import dev.resent.visual.cosmetic.impl.TopHat;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;

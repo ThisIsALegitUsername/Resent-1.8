@@ -1,9 +1,10 @@
 package dev.resent.module.base;
 
 import dev.resent.annotation.Module;
-import dev.resent.module.setting.Setting;
-import dev.resent.ui.Theme;
+import dev.resent.module.base.setting.Setting;
 import dev.resent.util.render.RenderUtils;
+import dev.resent.visual.ui.Theme;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

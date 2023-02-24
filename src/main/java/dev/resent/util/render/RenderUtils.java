@@ -1,6 +1,6 @@
 package dev.resent.util.render;
 
-import dev.resent.module.setting.ModeSetting;
+import dev.resent.module.base.setting.ModeSetting;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;

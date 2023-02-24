@@ -4,8 +4,8 @@ import java.io.PrintWriter;
 
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
-import dev.resent.module.setting.BooleanSetting;
-import dev.resent.module.setting.ModeSetting;
+import dev.resent.module.base.setting.BooleanSetting;
+import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.sound.SoundManager;
 
 public class Resent {

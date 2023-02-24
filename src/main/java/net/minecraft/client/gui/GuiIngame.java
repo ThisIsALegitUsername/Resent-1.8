@@ -11,9 +11,10 @@ import com.google.common.collect.Lists;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
-import dev.resent.ui.animation.SimpleAnimation;
 import dev.resent.util.misc.W;
 import dev.resent.util.render.Color;
+import dev.resent.visual.ui.animation.SimpleAnimation;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

@@ -2,8 +2,8 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.visual.ui.Theme;
 import dev.resent.module.base.RenderMod;
-import dev.resent.ui.Theme;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 

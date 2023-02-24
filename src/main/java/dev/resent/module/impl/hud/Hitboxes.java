@@ -3,8 +3,8 @@ package dev.resent.module.impl.hud;
 import dev.resent.annotation.Module;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.Mod.Category;
-import dev.resent.module.setting.BooleanSetting;
-import dev.resent.module.setting.ModeSetting;
+import dev.resent.module.base.setting.BooleanSetting;
+import dev.resent.module.base.setting.ModeSetting;
 
 @Module(name = "Hitboxes", category = Category.HUD, hasSetting = true)
 public class Hitboxes extends Mod {

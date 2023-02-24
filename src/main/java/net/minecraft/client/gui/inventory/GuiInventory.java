@@ -1,8 +1,8 @@
 package net.minecraft.client.gui.inventory;
 
-import dev.resent.ui.Theme;
-import dev.resent.ui.animation.Animation;
 import dev.resent.util.misc.GlUtils;
+import dev.resent.visual.ui.Theme;
+import dev.resent.visual.ui.animation.Animation;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.minecraft.client.Minecraft;

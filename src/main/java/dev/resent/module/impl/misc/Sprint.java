@@ -2,9 +2,9 @@ package dev.resent.module.impl.misc;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.RenderMod;
-import dev.resent.module.setting.BooleanSetting;
-import dev.resent.ui.Theme;
+import dev.resent.visual.ui.Theme;
 
 @RenderModule(name = "ToggleSprint", category = Category.MISC, x = 4, y = 122, hasSetting = true)
 public class Sprint extends RenderMod {

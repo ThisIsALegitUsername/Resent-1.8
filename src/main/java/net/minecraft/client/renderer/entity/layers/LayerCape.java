@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
-import dev.resent.cape.CapeManager;
 import dev.resent.module.base.ModManager;
+import dev.resent.visual.cape.CapeManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;

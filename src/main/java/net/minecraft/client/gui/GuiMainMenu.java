@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
-import dev.resent.ui.ClientButton;
 import dev.resent.util.misc.GlUtils;
+import dev.resent.visual.ui.ClientButton;
 import net.lax1dude.eaglercraft.v1_8.profile.GuiScreenEditProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;

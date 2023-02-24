@@ -3,8 +3,9 @@ package dev.resent.module.impl.hud;
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.RenderMod;
-import dev.resent.ui.Theme;
 import dev.resent.util.misc.FuncUtils;
+import dev.resent.visual.ui.Theme;
+
 import java.util.ArrayList;
 import java.util.List;
 
