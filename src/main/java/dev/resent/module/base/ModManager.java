@@ -5,8 +5,37 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dev.resent.module.base.Mod.Category;
-import dev.resent.module.impl.hud.*;
-import dev.resent.module.impl.misc.*;
+import dev.resent.module.impl.hud.ArmorHud;
+import dev.resent.module.impl.hud.BPS;
+import dev.resent.module.impl.hud.CPS;
+import dev.resent.module.impl.hud.ComboCounter;
+import dev.resent.module.impl.hud.FPS;
+import dev.resent.module.impl.hud.Freelook;
+import dev.resent.module.impl.hud.Hitboxes;
+import dev.resent.module.impl.hud.Info;
+import dev.resent.module.impl.hud.KeyStrokes;
+import dev.resent.module.impl.hud.PotCounter;
+import dev.resent.module.impl.hud.PotionHUD;
+import dev.resent.module.impl.hud.ReachDisplay;
+import dev.resent.module.impl.misc.Animations;
+import dev.resent.module.impl.misc.AutoGG;
+import dev.resent.module.impl.misc.AutoRespawn;
+import dev.resent.module.impl.misc.Cape;
+import dev.resent.module.impl.misc.ClearChat;
+import dev.resent.module.impl.misc.Cosmetics;
+import dev.resent.module.impl.misc.CrystalOptimizer;
+import dev.resent.module.impl.misc.DynamicFOV;
+import dev.resent.module.impl.misc.FPSB;
+import dev.resent.module.impl.misc.Fullbright;
+import dev.resent.module.impl.misc.HUD;
+import dev.resent.module.impl.misc.MinimalViewBobbing;
+import dev.resent.module.impl.misc.NoParticles;
+import dev.resent.module.impl.misc.NoRain;
+import dev.resent.module.impl.misc.NoSwingDelay;
+import dev.resent.module.impl.misc.Scoreboard;
+import dev.resent.module.impl.misc.SelfNametag;
+import dev.resent.module.impl.misc.Sprint;
+import dev.resent.module.impl.misc.TabGui;
 
 public class ModManager {
 
@@ -42,9 +71,11 @@ public class ModManager {
     public static TabGui tabGui = new TabGui();
     public static SelfNametag selfNametag = new SelfNametag();
     public static Cape cape = new Cape();
+    public static BPS bps = new BPS();
 
     public ModManager() {
         //Hud
+        register(bps);
         register(cape);
         register(selfNametag);
         register(cosmetics);

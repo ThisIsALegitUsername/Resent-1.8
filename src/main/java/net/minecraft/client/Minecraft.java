@@ -197,7 +197,7 @@ public class Minecraft implements IThreadListener {
 	public int displayWidth;
 	public int displayHeight;
 	private boolean field_181541_X = false;
-	private Timer timer = new Timer(20.0F);
+	public Timer timer = new Timer(20.0F);
 	public WorldClient theWorld;
 	public RenderGlobal renderGlobal;
 	private RenderManager renderManager;
@@ -1689,6 +1689,9 @@ public class Minecraft implements IThreadListener {
 			this.thePlayer = null;
 		}
 
+		ModManager.scoreboard.setEnabled(true);
+		ModManager.fpsb.setEnabled(true);
+		this.gameSettings.loadOptions();
 		System.gc();
 		this.systemTime = 0L;
 	}
