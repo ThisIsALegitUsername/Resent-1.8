@@ -307,5 +307,6 @@ public class TabGui extends RenderMod {
 				}else
 					expanded = false;
 			}
+            mc.gameSettings.saveOptions();
         }
 }
