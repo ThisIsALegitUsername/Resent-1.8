@@ -5,6 +5,7 @@ public class Setting {
     public String name;
     public boolean gameSetting;
     public String description;
+    public boolean focused;
 
     public Setting(String name, String description) {
         this.name = name;

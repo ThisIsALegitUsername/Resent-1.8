@@ -16,10 +16,8 @@ public class Cape extends Mod{
             mc.displayGuiScreen(new CapeUi());
         }
     };
-    public BooleanSetting ratio = new BooleanSetting("qwiehgioqwhe", "", true);
-    public ModeSetting amogus = new ModeSetting("amogus", "", "asdfasdf", "asdfasdf 1");
 
     public Cape(){
-        addSetting(amogus, open, ratio);
+        addSetting(open);
     }
 }

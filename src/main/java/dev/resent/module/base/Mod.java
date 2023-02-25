@@ -17,6 +17,8 @@ public abstract class Mod {
     private Category category;
     private boolean enabled = false;
     private boolean hasSetting;
+    public boolean expanded;
+	public int index;
 
     public List<Setting> settings = new ArrayList<>();
 

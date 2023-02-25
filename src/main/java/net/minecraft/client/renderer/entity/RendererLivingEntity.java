@@ -403,7 +403,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        if(Minecraft.isGuiEnabled() && ModManager.selfNametag.isEnabled() && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
+        if(Minecraft.isGuiEnabled() && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || ModManager.selfNametag.isEnabled())
             return true;
 
         return Minecraft.isGuiEnabled() && entitylivingbase != this.renderManager.livingPlayer && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) && entitylivingbase.riddenByEntity == null;
