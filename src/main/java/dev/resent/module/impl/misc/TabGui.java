@@ -34,12 +34,12 @@ public class TabGui extends RenderMod {
 
 		int primaryColor = 0xffff69b4, secondaryColor = 0xffff46b4;
 
-		Gui.drawRect(5.5, 5.5f, 70, 5 + Mod.Category.values().length * 16 + 1.5, 0x90000000);
-		Gui.drawRect(5.5, 5.5f + current * 16, 70, 13 + current * 16 + 7 + 2.5f, primaryColor);
+		Gui.drawRect(x+5.5, y+5.5f, x+70, y+5 + Mod.Category.values().length * 16 + 1.5, 0x90000000);
+		Gui.drawRect(x+5.5, y+5.5f + current * 16, x+70, y+13 + current * 16 + 7 + 2.5f, primaryColor);
 
 		int count = 0;
 		for (Category c : Mod.Category.values()) {
-			fr.drawStringWithShadow(c.name, 11, 10 + count * 16, -1);
+			fr.drawStringWithShadow(c.name, x+11, y+10 + count * 16, -1);
 
 			count++;
 		}
@@ -52,12 +52,12 @@ public class TabGui extends RenderMod {
 				return;
 			}
 
-			Gui.drawRect(70, 5.5, 138, 5 + modules.size() * 16 + 1.5, 0x90000000);
-			Gui.drawRect(70, 5.5 + category.i * 16, 138, 8 + category.i * 16 + 12 + 2.5F, primaryColor);
+			Gui.drawRect(x+70, y+5.5, x+138, y+5 + modules.size() * 16 + 1.5, 0x90000000);
+			Gui.drawRect(x+70, y+5.5 + category.i * 16, x+138, y+8 + category.i * 16 + 14.5F, primaryColor);
 
 			count = 0;
 			for (Mod m : modules) {
-				fr.drawStringWithShadow(m.getName(), 73, 10 + count * 16, -1);
+				fr.drawStringWithShadow(m.getName(), x+73, y+10 + count * 16, -1);
 
 				if (count == category.i && m.expanded) {
 
@@ -84,10 +84,10 @@ public class TabGui extends RenderMod {
 
 					if (!m.settings.isEmpty()) {
 
-						Gui.drawRect(70 + 68, 5.5, 70 + 68 + maxLength + 9, 5 + m.settings.size() * 16 + 1.5,
+						Gui.drawRect(x+138, y+5.5, x+70 + 68 + maxLength + 9, y+5 + m.settings.size() * 16 + 1.5,
 								0x90000000);
-						Gui.drawRect(70 + 68, 5.5f + m.index * 16, 7 + 61 + maxLength + 70 + 9,
-								8 + m.index * 16 + 12 + 2.5f,
+						Gui.drawRect(x+138, y+5.5 + m.index * 16, x+68 + maxLength + 79,
+								y+8 + m.index * 16 + 12 + 2.5f,
 								m.settings.get(m.index).focused ? secondaryColor : primaryColor); // 0xffff69b4);
 
 						index = 0;
@@ -95,13 +95,13 @@ public class TabGui extends RenderMod {
 							if (setting instanceof BooleanSetting) {
 								BooleanSetting bool = (BooleanSetting) setting;
 								fr.drawStringWithShadow(
-										setting.name + ": " + (bool.getValue() ? "Enabled" : "Disabled"), 73 + 68,
-										10 + index * 16, -1);
+										setting.name + ": " + (bool.getValue() ? "Enabled" : "Disabled"), 141+x,
+										y+10 + index * 16, -1);
 							}
 
 							if (setting instanceof ModeSetting) {
 								ModeSetting mode = (ModeSetting) setting;
-								fr.drawStringWithShadow(setting.name + ": " + mode.getValue(), 73 + 68, 10 + index * 16,
+								fr.drawStringWithShadow(setting.name + ": " + mode.getValue(), 141+x, y+10 + index * 16,
 										-1);
 							}
 
