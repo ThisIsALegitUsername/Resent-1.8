@@ -134,7 +134,7 @@ public class ClickGUI extends GuiScreen {
         drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
         fr.drawString(Resent.NAME + " Client " + Resent.VERSION, x + 8, height - 2, -1);
         
-        RenderUtils.drawRectOutline(sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5, -1);
+        //RenderUtils.drawRectOutline(sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5, -1);
         drawRect(
             sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 4,
             sr.getScaledHeight() - y - 9 + 1,
@@ -149,9 +149,9 @@ public class ClickGUI extends GuiScreen {
         fr.drawString("X", width + 18, height - 2, -1);
         
         //categories
-        RenderUtils.drawRectOutline(x+0.8d, height+14, x+20, height+25, -1);
-        RenderUtils.drawRectOutline(x+23d, height+14, x+47, height+25, -1);
-        RenderUtils.drawRectOutline(x+50, height+14, x+75, height+25, -1);
+        //RenderUtils.drawRectOutline(x+0.8d, height+14, x+20, height+25, -1);
+        //RenderUtils.drawRectOutline(x+23d, height+14, x+47, height+25, -1);
+        //RenderUtils.drawRectOutline(x+50, height+14, x+75, height+25, -1);
         drawRect(x+0.8d, height+14, x+20, height+25, isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
         drawRect(x+23d, height+14, x+47, height+25, isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
         drawRect(x+50, height+14, x+75, height+25, isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
