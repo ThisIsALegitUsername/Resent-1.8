@@ -14,6 +14,7 @@ import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
+import dev.resent.visual.ui.animation.SimpleAnimation;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -167,7 +168,18 @@ public class ClickGUI extends GuiScreen {
                 int fh = 9;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20 && introAnimation.isDone()) {
                     // Enabled outline
+                	float goofy = 0;
+                	if(m.isEnabled()) {
+                		goofy = 20;
+                	}else {
+                		goofy = 0;
+                	}
+                	
+                	m.animation.setAnimation(m.isEnabled() ? 20 : 0, 5);
                     RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
+                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+48-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10, 5, -1, true);
+                    RenderUtils.drawRoundedRect(this.x+48+xo+m.animation.getValue(), height-2-fh*-(off)+48-offset+15, this.x+60+xo+m.animation.getValue(), height+30-fh*-off+30+2-offset+10, 5, 0xFF990000, true);
+  
                     drawRect(
                         this.x + 10 + xo - 1 + 10,
                         height - 2 - fh * -(off) + 50 - 1 - offset,
@@ -194,8 +206,8 @@ public class ClickGUI extends GuiScreen {
                 for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
                     Setting s = this.modWatching.settings.get(amogus);
                     if(s instanceof CustomRectSettingDraw){
-                        Gui.drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(20, 20, 100, 70).getRGB() : new Color(20, 50, 170).getRGB());
-                        RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
+                        drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(150, 150, 150).getRGB() : new Color(211, 211, 211).getRGB());
+                        //RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
                         fr.drawStringWithShadow(s.name, this.x + 24, height +43 + var, -1);
                         var += 3;
                     }

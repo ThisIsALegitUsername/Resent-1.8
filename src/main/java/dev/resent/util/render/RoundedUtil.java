@@ -12,7 +12,7 @@ public class RoundedUtil {
 
     public static void drawSmoothRoundedRect(float x, float y, float x1, float y1, float radius, int color) {
         glPushAttrib(0);
-        glScaled(0.5D, 0.5D, 0.5D);
+        GlStateManager.scale(0.5D, 0.5D, 0.5D);
         x *= 2.0D;
         y *= 2.0D;
         x1 *= 2.0D;
@@ -43,19 +43,19 @@ public class RoundedUtil {
         for (i = 90; i <= 180; i += 3)
           glVertex2d(x1 - radius + Math.sin(i * Math.PI / 180.0D) * radius, y + radius + Math.cos(i * Math.PI / 180.0D) * radius); 
         glEnd();
-        glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
-        glDisable(RealOpenGLEnums.GL_BLEND);
+        GlStateManager.enableTexture2D();
+GlStateManager.disableBlend();
         glDisable(RealOpenGLEnums.GL_LINE_SMOOTH);
         glDisable(RealOpenGLEnums.GL_LINE_SMOOTH);
-        glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
-        glScaled(2.0D, 2.0D, 2.0D);
+        GlStateManager.enableTexture2D();
+        GlStateManager.scale(2.0D, 2.0D, 2.0D);
         glPopAttrib();
         glLineWidth(1);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       }
     public static void drawRoundedRect(float x, float y, float x1, float y1, float radius, int color) {
         glPushAttrib(0);
-        glScaled(0.5D, 0.5D, 0.5D);
+        GlStateManager.scale(0.5D, 0.5D, 0.5D);
         x *= 2.0D;
         y *= 2.0D;
         x1 *= 2.0D;
@@ -76,12 +76,10 @@ public class RoundedUtil {
         for (i = 90; i <= 180; i += 3)
           glVertex2d(x1 - radius + Math.sin(i * Math.PI / 180.0D) * radius, y + radius + Math.cos(i * Math.PI / 180.0D) * radius); 
         glEnd();
-        glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
-        glDisable(RealOpenGLEnums.GL_BLEND);
-        glDisable(RealOpenGLEnums.GL_LINE_SMOOTH);
-        glDisable(RealOpenGLEnums.GL_BLEND);
-        glDisable(RealOpenGLEnums.GL_LINE_SMOOTH);
-        glScaled(2.0D, 2.0D, 2.0D);
+        GlStateManager.enableTexture2D();
+GlStateManager.disableBlend();
+GlStateManager.disableBlend();
+        GlStateManager.scale(2.0D, 2.0D, 2.0D);
         glEnable(RealOpenGLEnums.GL_BLEND);
         glPopAttrib();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

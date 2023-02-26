@@ -4,6 +4,7 @@ import dev.resent.annotation.Module;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.render.RenderUtils;
 import dev.resent.visual.ui.Theme;
+import dev.resent.visual.ui.animation.SimpleAnimation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ public abstract class Mod {
     private boolean hasSetting;
     public boolean expanded;
 	public int index;
+	public SimpleAnimation animation = new SimpleAnimation(0);
 
     public List<Setting> settings = new ArrayList<>();
 
