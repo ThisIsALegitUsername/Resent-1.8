@@ -71,13 +71,16 @@ public class ClickGUI extends GuiScreen {
                 // Close ui
                 mc.displayGuiScreen(null);
                 this.modWatching = null;
-            } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
+            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+48-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10)){
+            	m.toggle();
+            }/* else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
+            }
                 // Toggle mod
                 m.toggle();
-            }
+            }*/
             if (xo > width / 2) {
                 xo = 0;
-                off += 3;
+                off += 4;
             } else {
                 xo += 100;
             }
@@ -136,7 +139,7 @@ public class ClickGUI extends GuiScreen {
         fr.drawString(Resent.NAME + " Client " + Resent.VERSION, x + 8, height - 2, -1);
         
         //RenderUtils.drawRectOutline(sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5, -1);
-        drawRect(
+       drawRect(
             sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 4,
             sr.getScaledHeight() - y - 9 + 1,
             sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1,
@@ -168,23 +171,17 @@ public class ClickGUI extends GuiScreen {
                 int fh = 9;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20 && introAnimation.isDone()) {
                     // Enabled outline
-                	float goofy = 0;
-                	if(m.isEnabled()) {
-                		goofy = 20;
-                	}else {
-                		goofy = 0;
-                	}
                 	
                 	m.animation.setAnimation(m.isEnabled() ? 20 : 0, 5);
-                    RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+48-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10, 5, -1, true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo+m.animation.getValue(), height-2-fh*-(off)+48-offset+15, this.x+60+xo+m.animation.getValue(), height+30-fh*-off+30+2-offset+10, 5, 0xFF990000, true);
+                    //RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
+                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+50-1-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10, 5, -1, true);
+                    RenderUtils.drawRoundedRect(this.x+48+xo+m.animation.getValue(), height-2-fh*-(off)+50-1-offset+15, this.x+60+xo+m.animation.getValue(), height+30-fh*-off+30+2-offset+10, 5, 0xFF990000, true);
   
                     drawRect(
                         this.x + 10 + xo - 1 + 10,
                         height - 2 - fh * -(off) + 50 - 1 - offset,
                         this.x + 90 + xo - 1 + 22,
-                        height + 30 - fh * (-off) + 30 - 1 + 2 - offset,
+                        height + 30 - fh * (-off) + 30 +15 - offset,
                         isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() : new Color(211, 211, 211, 65).getRGB()
                     );
 
@@ -230,7 +227,7 @@ public class ClickGUI extends GuiScreen {
 
             if (xo > width / 2) {
                 xo = 0;
-                off += 3;
+                off += 4;
             } else {
                 xo += 100;
             }
