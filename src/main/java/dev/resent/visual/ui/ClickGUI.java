@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.CustomRectSettingDraw;
@@ -70,7 +71,7 @@ public class ClickGUI extends GuiScreen {
                 // Close ui
                 mc.displayGuiScreen(null);
                 this.modWatching = null;
-            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+48-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10)){
+            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17)){
             	m.toggle();
             }/* else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
             }
@@ -165,7 +166,7 @@ public class ClickGUI extends GuiScreen {
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (this.modWatching == null) {
                 int fh = 9;
-                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20 && introAnimation.isDone()) {
+                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && introAnimation.isDone()) {
                     // Enabled outline
                 	
                 	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 5);
@@ -263,18 +264,19 @@ public class ClickGUI extends GuiScreen {
                     for (int i = 0; i < 20; i++) {
                         offset = MathHelper.clamp_int(offset + 1, 0, getListMaxScroll());
                         try {
+                            if(ModManager.clickGui.scroll.getValue())
                             Thread.sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                })
-                    .start();
+                }).start();
             } else if (wheel > 0) {
                 new Thread(() -> {
                     for (int i = 0; i < 20; i++) {
                         offset = MathHelper.clamp_int(offset - 1, 0, getListMaxScroll());
                         try {
+                            if(ModManager.clickGui.scroll.getValue())
                             Thread.sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -293,6 +295,6 @@ public class ClickGUI extends GuiScreen {
     }
 
     private int getListMaxScroll() {
-        return 60 + 70 - this.height;
+        return 130 - this.height;
     }
 }

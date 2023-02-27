@@ -8,6 +8,7 @@ import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.BPS;
 import dev.resent.module.impl.hud.CPS;
+import dev.resent.module.impl.hud.ClickGui;
 import dev.resent.module.impl.hud.ComboCounter;
 import dev.resent.module.impl.hud.FPS;
 import dev.resent.module.impl.hud.Freelook;
@@ -72,9 +73,11 @@ public class ModManager {
     public static SelfNametag selfNametag = new SelfNametag();
     public static Cape cape = new Cape();
     public static BPS bps = new BPS();
+    public static ClickGui clickGui = new ClickGui();
 
     public ModManager() {
         //Hud
+        register(clickGui);
         register(bps);
         register(cape);
         register(selfNametag);

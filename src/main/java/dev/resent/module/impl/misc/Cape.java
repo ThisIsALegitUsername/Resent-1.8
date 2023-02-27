@@ -3,9 +3,7 @@ package dev.resent.module.impl.misc;
 import dev.resent.annotation.Module;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.Mod.Category;
-import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.CustomRectSettingDraw;
-import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.visual.cape.CapeUi;
 
 @Module(name = "Cape", category = Category.MISC, hasSetting = true)
