@@ -99,7 +99,7 @@ public class ClickGUI extends GuiScreen {
 
                 if (s instanceof ModeSetting) {
                     if (isMouseInside(mouseX, mouseY, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue()), height - 9 + 50 + var, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue() + " >"), height - 9 + 50 + var + 9) && mouseButton == 0)
-                        ((ModeSetting)s).next();
+                        ((ModeSetting)s).cycle(false);
                 }
 
                 if(s instanceof CustomRectSettingDraw){

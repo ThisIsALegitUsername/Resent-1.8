@@ -193,7 +193,7 @@ public class TabGui extends RenderMod {
 							((BooleanSetting) setting).toggle();
 						}
 						if (setting instanceof ModeSetting) {
-							((ModeSetting) setting).next();
+							((ModeSetting) setting).cycle(true);
 						}
 					}
 
