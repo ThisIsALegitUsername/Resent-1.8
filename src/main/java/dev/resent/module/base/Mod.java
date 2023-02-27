@@ -1,14 +1,13 @@
 package dev.resent.module.base;
 
-import dev.resent.annotation.Module;
-import dev.resent.module.base.setting.Setting;
-import dev.resent.util.render.RenderUtils;
-import dev.resent.visual.ui.Theme;
-import dev.resent.visual.ui.animation.SimpleAnimation;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import dev.resent.annotation.Module;
+import dev.resent.module.base.setting.Setting;
+import dev.resent.util.render.RenderUtils;
+import dev.resent.visual.ui.animation.SimpleAnimation;
 import net.minecraft.client.Minecraft;
 
 public abstract class Mod {
@@ -16,11 +15,11 @@ public abstract class Mod {
     protected Minecraft mc = Minecraft.getMinecraft();
     private String name;
     private Category category;
-    private boolean enabled = false;
+    private boolean enabled;
     private boolean hasSetting;
     public boolean expanded;
 	public int index;
-	public SimpleAnimation animation = new SimpleAnimation(0);
+	public SimpleAnimation toggleAnimation = new SimpleAnimation(0);
 
     public List<Setting> settings = new ArrayList<>();
 
@@ -57,7 +56,7 @@ public abstract class Mod {
     }
 
     protected void drawRect(final int left, final int top, final int right, final int bottom, final int color) {
-        RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color, Theme.getRounded());
+        RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color);
     }
 
     protected int drawString(final String text, final int x, final int y, final int color, final boolean idk) {

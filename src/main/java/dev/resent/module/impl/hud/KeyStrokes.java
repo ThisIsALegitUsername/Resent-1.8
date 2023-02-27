@@ -1,17 +1,16 @@
 package dev.resent.module.impl.hud;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.module.base.RenderMod;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.ModeSetting;
-import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
-import dev.resent.visual.ui.Theme;
-
-import java.util.ArrayList;
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.Minecraft;
 
@@ -81,23 +80,23 @@ public class KeyStrokes extends RenderMod {
         }
 
         //W
-        RenderUtils.drawRoundedRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, 4, wKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        RenderUtils.drawRoundedRect(this.x + 30, this.y + 3, this.x + 55, this.y + 25 + 3, 4, wKey ? getColor(gcolor) : getColor(gcolorp));
         // S
-        RenderUtils.drawRoundedRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55, 4, sKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        RenderUtils.drawRoundedRect(this.x + 30, this.y + 30, this.x + 55, this.y + 55, 4, sKey ? getColor(gcolor) : getColor(gcolorp));
         // A
-        RenderUtils.drawRoundedRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55, 4, aKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        RenderUtils.drawRoundedRect(this.x + 3, this.y + 30, this.x + 25 + 3, this.y + 55, 4, aKey ? getColor(gcolor) : getColor(gcolorp));
         // D
-        RenderUtils.drawRoundedRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, 4, dKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        RenderUtils.drawRoundedRect(this.x + 60 - 3, this.y + 30, this.x + 85 - 3, this.y + 25 + 5 + 25, 4, dKey ? getColor(gcolor) : getColor(gcolorp));
         // LMB
-        RenderUtils.drawRoundedRect(this.x + 3, this.y + 57, this.x + 41, this.y + 82, 4, pressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        RenderUtils.drawRoundedRect(this.x + 3, this.y + 57, this.x + 41, this.y + 82, 4, pressed ? getColor(gcolor) : getColor(gcolorp));
         // RMB
-        RenderUtils.drawRoundedRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, 4, rpressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        RenderUtils.drawRoundedRect(this.x + 45 - 1, this.y + 60 - 3, this.x + 85 - 3, this.y + 85 - 3, 4, rpressed ? getColor(gcolor) : getColor(gcolorp));
 
         // Jump
-        if (jump.getValue()) RenderUtils.drawRoundedRect(this.x + 3, this.y + 84, this.x + 85 - 3, this.y + 105 - 6, 4, jumpKey ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        if (jump.getValue()) RenderUtils.drawRoundedRect(this.x + 3, this.y + 84, this.x + 85 - 3, this.y + 105 - 6, 4, jumpKey ? getColor(gcolor) : getColor(gcolorp));
 
         // Sneak
-        if (sneak.getValue()) RenderUtils.drawRoundedRect(this.x + 3, jump.getValue() ? this.y + 102 : this.y + 84, this.x + 85 - 3, jump.getValue() ? this.y + 120 - 3 : this.y + 105 - 6, 4, mc.gameSettings.keyBindSneak.pressed ? getColor(gcolor) : getColor(gcolorp), Theme.getRounded());
+        if (sneak.getValue()) RenderUtils.drawRoundedRect(this.x + 3, jump.getValue() ? this.y + 102 : this.y + 84, this.x + 85 - 3, jump.getValue() ? this.y + 120 - 3 : this.y + 105 - 6, 4, mc.gameSettings.keyBindSneak.pressed ? getColor(gcolor) : getColor(gcolorp));
 
         mc.fontRendererObj.drawString("W", this.x + 25 + 5 + (25 / 2 - mc.fontRendererObj.getStringWidth("W") + 4), this.y + 8 + 3, wKey ? getColor(colorp) : getColor(color), tshadow.getValue());
         mc.fontRendererObj.drawString("S", this.x + 25 + 5 + (25 / 2 - mc.fontRendererObj.getStringWidth("S") + 4), this.y + 38, sKey ? getColor(colorp) : getColor(color), tshadow.getValue());

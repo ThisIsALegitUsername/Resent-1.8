@@ -1,6 +1,7 @@
 package dev.resent.util.render;
 
 import dev.resent.module.base.setting.ModeSetting;
+import dev.resent.visual.ui.Theme;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;
@@ -55,13 +56,13 @@ public class RenderUtils {
         return Color.HSBtoRGB(hue, 0.5f, 1f);
     }
 
-    public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... rounded) {
+    public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... forceOverride) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;
         final float f2 = (color >> 16 & 0xFF) / 255.0f;
         final float f3 = (color >> 8 & 0xFF) / 255.0f;
         final float f4 = (color & 0xFF) / 255.0f;
         GlStateManager.color(f2, f3, f4, f1);
-        if (rounded[0]) {
+        if (Theme.getRounded() || forceOverride[0]) {
             drawRoundedRect(paramInt1, paramInt2, paramInt3, paramInt4, radius);
         } else {
             Gui.drawRect((int) paramInt1, (int) paramInt2, (int) paramInt3, (int) paramInt4, color);

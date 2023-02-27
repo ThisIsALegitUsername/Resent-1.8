@@ -14,7 +14,6 @@ import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
-import dev.resent.visual.ui.animation.SimpleAnimation;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -153,9 +152,6 @@ public class ClickGUI extends GuiScreen {
         fr.drawString("X", width + 18, height - 2, -1);
         
         //categories
-        //RenderUtils.drawRectOutline(x+0.8d, height+14, x+20, height+25, -1);
-        //RenderUtils.drawRectOutline(x+23d, height+14, x+47, height+25, -1);
-        //RenderUtils.drawRectOutline(x+50, height+14, x+75, height+25, -1);
         drawRect(x+0.8d, height+14, x+20, height+25, isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
         drawRect(x+23d, height+14, x+47, height+25, isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
         drawRect(x+50, height+14, x+75, height+25, isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
@@ -172,11 +168,12 @@ public class ClickGUI extends GuiScreen {
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 30 - fh * (-off) + 30 + 2 - offset < y + 20 && introAnimation.isDone()) {
                     // Enabled outline
                 	
-                	m.animation.setAnimation(m.isEnabled() ? 20 : 0, 5);
+                	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 5);
                     //RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+50-1-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10, 5, -1, true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo+m.animation.getValue(), height-2-fh*-(off)+50-1-offset+15, this.x+60+xo+m.animation.getValue(), height+30-fh*-off+30+2-offset+10, 5, 0xFF990000, true);
-  
+                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+50-1-offset+15, this.x+80+xo, height+30-fh*-off+30+2-offset+10, 5, new Color(221, 219, 224).getRGB(), true);
+                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+50-1-offset+15, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+10, 5, Color.green.getRGB(), true);
+                    RenderUtils.drawRoundedRect(this.x+48+xo+m.toggleAnimation.getValue(), height-2-fh*-(off)+50-1-offset+15, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+10, 5, -1, true);
+
                     drawRect(
                         this.x + 10 + xo - 1 + 10,
                         height - 2 - fh * -(off) + 50 - 1 - offset,
@@ -187,7 +184,6 @@ public class ClickGUI extends GuiScreen {
 
                     if (m.isHasSetting()) {
                         GlStateManager.enableBlend();
-                        GlStateManager.color(1, 1, 1);
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
                         Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
                         GlStateManager.disableBlend();
@@ -212,7 +208,6 @@ public class ClickGUI extends GuiScreen {
                         drawRect(this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1, isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
                         if (((BooleanSetting)s).getValue()) {
-                            GlStateManager.color(1, 1, 1);
                             mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
                             Gui.drawModalRectWithCustomSizedTexture(this.x + 9, height + 39 + var, 0, 0, 12, 12, 12, 12);
                         }
