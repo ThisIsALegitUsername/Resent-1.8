@@ -71,13 +71,13 @@ public class ClickGUI extends GuiScreen {
                 // Close ui
                 mc.displayGuiScreen(null);
                 this.modWatching = null;
-            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17)){
+            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17) && ModManager.clickGui.guiTheme.getValue() == "New" && modWatching == null){
+                //toggle new
             	m.toggle();
-            }/* else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null) {
-            }
-                // Toggle mod
+            } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null && ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
+                //toggle classic
                 m.toggle();
-            }*/
+            }
             if (xo > width / 2) {
                 xo = 0;
                 off += 5;
@@ -170,10 +170,13 @@ public class ClickGUI extends GuiScreen {
                     // Enabled outline
                 	
                 	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 5);
-                    //RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17, 6, new Color(97, 97, 97).getRGB(), true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, Color.green.getRGB(), true);
-                    RenderUtils.drawRoundedRect(this.x+48+xo+m.toggleAnimation.getValue(), height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, -1, true);
+                    if(ModManager.clickGui.guiTheme.getValue() == "New"){
+                        RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17, 6, new Color(97, 97, 97).getRGB(), true);
+                        RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, Color.green.getRGB(), true);
+                        RenderUtils.drawRoundedRect(this.x+48+xo+m.toggleAnimation.getValue(), height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, -1, true);
+                    }else if(ModManager.clickGui.guiTheme.getValue() == "Classic revised"){
+                        RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
+                    }
 
                     drawRect(
                         this.x + 10 + xo - 1 + 10,
