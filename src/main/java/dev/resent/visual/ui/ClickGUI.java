@@ -98,8 +98,12 @@ public class ClickGUI extends GuiScreen {
                 }
 
                 if (s instanceof ModeSetting) {
-                    if (isMouseInside(mouseX, mouseY, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue()), height - 9 + 50 + var, this.x + 24 + fr.getStringWidth(s.name + ": " + ((ModeSetting)s).getValue() + " >"), height - 9 + 50 + var + 9) && mouseButton == 0)
-                        ((ModeSetting)s).cycle(false);
+                    if(isMouseInside(mouseX, mouseY, this.x+360, height+40+var, this.x+370, height+50+var) && mouseButton == 0) {
+                    	((ModeSetting)s).cycle(false);
+                    }
+                    if(isMouseInside(mouseX, mouseY, this.x+458, height+40+var, this.x+470, height+50+var) && mouseButton == 0) {
+                        ((ModeSetting)s).cycle(true);
+                    }
                 }
 
                 if(s instanceof CustomRectSettingDraw){
@@ -217,7 +221,12 @@ public class ClickGUI extends GuiScreen {
                         }
                     }
                     if (s instanceof ModeSetting) {
-                        fr.drawStringWithShadow(s.name + ": " + ((ModeSetting)s).getValue() + EnumChatFormatting.RED + " >", this.x + 18 + 6, height - 9 + 50 + var, -1);
+                        fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - 9 + 50 + var, -1);
+                        fr.drawStringWithShadow(((ModeSetting)s).getValue(), width-100-fr.getStringWidth(((ModeSetting)s).getValue())/2, height+41+var, -1);
+                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 150, height-9+50+var, -1);
+                        RenderUtils.drawRectOutline(this.x+370, height+39+var, this.x+360, height+50+var, -1);
+                        fr.drawStringWithShadow(EnumChatFormatting.RED + ">", this.x+463, height-9+50+var, -1);
+                        RenderUtils.drawRectOutline(this.x+458, height+40+var, this.x+470, height+50+var, -1);
                     }
 
                     var += 11;
