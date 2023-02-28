@@ -1042,7 +1042,7 @@ public class GameSettings {
                         }
                     }
 
-                    Resent.INSTANCE.load(astring);
+                    Resent.INSTANCE.saveUtil.load(astring);
                 } catch (Exception var8) {
                     logger.warn("Skipping bad option: " + s);
                 }
@@ -1158,7 +1158,7 @@ public class GameSettings {
                 printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + this.setModelParts.contains(enumplayermodelparts));
             }
 
-            Resent.INSTANCE.save(printwriter);
+            Resent.INSTANCE.saveUtil.save(printwriter);
 
             printwriter.close();
 

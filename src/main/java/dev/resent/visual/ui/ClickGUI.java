@@ -2,6 +2,7 @@ package dev.resent.visual.ui;
 
 import java.io.IOException;
 
+import dev.resent.client.ClientInfo;
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.ModManager;
@@ -31,7 +32,7 @@ import net.minecraft.util.ResourceLocation;
 public class ClickGUI extends GuiScreen {
 
     public Animation introAnimation;
-    public Mod modWatching = null;
+    public Mod openedMod = null;
     public ScaledResolution sr;
     public int x, y, width, height;
     public int offset = 0;
@@ -55,26 +56,26 @@ public class ClickGUI extends GuiScreen {
         
         if (isMouseInside(mouseX, mouseY, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5) && mouseButton == 0) {
             mc.displayGuiScreen(new HUDConfigScreen());
-            this.modWatching = null;
+            this.openedMod = null;
         }
 
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory) ) {
             int fh = 9;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.isHasSetting() && modWatching == null) {
+            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.isHasSetting() && openedMod == null) {
                 // Open settings
-                this.modWatching = m;
+                this.openedMod = m;
             } else if (isMouseInside(mouseX, mouseY, x - 9 + 2, height + 27 + 9 + 2, x - 9 + 6 + fr.getStringWidth("<"), height + 33 + 9 + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
                 // Close settings
-                this.modWatching = null;
+                this.openedMod = null;
             } else if (isMouseInside(mouseX, mouseY, width + 15, height - 10, width + 25, height + 7)) {
                 // Close ui
                 mc.displayGuiScreen(null);
-                this.modWatching = null;
-            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17) && ModManager.clickGui.guiTheme.getValue() == "New" && modWatching == null){
+                this.openedMod = null;
+            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17) && ModManager.clickGui.guiTheme.getValue() == "New" && openedMod == null){
                 //toggle new
             	m.toggle();
-            } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && modWatching == null && ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
+            } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && openedMod == null && ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
                 //toggle classic
                 m.toggle();
             }
@@ -86,10 +87,10 @@ public class ClickGUI extends GuiScreen {
             }
         }
 
-        if (modWatching != null) {
+        if (openedMod != null) {
             int var = 0;
-            for (int asdf = 0; asdf < this.modWatching.settings.size(); asdf++) {
-                Setting s = this.modWatching.settings.get(asdf);
+            for (int asdf = 0; asdf < this.openedMod.settings.size(); asdf++) {
+                Setting s = this.openedMod.settings.get(asdf);
 
                 if (s instanceof BooleanSetting) {
                     if (isMouseInside(mouseX, mouseY, this.x + 13, height - 9 + 50 - offset + var + 1, this.x + 20, height - 9 + 50 + 9 - offset + var - 1) && mouseButton == 0) {
@@ -145,7 +146,7 @@ public class ClickGUI extends GuiScreen {
 
         // background
         drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
-        fr.drawString(Resent.NAME + " Client " + Resent.VERSION, x + 8, height - 2, -1);
+        fr.drawString(ClientInfo.name + " Client " + ClientInfo.version, x + 8, height - 2, -1);
         
         //RenderUtils.drawRectOutline(sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5, -1);
        drawRect(
@@ -173,7 +174,7 @@ public class ClickGUI extends GuiScreen {
         drawRect(x - 8, height + 29, width + 33, height + 30, -1);
         GlUtils.stopScale();
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
-            if (this.modWatching == null) {
+            if (this.openedMod == null) {
                 int fh = 9;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && (introAnimation != null ? introAnimation.isDone() : true)) {
                     // Enabled outline
@@ -206,13 +207,13 @@ public class ClickGUI extends GuiScreen {
 
                     fr.drawStringWithShadow(m.getName(), this.x + 20 + xo, height - fh * -(off) + 50 - offset, -1);
                 }
-            } else if (this.modWatching != null) {
+            } else if (this.openedMod != null) {
                 int var = 0;
                 fr.drawString("<", x - 9 + 4, height + 29 + 9 + 2, -1);
-                fr.drawStringWithShadow("Resent - " + modWatching.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + modWatching.getName()) / 2), height + 29 - 9 - 2, -1);
+                fr.drawStringWithShadow("Resent - " + openedMod.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + openedMod.getName()) / 2), height + 29 - 9 - 2, -1);
 
-                for (int amogus = 0; amogus < this.modWatching.settings.size(); amogus++) {
-                    Setting s = this.modWatching.settings.get(amogus);
+                for (int amogus = 0; amogus < this.openedMod.settings.size(); amogus++) {
+                    Setting s = this.openedMod.settings.get(amogus);
                     if(s instanceof CustomRectSettingDraw){
                         drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(150, 150, 150).getRGB() : new Color(211, 211, 211).getRGB());
                         //RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
