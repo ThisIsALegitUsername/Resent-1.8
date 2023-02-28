@@ -182,13 +182,15 @@ public class ClickGUI extends GuiScreen {
                         RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
                     }
 
-                    drawRect(
-                        this.x + 10 + xo - 1 + 10,
-                        height - 2 - fh * -(off) + 50 - 1 - offset,
-                        this.x + 90 + xo - 1 + 22,
-                        height + 85 - (ModManager.clickGui.guiTheme.getValue().equals("New") ? 0 : 24) - fh * (-off) - offset,
-                        /*isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() :*/ new Color(211, 211, 211, 65).getRGB()
-                    );
+                    if(ModManager.clickGui.guiTheme.getValue().equals("New")) {
+	                    drawRect(
+	                        this.x + 10 + xo - 1 + 10,
+	                        height - 2 - fh * -(off) + 50 - 1 - offset,
+	                        this.x + 90 + xo - 1 + 22,
+	                        height + 85 - fh * (-off) - offset,
+	                        /*isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() :*/ new Color(211, 211, 211, 65).getRGB()
+	                    );
+                    }
 
                     if (m.isHasSetting()) {
                         GlStateManager.enableBlend();
@@ -224,9 +226,9 @@ public class ClickGUI extends GuiScreen {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - 9 + 50 + var, -1);
                         fr.drawStringWithShadow(((ModeSetting)s).getValue(), width-100-fr.getStringWidth(((ModeSetting)s).getValue())/2, height+41+var, -1);
                         fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 150, height-9+50+var, -1);
-                        RenderUtils.drawRectOutline(this.x+370, height+39+var, this.x+360, height+50+var, -1);
+                        //RenderUtils.drawRectOutline(this.x+370, height+39+var, this.x+360, height+50+var, -1);
                         fr.drawStringWithShadow(EnumChatFormatting.RED + ">", this.x+463, height-9+50+var, -1);
-                        RenderUtils.drawRectOutline(this.x+458, height+40+var, this.x+470, height+50+var, -1);
+                        //RenderUtils.drawRectOutline(this.x+458, height+40+var, this.x+470, height+50+var, -1);
                     }
 
                     var += 11;

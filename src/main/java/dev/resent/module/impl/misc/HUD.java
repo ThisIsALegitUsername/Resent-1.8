@@ -17,7 +17,7 @@ public class HUD extends Mod {
     //public static final ModeSetting rectTheme = new ModeSetting("Rectangle", "", "Classic", "Astolfo");
     public static final BooleanSetting round = new BooleanSetting("Rounded", "", true);
     public static final BooleanSetting tshadow = new BooleanSetting("Text Shadow", "", true);
-    public static final ModeSetting animationTheme = new ModeSetting("Animation", "Ease back in", "Ease back in", "Ease in out quad", "Elastic", "Smooth step", "Decelerate");
+    public static final ModeSetting animationTheme = new ModeSetting("Animation", "Ease back in", "Ease back in", "Ease in out quad", "Elastic", "Smooth step", "Decelerate", "None");
     //public static final BooleanSetting animated = new BooleanSetting("Animated", "", true);
 
 }

@@ -12,7 +12,7 @@ import dev.resent.visual.ui.animation.impl.SmoothStepAnimation;
 public class Theme {
 
     public static int getFontColor(int id) {
-        return getFontColor(id, 255);
+        return getFontColor(getFontId(), 255);
     }
 
     public static int getFontColor(int id, int opacity) {
@@ -28,7 +28,7 @@ public class Theme {
     }
 
     public static Animation getAnimation(int id, int ms, int endpoint, float easeAmount, float elasticity, float smooth, boolean moreElasticity) {
-        switch (id) {
+        switch (getAnimationId()) {
             case 1:
                 return new EaseBackIn(ms, endpoint, easeAmount);
             case 2:
@@ -39,6 +39,8 @@ public class Theme {
                 return new DecelerateAnimation(ms, endpoint);
             case 5:
                 return new SmoothStepAnimation(ms, endpoint);
+            case 0:
+            	return null;
         }
 
         return null;
@@ -68,6 +70,8 @@ public class Theme {
                 return 4;
             case "Smooth step":
                 return 5;
+            case "None":
+            	return 0;
         }
         return -1;
     }
