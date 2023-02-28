@@ -13,6 +13,6 @@ public class Hitboxes extends Mod {
         addSetting(color, old);
     }
 
-    public static ModeSetting color = new ModeSetting("Color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
+    public static ModeSetting color = new ModeSetting("Color", "White", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
     public static BooleanSetting old = new BooleanSetting("1.7 Hitboxes", "", true);
 }

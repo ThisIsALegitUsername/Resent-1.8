@@ -27,10 +27,10 @@ public class KeyStrokes extends RenderMod {
     public BooleanSetting sneak = new BooleanSetting("Sneak", "", false);
     public BooleanSetting jump = new BooleanSetting("Jump", "", true);
     public BooleanSetting tshadow = new BooleanSetting("Text shadow", "", false);
-    public ModeSetting color = new ModeSetting("Unpressed text color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
-    public ModeSetting colorp = new ModeSetting("Pressed text color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
-    public ModeSetting gcolor = new ModeSetting("Pressed button color", "", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
-    public ModeSetting gcolorp = new ModeSetting("Unpressed button color", "", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
+    public ModeSetting color = new ModeSetting("Unpressed text color", "White", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
+    public ModeSetting colorp = new ModeSetting("Pressed text color", "Black", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
+    public ModeSetting gcolor = new ModeSetting("Pressed button color", "White", "White", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "Black");
+    public ModeSetting gcolorp = new ModeSetting("Unpressed button color", "Black", "Black", "Red", "Yellow", "Green", "Blue", "Pink", "Orange", "White");
     public List<Long> clicks = new ArrayList<>();
     public boolean wasPressed;
     public long lastPressed;

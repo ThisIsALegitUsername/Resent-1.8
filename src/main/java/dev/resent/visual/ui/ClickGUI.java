@@ -182,7 +182,7 @@ public class ClickGUI extends GuiScreen {
                         this.x + 10 + xo - 1 + 10,
                         height - 2 - fh * -(off) + 50 - 1 - offset,
                         this.x + 90 + xo - 1 + 22,
-                        height + 40 - fh * (-off) + 30 +15 - offset,
+                        height + 85 - (ModManager.clickGui.guiTheme.getValue().equals("New") ? 0 : 24) - fh * (-off) - offset,
                         /*isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() :*/ new Color(211, 211, 211, 65).getRGB()
                     );
 
@@ -193,7 +193,7 @@ public class ClickGUI extends GuiScreen {
                         GlStateManager.disableBlend();
                     }
 
-                    fr.drawStringWithShadow(m.getName(), this.x + 15 + 7 + xo, height - fh * -(off) + 50 - offset, -1);
+                    fr.drawStringWithShadow(m.getName(), this.x + 20 + xo, height - fh * -(off) + 50 - offset, -1);
                 }
             } else if (this.modWatching != null) {
                 int var = 0;

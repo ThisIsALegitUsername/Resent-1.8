@@ -19,5 +19,5 @@ public class Cosmetics extends Mod {
     //public static BooleanSetting dragonwings = new BooleanSetting("Dragon wings", "", true);
     public static BooleanSetting hat = new BooleanSetting("Top hat", "", false);
     public static BooleanSetting glasses = new BooleanSetting("Glasses", "", false);
-    public static ModeSetting who = new ModeSetting("Who to render on", "", "Only you", "Everyone", "Everyone else");
+    public static ModeSetting who = new ModeSetting("Who to render on", "Only you", "Only you", "Everyone", "Everyone else");
 }
