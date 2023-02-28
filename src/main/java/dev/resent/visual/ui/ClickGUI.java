@@ -130,13 +130,18 @@ public class ClickGUI extends GuiScreen {
         int off = 0;
 
         if (close) {
+        	if(introAnimation == null) {
+        		mc.displayGuiScreen(null);
+        		return;
+        	}
+        		
             introAnimation.setDirection(Direction.BACKWARDS);
             if (introAnimation.isDone(Direction.BACKWARDS)) {
                 mc.displayGuiScreen(null);
             }
         }
 
-        GlUtils.startScale((this.x + this.width) / 2, (this.y + this.height) / 2, (float) introAnimation.getValue());
+        GlUtils.startScale((this.x + this.width) / 2, (this.y + this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
 
         // background
         drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
@@ -170,7 +175,7 @@ public class ClickGUI extends GuiScreen {
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (this.modWatching == null) {
                 int fh = 9;
-                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && introAnimation.isDone()) {
+                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && (introAnimation != null ? introAnimation.isDone() : true)) {
                     // Enabled outline
                 	
                 	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 5);

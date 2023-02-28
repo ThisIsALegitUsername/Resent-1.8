@@ -1,5 +1,8 @@
 package dev.resent.visual.ui.animation;
 
+import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.HUD;
+
 public abstract class Animation {
 
     public AnimationTimer timer = new AnimationTimer();
@@ -54,6 +57,8 @@ public abstract class Animation {
     }
 
     public double getValue() {
+    	if(HUD.animationTheme.getValue().equals("None"))
+    		return 0;
         if (direction == Direction.FORWARDS) {
             if (isDone()) return endPoint;
             return (getEquation(timer.getTime()) * endPoint);

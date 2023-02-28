@@ -94,7 +94,7 @@ public class GuiInventory extends InventoryEffectRenderer {
      * Args : renderPartialTicks, mouseX, mouseY
      */
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-        GlUtils.startScale(this.width / 2, this.height / 2, (float) openAnim.getValue());
+        GlUtils.startScale(this.width / 2, this.height / 2, openAnim != null ? (float) openAnim.getValue() : 1);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(inventoryBackground);
         int i = this.guiLeft;
