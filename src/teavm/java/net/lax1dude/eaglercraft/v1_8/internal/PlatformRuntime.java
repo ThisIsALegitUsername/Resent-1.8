@@ -33,6 +33,7 @@ import com.jcraft.jzlib.GZIPInputStream;
 import com.jcraft.jzlib.GZIPOutputStream;
 import com.jcraft.jzlib.InflaterInputStream;
 
+import dev.resent.client.ClientInfo;
 import dev.resent.client.Resent;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftVersion;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
@@ -303,7 +304,7 @@ public class PlatformRuntime {
                     int epkSize = Integer.parseInt(request.getResponseHeader("content-length"));
                     Event event = evt;
             
-                    setClientVersion(Resent.VERSION);
+                    setClientVersion(ClientInfo.version);
                     setBarProgress(event, epkSize);
                 }catch (Exception e){
                     e.printStackTrace();
