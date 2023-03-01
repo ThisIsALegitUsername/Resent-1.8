@@ -205,12 +205,12 @@ public class ClickGUI extends GuiScreen {
                         GlStateManager.disableBlend();
                     }
 
-                    fr.drawStringWithShadow(m.getName(), this.x + 20 + xo, height - fh * -(off) + 50 - offset, -1);
+                    fr.drawStringWithShadow(m.getName(), this.x + 24 + xo, height - fh * -(off) + 50 - offset, -1);
                 }
             } else if (this.openedMod != null) {
                 int var = 0;
                 fr.drawString("<", x - 9 + 4, height + 29 + 9 + 2, -1);
-                fr.drawStringWithShadow("Resent - " + openedMod.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + openedMod.getName()) / 2), height + 29 - 9 - 2, -1);
+                fr.drawStringWithShadow(ClientInfo.name + " - " + openedMod.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + openedMod.getName()) / 2), height + 29 - 9 - 2, -1);
 
                 for (int amogus = 0; amogus < this.openedMod.settings.size(); amogus++) {
                     Setting s = this.openedMod.settings.get(amogus);

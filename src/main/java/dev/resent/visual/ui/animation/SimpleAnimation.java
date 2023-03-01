@@ -3,6 +3,7 @@ package dev.resent.visual.ui.animation;
 public class SimpleAnimation {
 
     private float value;
+    private float lastValue;
     private long lastMS;
 
     public SimpleAnimation(final float value) {
@@ -14,6 +15,7 @@ public class SimpleAnimation {
         final long currentMS = System.currentTimeMillis();
         final long delta = currentMS - this.lastMS;
         this.lastMS = currentMS;
+        lastValue = this.value;
 
         double deltaValue = 0.0;
 
@@ -34,5 +36,9 @@ public class SimpleAnimation {
 
     public void setValue(float value) {
         this.value = value;
+    }
+    
+    public boolean isDone() {
+    	return lastValue >= value-1;
     }
 }

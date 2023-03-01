@@ -10,7 +10,7 @@ import dev.resent.module.base.setting.ModeSetting;
 public class ClickGui extends Mod{
 
     public BooleanSetting scroll = new BooleanSetting("Smooth scroll", "", false);
-    public ModeSetting guiTheme = new ModeSetting("Gui theme", "New", "New", "Classic revised", "Die in a hole");
+    public ModeSetting guiTheme = new ModeSetting("Gui theme", "New", "New", "Classic revised");
 
     public ClickGui(){
         addSetting(scroll, guiTheme);
