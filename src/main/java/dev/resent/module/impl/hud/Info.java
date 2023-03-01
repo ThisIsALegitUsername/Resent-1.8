@@ -30,7 +30,7 @@ public class Info extends RenderMod {
     }
 
     public int getWidth() {
-        return 5 + mc.fontRendererObj.getStringWidth(" X:   Biome:"  + Math.max(getPositions()[0],  Math.max(getPositions()[1], getPositions()[2])));
+        return 5 + mc.fontRendererObj.getStringWidth(" X:   Biome:" + mc.theWorld.getBiomeGenForCoords(new BlockPos(getPositions()[0], getPositions()[1], getPositions()[2])).biomeName + Math.max(getPositions()[0],  Math.max(getPositions()[1], getPositions()[2])));
     }
 
     public int getHeight() {
