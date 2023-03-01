@@ -76,9 +76,11 @@ public class ClickGUI extends GuiScreen {
                 this.openedMod = null;
             }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17) && ModManager.clickGui.guiTheme.getValue() == "New" && openedMod == null){
                 //toggle new
+                if(m.getName() != "ClickGUI")
             	m.toggle();
             } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && openedMod == null && ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
                 //toggle classic
+                if(m.getName() != "ClickGUI")
                 m.toggle();
             }
             if (xo > width / 2) {
@@ -182,7 +184,7 @@ public class ClickGUI extends GuiScreen {
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && (introAnimation != null ? introAnimation.isDone() : true)) {
                     // Enabled outline
                 	
-                	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 5);
+                	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 7);
                     if(ModManager.clickGui.guiTheme.getValue() == "New"){
                         RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17, 6, new Color(97, 97, 97).getRGB(), true);
                         RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, Color.green.getRGB(), true);
@@ -263,6 +265,7 @@ public class ClickGUI extends GuiScreen {
 
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(true);
+        ModManager.clickGui.setEnabled(false);
         mc.gameSettings.saveOptions();
     }
 
