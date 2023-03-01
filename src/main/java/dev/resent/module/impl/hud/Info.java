@@ -20,7 +20,10 @@ public class Info extends RenderMod {
     public static final String[] directionsF = new String[] { "\u00A79S\u00A7r", "\u00A72W\u00A7r", "\u00A74N\u00A7r", "\u00A76E\u00A7r" };
 
     public int getWidth() {
-        return mc.fontRendererObj.getStringWidth("X:   " + mc.thePlayer.posX + " Dir: " + directionsF[MathHelper.floor_double(this.mc.thePlayer.rotationYaw * 4 / 360 + 0.5) & 3]);
+        int px = (int) mc.thePlayer.posX;
+        int py = (int) mc.thePlayer.posY;
+        int pz = (int) mc.thePlayer.posZ;
+        return 5 + mc.fontRendererObj.getStringWidth(" X:   Biome:"  + mc.theWorld.getBiomeGenForCoords(new BlockPos(px, py, pz)).biomeName + Math.max(py,  pz));
     }
 
     public int getHeight() {
@@ -41,7 +44,7 @@ public class Info extends RenderMod {
 
             if (direction.getValue()){
                 drawString(" Dir: ", this.x + 5 + mc.fontRendererObj.getStringWidth(" X:  " + px), this.y + 14, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
-                mc.fontRendererObj.drawString(directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth("X:  " + px), this.y + 14, -1, Theme.getTextShadow());
+                mc.fontRendererObj.drawString(directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth(" X:   Dir: " + px), this.y + 14, -1, Theme.getTextShadow());
             }
             drawString(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(px, py, pz)).biomeName, this.x + 5, this.y + 44, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
         }

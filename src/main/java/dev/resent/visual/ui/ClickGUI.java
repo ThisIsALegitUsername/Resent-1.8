@@ -1,6 +1,7 @@
 package dev.resent.visual.ui;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 import dev.resent.client.ClientInfo;
 import dev.resent.client.Resent;
@@ -59,6 +60,7 @@ public class ClickGUI extends GuiScreen {
             this.openedMod = null;
         }
 
+        Resent.INSTANCE.modManager.modsInCategory(selectedCategory).sort(Comparator.comparingInt(m -> fr.getStringWidth(m.getName())));
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory) ) {
             int fh = 9;
 
@@ -89,8 +91,7 @@ public class ClickGUI extends GuiScreen {
 
         if (openedMod != null) {
             int var = 0;
-            for (int asdf = 0; asdf < this.openedMod.settings.size(); asdf++) {
-                Setting s = this.openedMod.settings.get(asdf);
+            for (Setting s : this.openedMod.settings) {
 
                 if (s instanceof BooleanSetting) {
                     if (isMouseInside(mouseX, mouseY, this.x + 13, height - 9 + 50 - offset + var + 1, this.x + 20, height - 9 + 50 + 9 - offset + var - 1) && mouseButton == 0) {
@@ -173,6 +174,8 @@ public class ClickGUI extends GuiScreen {
         //white line
         drawRect(x - 8, height + 29, width + 33, height + 30, -1);
         GlUtils.stopScale();
+        
+        Resent.INSTANCE.modManager.modsInCategory(selectedCategory).sort(Comparator.comparingInt(m -> fr.getStringWidth(m.getName())));
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (this.openedMod == null) {
                 int fh = 9;
