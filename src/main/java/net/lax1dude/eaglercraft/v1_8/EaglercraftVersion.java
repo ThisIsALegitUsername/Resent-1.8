@@ -1,14 +1,16 @@
 package net.lax1dude.eaglercraft.v1_8;
 
+import dev.resent.client.ClientInfo;
+
 public class EaglercraftVersion {
 
     //////////////////////////////////////////////////////////////////////
 
     /// Customize these to fit your fork:
 
-    public static final String projectForkName = "Resent";
-    public static final String projectForkVersion = "3.3.2";
-    public static final String projectForkVendor = "Nitwit";
+    public static final String projectForkName = ClientInfo.name;
+    public static final String projectForkVersion = ClientInfo.version;
+    public static final String projectForkVendor = ClientInfo.author;
 
     public static final String projectForkURL = "https://github.com/ThisIsALegitUsername/Resent-web";
 
@@ -26,7 +28,7 @@ public class EaglercraftVersion {
 
     // Miscellaneous variables:
 
-    public static final String mainMenuStringA = "Minecraft 1.8.8";
+    public static final String mainMenuStringA = "Minecraft 1.8.8 - " + projectForkName;
     public static final String mainMenuStringB = projectOriginName + " " + projectOriginRevision + "-" + projectOriginVersion;
     public static final String mainMenuStringC = "Rewritten by " + projectOriginAuthor;
     public static final String mainMenuStringD = "Resources Copyright Mojang AB";

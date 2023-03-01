@@ -7,6 +7,7 @@ import java.util.List;
 import dev.resent.annotation.Module;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.render.RenderUtils;
+import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.SimpleAnimation;
 import net.minecraft.client.Minecraft;
 
@@ -60,10 +61,10 @@ public abstract class Mod {
     }
 
     protected int drawString(final String text, final int x, final int y, final int color, final boolean idk) {
-        if (color == 6942069) {
+        if (Theme.getFontColor(Theme.getFontId()) == 6942069) {
             RenderUtils.drawChromaString(text, x, y, idk);
         } else {
-            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, color, idk);
+            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
         }
 
         return x;

@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiScreen;
 public class HUDConfigScreen extends GuiScreen {
 
     public void initGui() {
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 148, "Back"));
+        this.buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 148, "Back"));
     }
 
     public void onGuiClosed() {

@@ -1,6 +1,6 @@
 package dev.resent.visual.ui;
 
-import dev.resent.util.misc.GlUtils;
+import dev.resent.module.base.ModManager;
 import dev.resent.util.render.Color;
 import dev.resent.visual.ui.animation.SimpleAnimation;
 import net.minecraft.client.Minecraft;
@@ -33,6 +33,8 @@ public class PreGUI extends GuiScreen {
     @Override
     protected void mouseClicked(int parInt1, int parInt2, int parInt3) {
         if (isMouseInside(parInt1, parInt2, GuiScreen.width / 2 - 30, GuiScreen.height / 2 + 20, GuiScreen.width / 2 + 50, GuiScreen.height / 2 + 50) && parInt3 == 0) {
+            ModManager.clickGui.setEnabled(true);
+            mc.gameSettings.saveOptions();
             mc.displayGuiScreen(new ClickGUI());
         }
         super.mouseClicked(parInt1, parInt2, parInt3);
