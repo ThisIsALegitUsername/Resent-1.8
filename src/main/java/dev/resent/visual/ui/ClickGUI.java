@@ -96,7 +96,7 @@ public class ClickGUI extends GuiScreen {
             for (Setting s : this.openedMod.settings) {
 
                 if (s instanceof BooleanSetting) {
-                    if (isMouseInside(mouseX, mouseY, this.x + 13, height - 9 + 50 - offset + var + 1, this.x + 20, height - 9 + 50 + 9 - offset + var - 1) && mouseButton == 0) {
+                    if (isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) && mouseButton == 0) {
                         ((BooleanSetting)s).toggle();
                     }
                 }
@@ -116,7 +116,7 @@ public class ClickGUI extends GuiScreen {
                     }
                 }
 
-                var += 9 + 2;
+                var += 11;
             }
         }
     }
