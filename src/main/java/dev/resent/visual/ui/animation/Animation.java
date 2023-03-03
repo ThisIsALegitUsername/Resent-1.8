@@ -1,6 +1,5 @@
 package dev.resent.visual.ui.animation;
 
-import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.HUD;
 
 public abstract class Animation {
