@@ -32,6 +32,9 @@ public class CapeUi extends GuiScreen {
             if (result != null) {
                 ImageData loadedCape = ImageData.loadImageFile(result.fileData);
                 if(loadedCape != null){
+                    for(int i = 0; 1 > i; i++){
+                        CapeManager.write(result.fileData);
+                    }
                     CapeManager.capeLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("uploadedcape", new DynamicTexture(loadedCape));
                     Minecraft.getMinecraft().displayGuiScreen(null);
                     //Minecraft.getMinecraft().getTextureManager().bindTexture(CapeManager.capeLocation);

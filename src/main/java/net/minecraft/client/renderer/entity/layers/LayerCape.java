@@ -39,6 +39,8 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
         if (abstractclientplayer.hasPlayerInfo() && !abstractclientplayer.isInvisible() && this.playerRenderer.getMainModel() instanceof ModelPlayer && ModManager.cape.isEnabled() && CapeManager.shouldRender(abstractclientplayer)) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             if(CapeManager.capeLocation == null){
+                if(CapeManager.read() != null)
+                    CapeManager.forceLoad(CapeManager.read());
                 this.playerRenderer.bindTexture(new ResourceLocation("eagler:gui/unnamed.png"));
             }else {
                 this.playerRenderer.bindTexture(CapeManager.capeLocation);
