@@ -9,6 +9,7 @@ import dev.resent.module.base.setting.BooleanSetting;
 public class FPSOptions extends Mod{
 
     public BooleanSetting batchRendering = new BooleanSetting("Batch rendering", "", false);
+    //public BooleanSetting delay = new BooleanSetting("Chunk delay", "", false);
 
     public FPSOptions(){
         addSetting(batchRendering);
