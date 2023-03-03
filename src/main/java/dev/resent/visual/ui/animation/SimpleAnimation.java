@@ -39,6 +39,6 @@ public class SimpleAnimation {
     }
     
     public boolean isDone() {
-    	return lastValue == value-1;
+    	return lastValue >= value-1;
     }
 }
