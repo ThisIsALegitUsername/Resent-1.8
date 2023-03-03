@@ -76,7 +76,7 @@ public class GameSettings {
     public boolean viewBobbing = true;
     public boolean anaglyph;
     public boolean fboEnable = true;
-    public int limitFramerate = 120;
+    public int limitFramerate = 200;
     /**+
      * Clouds flag
      */
