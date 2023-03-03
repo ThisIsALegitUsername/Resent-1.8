@@ -107,8 +107,8 @@
 			<span style="width: 0%" id="progress"></span>
 			</div>
 			<script type="text/javascript">
-				function updateTextProgress(progress, total){
-					document.getElementById("progresstext").innerText = Math.round(progress/total*100) + "%" + "(" + progress + "MB" + "/" +  total + "MB )";
+				function updateTextProgress(event, epkSize){
+					document.getElementById("progresstext").innerText = Math.round(event.loaded/epkSize*10000)/100 + "%" + "(" + Math.round(event.loaded/1024/1024*100)/100 + "MB" + "/" +  Math.round(epkSize/1024/1024*100)/100 + "MB )";
 				}
 				
 				function setVersion(version){
@@ -119,7 +119,7 @@
 					let progress = Math.round(event.loaded/1024/1024);
 					let size = Math.round(epkSize/1024/1024);
 					document.getElementById("progress").style.width = (Math.round(progress/size*100)+4)+"%";
-					updateTextProgress(progress, size);
+					updateTextProgress(event, epkSize);
 				}
 
 				function die(){
