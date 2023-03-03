@@ -1,14 +1,18 @@
 package net.minecraft.client.model;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_COMPILE;
+
+import java.util.List;
 
 import com.google.common.collect.Lists;
-import java.util.List;
+
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -135,7 +139,16 @@ public class ModelRenderer {
         this.rotationPointZ = rotationPointZIn;
     }
 
+    private boolean compiledState;
+
     public void render(float parFloat1) {
+
+        boolean batchRendering = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.batchRendering.getValue();
+
+        if (compiledState != batchRendering) {
+            this.compiled = false;
+        }
+
         if (!this.isHidden) {
             if (this.showModel) {
                 if (!this.compiled) {
@@ -259,8 +272,19 @@ public class ModelRenderer {
         EaglercraftGPU.glNewList(this.displayList, GL_COMPILE);
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
 
+        boolean batchRendering = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.batchRendering.getValue();
+                
+        this.compiledState = batchRendering;
+        if (batchRendering) {
+            Tessellator.getInstance().getWorldRenderer().begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
+        }
+
         for (int i = 0; i < this.cubeList.size(); ++i) {
             ((ModelBox) this.cubeList.get(i)).render(worldrenderer, scale);
+        }
+
+        if (batchRendering) {
+            Tessellator.getInstance().draw();
         }
 
         EaglercraftGPU.glEndList();

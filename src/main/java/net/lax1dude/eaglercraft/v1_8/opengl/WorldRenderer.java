@@ -32,7 +32,7 @@ public class WorldRenderer {
     private double xOffset;
     private double yOffset;
     private double zOffset;
-    private boolean isDrawing;
+    public boolean isDrawing;
 
     private VertexFormat vertexFormat;
 

@@ -1,5 +1,6 @@
 package net.minecraft.client.model;
 
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -54,6 +55,8 @@ public class TexturedQuad {
         this.vertexPositions = apositiontexturevertex;
     }
 
+    private boolean drawOnSelf;
+
     /**+
      * Draw this primitve. This is typically called only once as the
      * generated drawing instructions are saved by the renderer and
@@ -72,13 +75,22 @@ public class TexturedQuad {
             f2 = -f2;
         }
 
-        renderer.begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
+
+        boolean batchRendering = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.batchRendering.getValue();
+        this.drawOnSelf = !renderer.isDrawing;
+        if (this.drawOnSelf || !batchRendering) {
+            renderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        }
+
+        //renderer.begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
 
         for (int i = 0; i < 4; ++i) {
             PositionTextureVertex positiontexturevertex = this.vertexPositions[i];
             renderer.pos(positiontexturevertex.vector3D.xCoord * (double) scale, positiontexturevertex.vector3D.yCoord * (double) scale, positiontexturevertex.vector3D.zCoord * (double) scale).tex((double) positiontexturevertex.texturePositionX, (double) positiontexturevertex.texturePositionY).normal(f, f1, f2).endVertex();
         }
 
-        Tessellator.getInstance().draw();
+        if (this.drawOnSelf || !batchRendering) {
+            Tessellator.getInstance().draw();
+        }
     }
 }

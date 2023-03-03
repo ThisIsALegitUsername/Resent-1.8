@@ -28,6 +28,7 @@ import dev.resent.module.impl.misc.Cosmetics;
 import dev.resent.module.impl.misc.CrystalOptimizer;
 import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSB;
+import dev.resent.module.impl.misc.FPSOptions;
 import dev.resent.module.impl.misc.Fullbright;
 import dev.resent.module.impl.misc.HUD;
 import dev.resent.module.impl.misc.MinimalViewBobbing;
@@ -76,9 +77,11 @@ public class ModManager {
     public static BPS bps = new BPS();
     public static ClickGui clickGui = new ClickGui();
     public static ItemPhysics itemPhysics = new ItemPhysics();
+    public static FPSOptions fpsOptions = new FPSOptions();
 
     public ModManager() {
         //Hud
+        register(fpsOptions);
         register(itemPhysics);
         register(clickGui);
         register(bps);
