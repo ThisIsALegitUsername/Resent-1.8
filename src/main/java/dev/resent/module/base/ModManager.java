@@ -14,6 +14,7 @@ import dev.resent.module.impl.hud.FPS;
 import dev.resent.module.impl.hud.Freelook;
 import dev.resent.module.impl.hud.Hitboxes;
 import dev.resent.module.impl.hud.Info;
+import dev.resent.module.impl.hud.ItemPhysics;
 import dev.resent.module.impl.hud.KeyStrokes;
 import dev.resent.module.impl.hud.PotCounter;
 import dev.resent.module.impl.hud.PotionHUD;
@@ -74,9 +75,11 @@ public class ModManager {
     public static Cape cape = new Cape();
     public static BPS bps = new BPS();
     public static ClickGui clickGui = new ClickGui();
+    public static ItemPhysics itemPhysics = new ItemPhysics();
 
     public ModManager() {
         //Hud
+        register(itemPhysics);
         register(clickGui);
         register(bps);
         register(cape);
