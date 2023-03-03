@@ -99,7 +99,7 @@ public class ClickGUI extends GuiScreen {
             for (Setting s : this.openedMod.settings) {
 
                 if(s instanceof NumberSetting) {
-                    if(isMouseInside(mouseX, mouseY, width-152+sliderOffset, height+41+var, width-143+sliderOffset, height+50+var)) {
+                    if(isMouseInside(mouseX, mouseY, width-150+sliderOffset, height+41+var, width-141+sliderOffset, height+50+var)) {
                     	dragging = true;
                     }
                 }
