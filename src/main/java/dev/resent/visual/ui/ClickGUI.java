@@ -99,7 +99,9 @@ public class ClickGUI extends GuiScreen {
             for (Setting s : this.openedMod.settings) {
 
                 if(s instanceof NumberSetting) {
-                    
+                    if(isMouseInside(mouseX, mouseY, width-152+sliderOffset, height+41+var, width-143+sliderOffset, height+50+var)) {
+                    	dragging = true;
+                    }
                 }
 
                 if (s instanceof BooleanSetting) {
@@ -232,10 +234,24 @@ public class ClickGUI extends GuiScreen {
                         var += 3;
                     }
 
+                    if(dragging) {
+                    	sliderOffset = mouseX-(width-150);
+                    }
+                    
+                    if(sliderOffset < 0) {
+                    	dragging = false;
+                    	sliderOffset = 0;
+                    }
+                    
+                    if(width-150+sliderOffset > width-45) {
+                    	dragging = false;
+                    	sliderOffset = 100;
+                    }
+                    
                     if(s instanceof NumberSetting) {
                         fr.drawStringWithShadow(s.name, this.x+24, height+41+var, -1);
-                        drawRect(width-160, height+41+var, this.x+463, height+47+var, -1);
-                        RenderUtils.drawRoundedRect(width-160, height+41+var, width-155, height+46+var, 4, Color.RED.getRGB());
+                        drawRect(width-150, height+43+var, width-45, height+47+var, -1);
+                        RenderUtils.drawRoundedRect(width-150+sliderOffset, height+41+var, width-141+sliderOffset, height+50+var, 4, Color.RED.getRGB());
                     }
 
                     if (s instanceof BooleanSetting) {
@@ -249,7 +265,7 @@ public class ClickGUI extends GuiScreen {
                     if (s instanceof ModeSetting) {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - 9 + 50 + var, -1);
                         fr.drawStringWithShadow(((ModeSetting)s).getValue(), width-100-fr.getStringWidth(((ModeSetting)s).getValue())/2, height+41+var, -1);
-                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 160, height-9+50+var, -1);
+                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 150, height-9+50+var, -1);
                         //RenderUtils.drawRectOutline(this.x+370, height+39+var, this.x+360, height+50+var, -1);
                         fr.drawStringWithShadow(EnumChatFormatting.RED + ">", this.x+463, height-9+50+var, -1);
                         //RenderUtils.drawRectOutline(this.x+458, height+40+var, this.x+470, height+50+var, -1);
