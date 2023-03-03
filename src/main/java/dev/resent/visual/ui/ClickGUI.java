@@ -11,6 +11,7 @@ import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.CustomRectSettingDraw;
 import dev.resent.module.base.setting.ModeSetting;
+import dev.resent.module.base.setting.NumberSetting;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
@@ -40,6 +41,8 @@ public class ClickGUI extends GuiScreen {
     public FontRenderer fr;
     public boolean close = false;
     public Category selectedCategory = null;
+    public int sliderOffset;
+    public boolean dragging;
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
@@ -94,6 +97,10 @@ public class ClickGUI extends GuiScreen {
         if (openedMod != null) {
             int var = 0;
             for (Setting s : this.openedMod.settings) {
+
+                if(s instanceof NumberSetting) {
+                    
+                }
 
                 if (s instanceof BooleanSetting) {
                     if (isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) && mouseButton == 0) {
@@ -217,14 +224,20 @@ public class ClickGUI extends GuiScreen {
                 fr.drawString("<", x - 9 + 4, height + 29 + 9 + 2, -1);
                 fr.drawStringWithShadow(ClientInfo.name + " - " + openedMod.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + openedMod.getName()) / 2), height + 29 - 9 - 2, -1);
 
-                for (int amogus = 0; amogus < this.openedMod.settings.size(); amogus++) {
-                    Setting s = this.openedMod.settings.get(amogus);
+                for (Setting s : openedMod.settings) {
                     if(s instanceof CustomRectSettingDraw){
                         drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(150, 150, 150).getRGB() : new Color(211, 211, 211).getRGB());
                         //RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
                         fr.drawStringWithShadow(s.name, this.x + 24, height +43 + var, -1);
                         var += 3;
                     }
+
+                    if(s instanceof NumberSetting) {
+                        fr.drawStringWithShadow(s.name, this.x+24, height+41+var, -1);
+                        drawRect(width-160, height+41+var, this.x+463, height+47+var, -1);
+                        RenderUtils.drawRoundedRect(width-160, height+41+var, width-155, height+46+var, 4, Color.RED.getRGB());
+                    }
+
                     if (s instanceof BooleanSetting) {
                         drawRect(this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1, isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
@@ -236,7 +249,7 @@ public class ClickGUI extends GuiScreen {
                     if (s instanceof ModeSetting) {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - 9 + 50 + var, -1);
                         fr.drawStringWithShadow(((ModeSetting)s).getValue(), width-100-fr.getStringWidth(((ModeSetting)s).getValue())/2, height+41+var, -1);
-                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 150, height-9+50+var, -1);
+                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 160, height-9+50+var, -1);
                         //RenderUtils.drawRectOutline(this.x+370, height+39+var, this.x+360, height+50+var, -1);
                         fr.drawStringWithShadow(EnumChatFormatting.RED + ">", this.x+463, height-9+50+var, -1);
                         //RenderUtils.drawRectOutline(this.x+458, height+40+var, this.x+470, height+50+var, -1);
@@ -273,6 +286,11 @@ public class ClickGUI extends GuiScreen {
     public void initGui() {
         mc.gameSettings.loadOptions();
         introAnimation = Theme.getAnimation(Theme.getAnimationId(), 500, 1, 3, 3.8f, 1.35f, false);
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton){
+        dragging = false;
     }
 
     protected void keyTyped(char par1, int par2) {
