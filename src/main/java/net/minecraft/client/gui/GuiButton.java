@@ -1,15 +1,10 @@
 package net.minecraft.client.gui;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
-
 import dev.resent.util.render.Color;
-import dev.resent.util.render.RenderUtils;
-import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
-import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import dev.resent.util.render.RoundedUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 
 /**+
@@ -80,8 +75,7 @@ public class GuiButton extends Gui {
      * Draws this button to the screen.
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-        if(!Tessellator.getInstance().getWorldRenderer().isDrawing)
-        RenderUtils.drawRoundedRect(this.xPosition, this.yPosition, xPosition + width, yPosition + this.height, 4, Color.BLACK.getRGB(), true);
+        RoundedUtil.drawSmoothRoundedRect(this.xPosition, this.yPosition, xPosition + width, yPosition + this.height, 4, Color.BLACK.getRGB());
 
         this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
         drawCenteredString(mc.fontRendererObj, this.displayString, this.xPosition + this.width / 2f, this.yPosition + (this.height - 8) / 2f, this.hovered ? new Color(47, 116, 253, 255).getRGB() : new Color(200, 200, 200).getRGB());
