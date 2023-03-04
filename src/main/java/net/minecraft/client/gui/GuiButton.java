@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import dev.resent.util.render.Color;
+import dev.resent.util.render.RenderUtils;
 import dev.resent.util.render.RoundedUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -75,7 +76,7 @@ public class GuiButton extends Gui {
      * Draws this button to the screen.
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-        RoundedUtil.drawSmoothRoundedRect(this.xPosition, this.yPosition, xPosition + width, yPosition + this.height, 4, Color.BLACK.getRGB());
+        RenderUtils.drawRoundedRect(this.xPosition, this.yPosition, xPosition + width, yPosition + this.height, 4, Color.BLACK.getRGB());
 
         this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
         drawCenteredString(mc.fontRendererObj, this.displayString, this.xPosition + this.width / 2f, this.yPosition + (this.height - 8) / 2f, this.hovered ? new Color(47, 116, 253, 255).getRGB() : new Color(200, 200, 200).getRGB());
