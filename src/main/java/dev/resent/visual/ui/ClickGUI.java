@@ -234,24 +234,27 @@ public class ClickGUI extends GuiScreen {
                         var += 3;
                     }
 
-                    if(dragging) {
-                    	sliderOffset = mouseX-(width-150);
-                    }
-                    
-                    if(sliderOffset < 0) {
-                    	dragging = false;
-                    	sliderOffset = 0;
-                    }
-                    
-                    if(width-150+sliderOffset > width-45) {
-                    	dragging = false;
-                    	sliderOffset = 100;
-                    }
+                    NumberSetting ss = ((NumberSetting)s);
                     
                     if(s instanceof NumberSetting) {
-                        fr.drawStringWithShadow(s.name, this.x+24, height+41+var, -1);
+                        fr.drawStringWithShadow(s.name + ": sof " + sliderOffset + ", val: " + ((NumberSetting)s).getValue(), this.x+24, height+41+var, -1);
                         drawRect(width-150, height+43+var, width-45, height+47+var, -1);
                         RenderUtils.drawRoundedRect(width-150+sliderOffset, height+41+var, width-141+sliderOffset, height+50+var, 4, Color.RED.getRGB());
+
+                        if(dragging) {
+                            sliderOffset = mouseX-(width-150);
+                            ss.setValue(sliderOffset*(ss.max/100));
+                        }
+                        
+                        if(sliderOffset < 0) {
+                            dragging = false;
+                            sliderOffset = 0;
+                        }
+                        
+                        if(width-141+sliderOffset > width-45) {
+                            dragging = false;
+                            sliderOffset = 100;
+                        }
                     }
 
                     if (s instanceof BooleanSetting) {

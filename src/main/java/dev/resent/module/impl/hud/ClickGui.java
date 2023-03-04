@@ -12,7 +12,7 @@ public class ClickGui extends Mod{
 
     public BooleanSetting scroll = new BooleanSetting("Smooth scroll", "", false);
     public ModeSetting guiTheme = new ModeSetting("Gui theme", "New", "New", "Classic revised");
-    public NumberSetting test = new NumberSetting("Test, ignore!", "", 50, 1, 255, 5, 5);
+    public NumberSetting test = new NumberSetting("Test, ignore!", "", 50, 1, 200, 5, 5);
 
     public ClickGui(){
         addSetting(scroll, guiTheme, test);

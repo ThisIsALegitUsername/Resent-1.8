@@ -7,12 +7,14 @@ public class NumberSetting extends Setting {
     public float value;
     public float increment;
     public float decrement;
+    public float initValue;
     public float min;
     public float max;
 
     public NumberSetting(String name, String description, float value, float min, float max, float increment, float decrement) {
         super(name, description);
         this.value = value;
+        this.initValue = value;
         this.increment = increment;
         this.decrement = decrement;
         this.min = min;
@@ -37,6 +39,10 @@ public class NumberSetting extends Setting {
 
     public float getValue() {
         return value;
+    }
+
+    public float getInitialValue(){
+        return initValue;
     }
 
     public float getIncrement() {
