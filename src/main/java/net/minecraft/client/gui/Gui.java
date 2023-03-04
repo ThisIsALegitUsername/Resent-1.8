@@ -138,7 +138,7 @@ public class Gui {
      * Renders the specified text to the screen, center-aligned.
      * Args : renderer, string, x, y, color
      */
-    public static void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
+    public static void drawCenteredString(FontRenderer fontRendererIn, String text, float x, float y, int color) {
         fontRendererIn.drawString(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), (float) y, color, true);
     }
 

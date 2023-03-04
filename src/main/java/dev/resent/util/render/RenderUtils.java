@@ -2,7 +2,9 @@ package dev.resent.util.render;
 
 import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.visual.ui.Theme;
+import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -54,6 +56,70 @@ public class RenderUtils {
         }
         hue += 0.5F;
         return Color.HSBtoRGB(hue, 0.5f, 1f);
+    }
+
+    public static void drawOtherRoundedRect(float paramXStart, float paramYStart, float paramXEnd, float paramYEnd, float radius, int color, boolean popPush) {
+        float alpha = (color >> 24 & 0xFF) / 255.0F;
+        float red = (color >> 16 & 0xFF) / 255.0F;
+        float green = (color >> 8 & 0xFF) / 255.0F;
+        float blue = (color & 0xFF) / 255.0F;
+
+        float z = 0;
+        if (paramXStart > paramXEnd) {
+            z = paramXStart;
+            paramXStart = paramXEnd;
+            paramXEnd = z;
+        }
+
+        if (paramYStart > paramYEnd) {
+            z = paramYStart;
+            paramYStart = paramYEnd;
+            paramYEnd = z;
+        }
+
+    	double x1 = (double)(paramXStart + radius);
+    	double y1 = (double)(paramYStart + radius);
+    	double x2 = (double)(paramXEnd - radius);
+    	double y2 = (double)(paramYEnd - radius);
+
+        if (popPush)
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.enableTexture2D();
+        GlStateManager.blendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
+        EaglercraftGPU.glLineWidth(1);
+        //glEnable(GL_LINE_SMOOTH);
+
+    	GlStateManager.color(red, green, blue, alpha);
+        
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        worldrenderer.begin(RealOpenGLEnums.GL_POLYGON, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(RealOpenGLEnums.GL_LINE_SMOOTH, DefaultVertexFormats.POSITION_TEX);
+
+        double degree = Math.PI / 180;
+        for (double i = 0; i <= 90; i += 1)
+            glVertex2d(x2 + Math.sin(i * degree) * radius, y2 + Math.cos(i * degree) * radius);
+        for (double i = 90; i <= 180; i += 1)
+            glVertex2d(x2 + Math.sin(i * degree) * radius, y1 + Math.cos(i * degree) * radius);
+        for (double i = 180; i <= 270; i += 1)
+            glVertex2d(x1 + Math.sin(i * degree) * radius, y1 + Math.cos(i * degree) * radius);
+        for (double i = 270; i <= 360; i += 1)
+            glVertex2d(x1 + Math.sin(i * degree) * radius, y2 + Math.cos(i * degree) * radius);
+        EaglercraftGPU.glEndList();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        //glDisable(GL_LINE_SMOOTH);
+        if (popPush) 
+        GlStateManager.popMatrix();
+    }
+
+    public static void glVertex2d(double idk, double idk2){
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.pos(idk, idk2, 0);
     }
 
     public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... forceOverride) {
