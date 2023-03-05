@@ -1,12 +1,14 @@
 package net.minecraft.client.renderer.entity;
 
-import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_GREATER;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
+
+import java.util.List;
 
 import com.google.common.collect.Lists;
 
 import dev.resent.module.base.ModManager;
-
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
@@ -15,7 +17,6 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GLAllocation;
@@ -126,8 +127,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             this.preRenderCallback(entitylivingbase, f1);
             float f6 = 0.0625F;
             GlStateManager.translate(0.0F, -1.5078125F, 0.0F);
-            float f7 = entitylivingbase.prevLimbSwingAmount + (entitylivingbase.limbSwingAmount - entitylivingbase.prevLimbSwingAmount) * f1;
-            float f8 = entitylivingbase.limbSwing - entitylivingbase.limbSwingAmount * (1.0F - f1);
+            float f7 = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.noArmSwing.getValue() ? 0 : entitylivingbase.prevLimbSwingAmount + (entitylivingbase.limbSwingAmount - entitylivingbase.prevLimbSwingAmount) * f1;
+            float f8 = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.noArmSwing.getValue() ? 0 : entitylivingbase.limbSwing - entitylivingbase.limbSwingAmount * (1.0F - f1);
             if (entitylivingbase.isChild()) {
                 f8 *= 3.0F;
             }

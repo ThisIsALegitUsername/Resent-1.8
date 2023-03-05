@@ -18,6 +18,8 @@ public class FPSOptions extends Mod{
     public BooleanSetting limit = new BooleanSetting("Limit particles", "", true);
     public BooleanSetting lowTick = new BooleanSetting("Low animation", "", true);
     public BooleanSetting lightUpdates = new BooleanSetting("Light updates", "", false);
+    public BooleanSetting noArmSwing = new BooleanSetting("No limb swing", "", true);
+    public BooleanSetting reducedWater = new BooleanSetting("Reduced water lag", "", true);
     public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", ""){
         @Override
         public void onChange(){
@@ -52,7 +54,7 @@ public class FPSOptions extends Mod{
     //public BooleanSetting delay = new BooleanSetting("Chunk delay", "", false);
 
     public FPSOptions(){
-        addSetting(batchRendering, blockEffects, limit, lowTick, lightUpdates, minSetting);
+        addSetting(batchRendering, blockEffects, limit, lowTick, lightUpdates, noArmSwing, reducedWater, minSetting);
     }
     
 }

@@ -1,7 +1,7 @@
 #!/bin/sh
 cd javascript
 mv assets.epk as.epk
-cd javascript/badwifi
+cd badwifi
 rm EaglercraftX_1.8_Offline_en_US.html
 rm EaglercraftX_1.8_Offline_International.html
 rm Resent_3.6_patch__1.8_US.html

@@ -2,9 +2,12 @@ package net.minecraft.block;
 
 import java.util.EnumSet;
 import java.util.Set;
+
+import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -41,6 +44,9 @@ public class BlockDynamicLiquid extends BlockLiquid {
     }
 
     public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
+        long framebufferAge = Minecraft.getMinecraft().entityRenderer.overlayFramebuffer.getAge();
+        if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
+            if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.reducedWater.getValue()){
         int i = ((Integer) iblockstate.getValue(LEVEL)).intValue();
         byte b0 = 1;
         if (this.blockMaterial == Material.lava && !world.provider.doesWaterVaporize()) {
@@ -128,6 +134,8 @@ public class BlockDynamicLiquid extends BlockLiquid {
                 this.tryFlowInto(world, blockpos.offset(enumfacing1), world.getBlockState(blockpos.offset(enumfacing1)), j1);
             }
         }
+    }
+}
     }
 
     private void tryFlowInto(World worldIn, BlockPos pos, IBlockState state, int level) {
