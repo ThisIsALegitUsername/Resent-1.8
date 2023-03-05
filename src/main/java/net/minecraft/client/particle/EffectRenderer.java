@@ -4,6 +4,9 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
+import dev.resent.module.base.ModManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +153,8 @@ public class EffectRenderer {
     public void addEffect(EntityFX effect) {
         int i = effect.getFXLayer();
         int j = effect.getAlpha() != 1.0F ? 0 : 1;
-        if (this.fxLayers[i][j].size() >= 4000) {
+        int uwu = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.limit.getValue() ? 100 : 4000;
+        if (this.fxLayers[i][j].size() >= uwu) {
             this.fxLayers[i][j].remove(0);
         }
 
@@ -355,6 +359,9 @@ public class EffectRenderer {
     }
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state) {
+        if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.blockEffects.getValue())
+            return;
+
         if (state.getBlock().getMaterial() != Material.air) {
             state = state.getBlock().getActualState(state, this.worldObj, pos);
             byte b0 = 4;
@@ -376,6 +383,9 @@ public class EffectRenderer {
      * Adds block hit particles for the specified block
      */
     public void addBlockHitEffects(BlockPos pos, EnumFacing side) {
+        if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.blockEffects.getValue())
+            return;
+
         IBlockState iblockstate = this.worldObj.getBlockState(pos);
         Block block = iblockstate.getBlock();
         if (block.getRenderType() != -1) {
