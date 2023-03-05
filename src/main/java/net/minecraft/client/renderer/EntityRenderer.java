@@ -1011,7 +1011,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     public void renderWorld(float partialTicks, long finishTimeNano) {
         long framebufferAge = this.overlayFramebuffer.getAge();
-        if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
+        if (ModManager.fpsOptions.lightUpdates.getValue() && framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
             this.updateLightmap(partialTicks);
         }
         if (this.mc.getRenderViewEntity() == null) {

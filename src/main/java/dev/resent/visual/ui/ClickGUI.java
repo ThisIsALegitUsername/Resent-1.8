@@ -243,10 +243,8 @@ public class ClickGUI extends GuiScreen {
                         if(dragging) {
                             sliderOffset = mouseX-(width-150);                          
                             ss.setValue(sliderOffset*(ss.max/100));
-                        }
-                        
-                        if(!dragging) {
-                        	sliderOffset = (int) ((ss.getValue() * 100)/ss.max);
+                        }else {
+                            sliderOffset = (int) ((ss.getValue() * 100)/ss.max);
                         }
                         
                         if(sliderOffset < 0) {
@@ -254,7 +252,7 @@ public class ClickGUI extends GuiScreen {
                             sliderOffset = 0;
                         }
                         
-                        if(width-141+sliderOffset > width-50) {
+                        if(sliderOffset > 101) {
                             dragging = false;
                             sliderOffset = 100;
                         }

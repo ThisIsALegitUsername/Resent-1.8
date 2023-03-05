@@ -17,6 +17,7 @@ public class FPSOptions extends Mod{
     public BooleanSetting blockEffects = new BooleanSetting("Remove block effects", "", true);
     public BooleanSetting limit = new BooleanSetting("Limit particles", "", true);
     public BooleanSetting lowTick = new BooleanSetting("Low animation", "", true);
+    public BooleanSetting lightUpdates = new BooleanSetting("Light updates", "", false);
     public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", ""){
         @Override
         public void onChange(){
@@ -51,7 +52,7 @@ public class FPSOptions extends Mod{
     //public BooleanSetting delay = new BooleanSetting("Chunk delay", "", false);
 
     public FPSOptions(){
-        addSetting(batchRendering, minSetting);
+        addSetting(batchRendering, blockEffects, limit, lowTick, lightUpdates, minSetting);
     }
     
 }
