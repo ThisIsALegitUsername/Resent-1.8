@@ -1,6 +1,9 @@
 package net.minecraft.client.multiplayer;
 
 import com.google.common.collect.Sets;
+
+import dev.resent.module.base.ModManager;
+
 import java.util.Set;
 import java.util.concurrent.Callable;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
@@ -276,9 +279,9 @@ public class WorldClient extends World {
         ItemStack itemstack = this.mc.thePlayer.getHeldItem();
         boolean flag = this.mc.playerController.getCurrentGameType() == WorldSettings.GameType.CREATIVE && itemstack != null && Block.getBlockFromItem(itemstack.getItem()) == Blocks.barrier;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-        int 
+        int ratio = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.lowTick.getValue() ? 100 : 1000;
 
-        for (int i = 0; i < 1000; ++i) {
+        for (int i = 0; i < ratio; ++i) {
             int j = parInt1 + this.rand.nextInt(b0) - this.rand.nextInt(b0);
             int k = parInt2 + this.rand.nextInt(b0) - this.rand.nextInt(b0);
             int l = parInt3 + this.rand.nextInt(b0) - this.rand.nextInt(b0);
