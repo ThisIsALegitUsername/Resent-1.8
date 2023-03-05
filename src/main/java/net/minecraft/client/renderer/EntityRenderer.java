@@ -674,7 +674,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private void updateLightmap(float partialTicks) {
-        if (this.lightmapUpdateNeeded) {
+        if (this.lightmapUpdateNeeded && !ModManager.fpsOptions.lightUpdates.getValue()) {
             this.mc.mcProfiler.startSection("lightTex");
             WorldClient worldclient = this.mc.theWorld;
             if (worldclient != null) {
@@ -1011,7 +1011,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     public void renderWorld(float partialTicks, long finishTimeNano) {
         long framebufferAge = this.overlayFramebuffer.getAge();
-        if (ModManager.fpsOptions.lightUpdates.getValue() && framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
+        if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
             this.updateLightmap(partialTicks);
         }
         if (this.mc.getRenderViewEntity() == null) {

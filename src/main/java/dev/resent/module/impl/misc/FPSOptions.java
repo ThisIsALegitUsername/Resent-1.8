@@ -17,7 +17,7 @@ public class FPSOptions extends Mod{
     public BooleanSetting blockEffects = new BooleanSetting("Remove block effects", "", true);
     public BooleanSetting limit = new BooleanSetting("Limit particles", "", true);
     public BooleanSetting lowTick = new BooleanSetting("Low animation", "", true);
-    public BooleanSetting lightUpdates = new BooleanSetting("Light updates", "", false);
+    public BooleanSetting lightUpdates = new BooleanSetting("No light updates", "", false);
     public BooleanSetting noArmSwing = new BooleanSetting("No limb swing", "", true);
     public BooleanSetting reducedWater = new BooleanSetting("Reduced water lag", "", true);
     public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", ""){

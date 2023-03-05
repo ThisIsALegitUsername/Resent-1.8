@@ -2108,10 +2108,9 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos) {
-        if(!ModManager.fpsOptions.lightUpdates.getValue()){
+        if(ModManager.fpsOptions.lightUpdates.getValue()){
             return true;
-        }
-        if (!this.isAreaLoaded(pos, 17, false)) {
+        }else if (!this.isAreaLoaded(pos, 17, false)) {
             return false;
         } else {
             int i = 0;
