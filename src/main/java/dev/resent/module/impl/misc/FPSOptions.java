@@ -22,7 +22,7 @@ public class FPSOptions extends Mod{
     public BooleanSetting reducedWater = new BooleanSetting("Reduced water lag", "", true);
     public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", ""){
         @Override
-        public void onChange(){
+        public void onPress(){
             GameSettings gameSettings = mc.gameSettings;
 
             GlStateManager.enableTexture2D();

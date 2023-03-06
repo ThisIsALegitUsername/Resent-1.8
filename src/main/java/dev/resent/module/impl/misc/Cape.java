@@ -10,7 +10,7 @@ import dev.resent.visual.cape.CapeUi;
 public class Cape extends Mod{
     public CustomRectSettingDraw open = new CustomRectSettingDraw("Choose cape", "Select which cape you want to use"){
         @Override
-        public void onChange(){
+        public void onPress(){
             mc.displayGuiScreen(new CapeUi());
         }
     };

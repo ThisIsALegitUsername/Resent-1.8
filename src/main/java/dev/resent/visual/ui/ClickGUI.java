@@ -121,7 +121,7 @@ public class ClickGUI extends GuiScreen {
 
                 if(s instanceof CustomRectSettingDraw){
                     if(isMouseInside(mouseX, mouseY, x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53)){
-                        ((CustomRectSettingDraw)s).onChange();
+                        ((CustomRectSettingDraw)s).onPress();
                     }
                 }
 

@@ -5,5 +5,5 @@ public class CustomRectSettingDraw extends Setting{
         super(name, description);
     }
 
-    public void onChange(){ }
+    public void onPress(){ }
 }
