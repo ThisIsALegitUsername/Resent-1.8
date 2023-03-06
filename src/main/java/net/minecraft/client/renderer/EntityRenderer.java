@@ -657,9 +657,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public void enableLightmap() {
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.enableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        if(!ModManager.fpsOptions.lightUpdates.getValue() || !ModManager.fullbright.isEnabled()){
+            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+            GlStateManager.enableTexture2D();
+            GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        }
     }
 
     /**+
@@ -674,7 +676,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private void updateLightmap(float partialTicks) {
-        if (this.lightmapUpdateNeeded && !ModManager.fpsOptions.lightUpdates.getValue()) {
+        if (this.lightmapUpdateNeeded) {
             this.mc.mcProfiler.startSection("lightTex");
             WorldClient worldclient = this.mc.theWorld;
             if (worldclient != null) {
