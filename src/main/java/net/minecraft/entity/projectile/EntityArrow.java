@@ -82,8 +82,8 @@ public class EntityArrow extends Entity implements IProjectile {
         double d2 = parEntityLivingBase.posZ - shooter.posZ;
         double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d2 * d2);
         if (d3 >= 1.0E-7D) {
-            float f = (float) (MathHelper.func_181159_b(d2, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
-            float f1 = (float) (-(MathHelper.func_181159_b(d1, d3) * 180.0D / 3.1415927410125732D));
+            float f = (float) (MathHelper.func_181159_b(d2, d0) * 180.0D / 3.141) - 90.0F;
+            float f1 = (float) (-(MathHelper.func_181159_b(d1, d3) * 180.0D / 3.141));
             double d4 = d0 / d3;
             double d5 = d2 / d3;
             this.setLocationAndAngles(shooter.posX + d4, this.posY, shooter.posZ + d5, f, f1);
@@ -102,13 +102,13 @@ public class EntityArrow extends Entity implements IProjectile {
 
         this.setSize(0.5F, 0.5F);
         this.setLocationAndAngles(shooter.posX, shooter.posY + (double) shooter.getEyeHeight(), shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
-        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.141F) * 0.16F);
         this.posY -= 0.10000000149011612D;
-        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.141F) * 0.16F);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F));
-        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F));
-        this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F));
+        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.141F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.141F));
+        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.141F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.141F));
+        this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.141F));
         this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, velocity * 1.5F, 1.0F);
     }
 
@@ -135,8 +135,8 @@ public class EntityArrow extends Entity implements IProjectile {
         this.motionY = y;
         this.motionZ = z;
         float f1 = MathHelper.sqrt_double(x * x + z * z);
-        this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(x, z) * 180.0D / 3.1415927410125732D);
-        this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(y, (double) f1) * 180.0D / 3.1415927410125732D);
+        this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(x, z) * 180.0D / 3.141);
+        this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(y, (double) f1) * 180.0D / 3.141);
         this.ticksInGround = 0;
     }
 
@@ -154,8 +154,8 @@ public class EntityArrow extends Entity implements IProjectile {
         this.motionZ = d2;
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D / 3.1415927410125732D);
-            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D / 3.1415927410125732D);
+            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D / 3.141);
+            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D / 3.141);
             this.prevRotationPitch = this.rotationPitch;
             this.prevRotationYaw = this.rotationYaw;
             this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
@@ -170,8 +170,8 @@ public class EntityArrow extends Entity implements IProjectile {
         super.onUpdate();
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
-            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f) * 180.0D / 3.1415927410125732D);
+            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / 3.141);
+            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f) * 180.0D / 3.141);
         }
 
         BlockPos blockpos = new BlockPos(this.xTile, this.yTile, this.zTile);
@@ -328,9 +328,9 @@ public class EntityArrow extends Entity implements IProjectile {
             this.posY += this.motionY;
             this.posZ += this.motionZ;
             float f3 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
+            this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / 3.141);
 
-            for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f3) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
+            for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f3) * 180.0D / 3.141); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
                 this.prevRotationPitch += 360.0F;

@@ -130,7 +130,7 @@ public abstract class EntityLivingBase extends Entity {
         this.field_70770_ap = (float) ((Math.random() + 1.0D) * 0.009999999776482582D);
         this.setPosition(this.posX, this.posY, this.posZ);
         this.field_70769_ao = (float) Math.random() * 12398.0F;
-        this.rotationYaw = (float) (Math.random() * 3.1415927410125732D * 2.0D);
+        this.rotationYaw = (float) (Math.random() * 3.141 * 2.0D);
         this.rotationYawHead = this.rotationYaw;
         this.stepHeight = 0.6F;
     }
@@ -595,12 +595,12 @@ public abstract class EntityLivingBase extends Entity {
 
         for (int i = 0; i < 5; ++i) {
             Vec3 vec3 = new Vec3(((double) this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-            vec3 = vec3.rotatePitch(-this.rotationPitch * 3.1415927F / 180.0F);
-            vec3 = vec3.rotateYaw(-this.rotationYaw * 3.1415927F / 180.0F);
+            vec3 = vec3.rotatePitch(-this.rotationPitch * 3.141F / 180.0F);
+            vec3 = vec3.rotateYaw(-this.rotationYaw * 3.141F / 180.0F);
             double d0 = (double) (-this.rand.nextFloat()) * 0.6D - 0.3D;
             Vec3 vec31 = new Vec3(((double) this.rand.nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
-            vec31 = vec31.rotatePitch(-this.rotationPitch * 3.1415927F / 180.0F);
-            vec31 = vec31.rotateYaw(-this.rotationYaw * 3.1415927F / 180.0F);
+            vec31 = vec31.rotatePitch(-this.rotationPitch * 3.141F / 180.0F);
+            vec31 = vec31.rotateYaw(-this.rotationYaw * 3.141F / 180.0F);
             vec31 = vec31.addVector(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
             this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, new int[] { Item.getIdFromItem(stack.getItem()) });
         }
@@ -1203,7 +1203,7 @@ public abstract class EntityLivingBase extends Entity {
         if (f > 0.0025000002F) {
             f3 = 1.0F;
             f2 = (float) Math.sqrt((double) f) * 3.0F;
-            f1 = (float) MathHelper.func_181159_b(d1, d0) * 180.0F / 3.1415927F - 90.0F;
+            f1 = (float) MathHelper.func_181159_b(d1, d0) * 180.0F / 3.141F - 90.0F;
         }
 
         if (this.swingProgress > 0.0F) {

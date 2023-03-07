@@ -75,7 +75,7 @@ public class MobAppearance extends EntityFX {
             float f3 = 240.0F;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f3, f3);
             GlStateManager.pushMatrix();
-            float f4 = 0.05F + 0.5F * MathHelper.sin(f2 * 3.1415927F);
+            float f4 = 0.05F + 0.5F * MathHelper.sin(f2 * 3.141F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, f4);
             GlStateManager.translate(0.0F, 1.8F, 0.0F);
             GlStateManager.rotate(180.0F - entityx.rotationYaw, 0.0F, 1.0F, 0.0F);

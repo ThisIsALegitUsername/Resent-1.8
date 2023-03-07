@@ -735,8 +735,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             f += 180.0F;
         }
 
-        float f2 = MathHelper.cos(-f1 * 0.017453292F - 3.1415927F);
-        float f3 = MathHelper.sin(-f1 * 0.017453292F - 3.1415927F);
+        float f2 = MathHelper.cos(-f1 * 0.017453292F - 3.141F);
+        float f3 = MathHelper.sin(-f1 * 0.017453292F - 3.141F);
         float f4 = -MathHelper.cos(-f * 0.017453292F);
         float f5 = MathHelper.sin(-f * 0.017453292F);
         return new Vector3f(f3 * f4, f5, f2 * f4);
@@ -912,7 +912,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 boolean flag = true;
 
                 for (int k = 0; k <= 16; ++k) {
-                    float f21 = (float) k * 3.1415927F * 2.0F / 16.0F;
+                    float f21 = (float) k * 3.141F * 2.0F / 16.0F;
                     float f12 = MathHelper.sin(f21);
                     float f13 = MathHelper.cos(f21);
                     worldrenderer.pos((double) (f12 * 120.0F), (double) (f13 * 120.0F), (double) (f13 * 40.0F * afloat[3])).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();

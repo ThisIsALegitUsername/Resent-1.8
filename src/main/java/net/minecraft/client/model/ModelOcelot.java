@@ -122,13 +122,13 @@ public class ModelOcelot extends ModelBase {
             if (this.field_78163_i == 2) {
                 this.ocelotBackLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1;
                 this.ocelotBackRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 0.3F) * 1.0F * f1;
-                this.ocelotFrontLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F + 0.3F) * 1.0F * f1;
-                this.ocelotFrontRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.0F * f1;
-                this.ocelotTail2.rotateAngleX = 1.7278761F + 0.31415927F * MathHelper.cos(f) * f1;
+                this.ocelotFrontLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F + 0.3F) * 1.0F * f1;
+                this.ocelotFrontRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.0F * f1;
+                this.ocelotTail2.rotateAngleX = 1.7278761F + 0.3141F * MathHelper.cos(f) * f1;
             } else {
                 this.ocelotBackLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1;
-                this.ocelotBackRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.0F * f1;
-                this.ocelotFrontLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.0F * f1;
+                this.ocelotBackRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.0F * f1;
+                this.ocelotFrontLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.0F * f1;
                 this.ocelotFrontRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1;
                 if (this.field_78163_i == 1) {
                     this.ocelotTail2.rotateAngleX = 1.7278761F + 0.7853982F * MathHelper.cos(f) * f1;

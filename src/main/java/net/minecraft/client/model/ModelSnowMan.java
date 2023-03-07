@@ -66,7 +66,7 @@ public class ModelSnowMan extends ModelBase {
         this.rightHand.rotateAngleZ = 1.0F;
         this.leftHand.rotateAngleZ = -1.0F;
         this.rightHand.rotateAngleY = 0.0F + this.body.rotateAngleY;
-        this.leftHand.rotateAngleY = 3.1415927F + this.body.rotateAngleY;
+        this.leftHand.rotateAngleY = 3.141F + this.body.rotateAngleY;
         this.rightHand.rotationPointX = f7 * 5.0F;
         this.rightHand.rotationPointZ = -f6 * 5.0F;
         this.leftHand.rotationPointX = -f7 * 5.0F;

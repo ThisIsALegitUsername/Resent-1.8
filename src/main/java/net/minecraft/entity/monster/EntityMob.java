@@ -85,7 +85,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
         boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
         if (flag) {
             if (i > 0) {
-                entity.addVelocity((double) (-MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F));
+                entity.addVelocity((double) (-MathHelper.sin(this.rotationYaw * 3.141F / 180.0F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(this.rotationYaw * 3.141F / 180.0F) * (float) i * 0.5F));
                 this.motionX *= 0.6D;
                 this.motionZ *= 0.6D;
             }

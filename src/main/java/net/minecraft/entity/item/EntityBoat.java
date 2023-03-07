@@ -265,8 +265,8 @@ public class EntityBoat extends Entity {
             if (this.riddenByEntity instanceof EntityLivingBase) {
                 EntityLivingBase entitylivingbase = (EntityLivingBase) this.riddenByEntity;
                 float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
-                this.motionX += -Math.sin((double) (f * 3.1415927F / 180.0F)) * this.speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
-                this.motionZ += Math.cos((double) (f * 3.1415927F / 180.0F)) * this.speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
+                this.motionX += -Math.sin((double) (f * 3.141F / 180.0F)) * this.speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
+                this.motionZ += Math.cos((double) (f * 3.141F / 180.0F)) * this.speedMultiplier * (double) entitylivingbase.moveForward * 0.05000000074505806D;
             }
 
             double d11 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);

@@ -60,7 +60,7 @@ public class ModelBlaze extends ModelBase {
      * legs can swing at most.
      */
     public void setRotationAngles(float var1, float var2, float f, float f1, float f2, float var6, Entity var7) {
-        float f3 = f * 3.1415927F * -0.1F;
+        float f3 = f * 3.141F * -0.1F;
 
         for (int i = 0; i < 4; ++i) {
             this.blazeSticks[i].rotationPointY = -2.0F + MathHelper.cos(((float) (i * 2) + f) * 0.25F);
@@ -69,7 +69,7 @@ public class ModelBlaze extends ModelBase {
             ++f3;
         }
 
-        f3 = 0.7853982F + f * 3.1415927F * 0.03F;
+        f3 = 0.7853982F + f * 3.141F * 0.03F;
 
         for (int j = 4; j < 8; ++j) {
             this.blazeSticks[j].rotationPointY = 2.0F + MathHelper.cos(((float) (j * 2) + f) * 0.25F);
@@ -78,7 +78,7 @@ public class ModelBlaze extends ModelBase {
             ++f3;
         }
 
-        f3 = 0.47123894F + f * 3.1415927F * -0.05F;
+        f3 = 0.47123894F + f * 3.141F * -0.05F;
 
         for (int k = 8; k < 12; ++k) {
             this.blazeSticks[k].rotationPointY = 11.0F + MathHelper.cos(((float) k * 1.5F + f) * 0.5F);

@@ -98,11 +98,11 @@ public abstract class WorldProvider {
      */
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
         float f = 0.4F;
-        float f1 = MathHelper.cos(celestialAngle * 3.1415927F * 2.0F) - 0.0F;
+        float f1 = MathHelper.cos(celestialAngle * 3.141F * 2.0F) - 0.0F;
         float f2 = 0.0F;
         if (f1 >= f2 - f && f1 <= f2 + f) {
             float f3 = (f1 - f2) / f * 0.5F + 0.5F;
-            float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * 3.1415927F)) * 0.99F;
+            float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * 3.141F)) * 0.99F;
             f4 = f4 * f4;
             this.colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
             this.colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
@@ -118,7 +118,7 @@ public abstract class WorldProvider {
      * Return Vec3D with biome specific fog color
      */
     public Vec3 getFogColor(float parFloat1, float parFloat2) {
-        float f = MathHelper.cos(parFloat1 * 3.1415927F * 2.0F) * 2.0F + 0.5F;
+        float f = MathHelper.cos(parFloat1 * 3.141F * 2.0F) * 2.0F + 0.5F;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         float f1 = 0.7529412F;
         float f2 = 0.84705883F;

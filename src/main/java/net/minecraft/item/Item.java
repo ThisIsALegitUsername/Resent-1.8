@@ -407,8 +407,8 @@ public class Item {
         double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
         double d2 = playerIn.posZ;
         Vec3 vec3 = new Vec3(d0, d1, d2);
-        float f2 = MathHelper.cos(-f1 * 0.017453292F - 3.1415927F);
-        float f3 = MathHelper.sin(-f1 * 0.017453292F - 3.1415927F);
+        float f2 = MathHelper.cos(-f1 * 0.017453292F - 3.141F);
+        float f3 = MathHelper.sin(-f1 * 0.017453292F - 3.141F);
         float f4 = -MathHelper.cos(-f * 0.017453292F);
         float f5 = MathHelper.sin(-f * 0.017453292F);
         float f6 = f3 * f4;

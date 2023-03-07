@@ -357,7 +357,7 @@ public class ModelHorse extends ModelBase {
         boolean flag1 = entityhorse.isHorseSaddled();
         boolean flag2 = entityhorse.riddenByEntity != null;
         float f9 = (float) entitylivingbaseIn.ticksExisted + parFloat3;
-        float f10 = MathHelper.cos(partialTickTime * 0.6662F + 3.1415927F);
+        float f10 = MathHelper.cos(partialTickTime * 0.6662F + 3.141F);
         float f11 = f10 * 0.8F * parFloat2;
         this.head.rotationPointY = 4.0F;
         this.head.rotationPointZ = -10.0F;
@@ -415,7 +415,7 @@ public class ModelHorse extends ModelBase {
         float f13 = 4.712389F;
         float f14 = -1.0471976F;
         float f15 = 0.2617994F * f6;
-        float f16 = MathHelper.cos(f9 * 0.6F + 3.1415927F);
+        float f16 = MathHelper.cos(f9 * 0.6F + 3.141F);
         this.frontLeftLeg.rotationPointY = -2.0F * f6 + 9.0F * f7;
         this.frontLeftLeg.rotationPointZ = -2.0F * f6 + -8.0F * f7;
         this.frontRightLeg.rotationPointY = this.frontLeftLeg.rotationPointY;
@@ -437,10 +437,10 @@ public class ModelHorse extends ModelBase {
         this.backRightShin.rotateAngleX = -0.08726646F * f6 + (f10 * 0.5F * parFloat2 - Math.max(0.0F, -f10 * 0.5F * parFloat2)) * f7;
         this.backRightHoof.rotateAngleX = this.backRightShin.rotateAngleX;
         this.frontLeftLeg.rotateAngleX = f17;
-        this.frontLeftShin.rotateAngleX = (this.frontLeftLeg.rotateAngleX + 3.1415927F * Math.max(0.0F, 0.2F + f16 * 0.2F)) * f6 + (f11 + Math.max(0.0F, f10 * 0.5F * parFloat2)) * f7;
+        this.frontLeftShin.rotateAngleX = (this.frontLeftLeg.rotateAngleX + 3.141F * Math.max(0.0F, 0.2F + f16 * 0.2F)) * f6 + (f11 + Math.max(0.0F, f10 * 0.5F * parFloat2)) * f7;
         this.frontLeftHoof.rotateAngleX = this.frontLeftShin.rotateAngleX;
         this.frontRightLeg.rotateAngleX = f18;
-        this.frontRightShin.rotateAngleX = (this.frontRightLeg.rotateAngleX + 3.1415927F * Math.max(0.0F, 0.2F - f16 * 0.2F)) * f6 + (-f11 + Math.max(0.0F, -f10 * 0.5F * parFloat2)) * f7;
+        this.frontRightShin.rotateAngleX = (this.frontRightLeg.rotateAngleX + 3.141F * Math.max(0.0F, 0.2F - f16 * 0.2F)) * f6 + (-f11 + Math.max(0.0F, -f10 * 0.5F * parFloat2)) * f7;
         this.frontRightHoof.rotateAngleX = this.frontRightShin.rotateAngleX;
         this.backLeftHoof.rotationPointY = this.backLeftShin.rotationPointY;
         this.backLeftHoof.rotationPointZ = this.backLeftShin.rotationPointZ;

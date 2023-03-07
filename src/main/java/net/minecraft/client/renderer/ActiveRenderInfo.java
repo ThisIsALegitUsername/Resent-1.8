@@ -75,11 +75,11 @@ public class ActiveRenderInfo {
         int i = parFlag ? 1 : 0;
         float f2 = entityplayerIn.rotationPitch;
         float f3 = entityplayerIn.rotationYaw;
-        rotationX = MathHelper.cos(f3 * 3.1415927F / 180.0F) * (float) (1 - i * 2);
-        rotationZ = MathHelper.sin(f3 * 3.1415927F / 180.0F) * (float) (1 - i * 2);
-        rotationYZ = -rotationZ * MathHelper.sin(f2 * 3.1415927F / 180.0F) * (float) (1 - i * 2);
-        rotationXY = rotationX * MathHelper.sin(f2 * 3.1415927F / 180.0F) * (float) (1 - i * 2);
-        rotationXZ = MathHelper.cos(f2 * 3.1415927F / 180.0F);
+        rotationX = MathHelper.cos(f3 * 3.141F / 180.0F) * (float) (1 - i * 2);
+        rotationZ = MathHelper.sin(f3 * 3.141F / 180.0F) * (float) (1 - i * 2);
+        rotationYZ = -rotationZ * MathHelper.sin(f2 * 3.141F / 180.0F) * (float) (1 - i * 2);
+        rotationXY = rotationX * MathHelper.sin(f2 * 3.141F / 180.0F) * (float) (1 - i * 2);
+        rotationXZ = MathHelper.cos(f2 * 3.141F / 180.0F);
     }
 
     public static Vec3 projectViewFromEntity(Entity parEntity, double parDouble1) {

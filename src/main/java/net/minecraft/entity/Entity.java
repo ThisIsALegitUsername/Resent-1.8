@@ -862,8 +862,8 @@ public abstract class Entity {
             f = friction / f;
             strafe = strafe * f;
             forward = forward * f;
-            float f1 = MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F);
-            float f2 = MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F);
+            float f1 = MathHelper.sin(this.rotationYaw * 3.141F / 180.0F);
+            float f2 = MathHelper.cos(this.rotationYaw * 3.141F / 180.0F);
             this.motionX += (double) (strafe * f2 - forward * f1);
             this.motionZ += (double) (forward * f2 + strafe * f1);
         }
@@ -1067,8 +1067,8 @@ public abstract class Entity {
      * rotation.
      */
     protected final Vec3 getVectorForRotation(float pitch, float yaw) {
-        float f = MathHelper.cos(-yaw * 0.017453292F - 3.1415927F);
-        float f1 = MathHelper.sin(-yaw * 0.017453292F - 3.1415927F);
+        float f = MathHelper.cos(-yaw * 0.017453292F - 3.141F);
+        float f1 = MathHelper.sin(-yaw * 0.017453292F - 3.141F);
         float f2 = -MathHelper.cos(-pitch * 0.017453292F);
         float f3 = MathHelper.sin(-pitch * 0.017453292F);
         return new Vec3((double) (f1 * f2), (double) f3, (double) (f * f2));

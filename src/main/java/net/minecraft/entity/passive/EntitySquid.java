@@ -137,9 +137,9 @@ public class EntitySquid extends EntityWaterMob {
         }
 
         if (this.inWater) {
-            if (this.squidRotation < 3.1415927F) {
-                float f = this.squidRotation / 3.1415927F;
-                this.tentacleAngle = MathHelper.sin(f * f * 3.1415927F) * 3.1415927F * 0.25F;
+            if (this.squidRotation < 3.141F) {
+                float f = this.squidRotation / 3.141F;
+                this.tentacleAngle = MathHelper.sin(f * f * 3.141F) * 3.141F * 0.25F;
                 if ((double) f > 0.75D) {
                     this.randomMotionSpeed = 1.0F;
                     this.field_70871_bB = 1.0F;
@@ -153,12 +153,12 @@ public class EntitySquid extends EntityWaterMob {
             }
 
             float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.renderYawOffset += (-((float) MathHelper.func_181159_b(this.motionX, this.motionZ)) * 180.0F / 3.1415927F - this.renderYawOffset) * 0.1F;
+            this.renderYawOffset += (-((float) MathHelper.func_181159_b(this.motionX, this.motionZ)) * 180.0F / 3.141F - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
             this.squidYaw = (float) ((double) this.squidYaw + 3.141592653589793D * (double) this.field_70871_bB * 1.5D);
-            this.squidPitch += (-((float) MathHelper.func_181159_b((double) f1, this.motionY)) * 180.0F / 3.1415927F - this.squidPitch) * 0.1F;
+            this.squidPitch += (-((float) MathHelper.func_181159_b((double) f1, this.motionY)) * 180.0F / 3.141F - this.squidPitch) * 0.1F;
         } else {
-            this.tentacleAngle = MathHelper.abs(MathHelper.sin(this.squidRotation)) * 3.1415927F * 0.25F;
+            this.tentacleAngle = MathHelper.abs(MathHelper.sin(this.squidRotation)) * 3.141F * 0.25F;
             this.squidPitch = (float) ((double) this.squidPitch + (double) (-90.0F - this.squidPitch) * 0.02D);
         }
     }

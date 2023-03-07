@@ -41,7 +41,7 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
-            GlStateManager.rotate(5.0F + 180.0F * ((ModelIronGolem) this.ironGolemRenderer.getMainModel()).ironGolemRightArm.rotateAngleX / 3.1415927F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(5.0F + 180.0F * ((ModelIronGolem) this.ironGolemRenderer.getMainModel()).ironGolemRightArm.rotateAngleX / 3.141F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(-0.9375F, -0.625F, -0.9375F);
             float f1 = 0.5F;

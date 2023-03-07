@@ -75,7 +75,7 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
         float f1 = tileentityenderchest.prevLidAngle + (tileentityenderchest.lidAngle - tileentityenderchest.prevLidAngle) * f;
         f1 = 1.0F - f1;
         f1 = 1.0F - f1 * f1 * f1;
-        this.field_147521_c.chestLid.rotateAngleX = -(f1 * 3.1415927F / 2.0F);
+        this.field_147521_c.chestLid.rotateAngleX = -(f1 * 3.141F / 2.0F);
         this.field_147521_c.renderAll();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();

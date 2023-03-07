@@ -123,8 +123,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
      * to react to sunlight and start to burn.
      */
     public void onLivingUpdate() {
-        float f = MathHelper.cos(this.animTime * 3.1415927F * 2.0F);
-        float f1 = MathHelper.cos(this.prevAnimTime * 3.1415927F * 2.0F);
+        float f = MathHelper.cos(this.animTime * 3.141F * 2.0F);
+        float f1 = MathHelper.cos(this.prevAnimTime * 3.141F * 2.0F);
         if (f1 <= -0.3F && f >= -0.3F && !this.isSilent()) {
             this.worldObj.playSound(this.posX, this.posY, this.posZ, "mob.enderdragon.wings", 5.0F, 0.8F + this.rand.nextFloat() * 0.3F, false);
         }
@@ -185,10 +185,10 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 this.dragonPartWing1.width = 4.0F;
                 this.dragonPartWing2.height = 3.0F;
                 this.dragonPartWing2.width = 4.0F;
-                float f12 = (float) (this.getMovementOffsets(5, 1.0F)[1] - this.getMovementOffsets(10, 1.0F)[1]) * 10.0F / 180.0F * 3.1415927F;
+                float f12 = (float) (this.getMovementOffsets(5, 1.0F)[1] - this.getMovementOffsets(10, 1.0F)[1]) * 10.0F / 180.0F * 3.141F;
                 float f2 = MathHelper.cos(f12);
                 float f15 = -MathHelper.sin(f12);
-                float f3 = this.rotationYaw * 3.1415927F / 180.0F;
+                float f3 = this.rotationYaw * 3.141F / 180.0F;
                 float f16 = MathHelper.sin(f3);
                 float f4 = MathHelper.cos(f3);
                 this.dragonPartBody.onUpdate();
@@ -200,8 +200,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
                 double[] adouble1 = this.getMovementOffsets(5, 1.0F);
                 double[] adouble = this.getMovementOffsets(0, 1.0F);
-                float f18 = MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F - this.randomYawVelocity * 0.01F);
-                float f19 = MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F - this.randomYawVelocity * 0.01F);
+                float f18 = MathHelper.sin(this.rotationYaw * 3.141F / 180.0F - this.randomYawVelocity * 0.01F);
+                float f19 = MathHelper.cos(this.rotationYaw * 3.141F / 180.0F - this.randomYawVelocity * 0.01F);
                 this.dragonPartHead.onUpdate();
                 this.dragonPartHead.setLocationAndAngles(this.posX + (double) (f18 * 5.5F * f2), this.posY + (adouble[1] - adouble1[1]) * 1.0D + (double) (f15 * 5.5F), this.posZ - (double) (f19 * 5.5F * f2), 0.0F, 0.0F);
 
@@ -220,7 +220,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     double[] adouble2 = this.getMovementOffsets(12 + j * 2, 1.0F);
-                    float f20 = this.rotationYaw * 3.1415927F / 180.0F + this.simplifyAngle(adouble2[0] - adouble1[0]) * 3.1415927F / 180.0F * 1.0F;
+                    float f20 = this.rotationYaw * 3.141F / 180.0F + this.simplifyAngle(adouble2[0] - adouble1[0]) * 3.141F / 180.0F * 1.0F;
                     float f21 = MathHelper.sin(f20);
                     float f22 = MathHelper.cos(f20);
                     float f23 = 1.5F;
@@ -275,7 +275,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             f = f / 4.0F + 1.0F;
         }
 
-        float f1 = this.rotationYaw * 3.1415927F / 180.0F;
+        float f1 = this.rotationYaw * 3.141F / 180.0F;
         float f2 = MathHelper.sin(f1);
         float f3 = MathHelper.cos(f1);
         this.targetX = this.posX + (double) (f2 * 5.0F) + (double) ((this.rand.nextFloat() - 0.5F) * 2.0F);

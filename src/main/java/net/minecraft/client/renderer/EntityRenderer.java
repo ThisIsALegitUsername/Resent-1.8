@@ -430,7 +430,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             f = f / (float) entitylivingbase.maxHurtTime;
-            f = MathHelper.sin(f * f * f * f * 3.1415927F);
+            f = MathHelper.sin(f * f * f * f * 3.141F);
             float f2 = entitylivingbase.attackedAtYaw;
             GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(-f * 14.0F, 0.0F, 0.0F, 1.0F);
@@ -449,9 +449,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             float f1 = -(entityplayer.distanceWalkedModified + f * partialTicks);
             float f2 = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * partialTicks;
             float f3 = entityplayer.prevCameraPitch + (entityplayer.cameraPitch - entityplayer.prevCameraPitch) * partialTicks;
-            GlStateManager.translate(MathHelper.sin(f1 * 3.1415927F) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * 3.1415927F) * f2), 0.0F);
-            GlStateManager.rotate(MathHelper.sin(f1 * 3.1415927F) * f2 * 3.0F, 0.0F, 0.0F, 1.0F);
-            GlStateManager.rotate(Math.abs(MathHelper.cos(f1 * 3.1415927F - 0.2F) * f2) * 5.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.translate(MathHelper.sin(f1 * 3.141F) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * 3.141F) * f2), 0.0F);
+            GlStateManager.rotate(MathHelper.sin(f1 * 3.141F) * f2 * 3.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(Math.abs(MathHelper.cos(f1 * 3.141F - 0.2F) * f2) * 5.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(f3, 1.0F, 0.0F, 0.0F);
         }
     }
@@ -491,9 +491,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     f2 += 180.0F;
                 }
 
-                double d4 = (double) (-MathHelper.sin(f1 / 180.0F * 3.1415927F) * MathHelper.cos(f2 / 180.0F * 3.1415927F)) * d3;
-                double d5 = (double) (MathHelper.cos(f1 / 180.0F * 3.1415927F) * MathHelper.cos(f2 / 180.0F * 3.1415927F)) * d3;
-                double d6 = (double) (-MathHelper.sin(f2 / 180.0F * 3.1415927F)) * d3;
+                double d4 = (double) (-MathHelper.sin(f1 / 180.0F * 3.141F) * MathHelper.cos(f2 / 180.0F * 3.141F)) * d3;
+                double d5 = (double) (MathHelper.cos(f1 / 180.0F * 3.141F) * MathHelper.cos(f2 / 180.0F * 3.141F)) * d3;
+                double d6 = (double) (-MathHelper.sin(f2 / 180.0F * 3.141F)) * d3;
 
                 for (int i = 0; i < 8; ++i) {
                     float f3 = (float) ((i & 1) * 2 - 1);
@@ -810,7 +810,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     private float getNightVisionBrightness(EntityLivingBase entitylivingbaseIn, float partialTicks) {
         int i = entitylivingbaseIn.getActivePotionEffect(Potion.nightVision).getDuration();
-        return i > 200 ? 1.0F : 0.7F + MathHelper.sin(((float) i - partialTicks) * 3.1415927F * 0.2F) * 0.3F;
+        return i > 200 ? 1.0F : 0.7F + MathHelper.sin(((float) i - partialTicks) * 3.141F * 0.2F) * 0.3F;
     }
 
     public void func_181560_a(float parFloat1, long parLong1) {

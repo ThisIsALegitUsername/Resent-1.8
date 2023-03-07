@@ -51,8 +51,8 @@ public class ItemBoat extends Item {
         double d1 = entityplayer.prevPosY + (entityplayer.posY - entityplayer.prevPosY) * (double) f + (double) entityplayer.getEyeHeight();
         double d2 = entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * (double) f;
         Vec3 vec3 = new Vec3(d0, d1, d2);
-        float f3 = MathHelper.cos(-f2 * 0.017453292F - 3.1415927F);
-        float f4 = MathHelper.sin(-f2 * 0.017453292F - 3.1415927F);
+        float f3 = MathHelper.cos(-f2 * 0.017453292F - 3.141F);
+        float f4 = MathHelper.sin(-f2 * 0.017453292F - 3.141F);
         float f5 = -MathHelper.cos(-f1 * 0.017453292F);
         float f6 = MathHelper.sin(-f1 * 0.017453292F);
         float f7 = f4 * f5;

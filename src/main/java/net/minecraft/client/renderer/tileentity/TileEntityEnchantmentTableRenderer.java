@@ -40,14 +40,14 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
         GlStateManager.translate(0.0F, 0.1F + MathHelper.sin(f1 * 0.1F) * 0.01F, 0.0F);
 
         float f2;
-        for (f2 = tileentityenchantmenttable.bookRotation - tileentityenchantmenttable.bookRotationPrev; f2 >= 3.1415927F; f2 -= 6.2831855F) {}
+        for (f2 = tileentityenchantmenttable.bookRotation - tileentityenchantmenttable.bookRotationPrev; f2 >= 3.141F; f2 -= 6.2831855F) {}
 
-        while (f2 < -3.1415927F) {
+        while (f2 < -3.141F) {
             f2 += 6.2831855F;
         }
 
         float f3 = tileentityenchantmenttable.bookRotationPrev + f2 * f;
-        GlStateManager.rotate(-f3 * 180.0F / 3.1415927F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(-f3 * 180.0F / 3.141F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(80.0F, 0.0F, 0.0F, 1.0F);
         this.bindTexture(TEXTURE_BOOK);
         float f4 = tileentityenchantmenttable.pageFlipPrev + (tileentityenchantmenttable.pageFlip - tileentityenchantmenttable.pageFlipPrev) * f + 0.25F;

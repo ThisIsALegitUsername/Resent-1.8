@@ -122,11 +122,11 @@ public class ModelSpider extends ModelBase {
         this.spiderLeg7.rotateAngleY = -f6 * 2.0F + f5;
         this.spiderLeg8.rotateAngleY = f6 * 2.0F - f5;
         float f7 = -(MathHelper.cos(f * 0.6662F * 2.0F + 0.0F) * 0.4F) * f1;
-        float f8 = -(MathHelper.cos(f * 0.6662F * 2.0F + 3.1415927F) * 0.4F) * f1;
+        float f8 = -(MathHelper.cos(f * 0.6662F * 2.0F + 3.141F) * 0.4F) * f1;
         float f9 = -(MathHelper.cos(f * 0.6662F * 2.0F + 1.5707964F) * 0.4F) * f1;
         float f10 = -(MathHelper.cos(f * 0.6662F * 2.0F + 4.712389F) * 0.4F) * f1;
         float f11 = Math.abs(MathHelper.sin(f * 0.6662F + 0.0F) * 0.4F) * f1;
-        float f12 = Math.abs(MathHelper.sin(f * 0.6662F + 3.1415927F) * 0.4F) * f1;
+        float f12 = Math.abs(MathHelper.sin(f * 0.6662F + 3.141F) * 0.4F) * f1;
         float f13 = Math.abs(MathHelper.sin(f * 0.6662F + 1.5707964F) * 0.4F) * f1;
         float f14 = Math.abs(MathHelper.sin(f * 0.6662F + 4.712389F) * 0.4F) * f1;
         this.spiderLeg1.rotateAngleY += f7;

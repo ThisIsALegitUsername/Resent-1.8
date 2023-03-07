@@ -67,9 +67,9 @@ public class ModelWitch extends ModelVillager {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         this.villagerNose.offsetX = this.villagerNose.offsetY = this.villagerNose.offsetZ = 0.0F;
         float f6 = 0.01F * (float) (entity.getEntityId() % 10);
-        this.villagerNose.rotateAngleX = MathHelper.sin((float) entity.ticksExisted * f6) * 4.5F * 3.1415927F / 180.0F;
+        this.villagerNose.rotateAngleX = MathHelper.sin((float) entity.ticksExisted * f6) * 4.5F * 3.141F / 180.0F;
         this.villagerNose.rotateAngleY = 0.0F;
-        this.villagerNose.rotateAngleZ = MathHelper.cos((float) entity.ticksExisted * f6) * 2.5F * 3.1415927F / 180.0F;
+        this.villagerNose.rotateAngleZ = MathHelper.cos((float) entity.ticksExisted * f6) * 2.5F * 3.141F / 180.0F;
         if (this.field_82900_g) {
             this.villagerNose.rotateAngleX = -0.9F;
             this.villagerNose.offsetZ = -0.09375F;

@@ -74,10 +74,10 @@ public class RenderFish extends Render<EntityFishHook> {
         GlStateManager.popMatrix();
         if (entityfishhook.angler != null) {
             float f9 = entityfishhook.angler.getSwingProgress(f1);
-            float f10 = MathHelper.sin(MathHelper.sqrt_float(f9) * 3.1415927F);
+            float f10 = MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141F);
             Vec3 vec3 = new Vec3(-0.36D, 0.03D, 0.35D);
-            vec3 = vec3.rotatePitch(-(entityfishhook.angler.prevRotationPitch + (entityfishhook.angler.rotationPitch - entityfishhook.angler.prevRotationPitch) * f1) * 3.1415927F / 180.0F);
-            vec3 = vec3.rotateYaw(-(entityfishhook.angler.prevRotationYaw + (entityfishhook.angler.rotationYaw - entityfishhook.angler.prevRotationYaw) * f1) * 3.1415927F / 180.0F);
+            vec3 = vec3.rotatePitch(-(entityfishhook.angler.prevRotationPitch + (entityfishhook.angler.rotationPitch - entityfishhook.angler.prevRotationPitch) * f1) * 3.141F / 180.0F);
+            vec3 = vec3.rotateYaw(-(entityfishhook.angler.prevRotationYaw + (entityfishhook.angler.rotationYaw - entityfishhook.angler.prevRotationYaw) * f1) * 3.141F / 180.0F);
             vec3 = vec3.rotateYaw(f10 * 0.5F);
             vec3 = vec3.rotatePitch(-f10 * 0.7F);
             double d3 = entityfishhook.angler.prevPosX + (entityfishhook.angler.posX - entityfishhook.angler.prevPosX) * (double) f1 + vec3.xCoord;
@@ -85,7 +85,7 @@ public class RenderFish extends Render<EntityFishHook> {
             double d5 = entityfishhook.angler.prevPosZ + (entityfishhook.angler.posZ - entityfishhook.angler.prevPosZ) * (double) f1 + vec3.zCoord;
             double d6 = (double) entityfishhook.angler.getEyeHeight();
             if (this.renderManager.options != null && this.renderManager.options.thirdPersonView > 0 || entityfishhook.angler != Minecraft.getMinecraft().thePlayer) {
-                float f11 = (entityfishhook.angler.prevRenderYawOffset + (entityfishhook.angler.renderYawOffset - entityfishhook.angler.prevRenderYawOffset) * f1) * 3.1415927F / 180.0F;
+                float f11 = (entityfishhook.angler.prevRenderYawOffset + (entityfishhook.angler.renderYawOffset - entityfishhook.angler.prevRenderYawOffset) * f1) * 3.141F / 180.0F;
                 double d7 = (double) MathHelper.sin(f11);
                 double d9 = (double) MathHelper.cos(f11);
                 double d11 = 0.35D;

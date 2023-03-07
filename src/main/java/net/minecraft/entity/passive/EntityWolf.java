@@ -181,7 +181,7 @@ public class EntityWolf extends EntityTameable {
 
             if (this.timeWolfIsShaking > 0.4F) {
                 float f = (float) this.getEntityBoundingBox().minY;
-                int i = (int) (MathHelper.sin((this.timeWolfIsShaking - 0.4F) * 3.1415927F) * 7.0F);
+                int i = (int) (MathHelper.sin((this.timeWolfIsShaking - 0.4F) * 3.141F) * 7.0F);
 
                 for (int j = 0; j < i; ++j) {
                     float f1 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
@@ -215,11 +215,11 @@ public class EntityWolf extends EntityTameable {
             f = 1.0F;
         }
 
-        return MathHelper.sin(f * 3.1415927F) * MathHelper.sin(f * 3.1415927F * 11.0F) * 0.15F * 3.1415927F;
+        return MathHelper.sin(f * 3.141F) * MathHelper.sin(f * 3.141F * 11.0F) * 0.15F * 3.141F;
     }
 
     public float getInterestedAngle(float parFloat1) {
-        return (this.headRotationCourseOld + (this.headRotationCourse - this.headRotationCourseOld) * parFloat1) * 0.15F * 3.1415927F;
+        return (this.headRotationCourseOld + (this.headRotationCourse - this.headRotationCourseOld) * parFloat1) * 0.15F * 3.141F;
     }
 
     public float getEyeHeight() {
@@ -331,7 +331,7 @@ public class EntityWolf extends EntityTameable {
     }
 
     public float getTailRotation() {
-        return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.55F - (20.0F - this.dataWatcher.getWatchableObjectFloat(18)) * 0.02F) * 3.1415927F : 0.62831855F);
+        return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.55F - (20.0F - this.dataWatcher.getWatchableObjectFloat(18)) * 0.02F) * 3.141F : 0.62831855F);
     }
 
     /**+

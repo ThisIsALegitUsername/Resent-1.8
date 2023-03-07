@@ -58,7 +58,7 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
                 parDouble3 = parDouble3 % 360.0D;
                 d0 = -((parDouble3 - 90.0D) * 3.141592653589793D / 180.0D - Math.atan2(d2, d1));
                 if (!worldIn.provider.isSurfaceWorld()) {
-                    d0 = Math.random() * 3.1415927410125732D * 2.0D;
+                    d0 = Math.random() * 3.141 * 2.0D;
                 }
             }
 

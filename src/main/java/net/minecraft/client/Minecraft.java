@@ -945,7 +945,7 @@ public class Minecraft implements IThreadListener {
 
 				for (int i2 = l; i2 >= 0; --i2) {
 					float f = (float) ((d0 + profiler$result1.field_76332_a * (double) i2 / (double) l)
-							* 3.1415927410125732D * 2.0D / 100.0D);
+							* 3.141 * 2.0D / 100.0D);
 					float f1 = MathHelper.sin(f) * (float) short1;
 					float f2 = MathHelper.cos(f) * (float) short1 * 0.5F;
 					worldrenderer.pos((double) ((float) i + f1), (double) ((float) j - f2), 0.0D).color(j1, k1, l1, 255)
@@ -957,7 +957,7 @@ public class Minecraft implements IThreadListener {
 
 				for (int l2 = l; l2 >= 0; --l2) {
 					float f3 = (float) ((d0 + profiler$result1.field_76332_a * (double) l2 / (double) l)
-							* 3.1415927410125732D * 2.0D / 100.0D);
+							* 3.141 * 2.0D / 100.0D);
 					float f4 = MathHelper.sin(f3) * (float) short1;
 					float f5 = MathHelper.cos(f3) * (float) short1 * 0.5F;
 					worldrenderer.pos((double) ((float) i + f4), (double) ((float) j - f5), 0.0D)

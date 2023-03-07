@@ -125,7 +125,7 @@ public class ItemRenderer {
     private float func_178100_c(float parFloat1) {
         float f = 1.0F - parFloat1 / 45.0F + 0.1F;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
-        f = -MathHelper.cos(f * 3.1415927F) * 0.5F + 0.5F;
+        f = -MathHelper.cos(f * 3.141F) * 0.5F + 0.5F;
         return f;
     }
 
@@ -162,9 +162,9 @@ public class ItemRenderer {
     }
 
     private void renderItemMap(AbstractClientPlayer clientPlayer, float parFloat1, float parFloat2, float parFloat3) {
-        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(parFloat3) * 3.1415927F);
-        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(parFloat3) * 3.1415927F * 2.0F);
-        float f2 = -0.2F * MathHelper.sin(parFloat3 * 3.1415927F);
+        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(parFloat3) * 3.141F);
+        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(parFloat3) * 3.141F * 2.0F);
+        float f2 = -0.2F * MathHelper.sin(parFloat3 * 3.141F);
         GlStateManager.translate(f, f1, f2);
         float f3 = this.func_178100_c(parFloat1);
         GlStateManager.translate(0.0F, 0.04F, -0.72F);
@@ -174,8 +174,8 @@ public class ItemRenderer {
         GlStateManager.rotate(f3 * -85.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(0.0F, 1.0F, 0.0F, 0.0F);
         this.renderPlayerArms(clientPlayer);
-        float f4 = MathHelper.sin(parFloat3 * parFloat3 * 3.1415927F);
-        float f5 = MathHelper.sin(MathHelper.sqrt_float(parFloat3) * 3.1415927F);
+        float f4 = MathHelper.sin(parFloat3 * parFloat3 * 3.141F);
+        float f5 = MathHelper.sin(MathHelper.sqrt_float(parFloat3) * 3.141F);
         GlStateManager.rotate(f4 * -20.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f5 * -20.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(f5 * -80.0F, 1.0F, 0.0F, 0.0F);
@@ -202,15 +202,15 @@ public class ItemRenderer {
     }
 
     private void func_178095_a(AbstractClientPlayer clientPlayer, float parFloat1, float parFloat2) {
-        float f = -0.3F * MathHelper.sin(MathHelper.sqrt_float(parFloat2) * 3.1415927F);
-        float f1 = 0.4F * MathHelper.sin(MathHelper.sqrt_float(parFloat2) * 3.1415927F * 2.0F);
-        float f2 = -0.4F * MathHelper.sin(parFloat2 * 3.1415927F);
+        float f = -0.3F * MathHelper.sin(MathHelper.sqrt_float(parFloat2) * 3.141F);
+        float f1 = 0.4F * MathHelper.sin(MathHelper.sqrt_float(parFloat2) * 3.141F * 2.0F);
+        float f2 = -0.4F * MathHelper.sin(parFloat2 * 3.141F);
         GlStateManager.translate(f, f1, f2);
         GlStateManager.translate(0.64000005F, -0.6F, -0.71999997F);
         GlStateManager.translate(0.0F, parFloat1 * -0.6F, 0.0F);
         GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
-        float f3 = MathHelper.sin(parFloat2 * parFloat2 * 3.1415927F);
-        float f4 = MathHelper.sin(MathHelper.sqrt_float(parFloat2) * 3.1415927F);
+        float f3 = MathHelper.sin(parFloat2 * parFloat2 * 3.141F);
+        float f4 = MathHelper.sin(MathHelper.sqrt_float(parFloat2) * 3.141F);
         GlStateManager.rotate(f4 * 70.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f3 * -20.0F, 0.0F, 0.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(clientPlayer.getLocationSkin());
@@ -228,16 +228,16 @@ public class ItemRenderer {
     }
 
     private void func_178105_d(float parFloat1) {
-        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(parFloat1) * 3.1415927F);
-        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(parFloat1) * 3.1415927F * 2.0F);
-        float f2 = -0.2F * MathHelper.sin(parFloat1 * 3.1415927F);
+        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(parFloat1) * 3.141F);
+        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(parFloat1) * 3.141F * 2.0F);
+        float f2 = -0.2F * MathHelper.sin(parFloat1 * 3.141F);
         GlStateManager.translate(f, f1, f2);
     }
 
     private void func_178104_a(AbstractClientPlayer clientPlayer, float parFloat1) {
         float f = (float) clientPlayer.getItemInUseCount() - parFloat1 + 1.0F;
         float f1 = f / (float) this.itemToRender.getMaxItemUseDuration();
-        float f2 = MathHelper.abs(MathHelper.cos(f / 4.0F * 3.1415927F) * 0.1F);
+        float f2 = MathHelper.abs(MathHelper.cos(f / 4.0F * 3.141F) * 0.1F);
         if (f1 >= 0.8F) {
             f2 = 0.0F;
         }
@@ -258,8 +258,8 @@ public class ItemRenderer {
         GlStateManager.translate(0.56F, -0.52F, -0.71999997F);
         GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
         GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
-        float f = MathHelper.sin(swingProgress * swingProgress * 3.1415927F);
-        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927F);
+        float f = MathHelper.sin(swingProgress * swingProgress * 3.141F);
+        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.141F);
         GlStateManager.rotate(f * -20.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f1 * -20.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);

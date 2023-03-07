@@ -331,12 +331,12 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
         if (itemStackIn.getItemUseAction() == EnumAction.EAT) {
             for (int i = 0; i < parInt1; ++i) {
                 Vec3 vec3 = new Vec3(((double) this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-                vec3 = vec3.rotatePitch(-this.rotationPitch * 3.1415927F / 180.0F);
-                vec3 = vec3.rotateYaw(-this.rotationYaw * 3.1415927F / 180.0F);
+                vec3 = vec3.rotatePitch(-this.rotationPitch * 3.141F / 180.0F);
+                vec3 = vec3.rotateYaw(-this.rotationYaw * 3.141F / 180.0F);
                 double d0 = (double) (-this.rand.nextFloat()) * 0.6D - 0.3D;
                 Vec3 vec31 = new Vec3(((double) this.rand.nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
-                vec31 = vec31.rotatePitch(-this.rotationPitch * 3.1415927F / 180.0F);
-                vec31 = vec31.rotateYaw(-this.rotationYaw * 3.1415927F / 180.0F);
+                vec31 = vec31.rotatePitch(-this.rotationPitch * 3.141F / 180.0F);
+                vec31 = vec31.rotateYaw(-this.rotationYaw * 3.141F / 180.0F);
                 vec31 = vec31.addVector(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
                 if (itemStackIn.getHasSubtypes()) {
                     this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, new int[] { Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata() });
@@ -538,8 +538,8 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
         }
 
         if (damagesource != null) {
-            this.motionX = (double) (-MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F);
-            this.motionZ = (double) (-MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F);
+            this.motionX = (double) (-MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * 3.141F / 180.0F) * 0.1F);
+            this.motionZ = (double) (-MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * 3.141F / 180.0F) * 0.1F);
         } else {
             this.motionX = this.motionZ = 0.0D;
         }
@@ -636,16 +636,16 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
 
             if (dropAround) {
                 float f = this.rand.nextFloat() * 0.5F;
-                float f1 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = this.rand.nextFloat() * 3.141F * 2.0F;
                 entityitem.motionX = (double) (-MathHelper.sin(f1) * f);
                 entityitem.motionZ = (double) (MathHelper.cos(f1) * f);
                 entityitem.motionY = 0.20000000298023224D;
             } else {
                 float f2 = 0.3F;
-                entityitem.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * f2);
-                entityitem.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * f2);
-                entityitem.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * f2 + 0.1F);
-                float f3 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+                entityitem.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.141F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.141F) * f2);
+                entityitem.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.141F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.141F) * f2);
+                entityitem.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.141F) * f2 + 0.1F);
+                float f3 = this.rand.nextFloat() * 3.141F * 2.0F;
                 f2 = 0.02F * this.rand.nextFloat();
                 entityitem.motionX += Math.cos((double) f3) * (double) f2;
                 entityitem.motionY += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
@@ -1041,7 +1041,7 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
                     boolean flag2 = entity.attackEntityFrom(DamageSource.causePlayerDamage(this), f);
                     if (flag2) {
                         if (i > 0) {
-                            entity.addVelocity((double) (-MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F));
+                            entity.addVelocity((double) (-MathHelper.sin(this.rotationYaw * 3.141F / 180.0F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(this.rotationYaw * 3.141F / 180.0F) * (float) i * 0.5F));
                             this.motionX *= 0.6D;
                             this.motionZ *= 0.6D;
                             this.setSprinting(false);

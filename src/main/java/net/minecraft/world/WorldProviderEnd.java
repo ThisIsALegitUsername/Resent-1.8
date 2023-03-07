@@ -52,7 +52,7 @@ public class WorldProviderEnd extends WorldProvider {
      */
     public Vec3 getFogColor(float f, float var2) {
         int i = 10518688;
-        float f1 = MathHelper.cos(f * 3.1415927F * 2.0F) * 2.0F + 0.5F;
+        float f1 = MathHelper.cos(f * 3.141F * 2.0F) * 2.0F + 0.5F;
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         float f2 = (float) (i >> 16 & 255) / 255.0F;
         float f3 = (float) (i >> 8 & 255) / 255.0F;

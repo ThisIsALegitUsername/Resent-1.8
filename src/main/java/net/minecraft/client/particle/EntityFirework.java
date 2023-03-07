@@ -52,7 +52,7 @@ public class EntityFirework {
             float f7 = 0.5F;
             float f8 = 0.125F;
             float f9 = 0.375F;
-            float f10 = 7.1F * MathHelper.sin(((float) this.particleAge + f - 1.0F) * 0.25F * 3.1415927F);
+            float f10 = 7.1F * MathHelper.sin(((float) this.particleAge + f - 1.0F) * 0.25F * 3.141F);
             this.particleAlpha = 0.6F - ((float) this.particleAge + f - 1.0F) * 0.25F * 0.5F;
             float f11 = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) f - interpPosX);
             float f12 = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) f - interpPosY);
@@ -67,7 +67,7 @@ public class EntityFirework {
         }
 
         public boolean renderAccelerated(IAcceleratedParticleEngine accelerator, Entity var2, float f, float f1, float f2, float f3, float f4, float f5) {
-            accelerator.drawParticle(this, 64, 32, getBrightnessForRender(f), 64, 7.1F * MathHelper.sin(((float) this.particleAge + f - 1.0F) * 0.25F * 3.1415927F) * 0.0625f * 0.25f, this.particleRed, this.particleGreen, this.particleBlue, 0.6F - ((float) this.particleAge + f - 1.0F) * 0.25F * 0.5F);
+            accelerator.drawParticle(this, 64, 32, getBrightnessForRender(f), 64, 7.1F * MathHelper.sin(((float) this.particleAge + f - 1.0F) * 0.25F * 3.141F) * 0.0625f * 0.25f, this.particleRed, this.particleGreen, this.particleBlue, 0.6F - ((float) this.particleAge + f - 1.0F) * 0.25F * 0.5F);
             return true;
         }
     }
@@ -330,11 +330,11 @@ public class EntityFirework {
             double d0 = shape[0][0];
             double d1 = shape[0][1];
             this.createParticle(this.posX, this.posY, this.posZ, d0 * speed, d1 * speed, 0.0D, colours, fadeColours, trail, twinkleIn);
-            float f = this.rand.nextFloat() * 3.1415927F;
+            float f = this.rand.nextFloat() * 3.141F;
             double d2 = parFlag3 ? 0.034D : 0.34D;
 
             for (int i = 0; i < 3; ++i) {
-                double d3 = (double) f + (double) ((float) i * 3.1415927F) * d2;
+                double d3 = (double) f + (double) ((float) i * 3.141F) * d2;
                 double d4 = d0;
                 double d5 = d1;
 

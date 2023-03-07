@@ -147,9 +147,9 @@ public abstract class EntityFireball extends Entity {
             this.posY += this.motionY;
             this.posZ += this.motionZ;
             float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionZ, this.motionX) * 180.0D / 3.1415927410125732D) + 90.0F;
+            this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionZ, this.motionX) * 180.0D / 3.141) + 90.0F;
 
-            for (this.rotationPitch = (float) (MathHelper.func_181159_b((double) f1, this.motionY) * 180.0D / 3.1415927410125732D) - 90.0F; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
+            for (this.rotationPitch = (float) (MathHelper.func_181159_b((double) f1, this.motionY) * 180.0D / 3.141) - 90.0F; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
                 this.prevRotationPitch += 360.0F;

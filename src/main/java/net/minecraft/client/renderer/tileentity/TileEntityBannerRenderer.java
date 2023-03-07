@@ -74,7 +74,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
         BlockPos blockpos = te.getPos();
         float f3 = (float) (blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + (float) j + partialTicks;
-        this.bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * 3.1415927F * 0.02F)) * 3.1415927F;
+        this.bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * 3.141F * 0.02F)) * 3.141F;
         GlStateManager.enableRescaleNormal();
         ResourceLocation resourcelocation = this.func_178463_a(te);
         if (resourcelocation != null) {
