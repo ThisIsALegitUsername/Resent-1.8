@@ -19,6 +19,8 @@ import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 import org.teavm.jso.webgl.WebGLRenderingContext;
 
+import dev.resent.client.ClientInfo;
+
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.
  *
@@ -218,7 +220,7 @@ public class MainClass {
             HTMLElement el = doc.getElementById(configRootElement);
 
             StringBuilder str = new StringBuilder();
-            str.append("Game Crashed! I have fallen and I can't get up!\n\n");
+            str.append(ClientInfo.name + " " + ClientInfo.version + "has crashed! DM this crash message to me on discord, my tag is hooman#1196, along with steps to recreate the crash. \n\n");
             str.append(t);
             str.append('\n').append('\n');
             str.append("eaglercraft.version = \"").append(EaglercraftVersion.projectForkVersion).append("\"\n");

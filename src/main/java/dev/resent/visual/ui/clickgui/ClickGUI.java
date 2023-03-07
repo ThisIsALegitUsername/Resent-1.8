@@ -1,4 +1,4 @@
-package dev.resent.visual.ui;
+package dev.resent.visual.ui.clickgui;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -16,6 +16,7 @@ import dev.resent.module.base.setting.Setting;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
+import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
@@ -238,7 +239,7 @@ public class ClickGUI extends GuiScreen {
                         NumberSetting ss = ((NumberSetting)s);
                         fr.drawStringWithShadow(s.name + ": sof " + sliderOffset + ", val: " + ((NumberSetting)s).getValue(), this.x+24, height+41+var, -1);
                         drawRect(width-150, height+43+var, width-45, height+47+var, -1);
-                        RenderUtils.drawRoundedRect(width-150+sliderOffset, height+41+var, width-141+sliderOffset, height+50+var, 4, Color.RED.getRGB());
+                        RenderUtils.drawRoundedRect(width-150+sliderOffset, height+40+var, width-140+sliderOffset, height+50+var, 4, Color.RED.getRGB());
 
                         if(dragging) {
                             sliderOffset = mouseX-(width-150);                          
@@ -250,11 +251,6 @@ public class ClickGUI extends GuiScreen {
                         if(sliderOffset < 0) {
                             dragging = false;
                             sliderOffset = 0;
-                        }
-                        
-                        if(sliderOffset > 101) {
-                            dragging = false;
-                            sliderOffset = 100;
                         }
                     }
 

@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import dev.resent.util.misc.W;
-import dev.resent.visual.ui.PreGUI;
+import dev.resent.visual.ui.clickgui.PreGUI;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.HString;

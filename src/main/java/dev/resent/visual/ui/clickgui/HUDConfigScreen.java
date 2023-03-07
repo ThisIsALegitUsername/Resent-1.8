@@ -1,4 +1,4 @@
-package dev.resent.visual.ui;
+package dev.resent.visual.ui.clickgui;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
