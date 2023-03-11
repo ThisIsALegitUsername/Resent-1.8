@@ -66,6 +66,8 @@ public class GuiTextField extends Gui {
     private boolean visible = true;
     private GuiPageButtonList.GuiResponder field_175210_x;
     private Predicate<String> field_175209_y = Predicates.alwaysTrue();
+    
+    public boolean isTypingPassword = false;
 
     public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height) {
         this.id = componentId;
@@ -450,10 +452,49 @@ public class GuiTextField extends Gui {
             if (k > s.length()) {
                 k = s.length();
             }
+            
+            
 
             if (s.length() > 0) {
-                String s1 = flag ? s.substring(0, j) : s;
-                String s2 = s1.startsWith("/login ") ? "/login *" : s1.startsWith("/l ") ? "/l *" : s1;
+            	
+            	String s1 = flag ? s.substring(0, j) : s;
+                String s2 = s1;
+                
+                if (s1.startsWith("/l ") || s1.startsWith("/login ") || s1.startsWith("/log ")) {
+                	s2 = "";
+                	String password = "";
+                	// password isnt sent anywhere, its just used for counting how many "*" you need for hiding the password.
+                	
+                	if (s1.startsWith("/l ")) {
+                		s2 = s1.substring(0, 3);
+                		password = s1.substring(3);
+                	}
+                		
+                	if (s1.startsWith("/login ")) {
+                		s2 = s1.substring(0, 7);
+                		password = s1.substring(7);
+                	}
+                		
+                	if (s1.startsWith("/log ")) {
+                		s2 = s1.substring(0, 5);
+                		password = s1.substring(7);
+                	}
+                		
+            		if (password.length() > 0) {
+            			isTypingPassword = true;
+            			for (int n = 0; n < password.length(); n++) {
+                    		s2 += "*";
+                    	}
+            		}
+                	
+                	
+                	
+                }
+                else {
+                	isTypingPassword = false;
+                }
+                
+                
 
                 j1 = this.fontRendererInstance.drawStringWithShadow(s2, (float) l, (float) i1, i);
             }
