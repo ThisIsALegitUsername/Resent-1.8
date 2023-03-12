@@ -56,9 +56,9 @@ public class PotionHUD extends RenderMod {
                 } else if (potioneffect.getAmplifier() == 3) {
                     s1 = String.valueOf(String.valueOf(s1)) + " " + I18n.format("enchantment.level.4", new Object[0]);
                 }
-                drawString(s1, (getX() + 21), (getY() + i2 - 14), 16777215, true);
+                drawString(s1, (getX() + 21), (getY() + i2 - 14));
                 String s2 = Potion.getDurationString(potioneffect);
-                drawString(s2, (getX() + 21), (getY() + i2 + 10 - 14), 8355711, true);
+                drawString(s2, (getX() + 21), (getY() + i2 + 10 - 14));
                 i2 += l;
             }
         }

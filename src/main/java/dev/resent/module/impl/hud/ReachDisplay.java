@@ -25,7 +25,7 @@ public class ReachDisplay extends RenderMod {
 
     @Override
     public void draw() {
-        drawString("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        drawString("[" + df2.format(range) + " Blocks]", this.x + 2, this.y + 2);
     }
 
     public void onAttack(Entity e) {

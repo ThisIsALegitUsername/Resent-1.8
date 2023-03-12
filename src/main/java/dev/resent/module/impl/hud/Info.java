@@ -42,15 +42,15 @@ public class Info extends RenderMod {
         int rot = MathHelper.floor_double(this.mc.thePlayer.rotationYaw * 4 / 360 + 0.5) & 3;
         if (mc.thePlayer != null) {
             drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), new Color(0, 0, 0, 200).getRGB());
-            drawString(" X: " + getPositions()[0], this.x + 5, this.y + 14, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
-            drawString(" Y: " + getPositions()[1], this.x + 5, this.y + 24, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
-            drawString(" Z: " + getPositions()[2], this.x + 5, this.y + 34, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+            drawString(" X: " + getPositions()[0], this.x + 5, this.y + 14);
+            drawString(" Y: " + getPositions()[1], this.x + 5, this.y + 24);
+            drawString(" Z: " + getPositions()[2], this.x + 5, this.y + 34);
 
             if (direction.getValue()){
-                drawString(" Dir: ", this.x + 5 + mc.fontRendererObj.getStringWidth(" X:  " + getPositions()[0]), this.y + 14, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+                drawString(" Dir: ", this.x + 5 + mc.fontRendererObj.getStringWidth(" X:  " + getPositions()[0]), this.y + 14);
                 mc.fontRendererObj.drawString(directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth(" X:   Dir: " + getPositions()[0]), this.y + 14, -1, Theme.getTextShadow());
             }
-            drawString(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(getPositions()[0], getPositions()[1], getPositions()[2])).biomeName, this.x + 5, this.y + 44, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+            drawString(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(getPositions()[0], getPositions()[1], getPositions()[2])).biomeName, this.x + 5, this.y + 44);
         }
     }
 }

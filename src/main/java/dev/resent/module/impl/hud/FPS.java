@@ -24,7 +24,7 @@ public class FPS extends RenderMod {
     @Override
     public void draw() {
         if (mc.thePlayer != null) {
-            drawString(getText(), this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+            drawString(getText(), this.x + 2, this.y + 2);
         }
     }
 }

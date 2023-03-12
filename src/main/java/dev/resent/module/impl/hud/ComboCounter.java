@@ -45,6 +45,6 @@ public class ComboCounter extends RenderMod {
             combo = 0;
         }
 
-        drawString("[" + combo + " Combo]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        drawString("[" + combo + " Combo]", this.x + 2, this.y + 2);
     }
 }

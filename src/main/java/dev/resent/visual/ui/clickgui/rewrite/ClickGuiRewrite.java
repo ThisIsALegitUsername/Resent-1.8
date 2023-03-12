@@ -86,7 +86,7 @@ public class ClickGuiRewrite extends GuiScreen{
         y = sr.getScaledHeight()/4;
         width = x + sr.getScaledWidth()/2;
         height = y + sr.getScaledHeight()/2;
-        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 500, 1, 3, 3.8f, 1.35f, false);
+        introAnimation = Theme.getAnimation(500, 1, 3, 3.8f, 1.35f, false);
     }
 
     @Override

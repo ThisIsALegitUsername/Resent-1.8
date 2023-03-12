@@ -39,6 +39,6 @@ public class CPS extends RenderMod {
         final long time = System.currentTimeMillis();
         FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
 
-        drawString("[CPS: " + clicks.size() + "]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        drawString("[CPS: " + clicks.size() + "]", this.x + 2, this.y + 2);
     }
 }

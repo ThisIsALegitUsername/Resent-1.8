@@ -64,7 +64,7 @@ public class GuiInventory extends InventoryEffectRenderer {
      */
     public void initGui() {
         this.buttonList.clear();
-        openAnim = Theme.getAnimation(Theme.getAnimationId(), 450, 1, 2, 3.8f, 1.35f, false);
+        openAnim = Theme.getAnimation(450, 1, 2, 3.8f, 1.35f, false);
         if (this.mc.playerController.isInCreativeMode()) {
             this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.thePlayer));
         } else {

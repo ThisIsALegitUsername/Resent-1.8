@@ -31,6 +31,6 @@ public class PotCounter extends RenderMod {
             }
         }
 
-        drawString("[" + potinv + " Pots]", this.x + 2, this.y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        drawString("[" + potinv + " Pots]", this.x + 2, this.y + 2);
     }
 }

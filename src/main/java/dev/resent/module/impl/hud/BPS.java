@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
-import dev.resent.visual.ui.Theme;
 import dev.resent.module.base.RenderMod;
 
 @RenderModule(name = "BPS", category = Category.HUD, x = 4, y = 16)
@@ -20,9 +19,9 @@ public class BPS extends RenderMod{
     public String getText(){
         return "BPS: " + new DecimalFormat("0.##").format(getBPS());
     }
-    @Override
+
     public void draw(){
-        drawString(getText(), x+2, y+2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        drawString(getText(), x+2, y+2);
     }
     
 }

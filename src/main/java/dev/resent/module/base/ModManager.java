@@ -38,7 +38,6 @@ import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Sprint;
-import dev.resent.module.impl.misc.TabGui;
 
 public class ModManager {
 
@@ -71,7 +70,6 @@ public class ModManager {
     public static PotCounter potCounter;
     public static HUD hud = new HUD();
     public static CrystalOptimizer crystalOptimizer = new CrystalOptimizer();
-    public static TabGui tabGui = new TabGui();
     public static SelfNametag selfNametag = new SelfNametag();
     public static Cape cape = new Cape();
     public static BPS bps = new BPS();
@@ -88,7 +86,6 @@ public class ModManager {
         register(cape);
         register(selfNametag);
         register(cosmetics);
-        register(tabGui);
         register(crystalOptimizer);
         register(hud = new HUD());
         register(freelook = new Freelook());

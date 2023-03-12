@@ -68,7 +68,7 @@ public class ClickGUI extends GuiScreen {
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory) ) {
             int fh = 9;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.isHasSetting() && openedMod == null) {
+            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.doesHaveSettinging() && openedMod == null) {
                 // Open settings
                 this.openedMod = m;
             } else if (isMouseInside(mouseX, mouseY, x - 9 + 2, height + 27 + 9 + 2, x - 9 + 6 + fr.getStringWidth("<"), height + 33 + 9 + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
@@ -213,7 +213,7 @@ public class ClickGUI extends GuiScreen {
 	                    );
                     }
 
-                    if (m.isHasSetting()) {
+                    if (m.doesHaveSettinging()) {
                         GlStateManager.enableBlend();
                         this.mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear.png"));
                         Gui.drawModalRectWithCustomSizedTexture(this.x + 99 + xo, height - 2 - fh * -(off) + 51 + 1 - offset, 0, 0, 8, 8, 8, 8);
@@ -301,7 +301,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void initGui() {
         mc.gameSettings.loadOptions();
-        introAnimation = Theme.getAnimation(Theme.getAnimationId(), 500, 1, 3, 3.8f, 1.35f, false);
+        introAnimation = Theme.getAnimation(500, 1, 3, 3.8f, 1.35f, false);
     }
 
     @Override

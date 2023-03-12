@@ -53,7 +53,7 @@ public class Sprint extends RenderMod {
 
     @Override
     public void draw() {
-        if (drawn.getValue()) drawString(getText(), x + 2, y + 2, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+        if (drawn.getValue()) drawString(getText(), x + 2, y + 2);
     }
 
     @Override

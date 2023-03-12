@@ -11,69 +11,35 @@ import dev.resent.visual.ui.animation.impl.SmoothStepAnimation;
 
 public class Theme {
 
-    public static int getFontColor(int id) {
-        return getFontColor(getFontId(), 255);
-    }
-
-    public static int getFontColor(int id, int opacity) {
-        switch (id) {
-            case 1:
-                return -1;
-            case 50:
-                return RenderUtils.getRainbow(4f, 0.8f, 0.85f);
-            case 6942069:
-                return 6942069;
-        }
-        return -1;
-    }
-
-    public static Animation getAnimation(int id, int ms, int endpoint, float easeAmount, float elasticity, float smooth, boolean moreElasticity) {
-        switch (getAnimationId()) {
-            case 1:
-                return new EaseBackIn(ms, endpoint, easeAmount);
-            case 2:
-                return new ElasticAnimation(ms, endpoint, elasticity, smooth, moreElasticity);
-            case 3:
-                return new EaseInOutQuad(ms, endpoint);
-            case 4:
-                return new DecelerateAnimation(ms, endpoint);
-            case 5:
-                return new SmoothStepAnimation(ms, endpoint);
-            case 0:
-            	return null;
-        }
-
-        return null;
-    }
-
-    public static int getFontId() {
+    public static int getFontColor() {
         switch (HUD.fontTheme.getValue()) {
             case "Classic":
-                return 1;
+                return -1;
             case "Rainbow":
-                return 50;
+                return RenderUtils.getRainbow(4f, 0.8f, 0.85f);
             case "Chroma":
                 return 6942069;
         }
         return -1;
     }
 
-    public static int getAnimationId() {
+    public static Animation getAnimation(int ms, int endpoint, float easeAmount, float elasticity, float smooth, boolean moreElasticity) {
         switch (HUD.animationTheme.getValue()) {
             case "Ease back in":
-                return 1;
+                return new EaseBackIn(ms, endpoint, easeAmount);
             case "Elastic":
-                return 2;
+                return new ElasticAnimation(ms, endpoint, elasticity, smooth, moreElasticity);
             case "Ease in out quad":
-                return 3;
+                return new EaseInOutQuad(ms, endpoint);
             case "Decelerate":
-                return 4;
+                return new DecelerateAnimation(ms, endpoint);
             case "Smooth step":
-                return 5;
+                return new SmoothStepAnimation(ms, endpoint);
             case "None":
-            	return 0;
+            	return null;
         }
-        return -1;
+
+        return null;
     }
 
     public static boolean getRounded() {

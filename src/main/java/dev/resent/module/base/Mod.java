@@ -18,8 +18,6 @@ public abstract class Mod {
     private Category category;
     private boolean enabled;
     private boolean hasSetting;
-    public boolean expanded;
-	public int index;
 	public SimpleAnimation toggleAnimation = new SimpleAnimation(0);
 
     public List<Setting> settings = new ArrayList<>();
@@ -39,7 +37,6 @@ public abstract class Mod {
     }
 
     public void onEnable() {}
-
     public void onDisable() {}
 
     public void toggle() {
@@ -60,11 +57,11 @@ public abstract class Mod {
         RenderUtils.drawRoundedRect(left, top, right, bottom, 4, color);
     }
 
-    protected int drawString(final String text, final int x, final int y, final int color, final boolean idk) {
-        if (Theme.getFontColor(Theme.getFontId()) == 6942069) {
-            RenderUtils.drawChromaString(text, x, y, idk);
+    protected int drawString(final String text, final int x, final int y) {
+        if (Theme.getFontColor() == 6942069) {
+            RenderUtils.drawChromaString(text, x, y, Theme.getTextShadow());
         } else {
-            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, Theme.getFontColor(Theme.getFontId()), Theme.getTextShadow());
+            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, Theme.getFontColor());
         }
 
         return x;
@@ -75,38 +72,19 @@ public abstract class Mod {
         MISC("Misc");
 
         public final String name;
-        public int i;
 
         Category(final String name) {
             this.name = name;
         }
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+    public boolean isEnabled() { return enabled; }
+    public boolean isHasSetting() { return hasSetting; }
+    public String gdoeoetveavee() { return name; }
+    public Category getCategory() { return category; }
 
-    public boolean isHasSetting() {
-        return hasSetting;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setCategory(Category category) { this.category = category; }
+    public void setHasSetting(boolean hasSetting) { this.hasSetting = hasSetting; }
 
-    public String getName() {
-        return name;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void setHasSetting(boolean hasSetting) {
-        this.hasSetting = hasSetting;
-    }
 }

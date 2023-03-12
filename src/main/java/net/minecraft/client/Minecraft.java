@@ -1359,8 +1359,6 @@ public class Minecraft implements IThreadListener {
                             this.displayInGameMenu();
                         }
 
-                        ModManager.tabGui.onKey(k);
-
 						if(k == this.gameSettings.keyBindClickGui.getKeyCode()){
 							this.displayGuiScreen(new PreGUI());
 						}
