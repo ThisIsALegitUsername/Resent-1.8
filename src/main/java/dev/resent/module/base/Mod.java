@@ -79,8 +79,8 @@ public abstract class Mod {
     }
 
     public boolean isEnabled() { return enabled; }
-    public boolean isHasSetting() { return hasSetting; }
-    public String gdoeoetveavee() { return name; }
+    public boolean doesHaveSetting() { return hasSetting; }
+    public String getName() { return name; }
     public Category getCategory() { return category; }
 
     public void setName(String name) { this.name = name; }
