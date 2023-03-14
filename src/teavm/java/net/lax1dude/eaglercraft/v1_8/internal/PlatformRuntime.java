@@ -78,6 +78,7 @@ public class PlatformRuntime {
     static WebGLFramebuffer mainFramebuffer = null;
 
     public static void create() {
+        setClientVersion(ClientInfo.version);
         win = Window.current();
         doc = win.getDocument();
 
@@ -304,7 +305,7 @@ public class PlatformRuntime {
                     int epkSize = Integer.parseInt(request.getResponseHeader("content-length"));
                     Event event = evt;
             
-                    setClientVersion(ClientInfo.version);
+                    
                     setBarProgress(event, epkSize);
                 }catch (Exception e){
                     e.printStackTrace();
