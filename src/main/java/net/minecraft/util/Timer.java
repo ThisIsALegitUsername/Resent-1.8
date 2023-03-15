@@ -85,6 +85,6 @@ public class Timer {
             this.elapsedTicks = 10;
         }
 
-        this.renderPartialTicks = this.elapsedPartialTicks;
+        this.renderPartialTicks = ((int)(this.elapsedPartialTicks*64.0f) / 64.0f);
     }
 }
