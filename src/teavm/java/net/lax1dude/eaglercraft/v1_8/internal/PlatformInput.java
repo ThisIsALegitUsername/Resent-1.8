@@ -95,8 +95,8 @@ public class PlatformInput {
 
     public static boolean keyboardLockSupported = false;
     public static boolean lockKeys = false;
-
-    @JSBody(params = {}, script = "window.onbeforeunload = () => {return false;};")
+    
+    @JSBody(params = {}, script = "")
     private static native void onBeforeCloseRegister();
 
     static void initHooks(Window window, HTMLCanvasElement canvaz) {
@@ -605,7 +605,7 @@ public class PlatformInput {
         if (mouseEvents.isEmpty() && keyEvents.isEmpty() && !hasBeenActive()) {
             EarlyLoadScreen.paintEnable();
 
-            while (mouseEvents.isEmpty() && keyEvents.isEmpty()) {
+            while (!checkIfSiteInteractionHappened()) {
                 EagUtils.sleep(100l);
             }
         }
@@ -615,6 +615,9 @@ public class PlatformInput {
         mouseEvents.clear();
         keyEvents.clear();
     }
+
+    @JSBody(params = {}, script = "return returnHasSiteInteractionHappened()")
+	private static native boolean checkIfSiteInteractionHappened();
 
     @JSBody(params = {}, script = "return window.matchMedia('(display-mode: fullscreen)');")
     private static native JSObject fullscreenMediaQuery();

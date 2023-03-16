@@ -29,6 +29,7 @@ import dev.resent.util.misc.W;
 import dev.resent.visual.ui.clickgui.PreGUI;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
+import net.lax1dude.eaglercraft.v1_8.EagUtils;
 import net.lax1dude.eaglercraft.v1_8.HString;
 import net.lax1dude.eaglercraft.v1_8.IOUtils;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
@@ -459,6 +460,9 @@ public class Minecraft implements IThreadListener {
 		this.renderEngine.deleteTexture(this.mojangLogo);
 		this.mojangLogo = null;
 		this.loadingScreen = new LoadingScreenRenderer(this);
+
+		PlatformRuntime.removeLoadScreen();
+		EagUtils.sleep(200l);
 	}
 
 	private void registerMetadataSerializers() {
@@ -609,6 +613,11 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.enableAlpha();
 		GlStateManager.alphaFunc(GL_GREATER, 0.1F);
 		this.updateDisplay();
+
+		PlatformRuntime.showMojangScreen();
+		EagUtils.sleep(200l);
+
+
 	}
 
 	public void func_181536_a(int parInt1, int parInt2, int parInt3, int parInt4, int parInt5, int parInt6, int parInt7,

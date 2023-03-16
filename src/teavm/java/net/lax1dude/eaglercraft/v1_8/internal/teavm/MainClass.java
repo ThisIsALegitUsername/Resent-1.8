@@ -220,7 +220,7 @@ public class MainClass {
             HTMLElement el = doc.getElementById(configRootElement);
 
             StringBuilder str = new StringBuilder();
-            str.append(ClientInfo.name + " " + ClientInfo.version + "has crashed! DM this crash message to me on discord, my tag is hooman#1196, along with steps to recreate the crash. \n\n");
+            str.append(ClientInfo.name + " " + ClientInfo.version + " has crashed! DM this crash message to me on discord, my tag is hooman#1196, along with steps to recreate the crash. \n\n");
             str.append(t);
             str.append('\n').append('\n');
             str.append("eaglercraft.version = \"").append(EaglercraftVersion.projectForkVersion).append("\"\n");

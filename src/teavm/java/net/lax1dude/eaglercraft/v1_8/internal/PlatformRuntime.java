@@ -35,6 +35,7 @@ import com.jcraft.jzlib.InflaterInputStream;
 
 import dev.resent.client.ClientInfo;
 import dev.resent.client.Resent;
+import net.lax1dude.eaglercraft.v1_8.EagUtils;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftVersion;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.EaglerArrayBufferAllocator;
@@ -152,8 +153,12 @@ public class PlatformRuntime {
                 throw new RuntimeInitializationFailureException("Could not download EPK file \"" + url + "\"");
             }
 
-            logger.info("Decompressing: {}", logURL);
             remove();
+            // give enough time for screen to update and say "decompressing assets"
+            EagUtils.sleep(50l);
+
+            logger.info("Decompressing: {}", logURL);
+            
 
             try {
                 EPKLoader.loadEPK(epkFileData, epkFiles[i].path, PlatformAssets.assets);
@@ -168,9 +173,16 @@ public class PlatformRuntime {
 
         logger.info("Initializing sound engine...");
 
+
+        enableScreen();
         PlatformInput.pressAnyKeyScreen();
 
         PlatformAudio.initialize();
+
+        loadingScreen();
+
+        // so that animations wont lag
+        EagUtils.sleep(200l);
 
         if (finalLoadScreen != null) {
             EarlyLoadScreen.paintFinal(finalLoadScreen);
@@ -187,6 +199,12 @@ public class PlatformRuntime {
 
     @JSBody( script = "die()")
     public static native void remove();
+
+    @JSBody( script = "enable()")
+    public static native void enableScreen();
+
+    @JSBody( script = "loading()")
+    public static native void loadingScreen();
 
     @JSBody(params = {}, script = "return {antialias: false, depth: false, powerPreference: \"high-performance\", desynchronized: true, preserveDrawingBuffer: false, premultipliedAlpha: false, alpha: false};")
     public static native JSObject youEagler();
@@ -593,4 +611,8 @@ public class PlatformRuntime {
             mediaRec = null;
         }
     }
+    @JSBody(params = {}, script = "showMojang();")
+    public static native void showMojangScreen();
+    @JSBody(params = {}, script = "die2();")
+    public static native void removeLoadScreen();
 }

@@ -469,4 +469,12 @@ public class PlatformRuntime {
     public static void toggleRec() {
         //
     }
+
+    public static void showMojangScreen(){
+        //
+    }
+
+    public static void removeLoadScreen(){
+        //      
+    }
 }
