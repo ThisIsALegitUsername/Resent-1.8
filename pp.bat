@@ -1,0 +1,6 @@
+@echo off
+echo Compiling Resent...
+call gradle teavmc compileJava
+echo Moving Compiled Files...
+copy ".\javascript\classes.js" ".\javascript\badwifi\"
+echo Done!
