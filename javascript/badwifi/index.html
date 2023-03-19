@@ -28,6 +28,7 @@
 				top: 30vh;
 				position: relative;
 				font-size: 1.75vw;
+                transition: all 0.4s;
 			}
 
 			#clienttitle {
@@ -76,11 +77,11 @@
 			    width: 80vw;
 				margin:auto;
 				top: 28vh;
-				height: 0.2vh;  
+				height: 1px;  
 				position: relative;
 				border: 5px solid black;
 				border-radius: 20vw;
-				padding: 1.15vw;
+				padding: 1vw;
 			}
 
 			#dividk {
@@ -150,8 +151,10 @@
 				let versionText = document.getElementById("clientversion");
 				title.style.fontSize = "10vw";
 				versionText.style.left = "81vw";
-				versionText.style.top = "31vh";
-				versionText.style.fontSize = "3.5vw";
+				versionText.style.top = "10vh";
+				title.style.top = "3vh";
+                versionText.style.fontSize = "3.5vw";
+            	document.getElementById("progresstext").style.top = "3vh";
 				interval = setInterval(() => {
 					// checks if user clicked the screen
 					enableClick();
@@ -173,6 +176,8 @@
 				versionText.style.left = "74vw";
 				versionText.style.top = "31vh";
 				versionText.style.fontSize = "2.5vw";
+				title.style.top = "25vh";
+                document.getElementById("progresstext").style.top = "30vh";
 				document.getElementById("progresstext").innerText = "Loading Resent "+versionNum;
 				
 			}
@@ -223,7 +228,12 @@
 						assetsURI: "assets.epk",
 						localesURI: "lang/",
 						servers: [
-							{ addr: "ws://localhost:8081/", name: "Local test server" }
+							{ addr: "wss://mc.arch.lol/", name: "ArchMC" },
+							{ addr: "wss://zentic.org/", name: "Zentic" },
+							{ addr: "wss://hyper-network.me/", name: "Hyper Network" },
+							{ addr: "wss://mc.asspixel.net/", name: "Ass Pixel" },
+							{ addr: "wss://konemc.ga/", name: "koneMC" }
+							
 						]
 					};
 					
