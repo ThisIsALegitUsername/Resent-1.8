@@ -99,7 +99,7 @@ public class GuiButton extends Gui {
 				j = 14737632;
 			}
 
-			drawCenteredString(mc.fontRendererObj, this.displayString, this.xPosition + this.width / 2f, this.yPosition + (this.height - 8) / 2f, this.hovered ? new Color(47, 116, 253, 255).getRGB() : new Color(200, 200, 200).getRGB());
+			drawCenteredString(mc.fontRendererObj, this.displayString, this.xPosition + this.width / 2f, this.yPosition + (this.height - 8) / 2f, this.hovered && this.enabled ? new Color(47, 116, 253, 255).getRGB() : new Color(200, 200, 200).getRGB());
 		}
 	}
 
