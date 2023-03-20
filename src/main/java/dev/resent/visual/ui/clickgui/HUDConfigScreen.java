@@ -7,8 +7,15 @@ import net.minecraft.client.gui.GuiScreen;
 
 public class HUDConfigScreen extends GuiScreen {
 
+	private GuiScreen parentGuiScreen;
+	
+	public HUDConfigScreen(GuiScreen parentScreen) {
+		parentGuiScreen = parentScreen;
+	}
+	
+	
     public void initGui() {
-        this.buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 148, "Back"));
+        this.buttonList.add(new GuiButton(200, width / 2 - 100, height - 30, "Back"));
     }
 
     public void onGuiClosed() {
@@ -23,7 +30,7 @@ public class HUDConfigScreen extends GuiScreen {
 
     protected void actionPerformed(GuiButton par1GuiButton) {
         if (par1GuiButton.id == 200) {
-            this.mc.displayGuiScreen(new ClickGUI());
+            this.mc.displayGuiScreen(parentGuiScreen);
         }
     }
 }

@@ -60,7 +60,7 @@ public class ClickGUI extends GuiScreen {
         }
         
         if (isMouseInside(mouseX, mouseY, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5) && mouseButton == 0) {
-            mc.displayGuiScreen(new HUDConfigScreen());
+            mc.displayGuiScreen(new HUDConfigScreen(this));
             this.openedMod = null;
         }
 

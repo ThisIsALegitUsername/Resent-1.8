@@ -37,7 +37,7 @@ public class CPS extends RenderMod {
         }
 
         final long time = System.currentTimeMillis();
-        FuncUtils.removeIf(clicks, aLong -> aLong + 1000 < time);
+        FuncUtils.removeIf(clicks, aLong -> aLong + 6000 < time);
 
         drawString("[CPS: " + clicks.size() + "]", this.x + 2, this.y + 2);
     }
