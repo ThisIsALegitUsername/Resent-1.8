@@ -3,6 +3,7 @@ package net.minecraft.block;
 import java.util.List;
 
 import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.AdminXray;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -398,6 +399,11 @@ public class Block {
     }
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
+
+        if(ModManager.adminXray.isEnabled()){
+            return 99999;
+        }
+
         Block block = worldIn.getBlockState(pos).getBlock();
         int i = worldIn.getCombinedLight(pos, block.getLightValue());
         if (i == 0 && block instanceof BlockSlab) {
@@ -410,6 +416,11 @@ public class Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
+
+        if(ModManager.adminXray.isEnabled()){
+            return AdminXray.shouldRender(this);
+        }
+
         return enumfacing == EnumFacing.DOWN && this.minY > 0.0D
             ? true
             : (enumfacing == EnumFacing.UP && this.maxY < 1.0D ? true : (enumfacing == EnumFacing.NORTH && this.minZ > 0.0D ? true : (enumfacing == EnumFacing.SOUTH && this.maxZ < 1.0D ? true : (enumfacing == EnumFacing.WEST && this.minX > 0.0D ? true : (enumfacing == EnumFacing.EAST && this.maxX < 1.0D ? true : !iblockaccess.getBlockState(blockpos).getBlock().isOpaqueCube())))));

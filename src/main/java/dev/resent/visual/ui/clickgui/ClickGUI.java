@@ -22,12 +22,14 @@ import dev.resent.visual.ui.animation.Direction;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.profile.EaglerProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -66,6 +68,7 @@ public class ClickGUI extends GuiScreen {
 
         Resent.INSTANCE.modManager.modsInCategory(selectedCategory).sort(Comparator.comparingInt(m -> fr.getStringWidth(m.getName())));
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory) ) {
+            if(m.getName() != "Xray" || EntityRenderer.test){
             int fh = 9;
 
             if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.doesHaveSetting() && openedMod == null) {
@@ -92,6 +95,7 @@ public class ClickGUI extends GuiScreen {
                 off += 5;
             } else {
                 xo += 100;
+            }
             }
         }
 
@@ -189,7 +193,7 @@ public class ClickGUI extends GuiScreen {
         
         Resent.INSTANCE.modManager.modsInCategory(selectedCategory).sort(Comparator.comparingInt(m -> fr.getStringWidth(m.getName())));
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
-            if (this.openedMod == null) {
+            if (this.openedMod == null && m.getName() != "Xray" || this.openedMod == null && EntityRenderer.test) {
                 int fh = 9;
                 if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && (introAnimation != null ? introAnimation.isDone() : true)) {
                     // Enabled outline
@@ -275,12 +279,14 @@ public class ClickGUI extends GuiScreen {
                 }
             }
 
+            if(m.getName() != "Xray" || EntityRenderer.test){
             if (xo > width / 2) {
                 xo = 0;
                 off += 5;
             } else {
                 xo += 100;
             }
+        }
         }
     }
 

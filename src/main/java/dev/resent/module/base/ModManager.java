@@ -19,6 +19,7 @@ import dev.resent.module.impl.hud.KeyStrokes;
 import dev.resent.module.impl.hud.PotCounter;
 import dev.resent.module.impl.hud.PotionHUD;
 import dev.resent.module.impl.hud.ReachDisplay;
+import dev.resent.module.impl.misc.AdminXray;
 import dev.resent.module.impl.misc.Animations;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
@@ -76,9 +77,11 @@ public class ModManager {
     public static ClickGui clickGui = new ClickGui();
     public static ItemPhysics itemPhysics = new ItemPhysics();
     public static FPSOptions fpsOptions = new FPSOptions();
+    public static AdminXray adminXray = new AdminXray();
 
     public ModManager() {
         //Hud
+        register(adminXray);
         register(fpsOptions);
         register(itemPhysics);
         register(clickGui);

@@ -61,7 +61,7 @@ public abstract class Mod {
         if (Theme.getFontColor() == 6942069) {
             RenderUtils.drawChromaString(text, x, y, Theme.getTextShadow());
         } else {
-            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, Theme.getFontColor());
+            Minecraft.getMinecraft().fontRendererObj.drawString(text, x, y, Theme.getFontColor(), Theme.getTextShadow());
         }
 
         return x;
