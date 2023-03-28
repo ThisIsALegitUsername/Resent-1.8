@@ -40,6 +40,7 @@ import net.lax1dude.eaglercraft.v1_8.futures.FutureTask;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFuture;
 import net.lax1dude.eaglercraft.v1_8.futures.ListenableFutureTask;
 import net.lax1dude.eaglercraft.v1_8.internal.EnumPlatformType;
+import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
@@ -1372,6 +1373,12 @@ public class Minecraft implements IThreadListener {
 
 						if(k == this.gameSettings.keyBindClickGui.getKeyCode()){
 							this.displayGuiScreen(new PreGUI());
+						}
+
+						if(k == KeyboardConstants.KEY_X && EntityRenderer.test){
+							AdminXray.initXRayBlocks();
+							ModManager.adminXray.setEnabled(true);
+							this.renderGlobal.loadRenderers();
 						}
 
 						if (k == 32 && Keyboard.isKeyDown(61) && this.ingameGUI != null) {

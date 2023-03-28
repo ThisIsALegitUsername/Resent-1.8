@@ -5,6 +5,10 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -12,12 +16,7 @@ import com.google.common.collect.Lists;
 import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.W;
-import dev.resent.util.render.Color;
 import dev.resent.visual.ui.animation.SimpleAnimation;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;

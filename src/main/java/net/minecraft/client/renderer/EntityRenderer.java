@@ -657,7 +657,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public void enableLightmap() {
-        if(!ModManager.fpsOptions.lightUpdates.getValue() || !ModManager.fullbright.isEnabled())
+        if(ModManager.fpsOptions.lightUpdates.getValue() || ModManager.fullbright.isEnabled())
             return;
             
             GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
