@@ -9,54 +9,45 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 
 @Module(name = "ESP", category = Category.HUD)
 
 public class AdminSpawner extends Mod {
 
-    public void draw(){
+    public void render(){
         for(Object o: mc.theWorld.loadedTileEntityList) {
             if(o instanceof TileEntityMobSpawner) {
-                blockESPBox(((TileEntityMobSpawner)o).getPos());
+                box(((TileEntityMobSpawner)o));
             }
         }
     }
 
-	@Override
-	public boolean isAdmin(){
-		return true;
-	}
-
-    public static void blockESPBox(BlockPos blockPos) {
-		Minecraft mc = Minecraft.getMinecraft();
-		double x =
-				blockPos.getX()
-					- mc.getRenderManager().renderPosX;
-		double y =
-				blockPos.getY()
-					- mc.getRenderManager().renderPosY;
-		double z =
-				blockPos.getZ()
-					- mc.getRenderManager().renderPosZ;
-		
-		GlStateManager.disableCull();
-        GlStateManager.blendFunc(770, 771);
+	public static void box(TileEntityMobSpawner entity)
+	{
+		GlStateManager.blendFunc(770, 771);
 		GlStateManager.enableBlend();
 		EaglercraftGPU.glLineWidth(4.0F);
-		GlStateManager.color(0, 0, 1, 0.15F);
 		GlStateManager.disableTexture2D();
-		GlStateManager.disableAlpha();
+		GlStateManager.disableDepth();
 		GlStateManager.depthMask(false);
-		
-		//Box
-		GlStateManager.color(0, 0, 1, 0.5F);
-		RenderGlobal.func_181561_a(new AxisAlignedBB(x, y, z, x + 1.0, y + 1.0, z + 1.0));
+		GlStateManager.color(1F, 0.5F, 0.5F, 0.5F);
+		 Minecraft.getMinecraft().getRenderManager();
+		RenderGlobal.func_181561_a(
+			new AxisAlignedBB(
+entity.getPos().getX()-Minecraft.getMinecraft().getRenderManager().renderPosX+0.1,
+entity.getPos().getY()-Minecraft.getMinecraft().getRenderManager().renderPosY+0.1,
+entity.getPos().getZ()-Minecraft.getMinecraft().getRenderManager().renderPosZ+0.1,
+entity.getPos().getX() -Minecraft.getMinecraft().getRenderManager().renderPosX+0.9,
+entity.getPos().getY() -Minecraft.getMinecraft().getRenderManager().renderPosY+0.9,
+entity.getPos().getZ()-Minecraft.getMinecraft().getRenderManager().renderPosZ+0.9));
 		GlStateManager.enableTexture2D();
 		GlStateManager.enableDepth();
 		GlStateManager.depthMask(true);
 		GlStateManager.disableBlend();
-		GlStateManager.enableCull();
-		GlStateManager.resetColor();
+	}
+
+	@Override
+	public boolean isAdmin(){
+		return true;
 	}
 }

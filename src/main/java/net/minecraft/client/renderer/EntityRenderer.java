@@ -1196,7 +1196,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.mc.mcProfiler.endStartSection("hand");
 
-        ModManager.adminSpawner.draw();
+        ModManager.adminSpawner.render();
         if (this.renderHand) {
             GlStateManager.clear(GL_DEPTH_BUFFER_BIT);
             this.renderHand(partialTicks, pass);
