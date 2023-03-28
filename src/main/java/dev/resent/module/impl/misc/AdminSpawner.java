@@ -12,6 +12,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 
 @Module(name = "ESP", category = Category.HUD)
+
 public class AdminSpawner extends Mod {
 
     public void draw(){
@@ -39,9 +40,10 @@ public class AdminSpawner extends Mod {
 				blockPos.getZ()
 					- mc.getRenderManager().renderPosZ;
 		
+		GlStateManager.disableCull();
         GlStateManager.blendFunc(770, 771);
 		GlStateManager.enableBlend();
-		EaglercraftGPU.glLineWidth(2.0F);
+		EaglercraftGPU.glLineWidth(4.0F);
 		GlStateManager.color(0, 0, 1, 0.15F);
 		GlStateManager.disableTexture2D();
 		GlStateManager.disableAlpha();
@@ -54,5 +56,7 @@ public class AdminSpawner extends Mod {
 		GlStateManager.enableDepth();
 		GlStateManager.depthMask(true);
 		GlStateManager.disableBlend();
+		GlStateManager.enableCull();
+		GlStateManager.resetColor();
 	}
 }

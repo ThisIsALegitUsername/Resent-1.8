@@ -11,10 +11,10 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
-@Module(name = "Xray", category = Category.MISC, hasSetting = true)
-public class AdminXray extends Mod{
+@Module(name = "Ray", category = Category.MISC, hasSetting = true)
+public class AdminRay extends Mod{
 
-    public static ArrayList<Block> xrayBlocks = new ArrayList<>();
+    public static ArrayList<Block> rayBlocks = new ArrayList<>();
 
 	public static BooleanSetting iron = new BooleanSetting("Iron", "", false);
 	public static BooleanSetting diamond = new BooleanSetting("Diamond", "", true);
@@ -24,7 +24,7 @@ public class AdminXray extends Mod{
 	public static BooleanSetting quartz = new BooleanSetting("Quartz", "", false);
 	public static BooleanSetting water = new BooleanSetting("Water", "", false);
 
-	public AdminXray(){
+	public AdminRay(){
 		addSetting(iron, diamond, gold, redstone, lapis, quartz, water);
 	}
 
@@ -34,38 +34,38 @@ public class AdminXray extends Mod{
 	}
 
     public static boolean shouldRender(Block block){
-        return xrayBlocks.contains(block);
+        return rayBlocks.contains(block);
     }
 
-    public static void initXRayBlocks() {
-		xrayBlocks.clear();
+    public static void start() {
+		rayBlocks.clear();
 
 		if(iron.getValue())
-			xrayBlocks.add(Block.getBlockFromName("iron_ore"));
+			rayBlocks.add(Block.getBlockFromName("iron_ore"));
 		if(gold.getValue())
-			xrayBlocks.add(Block.getBlockFromName("gold_ore"));
+			rayBlocks.add(Block.getBlockFromName("gold_ore"));
 		if(redstone.getValue()){
-			xrayBlocks.add(Block.getBlockFromName("redstone_ore"));
-			xrayBlocks.add(Block.getBlockById(74));
+			rayBlocks.add(Block.getBlockFromName("redstone_ore"));
+			rayBlocks.add(Block.getBlockById(74));
 		}
 		if(lapis.getValue())
-			xrayBlocks.add(Block.getBlockFromName("lapis_ore"));
+			rayBlocks.add(Block.getBlockFromName("lapis_ore"));
 		if(diamond.getValue())
-			xrayBlocks.add(Block.getBlockFromName("diamond_ore"));
+			rayBlocks.add(Block.getBlockFromName("diamond_ore"));
 		if(quartz.getValue())
-			xrayBlocks.add(Block.getBlockFromName("quartz_ore"));
+			rayBlocks.add(Block.getBlockFromName("quartz_ore"));
 		if(water.getValue()){
-			xrayBlocks.add(Block.getBlockById(8));
-			xrayBlocks.add(Block.getBlockById(9));
+			rayBlocks.add(Block.getBlockById(8));
+			rayBlocks.add(Block.getBlockById(9));
 		}
 
-		xrayBlocks.add(Block.getBlockById(10));
-		xrayBlocks.add(Block.getBlockById(11));
-		xrayBlocks.add(Block.getBlockFromName("fire"));
-		xrayBlocks.add(Block.getBlockFromName("mob_spawner"));
-		xrayBlocks.add(Block.getBlockFromName("end_portal_frame"));
-		xrayBlocks.add(Block.getBlockFromName("enchanting_table"));
-		xrayBlocks.add(Block.getBlockFromName("bookshelf"));
+		rayBlocks.add(Block.getBlockById(10));
+		rayBlocks.add(Block.getBlockById(11));
+		rayBlocks.add(Block.getBlockFromName("fire"));
+		rayBlocks.add(Block.getBlockFromName("mob_spawner"));
+		rayBlocks.add(Block.getBlockFromName("end_portal_frame"));
+		rayBlocks.add(Block.getBlockFromName("enchanting_table"));
+		rayBlocks.add(Block.getBlockFromName("bookshelf"));
 	}
 
 	public static void updateGameSetting(){

@@ -3,7 +3,7 @@ package net.minecraft.block;
 import java.util.List;
 
 import dev.resent.module.base.ModManager;
-import dev.resent.module.impl.misc.AdminXray;
+import dev.resent.module.impl.misc.AdminRay;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -401,7 +401,7 @@ public class Block {
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
 
-        if(ModManager.adminXray.isEnabled()){
+        if(ModManager.adminRay.isEnabled()){
             return 99999;
         }
 
@@ -418,8 +418,8 @@ public class Block {
 
     public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
 
-        if(ModManager.adminXray.isEnabled()){
-            return AdminXray.shouldRender(this);
+        if(ModManager.adminRay.isEnabled()){
+            return AdminRay.shouldRender(this);
         }
 
         return enumfacing == EnumFacing.DOWN && this.minY > 0.0D
