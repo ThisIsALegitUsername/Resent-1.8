@@ -18,6 +18,7 @@ public abstract class Mod {
     private Category category;
     private boolean enabled;
     private boolean hasSetting;
+    private boolean admin;
 	public SimpleAnimation toggleAnimation = new SimpleAnimation(0);
 
     public List<Setting> settings = new ArrayList<>();
@@ -79,6 +80,7 @@ public abstract class Mod {
     }
 
     public boolean isEnabled() { return enabled; }
+    public boolean isAdmin() { return admin; }
     public boolean doesHaveSetting() { return hasSetting; }
     public String getName() { return name; }
     public Category getCategory() { return category; }

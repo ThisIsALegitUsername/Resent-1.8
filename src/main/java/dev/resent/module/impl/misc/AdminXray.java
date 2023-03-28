@@ -28,6 +28,11 @@ public class AdminXray extends Mod{
 		addSetting(iron, diamond, gold, redstone, lapis, quartz, water);
 	}
 
+	@Override
+	public boolean isAdmin(){
+		return true;
+	}
+
     public static boolean shouldRender(Block block){
         return xrayBlocks.contains(block);
     }

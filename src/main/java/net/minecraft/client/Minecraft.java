@@ -1375,7 +1375,7 @@ public class Minecraft implements IThreadListener {
 							this.displayGuiScreen(new PreGUI());
 						}
 
-						if(k == KeyboardConstants.KEY_X && EntityRenderer.test){
+						if(k == this.gameSettings.keyBindAdminX.keyCode && EntityRenderer.test){
 							AdminXray.initXRayBlocks();
 							ModManager.adminXray.setEnabled(!ModManager.adminXray.isEnabled());
 							this.renderGlobal.loadRenderers();

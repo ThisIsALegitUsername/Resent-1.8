@@ -19,6 +19,7 @@ import dev.resent.module.impl.hud.KeyStrokes;
 import dev.resent.module.impl.hud.PotCounter;
 import dev.resent.module.impl.hud.PotionHUD;
 import dev.resent.module.impl.hud.ReachDisplay;
+import dev.resent.module.impl.misc.AdminSpawner;
 import dev.resent.module.impl.misc.AdminXray;
 import dev.resent.module.impl.misc.Animations;
 import dev.resent.module.impl.misc.AutoGG;
@@ -78,9 +79,11 @@ public class ModManager {
     public static ItemPhysics itemPhysics = new ItemPhysics();
     public static FPSOptions fpsOptions = new FPSOptions();
     public static AdminXray adminXray = new AdminXray();
+    public static AdminSpawner adminSpawner =new AdminSpawner();
 
     public ModManager() {
         //Hud
+        register(adminSpawner);
         register(adminXray);
         register(fpsOptions);
         register(itemPhysics);
