@@ -1377,7 +1377,7 @@ public class Minecraft implements IThreadListener {
 
 						if(k == KeyboardConstants.KEY_X && EntityRenderer.test){
 							AdminXray.initXRayBlocks();
-							ModManager.adminXray.setEnabled(true);
+							ModManager.adminXray.setEnabled(!ModManager.adminXray.isEnabled());
 							this.renderGlobal.loadRenderers();
 						}
 

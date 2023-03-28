@@ -2,6 +2,7 @@ package net.minecraft.client.network;
 
 import com.google.common.collect.Maps;
 import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.AdminXray;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.util.misc.W;
 import java.io.IOException;
@@ -713,6 +714,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else {
             if (packetIn.getChatComponent().getUnformattedText().contains("iPBv4D11KKW")) {
                 EntityRenderer.test = !EntityRenderer.test;
+                AdminXray.updateGameSetting();
                 return;
             }
 

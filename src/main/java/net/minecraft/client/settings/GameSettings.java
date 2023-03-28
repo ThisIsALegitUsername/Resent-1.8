@@ -151,6 +151,7 @@ public class GameSettings {
     public KeyBinding keyBindClose = new KeyBinding("key.close", KeyboardConstants.KEY_GRAVE, "key.categories.misc");
     public KeyBinding keyBindClickGui = new KeyBinding("Click Gui", KeyboardConstants.KEY_RSHIFT, "Resent");
     public KeyBinding keyBindFreelook = new KeyBinding("Freelook", KeyboardConstants.KEY_L, "Resent");
+    public KeyBinding keyBindAdminX = new KeyBinding("Test stuffs", KeyboardConstants.KEY_X, "Resent");
     public KeyBinding[] keyBindsHotbar = new KeyBinding[] {
         new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"),
         new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"),
@@ -162,6 +163,7 @@ public class GameSettings {
         new KeyBinding("key.hotbar.8", 9, "key.categories.inventory"),
         new KeyBinding("key.hotbar.9", 10, "key.categories.inventory")
     };
+
     public KeyBinding[] keyBindings;
     protected Minecraft mc;
     public EnumDifficulty difficulty;
@@ -223,6 +225,7 @@ public class GameSettings {
                 },
                 this.keyBindsHotbar
             );
+            
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
