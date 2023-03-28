@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.AxisAlignedBB;
 
-@Module(name = "ESP", category = Category.HUD)
+@Module(name = "Spawner Find", category = Category.HUD)
 
 public class AdminSpawner extends Mod {
 
