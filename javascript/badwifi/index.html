@@ -136,10 +136,6 @@
 			function die(){
 				document.getElementById( "meter" ).style.display = "none";
 				tooLate = true;
-				document.getElementsByClassName("ratio")[0].className = "ratio";
-				setTimeout(() => {
-					document.getElementsByClassName("ratio")[0].display = "none";
-				}, 400);
 				document.getElementById("progresstext").innerText = "Decompressing Assets (May take 1-2 minutes on a slow device)";
 			}
 
