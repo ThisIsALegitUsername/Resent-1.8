@@ -527,13 +527,13 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Args: entity that was hit critically
      */
     public void onCriticalHit(Entity entityHit) {
-        for(int i = 0; i < ParticleMultiplier.multiplier.getValue() - 1; i++){
+        for(int i = 0; i < ParticleMultiplier.multiplier.getValue(); i++){
             this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
         }
     }
 
     public void onEnchantmentCritical(Entity entityHit) {
-        for(int i = 0; i < ParticleMultiplier.multiplier.getValue() - 1; i++){
+        for(int i = 0; i < ParticleMultiplier.multiplier.getValue(); i++){
             this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
         }
     }
