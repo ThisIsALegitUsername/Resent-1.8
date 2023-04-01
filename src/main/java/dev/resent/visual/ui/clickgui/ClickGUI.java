@@ -372,6 +372,6 @@ public class ClickGUI extends GuiScreen {
     }
 
     private int getListMaxScroll() {
-        return this.height;
+        return 500 - this.height;
     }
 }

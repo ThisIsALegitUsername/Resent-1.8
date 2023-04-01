@@ -1,5 +1,6 @@
 package net.minecraft.client.entity;
 
+import dev.resent.module.impl.misc.ParticleMultiplier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -526,11 +527,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Args: entity that was hit critically
      */
     public void onCriticalHit(Entity entityHit) {
-        this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
+        for(int i = 0; i < ParticleMultiplier.multiplier.getValue() - 1; i++){
+            this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
+        }
     }
 
     public void onEnchantmentCritical(Entity entityHit) {
-        this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
+        for(int i = 0; i < ParticleMultiplier.multiplier.getValue() - 1; i++){
+            this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
+        }
     }
 
     /**+

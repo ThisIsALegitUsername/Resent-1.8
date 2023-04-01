@@ -15,7 +15,7 @@ public class ClickGui extends Mod{
     public NumberSetting test = new NumberSetting("Test, ignore!", "", 50, 1, 200, 5, 5);
 
     public ClickGui(){
-        addSetting(scroll, guiTheme, test);
+        addSetting(scroll, guiTheme);
     }
     
 }

@@ -1049,11 +1049,11 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
                             this.setSprinting(false);
                         }
 
-                        if (flag || ParticleMultiplier.alwaysCrit.getValue()) {
+                        if (flag || ParticleMultiplier.alwaysCrit.getValue() && ModManager.particleMultiplier.isEnabled()) {
                             this.onCriticalHit(entity);
                         }
 
-                        if (f1 > 0.0F || ParticleMultiplier.alwaysSharp.getValue()) {
+                        if (f1 > 0.0F || ParticleMultiplier.alwaysSharp.getValue() && ModManager.particleMultiplier.isEnabled()) {
                             this.onEnchantmentCritical(entity);
                         }
 
