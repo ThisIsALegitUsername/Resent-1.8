@@ -45,7 +45,7 @@ public class ClickGUI extends GuiScreen {
     public Category selectedCategory = null;
     public int sliderOffset;
     public boolean draggingNumber;
-    public boolean settingDrag = true;
+    public boolean settingDrag;
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
@@ -323,6 +323,7 @@ public class ClickGUI extends GuiScreen {
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton){
         draggingNumber = false;
+        settingDrag = false;
     }
 
     protected void keyTyped(char par1, int par2) {
