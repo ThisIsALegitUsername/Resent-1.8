@@ -302,7 +302,11 @@ public class GuiIngame extends Gui {
             this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
         }
 
-        Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(m -> ((RenderMod) m).draw());
+        Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(m -> {
+            if(!Minecraft.getMinecraft().gameSettings.showDebugInfo){
+                ((RenderMod) m).draw();
+            }
+        });
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
