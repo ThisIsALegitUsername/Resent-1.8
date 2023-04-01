@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.misc.ParticleMultiplier;
+
 import java.util.Collection;
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
@@ -1047,11 +1049,11 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
                             this.setSprinting(false);
                         }
 
-                        if (flag) {
+                        if (flag || ParticleMultiplier.alwaysCrit.getValue()) {
                             this.onCriticalHit(entity);
                         }
 
-                        if (f1 > 0.0F) {
+                        if (f1 > 0.0F || ParticleMultiplier.alwaysSharp.getValue()) {
                             this.onEnchantmentCritical(entity);
                         }
 

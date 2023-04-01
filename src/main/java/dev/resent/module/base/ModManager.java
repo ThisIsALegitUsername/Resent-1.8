@@ -31,6 +31,7 @@ import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSOptions;
 import dev.resent.module.impl.misc.Fullbright;
 import dev.resent.module.impl.misc.HUD;
+import dev.resent.module.impl.misc.ParticleMultiplier;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.setting.Animations;
@@ -79,6 +80,7 @@ public class ModManager {
     public static FPSOptions fpsOptions = new FPSOptions();
     public static AdminRay adminRay = new AdminRay();
     public static AdminSpawner adminSpawner =new AdminSpawner();
+    public static ParticleMultiplier particleMultiplier = new ParticleMultiplier();
     public static Hand hand;
 
     public ModManager() {
@@ -107,6 +109,7 @@ public class ModManager {
         register(potCounter = new PotCounter());
 
         //Mechanic
+        register(particleMultiplier);
         register(autoRespawn = new AutoRespawn());
         register(fullbright = new Fullbright());
         register(noSwingDelay = new NoSwingDelay());

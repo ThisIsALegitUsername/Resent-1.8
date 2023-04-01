@@ -16,14 +16,13 @@ public class AdminSpawner extends Mod {
 
     public void render(){
         for(Object o: mc.theWorld.loadedTileEntityList) {
-            if(o instanceof TileEntityMobSpawner) {
+            if(o instanceof TileEntityMobSpawner && this.isEnabled()) {
                 box(((TileEntityMobSpawner)o));
             }
         }
     }
 
-	public static void box(TileEntityMobSpawner entity)
-	{
+	public static void box(TileEntityMobSpawner entity){
 		GlStateManager.blendFunc(770, 771);
 		GlStateManager.enableBlend();
 		EaglercraftGPU.glLineWidth(4.0F);
