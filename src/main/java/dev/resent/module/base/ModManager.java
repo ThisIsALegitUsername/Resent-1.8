@@ -34,6 +34,7 @@ import dev.resent.module.impl.misc.HUD;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.setting.Animations;
+import dev.resent.module.impl.setting.Hand;
 import dev.resent.module.impl.setting.MinimalViewBobbing;
 import dev.resent.module.impl.setting.NoParticles;
 import dev.resent.module.impl.setting.NoRain;
@@ -78,9 +79,11 @@ public class ModManager {
     public static FPSOptions fpsOptions = new FPSOptions();
     public static AdminRay adminRay = new AdminRay();
     public static AdminSpawner adminSpawner =new AdminSpawner();
+    public static Hand hand;
 
     public ModManager() {
         //Hud
+        register(hand = new Hand());
         register(adminSpawner);
         register(adminRay);
         register(fpsOptions);

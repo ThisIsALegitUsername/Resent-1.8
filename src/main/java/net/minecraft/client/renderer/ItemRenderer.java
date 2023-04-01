@@ -311,6 +311,10 @@ public class ItemRenderer {
         this.func_178110_a((EntityPlayerSP) entityplayersp, partialTicks);
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
+        if(ModManager.hand.isEnabled()){
+            GlStateManager.scale(-1.0D, 1.0D, 1.0D);
+            GlStateManager.disableCull();
+        }
         if (this.itemToRender != null) {
             if (this.itemToRender.getItem() == Items.filled_map) {
                 this.renderItemMap(entityplayersp, f2, f, f1);
