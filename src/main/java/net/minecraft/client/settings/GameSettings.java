@@ -234,7 +234,6 @@ public class GameSettings {
         this.forceUnicodeFont = false;
         this.mc = mcIn;
         ModManager.scoreboard.setEnabled(true);
-        ModManager.fpsb.setEnabled(true);
         GameSettings.Options.RENDER_DISTANCE.setValueMax(18.0F);
 
         this.renderDistanceChunks = 1;

@@ -1,4 +1,4 @@
-package dev.resent.module.impl.misc;
+package dev.resent.module.impl.setting;
 
 import dev.resent.annotation.Module;
 import dev.resent.module.base.Mod;

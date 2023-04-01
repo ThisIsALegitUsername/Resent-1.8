@@ -48,7 +48,6 @@ public class FPSOptions extends Mod{
             gameSettings.field_181151_V = false;
 
             ModManager.noParticles.setEnabled(true);
-            ModManager.fpsb.setEnabled(true);
         }
     };
     //public BooleanSetting delay = new BooleanSetting("Chunk delay", "", false);

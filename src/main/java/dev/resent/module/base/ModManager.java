@@ -19,9 +19,8 @@ import dev.resent.module.impl.hud.KeyStrokes;
 import dev.resent.module.impl.hud.PotCounter;
 import dev.resent.module.impl.hud.PotionHUD;
 import dev.resent.module.impl.hud.ReachDisplay;
-import dev.resent.module.impl.misc.AdminSpawner;
 import dev.resent.module.impl.misc.AdminRay;
-import dev.resent.module.impl.misc.Animations;
+import dev.resent.module.impl.misc.AdminSpawner;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.AutoRespawn;
 import dev.resent.module.impl.misc.Cape;
@@ -29,17 +28,17 @@ import dev.resent.module.impl.misc.ClearChat;
 import dev.resent.module.impl.misc.Cosmetics;
 import dev.resent.module.impl.misc.CrystalOptimizer;
 import dev.resent.module.impl.misc.DynamicFOV;
-import dev.resent.module.impl.misc.FPSB;
 import dev.resent.module.impl.misc.FPSOptions;
 import dev.resent.module.impl.misc.Fullbright;
 import dev.resent.module.impl.misc.HUD;
-import dev.resent.module.impl.misc.MinimalViewBobbing;
-import dev.resent.module.impl.misc.NoParticles;
-import dev.resent.module.impl.misc.NoRain;
-import dev.resent.module.impl.misc.NoSwingDelay;
 import dev.resent.module.impl.misc.Scoreboard;
-import dev.resent.module.impl.misc.SelfNametag;
 import dev.resent.module.impl.misc.Sprint;
+import dev.resent.module.impl.setting.Animations;
+import dev.resent.module.impl.setting.MinimalViewBobbing;
+import dev.resent.module.impl.setting.NoParticles;
+import dev.resent.module.impl.setting.NoRain;
+import dev.resent.module.impl.setting.NoSwingDelay;
+import dev.resent.module.impl.setting.SelfNametag;
 
 public class ModManager {
 
@@ -65,7 +64,6 @@ public class ModManager {
     public static NoParticles noParticles = new NoParticles();
     public static Scoreboard scoreboard = new Scoreboard();
     public static ClearChat clearChat = new ClearChat();
-    public static FPSB fpsb = new FPSB();
     public static Animations animations = new Animations();
     public static MinimalViewBobbing minimalViewBobbing = new MinimalViewBobbing();
     public static NoSwingDelay noSwingDelay;
@@ -95,7 +93,6 @@ public class ModManager {
         register(crystalOptimizer);
         register(hud = new HUD());
         register(freelook = new Freelook());
-        register(fpsb);
         register(keyStrokes = new KeyStrokes());
         register(armorHud = new ArmorHud());
         register(cps = new CPS());

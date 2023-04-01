@@ -1705,7 +1705,6 @@ public class Minecraft implements IThreadListener {
 		}
 
 		ModManager.scoreboard.setEnabled(true);
-		ModManager.fpsb.setEnabled(true);
 		this.gameSettings.loadOptions();
 		System.gc();
 		this.systemTime = 0L;

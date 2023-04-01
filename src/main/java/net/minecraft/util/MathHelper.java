@@ -28,26 +28,24 @@ public class MathHelper {
      * A table of sin values computed from 0 (inclusive) to 2*pi
      * (exclusive), with steps of 2*PI / 65536.
      */
-    private static final float[] SIN_TABLE = new float[65536];
     private static final float[] SIN_TABLE_FAST = new float[4096];
     private static final int[] multiplyDeBruijnBitPosition;
     private static final double field_181163_d;
     private static final double[] field_181164_e;
     private static final double[] field_181165_f;
-    public static boolean fastMath = false;
 
     /**+
      * sin looked up in a table
      */
     public static float sin(float parFloat1) {
-        return fastMath ? SIN_TABLE_FAST[(int) (parFloat1 * 651.8986f) & 4095] : SIN_TABLE[(int) (parFloat1 * 10430.378F) & '\uffff'];
+        return SIN_TABLE_FAST[(int) (parFloat1 * 651.8986f) & 4095];
     }
 
     /**+
      * cos looked up in the sin table with the appropriate offset
      */
     public static float cos(float value) {
-        return fastMath ? SIN_TABLE_FAST[(int) ((value + ((float) Math.PI / 2f)) * 651.8986f) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & '\uffff'];
+        return SIN_TABLE_FAST[(int) ((value + ((float) Math.PI / 2f)) * 651.8986f) & 4095];
     }
 
     public static float sqrt_float(float value) {
@@ -487,9 +485,6 @@ public class MathHelper {
     }
 
     static {
-        for (int i = 0; i < 65536; ++i) {
-            SIN_TABLE[i] = (float) Math.sin((double) i * 3.141592653589793D * 2.0D / 65536.0D);
-        }
 
         for (int j = 0; j < 4096; ++j) {
             SIN_TABLE_FAST[j] = (float) Math.sin(((float) j + 0.5f) / 4096.0f * ((float) Math.PI * 2f));

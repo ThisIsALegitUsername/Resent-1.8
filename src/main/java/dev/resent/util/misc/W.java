@@ -7,11 +7,9 @@ import dev.resent.module.impl.hud.Hitboxes;
 import dev.resent.module.impl.misc.AutoGG;
 import dev.resent.module.impl.misc.ClearChat;
 import dev.resent.module.impl.misc.DynamicFOV;
-import dev.resent.module.impl.misc.FPSB;
-//import dev.resent.module.impl.misc.NoHurtCam;
-import dev.resent.module.impl.misc.NoParticles;
-import dev.resent.module.impl.misc.NoRain;
 import dev.resent.module.impl.misc.Scoreboard;
+import dev.resent.module.impl.setting.NoParticles;
+import dev.resent.module.impl.setting.NoRain;
 
 public class W {
 
@@ -49,9 +47,5 @@ public class W {
 
     public static ClearChat clearChat() {
         return ModManager.clearChat;
-    }
-
-    public static FPSB fpsb() {
-        return ModManager.fpsb;
     }
 }
