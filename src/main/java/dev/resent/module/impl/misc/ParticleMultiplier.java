@@ -6,7 +6,7 @@ import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.NumberSetting;
 
-@Module(name = "Particle multipler", category = Category.MISC)
+@Module(name = "Particle multipler", category = Category.MISC, hasSetting = true)
 public class ParticleMultiplier extends Mod{
     public static BooleanSetting alwaysCrit = new BooleanSetting("Always critical", "", false);
     public static BooleanSetting alwaysSharp = new BooleanSetting("Always sharpness", "", false);

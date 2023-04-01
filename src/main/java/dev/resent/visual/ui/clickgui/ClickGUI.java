@@ -6,8 +6,8 @@ import java.util.Comparator;
 import dev.resent.client.ClientInfo;
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
-import dev.resent.module.base.ModManager;
 import dev.resent.module.base.Mod.Category;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.CustomRectSettingDraw;
 import dev.resent.module.base.setting.ModeSetting;
@@ -22,7 +22,6 @@ import dev.resent.visual.ui.animation.Direction;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
-import net.lax1dude.eaglercraft.v1_8.profile.EaglerProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
@@ -45,7 +44,8 @@ public class ClickGUI extends GuiScreen {
     public boolean close = false;
     public Category selectedCategory = null;
     public int sliderOffset;
-    public boolean dragging;
+    public boolean draggingNumber;
+    public boolean settingDrag = true;
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
@@ -105,7 +105,7 @@ public class ClickGUI extends GuiScreen {
 
                 if(s instanceof NumberSetting) {
                     if(isMouseInside(mouseX, mouseY, width-150+sliderOffset, height+41+var, width-141+sliderOffset, height+50+var)) {
-                    	dragging = true;
+                    	draggingNumber = true;
                     }
                 }
 
@@ -245,7 +245,7 @@ public class ClickGUI extends GuiScreen {
                         drawRect(width-150, height+43+var, width-45, height+47+var, -1);
                         RenderUtils.drawRoundedRect(width-150+sliderOffset, height+40+var, width-140+sliderOffset, height+50+var, 4, Color.RED.getRGB());
 
-                        if(dragging) {
+                        if(settingDrag) {
                             sliderOffset = mouseX-(width-150);                          
                             ss.setValue(sliderOffset*(ss.max/100));
                         }else {
@@ -253,9 +253,19 @@ public class ClickGUI extends GuiScreen {
                         }
                         
                         if(sliderOffset < 0) {
-                            dragging = false;
+                            settingDrag = false;
                             sliderOffset = 0;
+                        }else if(draggingNumber){
+                            settingDrag = true;
                         }
+
+                        if(sliderOffset > 100){
+                            settingDrag = false;
+                            sliderOffset = 100;
+                        }else if(draggingNumber){
+                            settingDrag = true;
+                        }
+
                     }
 
                     if (s instanceof BooleanSetting) {
@@ -312,7 +322,7 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton){
-        dragging = false;
+        draggingNumber = false;
     }
 
     protected void keyTyped(char par1, int par2) {
@@ -361,6 +371,6 @@ public class ClickGUI extends GuiScreen {
     }
 
     private int getListMaxScroll() {
-        return 130 - this.height;
+        return this.height;
     }
 }

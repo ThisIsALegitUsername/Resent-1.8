@@ -263,7 +263,6 @@ window.addEventListener("load", () => {
 		
 		<h2 id="clientversion">3.6</h2>
 		<p id="progresstext">0%</p>
-		<p class="ratio" >use <a href="./badwifi/index.html">this link</a> if your internet is bad</p>
 		<div id="meter">
 			<span style="width: 0%" id="progress"></span>
 		</div>
