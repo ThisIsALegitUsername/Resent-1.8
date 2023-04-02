@@ -32,6 +32,7 @@ import dev.resent.module.impl.misc.FPSOptions;
 import dev.resent.module.impl.misc.Fullbright;
 import dev.resent.module.impl.misc.HUD;
 import dev.resent.module.impl.misc.ParticleMultiplier;
+import dev.resent.module.impl.misc.ReachCircle;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.setting.Animations;
@@ -82,8 +83,12 @@ public class ModManager {
     public static AdminSpawner adminSpawner =new AdminSpawner();
     public static ParticleMultiplier particleMultiplier = new ParticleMultiplier();
     public static Hand hand;
+    public static ReachCircle reachCircle = new ReachCircle();
 
     public ModManager() {
+
+        register(reachCircle);
+
         //Hud
         register(hand = new Hand());
         register(adminSpawner);
