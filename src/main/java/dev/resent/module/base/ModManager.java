@@ -83,11 +83,8 @@ public class ModManager {
     public static AdminSpawner adminSpawner =new AdminSpawner();
     public static ParticleMultiplier particleMultiplier = new ParticleMultiplier();
     public static Hand hand;
-    public static ReachCircle reachCircle = new ReachCircle();
 
     public ModManager() {
-
-        register(reachCircle);
 
         //Hud
         register(hand = new Hand());

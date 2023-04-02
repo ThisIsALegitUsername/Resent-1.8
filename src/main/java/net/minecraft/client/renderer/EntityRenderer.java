@@ -1061,8 +1061,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private void renderWorldPass(int pass, float partialTicks, long finishTimeNano) {
-        if(ModManager.reachCircle.isEnabled())
-        ModManager.reachCircle.uwu(partialTicks);
         RenderGlobal renderglobal = this.mc.renderGlobal;
         EffectRenderer effectrenderer = this.mc.effectRenderer;
         boolean flag = this.isDrawBlockOutline();

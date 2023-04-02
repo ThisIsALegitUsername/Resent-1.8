@@ -54,11 +54,11 @@ public class ReachCircle extends Mod{
         
         EaglercraftGPU.glLineWidth(2);
         setColor(color.getRGB(), (color.getRGB() >> 24 & 255) / 255.0F);
-        worldrenderer.begin(1, DefaultVertexFormats.POSITION);
+        worldrenderer.begin(3, DefaultVertexFormats.POSITION);
 
         for (int i = 0; i <= 90; ++i) {
             setColor(color.getRGB(), 40);
-            worldrenderer.pos(x + rad * Math.cos((double) i * 6.283185307179586D / 45.0D), y, z + rad * Math.sin((double) i * 6.283185307179586D / 45.0D));
+            worldrenderer.pos(x + rad * Math.cos((double) i * 6.283185307179586D / 45.0D), y, z + rad * Math.sin((double) i * 6.283185307179586D / 45.0D)).endVertex();
         }
 
         tessellator.draw();
