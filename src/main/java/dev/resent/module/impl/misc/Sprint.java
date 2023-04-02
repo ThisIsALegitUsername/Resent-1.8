@@ -1,13 +1,13 @@
 package dev.resent.module.impl.misc;
 
-import dev.resent.annotation.RenderModule;
+import dev.resent.annotation.Module;
+import dev.resent.module.base.Mod;
 import dev.resent.module.base.Mod.Category;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import dev.resent.module.base.RenderMod;
 
-@RenderModule(name = "ToggleSprint", category = Category.MISC, x = 4, y = 122, hasSetting = true)
-public class Sprint extends RenderMod {
+@Module(name = "ToggleSprint", category = Category.MISC)
+public class Sprint extends Mod {
 
     public static void onUpdate(){
         KeyBinding.setKeyBindState(Minecraft.getMinecraft().gameSettings.keyBindSprint.getKeyCode(), true);    
