@@ -111,14 +111,6 @@
 			document.addEventListener("click", () =>{
 				hasSiteInteractionHappened = true;
 			});
-			window.addEventListener('DOMContentLoaded', (event) => {
-				setTimeout(() => {
-					if (!tooLate){
-						document.getElementsByClassName("ratio")[0].className = "ratio show";
-					}
-					
-				}, 2000);
-			});
 			
 			function setVersion(version){
 				document.getElementById("clientversion").innerText = version;

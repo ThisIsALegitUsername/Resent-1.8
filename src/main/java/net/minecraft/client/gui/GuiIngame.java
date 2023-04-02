@@ -303,7 +303,7 @@ public class GuiIngame extends Gui {
         }
 
         Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(m -> {
-            if(!Minecraft.getMinecraft().gameSettings.showDebugInfo){
+            if(!Minecraft.getMinecraft().gameSettings.showDebugInfo && m.getName() != "CPS"){
                 ((RenderMod) m).draw();
             }
         });

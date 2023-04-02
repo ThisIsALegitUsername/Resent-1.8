@@ -1,6 +1,8 @@
 package net.minecraft.client.entity;
 
+import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.ParticleMultiplier;
+import dev.resent.module.impl.misc.Sprint;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -133,6 +135,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Called to update the entity's position/logic.
      */
     public void onUpdate() {
+        if(ModManager.sprint.isEnabled()){
+            Sprint.onUpdate();
+        }
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
             if (this.isRiding()) {

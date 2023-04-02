@@ -24,7 +24,10 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_TEXTURE_WR
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+
+import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
+import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.W;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -882,6 +885,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                         GlStateManager.enableOverlayFramebufferBlending();
                         this.mc.ingameGUI.renderGameOverlay(parFloat1);
+                    }
+                    ModManager.cps.draw();
+                    if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
                         GlStateManager.disableOverlayFramebufferBlending();
                         this.overlayFramebuffer.endRender();
                     }

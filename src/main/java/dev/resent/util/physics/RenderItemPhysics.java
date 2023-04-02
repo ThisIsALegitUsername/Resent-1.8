@@ -1,6 +1,7 @@
 package dev.resent.util.physics;
 
 import dev.resent.module.base.ModManager;
+import dev.resent.module.impl.hud.ItemPhysics;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -58,54 +59,11 @@ public class RenderItemPhysics {
             }
 
             if(ModManager.itemPhysics.isEnabled() && !itemIn.onGround) {
-            	float angle = System.currentTimeMillis() % (360 * 20) / (float) (4.5 - 1 /*0.5-4 */);
+            	float angle = System.currentTimeMillis() % (360 * 20) / (float) (4.5 - ItemPhysics.speed.getValue()/2);
             	GlStateManager.rotate(angle, 1F, 1F, 1F);
             }
             
-            /*if(Soar.instance.modManager.getModByClass(UHCOverlayMod.class).isEnabled()) {
-            	float ingotScale = 1.5f;
-            	float nuggetScale = 1.5f;
-            	float appleScale = 1.5f;
-            	float oreScale = 1.5f;
-            	float skullScale = 1.5f;
 
-                float f6 = -0.0F * (float)(i - 1) * 0.5F;
-                float f4 = -0.0F * (float)(i - 1) * 0.5F;
-                float f5 = -0.046875F * (float)(i - 1) * 0.5F;
-                
-                if(item == Items.gold_ingot) {
-
-                    if(!ModManager.itemPhysics.isEnabled()) {
-                        GlStateManager.translate(f6, f4 + (ingotScale / 8), f5);
-                    }
-
-                	GlStateManager.scale(ingotScale, ingotScale, ingotScale);
-                }
-                if(item == Items.gold_nugget) {
-                    if(!ModManager.itemPhysics.isEnabled()) {
-                        GlStateManager.translate(f6, f4 + (nuggetScale / 8), f5);
-                    }
-                	GlStateManager.scale(nuggetScale, nuggetScale, nuggetScale);
-                }
-                if(item == Items.golden_apple) {
-                    if(!ModManager.itemPhysics.isEnabled()) {
-                        GlStateManager.translate(f6, f4 + (appleScale / 8), f5);
-                    }
-                	GlStateManager.scale(appleScale, appleScale, appleScale);
-                }
-                if(block == Blocks.gold_ore) {
-                    if(!ModManager.itemPhysics.isEnabled()) {
-                        GlStateManager.translate(f6, f4 + (oreScale / 8), f5);
-                    }
-                	GlStateManager.scale(oreScale, oreScale, oreScale);
-                }
-                if(item == Items.skull) {
-                    if(!ModManager.itemPhysics.isEnabled()) {
-                        GlStateManager.translate(f6, f4 + (skullScale / 8), f5);
-                    }
-                	GlStateManager.scale(skullScale, skullScale, skullScale);
-                }
-            }*/
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             return i;
