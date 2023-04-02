@@ -886,7 +886,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         GlStateManager.enableOverlayFramebufferBlending();
                         this.mc.ingameGUI.renderGameOverlay(parFloat1);
                     }
-                    ModManager.cps.draw();
+                    if(ModManager.cps.isEnabled()){
+                        ModManager.cps.draw();
+                    }
                     if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
                         GlStateManager.disableOverlayFramebufferBlending();
                         this.overlayFramebuffer.endRender();
