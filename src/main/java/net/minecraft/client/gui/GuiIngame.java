@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.W;
+import dev.resent.visual.crosshair.CrosshairManager;
 import dev.resent.visual.ui.animation.SimpleAnimation;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
@@ -316,7 +317,13 @@ public class GuiIngame extends Gui {
     public void renderGameOverlayCrosshairs(int scaledResWidth, int scaledResHeight) {
         if (this.showCrosshair()) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(icons);
+
+            if(CrosshairManager.crosshairLocation == null){
+                if(CrosshairManager.read() != null)
+                    CrosshairManager.forceLoad(CrosshairManager.read());
+                this.mc.getTextureManager().bindTexture(icons);
+            }
+            
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
             GlStateManager.enableAlpha();
