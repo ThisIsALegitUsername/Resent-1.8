@@ -77,6 +77,7 @@ public class ModelBiped extends ModelBase {
      * model.
      */
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         GlStateManager.pushMatrix();
         if (this.isChild) {

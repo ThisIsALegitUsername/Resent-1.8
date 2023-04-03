@@ -49,10 +49,10 @@ public class SkinPreviewRenderer {
                 break;
         }
 
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
         GlStateManager.disableCull();
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y - 80.0f, 100.0f);

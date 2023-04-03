@@ -28,6 +28,7 @@ import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.AdminRay;
 import dev.resent.util.misc.W;
 import dev.resent.visual.ui.clickgui.PreGUI;
+import dev.resent.visual.ui.clickgui.rewrite.ClickGuiRewrite;
 import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.EagUtils;
@@ -1379,6 +1380,10 @@ public class Minecraft implements IThreadListener {
 							AdminRay.start();
 							ModManager.adminRay.setEnabled(!ModManager.adminRay.isEnabled());
 							this.renderGlobal.loadRenderers();
+						}
+						
+						if(k == KeyboardConstants.KEY_0) {
+							this.displayGuiScreen(new ClickGuiRewrite());
 						}
 
 						if (k == 32 && Keyboard.isKeyDown(61) && this.ingameGUI != null) {
