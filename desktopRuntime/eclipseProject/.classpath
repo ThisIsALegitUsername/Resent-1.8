@@ -7,17 +7,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/CompileEPK.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/Java-WebSocket-1.5.1-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/MakeOfflineDownload.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/codecjorbis-20101023.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/codecwav-20101023.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/lwjgl-egl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/lwjgl-glfw.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/lwjgl-jemalloc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/lwjgl-openal.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/lwjgl-opengles.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/lwjgl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hooman/Downloads/resent source real/Resent-1.8/desktopRuntime/soundsystem-20120107.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/CompileEPK.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/Java-WebSocket-1.5.1-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/MakeOfflineDownload.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/codecjorbis-20101023.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/codecwav-20101023.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/lwjgl-egl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/lwjgl-glfw.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/lwjgl-jemalloc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/lwjgl-openal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/lwjgl-opengles.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/lwjgl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kay_j/Downloads/uwu/Resent-1.8/desktopRuntime/soundsystem-20120107.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

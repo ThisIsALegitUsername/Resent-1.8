@@ -14,3 +14,7 @@ desktopRuntime/crash-reports/*
 desktopRuntime/options.txt
 desktopRuntime/_eagstorage*
 /.metadata/
+desktopRuntime/eclipseProject/.classpath
+desktopRuntime/eclipseProject/.project
+desktopRuntime/eclipseProject/eaglercraftDebugRuntime.launch
+desktopRuntime/eclipseProject/.classpath
