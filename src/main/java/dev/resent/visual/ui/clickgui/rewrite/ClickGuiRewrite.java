@@ -21,6 +21,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.ResourceLocation;
 
 public class ClickGuiRewrite extends GuiScreen{
 
@@ -67,6 +68,12 @@ public class ClickGuiRewrite extends GuiScreen{
         GlStateManager.translate(-(x+80), -(y+36), 0);
         fr.drawString("Resent", x+80, y+36, -1, false);
         GlStateManager.popMatrix();
+        
+        //Navigation icons
+        GlStateManager.color(1,  1,  1);
+        ResourceLocation icon = new ResourceLocation("/resent/house.png");
+        mc.getTextureManager().bindTexture(icon);
+        Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+120, 0, 0, 20, 20, 20, 20);
         
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
