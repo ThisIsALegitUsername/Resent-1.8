@@ -14,6 +14,7 @@ import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
+import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -30,7 +31,8 @@ public class ClickGuiRewrite extends GuiScreen{
     public ScaledResolution sr;
     public boolean closing;
     public Mod selectedMod;
-    public int backgroundColor = new Color(12, 12, 12).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(22, 22, 22).getRGB();
+    public String searchString = "";
+    public int backgroundColor = new Color(12, 12, 12).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(22, 22, 22).getRGB(), secondaryFontColor = new Color(187, 134, 252).getRGB();
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
@@ -48,12 +50,23 @@ public class ClickGuiRewrite extends GuiScreen{
         
         //Search
         RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, new Color(22, 22, 22).getRGB());
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x+width-295, y+36, 0);
+        GlStateManager.scale(2, 2, 1);
+        GlStateManager.translate(-(x+width-295), -(y+36), 0);
+        if(searchString.length() > 0) {
+        	fr.drawString(searchString, x+width-290, y+36, secondaryFontColor, false);
+        }else {
+        	fr.drawString("Search", x+width-290, y+36, new Color(97, 97, 97).getRGB(), false);
+        }
+        GlStateManager.popMatrix();
         
+        GlStateManager.pushMatrix();
         GlStateManager.translate(x+80, y+36, 0);
         GlStateManager.scale(3, 3, 1);
         GlStateManager.translate(-(x+80), -(y+36), 0);
         fr.drawString("Resent", x+80, y+36, -1, false);
-        GlStateManager.scale(0.5f, 0.5f, 0.5f);
+        GlStateManager.popMatrix();
         
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
@@ -127,8 +140,13 @@ public class ClickGuiRewrite extends GuiScreen{
             for(Comp c : comps){
                 c.keyTyped(par1, key);
             }
+        }else if(key == KeyboardConstants.KEY_BACK) {
+        	if(searchString.length() != 0) {
+        		searchString = searchString.substring(0, searchString.length()-1);
+        	}
         }else {
-        	
+        	if(searchString.length() <= 18)
+        	searchString += String.valueOf(par1);
         }
     }
 
