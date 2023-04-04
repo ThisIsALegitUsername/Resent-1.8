@@ -6,12 +6,14 @@ import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.Setting;
+import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
 import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
+import dev.resent.visual.ui.animation.SimpleAnimation;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
 import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
@@ -29,12 +31,13 @@ public class ClickGuiRewrite extends GuiScreen{
 
 	public FontRenderer fr;
     public ArrayList<Comp> comps = new ArrayList<>();
-    public float x, y, width, height, moduleOffset;
+    public float x, y, width, height;
     public Animation introAnimation;
     public ScaledResolution sr;
     public boolean closing;
     public Mod selectedMod;
     public String searchString = "";
+    public SimpleAnimation categoryAnimation = new SimpleAnimation(0);
     public int backgroundColor = new Color(18, 18, 18).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(33, 33, 33).getRGB(), secondaryFontColor = new Color(187, 134, 252).getRGB();
 
     @Override
@@ -67,24 +70,27 @@ public class ClickGuiRewrite extends GuiScreen{
         }
         GlStateManager.popMatrix();
         
+        //Title
         GlStateManager.pushMatrix();
         GlStateManager.translate(x+80, y+36, 0);
-        GlStateManager.scale(3, 3, 1);
+        GlStateManager.scale(3.5f, 3.5f, 1);
         GlStateManager.translate(-(x+80), -(y+36), 0);
         fr.drawString("Resent", x+80, y+36, -1, false);
         GlStateManager.popMatrix();
         
+        //Navigation selection
+        RenderUtils.drawRoundedRect(x+15, (int)y+115+categoryAnimation.getValue(), x+45, y+145+categoryAnimation.getValue(), 8, secondaryFontColor);
+        
         //Navigation icons
         GlStateManager.color(1,  1,  1);
-        ResourceLocation icon = new ResourceLocation("/resent/house.png");
-        mc.getTextureManager().bindTexture(icon);
+        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/house.png"));
         Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+120, 0, 0, 20, 20, 20, 20);
         
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
-        	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
-        		RenderUtils.drawRoundedRect(x+80, y+120+offset, x+width-20, y+180+offset, 8, secondaryColor);
-        		GlUtils.startScale(x+90, y+140+offset, 3);
+        	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
+        		RenderUtils.drawRoundedRect(x+80, y+120+offset, x+width-20, y+180+offset, 16, secondaryColor);
+        		GlUtils.startScale(x+90, y+140+offset, 2.5f);
         		fr.drawString(m.getName(), x+90, y+140+offset, -1, false);
         		GlStateManager.popMatrix();
             	
