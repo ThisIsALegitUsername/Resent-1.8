@@ -9,9 +9,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Module {
-    String name() default "placeholder";
-
+    String name() default "No name set";
+    String description() default "No description set.";
     Category category() default Category.MISC;
-
     boolean hasSetting() default false;
 }

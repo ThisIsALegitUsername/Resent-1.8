@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 public abstract class Mod {
 
     protected Minecraft mc = Minecraft.getMinecraft();
-    private String name;
+    private String name, description;
     private Category category;
     private boolean enabled;
     private boolean hasSetting;
@@ -28,6 +28,7 @@ public abstract class Mod {
         if (getClass().isAnnotationPresent(Module.class)) {
             modInfo = getClass().getAnnotation(Module.class);
             this.setName(modInfo.name());
+            this.setDescription(modInfo.description());
             this.setCategory(modInfo.category());
             this.setHasSetting(modInfo.hasSetting());
         }
@@ -83,8 +84,10 @@ public abstract class Mod {
     public boolean isAdmin() { return admin; }
     public boolean doesHaveSetting() { return hasSetting; }
     public String getName() { return name; }
+    public String getDescription() { return description; }
     public Category getCategory() { return category; }
 
+    public void setDescription(String description) { this.description = description; }
     public void setName(String name) { this.name = name; }
     public void setCategory(Category category) { this.category = category; }
     public void setHasSetting(boolean hasSetting) { this.hasSetting = hasSetting; }

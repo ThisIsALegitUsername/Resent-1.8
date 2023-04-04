@@ -19,6 +19,7 @@ public abstract class RenderMod extends Mod {
             this.setName(modInfo.name());
             this.setCategory(modInfo.category());
             this.setHasSetting(modInfo.hasSetting());
+            this.setDescription(modInfo.description());
             this.x = modInfo.x();
             this.y = modInfo.y();
         }

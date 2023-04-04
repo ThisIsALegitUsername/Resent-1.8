@@ -60,13 +60,13 @@ public class ClickGuiRewrite extends GuiScreen{
         //Search
         RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, secondaryColor);
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x+width-295, y+36, 0);
-        GlStateManager.scale(2, 2, 1);
-        GlStateManager.translate(-(x+width-295), -(y+36), 0);
+        GlStateManager.translate(x+width-290, y+40, 0);
+        GlStateManager.scale(1.5f, 1.5f, 1);
+        GlStateManager.translate(-(x+width-290), -(y+40), 0);
         if(searchString.length() > 0) {
-        	fr.drawString(searchString, x+width-290, y+36, secondaryFontColor, false);
+        	fr.drawString(searchString, x+width-290, y+40, secondaryFontColor, false);
         }else {
-        	fr.drawString("Search", x+width-290, y+36, new Color(97, 97, 97).getRGB(), false);
+        	fr.drawString("Search", x+width-290, y+40, new Color(97, 97, 97).getRGB(), false);
         }
         GlStateManager.popMatrix();
         
@@ -103,15 +103,21 @@ public class ClickGuiRewrite extends GuiScreen{
             	//Toggle
             	RenderUtils.drawRoundedRect(x+90, y+125+offset, x+140, y+175+offset, 8, new Color(66, 66, 66).getRGB());
             	
+            	
         		GlUtils.startScale(x+90, y+140+offset, 2.5f);
         		fr.drawString(m.getName(), x+120, y+140+offset, -1, false);
         		GlStateManager.popMatrix();
+        		
+        		if(isMouseInside(mouseX, mouseY, x+80, y+115+offset, x+width-20, y+185+offset)) {
+        			fr.drawString(m.getDescription(), mouseX+8, mouseY, -1, false);
+        		}
+        		
             	
             	offset+= 80;
         	}
         }
 
-        GlUtils.stopScale();
+        GlStateManager.popMatrix();
 
         if(selectedMod != null){
             for (Comp comp : comps) {
@@ -141,7 +147,6 @@ public class ClickGuiRewrite extends GuiScreen{
         for(Mod m : Resent.INSTANCE.modManager.modules){
            	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
             if(isMouseInside(mouseX, mouseY, x+width-60, y+140+offset, x+width-40, y+160+offset) && mouseButton == 0 && m.doesHaveSetting()){
-            	System.out.println("uwu");
                 for(Setting s : m.settings){
                     if(s instanceof BooleanSetting){
                         comps.add(new CompCheck(4, 4, selectedMod, s));
@@ -169,7 +174,7 @@ public class ClickGuiRewrite extends GuiScreen{
         width = sr.getScaledWidth()/1.25f;
         height = sr.getScaledHeight()/1.25f;
         introAnimation = Theme.getAnimation(500, 1, 3, 3.8f, 1.35f, false);
-        fr = mc.uwuFont;
+        fr = mc.fontRendererObj;
     }
 
     @Override
