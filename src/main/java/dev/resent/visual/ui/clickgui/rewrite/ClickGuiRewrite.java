@@ -89,9 +89,22 @@ public class ClickGuiRewrite extends GuiScreen{
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
         	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
-        		RenderUtils.drawRoundedRect(x+80, y+120+offset, x+width-20, y+180+offset, 16, secondaryColor);
+        		//Body
+        		RenderUtils.drawRoundedRect(x+80, y+115+offset, x+width-20, y+185+offset, 16, secondaryColor);
+        		
+        		//Gear
+        		if(m.doesHaveSetting()) {
+	        		GlStateManager.color(1, 1, 1);
+	        		mc.getTextureManager().bindTexture(new ResourceLocation("/resent/gear.png"));
+	        		Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int)y+140+offset, 0, 0, 20, 20, 20, 20);
+        		}
+            	//RenderUtils.drawRoundedRect(x+width-60, y+140+offset, x+width-40, y+160+offset, 4, -1);
+            	
+            	//Toggle
+            	RenderUtils.drawRoundedRect(x+90, y+125+offset, x+140, y+175+offset, 8, new Color(66, 66, 66).getRGB());
+            	
         		GlUtils.startScale(x+90, y+140+offset, 2.5f);
-        		fr.drawString(m.getName(), x+90, y+140+offset, -1, false);
+        		fr.drawString(m.getName(), x+120, y+140+offset, -1, false);
         		GlStateManager.popMatrix();
             	
             	offset+= 80;
@@ -123,10 +136,12 @@ public class ClickGuiRewrite extends GuiScreen{
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
 
+    	int offset = 0;
+    	
         for(Mod m : Resent.INSTANCE.modManager.modules){
-
-            //replace params with gear icon pos
-            if(isMouseInside(mouseX, mouseY, width-20, y+20, width-40, y+40) && mouseButton == 0){
+           	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
+            if(isMouseInside(mouseX, mouseY, x+width-60, y+140+offset, x+width-40, y+160+offset) && mouseButton == 0 && m.doesHaveSetting()){
+            	System.out.println("uwu");
                 for(Setting s : m.settings){
                     if(s instanceof BooleanSetting){
                         comps.add(new CompCheck(4, 4, selectedMod, s));
@@ -134,6 +149,8 @@ public class ClickGuiRewrite extends GuiScreen{
                 }
             }
 
+            offset += 80;
+           	}
         }
 
         if(selectedMod != null){
