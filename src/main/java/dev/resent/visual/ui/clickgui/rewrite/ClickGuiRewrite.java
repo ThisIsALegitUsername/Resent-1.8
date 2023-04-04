@@ -27,6 +27,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class ClickGuiRewrite extends GuiScreen{
@@ -98,7 +99,9 @@ public class ClickGuiRewrite extends GuiScreen{
         
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
-        	if(!m.isAdmin()) {
+        	if(!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
+        		
+        		if(y+115+offset+scrollOffset > y+95 && y+185+offset+scrollOffset < y+height) {
         		//Body
         		RenderUtils.drawRoundedRect(x+80, y+115+offset+scrollOffset, x+width-20, y+185+offset+scrollOffset, 16, secondaryColor);
         		
@@ -113,7 +116,7 @@ public class ClickGuiRewrite extends GuiScreen{
             	//Toggle
             	RenderUtils.drawRoundedRect(x+90, y+125+offset+scrollOffset, x+140, y+175+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB());
             	
-        		GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2.5f);
+        		GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
         		fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
         		GlStateManager.popMatrix();
         		
@@ -121,7 +124,7 @@ public class ClickGuiRewrite extends GuiScreen{
         			fr.drawString(m.getDescription(), mouseX+8, mouseY, onSurfaceColor, false);
         		}
         		
-            	
+        		}
             	offset += 80;
         	}
         }
@@ -212,8 +215,10 @@ public class ClickGuiRewrite extends GuiScreen{
         }else {
         	if(searchString.length() <= 18) {
         		String balls = ChatAllowedCharacters.filterAllowedCharacters(String.valueOf(par1));
-        		if(balls != null && balls != "")
-        		searchString += String.valueOf(par1);
+        		if(balls != null && balls != "") {
+        			searchString += String.valueOf(par1);
+        			scrollOffset = 0;
+        		}
         	}
         }
         
@@ -223,17 +228,20 @@ public class ClickGuiRewrite extends GuiScreen{
 	public void handleMouseInput() throws IOException {
     	int scroll = Mouse.getEventDWheel();
     	
-    	if(scroll < 0) {
-    		scrollOffset += 10;
-    	}else if(scroll > 0) {
-    		scrollOffset -= 10;
+    	if(scroll > 0) {
+    		scrollOffset += 30;
+    	}else if(scroll < 0) {
+    		scrollOffset -= 30;
     	}
-    	
 		super.handleMouseInput();
 	}
 
 	public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
         return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height);
     }
+	
+	public int getMaxScroll() {
+		return 500;
+	}
     
 }
