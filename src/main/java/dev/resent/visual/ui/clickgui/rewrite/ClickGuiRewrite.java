@@ -229,9 +229,9 @@ public class ClickGuiRewrite extends GuiScreen{
     	int scroll = Mouse.getEventDWheel();
     	
     	if(scroll > 0) {
-    		scrollOffset += 30;
+    		scrollOffset = MathHelper.clamp_int(scrollOffset+80, getMaxScroll(), 0);
     	}else if(scroll < 0) {
-    		scrollOffset -= 30;
+    		scrollOffset = MathHelper.clamp_int(scrollOffset-80, getMaxScroll(), 0);
     	}
 		super.handleMouseInput();
 	}
@@ -241,7 +241,7 @@ public class ClickGuiRewrite extends GuiScreen{
     }
 	
 	public int getMaxScroll() {
-		return 500;
+		return Resent.INSTANCE.modManager.modules.size() * -68;
 	}
     
 }
