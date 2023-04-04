@@ -21,22 +21,27 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
 
 public class ClickGuiRewrite extends GuiScreen{
 
 	public FontRenderer fr;
     public ArrayList<Comp> comps = new ArrayList<>();
-    public float x, y, width, height, offset;
+    public float x, y, width, height, moduleOffset;
     public Animation introAnimation;
     public ScaledResolution sr;
     public boolean closing;
     public Mod selectedMod;
     public String searchString = "";
-    public int backgroundColor = new Color(12, 12, 12).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(22, 22, 22).getRGB(), secondaryFontColor = new Color(187, 134, 252).getRGB();
+    public int backgroundColor = new Color(18, 18, 18).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(33, 33, 33).getRGB(), secondaryFontColor = new Color(187, 134, 252).getRGB();
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
+    	
+    	int offset = 0;
+    	
         GlUtils.startScale((this.x + this.width) / 2, (this.y + this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
 
         //Navigation bar
@@ -50,7 +55,7 @@ public class ClickGuiRewrite extends GuiScreen{
         Gui.drawRect(x, y+90, x+width, y+95, secondaryColor);
         
         //Search
-        RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, new Color(22, 22, 22).getRGB());
+        RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, secondaryColor);
         GlStateManager.pushMatrix();
         GlStateManager.translate(x+width-295, y+36, 0);
         GlStateManager.scale(2, 2, 1);
@@ -77,7 +82,14 @@ public class ClickGuiRewrite extends GuiScreen{
         
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
-
+        	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
+        		RenderUtils.drawRoundedRect(x+80, y+120+offset, x+width-20, y+180+offset, 8, secondaryColor);
+        		GlUtils.startScale(x+90, y+140+offset, 3);
+        		fr.drawString(m.getName(), x+90, y+140+offset, -1, false);
+        		GlStateManager.popMatrix();
+            	
+            	offset+= 80;
+        	}
         }
 
         GlUtils.stopScale();
@@ -134,7 +146,7 @@ public class ClickGuiRewrite extends GuiScreen{
         width = sr.getScaledWidth()/1.25f;
         height = sr.getScaledHeight()/1.25f;
         introAnimation = Theme.getAnimation(500, 1, 3, 3.8f, 1.35f, false);
-        fr = mc.fontRendererObj;
+        fr = mc.uwuFont;
     }
 
     @Override
@@ -147,14 +159,21 @@ public class ClickGuiRewrite extends GuiScreen{
             for(Comp c : comps){
                 c.keyTyped(par1, key);
             }
-        }else if(key == KeyboardConstants.KEY_BACK) {
+        }
+        
+        // Search box stuff
+        else if(key == KeyboardConstants.KEY_BACK) {
         	if(searchString.length() != 0) {
         		searchString = searchString.substring(0, searchString.length()-1);
         	}
         }else {
-        	if(searchString.length() <= 18)
-        	searchString += String.valueOf(par1);
+        	if(searchString.length() <= 18) {
+        		String balls = ChatAllowedCharacters.filterAllowedCharacters(String.valueOf(par1));
+        		if(balls != null && balls != "")
+        		searchString += String.valueOf(par1);
+        	}
         }
+        
     }
 
     public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {

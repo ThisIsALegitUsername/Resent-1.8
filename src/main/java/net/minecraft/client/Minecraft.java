@@ -214,6 +214,7 @@ public class Minecraft implements IThreadListener {
 	private boolean isGamePaused;
 	public FontRenderer fontRendererObj;
 	public FontRenderer standardGalacticFontRenderer;
+	public FontRenderer uwuFont;
 	public GuiScreen currentScreen;
 	public LoadingScreenRenderer loadingScreen;
 	public EntityRenderer entityRenderer;
@@ -390,15 +391,20 @@ public class Minecraft implements IThreadListener {
 		this.mcMusicTicker = new MusicTicker(this);
 		this.fontRendererObj = new EaglerFontRenderer(this.gameSettings,
 				new ResourceLocation("textures/font/ascii.png"), this.renderEngine, false);
+		this.uwuFont = new EaglerFontRenderer(this.gameSettings,
+				new ResourceLocation("textures/font/uwufont.png"), this.renderEngine, false);
 		if (this.gameSettings.language != null) {
 			this.fontRendererObj.setUnicodeFlag(this.isUnicode());
 			this.fontRendererObj.setBidiFlag(this.mcLanguageManager.isCurrentLanguageBidirectional());
+			this.uwuFont.setUnicodeFlag(this.isUnicode());
+			this.uwuFont.setBidiFlag(this.mcLanguageManager.isCurrentLanguageBidirectional());
 		}
 
 		this.standardGalacticFontRenderer = new EaglerFontRenderer(this.gameSettings,
 				new ResourceLocation("textures/font/ascii_sga.png"), this.renderEngine, false);
 		this.mcResourceManager.registerReloadListener(this.fontRendererObj);
 		this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);
+		this.mcResourceManager.registerReloadListener(this.uwuFont);
 		this.mcResourceManager.registerReloadListener(new GrassColorReloadListener());
 		this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
 		AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat() {
