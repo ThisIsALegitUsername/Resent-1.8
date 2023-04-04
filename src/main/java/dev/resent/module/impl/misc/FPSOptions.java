@@ -10,7 +10,7 @@ import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums;
 import net.minecraft.client.settings.GameSettings;
 
-@Module(name = "FPS Options", category = Category.MISC, hasSetting = true)
+@Module(name = "FPS Options", category = Category.MISC, hasSetting = true, description = "Increase FPS")
 public class FPSOptions extends Mod{
 
     public BooleanSetting batchRendering = new BooleanSetting("Batch rendering", "", true);

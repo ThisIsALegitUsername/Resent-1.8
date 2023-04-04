@@ -1,5 +1,6 @@
 package dev.resent.visual.ui.clickgui.rewrite;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import dev.resent.client.Resent;
@@ -16,6 +17,7 @@ import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.animation.SimpleAnimation;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
+import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
@@ -37,8 +39,14 @@ public class ClickGuiRewrite extends GuiScreen{
     public boolean closing;
     public Mod selectedMod;
     public String searchString = "";
-    public SimpleAnimation categoryAnimation = new SimpleAnimation(0);
-    public int backgroundColor = new Color(18, 18, 18).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(33, 33, 33).getRGB(), secondaryFontColor = new Color(187, 134, 252).getRGB();
+    public SimpleAnimation partAnimation = new SimpleAnimation(0);
+    public int backgroundColor = new Color(18, 18, 18).getRGB(),
+    		   primaryColor = 0xFF000000,
+    		   secondaryColor = new Color(33, 33, 33).getRGB(),
+    		   onSurfaceColor = new Color(3, 218, 197).getRGB(),
+    		   secondaryFontColor = new Color(187, 134, 252).getRGB();
+    public int partOffset = 0, scrollOffset = 0;
+    public String part = "Home";
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
@@ -57,6 +65,24 @@ public class ClickGuiRewrite extends GuiScreen{
         //Seperating line
         Gui.drawRect(x, y+90, x+width, y+95, secondaryColor);
         
+        //Title
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x+80, y+36, 0);
+        GlStateManager.scale(3.5f, 3.5f, 1);
+        GlStateManager.translate(-(x+80), -(y+36), 0);
+        fr.drawString("Resent", x+80, y+36, -1, false);
+        GlStateManager.popMatrix();
+        
+        //Navigation selection
+        RenderUtils.drawRoundedRect(x+15, (int)y+115+partAnimation.getValue(), x+45, y+145+partAnimation.getValue(), 8, secondaryFontColor);
+        
+        //Navigation icons
+        GlStateManager.color(1,  1,  1);
+        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/house.png"));
+        Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+120, 0, 0, 20, 20, 20, 20);
+        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/gear.png"));
+        Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+170, 0, 0, 20, 20, 20, 20);
+        
         //Search
         RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, secondaryColor);
         GlStateManager.pushMatrix();
@@ -70,50 +96,33 @@ public class ClickGuiRewrite extends GuiScreen{
         }
         GlStateManager.popMatrix();
         
-        //Title
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(x+80, y+36, 0);
-        GlStateManager.scale(3.5f, 3.5f, 1);
-        GlStateManager.translate(-(x+80), -(y+36), 0);
-        fr.drawString("Resent", x+80, y+36, -1, false);
-        GlStateManager.popMatrix();
-        
-        //Navigation selection
-        RenderUtils.drawRoundedRect(x+15, (int)y+115+categoryAnimation.getValue(), x+45, y+145+categoryAnimation.getValue(), 8, secondaryFontColor);
-        
-        //Navigation icons
-        GlStateManager.color(1,  1,  1);
-        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/house.png"));
-        Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+120, 0, 0, 20, 20, 20, 20);
-        
         //Draw module button
         for(Mod m : Resent.INSTANCE.modManager.modules){
-        	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
+        	if(!m.isAdmin()) {
         		//Body
-        		RenderUtils.drawRoundedRect(x+80, y+115+offset, x+width-20, y+185+offset, 16, secondaryColor);
+        		RenderUtils.drawRoundedRect(x+80, y+115+offset+scrollOffset, x+width-20, y+185+offset+scrollOffset, 16, secondaryColor);
         		
         		//Gear
         		if(m.doesHaveSetting()) {
 	        		GlStateManager.color(1, 1, 1);
 	        		mc.getTextureManager().bindTexture(new ResourceLocation("/resent/gear.png"));
-	        		Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int)y+140+offset, 0, 0, 20, 20, 20, 20);
+	        		Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int)y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
         		}
             	//RenderUtils.drawRoundedRect(x+width-60, y+140+offset, x+width-40, y+160+offset, 4, -1);
             	
             	//Toggle
-            	RenderUtils.drawRoundedRect(x+90, y+125+offset, x+140, y+175+offset, 8, new Color(66, 66, 66).getRGB());
+            	RenderUtils.drawRoundedRect(x+90, y+125+offset+scrollOffset, x+140, y+175+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB());
             	
-            	
-        		GlUtils.startScale(x+90, y+140+offset, 2.5f);
-        		fr.drawString(m.getName(), x+120, y+140+offset, -1, false);
+        		GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2.5f);
+        		fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
         		GlStateManager.popMatrix();
         		
-        		if(isMouseInside(mouseX, mouseY, x+80, y+115+offset, x+width-20, y+185+offset)) {
-        			fr.drawString(m.getDescription(), mouseX+8, mouseY, -1, false);
+        		if(isMouseInside(mouseX, mouseY, x+80, y+115+offset+scrollOffset, x+width-20, y+185+offset+scrollOffset)) {
+        			fr.drawString(m.getDescription(), mouseX+8, mouseY, onSurfaceColor, false);
         		}
         		
             	
-            	offset+= 80;
+            	offset += 80;
         	}
         }
 
@@ -141,20 +150,26 @@ public class ClickGuiRewrite extends GuiScreen{
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+    	
+    if(isMouseInside(mouseX, mouseY, x+20, (int)y+170, x+40, (int)y+190)) {
+    	partAnimation.setAnimation(50-partOffset, 10);
+    }else if(isMouseInside(mouseX, mouseY, x+20, (int)y+120, x+40, (int)y+140)) {
+    	partAnimation.setAnimation(0-partOffset, 10);
+    }
 
     	int offset = 0;
     	
         for(Mod m : Resent.INSTANCE.modManager.modules){
-           	if(selectedMod == null && y+170+offset < y+height && !m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) || selectedMod == null && y+170+offset < y+height && EntityRenderer.test) {
-            if(isMouseInside(mouseX, mouseY, x+width-60, y+140+offset, x+width-40, y+160+offset) && mouseButton == 0 && m.doesHaveSetting()){
-                for(Setting s : m.settings){
-                    if(s instanceof BooleanSetting){
-                        comps.add(new CompCheck(4, 4, selectedMod, s));
-                    }
-                }
-            }
+           	if(!m.isAdmin()) {
+	            if(isMouseInside(mouseX, mouseY, x+width-60, y+140+offset, x+width-40, y+160+offset) && mouseButton == 0 && m.doesHaveSetting()){
+	                for(Setting s : m.settings){
+	                    if(s instanceof BooleanSetting){
+	                        comps.add(new CompCheck(4, 4, selectedMod, s));
+	                    }
+	                }
+	            }
 
-            offset += 80;
+	            offset += 80;
            	}
         }
 
@@ -204,7 +219,20 @@ public class ClickGuiRewrite extends GuiScreen{
         
     }
 
-    public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
+    @Override
+	public void handleMouseInput() throws IOException {
+    	int scroll = Mouse.getEventDWheel();
+    	
+    	if(scroll < 0) {
+    		scrollOffset += 10;
+    	}else if(scroll > 0) {
+    		scrollOffset -= 10;
+    	}
+    	
+		super.handleMouseInput();
+	}
+
+	public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
         return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height);
     }
     
