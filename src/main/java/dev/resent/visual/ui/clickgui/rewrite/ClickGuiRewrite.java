@@ -7,7 +7,6 @@ import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.Setting;
-import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
@@ -25,7 +24,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -79,9 +77,9 @@ public class ClickGuiRewrite extends GuiScreen{
         
         //Navigation icons
         GlStateManager.color(1,  1,  1);
-        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/house.png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/house.png"));
         Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+120, 0, 0, 20, 20, 20, 20);
-        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/gear.png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
         Gui.drawModalRectWithCustomSizedTexture(x+20, (int)y+170, 0, 0, 20, 20, 20, 20);
         
         //Search
