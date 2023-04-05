@@ -118,14 +118,14 @@ public class ClickGuiRewrite extends GuiScreen {
 
                     //Gear
                     if (m.doesHaveSetting()) {
-                        GlStateManager.color(1, 1, 1);
+                    	GlStateManager.color(1, 1, 1);
                         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
                         Gui.drawModalRectWithCustomSizedTexture(x + width - 60, (int) y + 140 + offset + scrollOffset, 0, 0, 20, 20, 20, 20);
-                    }
+                    } 
                     //RenderUtils.drawRoundedRect(x+width-60, y+140+offset, x+width-40, y+160+offset, 4, -1);
 
                     //Toggle
-                    RenderUtils.drawRoundedRect(x + 90, y + 125 + offset + scrollOffset, x + 140, y + 175 + offset + scrollOffset, 8, new Color(66, 66, 66).getRGB());
+                    RenderUtils.drawRoundedRect(x + 90, y + 125 + offset + scrollOffset, x + 140, y + 175 + offset + scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
 
                     GlUtils.startScale(x + 90, y + 140 + offset + scrollOffset, 2);
                     fr.drawString(m.getName(), x + 120, y + 140 + offset + scrollOffset, -1, false);
