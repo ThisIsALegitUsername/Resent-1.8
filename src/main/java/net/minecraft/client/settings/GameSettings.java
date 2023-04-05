@@ -231,7 +231,7 @@ public class GameSettings {
         this.fovSetting = 70.0F;
         this.gammaSetting = 1.0F;
         this.language = EagRuntime.getConfiguration().getDefaultLocale();
-        this.forceUnicodeFont = true;
+        this.forceUnicodeFont = false;
         this.mc = mcIn;
         ModManager.scoreboard.setEnabled(true);
         GameSettings.Options.RENDER_DISTANCE.setValueMax(18.0F);
