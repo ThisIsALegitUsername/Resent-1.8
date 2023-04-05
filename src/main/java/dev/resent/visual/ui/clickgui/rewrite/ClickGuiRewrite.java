@@ -93,18 +93,20 @@ public class ClickGuiRewrite extends GuiScreen {
         RenderUtils.drawRoundedRect(x + width - 300, y + 25, x + width - 50, y + 65, 9, secondaryColor);
 
 
+        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/search.png"));
+        Gui.drawModalRectWithCustomSizedTexture(x + width-290, (int) y + 36, 0, 0, 20, 20, 20, 20);
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + width - 290, y + 40, 0);
         GlStateManager.scale(1.5F, 1.5F, 1);
         GlStateManager.translate(-(x + width - 290), -(y + 40), 0);
         if (searchString.length() > 0) {
-            fr.drawString(searchString, x + width - 290, y + 40, secondaryFontColor, false);
+            fr.drawString(searchString, x + width - 270, y + 40, secondaryFontColor, false);
         } else {
-            fr.drawString(EnumChatFormatting.ITALIC + "Search", x + width - 290, y + 40, new Color(97, 97, 97).getRGB(), false);
+            fr.drawString(EnumChatFormatting.ITALIC + "Search", x + width - 270, y + 40, new Color(97, 97, 97).getRGB(), false);
         }
 
         if (isSearchFocused) {
-            drawRect(x + width - 290 + fr.getStringWidth(searchString), y + 38, x + width - 289 + fr.getStringWidth(searchString), y + 50, secondaryFontColor);
+            drawRect(x + width - 271 + fr.getStringWidth(searchString), y + 38, x + width - 270 + fr.getStringWidth(searchString), y + 50, secondaryFontColor);
         }
 
         GlStateManager.popMatrix();
@@ -128,12 +130,15 @@ public class ClickGuiRewrite extends GuiScreen {
                     RenderUtils.drawRoundedRect(x + 90, y + 125 + offset + scrollOffset, x + 140, y + 175 + offset + scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
                     
                     GlUtils.startScale(x + 90, y + 140 + offset + scrollOffset, 2);
-                    fr.drawString(m.getName(), x + 120, y + 140 + offset + scrollOffset, -1, false);
+                    int i = fr.drawString(m.getName(), x + 120, y + 140 + offset + scrollOffset, -1, false);
+                    GlStateManager.popMatrix();
+                    GlUtils.startScale(x+120+i/2, y+140+offset+scrollOffset, 1.5f);
+                    fr.drawString(m.getDescription(), x+20+i, y+142+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
 
-                    if (isMouseInside(mouseX, mouseY, x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
-                        fr.drawString(m.getDescription(), mouseX + 8, mouseY, onSurfaceColor, false);
-                    }
+//                    if (isMouseInside(mouseX, mouseY, x + i + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
+//                        fr.drawString(m.getDescription(), mouseX + 8, mouseY, onSurfaceColor, false);
+//                    }
 
                 }
                 offset += 80;
