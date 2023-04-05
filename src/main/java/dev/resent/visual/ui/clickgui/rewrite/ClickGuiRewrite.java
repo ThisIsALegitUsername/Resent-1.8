@@ -36,16 +36,16 @@ public class ClickGuiRewrite extends GuiScreen {
     public float x, y, width, height;
     public Animation introAnimation;
     public ScaledResolution sr;
-    public boolean closing, isSearchFocused;
+    public boolean closing, isSearchFocused, iforgor, iforgor2 = true;
     public Mod selectedMod;
     public String searchString = "";
-    public SimpleAnimation partAnimation = new SimpleAnimation(0);
+    public SimpleAnimation partAnimation;
     public int backgroundColor = new Color(18, 18, 18).getRGB(),
         primaryColor = 0xFF000000,
         secondaryColor = new Color(33, 33, 33).getRGB(),
         onSurfaceColor = new Color(3, 218, 197).getRGB(),
         secondaryFontColor = new Color(187, 134, 252).getRGB();
-    public int partOffset = 0, scrollOffset = 0;
+    public int scrollOffset = 0;
     public String part = "Home";
 
     @Override
@@ -73,8 +73,14 @@ public class ClickGuiRewrite extends GuiScreen {
         fr.drawString("Resent", x + 80, y + 36, -1, false);
         GlStateManager.popMatrix();
 
+        if (iforgor) {
+            partAnimation.setAnimation(50, 9);
+        } else if (iforgor2) {
+            partAnimation.setAnimation(0, 9);
+        }
+        
         //Navigation selection
-        RenderUtils.drawRoundedRect(x + 15, (int) y + 115 + partAnimation.getValue(), x + 45, y + 145 + partAnimation.getValue(), 8, secondaryFontColor);
+        RenderUtils.drawRoundedRect(x + 15, y + 115 + partAnimation.getValue(), x + 45, y + 145 + partAnimation.getValue(), 8, secondaryFontColor);
 
         //Navigation icons
         GlStateManager.color(1, 1, 1);
@@ -162,9 +168,11 @@ public class ClickGuiRewrite extends GuiScreen {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
 
         if (isMouseInside(mouseX, mouseY, x + 20, (int) y + 170, x + 40, (int) y + 190)) {
-            partAnimation.setAnimation(50 - partOffset, 10);
+        	iforgor2 = false;
+            iforgor = true;
         } else if (isMouseInside(mouseX, mouseY, x + 20, (int) y + 120, x + 40, (int) y + 140)) {
-            partAnimation.setAnimation(0 - partOffset, 10);
+        	iforgor = false;
+            iforgor2 = true;
         }
 
         if (isMouseInside(mouseX, mouseY, x + width - 300, y + 25, x + width - 50, y + 65)) {
@@ -206,6 +214,7 @@ public class ClickGuiRewrite extends GuiScreen {
         height = sr.getScaledHeight() / 1.25F;
         introAnimation = Theme.getAnimation(500, 1, 3, 3.8F, 1.35F, false);
         fr = mc.fontRendererObj;
+        partAnimation = new SimpleAnimation(0.0F);
     }
 
     @Override
@@ -254,6 +263,6 @@ public class ClickGuiRewrite extends GuiScreen {
     }
 
     public int getMaxScroll() {
-        return Resent.INSTANCE.modManager.modules.size() * -69;
+        return Resent.INSTANCE.modManager.modules.size() * -70;
     }
 }
