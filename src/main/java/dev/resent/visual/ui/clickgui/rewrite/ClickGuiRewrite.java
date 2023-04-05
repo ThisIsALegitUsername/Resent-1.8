@@ -112,8 +112,7 @@ public class ClickGuiRewrite extends GuiScreen {
         //Draw module button
         for (Mod m: Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-
-                if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height) {
+                if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height && part == "Home") {
                     //Body
                     RenderUtils.drawRoundedRect(x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset, 16, secondaryColor);
 
@@ -141,13 +140,16 @@ public class ClickGuiRewrite extends GuiScreen {
             }
         }
 
-        GlStateManager.popMatrix();
-
         if (selectedMod != null) {
+        	
+        	fr.drawString("<", x+80, y+115+offset, -1, false);
+        	
             for (Comp comp: comps) {
                 comp.drawScreen(mouseX, mouseY);
             }
         }
+        
+        GlStateManager.popMatrix();
 
         if (closing) {
             comps.clear();
@@ -170,9 +172,11 @@ public class ClickGuiRewrite extends GuiScreen {
         if (isMouseInside(mouseX, mouseY, x + 20, (int) y + 170, x + 40, (int) y + 190)) {
         	iforgor2 = false;
             iforgor = true;
+            part = "Setting";
         } else if (isMouseInside(mouseX, mouseY, x + 20, (int) y + 120, x + 40, (int) y + 140)) {
         	iforgor = false;
             iforgor2 = true;
+            part = "Home";
         }
 
         if (isMouseInside(mouseX, mouseY, x + width - 300, y + 25, x + width - 50, y + 65)) {
@@ -184,26 +188,53 @@ public class ClickGuiRewrite extends GuiScreen {
         int offset = 0;
 
         for (Mod m: Resent.INSTANCE.modManager.modules) {
-            if (!m.isAdmin()) {
-                if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset, x + width - 40, y + 160 + offset) && mouseButton == 0 && m.doesHaveSetting()) {
-                    for (Setting s: m.settings) {
-                        if (s instanceof BooleanSetting) {
-                            comps.add(new CompCheck(4, 4, selectedMod, s));
-                        }
+            if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
+                if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height && part == "Home") {
+                	
+                	if(isMouseInside(mouseX, mouseY, x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
+                		if(mouseButton == 0) {
+                			m.toggle();
+                		}
+                		
+                		if(mouseButton == 1) {
+                			selectedMod = m;
+                			for (Setting s: selectedMod.settings) {
+                				if (s instanceof BooleanSetting) {
+                					comps.add(new CompCheck(4, 4, selectedMod, s));
+                            	}
+                        	}  
+                		}
+                	}
+                	
+                    if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset, x + width - 40, y + 160 + offset) && mouseButton == 0 && m.doesHaveSetting()) {
+                    	selectedMod = m;
+                        for (Setting s: selectedMod.settings) {
+                            if (s instanceof BooleanSetting) {
+                                comps.add(new CompCheck(4, 4, selectedMod, s));
+                            }
+                        }   
                     }
+                    
+                    
                 }
-
                 offset += 80;
             }
         }
-
+        
         if (selectedMod != null) {
+        	if(isMouseInside(mouseX, mouseY, x+77, y+112, x+87, y+125)) {
+        		selectedMod = null;
+        		comps.clear();
+        	}
+        	
             for (Comp c: comps) {
                 c.mouseClicked(mouseX, mouseY, mouseButton);
             }
         }
 
     }
+    
+    
 
     @Override
     public void initGui() {

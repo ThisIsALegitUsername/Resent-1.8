@@ -5,6 +5,7 @@ import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.misc.FuncUtils;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
+import net.minecraft.client.gui.Gui;
 
 public class CompCheck extends Comp{
 
@@ -17,7 +18,7 @@ public class CompCheck extends Comp{
 
     @Override
     public void drawScreen(int mouseX, int mouseY) {
-
+    	
     }
 
     @Override
