@@ -6,7 +6,7 @@ import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.RenderMod;
 
-@RenderModule(name = "BPS", category = Category.HUD, x = 4, y = 16)
+@RenderModule(name = "BPS", category = Category.HUD, x = 4, y = 16, description = "See your current blocks per second")
 public class BPS extends RenderMod{
 
     public int getWidth() { return mc.fontRendererObj.getStringWidth(getText()) + 4;}
@@ -17,7 +17,7 @@ public class BPS extends RenderMod{
     }
 
     public String getText(){
-        return "BPS: " + new DecimalFormat("0.##").format(getBPS());
+        return "[BPS: " + new DecimalFormat("0.##").format(getBPS() + "]");
     }
 
     public void draw(){

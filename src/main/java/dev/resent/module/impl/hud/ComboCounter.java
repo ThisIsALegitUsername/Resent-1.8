@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 
-@RenderModule(name = "ComboCounter", category = Category.HUD, x = 4, y = 14)
+@RenderModule(name = "ComboCounter", category = Category.HUD, x = 4, y = 14, description = "Count how many hits in a row you've gotten")
 public class ComboCounter extends RenderMod {
 
     public static boolean attacked = false;

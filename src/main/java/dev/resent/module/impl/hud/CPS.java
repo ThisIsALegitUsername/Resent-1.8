@@ -9,7 +9,7 @@ import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.FuncUtils;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 
-@RenderModule(name = "CPS", category = Category.HUD, x = 4, y = 26)
+@RenderModule(name = "CPS", category = Category.HUD, x = 4, y = 26, description = "See your clicks per second")
 public class CPS extends RenderMod {
 
     private List<Long> clicks = new ArrayList<>();

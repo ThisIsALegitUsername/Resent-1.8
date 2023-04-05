@@ -196,7 +196,7 @@ public class ClickGuiRewrite extends GuiScreen {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height && part == "Home") {
                 	
-                    if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset, x + width - 40, y + 160 + offset) && mouseButton == 0 && m.doesHaveSetting()) {
+                    if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset + scrollOffset, x + width - 40, y + 160 + offset + scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
                     	selectedMod = m;
                     	
                     	int settingOffset = 0;
@@ -210,10 +210,6 @@ public class ClickGuiRewrite extends GuiScreen {
                     }
                     
                 	if(isMouseInside(mouseX, mouseY, x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
-                		if(mouseButton == 0) {
-                			m.toggle();
-                		}
-                		
                 		if(mouseButton == 1 && m.doesHaveSetting()) {
                 			selectedMod = m;
                 			
@@ -226,6 +222,10 @@ public class ClickGuiRewrite extends GuiScreen {
                                 
                                 settingOffset += 25;
                             }
+                		}
+                		
+                		if(mouseButton == 0 && selectedMod == null) {
+                			m.toggle();
                 		}
                 	}                    
                     

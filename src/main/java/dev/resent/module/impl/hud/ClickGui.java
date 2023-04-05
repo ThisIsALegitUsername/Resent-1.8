@@ -7,7 +7,7 @@ import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.module.base.setting.NumberSetting;
 
-@Module(name = "ClickGUI", category = Category.HUD, hasSetting = true)
+@Module(name = "ClickGUI", category = Category.HUD, hasSetting = true, description = "Customize Resent's UI")
 public class ClickGui extends Mod{
 
     public BooleanSetting scroll = new BooleanSetting("Smooth scroll", "", false);
