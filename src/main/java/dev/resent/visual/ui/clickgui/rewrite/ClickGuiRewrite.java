@@ -51,7 +51,6 @@ public class ClickGuiRewrite extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
 
-
         int offset = 0;
 
         GlUtils.startScale((this.x + this.width) / 2, (this.y + this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
@@ -99,7 +98,7 @@ public class ClickGuiRewrite extends GuiScreen {
         }
 
         if (isSearchFocused) {
-            drawRect(x + width - 290 - fr.getStringWidth(searchString), y + 38, x + width - 289 - fr.getStringWidth(searchString), y + 50, secondaryFontColor);
+            drawRect(x + width - 290 + fr.getStringWidth(searchString), y + 38, x + width - 289 + fr.getStringWidth(searchString), y + 50, secondaryFontColor);
         }
 
         GlStateManager.popMatrix();
@@ -115,7 +114,7 @@ public class ClickGuiRewrite extends GuiScreen {
                     //Gear
                     if (m.doesHaveSetting()) {
                         GlStateManager.color(1, 1, 1);
-                        mc.getTextureManager().bindTexture(new ResourceLocation("/resent/gear.png"));
+                        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
                         Gui.drawModalRectWithCustomSizedTexture(x + width - 60, (int) y + 140 + offset + scrollOffset, 0, 0, 20, 20, 20, 20);
                     }
                     //RenderUtils.drawRoundedRect(x+width-60, y+140+offset, x+width-40, y+160+offset, 4, -1);
