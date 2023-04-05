@@ -126,7 +126,7 @@ public class ClickGuiRewrite extends GuiScreen {
 
                     //Toggle
                     RenderUtils.drawRoundedRect(x + 90, y + 125 + offset + scrollOffset, x + 140, y + 175 + offset + scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
-
+                    
                     GlUtils.startScale(x + 90, y + 140 + offset + scrollOffset, 2);
                     fr.drawString(m.getName(), x + 120, y + 140 + offset + scrollOffset, -1, false);
                     GlStateManager.popMatrix();
@@ -191,30 +191,38 @@ public class ClickGuiRewrite extends GuiScreen {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height && part == "Home") {
                 	
+                    if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset, x + width - 40, y + 160 + offset) && mouseButton == 0 && m.doesHaveSetting()) {
+                    	selectedMod = m;
+                    	
+                    	int settingOffset = 0;
+            			for (Setting s: selectedMod.settings) {
+                            if (s instanceof BooleanSetting) {
+                                comps.add(new CompCheck(x+110, y+125+settingOffset, selectedMod, s));
+                            }
+                            
+                            settingOffset += 25;
+                        }
+                    }
+                    
                 	if(isMouseInside(mouseX, mouseY, x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
                 		if(mouseButton == 0) {
                 			m.toggle();
                 		}
                 		
-                		if(mouseButton == 1) {
+                		if(mouseButton == 1 && m.doesHaveSetting()) {
                 			selectedMod = m;
+                			
+                        	int settingOffset = 0;
                 			for (Setting s: selectedMod.settings) {
-                				if (s instanceof BooleanSetting) {
-                					comps.add(new CompCheck(4, 4, selectedMod, s));
-                            	}
-                        	}  
-                		}
-                	}
-                	
-                    if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset, x + width - 40, y + 160 + offset) && mouseButton == 0 && m.doesHaveSetting()) {
-                    	selectedMod = m;
-                        for (Setting s: selectedMod.settings) {
-                            if (s instanceof BooleanSetting) {
-                                comps.add(new CompCheck(4, 4, selectedMod, s));
+                            	
+                                if (s instanceof BooleanSetting) {
+                                    comps.add(new CompCheck(x+110, y+125+settingOffset, selectedMod, s));
+                                }
+                                
+                                settingOffset += 25;
                             }
-                        }   
-                    }
-                    
+                		}
+                	}                    
                     
                 }
                 offset += 80;
