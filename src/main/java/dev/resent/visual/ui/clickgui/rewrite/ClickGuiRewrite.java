@@ -2,6 +2,9 @@ package dev.resent.visual.ui.clickgui.rewrite;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
@@ -18,6 +21,7 @@ import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
+import net.lax1dude.eaglercraft.v1_8.internal.PlatformInput;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -25,6 +29,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
@@ -46,9 +51,11 @@ public class ClickGuiRewrite extends GuiScreen{
     		   secondaryFontColor = new Color(187, 134, 252).getRGB();
     public int partOffset = 0, scrollOffset = 0;
     public String part = "Home";
-
+    private boolean isSearchFocused = false;
+		
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
+    	
     	
     	int offset = 0;
     	
@@ -61,7 +68,7 @@ public class ClickGuiRewrite extends GuiScreen{
         RenderUtils.drawRoundedRect(x+60, y, x+width, y+height, 32, backgroundColor);
         Gui.drawRect(x+60, y, x+102, y+height, backgroundColor);
         
-        //Seperating line
+        //Separating line
         Gui.drawRect(x, y+90, x+width, y+95, secondaryColor);
         
         //Title
@@ -84,15 +91,22 @@ public class ClickGuiRewrite extends GuiScreen{
         
         //Search
         RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, secondaryColor);
+        
+        
         GlStateManager.pushMatrix();
         GlStateManager.translate(x+width-290, y+40, 0);
         GlStateManager.scale(1.5f, 1.5f, 1);
         GlStateManager.translate(-(x+width-290), -(y+40), 0);
         if(searchString.length() > 0) {
         	fr.drawString(searchString, x+width-290, y+40, secondaryFontColor, false);
-        }else {
-        	fr.drawString("Search", x+width-290, y+40, new Color(97, 97, 97).getRGB(), false);
+        }else if (!isSearchFocused) {
+        	fr.drawString(EnumChatFormatting.ITALIC + "Search" + EnumChatFormatting.RESET, x+width-290, y+40, new Color(97, 97, 97).getRGB(), false);
         }
+        
+        if (isSearchFocused) {
+        	drawRect(x + width - (290 - fr.getStringWidth(searchString)), y+38, x + width - (289 - fr.getStringWidth(searchString)), y+50, secondaryFontColor);
+        }
+        
         GlStateManager.popMatrix();
         
         //Draw module button
@@ -147,6 +161,7 @@ public class ClickGuiRewrite extends GuiScreen{
                 mc.displayGuiScreen(null);
             }
         }
+        
     }
 
     @Override
@@ -156,6 +171,13 @@ public class ClickGuiRewrite extends GuiScreen{
     	partAnimation.setAnimation(50-partOffset, 10);
     }else if(isMouseInside(mouseX, mouseY, x+20, (int)y+120, x+40, (int)y+140)) {
     	partAnimation.setAnimation(0-partOffset, 10);
+    }
+    
+    if (isMouseInside(mouseX, mouseY, x+width-300, y+25, x+width-50, y+65)) {
+    	isSearchFocused = true;
+    }
+    else {
+    	isSearchFocused = false;
     }
 
     	int offset = 0;
@@ -198,26 +220,27 @@ public class ClickGuiRewrite extends GuiScreen{
         if (key == 0x01 || key == Minecraft.getMinecraft().gameSettings.keyBindClickGui.keyCode) {
             closing = true;
         }
-
-        if(selectedMod != null){
-            for(Comp c : comps){
-                c.keyTyped(par1, key);
-            }
-        }
-        
-        // Search box stuff
-        else if(key == KeyboardConstants.KEY_BACK) {
-        	if(searchString.length() != 0) {
-        		searchString = searchString.substring(0, searchString.length()-1);
-        	}
-        }else {
-        	if(searchString.length() <= 18) {
-        		String balls = ChatAllowedCharacters.filterAllowedCharacters(String.valueOf(par1));
-        		if(balls != null && balls != "") {
-        			searchString += String.valueOf(par1);
-        			scrollOffset = 0;
-        		}
-        	}
+        if (isSearchFocused) {
+	        if(selectedMod != null){
+	            for(Comp c : comps){
+	                c.keyTyped(par1, key);
+	            }
+	        }
+	        
+	        // Search box stuff
+	        else if(key == KeyboardConstants.KEY_BACK) {
+	        	if(searchString.length() != 0) {
+	        		searchString = searchString.substring(0, searchString.length()-1);
+	        	}
+	        }else {
+	        	if(searchString.length() <= 18) {
+	        		String balls = ChatAllowedCharacters.filterAllowedCharacters(String.valueOf(par1));
+	        		if(balls != null && balls != "") {
+	        			searchString += String.valueOf(par1);
+	        			scrollOffset = 0;
+	        		}
+	        	}
+	        }
         }
         
     }
@@ -241,5 +264,7 @@ public class ClickGuiRewrite extends GuiScreen{
 	public int getMaxScroll() {
 		return Resent.INSTANCE.modManager.modules.size() * -68;
 	}
+	
+	
     
 }
