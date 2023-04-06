@@ -50,7 +50,7 @@ public class ClickGuiRewrite extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
-
+        GlStateManager.scale(1f,1f,0f);
         int offset = 0;
 
         GlUtils.startScale((this.x+this.width) / 2, (this.y+this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
