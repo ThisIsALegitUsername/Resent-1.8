@@ -53,24 +53,24 @@ public class ClickGuiRewrite extends GuiScreen {
 
         int offset = 0;
 
-        GlUtils.startScale((this.x + this.width) / 2, (this.y + this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
+        GlUtils.startScale((this.x+this.width) / 2, (this.y+this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
 
         //Navigation bar
-        RenderUtils.drawRoundedRect(x, y, x + width - 60, y + height, 32, secondaryColor);
+        RenderUtils.drawRoundedRect(x, y, x+width-60, y+height, 32, secondaryColor);
 
         //Background overlay
-        RenderUtils.drawRoundedRect(x + 60, y, x + width, y + height, 32, backgroundColor);
-        Gui.drawRect(x + 60, y, x + 102, y + height, backgroundColor);
+        RenderUtils.drawRoundedRect(x+60, y, x+width, y+height, 32, backgroundColor);
+        Gui.drawRect(x+60, y, x+102, y+height, backgroundColor);
 
         //Separating line
-        Gui.drawRect(x, y + 90, x + width, y + 95, secondaryColor);
+        Gui.drawRect(x, y+90, x+width, y+95, secondaryColor);
 
         //Title
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x + 80, y + 36, 0);
+        GlStateManager.translate(x+80, y+36, 0);
         GlStateManager.scale(3.5F, 3.5F, 1);
-        GlStateManager.translate(-(x + 80), -(y + 36), 0);
-        fr.drawString("Resent", x + 80, y + 36, -1, false);
+        GlStateManager.translate(-(x+80), -(y+36), 0);
+        fr.drawString("Resent", x+80, y+36, -1, false);
         GlStateManager.popMatrix();
 
         if (iforgor) {
@@ -80,33 +80,33 @@ public class ClickGuiRewrite extends GuiScreen {
         }
         
         //Navigation selection
-        RenderUtils.drawRoundedRect(x + 15, y + 115 + partAnimation.getValue(), x + 45, y + 145 + partAnimation.getValue(), 8, secondaryFontColor);
+        RenderUtils.drawRoundedRect(x+15, y+115+partAnimation.getValue(), x+45, y+145+partAnimation.getValue(), 8, secondaryFontColor);
 
         //Navigation icons
         GlStateManager.color(1, 1, 1);
         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/house.png"));
-        Gui.drawModalRectWithCustomSizedTexture(x + 20, (int) y + 120, 0, 0, 20, 20, 20, 20);
+        Gui.drawModalRectWithCustomSizedTexture(x+20, (int) y+120, 0, 0, 20, 20, 20, 20);
         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
-        Gui.drawModalRectWithCustomSizedTexture(x + 20, (int) y + 170, 0, 0, 20, 20, 20, 20);
+        Gui.drawModalRectWithCustomSizedTexture(x+20, (int) y+170, 0, 0, 20, 20, 20, 20);
 
         //Search
-        RenderUtils.drawRoundedRect(x + width - 300, y + 25, x + width - 50, y + 65, 9, secondaryColor);
+        RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, secondaryColor);
 
 
         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/search.png"));
-        Gui.drawModalRectWithCustomSizedTexture(x + width-290, (int) y + 36, 0, 0, 20, 20, 20, 20);
+        Gui.drawModalRectWithCustomSizedTexture(x+width-290, (int) y+36, 0, 0, 20, 20, 20, 20);
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x + width - 290, y + 40, 0);
+        GlStateManager.translate(x+width-290, y+40, 0);
         GlStateManager.scale(1.5F, 1.5F, 1);
-        GlStateManager.translate(-(x + width - 290), -(y + 40), 0);
+        GlStateManager.translate(-(x+width-290), -(y+40), 0);
         if (searchString.length() > 0) {
-            fr.drawString(searchString, x + width - 270, y + 40, secondaryFontColor, false);
+            fr.drawString(searchString, x+width-270, y+40, secondaryFontColor, false);
         } else {
-            fr.drawString(EnumChatFormatting.ITALIC + "Search", x + width - 270, y + 40, new Color(97, 97, 97).getRGB(), false);
+            fr.drawString(EnumChatFormatting.ITALIC+"Search", x+width-270, y+40, new Color(97, 97, 97).getRGB(), false);
         }
 
         if (isSearchFocused) {
-            drawRect(x + width - 271 + fr.getStringWidth(searchString), y + 38, x + width - 270 + fr.getStringWidth(searchString), y + 50, secondaryFontColor);
+            drawRect(x+width-271+fr.getStringWidth(searchString), y+38, x+width-270+fr.getStringWidth(searchString), y+50, secondaryFontColor);
         }
 
         GlStateManager.popMatrix();
@@ -114,34 +114,34 @@ public class ClickGuiRewrite extends GuiScreen {
         //Draw module button
         for (Mod m: Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height && part == "Home") {
+                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
                     //Body
-                    RenderUtils.drawRoundedRect(x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset, 16, secondaryColor);
+                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset, 16, secondaryColor);
 
                     //Gear
                     if (m.doesHaveSetting()) {
                     	GlStateManager.color(1, 1, 1);
                         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
-                        Gui.drawModalRectWithCustomSizedTexture(x + width - 60, (int) y + 140 + offset + scrollOffset, 0, 0, 20, 20, 20, 20);
+                        Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
                     } 
                     //RenderUtils.drawRoundedRect(x+width-60, y+140+offset, x+width-40, y+160+offset, 4, -1);
 
                     //Toggle
-                    RenderUtils.drawRoundedRect(x + 90, y + 125 + offset + scrollOffset, x + 140, y + 175 + offset + scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
+                    RenderUtils.drawRoundedRect(x+100, y+135+offset+scrollOffset, x+130, y+165+offset+scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
                     
-                    GlUtils.startScale(x + 90, y + 140 + offset + scrollOffset, 2);
-                    int i = fr.drawString(m.getName(), x + 120, y + 140 + offset + scrollOffset, -1, false);
+                    GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
+                    int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
                     GlUtils.startScale(x+120+i/2, y+140+offset+scrollOffset, 1.5f);
                     fr.drawString(m.getDescription(), x+20+i, y+142+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
 
-//                    if (isMouseInside(mouseX, mouseY, x + i + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
-//                        fr.drawString(m.getDescription(), mouseX + 8, mouseY, onSurfaceColor, false);
+//                    if (isMouseInside(mouseX, mouseY, x+i+80, y+115+offset+scrollOffset, x+width-20, y+185+offset+scrollOffset)) {
+//                        fr.drawString(m.getDescription(), mousex+8, mouseY, onSurfaceColor, false);
 //                    }
 
                 }
-                offset += 80;
+                offset+= 60;
             }
         }
 
@@ -174,17 +174,17 @@ public class ClickGuiRewrite extends GuiScreen {
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
 
-        if (isMouseInside(mouseX, mouseY, x + 20, (int) y + 170, x + 40, (int) y + 190)) {
+        if (isMouseInside(mouseX, mouseY, x+20, (int) y+170, x+40, (int) y+190)) {
         	iforgor2 = false;
             iforgor = true;
             part = "Setting";
-        } else if (isMouseInside(mouseX, mouseY, x + 20, (int) y + 120, x + 40, (int) y + 140)) {
+        } else if (isMouseInside(mouseX, mouseY, x+20, (int) y+120, x+40, (int) y+140)) {
         	iforgor = false;
             iforgor2 = true;
             part = "Home";
         }
 
-        if (isMouseInside(mouseX, mouseY, x + width - 300, y + 25, x + width - 50, y + 65)) {
+        if (isMouseInside(mouseX, mouseY, x+width-300, y+25, x+width-50, y+65)) {
             isSearchFocused = true;
         } else {
             isSearchFocused = false;
@@ -194,9 +194,9 @@ public class ClickGuiRewrite extends GuiScreen {
 
         for (Mod m: Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y + 115 + offset + scrollOffset > y + 95 && y + 185 + offset + scrollOffset < y + height && part == "Home") {
+                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
                 	
-                    if (isMouseInside(mouseX, mouseY, x + width - 60, y + 140 + offset + scrollOffset, x + width - 40, y + 160 + offset + scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
+                    if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+160+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
                     	selectedMod = m;
                     	
                     	int settingOffset = 0;
@@ -205,11 +205,11 @@ public class ClickGuiRewrite extends GuiScreen {
                                 comps.add(new CompCheck(x+110, y+125+settingOffset, selectedMod, s));
                             }
                             
-                            settingOffset += 25;
+                            settingOffset+= 25;
                         }
                     }
                     
-                	if(isMouseInside(mouseX, mouseY, x + 80, y + 115 + offset + scrollOffset, x + width - 20, y + 185 + offset + scrollOffset)) {
+                	if(isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
                 		if(mouseButton == 1 && m.doesHaveSetting()) {
                 			selectedMod = m;
                 			
@@ -220,7 +220,7 @@ public class ClickGuiRewrite extends GuiScreen {
                                     comps.add(new CompCheck(x+110, y+125+settingOffset, selectedMod, s));
                                 }
                                 
-                                settingOffset += 25;
+                                settingOffset+= 25;
                             }
                 		}
                 		
@@ -230,7 +230,7 @@ public class ClickGuiRewrite extends GuiScreen {
                 	}                    
                     
                 }
-                offset += 80;
+                offset+= 60;
             }
         }
         
@@ -276,7 +276,7 @@ public class ClickGuiRewrite extends GuiScreen {
         // Search box stuff
         else if (key == KeyboardConstants.KEY_BACK && isSearchFocused) {
             if (searchString.length() != 0) {
-                searchString = searchString.substring(0, searchString.length() - 1);
+                searchString = searchString.substring(0, searchString.length()-1);
             }
         } else {
             if (searchString.length() <= 18 && isSearchFocused) {
@@ -295,9 +295,9 @@ public class ClickGuiRewrite extends GuiScreen {
         int scroll = Mouse.getEventDWheel();
 
         if (scroll > 0) {
-            scrollOffset = MathHelper.clamp_int(scrollOffset + 80, getMaxScroll(), 0);
+            scrollOffset = MathHelper.clamp_int(scrollOffset+80, getMaxScroll(), 0);
         } else if (scroll < 0) {
-            scrollOffset = MathHelper.clamp_int(scrollOffset - 80, getMaxScroll(), 0);
+            scrollOffset = MathHelper.clamp_int(scrollOffset-80, getMaxScroll(), 0);
         }
         super.handleMouseInput();
     }
@@ -307,6 +307,6 @@ public class ClickGuiRewrite extends GuiScreen {
     }
 
     public int getMaxScroll() {
-        return Resent.INSTANCE.modManager.modules.size() * -70;
+        return Resent.INSTANCE.modManager.modules.size() * -53;
     }
 }
