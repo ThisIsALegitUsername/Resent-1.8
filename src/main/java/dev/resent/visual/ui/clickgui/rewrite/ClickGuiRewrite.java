@@ -50,7 +50,7 @@ public class ClickGuiRewrite extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
-        GlStateManager.scale(1f,1f,0f);
+        //GlStateManager.scale(1f,1f,0f);
         int offset = 0;
 
         GlUtils.startScale((this.x+this.width) / 2, (this.y+this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
@@ -295,9 +295,9 @@ public class ClickGuiRewrite extends GuiScreen {
         int scroll = Mouse.getEventDWheel();
 
         if (scroll > 0) {
-            scrollOffset = MathHelper.clamp_int(scrollOffset+80, getMaxScroll(), 0);
+            scrollOffset = MathHelper.clamp_int(scrollOffset+60, getMaxScroll(), 0);
         } else if (scroll < 0) {
-            scrollOffset = MathHelper.clamp_int(scrollOffset-80, getMaxScroll(), 0);
+            scrollOffset = MathHelper.clamp_int(scrollOffset-60, getMaxScroll(), 0);
         }
         super.handleMouseInput();
     }
