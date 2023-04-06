@@ -17,7 +17,7 @@ public class BPS extends RenderMod{
     }
 
     public String getText(){
-        return "[BPS: " + new DecimalFormat("0.##").format(getBPS() + "]");
+        return "[BPS: " + new DecimalFormat("0.##").format(getBPS()) + "]";
     }
 
     public void draw(){

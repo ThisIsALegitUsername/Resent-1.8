@@ -558,6 +558,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     private void openWebLink(String parURI) {
         EagRuntime.openLink(parURI);
     }
+    
+    public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
+        return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height);
+    }
+
 
     /**+
      * Returns true if either windows ctrl key is down or if either

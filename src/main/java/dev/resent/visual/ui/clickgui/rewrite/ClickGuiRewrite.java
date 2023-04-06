@@ -124,7 +124,6 @@ public class ClickGuiRewrite extends GuiScreen {
                         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
                         Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
                     } 
-                    //RenderUtils.drawRoundedRect(x+width-60, y+140+offset, x+width-40, y+160+offset, 4, -1);
 
                     //Toggle
                     RenderUtils.drawRoundedRect(x+100, y+135+offset+scrollOffset, x+130, y+165+offset+scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
@@ -301,12 +300,13 @@ public class ClickGuiRewrite extends GuiScreen {
         }
         super.handleMouseInput();
     }
-
-    public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
-        return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height);
-    }
-
+    
     public int getMaxScroll() {
         return Resent.INSTANCE.modManager.modules.size() * -53;
+    }
+    
+    @Override
+    public void onGuiClosed() {
+    	mc.gameSettings.saveOptions();
     }
 }

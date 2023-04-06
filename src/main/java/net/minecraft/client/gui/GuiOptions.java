@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import dev.resent.visual.ui.PreVideo;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.vfs.SYS;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -34,7 +35,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 
     private static final GameSettings.Options[] field_146440_f = new GameSettings.Options[] { GameSettings.Options.FOV };
     private final GuiScreen field_146441_g;
-    private final GameSettings game_settings_1;
+    public final GameSettings game_settings_1;
     private GuiButton field_175357_i;
     private GuiLockIconButton field_175356_r;
     protected String field_146442_a = "Options";
@@ -161,7 +162,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 
             if (parGuiButton.id == 101) {
                 this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiVideoSettings(this, this.game_settings_1));
+                this.mc.displayGuiScreen(new PreVideo(field_146441_g));
             }
 
             if (parGuiButton.id == 100) {
