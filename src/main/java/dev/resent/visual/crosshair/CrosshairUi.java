@@ -25,14 +25,14 @@ public class CrosshairUi extends GuiScreen {
         super.drawScreen(mx, my, par3);
     }
 
-    public void updateScreen(){
+    public void updateScreen() {
         if (EagRuntime.fileChooserHasResult()) {
             CrosshairManager.free();
             FileChooserResult result = EagRuntime.getFileChooserResult();
             if (result != null) {
                 ImageData loadedCrosshair = ImageData.loadImageFile(result.fileData);
-                if(loadedCrosshair != null){
-                    for(int i = 0; 1 > i; i++){
+                if (loadedCrosshair != null) {
+                    for (int i = 0; 1 > i; i++) {
                         CrosshairManager.write(result.fileData);
                     }
                     CrosshairManager.crosshairLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("uploadedcrosshair", new DynamicTexture(loadedCrosshair));
@@ -48,7 +48,7 @@ public class CrosshairUi extends GuiScreen {
     protected void actionPerformed(GuiButton par1GuiButton) {
         if (par1GuiButton.id == 200) {
             mc.displayGuiScreen(null);
-        }else if(par1GuiButton.id == 1){
+        } else if (par1GuiButton.id == 1) {
             CrosshairManager.displayChooser();
         }
     }

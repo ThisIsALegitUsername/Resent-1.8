@@ -1,9 +1,5 @@
 package dev.resent.module.base;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.impl.hud.ArmorHud;
 import dev.resent.module.impl.hud.BPS;
@@ -41,6 +37,9 @@ import dev.resent.module.impl.setting.NoParticles;
 import dev.resent.module.impl.setting.NoRain;
 import dev.resent.module.impl.setting.NoSwingDelay;
 import dev.resent.module.impl.setting.SelfNametag;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModManager {
 
@@ -79,13 +78,13 @@ public class ModManager {
     public static ItemPhysics itemPhysics = new ItemPhysics();
     public static FPSOptions fpsOptions = new FPSOptions();
     public static AdminRay adminRay = new AdminRay();
-    public static AdminSpawner adminSpawner =new AdminSpawner();
+    public static AdminSpawner adminSpawner = new AdminSpawner();
     public static ParticleMultiplier particleMultiplier = new ParticleMultiplier();
     public static Hand hand;
+
     //public static Crosshair crosshair = new Crosshair();
 
     public ModManager() {
-
         //Hud
         //register(crosshair = new Crosshair());
         register(hand = new Hand());
@@ -129,10 +128,10 @@ public class ModManager {
     }
 
     public ArrayList<Mod> modsInCategory(Category c) {
-    	if(c == null) {
-    		return (ArrayList<Mod>) modules;
-    	}
-    	
+        if (c == null) {
+            return (ArrayList<Mod>) modules;
+        }
+
         ArrayList<Mod> inCat = (ArrayList<Mod>) this.modules.stream().filter(m -> m.getCategory() == c).collect(Collectors.toList());
 
         return inCat;

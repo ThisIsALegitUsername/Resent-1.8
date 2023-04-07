@@ -1,8 +1,5 @@
 package dev.resent.visual.ui.clickgui;
 
-import java.io.IOException;
-import java.util.Comparator;
-
 import dev.resent.client.ClientInfo;
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
@@ -19,6 +16,8 @@ import dev.resent.util.render.RenderUtils;
 import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
+import java.io.IOException;
+import java.util.Comparator;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -52,81 +51,78 @@ public class ClickGUI extends GuiScreen {
         offset = MathHelper.clamp_int(MathHelper.clamp_int(offset, 0, getListMaxScroll()), 0, getListMaxScroll());
         int xo = 0;
         int off = 0;
-        
-        if(isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25)) {
-        	selectedCategory = null;
-        }else if(isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25)) {
-        	selectedCategory = Category.HUD;
-        }else if(isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25)) {
-        	selectedCategory = Category.MISC;
+
+        if (isMouseInside(mouseX, mouseY, x, height + 14, x + 20, height + 25)) {
+            selectedCategory = null;
+        } else if (isMouseInside(mouseX, mouseY, x + 24, height + 14, x + 46, height + 25)) {
+            selectedCategory = Category.HUD;
+        } else if (isMouseInside(mouseX, mouseY, x + 50, height + 14, x + 74, height + 25)) {
+            selectedCategory = Category.MISC;
         }
-        
+
         if (isMouseInside(mouseX, mouseY, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5) && mouseButton == 0) {
             mc.displayGuiScreen(new HUDConfigScreen(this));
             this.openedMod = null;
         }
 
         Resent.INSTANCE.modManager.modsInCategory(selectedCategory).sort(Comparator.comparingInt(m -> fr.getStringWidth(m.getName())));
-        for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory) ) {
-            if(!m.isAdmin() || EntityRenderer.test){
-            int fh = 9;
+        for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
+            if (!m.isAdmin() || EntityRenderer.test) {
+                int fh = 9;
 
-            if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.doesHaveSetting() && openedMod == null) {
-                // Open settings
-                this.openedMod = m;
-            } else if (isMouseInside(mouseX, mouseY, x - 9 + 2, height + 27 + 9 + 2, x - 9 + 6 + fr.getStringWidth("<"), height + 33 + 9 + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
-                // Close settings
-                this.openedMod = null;
-            } else if (isMouseInside(mouseX, mouseY, width + 15, height - 10, width + 25, height + 7)) {
-                // Close ui
-                mc.displayGuiScreen(null);
-                this.openedMod = null;
-            }else if(isMouseInside(mouseX, mouseY, this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17) && ModManager.clickGui.guiTheme.getValue() == "New" && openedMod == null){
-                //toggle new
-                if(m.getName() != "ClickGUI")
-            	m.toggle();
-            } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && openedMod == null && ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
-                //toggle classic
-                if(m.getName() != "ClickGUI")
-                m.toggle();
-            }
-            if (xo > width / 2) {
-                xo = 0;
-                off += 5;
-            } else {
-                xo += 100;
-            }
+                if (isMouseInside(mouseX, mouseY, this.x + 90 + xo - 1 + 10, height - 2 - fh * -(off) + 51 - 1 - offset, this.x + 90 + xo - 1 + 21, height + 30 - fh * (-off) + 30 - 1 + 2 - 1 - offset) && m.doesHaveSetting() && openedMod == null) {
+                    // Open settings
+                    this.openedMod = m;
+                } else if (isMouseInside(mouseX, mouseY, x - 9 + 2, height + 27 + 9 + 2, x - 9 + 6 + fr.getStringWidth("<"), height + 33 + 9 + 2 + fr.getStringWidth("<")) && mouseButton == 0) {
+                    // Close settings
+                    this.openedMod = null;
+                } else if (isMouseInside(mouseX, mouseY, width + 15, height - 10, width + 25, height + 7)) {
+                    // Close ui
+                    mc.displayGuiScreen(null);
+                    this.openedMod = null;
+                } else if (isMouseInside(mouseX, mouseY, this.x + 48 + xo, height - 2 - fh * -(off) + 70 - 1 - offset, this.x + 80 + xo, height + 30 - fh * -off + 30 + 2 - offset + 17) && ModManager.clickGui.guiTheme.getValue() == "New" && openedMod == null) {
+                    //toggle new
+                    if (m.getName() != "ClickGUI") m.toggle();
+                } else if (isMouseInside(mouseX, mouseY, this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset) && mouseButton == 0 && openedMod == null && ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
+                    //toggle classic
+                    if (m.getName() != "ClickGUI") m.toggle();
+                }
+                if (xo > width / 2) {
+                    xo = 0;
+                    off += 5;
+                } else {
+                    xo += 100;
+                }
             }
         }
 
         if (openedMod != null) {
             int var = 0;
             for (Setting s : this.openedMod.settings) {
-
-                if(s instanceof NumberSetting) {
-                    if(isMouseInside(mouseX, mouseY, width-150+sliderOffset, height+41+var, width-141+sliderOffset, height+50+var)) {
-                    	draggingNumber = true;
+                if (s instanceof NumberSetting) {
+                    if (isMouseInside(mouseX, mouseY, width - 150 + sliderOffset, height + 41 + var, width - 141 + sliderOffset, height + 50 + var)) {
+                        draggingNumber = true;
                     }
                 }
 
                 if (s instanceof BooleanSetting) {
                     if (isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) && mouseButton == 0) {
-                        ((BooleanSetting)s).toggle();
+                        ((BooleanSetting) s).toggle();
                     }
                 }
 
                 if (s instanceof ModeSetting) {
-                    if(isMouseInside(mouseX, mouseY, this.x+360, height+40+var, this.x+370, height+50+var) && mouseButton == 0) {
-                    	((ModeSetting)s).cycle(false);
+                    if (isMouseInside(mouseX, mouseY, this.x + 360, height + 40 + var, this.x + 370, height + 50 + var) && mouseButton == 0) {
+                        ((ModeSetting) s).cycle(false);
                     }
-                    if(isMouseInside(mouseX, mouseY, this.x+458, height+40+var, this.x+470, height+50+var) && mouseButton == 0) {
-                        ((ModeSetting)s).cycle(true);
+                    if (isMouseInside(mouseX, mouseY, this.x + 458, height + 40 + var, this.x + 470, height + 50 + var) && mouseButton == 0) {
+                        ((ModeSetting) s).cycle(true);
                     }
                 }
 
-                if(s instanceof CustomRectSettingDraw){
-                    if(isMouseInside(mouseX, mouseY, x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53)){
-                        ((CustomRectSettingDraw)s).onPress();
+                if (s instanceof CustomRectSettingDraw) {
+                    if (isMouseInside(mouseX, mouseY, x + 21, height + 41 + var, x + 27 + fr.getStringWidth(s.name), height + var + 53)) {
+                        ((CustomRectSettingDraw) s).onPress();
                     }
                 }
 
@@ -148,11 +144,11 @@ public class ClickGUI extends GuiScreen {
         int off = 0;
 
         if (close) {
-        	if(introAnimation == null) {
-        		mc.displayGuiScreen(null);
-        		return;
-        	}
-        		
+            if (introAnimation == null) {
+                mc.displayGuiScreen(null);
+                return;
+            }
+
             introAnimation.setDirection(Direction.BACKWARDS);
             if (introAnimation.isDone(Direction.BACKWARDS)) {
                 mc.displayGuiScreen(null);
@@ -164,9 +160,9 @@ public class ClickGUI extends GuiScreen {
         // background
         drawRect(x - 10, y + 20, width + 35, height - 10, new Color(35, 39, 42, 200).getRGB());
         fr.drawString(ClientInfo.name + " Client " + ClientInfo.version, x + 8, height - 2, -1);
-        
+
         //RenderUtils.drawRectOutline(sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 5, sr.getScaledHeight() - y - 9, sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout"), sr.getScaledHeight() - y + 5, -1);
-       drawRect(
+        drawRect(
             sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 - 4,
             sr.getScaledHeight() - y - 9 + 1,
             sr.getScaledWidth() / 2 - fr.getStringWidth("Edit Layout") / 2 + 5 + fr.getStringWidth("Edit Layout") - 1,
@@ -178,43 +174,43 @@ public class ClickGUI extends GuiScreen {
 
         // close
         fr.drawString("X", width + 18, height - 2, -1);
-        
+
         //categories
-        drawRect(x+0.8d, height+14, x+20, height+25, isMouseInside(mouseX, mouseY, x, height+14, x+20, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
-        drawRect(x+23d, height+14, x+47, height+25, isMouseInside(mouseX, mouseY, x+24, height+14, x+46, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
-        drawRect(x+50, height+14, x+75, height+25, isMouseInside(mouseX, mouseY, x+50, height+14, x+74, height+25) ?  new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
-        fr.drawStringWithShadow("All", x+5f, height+16, -1);
-        fr.drawStringWithShadow("Hud", x+26.5f, height+16, -1);
-        fr.drawStringWithShadow("Misc", x+53, height+16, -1);
-        
+        drawRect(x + 0.8d, height + 14, x + 20, height + 25, isMouseInside(mouseX, mouseY, x, height + 14, x + 20, height + 25) ? new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        drawRect(x + 23d, height + 14, x + 47, height + 25, isMouseInside(mouseX, mouseY, x + 24, height + 14, x + 46, height + 25) ? new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        drawRect(x + 50, height + 14, x + 75, height + 25, isMouseInside(mouseX, mouseY, x + 50, height + 14, x + 74, height + 25) ? new Color(150, 150, 150, 65).getRGB() : new Color(211, 211, 211, 65).getRGB());
+        fr.drawStringWithShadow("All", x + 5f, height + 16, -1);
+        fr.drawStringWithShadow("Hud", x + 26.5f, height + 16, -1);
+        fr.drawStringWithShadow("Misc", x + 53, height + 16, -1);
+
         //white line
         drawRect(x - 8, height + 29, width + 33, height + 30, -1);
         GlUtils.stopScale();
-        
+
         Resent.INSTANCE.modManager.modsInCategory(selectedCategory).sort(Comparator.comparingInt(m -> fr.getStringWidth(m.getName())));
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (this.openedMod == null && !m.isAdmin() || this.openedMod == null && EntityRenderer.test) {
                 int fh = 9;
-                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 +15 - offset < y + 20 && (introAnimation != null ? introAnimation.isDone() : true)) {
+                if (height - 2 - fh * -(off) + 50 - 2 - offset > height + 29 && height + 40 - fh * (-off) + 30 + 15 - offset < y + 20 && (introAnimation != null ? introAnimation.isDone() : true)) {
                     // Enabled outline
-                	
-                	m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 7);
-                    if(ModManager.clickGui.guiTheme.getValue() == "New"){
-                        RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+80+xo, height+30-fh*-off+30+2-offset+17, 6, new Color(97, 97, 97).getRGB(), true);
-                        RenderUtils.drawRoundedRect(this.x+48+xo, height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, Color.green.getRGB(), true);
-                        RenderUtils.drawRoundedRect(this.x+48+xo+m.toggleAnimation.getValue(), height-2-fh*-(off)+70-1-offset, this.x+60+xo+m.toggleAnimation.getValue(), height+30-fh*-off+30+2-offset+17, 6, -1, true);
-                    }else if(ModManager.clickGui.guiTheme.getValue() == "Classic revised"){
+
+                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 7);
+                    if (ModManager.clickGui.guiTheme.getValue() == "New") {
+                        RenderUtils.drawRoundedRect(this.x + 48 + xo, height - 2 - fh * -(off) + 70 - 1 - offset, this.x + 80 + xo, height + 30 - fh * -off + 30 + 2 - offset + 17, 6, new Color(97, 97, 97).getRGB(), true);
+                        RenderUtils.drawRoundedRect(this.x + 48 + xo, height - 2 - fh * -(off) + 70 - 1 - offset, this.x + 60 + xo + m.toggleAnimation.getValue(), height + 30 - fh * -off + 30 + 2 - offset + 17, 6, Color.green.getRGB(), true);
+                        RenderUtils.drawRoundedRect(this.x + 48 + xo + m.toggleAnimation.getValue(), height - 2 - fh * -(off) + 70 - 1 - offset, this.x + 60 + xo + m.toggleAnimation.getValue(), height + 30 - fh * -off + 30 + 2 - offset + 17, 6, -1, true);
+                    } else if (ModManager.clickGui.guiTheme.getValue() == "Classic revised") {
                         RenderUtils.drawRoundedRect(this.x + 10 + xo - 2 + 10, height - 2 - fh * -(off) + 50 - 2 - offset, this.x + 90 + xo + 22, height + 30 - fh * (-off) + 30 + 2 - offset, 4, m.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB(), true);
                     }
 
-                    if(ModManager.clickGui.guiTheme.getValue().equals("New")) {
-	                    drawRect(
-	                        this.x + 10 + xo - 1 + 10,
-	                        height - 2 - fh * -(off) + 50 - 1 - offset,
-	                        this.x + 90 + xo - 1 + 22,
-	                        height + 85 - fh * (-off) - offset,
-	                        /*isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() :*/ new Color(211, 211, 211, 65).getRGB()
-	                    );
+                    if (ModManager.clickGui.guiTheme.getValue().equals("New")) {
+                        drawRect(
+                            this.x + 10 + xo - 1 + 10,
+                            height - 2 - fh * -(off) + 50 - 1 - offset,
+                            this.x + 90 + xo - 1 + 22,
+                            height + 85 - fh * (-off) - offset,
+                            /*isMouseInside(mouseX, mouseY, this.x + 10 + xo - 1 + 10, height - 2 - fh * -(off) + 50 - 1 - offset, this.x + 90 + xo - 1 + 22, height + 30 - fh * (-off) + 30 - 1 + 2 - offset) ? new Color(105, 105, 105, 65).getRGB() :*/new Color(211, 211, 211, 65).getRGB()
+                        );
                     }
 
                     if (m.doesHaveSetting()) {
@@ -232,56 +228,55 @@ public class ClickGUI extends GuiScreen {
                 fr.drawStringWithShadow(ClientInfo.name + " - " + openedMod.getName(), sr.getScaledWidth() / 2 - (fr.getStringWidth("Resent - " + openedMod.getName()) / 2), height + 29 - 9 - 2, -1);
 
                 for (Setting s : openedMod.settings) {
-                    if(s instanceof CustomRectSettingDraw){
-                        drawRect(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, isMouseInside(mouseX, mouseY, x+21, height+39+var, x+26+fr.getStringWidth(s.name), height+var+51) ? new Color(150, 150, 150).getRGB() : new Color(211, 211, 211).getRGB());
+                    if (s instanceof CustomRectSettingDraw) {
+                        drawRect(x + 21, height + 41 + var, x + 27 + fr.getStringWidth(s.name), height + var + 53, isMouseInside(mouseX, mouseY, x + 21, height + 39 + var, x + 26 + fr.getStringWidth(s.name), height + var + 51) ? new Color(150, 150, 150).getRGB() : new Color(211, 211, 211).getRGB());
                         //RenderUtils.drawRectOutline(x+21, height+41+var, x+27+fr.getStringWidth(s.name), height+var+53, -1);
-                        fr.drawStringWithShadow(s.name, this.x + 24, height +43 + var, -1);
+                        fr.drawStringWithShadow(s.name, this.x + 24, height + 43 + var, -1);
                         var += 3;
                     }
-                    
-                    if(s instanceof NumberSetting) {
-                        NumberSetting ss = ((NumberSetting)s);
-                        fr.drawStringWithShadow(s.name + ": sof " + sliderOffset + ", val: " + ((NumberSetting)s).getValue(), this.x+24, height+41+var, -1);
-                        drawRect(width-150, height+43+var, width-45, height+47+var, -1);
-                        RenderUtils.drawRoundedRect(width-150+sliderOffset, height+40+var, width-140+sliderOffset, height+50+var, 4, Color.RED.getRGB());
 
-                        if(settingDrag) {
-                            sliderOffset = mouseX-(width-150);                          
-                            ss.setValue(sliderOffset*(ss.max/100));
-                        }else {
-                            sliderOffset = (int) ((ss.getValue() * 100)/ss.max);
+                    if (s instanceof NumberSetting) {
+                        NumberSetting ss = ((NumberSetting) s);
+                        fr.drawStringWithShadow(s.name + ": sof " + sliderOffset + ", val: " + ((NumberSetting) s).getValue(), this.x + 24, height + 41 + var, -1);
+                        drawRect(width - 150, height + 43 + var, width - 45, height + 47 + var, -1);
+                        RenderUtils.drawRoundedRect(width - 150 + sliderOffset, height + 40 + var, width - 140 + sliderOffset, height + 50 + var, 4, Color.RED.getRGB());
+
+                        if (settingDrag) {
+                            sliderOffset = mouseX - (width - 150);
+                            ss.setValue(sliderOffset * (ss.max / 100));
+                        } else {
+                            sliderOffset = (int) ((ss.getValue() * 100) / ss.max);
                         }
-                        
-                        if(sliderOffset < 0) {
+
+                        if (sliderOffset < 0) {
                             settingDrag = false;
                             sliderOffset = 0;
-                        }else if(draggingNumber){
+                        } else if (draggingNumber) {
                             settingDrag = true;
                         }
 
-                        if(sliderOffset > 100){
+                        if (sliderOffset > 100) {
                             settingDrag = false;
                             sliderOffset = 100;
-                        }else if(draggingNumber){
+                        } else if (draggingNumber) {
                             settingDrag = true;
                         }
-
                     }
 
                     if (s instanceof BooleanSetting) {
                         drawRect(this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1, isMouseInside(mouseX, mouseY, this.x + 11, height - 9 + 50 + var, this.x + 19, height - 9 + 50 + 9 + var - 1) ? new Color(211, 211, 211, 65).getRGB() : new Color(105, 105, 105, 65).getRGB());
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - fr.FONT_HEIGHT + 50 + var, -1);
-                        if (((BooleanSetting)s).getValue()) {
+                        if (((BooleanSetting) s).getValue()) {
                             mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/check.png"));
                             Gui.drawModalRectWithCustomSizedTexture(this.x + 9, height + 39 + var, 0, 0, 12, 12, 12, 12);
                         }
                     }
                     if (s instanceof ModeSetting) {
                         fr.drawStringWithShadow(s.name, this.x + 18 + 6, height - 9 + 50 + var, -1);
-                        fr.drawStringWithShadow(((ModeSetting)s).getValue(), width-100-fr.getStringWidth(((ModeSetting)s).getValue())/2, height+41+var, -1);
-                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 150, height-9+50+var, -1);
+                        fr.drawStringWithShadow(((ModeSetting) s).getValue(), width - 100 - fr.getStringWidth(((ModeSetting) s).getValue()) / 2, height + 41 + var, -1);
+                        fr.drawStringWithShadow(EnumChatFormatting.RED + "<", width - 150, height - 9 + 50 + var, -1);
                         //RenderUtils.drawRectOutline(this.x+370, height+39+var, this.x+360, height+50+var, -1);
-                        fr.drawStringWithShadow(EnumChatFormatting.RED + ">", this.x+463, height-9+50+var, -1);
+                        fr.drawStringWithShadow(EnumChatFormatting.RED + ">", this.x + 463, height - 9 + 50 + var, -1);
                         //RenderUtils.drawRectOutline(this.x+458, height+40+var, this.x+470, height+50+var, -1);
                     }
 
@@ -289,23 +284,19 @@ public class ClickGUI extends GuiScreen {
                 }
             }
 
-            if(!m.isAdmin() || EntityRenderer.test){
-            if (xo > width / 2) {
-                xo = 0;
-                off += 5;
-            } else {
-                xo += 100;
+            if (!m.isAdmin() || EntityRenderer.test) {
+                if (xo > width / 2) {
+                    xo = 0;
+                    off += 5;
+                } else {
+                    xo += 100;
+                }
             }
-        }
         }
     }
 
     public boolean doesGuiPauseGame() {
         return false;
-    }
-
-    public boolean isMouseInside(double mouseX, double mouseY, double x, double y, double width, double height) {
-        return (mouseX >= x && mouseX <= width) && (mouseY >= y && mouseY <= height);
     }
 
     public void onGuiClosed() {
@@ -321,7 +312,7 @@ public class ClickGUI extends GuiScreen {
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int mouseButton){
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
         draggingNumber = false;
         settingDrag = false;
     }
@@ -341,20 +332,19 @@ public class ClickGUI extends GuiScreen {
                     for (int i = 0; i < 20; i++) {
                         offset = MathHelper.clamp_int(offset + 1, 0, getListMaxScroll());
                         try {
-                            if(ModManager.clickGui.scroll.getValue())
-                            Thread.sleep(1);
+                            if (ModManager.clickGui.scroll.getValue()) Thread.sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                }).start();
+                })
+                    .start();
             } else if (wheel > 0) {
                 new Thread(() -> {
                     for (int i = 0; i < 20; i++) {
                         offset = MathHelper.clamp_int(offset - 1, 0, getListMaxScroll());
                         try {
-                            if(ModManager.clickGui.scroll.getValue())
-                            Thread.sleep(1);
+                            if (ModManager.clickGui.scroll.getValue()) Thread.sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

@@ -130,7 +130,7 @@ public class PlatformAudio {
 
                     public void errorMessage(String parString1, String parString2, int parInt1) {
                         if (!parString2.isEmpty()) {
-                        	// stfu pls
+                            // stfu pls
                             //logger.error("Error in class \"{}\"!", parString1);
                             //logger.error(parString2);
                         }

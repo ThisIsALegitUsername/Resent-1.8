@@ -56,8 +56,7 @@ public abstract class Animation {
     }
 
     public double getValue() {
-    	if(HUD.animationTheme.getValue().equals("None"))
-    		return 0;
+        if (HUD.animationTheme.getValue().equals("None")) return 0;
         if (direction == Direction.FORWARDS) {
             if (isDone()) return endPoint;
             return (getEquation(timer.getTime()) * endPoint);

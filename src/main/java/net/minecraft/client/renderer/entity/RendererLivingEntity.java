@@ -4,11 +4,9 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_GREATER;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import dev.resent.module.base.ModManager;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
@@ -404,8 +402,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        if(Minecraft.isGuiEnabled() && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || ModManager.selfNametag.isEnabled())
-            return true;
+        if (Minecraft.isGuiEnabled() && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || ModManager.selfNametag.isEnabled()) return true;
 
         return Minecraft.isGuiEnabled() && entitylivingbase != this.renderManager.livingPlayer && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) && entitylivingbase.riddenByEntity == null;
     }

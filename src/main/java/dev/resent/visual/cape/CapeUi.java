@@ -25,14 +25,14 @@ public class CapeUi extends GuiScreen {
         super.drawScreen(mx, my, par3);
     }
 
-    public void updateScreen(){
+    public void updateScreen() {
         if (EagRuntime.fileChooserHasResult()) {
             CapeManager.free();
             FileChooserResult result = EagRuntime.getFileChooserResult();
             if (result != null) {
                 ImageData loadedCape = ImageData.loadImageFile(result.fileData);
-                if(loadedCape != null){
-                    for(int i = 0; 1 > i; i++){
+                if (loadedCape != null) {
+                    for (int i = 0; 1 > i; i++) {
                         CapeManager.write(result.fileData);
                     }
                     CapeManager.capeLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("uploadedcape", new DynamicTexture(loadedCape));
@@ -48,7 +48,7 @@ public class CapeUi extends GuiScreen {
     protected void actionPerformed(GuiButton par1GuiButton) {
         if (par1GuiButton.id == 200) {
             mc.displayGuiScreen(null);
-        }else if(par1GuiButton.id == 1){
+        } else if (par1GuiButton.id == 1) {
             CapeManager.displayChooser();
         }
     }

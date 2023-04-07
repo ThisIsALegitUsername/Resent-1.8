@@ -1,9 +1,7 @@
 package net.minecraft.client.multiplayer;
 
 import com.google.common.collect.Sets;
-
 import dev.resent.module.base.ModManager;
-
 import java.util.Set;
 import java.util.concurrent.Callable;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;

@@ -75,7 +75,6 @@ public class TexturedQuad {
             f2 = -f2;
         }
 
-
         boolean batchRendering = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.batchRendering.getValue();
         this.drawOnSelf = !renderer.isDrawing;
         if (this.drawOnSelf || !batchRendering) {

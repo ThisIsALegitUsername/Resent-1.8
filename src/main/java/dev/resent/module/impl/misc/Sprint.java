@@ -9,12 +9,11 @@ import net.minecraft.client.settings.KeyBinding;
 @Module(name = "ToggleSprint", category = Category.MISC)
 public class Sprint extends Mod {
 
-    public static void onUpdate(){
-        KeyBinding.setKeyBindState(Minecraft.getMinecraft().gameSettings.keyBindSprint.getKeyCode(), true);    
+    public static void onUpdate() {
+        KeyBinding.setKeyBindState(Minecraft.getMinecraft().gameSettings.keyBindSprint.getKeyCode(), true);
     }
 
     public void onDisable() {
-		KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), false);
-	}
-
+        KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), false);
+    }
 }

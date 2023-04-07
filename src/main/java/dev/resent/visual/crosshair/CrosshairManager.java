@@ -10,16 +10,16 @@ import net.minecraft.util.ResourceLocation;
 public class CrosshairManager {
 
     public static ResourceLocation crosshairLocation;
-    
-    public static void displayChooser(){
+
+    public static void displayChooser() {
         EagRuntime.displayFileChooser("image/png", "png");
     }
 
-    public static ResourceLocation getCrosshairLocation(){
+    public static ResourceLocation getCrosshairLocation() {
         return crosshairLocation;
     }
 
-    public static void free(){
+    public static void free() {
         Minecraft.getMinecraft().getTextureManager().deleteTexture(crosshairLocation);
         crosshairLocation = null;
     }
@@ -28,33 +28,32 @@ public class CrosshairManager {
         EagRuntime.setStorage("crosshair", texture);
     }
 
-    public static byte[] read(){
-        if(EagRuntime.getStorage("crosshair") != null){
+    public static byte[] read() {
+        if (EagRuntime.getStorage("crosshair") != null) {
             return EagRuntime.getStorage("crosshair");
         }
 
         return null;
     }
 
-    public static void forceLoad(byte[] texture){
-        try{
+    public static void forceLoad(byte[] texture) {
+        try {
             ImageData loadedCrosshair = ImageData.loadImageFile(texture);
-            if(loadedCrosshair != null){
+            if (loadedCrosshair != null) {
                 CrosshairManager.crosshairLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("uploadedcrosshair", new DynamicTexture(loadedCrosshair));
                 Minecraft.getMinecraft().displayGuiScreen(null);
                 //Minecraft.getMinecraft().getTextureManager().bindTexture(CrosshairManager.crosshairLocation);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public static boolean shouldRender(AbstractClientPlayer player){
-        if(player == Minecraft.getMinecraft().thePlayer){
+    public static boolean shouldRender(AbstractClientPlayer player) {
+        if (player == Minecraft.getMinecraft().thePlayer) {
             return true;
         }
-        
+
         return false;
     }
-
 }

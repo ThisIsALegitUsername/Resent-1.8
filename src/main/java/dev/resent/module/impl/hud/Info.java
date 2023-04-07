@@ -2,8 +2,8 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
-import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.RenderMod;
+import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.util.render.Color;
 import dev.resent.visual.ui.Theme;
 import net.minecraft.util.BlockPos;
@@ -19,18 +19,14 @@ public class Info extends RenderMod {
     public BooleanSetting direction = new BooleanSetting("Direction", "", true);
     public static final String[] directionsF = new String[] { "\u00A79S\u00A7r", "\u00A72W\u00A7r", "\u00A74N\u00A7r", "\u00A76E\u00A7r" };
 
-    public int[] getPositions(){
-        int[] poses = new int[]{
-            (int)mc.thePlayer.posX,
-            (int)mc.thePlayer.posY,
-            (int)mc.thePlayer.posZ, 
-        };
+    public int[] getPositions() {
+        int[] poses = new int[] { (int) mc.thePlayer.posX, (int) mc.thePlayer.posY, (int) mc.thePlayer.posZ };
 
         return poses;
     }
 
     public int getWidth() {
-        return 5 + mc.fontRendererObj.getStringWidth(" X:   Biome:" + mc.theWorld.getBiomeGenForCoords(new BlockPos(getPositions()[0], getPositions()[1], getPositions()[2])).biomeName + Math.max(getPositions()[0],  Math.max(getPositions()[1], getPositions()[2])));
+        return 5 + mc.fontRendererObj.getStringWidth(" X:   Biome:" + mc.theWorld.getBiomeGenForCoords(new BlockPos(getPositions()[0], getPositions()[1], getPositions()[2])).biomeName + Math.max(getPositions()[0], Math.max(getPositions()[1], getPositions()[2])));
     }
 
     public int getHeight() {
@@ -46,9 +42,9 @@ public class Info extends RenderMod {
             drawString(" Y: " + getPositions()[1], this.x + 5, this.y + 24);
             drawString(" Z: " + getPositions()[2], this.x + 5, this.y + 34);
 
-            if (direction.getValue()){
+            if (direction.getValue()) {
                 drawString(" Dir: ", this.x + 5 + mc.fontRendererObj.getStringWidth(" X:  " + getPositions()[0]), this.y + 14);
-                mc.fontRendererObj.drawString(directionsF[rot], this.x+5+mc.fontRendererObj.getStringWidth(" X:   Dir: " + getPositions()[0]), this.y + 14, -1, Theme.getTextShadow());
+                mc.fontRendererObj.drawString(directionsF[rot], this.x + 5 + mc.fontRendererObj.getStringWidth(" X:   Dir: " + getPositions()[0]), this.y + 14, -1, Theme.getTextShadow());
             }
             drawString(" Biome: " + mc.theWorld.getBiomeGenForCoords(new BlockPos(getPositions()[0], getPositions()[1], getPositions()[2])).biomeName, this.x + 5, this.y + 44);
         }

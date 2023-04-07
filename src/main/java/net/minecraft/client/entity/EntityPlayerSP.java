@@ -135,7 +135,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Called to update the entity's position/logic.
      */
     public void onUpdate() {
-        if(ModManager.sprint.isEnabled()){
+        if (ModManager.sprint.isEnabled()) {
             Sprint.onUpdate();
         }
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
@@ -532,13 +532,13 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Args: entity that was hit critically
      */
     public void onCriticalHit(Entity entityHit) {
-        for(int i = 0; i < ParticleMultiplier.multiplier.getValue(); i++){
+        for (int i = 0; i < ParticleMultiplier.multiplier.getValue(); i++) {
             this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
         }
     }
 
     public void onEnchantmentCritical(Entity entityHit) {
-        for(int i = 0; i < ParticleMultiplier.multiplier.getValue(); i++){
+        for (int i = 0; i < ParticleMultiplier.multiplier.getValue(); i++) {
             this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
         }
     }

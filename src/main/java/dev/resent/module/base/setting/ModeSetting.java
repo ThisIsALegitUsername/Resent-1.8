@@ -19,8 +19,7 @@ public final class ModeSetting extends Setting {
     }
 
     public void setValue(final String mode) {
-        if (modes.contains(mode))
-            index = this.modes.indexOf(mode);
+        if (modes.contains(mode)) index = this.modes.indexOf(mode);
     }
 
     public boolean is(String mode) {
@@ -44,4 +43,3 @@ public final class ModeSetting extends Setting {
         }
     }
 }
-

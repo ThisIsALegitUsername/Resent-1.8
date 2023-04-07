@@ -1,8 +1,5 @@
 package dev.resent.module.impl.hud;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.RenderMod;
@@ -11,6 +8,8 @@ import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.util.misc.FuncUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
+import java.util.ArrayList;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.minecraft.client.Minecraft;
 

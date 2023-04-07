@@ -802,8 +802,7 @@ public abstract class Entity {
      * sprinting and not in water.
      */
     public void spawnRunningParticles() {
-        if(!this.onGround)
-            return;
+        if (!this.onGround) return;
         if (this.isSprinting() && !this.isInWater()) {
             this.createRunningParticles();
         }

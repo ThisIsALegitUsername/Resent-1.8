@@ -1,14 +1,15 @@
 package dev.resent.util.misc;
 
 public class TimerUtil {
+
     private static long halfSecond = 500000000;
     private long lastTime;
 
-    private long getDeltaTime(){
-        return (System.nanoTime()-lastTime);
+    private long getDeltaTime() {
+        return (System.nanoTime() - lastTime);
     }
 
-    private void updateTime(){
+    private void updateTime() {
         this.lastTime = System.nanoTime();
     }
 
@@ -20,7 +21,6 @@ public class TimerUtil {
         if (getDeltaTime() >= halfSecond) {
             updateTime();
             return true;
-        }
-        else return false;
+        } else return false;
     }
 }

@@ -20,7 +20,7 @@ public class NumberSetting extends Setting {
         this.min = min;
         this.max = max;
     }
-    
+
     public void incr() {
         if (value + increment >= max) {
             value = max;
@@ -41,7 +41,7 @@ public class NumberSetting extends Setting {
         return value;
     }
 
-    public float getInitialValue(){
+    public float getInitialValue() {
         return initValue;
     }
 

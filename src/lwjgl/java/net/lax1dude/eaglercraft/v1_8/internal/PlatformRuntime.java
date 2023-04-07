@@ -470,11 +470,11 @@ public class PlatformRuntime {
         //
     }
 
-    public static void showMojangScreen(){
+    public static void showMojangScreen() {
         //
     }
 
-    public static void removeLoadScreen(){
-        //      
+    public static void removeLoadScreen() {
+        //
     }
 }

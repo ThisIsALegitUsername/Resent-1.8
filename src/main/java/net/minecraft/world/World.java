@@ -3,7 +3,6 @@ package net.minecraft.world;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import dev.resent.module.base.ModManager;
 import dev.resent.util.misc.W;
 import java.util.ArrayList;
@@ -2108,9 +2107,9 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos) {
-        if(ModManager.fpsOptions.lightUpdates.getValue()){
+        if (ModManager.fpsOptions.lightUpdates.getValue()) {
             return true;
-        }else if (!this.isAreaLoaded(pos, 17, false)) {
+        } else if (!this.isAreaLoaded(pos, 17, false)) {
             return false;
         } else {
             int i = 0;

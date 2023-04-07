@@ -14,9 +14,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
 @Module(name = "Reach circle", category = Category.MISC)
-public class ReachCircle extends Mod{
+public class ReachCircle extends Mod {
 
-    public void uwu(float partialTicks){
+    public void uwu(float partialTicks) {
         GlStateManager.pushMatrix();
         mc.entityRenderer.disableLightmap();
         GlStateManager.disableTexture2D();
@@ -26,7 +26,7 @@ public class ReachCircle extends Mod{
         //PlatformOpenGL._wglEnable(2848);
         GlStateManager.depthMask(false);
 
-        for(Entity entity : mc.theWorld.loadedEntityList){
+        for (Entity entity : mc.theWorld.loadedEntityList) {
             if (((EntityLivingBase) entity).canEntityBeSeen(mc.thePlayer) && !entity.isInvisible() && entity instanceof EntityPlayer) {
                 double posX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks - mc.getRenderManager().viewerPosX;
                 double posY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks - mc.getRenderManager().viewerPosY;
@@ -43,15 +43,15 @@ public class ReachCircle extends Mod{
         GlStateManager.enableTexture2D();
         mc.entityRenderer.enableLightmap();
         GlStateManager.popMatrix();
-	}
-    	
+    }
+
     public void circle(double x, double y, double z, double rad) {
         GlStateManager.pushMatrix();
         Color color = new Color(255, 0, 0);
 
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        
+
         EaglercraftGPU.glLineWidth(2);
         setColor(color.getRGB(), (color.getRGB() >> 24 & 255) / 255.0F);
         worldrenderer.begin(3, DefaultVertexFormats.POSITION);

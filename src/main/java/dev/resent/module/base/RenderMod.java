@@ -54,7 +54,7 @@ public abstract class RenderMod extends Mod {
 
         Gui.drawRect(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), hovered ? 0x50FFFFFF : 0x40FFFFFF);
         RenderUtils.drawRectOutline(this.x, this.y, this.x + this.getWidth(), this.y + this.getHeight(), -1);
-        mc.fontRendererObj.drawStringWithShadow(getName(), this.x, this.y - 10, new Color(255,255,255).getRGB());
+        mc.fontRendererObj.drawStringWithShadow(getName(), this.x, this.y - 10, new Color(255, 255, 255).getRGB());
         final boolean mouseOverX = (mouseX >= this.getX() && mouseX <= this.getX() + this.getWidth());
         final boolean mouseOverY = (mouseY >= this.getY() && mouseY <= this.getY() + this.getHeight());
 

@@ -485,7 +485,6 @@ public class MathHelper {
     }
 
     static {
-
         for (int j = 0; j < 4096; ++j) {
             SIN_TABLE_FAST[j] = (float) Math.sin(((float) j + 0.5f) / 4096.0f * ((float) Math.PI * 2f));
         }

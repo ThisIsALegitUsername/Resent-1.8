@@ -24,7 +24,6 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_TEXTURE_WR
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
@@ -660,13 +659,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public void enableLightmap() {
-        if(ModManager.fpsOptions.lightUpdates.getValue() || ModManager.fullbright.isEnabled())
-            return;
-            
-            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-            GlStateManager.enableTexture2D();
-            GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-        
+        if (ModManager.fpsOptions.lightUpdates.getValue() || ModManager.fullbright.isEnabled()) return;
+
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.enableTexture2D();
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 
     /**+
@@ -886,7 +883,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         GlStateManager.enableOverlayFramebufferBlending();
                         this.mc.ingameGUI.renderGameOverlay(parFloat1);
                     }
-                    if(ModManager.cps.isEnabled()){
+                    if (ModManager.cps.isEnabled()) {
                         ModManager.cps.draw();
                     }
                     if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
@@ -1204,7 +1201,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.mc.mcProfiler.endStartSection("hand");
 
-        if(ModManager.adminSpawner.isEnabled()){
+        if (ModManager.adminSpawner.isEnabled()) {
             ModManager.adminSpawner.render();
         }
         if (this.renderHand) {

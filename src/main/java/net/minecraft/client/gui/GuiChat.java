@@ -1,10 +1,8 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-
 import dev.resent.util.misc.GlUtils;
 import dev.resent.visual.ui.animation.SimpleAnimation;
-
 import java.io.IOException;
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.Keyboard;
@@ -284,9 +282,8 @@ public class GuiChat extends GuiScreen {
         GlUtils.startTranslate(0, 29 - (int) animation.getValue());
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
-        if (this.inputField.isTypingPassword)
-        	this.mc.fontRendererObj.drawStringWithShadow("Password Hidden", 2, this.height - 25, 16770425);
-        
+        if (this.inputField.isTypingPassword) this.mc.fontRendererObj.drawStringWithShadow("Password Hidden", 2, this.height - 25, 16770425);
+
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
         if (ichatcomponent != null && ichatcomponent.getChatStyle().getChatHoverEvent() != null) {

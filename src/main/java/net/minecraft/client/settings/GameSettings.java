@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import java.io.BufferedReader;
@@ -225,7 +224,7 @@ public class GameSettings {
                 },
                 this.keyBindsHotbar
             );
-            
+
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;

@@ -2,11 +2,9 @@ package net.minecraft.client.model;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_COMPILE;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import dev.resent.module.base.ModManager;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
@@ -142,7 +140,6 @@ public class ModelRenderer {
     private boolean compiledState;
 
     public void render(float parFloat1) {
-
         boolean batchRendering = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.batchRendering.getValue();
 
         if (compiledState != batchRendering) {
@@ -273,7 +270,7 @@ public class ModelRenderer {
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
 
         boolean batchRendering = ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.batchRendering.getValue();
-                
+
         this.compiledState = batchRendering;
         if (batchRendering) {
             Tessellator.getInstance().getWorldRenderer().begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);

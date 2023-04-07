@@ -2,8 +2,8 @@ package dev.resent.module.impl.hud;
 
 import dev.resent.annotation.RenderModule;
 import dev.resent.module.base.Mod.Category;
-import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.RenderMod;
+import dev.resent.module.base.setting.BooleanSetting;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;

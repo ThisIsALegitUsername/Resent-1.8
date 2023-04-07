@@ -5,19 +5,17 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_ONE_MINUS_SRC_COLOR;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.GL_SRC_ALPHA;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
 import dev.resent.client.Resent;
 import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.W;
 import dev.resent.visual.crosshair.CrosshairManager;
 import dev.resent.visual.ui.animation.SimpleAnimation;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -303,11 +301,14 @@ public class GuiIngame extends Gui {
             this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
         }
 
-        Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(m -> {
-            if(!Minecraft.getMinecraft().gameSettings.showDebugInfo && m.getName() != "CPS"){
-                ((RenderMod) m).draw();
-            }
-        });
+        Resent.INSTANCE.modManager.modules
+            .stream()
+            .filter(m -> m.isEnabled() && m instanceof RenderMod)
+            .forEach(m -> {
+                if (!Minecraft.getMinecraft().gameSettings.showDebugInfo && m.getName() != "CPS") {
+                    ((RenderMod) m).draw();
+                }
+            });
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
@@ -318,12 +319,11 @@ public class GuiIngame extends Gui {
         if (this.showCrosshair()) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-            if(CrosshairManager.crosshairLocation == null){
-                if(CrosshairManager.read() != null)
-                    CrosshairManager.forceLoad(CrosshairManager.read());
+            if (CrosshairManager.crosshairLocation == null) {
+                if (CrosshairManager.read() != null) CrosshairManager.forceLoad(CrosshairManager.read());
                 this.mc.getTextureManager().bindTexture(icons);
             }
-            
+
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR, 1, 0);
             GlStateManager.enableAlpha();
@@ -334,34 +334,33 @@ public class GuiIngame extends Gui {
 
     public SimpleAnimation simpleAnimation = new SimpleAnimation(0.0F);
 
-	protected void renderTooltip(ScaledResolution sr, float partialTicks) {
-		if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			this.mc.getTextureManager().bindTexture(widgetsTexPath);
-			EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
-			int i = sr.getScaledWidth() / 2;
-			float f = this.zLevel;
-			this.zLevel = -90.0F;
-			this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-			this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20,
-					sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
-			this.zLevel = f;
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-			RenderHelper.enableGUIStandardItemLighting();
+    protected void renderTooltip(ScaledResolution sr, float partialTicks) {
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.mc.getTextureManager().bindTexture(widgetsTexPath);
+            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+            int i = sr.getScaledWidth() / 2;
+            float f = this.zLevel;
+            this.zLevel = -90.0F;
+            this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+            this.zLevel = f;
+            GlStateManager.enableRescaleNormal();
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+            RenderHelper.enableGUIStandardItemLighting();
 
-			for (int j = 0; j < 9; ++j) {
-				int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
-				int l = sr.getScaledHeight() - 16 - 3;
-				this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
-			}
+            for (int j = 0; j < 9; ++j) {
+                int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
+                int l = sr.getScaledHeight() - 16 - 3;
+                this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+            }
 
-			RenderHelper.disableStandardItemLighting();
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.disableBlend();
-		}
-	}
+            RenderHelper.disableStandardItemLighting();
+            GlStateManager.disableRescaleNormal();
+            GlStateManager.disableBlend();
+        }
+    }
 
     public void renderHorseJumpBar(ScaledResolution parScaledResolution, int parInt1) {
         this.mc.mcProfiler.startSection("jumpBar");

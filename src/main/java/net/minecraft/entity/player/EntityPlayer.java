@@ -2,11 +2,9 @@ package net.minecraft.entity.player;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
-
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.ParticleMultiplier;
-
 import java.util.Collection;
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;

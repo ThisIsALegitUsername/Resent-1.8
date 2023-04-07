@@ -1,9 +1,8 @@
 package net.minecraft.block;
 
+import dev.resent.module.base.ModManager;
 import java.util.EnumSet;
 import java.util.Set;
-
-import dev.resent.module.base.ModManager;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -46,96 +45,96 @@ public class BlockDynamicLiquid extends BlockLiquid {
     public void updateTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {
         long framebufferAge = Minecraft.getMinecraft().entityRenderer.overlayFramebuffer.getAge();
         if (framebufferAge == -1l || framebufferAge > (Minecraft.getDebugFPS() < 25 ? 125l : 75l)) {
-            if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.reducedWater.getValue()){
-        int i = ((Integer) iblockstate.getValue(LEVEL)).intValue();
-        byte b0 = 1;
-        if (this.blockMaterial == Material.lava && !world.provider.doesWaterVaporize()) {
-            b0 = 2;
-        }
+            if (ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.reducedWater.getValue()) {
+                int i = ((Integer) iblockstate.getValue(LEVEL)).intValue();
+                byte b0 = 1;
+                if (this.blockMaterial == Material.lava && !world.provider.doesWaterVaporize()) {
+                    b0 = 2;
+                }
 
-        int j = this.tickRate(world);
-        if (i > 0) {
-            int k = -100;
-            this.adjacentSourceBlocks = 0;
+                int j = this.tickRate(world);
+                if (i > 0) {
+                    int k = -100;
+                    this.adjacentSourceBlocks = 0;
 
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-                k = this.checkAdjacentBlock(world, blockpos.offset(enumfacing), k);
-            }
+                    for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                        k = this.checkAdjacentBlock(world, blockpos.offset(enumfacing), k);
+                    }
 
-            int l = k + b0;
-            if (l >= 8 || k < 0) {
-                l = -1;
-            }
+                    int l = k + b0;
+                    if (l >= 8 || k < 0) {
+                        l = -1;
+                    }
 
-            if (this.getLevel(world, blockpos.up()) >= 0) {
-                int i1 = this.getLevel(world, blockpos.up());
-                if (i1 >= 8) {
-                    l = i1;
+                    if (this.getLevel(world, blockpos.up()) >= 0) {
+                        int i1 = this.getLevel(world, blockpos.up());
+                        if (i1 >= 8) {
+                            l = i1;
+                        } else {
+                            l = i1 + 8;
+                        }
+                    }
+
+                    if (this.adjacentSourceBlocks >= 2 && this.blockMaterial == Material.water) {
+                        IBlockState iblockstate2 = world.getBlockState(blockpos.down());
+                        if (iblockstate2.getBlock().getMaterial().isSolid()) {
+                            l = 0;
+                        } else if (iblockstate2.getBlock().getMaterial() == this.blockMaterial && ((Integer) iblockstate2.getValue(LEVEL)).intValue() == 0) {
+                            l = 0;
+                        }
+                    }
+
+                    if (this.blockMaterial == Material.lava && i < 8 && l < 8 && l > i && random.nextInt(4) != 0) {
+                        j *= 4;
+                    }
+
+                    if (l == i) {
+                        this.placeStaticBlock(world, blockpos, iblockstate);
+                    } else {
+                        i = l;
+                        if (l < 0) {
+                            world.setBlockToAir(blockpos);
+                        } else {
+                            iblockstate = iblockstate.withProperty(LEVEL, Integer.valueOf(l));
+                            world.setBlockState(blockpos, iblockstate, 2);
+                            world.scheduleUpdate(blockpos, this, j);
+                            world.notifyNeighborsOfStateChange(blockpos, this);
+                        }
+                    }
                 } else {
-                    l = i1 + 8;
+                    this.placeStaticBlock(world, blockpos, iblockstate);
                 }
-            }
 
-            if (this.adjacentSourceBlocks >= 2 && this.blockMaterial == Material.water) {
-                IBlockState iblockstate2 = world.getBlockState(blockpos.down());
-                if (iblockstate2.getBlock().getMaterial().isSolid()) {
-                    l = 0;
-                } else if (iblockstate2.getBlock().getMaterial() == this.blockMaterial && ((Integer) iblockstate2.getValue(LEVEL)).intValue() == 0) {
-                    l = 0;
+                IBlockState iblockstate1 = world.getBlockState(blockpos.down());
+                if (this.canFlowInto(world, blockpos.down(), iblockstate1)) {
+                    if (this.blockMaterial == Material.lava && world.getBlockState(blockpos.down()).getBlock().getMaterial() == Material.water) {
+                        world.setBlockState(blockpos.down(), Blocks.stone.getDefaultState());
+                        this.triggerMixEffects(world, blockpos.down());
+                        return;
+                    }
+
+                    if (i >= 8) {
+                        this.tryFlowInto(world, blockpos.down(), iblockstate1, i);
+                    } else {
+                        this.tryFlowInto(world, blockpos.down(), iblockstate1, i + 8);
+                    }
+                } else if (i >= 0 && (i == 0 || this.isBlocked(world, blockpos.down(), iblockstate1))) {
+                    Set<EnumFacing> set = this.getPossibleFlowDirections(world, blockpos);
+                    int j1 = i + b0;
+                    if (i >= 8) {
+                        j1 = 1;
+                    }
+
+                    if (j1 >= 8) {
+                        return;
+                    }
+
+                    for (EnumFacing enumfacing1 : set) {
+                        this.tryFlowInto(world, blockpos.offset(enumfacing1), world.getBlockState(blockpos.offset(enumfacing1)), j1);
+                    }
                 }
-            }
-
-            if (this.blockMaterial == Material.lava && i < 8 && l < 8 && l > i && random.nextInt(4) != 0) {
-                j *= 4;
-            }
-
-            if (l == i) {
-                this.placeStaticBlock(world, blockpos, iblockstate);
-            } else {
-                i = l;
-                if (l < 0) {
-                    world.setBlockToAir(blockpos);
-                } else {
-                    iblockstate = iblockstate.withProperty(LEVEL, Integer.valueOf(l));
-                    world.setBlockState(blockpos, iblockstate, 2);
-                    world.scheduleUpdate(blockpos, this, j);
-                    world.notifyNeighborsOfStateChange(blockpos, this);
-                }
-            }
-        } else {
-            this.placeStaticBlock(world, blockpos, iblockstate);
-        }
-
-        IBlockState iblockstate1 = world.getBlockState(blockpos.down());
-        if (this.canFlowInto(world, blockpos.down(), iblockstate1)) {
-            if (this.blockMaterial == Material.lava && world.getBlockState(blockpos.down()).getBlock().getMaterial() == Material.water) {
-                world.setBlockState(blockpos.down(), Blocks.stone.getDefaultState());
-                this.triggerMixEffects(world, blockpos.down());
-                return;
-            }
-
-            if (i >= 8) {
-                this.tryFlowInto(world, blockpos.down(), iblockstate1, i);
-            } else {
-                this.tryFlowInto(world, blockpos.down(), iblockstate1, i + 8);
-            }
-        } else if (i >= 0 && (i == 0 || this.isBlocked(world, blockpos.down(), iblockstate1))) {
-            Set<EnumFacing> set = this.getPossibleFlowDirections(world, blockpos);
-            int j1 = i + b0;
-            if (i >= 8) {
-                j1 = 1;
-            }
-
-            if (j1 >= 8) {
-                return;
-            }
-
-            for (EnumFacing enumfacing1 : set) {
-                this.tryFlowInto(world, blockpos.offset(enumfacing1), world.getBlockState(blockpos.offset(enumfacing1)), j1);
             }
         }
-    }
-}
     }
 
     private void tryFlowInto(World worldIn, BlockPos pos, IBlockState state, int level) {

@@ -1,14 +1,13 @@
 package dev.resent.module.base;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import dev.resent.annotation.Module;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.render.RenderUtils;
 import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.SimpleAnimation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 
 public abstract class Mod {
@@ -19,7 +18,7 @@ public abstract class Mod {
     private boolean enabled;
     private boolean hasSetting;
     private boolean admin;
-	public SimpleAnimation toggleAnimation = new SimpleAnimation(0);
+    public SimpleAnimation toggleAnimation = new SimpleAnimation(0);
 
     public List<Setting> settings = new ArrayList<>();
 
@@ -39,6 +38,7 @@ public abstract class Mod {
     }
 
     public void onEnable() {}
+
     public void onDisable() {}
 
     public void toggle() {
@@ -80,16 +80,43 @@ public abstract class Mod {
         }
     }
 
-    public boolean isEnabled() { return enabled; }
-    public boolean isAdmin() { return admin; }
-    public boolean doesHaveSetting() { return hasSetting; }
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public Category getCategory() { return category; }
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-    public void setDescription(String description) { this.description = description; }
-    public void setName(String name) { this.name = name; }
-    public void setCategory(Category category) { this.category = category; }
-    public void setHasSetting(boolean hasSetting) { this.hasSetting = hasSetting; }
+    public boolean isAdmin() {
+        return admin;
+    }
 
+    public boolean doesHaveSetting() {
+        return hasSetting;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setHasSetting(boolean hasSetting) {
+        this.hasSetting = hasSetting;
+    }
 }

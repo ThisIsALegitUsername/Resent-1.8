@@ -282,24 +282,21 @@ public class PlayerControllerMP {
     }
 
     public void updateController() {
-		this.syncCurrentPlayItem();
-		if (this.netClientHandler.getNetworkManager().isChannelOpen()) {
-			try {
-				this.netClientHandler.getNetworkManager().processReceivedPackets();
-			} catch (IOException ex) {
-				EaglercraftNetworkManager.logger
-						.fatal("Unhandled IOException was thrown " + "while processing multiplayer packets!");
-				EaglercraftNetworkManager.logger.fatal(ex);
-				EaglercraftNetworkManager.logger.fatal("Disconnecting...");
-				this.netClientHandler.getNetworkManager()
-						.closeChannel(new ChatComponentText("Exception thrown: " + ex.toString()));
-			}
-			this.netClientHandler.getSkinCache().flush();
-		} else {
-			this.netClientHandler.getNetworkManager().checkDisconnected();
-		}
-
-	}
+        this.syncCurrentPlayItem();
+        if (this.netClientHandler.getNetworkManager().isChannelOpen()) {
+            try {
+                this.netClientHandler.getNetworkManager().processReceivedPackets();
+            } catch (IOException ex) {
+                EaglercraftNetworkManager.logger.fatal("Unhandled IOException was thrown " + "while processing multiplayer packets!");
+                EaglercraftNetworkManager.logger.fatal(ex);
+                EaglercraftNetworkManager.logger.fatal("Disconnecting...");
+                this.netClientHandler.getNetworkManager().closeChannel(new ChatComponentText("Exception thrown: " + ex.toString()));
+            }
+            this.netClientHandler.getSkinCache().flush();
+        } else {
+            this.netClientHandler.getNetworkManager().checkDisconnected();
+        }
+    }
 
     private boolean isHittingPosition(BlockPos pos) {
         ItemStack itemstack = this.mc.thePlayer.getHeldItem();

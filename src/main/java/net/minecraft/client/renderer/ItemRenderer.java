@@ -311,7 +311,7 @@ public class ItemRenderer {
         this.func_178110_a((EntityPlayerSP) entityplayersp, partialTicks);
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
-        if(ModManager.hand.isEnabled()){
+        if (ModManager.hand.isEnabled()) {
             GlStateManager.scale(-1.0D, 1.0D, 1.0D);
             GlStateManager.disableCull();
         }

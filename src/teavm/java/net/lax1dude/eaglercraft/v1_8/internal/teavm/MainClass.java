@@ -1,5 +1,6 @@
 package net.lax1dude.eaglercraft.v1_8.internal.teavm;
 
+import dev.resent.client.ClientInfo;
 import java.io.PrintStream;
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftVersion;
@@ -18,8 +19,6 @@ import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 import org.teavm.jso.webgl.WebGLRenderingContext;
-
-import dev.resent.client.ClientInfo;
 
 /**
  * Copyright (c) 2022-2023 LAX1DUDE. All Rights Reserved.

@@ -4,7 +4,6 @@ import dev.resent.module.base.ModManager;
 import dev.resent.sound.SoundManager;
 
 public class Resent {
-	
     static {
         INSTANCE = new Resent();
     }
@@ -18,5 +17,4 @@ public class Resent {
         Resent.INSTANCE.modManager = new ModManager();
         Resent.INSTANCE.soundManager = new SoundManager();
     }
-
 }

@@ -7,13 +7,12 @@ import net.minecraft.client.gui.GuiScreen;
 
 public class HUDConfigScreen extends GuiScreen {
 
-	private GuiScreen parentGuiScreen;
-	
-	public HUDConfigScreen(GuiScreen parentScreen) {
-		parentGuiScreen = parentScreen;
-	}
-	
-	
+    private GuiScreen parentGuiScreen;
+
+    public HUDConfigScreen(GuiScreen parentScreen) {
+        parentGuiScreen = parentScreen;
+    }
+
     public void initGui() {
         this.buttonList.add(new GuiButton(200, width / 2 - 100, height - 30, "Back"));
     }
@@ -24,7 +23,7 @@ public class HUDConfigScreen extends GuiScreen {
 
     public void drawScreen(int mx, int my, float par3) {
         this.drawDefaultBackground();
-        Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(rm -> ((RenderMod)rm).renderLayout(mx, my));
+        Resent.INSTANCE.modManager.modules.stream().filter(m -> m.isEnabled() && m instanceof RenderMod).forEach(rm -> ((RenderMod) rm).renderLayout(mx, my));
         super.drawScreen(mx, my, par3);
     }
 

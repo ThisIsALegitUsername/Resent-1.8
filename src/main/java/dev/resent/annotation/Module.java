@@ -10,7 +10,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Module {
     String name() default "No name set";
+
     String description() default "No description set.";
+
     Category category() default Category.MISC;
+
     boolean hasSetting() default false;
 }

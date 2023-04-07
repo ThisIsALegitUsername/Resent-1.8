@@ -10,7 +10,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RenderModule {
     String name();
+
     String description() default "No description set.";
+
     Category category();
 
     int x();

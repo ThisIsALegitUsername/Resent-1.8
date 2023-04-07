@@ -17,6 +17,6 @@ public class Setting {
         this.description = description;
         this.gameSetting = gameSetting;
     }
-    
-    public void draw(int x, int y){ }
+
+    public void draw(int x, int y) {}
 }

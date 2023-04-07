@@ -95,7 +95,7 @@ public class PlatformInput {
 
     public static boolean keyboardLockSupported = false;
     public static boolean lockKeys = false;
-    
+
     @JSBody(params = {}, script = "")
     private static native void onBeforeCloseRegister();
 
@@ -617,7 +617,7 @@ public class PlatformInput {
     }
 
     @JSBody(params = {}, script = "return returnHasSiteInteractionHappened()")
-	private static native boolean checkIfSiteInteractionHappened();
+    private static native boolean checkIfSiteInteractionHappened();
 
     @JSBody(params = {}, script = "return window.matchMedia('(display-mode: fullscreen)');")
     private static native JSObject fullscreenMediaQuery();

@@ -77,21 +77,20 @@ public class RenderUtils {
             paramYEnd = z;
         }
 
-    	double x1 = (double)(paramXStart + radius);
-    	double y1 = (double)(paramYStart + radius);
-    	double x2 = (double)(paramXEnd - radius);
-    	double y2 = (double)(paramYEnd - radius);
+        double x1 = (double) (paramXStart + radius);
+        double y1 = (double) (paramYStart + radius);
+        double x2 = (double) (paramXEnd - radius);
+        double y2 = (double) (paramYEnd - radius);
 
-        if (popPush)
-        GlStateManager.pushMatrix();
+        if (popPush) GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.enableTexture2D();
         GlStateManager.blendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
         EaglercraftGPU.glLineWidth(1);
         //glEnable(GL_LINE_SMOOTH);
 
-    	GlStateManager.color(red, green, blue, alpha);
-        
+        GlStateManager.color(red, green, blue, alpha);
+
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
@@ -99,24 +98,19 @@ public class RenderUtils {
         worldrenderer.begin(RealOpenGLEnums.GL_LINE_SMOOTH, DefaultVertexFormats.POSITION_TEX);
 
         double degree = Math.PI / 180;
-        for (double i = 0; i <= 90; i += 1)
-            glVertex2d(x2 + Math.sin(i * degree) * radius, y2 + Math.cos(i * degree) * radius);
-        for (double i = 90; i <= 180; i += 1)
-            glVertex2d(x2 + Math.sin(i * degree) * radius, y1 + Math.cos(i * degree) * radius);
-        for (double i = 180; i <= 270; i += 1)
-            glVertex2d(x1 + Math.sin(i * degree) * radius, y1 + Math.cos(i * degree) * radius);
-        for (double i = 270; i <= 360; i += 1)
-            glVertex2d(x1 + Math.sin(i * degree) * radius, y2 + Math.cos(i * degree) * radius);
+        for (double i = 0; i <= 90; i += 1) glVertex2d(x2 + Math.sin(i * degree) * radius, y2 + Math.cos(i * degree) * radius);
+        for (double i = 90; i <= 180; i += 1) glVertex2d(x2 + Math.sin(i * degree) * radius, y1 + Math.cos(i * degree) * radius);
+        for (double i = 180; i <= 270; i += 1) glVertex2d(x1 + Math.sin(i * degree) * radius, y1 + Math.cos(i * degree) * radius);
+        for (double i = 270; i <= 360; i += 1) glVertex2d(x1 + Math.sin(i * degree) * radius, y2 + Math.cos(i * degree) * radius);
         EaglercraftGPU.glEndList();
 
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
         //glDisable(GL_LINE_SMOOTH);
-        if (popPush) 
-        GlStateManager.popMatrix();
+        if (popPush) GlStateManager.popMatrix();
     }
 
-    public static void glVertex2d(double idk, double idk2){
+    public static void glVertex2d(double idk, double idk2) {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.pos(idk, idk2, 0);
@@ -134,7 +128,6 @@ public class RenderUtils {
             Gui.drawRect((int) paramInt1, (int) paramInt2, (int) paramInt3, (int) paramInt4, color);
         }
     }
-    
 
     public static void drawRoundedRect(final float paramFloat1, final float paramFloat2, final float paramFloat3, final float paramFloat4, final float paramFloat5) {
         final int i = 18;

@@ -10,16 +10,16 @@ import net.minecraft.util.ResourceLocation;
 public class CapeManager {
 
     public static ResourceLocation capeLocation;
-    
-    public static void displayChooser(){
+
+    public static void displayChooser() {
         EagRuntime.displayFileChooser("image/png", "png");
     }
 
-    public static ResourceLocation getCapeLocation(){
+    public static ResourceLocation getCapeLocation() {
         return capeLocation;
     }
 
-    public static void free(){
+    public static void free() {
         Minecraft.getMinecraft().getTextureManager().deleteTexture(capeLocation);
         capeLocation = null;
     }
@@ -28,33 +28,32 @@ public class CapeManager {
         EagRuntime.setStorage("cape", texture);
     }
 
-    public static byte[] read(){
-        if(EagRuntime.getStorage("cape") != null){
+    public static byte[] read() {
+        if (EagRuntime.getStorage("cape") != null) {
             return EagRuntime.getStorage("cape");
         }
 
         return null;
     }
 
-    public static void forceLoad(byte[] texture){
-        try{
+    public static void forceLoad(byte[] texture) {
+        try {
             ImageData loadedCape = ImageData.loadImageFile(texture);
-            if(loadedCape != null){
+            if (loadedCape != null) {
                 CapeManager.capeLocation = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("uploadedcape", new DynamicTexture(loadedCape));
                 Minecraft.getMinecraft().displayGuiScreen(null);
                 //Minecraft.getMinecraft().getTextureManager().bindTexture(CapeManager.capeLocation);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public static boolean shouldRender(AbstractClientPlayer player){
-        if(player == Minecraft.getMinecraft().thePlayer){
+    public static boolean shouldRender(AbstractClientPlayer player) {
+        if (player == Minecraft.getMinecraft().thePlayer) {
             return true;
         }
-        
+
         return false;
     }
-
 }

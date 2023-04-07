@@ -35,8 +35,6 @@ public class Theme {
                 return new DecelerateAnimation(ms, endpoint);
             case "Smooth step":
                 return new SmoothStepAnimation(ms, endpoint);
-            case "None":
-            	return null;
         }
 
         return null;

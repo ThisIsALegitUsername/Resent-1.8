@@ -1,14 +1,13 @@
 package dev.resent.client;
 
-import java.io.PrintWriter;
-
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.module.base.setting.NumberSetting;
+import java.io.PrintWriter;
 
 public class SaveUtil {
-	
+
     public void save(PrintWriter printwriter) {
         Resent.INSTANCE.modManager.modules
             .stream()
@@ -29,9 +28,9 @@ public class SaveUtil {
                         if (s instanceof BooleanSetting) {
                             printwriter.println(m.getName() + "_boolsetting_" + s.name + ":" + ((BooleanSetting) s).getValue());
                         }
-                        if(s instanceof NumberSetting){
-                            NumberSetting ss = ((NumberSetting)s);
-                            printwriter.println(m.getName() + "_numsetting_" + s.name + ":" + String.valueOf(ss.getValue()).substring(0, (String.valueOf(ss.getValue()).length())-2));
+                        if (s instanceof NumberSetting) {
+                            NumberSetting ss = ((NumberSetting) s);
+                            printwriter.println(m.getName() + "_numsetting_" + s.name + ":" + String.valueOf(ss.getValue()).substring(0, (String.valueOf(ss.getValue()).length()) - 2));
                         }
                     });
             });
@@ -73,13 +72,12 @@ public class SaveUtil {
                                 ((BooleanSetting) se).setValue(astring[1].equals("true"));
                             }
                         }
-                        if(se instanceof NumberSetting){
-                            if(astring[0].equals(m.getName()+"_numsetting_"+se.name)){
-                                ((NumberSetting)se).value = Integer.parseInt(astring[1]);
+                        if (se instanceof NumberSetting) {
+                            if (astring[0].equals(m.getName() + "_numsetting_" + se.name)) {
+                                ((NumberSetting) se).value = Integer.parseInt(astring[1]);
                             }
                         }
                     });
             });
     }
-
 }

@@ -11,7 +11,7 @@ import net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums;
 import net.minecraft.client.settings.GameSettings;
 
 @Module(name = "FPS Options", category = Category.MISC, hasSetting = true, description = "Increase FPS")
-public class FPSOptions extends Mod{
+public class FPSOptions extends Mod {
 
     public BooleanSetting batchRendering = new BooleanSetting("Batch rendering", "", true);
     public BooleanSetting blockEffects = new BooleanSetting("Remove block effects", "", true);
@@ -20,9 +20,9 @@ public class FPSOptions extends Mod{
     public BooleanSetting lightUpdates = new BooleanSetting("No light updates", "", true);
     public BooleanSetting noArmSwing = new BooleanSetting("No limb swing", "", false);
     public BooleanSetting reducedWater = new BooleanSetting("Reduced water lag", "", true);
-    public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", ""){
+    public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", "") {
         @Override
-        public void onPress(){
+        public void onPress() {
             GameSettings gameSettings = mc.gameSettings;
 
             GlStateManager.enableTexture2D();
@@ -50,10 +50,10 @@ public class FPSOptions extends Mod{
             ModManager.noParticles.setEnabled(true);
         }
     };
+
     //public BooleanSetting delay = new BooleanSetting("Chunk delay", "", false);
 
-    public FPSOptions(){
+    public FPSOptions() {
         addSetting(batchRendering, blockEffects, limit, lowTick, lightUpdates, noArmSwing, reducedWater, minSetting);
     }
-    
 }

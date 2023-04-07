@@ -1,9 +1,8 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import dev.resent.module.base.ModManager;
 import dev.resent.module.impl.misc.AdminRay;
+import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -400,8 +399,7 @@ public class Block {
     }
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
-
-        if(ModManager.adminRay.isEnabled()){
+        if (ModManager.adminRay.isEnabled()) {
             return 99999;
         }
 
@@ -417,8 +415,7 @@ public class Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos blockpos, EnumFacing enumfacing) {
-
-        if(ModManager.adminRay.isEnabled()){
+        if (ModManager.adminRay.isEnabled()) {
             return AdminRay.shouldRender(this);
         }
 
@@ -1052,18 +1049,18 @@ public class Block {
         registerBlock(6, (String) "sapling", (new BlockSapling()).setHardness(0.0F).setStepSound(soundTypeGrass).setUnlocalizedName("sapling"));
         registerBlock(7, (String) "bedrock", (new Block(Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(soundTypePiston).setUnlocalizedName("bedrock").disableStats().setCreativeTab(CreativeTabs.tabBlock));
 
-        if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.reducedWater.getValue()){
+        if (ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.reducedWater.getValue()) {
             registerBlock(8, (String) "flowing_water", (new BlockDynamicLiquid(Material.water)).setHardness(100.0F).setUnlocalizedName("water").disableStats());
             registerBlock(9, (String) "water", (new BlockStaticLiquid(Material.water)).setHardness(100.0F).setUnlocalizedName("water").disableStats());
             registerBlock(10, (String) "flowing_lava", (new BlockDynamicLiquid(Material.lava)).setHardness(100.0F).setUnlocalizedName("lava").disableStats());
             registerBlock(11, (String) "lava", (new BlockStaticLiquid(Material.lava)).setHardness(100.0F).setUnlocalizedName("lava").disableStats());
-        }else {
+        } else {
             registerBlock(8, (String) "flowing_water", (new BlockDynamicLiquid(Material.water)).setHardness(100.0F).setLightOpacity(3).setUnlocalizedName("water").disableStats());
             registerBlock(9, (String) "water", (new BlockStaticLiquid(Material.water)).setHardness(100.0F).setLightOpacity(3).setUnlocalizedName("water").disableStats());
             registerBlock(10, (String) "flowing_lava", (new BlockDynamicLiquid(Material.lava)).setHardness(100.0F).setLightLevel(1.0F).setUnlocalizedName("lava").disableStats());
             registerBlock(11, (String) "lava", (new BlockStaticLiquid(Material.lava)).setHardness(100.0F).setLightLevel(1.0F).setUnlocalizedName("lava").disableStats());
         }
-        
+
         registerBlock(12, (String) "sand", (new BlockSand()).setHardness(0.5F).setStepSound(soundTypeSand).setUnlocalizedName("sand"));
         registerBlock(13, (String) "gravel", (new BlockGravel()).setHardness(0.6F).setStepSound(soundTypeGravel).setUnlocalizedName("gravel"));
         registerBlock(14, (String) "gold_ore", (new BlockOre()).setHardness(3.0F).setResistance(5.0F).setStepSound(soundTypePiston).setUnlocalizedName("oreGold"));

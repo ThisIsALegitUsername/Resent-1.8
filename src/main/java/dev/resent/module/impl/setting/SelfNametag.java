@@ -5,4 +5,4 @@ import dev.resent.module.base.Mod;
 import dev.resent.module.base.Mod.Category;
 
 @Module(name = "Self nametag", category = Category.MISC)
-public class SelfNametag extends Mod{ }
+public class SelfNametag extends Mod {}

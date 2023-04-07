@@ -4,9 +4,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import dev.resent.module.base.ModManager;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -359,8 +357,7 @@ public class EffectRenderer {
     }
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state) {
-        if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.blockEffects.getValue())
-            return;
+        if (ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.blockEffects.getValue()) return;
 
         if (state.getBlock().getMaterial() != Material.air) {
             state = state.getBlock().getActualState(state, this.worldObj, pos);
@@ -383,8 +380,7 @@ public class EffectRenderer {
      * Adds block hit particles for the specified block
      */
     public void addBlockHitEffects(BlockPos pos, EnumFacing side) {
-        if(ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.blockEffects.getValue())
-            return;
+        if (ModManager.fpsOptions.isEnabled() && ModManager.fpsOptions.blockEffects.getValue()) return;
 
         IBlockState iblockstate = this.worldObj.getBlockState(pos);
         Block block = iblockstate.getBlock();
