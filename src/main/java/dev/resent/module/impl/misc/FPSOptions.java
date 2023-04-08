@@ -20,6 +20,8 @@ public class FPSOptions extends Mod {
     public BooleanSetting lightUpdates = new BooleanSetting("No light updates", "", true);
     public BooleanSetting noArmSwing = new BooleanSetting("No limb swing", "", false);
     public BooleanSetting reducedWater = new BooleanSetting("Reduced water lag", "", true);
+    public static BooleanSetting smoothFPS = new BooleanSetting("SmoothFPS", "", true);
+    public static BooleanSetting smoothWorld = new BooleanSetting("Smooth world", "", true);
     public CustomRectSettingDraw minSetting = new CustomRectSettingDraw("Minimal settings", "") {
         @Override
         public void onPress() {
@@ -54,6 +56,6 @@ public class FPSOptions extends Mod {
     //public BooleanSetting delay = new BooleanSetting("Chunk delay", "", false);
 
     public FPSOptions() {
-        addSetting(batchRendering, blockEffects, limit, lowTick, lightUpdates, noArmSwing, reducedWater, minSetting);
+        addSetting(batchRendering, blockEffects, limit, lowTick, lightUpdates, noArmSwing, reducedWater, smoothFPS, minSetting);
     }
 }

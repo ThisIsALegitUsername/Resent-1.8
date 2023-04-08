@@ -1,10 +1,12 @@
 package net.minecraft.entity;
 
+import dev.resent.module.impl.misc.FPSOptions;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -110,10 +112,30 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    private void onUpdateMinimal()
+    {
+        ++this.entityAge;
+
+        if (this instanceof EntityMob)
+        {
+            float f = this.getBrightness(1.0F);
+
+            if (f > 0.5F)
+            {
+                this.entityAge += 2;
+            }
+        }
+
+        this.despawnEntity();
+    }
+    
     /**+
      * Gets called every tick from main Entity class
      */
     public void onEntityUpdate() {
+        if(FPSOptions.smoothWorld.getValue()){
+            this.onUpdateMinimal();
+        }else {
         super.onEntityUpdate();
         this.worldObj.theProfiler.startSection("mobBaseTick");
         if (this.isEntityAlive() && this.rand.nextInt(1000) < this.livingSoundTime++) {
@@ -122,6 +144,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
 
         this.worldObj.theProfiler.endSection();
+    }
     }
 
     /**+

@@ -27,6 +27,7 @@ import com.google.common.base.Predicates;
 import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
+import dev.resent.module.impl.misc.FPSOptions;
 import dev.resent.util.misc.W;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -1105,7 +1106,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.mc.mcProfiler.endStartSection("terrain_setup");
         renderglobal.setupTerrain(entity, (double) partialTicks, frustum, frameCount++, mc.thePlayer.isSpectator());
 
-        if (pass == 0 || pass == 2) {
+        if (pass == 0 && FPSOptions.smoothFPS.getValue() || pass == 2 && FPSOptions.smoothFPS.getValue() ) {
             this.mc.mcProfiler.endStartSection("updatechunks");
             this.mc.renderGlobal.updateChunks(finishTimeNano);
         }
