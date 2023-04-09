@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 
-@RenderModule(name = "ArmorHud", category = Category.HUD, x = 20, y = 4, hasSetting = true, description = "See armor durability without opening your inventory")
+@RenderModule(name = "ArmorHud", category = Category.HUD, x = 20, y = 4, hasSetting = true, description = "See armor durability")
 public class ArmorHud extends RenderMod {
 
     public ScaledResolution sr;

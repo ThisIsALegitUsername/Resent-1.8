@@ -289,19 +289,24 @@ public class ClickGuiRewrite extends GuiScreen {
     public void drawSetting() {
         int settingYOffset = 0;
         int settingXOffset = 0;
+        int modeSettingYOffset = 0;
         for (Setting s : selectedMod.settings) {
             if (s instanceof BooleanSetting) {
                 comps.add(new CompCheck(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s));
             }
+            
             if(s instanceof ModeSetting) {
-            	comps.add(new CompMode(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s));
+            	settingXOffset -= fr.getStringWidth(s.name)+50;
+            	comps.add(new CompMode(x+135, y+175+settingYOffset+modeSettingYOffset, selectedMod, s));
+            	modeSettingYOffset += 50;
             }
             
             if(x+160+settingXOffset+fr.getStringWidth(s.name)*2 > x+width-20) {
             	settingXOffset = 0;
             	settingYOffset += 25;
-            }else 
-            settingXOffset += fr.getStringWidth(s.name)+50;
+            }else {
+            	settingXOffset += fr.getStringWidth(s.name)+50;
+            }
         }
     }
 }
