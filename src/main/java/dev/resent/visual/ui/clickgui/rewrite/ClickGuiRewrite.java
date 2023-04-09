@@ -4,6 +4,7 @@ import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.ModeSetting;
+import dev.resent.module.base.setting.NumberSetting;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
@@ -15,6 +16,7 @@ import dev.resent.visual.ui.animation.SimpleAnimation;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompMode;
+import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompNumber;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -147,7 +149,7 @@ public class ClickGuiRewrite extends GuiScreen {
         /* !------------- SETTINGS ----------------! */
 
         if (selectedMod != null) {
-            RenderUtils.drawRoundedRect(x+80, y+105, x+width-20, y+390, 16, secondaryColor);
+            RenderUtils.drawRoundedRect(x+80, y+105, x+width-20, height+30, 16, secondaryColor);
             fr.drawString("<", x+90, y+115+offset, -1, false);
 
             for (Comp comp : comps) {
@@ -297,8 +299,12 @@ public class ClickGuiRewrite extends GuiScreen {
             
             if(s instanceof ModeSetting) {
             	settingXOffset -= fr.getStringWidth(s.name)+50;
-            	comps.add(new CompMode(x+135, y+175+settingYOffset+modeSettingYOffset, selectedMod, s));
+            	comps.add(new CompMode(x+90, y+200+settingYOffset+modeSettingYOffset, width, selectedMod, s));
             	modeSettingYOffset += 50;
+            }
+            
+            if(s instanceof NumberSetting) {
+            	comps.add(new CompNumber(x+135, y+125+settingYOffset, selectedMod, s));
             }
             
             if(x+160+settingXOffset+fr.getStringWidth(s.name)*2 > x+width-20) {
@@ -309,4 +315,13 @@ public class ClickGuiRewrite extends GuiScreen {
             }
         }
     }
+
+	@Override
+	protected void mouseReleased(int i, int j, int k) {
+		if (selectedMod != null) {
+            for (Comp c : comps) {
+                c.mouseReleased(i, j, k);
+            }
+        }
+	}
 }
