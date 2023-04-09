@@ -51,7 +51,7 @@ public class ClickGuiRewrite extends GuiScreen {
         //GlStateManager.scale(1f,1f,0f);
         int offset = 0;
 
-        GlUtils.startScale((this.x+this.width) / 2, (this.y+this.height) / 2, introAnimation != null ? (float) introAnimation.getValue() : 1);
+        GlUtils.startScale(x+width/2, y+height/2, introAnimation != null ? (float) introAnimation.getValue() : 1);
 
         /* !-------------- NECESSARY ELEMENTS -----------------! */
 
