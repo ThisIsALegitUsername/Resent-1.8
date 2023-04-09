@@ -14,6 +14,7 @@ import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.animation.SimpleAnimation;
+import dev.resent.visual.ui.clickgui.HUDConfigScreen;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCustom;
@@ -87,13 +88,19 @@ public class ClickGuiRewrite extends GuiScreen {
         //Navigation selection
         RenderUtils.drawRoundedRect(x+15, y+115+partAnimation.getValue(), x+45, y+145+partAnimation.getValue(), 8, secondaryFontColor);
 
+        if(isMouseInside(mouseX, mouseY, x+20, y+220, x+40, y+240)) {
+        	RenderUtils.drawRoundedRect(x+14, y+214, x+46, y+246, 16.5f, secondaryFontColor);
+        }
+        
         //Navigation icons
         GlStateManager.color(1, 1, 1);
         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/house.png"));
         Gui.drawModalRectWithCustomSizedTexture(x+20, (int) y+120, 0, 0, 20, 20, 20, 20);
         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
         Gui.drawModalRectWithCustomSizedTexture(x+20, (int) y+170, 0, 0, 20, 20, 20, 20);
-
+        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/edit.png"));
+        Gui.drawModalRectWithCustomSizedTexture(x+20, (int) y+220, 0, 0, 20, 20, 20, 20);
+        
         //Search
         RenderUtils.drawRoundedRect(x+width-300, y+25, x+width-50, y+65, 9, secondaryColor);
 
@@ -118,7 +125,6 @@ public class ClickGuiRewrite extends GuiScreen {
         /* !------------- HOME/MODULE (SOON) --------------------! */
         //Draw module button
         if(part == "Home") {
-        	//RenderUtils.drawRoundedRect(x+width-15, y+130+scrollOffset*25/-height, x+width-5, y+150+scrollOffset*25/-height, 4, -1);
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
@@ -148,6 +154,8 @@ public class ClickGuiRewrite extends GuiScreen {
                 offset += 60;
             }
         }
+        }else if(part == "Setting") {
+        	fr.drawString("Not sure what to put here yet. DM me with suggestions! My discord is hooman#1196.", x+100, y+120, -1, false);
         }
 
         /* !------------- SETTINGS ----------------! */
@@ -187,6 +195,9 @@ public class ClickGuiRewrite extends GuiScreen {
             home = false;
             setting = true;
             part = "Setting";
+        } else if (isMouseInside(mouseX, mouseY, x+14, y+214, x+46, y+246)) {
+        	comps.clear();
+        	mc.displayGuiScreen(new HUDConfigScreen(this));
         }
 
         if (isMouseInside(mouseX, mouseY, x+width-300, y+25, x+width-50, y+65)) {
