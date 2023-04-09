@@ -314,7 +314,7 @@ public class ClickGuiRewrite extends GuiScreen {
             	comps.add(new CompCustom(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s.name, s));
             }
             
-            if(x+180+settingXOffset+fr.getStringWidth(s.name)*2 > x+width-20) {
+            if(x+155+settingXOffset+fr.getStringWidth(s.name) > x+width-20-fr.getStringWidth(s.name)*2) {
             	settingXOffset = 0;
             	settingYOffset += 25;
             }else {
