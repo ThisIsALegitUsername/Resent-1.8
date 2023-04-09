@@ -114,11 +114,12 @@ public class ClickGuiRewrite extends GuiScreen {
         GlStateManager.popMatrix();
 
         /* !------------- HOME/MODULE (SOON) --------------------! */
-
         //Draw module button
+        if(part == "Home") {
+        	//RenderUtils.drawRoundedRect(x+width-15, y+130+scrollOffset*25/-height, x+width-5, y+150+scrollOffset*25/-height, 4, -1);
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
+                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
                     //Body
                     RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset, 16, secondaryColor);
 
@@ -144,6 +145,7 @@ public class ClickGuiRewrite extends GuiScreen {
                 }
                 offset += 60;
             }
+        }
         }
 
         /* !------------- SETTINGS ----------------! */
