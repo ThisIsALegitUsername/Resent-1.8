@@ -51,7 +51,7 @@ public class ClickGuiRewrite extends GuiScreen {
         //GlStateManager.scale(1f,1f,0f);
         int offset = 0;
 
-        GlUtils.startScale(x+width/2, y+height/2, introAnimation != null ? (float) introAnimation.getValue() : 1);
+        GlUtils.startScale(x+width/2, y+height/2, introAnimation != null ? (float) introAnimation.getValue() == 0 ? 1 : (float) introAnimation.getValue() : 1);
 
         /* !-------------- NECESSARY ELEMENTS -----------------! */
 
@@ -155,8 +155,6 @@ public class ClickGuiRewrite extends GuiScreen {
             }
         }
 
-        GlStateManager.popMatrix();
-
         if (closing) {
             comps.clear();
             if (introAnimation == null) {
@@ -169,6 +167,8 @@ public class ClickGuiRewrite extends GuiScreen {
                 mc.displayGuiScreen(null);
             }
         }
+        
+        GlStateManager.popMatrix();
     }
 
     @Override
