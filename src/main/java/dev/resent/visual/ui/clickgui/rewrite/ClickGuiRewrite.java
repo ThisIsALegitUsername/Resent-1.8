@@ -3,6 +3,7 @@ package dev.resent.visual.ui.clickgui.rewrite;
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.setting.BooleanSetting;
+import dev.resent.module.base.setting.CustomRectSettingDraw;
 import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.module.base.setting.NumberSetting;
 import dev.resent.module.base.setting.Setting;
@@ -15,6 +16,7 @@ import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.animation.SimpleAnimation;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
+import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCustom;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompMode;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompNumber;
 
@@ -298,18 +300,21 @@ public class ClickGuiRewrite extends GuiScreen {
             if (s instanceof BooleanSetting) {
                 comps.add(new CompCheck(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s));
             }
-            
             if(s instanceof ModeSetting) {
             	settingXOffset -= fr.getStringWidth(s.name)+50;
             	comps.add(new CompMode(x+90, y+200+settingYOffset+modeSettingYOffset, width, selectedMod, s));
             	modeSettingYOffset += 50;
             }
-            
             if(s instanceof NumberSetting) {
             	comps.add(new CompNumber(x+135, y+125+settingYOffset, selectedMod, s));
             }
+            if(s instanceof CustomRectSettingDraw) {
+            	settingYOffset += 25;
+            	settingXOffset = 0;
+            	comps.add(new CompCustom(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s.name, s));
+            }
             
-            if(x+160+settingXOffset+fr.getStringWidth(s.name)*2 > x+width-20) {
+            if(x+180+settingXOffset+fr.getStringWidth(s.name)*2 > x+width-20) {
             	settingXOffset = 0;
             	settingYOffset += 25;
             }else {
