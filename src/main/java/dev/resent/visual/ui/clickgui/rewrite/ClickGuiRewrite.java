@@ -3,6 +3,7 @@ package dev.resent.visual.ui.clickgui.rewrite;
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.setting.BooleanSetting;
+import dev.resent.module.base.setting.ModeSetting;
 import dev.resent.module.base.setting.Setting;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
@@ -13,6 +14,8 @@ import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.animation.SimpleAnimation;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
+import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompMode;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
@@ -144,8 +147,8 @@ public class ClickGuiRewrite extends GuiScreen {
         /* !------------- SETTINGS ----------------! */
 
         if (selectedMod != null) {
-            fr.drawString("<", x+80, y+115+offset, -1, false);
-            RenderUtils.drawRoundedRect(x+80, y+125, x+width-20, y+325, 16, secondaryColor);
+            RenderUtils.drawRoundedRect(x+80, y+105, x+width-20, y+390, 16, secondaryColor);
+            fr.drawString("<", x+90, y+115+offset, -1, false);
 
             for (Comp comp : comps) {
                 comp.drawScreen(mouseX, mouseY);
@@ -194,28 +197,14 @@ public class ClickGuiRewrite extends GuiScreen {
                     if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+160+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
                         selectedMod = m;
 
-                        int settingOffset = 0;
-                        for (Setting s : selectedMod.settings) {
-                            if (s instanceof BooleanSetting) {
-                                comps.add(new CompCheck(x+110, y+125+settingOffset, selectedMod, s));
-                            }
-
-                            settingOffset += 25;
-                        }
+                        drawSetting();
                     }
 
                     if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
                         if (mouseButton == 1 && m.doesHaveSetting()) {
                             selectedMod = m;
 
-                            int settingOffset = 0;
-                            for (Setting s : selectedMod.settings) {
-                                if (s instanceof BooleanSetting) {
-                                    comps.add(new CompCheck(x+110, y+125+settingOffset, selectedMod, s));
-                                }
-
-                                settingOffset += 25;
-                            }
+                            drawSetting();
                         }
 
                         if (mouseButton == 0 && selectedMod == null) {
@@ -228,7 +217,7 @@ public class ClickGuiRewrite extends GuiScreen {
         }
 
         if (selectedMod != null) {
-            if (isMouseInside(mouseX, mouseY, x+77, y+112, x+87, y+125)) {
+            if (isMouseInside(mouseX, mouseY, x+87, y+112, x+97, y+125)) {
                 selectedMod = null;
                 comps.clear();
             }
@@ -295,5 +284,24 @@ public class ClickGuiRewrite extends GuiScreen {
     @Override
     public void onGuiClosed() {
         mc.gameSettings.saveOptions();
+    }
+    
+    public void drawSetting() {
+        int settingYOffset = 0;
+        int settingXOffset = 0;
+        for (Setting s : selectedMod.settings) {
+            if (s instanceof BooleanSetting) {
+                comps.add(new CompCheck(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s));
+            }
+            if(s instanceof ModeSetting) {
+            	comps.add(new CompMode(x+110+settingXOffset, y+125+settingYOffset, selectedMod, s));
+            }
+            
+            if(x+160+settingXOffset+fr.getStringWidth(s.name)*2 > x+width-20) {
+            	settingXOffset = 0;
+            	settingYOffset += 25;
+            }else 
+            settingXOffset += fr.getStringWidth(s.name)+50;
+        }
     }
 }
