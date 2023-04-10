@@ -14,6 +14,7 @@ import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.animation.SimpleAnimation;
+import dev.resent.visual.ui.animation.impl.EaseInOutQuad;
 import dev.resent.visual.ui.clickgui.HUDConfigScreen;
 import dev.resent.visual.ui.clickgui.rewrite.comp.Comp;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
@@ -47,17 +48,24 @@ public class ClickGuiRewrite extends GuiScreen {
     public Mod selectedMod;
     public String searchString = "";
     public SimpleAnimation partAnimation;
-    public int backgroundColor = new Color(18, 18, 18).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(33, 33, 33).getRGB(), onSurfaceColor = new Color(3, 218, 197).getRGB(), secondaryFontColor = new Color(187, 134, 252).getRGB();
+    public int backgroundColor = new Color(18, 18, 18).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(33, 33, 33).getRGB(), onSurfaceColor = new Color(3, 218, 197).getRGB();
+    public Color secondaryFontColor = new Color(187, 134, 252);
     public int scrollOffset = 0;
     public String part = "Home";
-
+    public Animation bgDimAnim;
+    public Animation searchCursorAnim;
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
         //GlStateManager.scale(1f,1f,0f);
+    	
+    	
         int offset = 0;
-
-        GlUtils.startScale(x+width/2, y+height/2, introAnimation != null ? (float) introAnimation.getValue() == 0 ? 1 : (float) introAnimation.getValue() : 1);
-
+        // background dim
+        drawRect(0, 0, /*used big number bc width and height not working for some reason */ 999999, 999999, new Color(0, 0, 0, (int) bgDimAnim.getValue()).getRGB());
+        
+        GlUtils.startScale(x+width/2, y+height/2, 1);
+        
+        GlStateManager.translate(0, (height + y) - introAnimation.getValue(), 0);
         /* !-------------- NECESSARY ELEMENTS -----------------! */
 
         //Navigation bar
@@ -86,10 +94,10 @@ public class ClickGuiRewrite extends GuiScreen {
         }
 
         //Navigation selection
-        RenderUtils.drawRoundedRect(x+15, y+115+partAnimation.getValue(), x+45, y+145+partAnimation.getValue(), 8, secondaryFontColor);
+        RenderUtils.drawRoundedRect(x+15, y+115+partAnimation.getValue(), x+45, y+145+partAnimation.getValue(), 8, secondaryFontColor.getRGB());
 
         if(isMouseInside(mouseX, mouseY, x+20, y+220, x+40, y+240)) {
-        	RenderUtils.drawRoundedRect(x+14, y+214, x+46, y+246, 16.5f, secondaryFontColor);
+        	RenderUtils.drawRoundedRect(x+14, y+214, x+46, y+246, 16.5f, secondaryFontColor.getRGB());
         }
         
         //Navigation icons
@@ -111,13 +119,18 @@ public class ClickGuiRewrite extends GuiScreen {
         GlStateManager.scale(1.5F, 1.5F, 1);
         GlStateManager.translate(-(x+width-290), -(y+40), 0);
         if (searchString.length() > 0) {
-            fr.drawString(searchString, x+width-270, y+40, secondaryFontColor, false);
-        } else {
+            fr.drawString(searchString, x+width-270, y+40, secondaryFontColor.getRGB(), false);
+        } else if (!isSearchFocused) {
             fr.drawString(EnumChatFormatting.ITALIC+"Search", x+width-270, y+40, new Color(97, 97, 97).getRGB(), false);
         }
 
         if (isSearchFocused) {
-            drawRect(x+width-271+fr.getStringWidth(searchString), y+38, x+width-270+fr.getStringWidth(searchString), y+50, secondaryFontColor);
+            drawRect(x+width-271+fr.getStringWidth(searchString), y+38, x+width-270+fr.getStringWidth(searchString), y+50, 
+            		new Color(secondaryFontColor.getRed(), secondaryFontColor.getGreen(), secondaryFontColor.getBlue(), (int) searchCursorAnim.getValue()).getRGB());
+        }
+        
+        if (searchCursorAnim.isDone()) {
+        	searchCursorAnim.changeDirection();
         }
 
         GlStateManager.popMatrix();
@@ -177,6 +190,7 @@ public class ClickGuiRewrite extends GuiScreen {
             }
 
             introAnimation.setDirection(Direction.BACKWARDS);
+            bgDimAnim.setDirection(Direction.BACKWARDS);
             if (introAnimation.isDone(Direction.BACKWARDS)) {
                 mc.displayGuiScreen(null);
             }
@@ -252,7 +266,9 @@ public class ClickGuiRewrite extends GuiScreen {
         y = sr.getScaledHeight() / 10;
         width = sr.getScaledWidth() / 1.25F;
         height = sr.getScaledHeight() / 1.25F;
-        introAnimation = Theme.getAnimation(500, 1, 3, 3.8F, 1.35F, false);
+        introAnimation = new EaseInOutQuad(500, height + y);
+        bgDimAnim = new EaseInOutQuad(500, 150);
+        searchCursorAnim = new EaseInOutQuad(300, 255);
         fr = mc.fontRendererObj;
         partAnimation = new SimpleAnimation(0.0F);
     }
