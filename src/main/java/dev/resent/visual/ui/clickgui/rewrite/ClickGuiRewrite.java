@@ -127,25 +127,25 @@ public class ClickGuiRewrite extends GuiScreen {
         if(part == "Home") {
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
+                if (y+125+offset+scrollOffset > y+95 && y+155+offset+scrollOffset < y+height) {
                     //Body
-                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset, 16, secondaryColor);
+                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+155+offset+scrollOffset, 16, secondaryColor);
 
                     //Gear
                     if (m.doesHaveSetting()) {
                         GlStateManager.color(1, 1, 1);
                         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
-                        Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
+                        Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int) y+120+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
                     }
 
                     //Toggle
-                    RenderUtils.drawRoundedRect(x+100, y+135+offset+scrollOffset, x+130, y+165+offset+scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
+                    RenderUtils.drawRoundedRect(x+100, y+135+offset+scrollOffset, x+110, y+145+offset+scrollOffset, 8, m.isEnabled() ? onSurfaceColor : new Color(66, 66, 66).getRGB());
 
                     GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
                     int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
-                    GlUtils.startScale(x+120+i / 2, y+140+offset+scrollOffset, 1.5f);
-                    fr.drawString(m.getDescription(), x+20+i, y+142+offset+scrollOffset, -1, false);
+                    GlUtils.startScale(x+120+i / 2, y+120+offset+scrollOffset, 1.5f);
+                    fr.drawString(m.getDescription(), x+20+i, y+122+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
                     //                    if (isMouseInside(mouseX, mouseY, x+i+80, y+115+offset+scrollOffset, x+width-20, y+185+offset+scrollOffset)) {
                     //                        fr.drawString(m.getDescription(), mousex+8, mouseY, onSurfaceColor, false);
@@ -210,14 +210,14 @@ public class ClickGuiRewrite extends GuiScreen {
 
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
-                    if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+160+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
+                if (y+125+offset+scrollOffset > y+95 && y+155+offset+scrollOffset < y+height && part == "Home") {
+                    if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+120+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
                         selectedMod = m;
 
                         drawSetting();
                     }
 
-                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
+                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+155+offset+scrollOffset)) {
                         if (mouseButton == 1 && m.doesHaveSetting()) {
                             selectedMod = m;
 

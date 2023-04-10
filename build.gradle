@@ -74,7 +74,7 @@ teavm {
    minHeapSize = 256;
    maxHeapSize = 256;
    outOfProcess = false;
-   processMemory = 1024;
+   processMemory = 2048;
    longjmpSupported = true;
    heapDump = false;
    
