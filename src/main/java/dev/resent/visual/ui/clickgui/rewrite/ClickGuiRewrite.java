@@ -144,9 +144,17 @@ public class ClickGuiRewrite extends GuiScreen {
         
         int scrollThing = Math.round(scrollOffset / (Resent.INSTANCE.modManager.modules.size() / 2.85f));
         
-        RenderUtils.drawRoundedRect((x + width) - 20, (y+125)-scrollThing, (x+width) - 10, ((y+height) - (20 * barSize))-scrollThing, 4, 
+        float barSize2 = ((y+height) - (20 * barSize))-scrollThing;
+        
+        if (barSize2 < (y+125)-scrollThing) {
+        	scrollThing /= 2.85f;
+        	barSize2 = (((y+height) - (20 * 3.5f))-scrollThing);
+        	
+        }
+        
+        RenderUtils.drawRoundedRect((x + width) - 20, (y+125)-scrollThing, (x+width) - 10, barSize2, 4, 
         		new Color(secondaryFontColor.getRed() - 40, secondaryFontColor.getGreen() - 40, secondaryFontColor.getBlue() - 40).getRGB());
-        RenderUtils.drawRoundedRect((x + width) - 21, (y+125)-scrollThing, (x+width) - 11, ((y+height) - (20 * barSize))-scrollThing, 4, secondaryFontColor.getRGB());
+        RenderUtils.drawRoundedRect((x + width) - 21, (y+125)-scrollThing, (x+width) - 11, barSize2, 4, secondaryFontColor.getRGB());
         
 
         /* !------------- HOME/MODULE (SOON) --------------------! */
