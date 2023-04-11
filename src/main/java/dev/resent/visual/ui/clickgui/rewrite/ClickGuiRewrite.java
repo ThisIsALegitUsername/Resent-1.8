@@ -27,6 +27,8 @@ import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -223,13 +225,16 @@ public class ClickGuiRewrite extends GuiScreen {
             setting = false;
             home = true;
             part = "Home";
+            playPressSound();
         } else if (isMouseInside(mouseX, mouseY, x+20, (int) y+170, x+40, (int) y+190)) {
             home = false;
             setting = true;
             part = "Setting";
+            playPressSound();
         } else if (isMouseInside(mouseX, mouseY, x+14, y+214, x+46, y+246)) {
         	comps.clear();
         	mc.displayGuiScreen(new HUDConfigScreen(this));
+        	playPressSound();
         }
 
         if (isMouseInside(mouseX, mouseY, x+width-300, y+25, x+width-50, y+65))
@@ -241,19 +246,20 @@ public class ClickGuiRewrite extends GuiScreen {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
                     if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
                         selectedMod = m;
-
+                        playPressSound();
                         drawSetting();
                     }
 
                     if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
                         if (mouseButton == 1 && m.doesHaveSetting()) {
                             selectedMod = m;
-
+                            playPressSound();
                             drawSetting();
                         }
 
                         if (mouseButton == 0 && selectedMod == null) {
                             m.toggle();
+                            playPressSound();
                         }
                     }
                 }
@@ -263,6 +269,7 @@ public class ClickGuiRewrite extends GuiScreen {
 
         if (selectedMod != null) {
             if (isMouseInside(mouseX, mouseY, x+87, y+112, x+97, y+125)) {
+            	playPressSound();
                 selectedMod = null;
                 comps.clear();
             }
@@ -373,4 +380,8 @@ public class ClickGuiRewrite extends GuiScreen {
             }
         }
 	}
+	
+	public void playPressSound() {
+        this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+    }
 }
