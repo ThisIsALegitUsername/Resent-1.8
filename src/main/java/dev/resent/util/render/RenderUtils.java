@@ -116,16 +116,16 @@ public class RenderUtils {
         worldrenderer.pos(idk, idk2, 0);
     }
 
-    public static void drawRoundedRect(final float paramInt1, final float paramInt2, final float paramInt3, final float paramInt4, final float radius, final int color, boolean... forceOverride) {
+    public static void drawRoundedRect(final float left, final float top, final float right, final float bottom, final float radius, final int color, boolean... forceOverride) {
         final float f1 = (color >> 24 & 0xFF) / 255.0f;
         final float f2 = (color >> 16 & 0xFF) / 255.0f;
         final float f3 = (color >> 8 & 0xFF) / 255.0f;
         final float f4 = (color & 0xFF) / 255.0f;
         GlStateManager.color(f2, f3, f4, f1);
         if (Theme.getRounded() || forceOverride[0]) {
-            drawRoundedRect(paramInt1, paramInt2, paramInt3, paramInt4, radius);
+            drawRoundedRect(left, top, right, bottom, radius);
         } else {
-            Gui.drawRect((int) paramInt1, (int) paramInt2, (int) paramInt3, (int) paramInt4, color);
+            Gui.drawRect((int) left, (int) top, (int) right, (int) bottom, color);
         }
     }
 
