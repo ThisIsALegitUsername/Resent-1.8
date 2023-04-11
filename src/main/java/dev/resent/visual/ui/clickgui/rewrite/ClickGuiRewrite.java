@@ -1,5 +1,8 @@
 package dev.resent.visual.ui.clickgui.rewrite;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
 import dev.resent.module.base.setting.BooleanSetting;
@@ -10,7 +13,6 @@ import dev.resent.module.base.setting.Setting;
 import dev.resent.util.misc.GlUtils;
 import dev.resent.util.render.Color;
 import dev.resent.util.render.RenderUtils;
-import dev.resent.visual.ui.Theme;
 import dev.resent.visual.ui.animation.Animation;
 import dev.resent.visual.ui.animation.Direction;
 import dev.resent.visual.ui.animation.SimpleAnimation;
@@ -21,9 +23,6 @@ import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCheck;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompCustom;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompMode;
 import dev.resent.visual.ui.clickgui.rewrite.comp.impl.CompNumber;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
 import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
@@ -52,13 +51,13 @@ public class ClickGuiRewrite extends GuiScreen {
     public Color secondaryFontColor = new Color(187, 134, 252);
     public int scrollOffset = 0;
     public String part = "Home";
+
     public Animation bgDimAnim;
     public Animation searchCursorAnim;
-    public Animation switchAnim;
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
         //GlStateManager.scale(1f,1f,0f);
-    	
     	
         int offset = 0;
         // background dim
@@ -141,28 +140,25 @@ public class ClickGuiRewrite extends GuiScreen {
         if(part == "Home") {
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+155+offset+scrollOffset < y+height) {
+                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
                     //Body
-                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset, 8, secondaryColor);
+                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset, 16, secondaryColor);
 
                     //Gear
                     if (m.doesHaveSetting()) {
-                    	if (isMouseInside(mouseX, mouseY, x+width-60, (int) y+140+offset+scrollOffset, (x+width-60) + 20, ((int) y+140+offset+scrollOffset) + 20)) {
-                    		RenderUtils.drawRoundedRect(x+width-65, (int) y+135+offset+scrollOffset, (x+width-60) + 25, ((int) y+140+offset+scrollOffset) + 25, 8, secondaryFontColor.getRGB());
+                    	if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+140+offset+scrollOffset+20)) {
+                    		RenderUtils.drawRoundedRect(x+width-65, y+135+offset+scrollOffset, x+width-35, y+165+offset+scrollOffset, 8, secondaryFontColor.getRGB());
                     	}
                         GlStateManager.color(1, 1, 1);
                         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
-                        
-                        
                         Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
                     }
 
                     //Toggle
-
-                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+125, y+155+offset+scrollOffset, 8, 
-                    		new Color(66 + (int) m.switchColorRAnim.getValue(), 66 + (int) m.switchColorGAnim.getValue(), 66 + (int) m.switchColorBAnim.getValue()).getRGB());
-                    new Color(187, 134, 252);
-                    RenderUtils.drawRoundedRect((x+90) + (int) m.switchAnim.getValue(), y+140+offset+scrollOffset, (x+105) + (int) m.switchAnim.getValue(), y+155+offset+scrollOffset, 8, new Color(255, 255, 255).getRGB());
+                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 7);
+                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+125, y+155+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB(), true);
+                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, secondaryFontColor.getRGB(), true);
+                    RenderUtils.drawRoundedRect(x+90+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, -1, true);
 
                     GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
                     int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
@@ -172,9 +168,6 @@ public class ClickGuiRewrite extends GuiScreen {
                     	fr.drawString(m.getDescription(), x+20+i, y+140+offset+scrollOffset, -1, false);
                     }
                     GlStateManager.popMatrix();
-                    //                    if (isMouseInside(mouseX, mouseY, x+i+80, y+115+offset+scrollOffset, x+width-20, y+185+offset+scrollOffset)) {
-                    //                        fr.drawString(m.getDescription(), mousex+8, mouseY, onSurfaceColor, false);
-                    //                    }
                 }
                 offset += 60;
             }
@@ -236,36 +229,22 @@ public class ClickGuiRewrite extends GuiScreen {
 
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+155+offset+scrollOffset < y+height && part == "Home") {
-                    if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+120+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
+                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
+                    if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+160+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
                         selectedMod = m;
 
                         drawSetting();
                     }
-                    
-                    if (m.doesHaveSetting() && isMouseInside(mouseX, mouseY, x+width-60, (int) y+140+offset+scrollOffset, (x+width-60) + 20, ((int) y+140+offset+scrollOffset) + 20)) {
-                        selectedMod = m;
 
-                        drawSetting();
-                    }
-                    
-                    if (isMouseInside(mouseX, mouseY, x+90, y+140+offset+scrollOffset, x+125, y+155+offset+scrollOffset)) {
-                        
+                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
+                        if (mouseButton == 1 && m.doesHaveSetting()) {
+                            selectedMod = m;
+
+                            drawSetting();
+                        }
 
                         if (mouseButton == 0 && selectedMod == null) {
                             m.toggle();
-                            if (m.isEnabled()) {
-                            	m.switchAnim = new EaseInOutQuad(200, 20);
-                            	m.switchColorRAnim = new EaseInOutQuad(200, 121);
-                            	m.switchColorGAnim = new EaseInOutQuad(200, 68);
-                            	m.switchColorBAnim = new EaseInOutQuad(200, 186);
-                            }
-                            else {
-                            	m.switchAnim = new EaseInOutQuad(200, 20, Direction.BACKWARDS);
-                            	m.switchColorRAnim = new EaseInOutQuad(200, 121, Direction.BACKWARDS);
-                            	m.switchColorGAnim = new EaseInOutQuad(200, 68, Direction.BACKWARDS);
-                            	m.switchColorBAnim = new EaseInOutQuad(200, 186, Direction.BACKWARDS);
-                            }
                         }
                     }
                 }
@@ -297,20 +276,6 @@ public class ClickGuiRewrite extends GuiScreen {
         searchCursorAnim = new EaseInOutQuad(300, 255);
         fr = mc.fontRendererObj;
         partAnimation = new SimpleAnimation(0.0F);
-        for (Mod m : Resent.INSTANCE.modManager.modules) {
-	        if (m.isEnabled()) {
-	        	m.switchAnim = new EaseInOutQuad(200, 20);
-	        	m.switchColorRAnim = new EaseInOutQuad(200, 121);
-            	m.switchColorGAnim = new EaseInOutQuad(200, 68);
-            	m.switchColorBAnim = new EaseInOutQuad(200, 186);
-	        }
-	        else {
-	        	m.switchAnim = new EaseInOutQuad(200, 20, Direction.BACKWARDS);
-	        	m.switchColorRAnim = new EaseInOutQuad(200, 121, Direction.BACKWARDS);
-            	m.switchColorGAnim = new EaseInOutQuad(200, 68, Direction.BACKWARDS);
-            	m.switchColorBAnim = new EaseInOutQuad(200, 186, Direction.BACKWARDS);
-	        }
-        }
     }
 
     @Override
