@@ -160,7 +160,7 @@ public class ClickGuiRewrite extends GuiScreen {
                     int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
                     GlUtils.startScale(x+120+i / 2, y+120+offset+scrollOffset, 1.2f);
-                    if (m.getDescription() != "No Description Set.") {
+                    if (!m.getDescription().startsWith("No des")) {
                     	fr.drawString(m.getDescription(), x+20+i, y+140+offset+scrollOffset, -1, false);
                     }
                     GlStateManager.popMatrix();
