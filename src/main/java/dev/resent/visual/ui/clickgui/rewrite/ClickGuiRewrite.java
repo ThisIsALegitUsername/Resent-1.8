@@ -51,14 +51,14 @@ public class ClickGuiRewrite extends GuiScreen {
     public Color secondaryFontColor = new Color(187, 134, 252);
     public int scrollOffset = 0;
     public String part = "Home";
-
+    public Animation bgDimAnim;
     public Animation searchCursorAnim;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
         int offset = 0;
         // background dim
-        drawRect(0, 0, 999999, 999999, new Color(0, 0, 0, 150).getRGB());
+        drawRect(0, 0, 999999, 999999, new Color(0, 0, 0, (int) bgDimAnim.getValue()).getRGB());
         
         GlUtils.startScale(x+width/2, y+height/2, 1);
         GlStateManager.translate(0, (height + y) - introAnimation.getValue(), 0);
@@ -130,6 +130,22 @@ public class ClickGuiRewrite extends GuiScreen {
         }
 
         GlStateManager.popMatrix();
+        
+        // Scroll Bar
+        RenderUtils.drawRoundedRect((x + width) - 20, y+125, (x+width) - 10, (y+height) - 20, 4, secondaryColor);
+        // purple bar thing
+        float barSize = Resent.INSTANCE.modManager.modules.size() / 4.2f;
+        
+        if (barSize > 9) {
+        	barSize = 9;
+        }
+        
+        int scrollThing = Math.round(scrollOffset / (Resent.INSTANCE.modManager.modules.size() / 2.85f));
+        
+        RenderUtils.drawRoundedRect((x + width) - 20, (y+125)-scrollThing, (x+width) - 10, ((y+height) - (20 * barSize))-scrollThing, 4, 
+        		new Color(secondaryFontColor.getRed() - 40, secondaryFontColor.getGreen() - 40, secondaryFontColor.getBlue() - 40).getRGB());
+        RenderUtils.drawRoundedRect((x + width) - 21, (y+125)-scrollThing, (x+width) - 11, ((y+height) - (20 * barSize))-scrollThing, 4, secondaryFontColor.getRGB());
+        
 
         /* !------------- HOME/MODULE (SOON) --------------------! */
         //Draw module button
@@ -138,24 +154,25 @@ public class ClickGuiRewrite extends GuiScreen {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
                     //Body
-                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset, 16, secondaryColor);
+                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-30, y+175+offset+scrollOffset, 16, secondaryColor);
 
                     //Gear
                     if (m.doesHaveSetting()) {
-                    	if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+140+offset+scrollOffset+20)) {
-                    		RenderUtils.drawRoundedRect(x+width-65, y+135+offset+scrollOffset, x+width-35, y+165+offset+scrollOffset, 8, secondaryFontColor.getRGB());
+                    	if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20)) {
+                    		RenderUtils.drawRoundedRect(x+width-75, y+135+offset+scrollOffset, x+width-45, y+165+offset+scrollOffset, 8, secondaryFontColor.getRGB());
                     	}
                         GlStateManager.color(1, 1, 1);
                         mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
-                        Gui.drawModalRectWithCustomSizedTexture(x+width-60, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
+                        Gui.drawModalRectWithCustomSizedTexture(x+width-70, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
                     }
 
                     //Toggle
-                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 7);
+                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 12);
                     RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+125, y+155+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB(), true);
                     RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, secondaryFontColor.getRGB(), true);
+                    RenderUtils.drawRoundedRect(x+91+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+106+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, new Color(180, 180, 180).getRGB(), true);
                     RenderUtils.drawRoundedRect(x+90+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, -1, true);
-
+                    
                     GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
                     int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
                     GlStateManager.popMatrix();
@@ -189,8 +206,9 @@ public class ClickGuiRewrite extends GuiScreen {
                 mc.displayGuiScreen(null);
                 return;
             }
-
+            
             introAnimation.setDirection(Direction.BACKWARDS);
+            bgDimAnim.setDirection(Direction.BACKWARDS);
             if (introAnimation.isDone(Direction.BACKWARDS)) {
                 mc.displayGuiScreen(null);
             }
@@ -221,7 +239,7 @@ public class ClickGuiRewrite extends GuiScreen {
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
-                    if (isMouseInside(mouseX, mouseY, x+width-60, y+140+offset+scrollOffset, x+width-40, y+160+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
+                    if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
                         selectedMod = m;
 
                         drawSetting();
@@ -267,6 +285,7 @@ public class ClickGuiRewrite extends GuiScreen {
         searchCursorAnim = new EaseInOutQuad(300, 255);
         fr = mc.fontRendererObj;
         partAnimation = new SimpleAnimation(0.0F);
+        bgDimAnim = new EaseInOutQuad(500, 150);
     }
 
     @Override
