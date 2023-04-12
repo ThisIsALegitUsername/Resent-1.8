@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dev.resent.client.Resent;
 import dev.resent.module.base.Mod;
+import dev.resent.module.base.Mod.Category;
 import dev.resent.module.base.setting.BooleanSetting;
 import dev.resent.module.base.setting.CustomRectSettingDraw;
 import dev.resent.module.base.setting.ModeSetting;
@@ -55,6 +56,10 @@ public class ClickGuiRewrite extends GuiScreen {
     public String part = "Home";
     public Animation bgDimAnim;
     public Animation searchCursorAnim;
+    private Color catagoryAllColor = secondaryFontColor;
+    private Color catagoryHUDColor = new Color(40, 40, 40);
+    private Color catagoryMiscColor = new Color(40, 40, 40);
+    public Category selectedCategory = null;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
@@ -74,7 +79,7 @@ public class ClickGuiRewrite extends GuiScreen {
         Gui.drawRect(x+60, y, x+102, y+height, backgroundColor);
 
         //Separating line
-        Gui.drawRect(x, y+90, x+width, y+95, secondaryColor);
+        Gui.drawRect(x, y+80, x+width, y+85, secondaryColor);
 
         //Title
         GlStateManager.pushMatrix();
@@ -156,11 +161,22 @@ public class ClickGuiRewrite extends GuiScreen {
         		new Color(secondaryFontColor.getRed() - 40, secondaryFontColor.getGreen() - 40, secondaryFontColor.getBlue() - 40).getRGB());
         RenderUtils.drawRoundedRect((x + width) - 21, (y+125)-scrollThing, (x+width) - 11, barSize2, 4, secondaryFontColor.getRGB());
         
+        
+        // Mod Categories
+        
+        
+        RenderUtils.drawRoundedRect(x + 80, y+90, (x + width) - 30, y+120, 8, new Color(30, 30, 30).getRGB());
+        RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, catagoryAllColor.getRGB());
+        RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8, catagoryHUDColor.getRGB());
+        RenderUtils.drawRoundedRect(x + 185, y+95, x + 230, y+115, 8, catagoryMiscColor.getRGB());
+        fr.drawString("All", (int) x+102, (int) y+102, -1);
+        fr.drawString("HUD", (int) x+149, (int) y+102, -1);
+        fr.drawString("Misc", (int) x+198, (int) y+102, -1);
 
         /* !------------- HOME/MODULE (SOON) --------------------! */
         //Draw module button
         if(part == "Home") {
-        for (Mod m : Resent.INSTANCE.modManager.modules) {
+        for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
                     //Body
@@ -247,6 +263,28 @@ public class ClickGuiRewrite extends GuiScreen {
 
         if (isMouseInside(mouseX, mouseY, x+width-300, y+25, x+width-50, y+65))
             isSearchFocused = true; else isSearchFocused = false;
+        
+        if (isMouseInside(mouseX, mouseY, x + 85, y+95, x + 130, y+115) && mouseButton == 0) {
+        	playPressSound();
+        	catagoryAllColor = secondaryFontColor;
+        	catagoryHUDColor = new Color(40, 40, 40);
+        	catagoryMiscColor = new Color(40, 40, 40);
+        	selectedCategory = null;
+        }
+        if (isMouseInside(mouseX, mouseY, x + 135, y+95, x + 180, y+115)) {
+        	playPressSound();
+        	catagoryAllColor = new Color(40, 40, 40);
+        	catagoryHUDColor = secondaryFontColor;
+        	catagoryMiscColor = new Color(40, 40, 40);
+        	selectedCategory = Category.HUD;
+        }
+        if (isMouseInside(mouseX, mouseY, x + 185, y+95, x + 230, y+115)) {
+        	playPressSound();
+        	catagoryAllColor = new Color(40, 40, 40);
+        	catagoryHUDColor = new Color(40, 40, 40);
+        	catagoryMiscColor = secondaryFontColor;
+        	selectedCategory = Category.MISC;
+        }
 
         int offset = 0;
         for (Mod m : Resent.INSTANCE.modManager.modules) {
