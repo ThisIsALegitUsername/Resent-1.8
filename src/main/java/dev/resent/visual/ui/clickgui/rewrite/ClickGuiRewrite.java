@@ -60,6 +60,7 @@ public class ClickGuiRewrite extends GuiScreen {
     private Color catagoryHUDColor = new Color(40, 40, 40);
     private Color catagoryMiscColor = new Color(40, 40, 40);
     public Category selectedCategory = null;
+    public boolean isGridView = false;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
@@ -163,8 +164,6 @@ public class ClickGuiRewrite extends GuiScreen {
         
         
         // Mod Categories
-        
-        
         RenderUtils.drawRoundedRect(x + 80, y+90, (x + width) - 30, y+120, 8, new Color(30, 30, 30).getRGB());
         RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, catagoryAllColor.getRGB());
         RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8, catagoryHUDColor.getRGB());
@@ -172,44 +171,110 @@ public class ClickGuiRewrite extends GuiScreen {
         fr.drawString("All", (int) x+102, (int) y+102, -1);
         fr.drawString("HUD", (int) x+149, (int) y+102, -1);
         fr.drawString("Misc", (int) x+198, (int) y+102, -1);
+        // Switch ClickGui Mod View
+        drawRect((x+width) - 75, y+95, (x + width) - 74, y+ 115, new Color(90, 90, 90).getRGB());
+        String buttonToUse = "gridView";
+        if (isGridView) {
+        	buttonToUse = "normalView";
+        }
+        if (isMouseInside(mouseX, mouseY, (x+width)-70, y+90, (x+width)-40, y+120)) {
+        	RenderUtils.drawRoundedRect((x+width)-72, y+92, (x+width)-37, y+117, 2, secondaryFontColor.getRGB());
+        }
+        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_"+buttonToUse+".png"));
+        GlStateManager.color(1, 1, 1);
+        Gui.drawModalRectWithCustomSizedTexture((x+width)-70, (int) y+90, 0, 0, 30, 30, 30, 30);
 
         /* !------------- HOME/MODULE (SOON) --------------------! */
         //Draw module button
+        int offsetX = 0;
+        int widthOfBody = 90;
+        int numElements = (int) Math.floor(width/widthOfBody) - 2;
+        int numElementsX = 0;
         if(part == "Home") {
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
-                    //Body
-                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-30, y+175+offset+scrollOffset, 16, secondaryColor);
-
-                    //Gear
-                    if (m.doesHaveSetting()) {
-                    	if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20)) {
-                    		RenderUtils.drawRoundedRect(x+width-75, y+135+offset+scrollOffset, x+width-45, y+165+offset+scrollOffset, 8, secondaryFontColor.getRGB());
-                    	}
-                        GlStateManager.color(1, 1, 1);
-                        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
-                        Gui.drawModalRectWithCustomSizedTexture(x+width-70, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
-                    }
-
-                    //Toggle
-                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 12);
-                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+125, y+155+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB(), true);
-                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, secondaryFontColor.getRGB(), true);
-                    RenderUtils.drawRoundedRect(x+91+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+106+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, new Color(180, 180, 180).getRGB(), true);
-                    RenderUtils.drawRoundedRect(x+90+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, -1, true);
-                    
-                    GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
-                    int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
-                    GlStateManager.popMatrix();
-                    GlUtils.startScale(x+120+i / 2, y+120+offset+scrollOffset, 1.2f);
-                    if (!m.getDescription().startsWith("No des")) {
-                    	fr.drawString(m.getDescription(), x+20+i, y+140+offset+scrollOffset, -1, false);
-                    }
-                    GlStateManager.popMatrix();
-                }
-                offset += 60;
+            	if (!isGridView) {
+	                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
+	                    //Body
+	                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-30, y+175+offset+scrollOffset, 16, secondaryColor);
+	
+	                    //Gear
+	                    if (m.doesHaveSetting()) {
+	                    	if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20)) {
+	                    		RenderUtils.drawRoundedRect(x+width-75, y+135+offset+scrollOffset, x+width-45, y+165+offset+scrollOffset, 8, secondaryFontColor.getRGB());
+	                    	}
+	                        GlStateManager.color(1, 1, 1);
+	                        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
+	                        Gui.drawModalRectWithCustomSizedTexture(x+width-70, (int) y+140+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
+	                    }
+	
+	                    //Toggle
+	                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 12);
+	                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+125, y+155+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB(), true);
+	                    RenderUtils.drawRoundedRect(x+90, y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, secondaryFontColor.getRGB(), true);
+	                    RenderUtils.drawRoundedRect(x+91+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+106+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, new Color(180, 180, 180).getRGB(), true);
+	                    RenderUtils.drawRoundedRect(x+90+m.toggleAnimation.getValue(), y+140+offset+scrollOffset, x+105+m.toggleAnimation.getValue(), y+155+offset+scrollOffset, 8, -1, true);
+	                    
+	                    GlUtils.startScale(x+90, y+140+offset+scrollOffset, 2);
+	                    int i = fr.drawString(m.getName(), x+120, y+140+offset+scrollOffset, -1, false);
+	                    GlStateManager.popMatrix();
+	                    GlUtils.startScale(x+120+i / 2, y+120+offset+scrollOffset, 1.2f);
+	                    if (!m.getDescription().startsWith("No des")) {
+	                    	fr.drawString(m.getDescription(), x+20+i, y+140+offset+scrollOffset, -1, false);
+	                    }
+	                    GlStateManager.popMatrix();
+	                }
+	                offset += 60;
+	            }
+            	else {
+            		if (y+125+offset+scrollOffset > y+95 && y+240+offset+scrollOffset < y+height) {
+	                    //Body
+	                    RenderUtils.drawRoundedRect(x+85+offsetX, y+125+offset+scrollOffset, x+175+offsetX, y+250+offset+scrollOffset, 16, secondaryColor);
+	               
+	                    
+	                    //Gear
+	                    if (m.doesHaveSetting()) {
+	                    	if (isMouseInside(mouseX, mouseY, x+140+offsetX, (int) y+220+offset+scrollOffset, x+160+offsetX, (int) y+240+offset+scrollOffset)) {
+	                    		RenderUtils.drawRoundedRect(x+135+offsetX, (int) y+215+offset+scrollOffset, x+165+offsetX, (int) y+245+offset+scrollOffset, 8, secondaryFontColor.getRGB());
+	                    	}
+	                        GlStateManager.color(1, 1, 1);
+	                        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/gear2.png"));
+	                        Gui.drawModalRectWithCustomSizedTexture(x+140+offsetX, (int) y+220+offset+scrollOffset, 0, 0, 20, 20, 20, 20);
+	                    }
+	
+	                    //Toggle
+	                    m.toggleAnimation.setAnimation(m.isEnabled() ? 20 : 0, 12);
+	                    RenderUtils.drawRoundedRect(x+92+offsetX, y+222+offset+scrollOffset, x+127+offsetX, y+237+offset+scrollOffset, 8, new Color(66, 66, 66).getRGB(), true);
+	                    RenderUtils.drawRoundedRect(x+92+offsetX, y+222+offset+scrollOffset, x+107+offsetX+m.toggleAnimation.getValue(), y+237+offset+scrollOffset, 8, secondaryFontColor.getRGB(), true);
+	                    RenderUtils.drawRoundedRect(x+93+offsetX+m.toggleAnimation.getValue(), y+222+offset+scrollOffset, x+108+offsetX+m.toggleAnimation.getValue(), y+237+offset+scrollOffset, 8, new Color(180, 180, 180).getRGB(), true);
+	                    RenderUtils.drawRoundedRect(x+92+offsetX+m.toggleAnimation.getValue(), y+222+offset+scrollOffset, x+107+offsetX+m.toggleAnimation.getValue(), y+237+offset+scrollOffset, 8, -1, true);
+	                    
+	                    GlUtils.startScale(x+92+offsetX, y+180+offset+scrollOffset, 1);
+	                    int i = fr.drawString(m.getName(), x+92+offsetX, y+180+offset+scrollOffset, -1, false);
+	                    GlStateManager.popMatrix();
+	                    GlUtils.startScale(x+92+offsetX, y+190+offset+scrollOffset, 0.7f);
+	                    if (!m.getDescription().startsWith("No des")) {
+	                    	// did this to cut up the description so it fits
+	                    	String description0 = (m.getDescription() + "                                                             ").substring(0, 21);
+	                    	String description1 = (m.getDescription() + "                                                             ").substring(21, 41);
+	                    	String description2 = (m.getDescription() + "                                                             ").substring(41, 61);
+	                    	fr.drawString(description0, x+92+offsetX, y+200+offset+scrollOffset, -1, false);
+	                    	fr.drawString(description1, x+92+offsetX, y+210+offset+scrollOffset, -1, false);
+	                    	fr.drawString(description2, x+92+offsetX, y+220+offset+scrollOffset, -1, false);
+	                    }
+	                    GlStateManager.popMatrix();
+	                }
+            		numElementsX++;
+            		offsetX += 100;
+            		if (numElementsX % numElements == 0) {
+            			offset += 130;
+            			offsetX = 0;
+            		}
+	               
+	                
+            	}
             }
+            
         }
         }else if(part == "Setting") {
         	fr.drawString("Not sure what to put here yet. DM me with suggestions! My discord is hooman#1196.", x+100, y+120, -1, false);
@@ -285,31 +350,65 @@ public class ClickGuiRewrite extends GuiScreen {
         	catagoryMiscColor = secondaryFontColor;
         	selectedCategory = Category.MISC;
         }
+        
+        if (isMouseInside(mouseX, mouseY, (x+width)-70, y+90, (x+width)-40, y+120) && mouseButton == 0) {
+        	playPressSound();
+        	isGridView = !isGridView;
+        }
 
         int offset = 0;
+        int offsetX = 0;
+        int widthOfBody = 90;
+        int numElements = (int) Math.floor(width/widthOfBody) - 2;
+        int numElementsX = 0;
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
-                    if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
-                        selectedMod = m;
-                        playPressSound();
-                        drawSetting();
-                    }
-
-                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
-                        if (mouseButton == 1 && m.doesHaveSetting()) {
-                            selectedMod = m;
-                            playPressSound();
-                            drawSetting();
-                        }
-
-                        if (mouseButton == 0 && selectedMod == null) {
-                            m.toggle();
-                            playPressSound();
-                        }
-                    }
+                	if (!isGridView) {
+                		
+                	
+	                    if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
+	                        selectedMod = m;
+	                        playPressSound();
+	                        drawSetting();
+	                    }
+	
+	                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
+	                        if (mouseButton == 1 && m.doesHaveSetting()) {
+	                            selectedMod = m;
+	                            playPressSound();
+	                            drawSetting();
+	                        }
+	
+	                        if (mouseButton == 0 && selectedMod == null) {
+	                            m.toggle();
+	                            playPressSound();
+	                        }
+	                    }
+	                    offset += 60;
+                	}
+                	else {
+                		if (isMouseInside(mouseX, mouseY, x+140+offsetX, (int) y+220+offset+scrollOffset, x+160+offsetX, (int) y+240+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
+	                        selectedMod = m;
+	                        playPressSound();
+	                        drawSetting();
+	                    }
+	
+	                    if (isMouseInside(mouseX, mouseY, x+92+offsetX, y+222+offset+scrollOffset, x+127+offsetX, y+237+offset+scrollOffset)) {
+	                        if (mouseButton == 0 && selectedMod == null) {
+	                            m.toggle();
+	                            playPressSound();
+	                        }
+	                    }
+	                    numElementsX++;
+	            		offsetX += 100;
+	            		if (numElementsX % numElements == 0) {
+	            			offset += 130;
+	            			offsetX = 0;
+	            		}
+                	}
                 }
-                offset += 60;
+                
             }
         }
 
