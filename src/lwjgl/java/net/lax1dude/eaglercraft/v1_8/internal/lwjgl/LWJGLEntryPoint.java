@@ -30,16 +30,6 @@ public class LWJGLEntryPoint {
             System.err.println("Could not set system look and feel: " + e.toString());
         }
 
-        LaunchRenderDocDialog lr = new LaunchRenderDocDialog();
-        lr.setLocationRelativeTo(null);
-        lr.setVisible(true);
-
-        while (lr.isVisible()) {
-            EagUtils.sleep(100l);
-        }
-
-        lr.dispose();
-
         getANGLEPlatformFromArgs(args);
 
         EagRuntime.create();
