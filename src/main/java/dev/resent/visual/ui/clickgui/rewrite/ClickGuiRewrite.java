@@ -53,14 +53,13 @@ public class ClickGuiRewrite extends GuiScreen {
     public int backgroundColor = new Color(18, 18, 18).getRGB(), primaryColor = 0xFF000000, secondaryColor = new Color(33, 33, 33).getRGB(), onSurfaceColor = new Color(3, 218, 197).getRGB();
     public Color secondaryFontColor = new Color(187, 134, 252);
     public int scrollOffset = 0;
-    public String part = "Home";
+    public String part = "Home", currentView = "normalView";
     public Animation bgDimAnim;
     public Animation searchCursorAnim;
     private Color catagoryAllColor = secondaryFontColor;
     private Color catagoryHUDColor = new Color(40, 40, 40);
     private Color catagoryMiscColor = new Color(40, 40, 40);
     public Category selectedCategory = null;
-    public boolean isGridView = false;
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float var3) {
@@ -171,29 +170,26 @@ public class ClickGuiRewrite extends GuiScreen {
         fr.drawString("All", (int) x+102, (int) y+102, -1);
         fr.drawString("HUD", (int) x+149, (int) y+102, -1);
         fr.drawString("Misc", (int) x+198, (int) y+102, -1);
+
         // Switch ClickGui Mod View
-        drawRect((x+width) - 75, y+95, (x + width) - 74, y+ 115, new Color(90, 90, 90).getRGB());
-        String buttonToUse = "gridView";
-        if (isGridView) {
-        	buttonToUse = "normalView";
-        }
+        drawRect(x+width-75, y+95, x+width-74, y+ 115, new Color(90, 90, 90).getRGB());
+
         if (isMouseInside(mouseX, mouseY, (x+width)-70, y+90, (x+width)-40, y+120)) {
         	RenderUtils.drawRoundedRect((x+width)-72, y+92, (x+width)-37, y+117, 2, secondaryFontColor.getRGB());
         }
-        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_"+buttonToUse+".png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_"+currentView+".png"));
         GlStateManager.color(1, 1, 1);
         Gui.drawModalRectWithCustomSizedTexture((x+width)-70, (int) y+90, 0, 0, 30, 30, 30, 30);
 
         /* !------------- HOME/MODULE (SOON) --------------------! */
         //Draw module button
         int offsetX = 0;
-        int widthOfBody = 90;
-        int numElements = (int) Math.floor(width/widthOfBody) - 2;
+        int numElements = (int) Math.floor(width/90) - 2;
         int numElementsX = 0;
         if(part == "Home") {
         for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-            	if (!isGridView) {
+            	if (currentView == "normalView") {
 	                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height) {
 	                    //Body
 	                    RenderUtils.drawRoundedRect(x+80, y+125+offset+scrollOffset, x+width-30, y+175+offset+scrollOffset, 16, secondaryColor);
@@ -225,13 +221,10 @@ public class ClickGuiRewrite extends GuiScreen {
 	                    GlStateManager.popMatrix();
 	                }
 	                offset += 60;
-	            }
-            	else {
+	            }else if(currentView == "gridView") {
             		if (y+125+offset+scrollOffset > y+95 && y+240+offset+scrollOffset < y+height) {
 	                    //Body
 	                    RenderUtils.drawRoundedRect(x+85+offsetX, y+125+offset+scrollOffset, x+175+offsetX, y+250+offset+scrollOffset, 16, secondaryColor);
-	               
-	                    
 	                    //Gear
 	                    if (m.doesHaveSetting()) {
 	                    	if (isMouseInside(mouseX, mouseY, x+140+offsetX, (int) y+220+offset+scrollOffset, x+160+offsetX, (int) y+240+offset+scrollOffset)) {
@@ -250,11 +243,10 @@ public class ClickGuiRewrite extends GuiScreen {
 	                    RenderUtils.drawRoundedRect(x+92+offsetX+m.toggleAnimation.getValue(), y+222+offset+scrollOffset, x+107+offsetX+m.toggleAnimation.getValue(), y+237+offset+scrollOffset, 8, -1, true);
 	                    
 	                    GlUtils.startScale(x+92+offsetX, y+180+offset+scrollOffset, 1);
-	                    int i = fr.drawString(m.getName(), x+92+offsetX, y+180+offset+scrollOffset, -1, false);
+	                    fr.drawString(m.getName(), x+92+offsetX, y+180+offset+scrollOffset, -1, false);
 	                    GlStateManager.popMatrix();
 	                    GlUtils.startScale(x+92+offsetX, y+190+offset+scrollOffset, 0.7f);
 	                    if (!m.getDescription().startsWith("No des")) {
-	                    	// did this to cut up the description so it fits
 	                    	String description0 = (m.getDescription() + "                                                             ").substring(0, 21);
 	                    	String description1 = (m.getDescription() + "                                                             ").substring(21, 41);
 	                    	String description2 = (m.getDescription() + "                                                             ").substring(41, 61);
@@ -271,7 +263,6 @@ public class ClickGuiRewrite extends GuiScreen {
             			offsetX = 0;
             		}
 	               
-	                
             	}
             }
             
@@ -353,20 +344,22 @@ public class ClickGuiRewrite extends GuiScreen {
         
         if (isMouseInside(mouseX, mouseY, (x+width)-70, y+90, (x+width)-40, y+120) && mouseButton == 0) {
         	playPressSound();
-        	isGridView = !isGridView;
+        	switch(currentView){
+                case "normalView":
+                    currentView = "gridView";
+                case "gridView":
+                    currentView = "normalView";
+            }
         }
 
         int offset = 0;
         int offsetX = 0;
-        int widthOfBody = 90;
-        int numElements = (int) Math.floor(width/widthOfBody) - 2;
+        int numElements = (int) Math.floor(width/90) - 2;
         int numElementsX = 0;
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
-                	if (!isGridView) {
-                		
-                	
+                	if (currentView == "normalView") {
 	                    if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
 	                        selectedMod = m;
 	                        playPressSound();
@@ -386,8 +379,7 @@ public class ClickGuiRewrite extends GuiScreen {
 	                        }
 	                    }
 	                    offset += 60;
-                	}
-                	else {
+                	}else if(currentView == "gridView"){
                 		if (isMouseInside(mouseX, mouseY, x+140+offsetX, (int) y+220+offset+scrollOffset, x+160+offsetX, (int) y+240+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
 	                        selectedMod = m;
 	                        playPressSound();
