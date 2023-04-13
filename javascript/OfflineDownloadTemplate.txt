@@ -124,12 +124,32 @@ Compile it yourself here: https://gitlab.com/lax1dude/eaglercraftx-1.8/
 		transform: translate(-50%);
 		opacity: 0;
 	}
+	#newVersion {
+		position: absolute;
+		top: 0px;
+		left: 100vw;
+		transform: translateX(-100%);
+		background-color: black;
+		width: 350px;
+		height: 250px;
+		color: white;
+		border-radius: 5px;
+		transition: 0.4s opacity;
+		opacity: 0%;
+		display: none;
+		border: solid 1px white;
+		padding: 10px;
+	}
+	a{
+		color: rgb(45, 155, 228);
+	}
 </style>
 <script type="text/javascript">
 					
 	let versionNum = "";
 	let hasSiteInteractionHappened = false;
 	let tooLate = false;
+	let patchNumber;
 
 	if (localStorage.getItem("isTabSettingsModEnabled")){
 		document.title = localStorage.getItem("tabTitle");
@@ -143,6 +163,11 @@ Compile it yourself here: https://gitlab.com/lax1dude/eaglercraftx-1.8/
 	function setVersion(version){
 		document.getElementById("clientversion").innerText = version;
 		versionNum = version;
+	}
+
+	function setPatchNum(patchNum){
+		patchNumber = patchNum;
+		checkForUpdates();
 	}
 	
 	function setBarProg(event, epkSize){
@@ -286,6 +311,42 @@ Compile it yourself here: https://gitlab.com/lax1dude/eaglercraftx-1.8/
 		}
 	}
 
+	function checkForUpdates(){
+		let xhr = new XMLHttpRequest()
+		xhr.open("GET", "http://koneseagler.camdvr.org/resent/version.txt");
+		xhr.send();
+		xhr.onload = function() {
+			if (xhr.status == 200) {
+				let lines = xhr.responseText.split("\r\n");
+				let differentVersion = false;
+				if (lines[0] == versionNum){
+					console.log("same version");
+				}
+				else {
+					console.log("different version");
+					differentVersion = true;
+				}
+				if (lines[1] == patchNumber){
+					console.log("same patch");
+				}
+				else {
+					console.log("different patch");
+					differentVersion = true;
+				}
+
+				if (differentVersion){
+					document.getElementById("newVersion").style.display = "block";
+					document.getElementById("newVersion").style.opacity = "100%";
+					document.getElementById("newVersionBody2").innerText = "Resent "+lines[0]+" Patch "+lines[1];
+					document.getElementById("newVersionLink1").innerText = lines[2];
+					document.getElementById("newVersionLink1").href = lines[2];
+					document.getElementById("newVersionLink2").innerText = lines[3];
+					document.getElementById("newVersionLink2").href = lines[3];
+				}
+
+			}
+		}
+	}
 </script>
 <script type="text/javascript">
 "use strict";
@@ -312,6 +373,7 @@ window.addEventListener("load", () => {
 </head>
 <body style="margin:0px;width:100vw;height:100vh;overflow:hidden;" id="game_frame">
 	<div id = "dividk">
+		
 		<h1 id="clienttitle">Resent Client</h1>
 		<!--everything breaks if u remove this and i dont feel like changing the functions in here to fix it-->
 		<p class="ratio" ></p>
@@ -319,6 +381,14 @@ window.addEventListener("load", () => {
 		
 		<h2 id="clientversion">Resent 3.6</h2>
 		<p id="progresstext">Loading assets...</p>
+		<div id="newVersion">
+			<h2 id="newVersionTitle">New Version Available!</h2>
+			<p id="newVersionBody1">There is a new version of resent available:</p>
+			<p id="newVersionBody2">Resent  Patch </p>
+			<p id="newVersionBody3">Links:</p>
+			<a id="newVersionLink1" href="" target=”_blank” ></a>
+			<a id="newVersionLink2" href="" target=”_blank” ></a>
+		</div>
 		
 	</div>
 </body>

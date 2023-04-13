@@ -107,6 +107,7 @@
 			let versionNum = "";
 			let hasSiteInteractionHappened = false;
 			let tooLate = false;
+			let patchNumber;
 
 			if (localStorage.getItem("isTabSettingsModEnabled")){
 				document.title = localStorage.getItem("tabTitle");
@@ -136,6 +137,10 @@
 				document.getElementById("progress").style.width = (Math.round(progress/size*100)+3.5)+"%";
 				document.getElementById("progresstext").innerText = Math.round(event.loaded/epkSize*10000)/100 + "% " + "(" + Math.round(event.loaded/1024/1024) + "MB" + "/" +  Math.round(epkSize/1024/1024) + "MB)";
 				// why would you need to set the progress text in a different function???
+			}
+
+			function setPatchNum(patchNum){
+				patchNumber = patchNum;
 			}
 
 			function die(){

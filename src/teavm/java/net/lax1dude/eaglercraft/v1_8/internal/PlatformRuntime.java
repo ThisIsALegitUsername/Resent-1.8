@@ -77,6 +77,7 @@ public class PlatformRuntime {
 
     public static void create() {
         setClientVersion(ClientInfo.version);
+        setClientPatchNum(ClientInfo.patchNum);
         win = Window.current();
         doc = win.getDocument();
 
@@ -191,6 +192,9 @@ public class PlatformRuntime {
 
     @JSBody(params = { "version" }, script = "setVersion(version)")
     public static native void setClientVersion(String version);
+
+    @JSBody(params = { "patchNum" }, script = "setPatchNum(patchNum)")
+    public static native void setClientPatchNum(String patchNum);
 
     @JSBody(script = "die()")
     public static native void remove();
@@ -628,4 +632,6 @@ public class PlatformRuntime {
 
     @JSBody(params = { "isEnabled" }, script = "toggleTabSettingsMod(isEnabled)")
     public static native void toggleTabTitleMod(boolean isEnabled);
+
+    
 }
