@@ -190,10 +190,10 @@ public class ClickGuiRewrite extends GuiScreen {
         	RenderUtils.drawRoundedRect((x+width)-72, y+92, (x+width)-37, y+117, 2, secondaryFontColor.getRGB());
         }
         if (currentView == "gridView") {
-        	mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_gridView.png"));
+        	mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_normalView.png"));
         }
         else {
-        	mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_normalView.png"));
+        	mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_gridView.png"));
         }
         
         GlStateManager.color(1, 1, 1);
