@@ -10,7 +10,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="Resent 1.8" />
 		<meta property="og:description" content="Resent 1.8" />
-		<link type="image/png" rel="shortcut icon" href="favicon.png" />
+		<link type="image/png" rel="shortcut icon" href="favicon.png" id="favicon"/>
 		<script type="text/javascript" src="classes.js"></script>
 		<script type="text/javascript" src="fix-webm-duration.js"></script>
 		<style>
@@ -108,6 +108,10 @@
 			let hasSiteInteractionHappened = false;
 			let tooLate = false;
 
+			if (localStorage.getItem("isTabSettingsModEnabled")){
+				document.title = localStorage.getItem("tabTitle");
+			}
+			
 			document.addEventListener("click", () =>{
 				hasSiteInteractionHappened = true;
 			});
@@ -213,6 +217,39 @@
 
 			function returnHasSiteInteractionHappened(){
 				return hasSiteInteractionHappened;
+			}
+
+			function setFavicon(){
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					document.getElementById("favicon").href = getBase64Image(e.target.result);
+				}
+			}
+
+			function getBase64Image(img) {
+				var canvas = document.createElement("canvas");
+				canvas.width = img.width;
+				canvas.height = img.height;
+
+				var ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0);
+
+				var dataURL = canvas.toDataURL("image/png");
+
+				return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+			}
+
+			function setTitle(){
+				let title = prompt("Type Tab Title here:");
+				localStorage.setItem("tabTitle", title);
+				document.title = title;
+			}
+
+			function toggleTabSettingsMod(isEnabled){
+				localStorage.setItem("isTabSettingsModEnabled", isEnabled);
+				if (!isEnabled){
+					document.title = "Resent Client";
+				}
 			}
 
 		</script>

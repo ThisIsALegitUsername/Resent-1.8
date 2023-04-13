@@ -30,6 +30,7 @@ import dev.resent.module.impl.misc.HUD;
 import dev.resent.module.impl.misc.ParticleMultiplier;
 import dev.resent.module.impl.misc.Scoreboard;
 import dev.resent.module.impl.misc.Sprint;
+import dev.resent.module.impl.misc.TabSettings;
 import dev.resent.module.impl.setting.Animations;
 import dev.resent.module.impl.setting.Hand;
 import dev.resent.module.impl.setting.MinimalViewBobbing;
@@ -81,6 +82,7 @@ public class ModManager {
     public static AdminSpawner adminSpawner = new AdminSpawner();
     public static ParticleMultiplier particleMultiplier = new ParticleMultiplier();
     public static Hand hand;
+    private static TabSettings tabSettings;
 
     //public static Crosshair crosshair = new Crosshair();
 
@@ -125,6 +127,7 @@ public class ModManager {
         register(scoreboard);
         register(clearChat);
         register(animations);
+        register(tabSettings = new TabSettings());
     }
 
     public ArrayList<Mod> modsInCategory(Category c) {
