@@ -55,9 +55,6 @@ public class ClickGuiRewrite extends GuiScreen {
     public String part = "Home", currentView = "normalView";
     public Animation bgDimAnim;
     public Animation searchCursorAnim;
-    private Color catagoryAllColor = secondaryFontColor;
-    private Color catagoryHUDColor = new Color(40, 40, 40);
-    private Color catagoryMiscColor = new Color(40, 40, 40);
     public Category selectedCategory = null;
 
     @Override
@@ -140,13 +137,13 @@ public class ClickGuiRewrite extends GuiScreen {
         // Scroll Bar
         RenderUtils.drawRoundedRect((x + width) - 20, y+125, (x+width) - 10, (y+height) - 20, 4, secondaryColor);
         // purple bar thing
-        float barSize = Resent.INSTANCE.modManager.modules.size() / 4.2f;
+        float barSize = Resent.INSTANCE.modManager.modsInCategory(selectedCategory).size() / 4.2f;
         
         if (barSize > 9) {
         	barSize = 9;
         }
         
-        int scrollThing = Math.round(scrollOffset / (Resent.INSTANCE.modManager.modules.size() / 2.85f));
+        int scrollThing = Math.round(scrollOffset / (Resent.INSTANCE.modManager.modsInCategory(selectedCategory).size() / 2.85f));
         
         float barSize2 = ((y+height) - (20 * barSize))-scrollThing;
         
@@ -163,9 +160,9 @@ public class ClickGuiRewrite extends GuiScreen {
         
         // Mod Categories
         RenderUtils.drawRoundedRect(x + 80, y+90, (x + width) - 30, y+120, 8, new Color(30, 30, 30).getRGB());
-        RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, catagoryAllColor.getRGB());
-        RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8, catagoryHUDColor.getRGB());
-        RenderUtils.drawRoundedRect(x + 185, y+95, x + 230, y+115, 8, catagoryMiscColor.getRGB());
+        RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, secondaryFontColor.getRGB());
+        RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8,secondaryFontColor.getRGB());
+        RenderUtils.drawRoundedRect(x + 185, y+95, x + 230, y+115, 8, secondaryFontColor.getRGB());
         fr.drawString("All", (int) x+102, (int) y+102, -1);
         fr.drawString("HUD", (int) x+149, (int) y+102, -1);
         fr.drawString("Misc", (int) x+198, (int) y+102, -1);
@@ -321,23 +318,14 @@ public class ClickGuiRewrite extends GuiScreen {
         
         if (isMouseInside(mouseX, mouseY, x + 85, y+95, x + 130, y+115) && mouseButton == 0) {
         	playPressSound();
-        	catagoryAllColor = secondaryFontColor;
-        	catagoryHUDColor = new Color(40, 40, 40);
-        	catagoryMiscColor = new Color(40, 40, 40);
         	selectedCategory = null;
         }
         if (isMouseInside(mouseX, mouseY, x + 135, y+95, x + 180, y+115)) {
         	playPressSound();
-        	catagoryAllColor = new Color(40, 40, 40);
-        	catagoryHUDColor = secondaryFontColor;
-        	catagoryMiscColor = new Color(40, 40, 40);
         	selectedCategory = Category.HUD;
         }
         if (isMouseInside(mouseX, mouseY, x + 185, y+95, x + 230, y+115)) {
         	playPressSound();
-        	catagoryAllColor = new Color(40, 40, 40);
-        	catagoryHUDColor = new Color(40, 40, 40);
-        	catagoryMiscColor = secondaryFontColor;
         	selectedCategory = Category.MISC;
         }
         
@@ -354,7 +342,7 @@ public class ClickGuiRewrite extends GuiScreen {
         int offsetX = 0;
         int numElements = (int) Math.floor(width/90) - 2;
         int numElementsX = 0;
-        for (Mod m : Resent.INSTANCE.modManager.modules) {
+        for (Mod m : Resent.INSTANCE.modManager.modsInCategory(selectedCategory)) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
                 if (currentView == "normalView") {
                     if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
@@ -476,7 +464,7 @@ public class ClickGuiRewrite extends GuiScreen {
     }
 
     public int getMaxScroll() {
-        return Resent.INSTANCE.modManager.modules.size() * -53;
+        return Resent.INSTANCE.modManager.modsInCategory(selectedCategory).size() * -53;
     }
 
     @Override
