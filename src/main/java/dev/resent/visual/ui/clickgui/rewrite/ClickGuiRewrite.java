@@ -29,7 +29,6 @@ import net.lax1dude.eaglercraft.v1_8.internal.KeyboardConstants;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -344,11 +343,10 @@ public class ClickGuiRewrite extends GuiScreen {
         
         if (isMouseInside(mouseX, mouseY, (x+width)-70, y+90, (x+width)-40, y+120) && mouseButton == 0) {
         	playPressSound();
-        	switch(currentView){
-                case "normalView":
-                    currentView = "gridView";
-                case "gridView":
-                    currentView = "normalView";
+        	if(currentView == "normalView"){
+                currentView = "gridView";
+            }else if(currentView == "gridView"){
+                currentView = "normalView";
             }
         }
 
@@ -358,49 +356,57 @@ public class ClickGuiRewrite extends GuiScreen {
         int numElementsX = 0;
         for (Mod m : Resent.INSTANCE.modManager.modules) {
             if (!m.isAdmin() && m.getName().toLowerCase().startsWith(searchString.toLowerCase()) && selectedMod == null) {
-                if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
-                	if (currentView == "normalView") {
-	                    if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
-	                        selectedMod = m;
-	                        playPressSound();
-	                        drawSetting();
-	                    }
-	
-	                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
-	                        if (mouseButton == 1 && m.doesHaveSetting()) {
-	                            selectedMod = m;
-	                            playPressSound();
-	                            drawSetting();
-	                        }
-	
-	                        if (mouseButton == 0 && selectedMod == null) {
-	                            m.toggle();
-	                            playPressSound();
-	                        }
-	                    }
-	                    offset += 60;
-                	}else if(currentView == "gridView"){
+                if (currentView == "normalView") {
+                    if (y+125+offset+scrollOffset > y+95 && y+175+offset+scrollOffset < y+height && part == "Home") {
+                    if (isMouseInside(mouseX, mouseY, x+width-70, y+140+offset+scrollOffset, x+width-50, y+140+offset+scrollOffset+20) && mouseButton == 0 && m.doesHaveSetting()) {
+                        selectedMod = m;
+                        playPressSound();
+                        drawSetting();
+                    }
+
+                    if (isMouseInside(mouseX, mouseY, x+80, y+125+offset+scrollOffset, x+width-20, y+175+offset+scrollOffset)) {
+                        if (mouseButton == 1 && m.doesHaveSetting()) {
+                            selectedMod = m;
+                            playPressSound();
+                            drawSetting();
+                        }
+
+                        if (mouseButton == 0 && selectedMod == null) {
+                            m.toggle();
+                            playPressSound();
+                        }
+                    }
+                }
+                    offset += 60;
+                } else if(currentView == "gridView"){
+                        if (y+125+offset+scrollOffset > y+95 && y+240+offset+scrollOffset < y+height) {
                 		if (isMouseInside(mouseX, mouseY, x+140+offsetX, (int) y+220+offset+scrollOffset, x+160+offsetX, (int) y+240+offset+scrollOffset) && mouseButton == 0 && m.doesHaveSetting()) {
 	                        selectedMod = m;
 	                        playPressSound();
 	                        drawSetting();
 	                    }
 	
-	                    if (isMouseInside(mouseX, mouseY, x+92+offsetX, y+222+offset+scrollOffset, x+127+offsetX, y+237+offset+scrollOffset)) {
-	                        if (mouseButton == 0 && selectedMod == null) {
-	                            m.toggle();
-	                            playPressSound();
-	                        }
+	                    if (isMouseInside(mouseX, mouseY, x+85+offsetX, y+125+offset+scrollOffset, x+175+offsetX, y+250+offset+scrollOffset)) {
+                            if (mouseButton == 1 && m.doesHaveSetting()) {
+                                selectedMod = m;
+                                playPressSound();
+                                drawSetting();
+                            }
+    
+                            if (mouseButton == 0 && selectedMod == null) {
+                                m.toggle();
+                                playPressSound();
+                            }
 	                    }
-	                    numElementsX++;
-	            		offsetX += 100;
-	            		if (numElementsX % numElements == 0) {
-	            			offset += 130;
-	            			offsetX = 0;
-	            		}
                 	}
+
+                    numElementsX++;
+                    offsetX += 100;
+                    if (numElementsX % numElements == 0) {
+                        offset += 130;
+                        offsetX = 0;
+                    }
                 }
-                
             }
         }
 
