@@ -82,7 +82,7 @@ public class ModelBook extends ModelBase {
      */
     public void setRotationAngles(float f, float f1, float f2, float f3, float var5, float var6, Entity var7) {
         float f4 = (MathHelper.sin(f * 0.02F) * 0.1F + 1.25F) * f3;
-        this.coverRight.rotateAngleY = 3.141F + f4;
+        this.coverRight.rotateAngleY = 3.1415927F + f4;
         this.coverLeft.rotateAngleY = -f4;
         this.pagesRight.rotateAngleY = f4;
         this.pagesLeft.rotateAngleY = -f4;

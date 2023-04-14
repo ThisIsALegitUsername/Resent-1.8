@@ -38,7 +38,7 @@ public class EntityTNTPrimed extends Entity {
     public EntityTNTPrimed(World worldIn, double parDouble1, double parDouble2, double parDouble3, EntityLivingBase parEntityLivingBase) {
         this(worldIn);
         this.setPosition(parDouble1, parDouble2, parDouble3);
-        float f = (float) (Math.random() * 3.141 * 2.0D);
+        float f = (float) (Math.random() * 3.1415927410125732D * 2.0D);
         this.motionX = (double) (-((float) Math.sin((double) f)) * 0.02F);
         this.motionY = 0.20000000298023224D;
         this.motionZ = (double) (-((float) Math.cos((double) f)) * 0.02F);

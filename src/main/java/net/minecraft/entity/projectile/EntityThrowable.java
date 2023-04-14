@@ -55,14 +55,14 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         this.thrower = throwerIn;
         this.setSize(0.25F, 0.25F);
         this.setLocationAndAngles(throwerIn.posX, throwerIn.posY + (double) throwerIn.getEyeHeight(), throwerIn.posZ, throwerIn.rotationYaw, throwerIn.rotationPitch);
-        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.141F) * 0.16F);
+        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
         this.posY -= 0.10000000149011612D;
-        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.141F) * 0.16F);
+        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
         this.setPosition(this.posX, this.posY, this.posZ);
         float f = 0.4F;
-        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.141F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.141F) * f);
-        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.141F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.141F) * f);
-        this.motionY = (double) (-MathHelper.sin((this.rotationPitch + this.getInaccuracy()) / 180.0F * 3.141F) * f);
+        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * f);
+        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * f);
+        this.motionY = (double) (-MathHelper.sin((this.rotationPitch + this.getInaccuracy()) / 180.0F * 3.1415927F) * f);
         this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, this.getVelocity(), 1.0F);
     }
 
@@ -100,8 +100,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         this.motionY = d1;
         this.motionZ = d2;
         float f3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-        this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D / 3.141);
-        this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f3) * 180.0D / 3.141);
+        this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D / 3.1415927410125732D);
+        this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f3) * 180.0D / 3.1415927410125732D);
         this.ticksInGround = 0;
     }
 
@@ -114,8 +114,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         this.motionZ = d2;
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D / 3.141);
-            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D / 3.141);
+            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.func_181159_b(d0, d2) * 180.0D / 3.1415927410125732D);
+            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.func_181159_b(d1, (double) f) * 180.0D / 3.1415927410125732D);
         }
     }
 
@@ -172,9 +172,9 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         this.posY += this.motionY;
         this.posZ += this.motionZ;
         float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / 3.141);
+        this.rotationYaw = (float) (MathHelper.func_181159_b(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
-        for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f1) * 180.0D / 3.141); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
+        for (this.rotationPitch = (float) (MathHelper.func_181159_b(this.motionY, (double) f1) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
             this.prevRotationPitch += 360.0F;

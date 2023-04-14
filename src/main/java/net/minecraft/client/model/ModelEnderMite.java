@@ -63,8 +63,8 @@ public class ModelEnderMite extends ModelBase {
      */
     public void setRotationAngles(float var1, float var2, float f, float var4, float var5, float var6, Entity var7) {
         for (int i = 0; i < this.field_178713_d.length; ++i) {
-            this.field_178713_d[i].rotateAngleY = MathHelper.cos(f * 0.9F + (float) i * 0.15F * 3.141F) * 3.141F * 0.01F * (float) (1 + Math.abs(i - 2));
-            this.field_178713_d[i].rotationPointX = MathHelper.sin(f * 0.9F + (float) i * 0.15F * 3.141F) * 3.141F * 0.1F * (float) Math.abs(i - 2);
+            this.field_178713_d[i].rotateAngleY = MathHelper.cos(f * 0.9F + (float) i * 0.15F * 3.1415927F) * 3.1415927F * 0.01F * (float) (1 + Math.abs(i - 2));
+            this.field_178713_d[i].rotationPointX = MathHelper.sin(f * 0.9F + (float) i * 0.15F * 3.1415927F) * 3.1415927F * 0.1F * (float) Math.abs(i - 2);
         }
     }
 }

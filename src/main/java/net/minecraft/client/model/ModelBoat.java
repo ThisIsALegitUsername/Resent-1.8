@@ -47,7 +47,7 @@ public class ModelBoat extends ModelBase {
         this.boatSides[0].rotateAngleX = 1.5707964F;
         this.boatSides[1].rotateAngleY = 4.712389F;
         this.boatSides[2].rotateAngleY = 1.5707964F;
-        this.boatSides[3].rotateAngleY = 3.141F;
+        this.boatSides[3].rotateAngleY = 3.1415927F;
     }
 
     /**+

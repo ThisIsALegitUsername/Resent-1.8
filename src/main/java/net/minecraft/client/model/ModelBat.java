@@ -85,12 +85,12 @@ public class ModelBat extends ModelBase {
         if (((EntityBat) entity).getIsBatHanging()) {
             float f3 = 57.295776F;
             this.batHead.rotateAngleX = f2 / 57.295776F;
-            this.batHead.rotateAngleY = 3.141F - f1 / 57.295776F;
-            this.batHead.rotateAngleZ = 3.141F;
+            this.batHead.rotateAngleY = 3.1415927F - f1 / 57.295776F;
+            this.batHead.rotateAngleZ = 3.1415927F;
             this.batHead.setRotationPoint(0.0F, -2.0F, 0.0F);
             this.batRightWing.setRotationPoint(-3.0F, 0.0F, 3.0F);
             this.batLeftWing.setRotationPoint(3.0F, 0.0F, 3.0F);
-            this.batBody.rotateAngleX = 3.141F;
+            this.batBody.rotateAngleX = 3.1415927F;
             this.batRightWing.rotateAngleX = -0.15707964F;
             this.batRightWing.rotateAngleY = -1.2566371F;
             this.batOuterRightWing.rotateAngleY = -1.7278761F;
@@ -107,7 +107,7 @@ public class ModelBat extends ModelBase {
             this.batLeftWing.setRotationPoint(0.0F, 0.0F, 0.0F);
             this.batBody.rotateAngleX = 0.7853982F + MathHelper.cos(f * 0.1F) * 0.15F;
             this.batBody.rotateAngleY = 0.0F;
-            this.batRightWing.rotateAngleY = MathHelper.cos(f * 1.3F) * 3.141F * 0.25F;
+            this.batRightWing.rotateAngleY = MathHelper.cos(f * 1.3F) * 3.1415927F * 0.25F;
             this.batLeftWing.rotateAngleY = -this.batRightWing.rotateAngleY;
             this.batOuterRightWing.rotateAngleY = this.batRightWing.rotateAngleY * 0.5F;
             this.batOuterLeftWing.rotateAngleY = -this.batRightWing.rotateAngleY * 0.5F;

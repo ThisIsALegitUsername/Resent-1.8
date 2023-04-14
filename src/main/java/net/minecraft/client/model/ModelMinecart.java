@@ -50,7 +50,7 @@ public class ModelMinecart extends ModelBase {
         this.sideModels[0].rotateAngleX = 1.5707964F;
         this.sideModels[1].rotateAngleY = 4.712389F;
         this.sideModels[2].rotateAngleY = 1.5707964F;
-        this.sideModels[3].rotateAngleY = 3.141F;
+        this.sideModels[3].rotateAngleY = 3.1415927F;
         this.sideModels[5].rotateAngleX = -1.5707964F;
     }
 

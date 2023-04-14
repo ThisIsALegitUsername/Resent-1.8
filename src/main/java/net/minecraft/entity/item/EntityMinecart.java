@@ -292,8 +292,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         if (this.riddenByEntity instanceof EntityLivingBase) {
             double d6 = (double) ((EntityLivingBase) this.riddenByEntity).moveForward;
             if (d6 > 0.0D) {
-                double d7 = -Math.sin((double) (this.riddenByEntity.rotationYaw * 3.141F / 180.0F));
-                double d8 = Math.cos((double) (this.riddenByEntity.rotationYaw * 3.141F / 180.0F));
+                double d7 = -Math.sin((double) (this.riddenByEntity.rotationYaw * 3.1415927F / 180.0F));
+                double d8 = Math.cos((double) (this.riddenByEntity.rotationYaw * 3.1415927F / 180.0F));
                 double d9 = this.motionX * this.motionX + this.motionZ * this.motionZ;
                 if (d9 < 0.01D) {
                     this.motionX += d7 * 0.1D;

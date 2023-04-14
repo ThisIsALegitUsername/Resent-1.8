@@ -89,8 +89,8 @@ public class ModelSilverfish extends ModelBase {
      */
     public void setRotationAngles(float var1, float var2, float f, float var4, float var5, float var6, Entity var7) {
         for (int i = 0; i < this.silverfishBodyParts.length; ++i) {
-            this.silverfishBodyParts[i].rotateAngleY = MathHelper.cos(f * 0.9F + (float) i * 0.15F * 3.141F) * 3.141F * 0.05F * (float) (1 + Math.abs(i - 2));
-            this.silverfishBodyParts[i].rotationPointX = MathHelper.sin(f * 0.9F + (float) i * 0.15F * 3.141F) * 3.141F * 0.2F * (float) Math.abs(i - 2);
+            this.silverfishBodyParts[i].rotateAngleY = MathHelper.cos(f * 0.9F + (float) i * 0.15F * 3.1415927F) * 3.1415927F * 0.05F * (float) (1 + Math.abs(i - 2));
+            this.silverfishBodyParts[i].rotationPointX = MathHelper.sin(f * 0.9F + (float) i * 0.15F * 3.1415927F) * 3.1415927F * 0.2F * (float) Math.abs(i - 2);
         }
 
         this.silverfishWings[0].rotateAngleY = this.silverfishBodyParts[2].rotateAngleY;

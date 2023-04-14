@@ -37,9 +37,9 @@ public class EntityNoteFX extends EntityFX {
         this.motionY *= 0.009999999776482582D;
         this.motionZ *= 0.009999999776482582D;
         this.motionY += 0.2D;
-        this.particleRed = MathHelper.sin(((float) parDouble1 + 0.0F) * 3.141F * 2.0F) * 0.65F + 0.35F;
-        this.particleGreen = MathHelper.sin(((float) parDouble1 + 0.33333334F) * 3.141F * 2.0F) * 0.65F + 0.35F;
-        this.particleBlue = MathHelper.sin(((float) parDouble1 + 0.6666667F) * 3.141F * 2.0F) * 0.65F + 0.35F;
+        this.particleRed = MathHelper.sin(((float) parDouble1 + 0.0F) * 3.1415927F * 2.0F) * 0.65F + 0.35F;
+        this.particleGreen = MathHelper.sin(((float) parDouble1 + 0.33333334F) * 3.1415927F * 2.0F) * 0.65F + 0.35F;
+        this.particleBlue = MathHelper.sin(((float) parDouble1 + 0.6666667F) * 3.1415927F * 2.0F) * 0.65F + 0.35F;
         this.particleScale *= 0.75F;
         this.particleScale *= parFloat1;
         this.noteParticleScale = this.particleScale;

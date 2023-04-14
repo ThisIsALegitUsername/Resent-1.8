@@ -153,8 +153,8 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 double d7 = entity1.posY + (double) entity1.getEyeHeight() - d12;
                 double d8 = entity1.posZ - d13;
                 double d9 = (double) MathHelper.sqrt_double(d6 * d6 + d8 * d8);
-                float f = (float) (MathHelper.func_181159_b(d8, d6) * 180.0D / 3.141) - 90.0F;
-                float f1 = (float) (-(MathHelper.func_181159_b(d7, d9) * 180.0D / 3.141));
+                float f = (float) (MathHelper.func_181159_b(d8, d6) * 180.0D / 3.1415927410125732D) - 90.0F;
+                float f1 = (float) (-(MathHelper.func_181159_b(d7, d9) * 180.0D / 3.1415927410125732D));
                 this.field_82220_d[j] = this.func_82204_b(this.field_82220_d[j], f1, 40.0F);
                 this.field_82221_e[j] = this.func_82204_b(this.field_82221_e[j], f, 10.0F);
             } else {
@@ -317,7 +317,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         if (parInt1 <= 0) {
             return this.posX;
         } else {
-            float f = (this.renderYawOffset + (float) (180 * (parInt1 - 1))) / 180.0F * 3.141F;
+            float f = (this.renderYawOffset + (float) (180 * (parInt1 - 1))) / 180.0F * 3.1415927F;
             float f1 = MathHelper.cos(f);
             return this.posX + (double) f1 * 1.3D;
         }
@@ -331,7 +331,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         if (parInt1 <= 0) {
             return this.posZ;
         } else {
-            float f = (this.renderYawOffset + (float) (180 * (parInt1 - 1))) / 180.0F * 3.141F;
+            float f = (this.renderYawOffset + (float) (180 * (parInt1 - 1))) / 180.0F * 3.1415927F;
             float f1 = MathHelper.sin(f);
             return this.posZ + (double) f1 * 1.3D;
         }
