@@ -160,9 +160,25 @@ public class ClickGuiRewrite extends GuiScreen {
         
         // Mod Categories
         RenderUtils.drawRoundedRect(x + 80, y+90, (x + width) - 30, y+120, 8, new Color(30, 30, 30).getRGB());
-        RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, secondaryFontColor.getRGB());
-        RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8,secondaryFontColor.getRGB());
-        RenderUtils.drawRoundedRect(x + 185, y+95, x + 230, y+115, 8, secondaryFontColor.getRGB());
+        // pls dont remove the thing that switches the colors, doesnt look good without the color switching
+        if (selectedCategory == null) {
+        	RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, secondaryFontColor.getRGB());
+        }
+        else {
+        	RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, new Color(40, 40, 40).getRGB());
+        }
+        if (selectedCategory == Category.HUD) {
+        	RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8, secondaryFontColor.getRGB());
+        }
+        else {
+        	RenderUtils.drawRoundedRect(x + 135, y+95, x + 180, y+115, 8, new Color(40, 40, 40).getRGB());
+        }
+        if (selectedCategory == Category.MISC) {
+        	RenderUtils.drawRoundedRect(x + 185, y+95, x + 230, y+115, 8, secondaryFontColor.getRGB());
+        }
+        else {
+        	RenderUtils.drawRoundedRect(x + 185, y+95, x + 230, y+115, 8, new Color(40, 40, 40).getRGB());
+        }
         fr.drawString("All", (int) x+102, (int) y+102, -1);
         fr.drawString("HUD", (int) x+149, (int) y+102, -1);
         fr.drawString("Misc", (int) x+198, (int) y+102, -1);
@@ -173,7 +189,13 @@ public class ClickGuiRewrite extends GuiScreen {
         if (isMouseInside(mouseX, mouseY, (x+width)-70, y+90, (x+width)-40, y+120)) {
         	RenderUtils.drawRoundedRect((x+width)-72, y+92, (x+width)-37, y+117, 2, secondaryFontColor.getRGB());
         }
-        mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_"+currentView+".png"));
+        if (currentView == "gridView") {
+        	mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_normalView.png"));
+        }
+        else {
+        	mc.getTextureManager().bindTexture(new ResourceLocation("eagler:gui/button_gridView.png"));
+        }
+        
         GlStateManager.color(1, 1, 1);
         Gui.drawModalRectWithCustomSizedTexture((x+width)-70, (int) y+90, 0, 0, 30, 30, 30, 30);
 
@@ -413,6 +435,7 @@ public class ClickGuiRewrite extends GuiScreen {
 
     @Override
     public void initGui() {
+    	this.mc.gameSettings.loadOptions();
         sr = new ScaledResolution(mc);
         x = sr.getScaledWidth() / 10;
         y = sr.getScaledHeight() / 10;
@@ -469,7 +492,7 @@ public class ClickGuiRewrite extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        mc.gameSettings.saveOptions();
+        this.mc.gameSettings.saveOptions();
     }
     
     public void drawSetting() {

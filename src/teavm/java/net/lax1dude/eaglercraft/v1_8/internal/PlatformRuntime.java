@@ -619,4 +619,13 @@ public class PlatformRuntime {
 
     @JSBody(params = {}, script = "die2();")
     public static native void removeLoadScreen();
+
+    @JSBody(params = {}, script = "setFavicon()")
+    public static native void changeFavicon();
+
+    @JSBody(params = {}, script = "setTitle()")
+    public static native void changeTitle();
+
+    @JSBody(params = { "isEnabled" }, script = "toggleTabSettingsMod(isEnabled)")
+    public static native void toggleTabTitleMod(boolean isEnabled);
 }
