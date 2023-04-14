@@ -87,7 +87,7 @@ public class ModelVillager extends ModelBase {
         this.villagerArms.rotationPointZ = -1.0F;
         this.villagerArms.rotateAngleX = -0.75F;
         this.rightVillagerLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1 * 0.5F;
-        this.leftVillagerLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1 * 0.5F;
+        this.leftVillagerLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1 * 0.5F;
         this.rightVillagerLeg.rotateAngleY = 0.0F;
         this.leftVillagerLeg.rotateAngleY = 0.0F;
     }

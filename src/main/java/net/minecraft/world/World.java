@@ -1053,7 +1053,7 @@ public abstract class World implements IBlockAccess {
      */
     public int calculateSkylightSubtracted(float parFloat1) {
         float f = this.getCelestialAngle(parFloat1);
-        float f1 = 1.0F - (MathHelper.cos(f * 3.141F * 2.0F) * 2.0F + 0.5F);
+        float f1 = 1.0F - (MathHelper.cos(f * 3.1415927F * 2.0F) * 2.0F + 0.5F);
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         f1 = 1.0F - f1;
         f1 = (float) ((double) f1 * (1.0D - (double) (this.getRainStrength(parFloat1) * 5.0F) / 16.0D));
@@ -1068,7 +1068,7 @@ public abstract class World implements IBlockAccess {
      */
     public float getSunBrightness(float parFloat1) {
         float f = this.getCelestialAngle(parFloat1);
-        float f1 = 1.0F - (MathHelper.cos(f * 3.141F * 2.0F) * 2.0F + 0.2F);
+        float f1 = 1.0F - (MathHelper.cos(f * 3.1415927F * 2.0F) * 2.0F + 0.2F);
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         f1 = 1.0F - f1;
         f1 = (float) ((double) f1 * (1.0D - (double) (this.getRainStrength(parFloat1) * 5.0F) / 16.0D));
@@ -1081,7 +1081,7 @@ public abstract class World implements IBlockAccess {
      */
     public Vec3 getSkyColor(Entity entityIn, float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
-        float f1 = MathHelper.cos(f * 3.141F * 2.0F) * 2.0F + 0.5F;
+        float f1 = MathHelper.cos(f * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         int i = MathHelper.floor_double(entityIn.posX);
         int j = MathHelper.floor_double(entityIn.posY);
@@ -1153,12 +1153,12 @@ public abstract class World implements IBlockAccess {
      */
     public float getCelestialAngleRadians(float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
-        return f * 3.141F * 2.0F;
+        return f * 3.1415927F * 2.0F;
     }
 
     public Vec3 getCloudColour(float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
-        float f1 = MathHelper.cos(f * 3.141F * 2.0F) * 2.0F + 0.5F;
+        float f1 = MathHelper.cos(f * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         float f2 = (float) (this.cloudColour >> 16 & 255L) / 255.0F;
         float f3 = (float) (this.cloudColour >> 8 & 255L) / 255.0F;
@@ -1224,7 +1224,7 @@ public abstract class World implements IBlockAccess {
      */
     public float getStarBrightness(float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
-        float f1 = 1.0F - (MathHelper.cos(f * 3.141F * 2.0F) * 2.0F + 0.25F);
+        float f1 = 1.0F - (MathHelper.cos(f * 3.1415927F * 2.0F) * 2.0F + 0.25F);
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         return f1 * f1 * 0.5F;
     }

@@ -983,8 +983,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 this.setHorseJumping(true);
                 this.isAirBorne = true;
                 if (f1 > 0.0F) {
-                    float f2 = MathHelper.sin(this.rotationYaw * 3.141F / 180.0F);
-                    float f3 = MathHelper.cos(this.rotationYaw * 3.141F / 180.0F);
+                    float f2 = MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F);
+                    float f3 = MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F);
                     this.motionX += (double) (-0.4F * f2 * this.jumpPower);
                     this.motionZ += (double) (0.4F * f3 * this.jumpPower);
                     this.playSound("mob.horse.jump", 0.4F, 1.0F);
@@ -1291,8 +1291,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     public void updateRiderPosition() {
         super.updateRiderPosition();
         if (this.prevRearingAmount > 0.0F) {
-            float f = MathHelper.sin(this.renderYawOffset * 3.141F / 180.0F);
-            float f1 = MathHelper.cos(this.renderYawOffset * 3.141F / 180.0F);
+            float f = MathHelper.sin(this.renderYawOffset * 3.1415927F / 180.0F);
+            float f1 = MathHelper.cos(this.renderYawOffset * 3.1415927F / 180.0F);
             float f2 = 0.7F * this.prevRearingAmount;
             float f3 = 0.15F * this.prevRearingAmount;
             this.riddenByEntity.setPosition(this.posX + (double) (f2 * f), this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + (double) f3, this.posZ - (double) (f2 * f1));

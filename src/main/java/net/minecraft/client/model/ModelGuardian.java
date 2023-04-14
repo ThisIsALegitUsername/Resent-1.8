@@ -98,9 +98,9 @@ public class ModelGuardian extends ModelBase {
         float f4 = (1.0F - entityguardian.func_175469_o(f3)) * 0.55F;
 
         for (int i = 0; i < 12; ++i) {
-            this.guardianSpines[i].rotateAngleX = 3.141F * afloat[i];
-            this.guardianSpines[i].rotateAngleY = 3.141F * afloat1[i];
-            this.guardianSpines[i].rotateAngleZ = 3.141F * afloat2[i];
+            this.guardianSpines[i].rotateAngleX = 3.1415927F * afloat[i];
+            this.guardianSpines[i].rotateAngleY = 3.1415927F * afloat1[i];
+            this.guardianSpines[i].rotateAngleZ = 3.1415927F * afloat2[i];
             this.guardianSpines[i].rotationPointX = afloat3[i] * (1.0F + MathHelper.cos(f * 1.5F + (float) i) * 0.01F - f4);
             this.guardianSpines[i].rotationPointY = 16.0F + afloat4[i] * (1.0F + MathHelper.cos(f * 1.5F + (float) i) * 0.01F - f4);
             this.guardianSpines[i].rotationPointZ = afloat5[i] * (1.0F + MathHelper.cos(f * 1.5F + (float) i) * 0.01F - f4);
@@ -131,12 +131,12 @@ public class ModelGuardian extends ModelBase {
 
         this.guardianEye.showModel = true;
         float f5 = entityguardian.func_175471_a(f3);
-        this.guardianTail[0].rotateAngleY = MathHelper.sin(f5) * 3.141F * 0.05F;
-        this.guardianTail[1].rotateAngleY = MathHelper.sin(f5) * 3.141F * 0.1F;
+        this.guardianTail[0].rotateAngleY = MathHelper.sin(f5) * 3.1415927F * 0.05F;
+        this.guardianTail[1].rotateAngleY = MathHelper.sin(f5) * 3.1415927F * 0.1F;
         this.guardianTail[1].rotationPointX = -1.5F;
         this.guardianTail[1].rotationPointY = 0.5F;
         this.guardianTail[1].rotationPointZ = 14.0F;
-        this.guardianTail[2].rotateAngleY = MathHelper.sin(f5) * 3.141F * 0.15F;
+        this.guardianTail[2].rotateAngleY = MathHelper.sin(f5) * 3.1415927F * 0.15F;
         this.guardianTail[2].rotationPointX = 0.5F;
         this.guardianTail[2].rotationPointY = 0.5F;
         this.guardianTail[2].rotationPointZ = 6.0F;

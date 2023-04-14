@@ -112,7 +112,7 @@ public class ModelChicken extends ModelBase {
         this.chin.rotateAngleY = this.head.rotateAngleY;
         this.body.rotateAngleX = 1.5707964F;
         this.rightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        this.leftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1;
+        this.leftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1;
         this.rightWing.rotateAngleZ = f2;
         this.leftWing.rotateAngleZ = -f2;
     }

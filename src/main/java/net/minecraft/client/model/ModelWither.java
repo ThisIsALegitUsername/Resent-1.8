@@ -80,9 +80,9 @@ public class ModelWither extends ModelBase {
      */
     public void setRotationAngles(float var1, float var2, float f, float f1, float f2, float var6, Entity var7) {
         float f3 = MathHelper.cos(f * 0.1F);
-        this.field_82905_a[1].rotateAngleX = (0.065F + 0.05F * f3) * 3.141F;
+        this.field_82905_a[1].rotateAngleX = (0.065F + 0.05F * f3) * 3.1415927F;
         this.field_82905_a[2].setRotationPoint(-2.0F, 6.9F + MathHelper.cos(this.field_82905_a[1].rotateAngleX) * 10.0F, -0.5F + MathHelper.sin(this.field_82905_a[1].rotateAngleX) * 10.0F);
-        this.field_82905_a[2].rotateAngleX = (0.265F + 0.1F * f3) * 3.141F;
+        this.field_82905_a[2].rotateAngleX = (0.265F + 0.1F * f3) * 3.1415927F;
         this.field_82904_b[0].rotateAngleY = f1 / 57.295776F;
         this.field_82904_b[0].rotateAngleX = f2 / 57.295776F;
     }

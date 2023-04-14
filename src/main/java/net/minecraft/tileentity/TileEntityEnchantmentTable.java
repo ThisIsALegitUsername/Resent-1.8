@@ -87,26 +87,26 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
             this.bookSpread -= 0.1F;
         }
 
-        while (this.bookRotation >= 3.141F) {
+        while (this.bookRotation >= 3.1415927F) {
             this.bookRotation -= 6.2831855F;
         }
 
-        while (this.bookRotation < -3.141F) {
+        while (this.bookRotation < -3.1415927F) {
             this.bookRotation += 6.2831855F;
         }
 
-        while (this.field_145924_q >= 3.141F) {
+        while (this.field_145924_q >= 3.1415927F) {
             this.field_145924_q -= 6.2831855F;
         }
 
-        while (this.field_145924_q < -3.141F) {
+        while (this.field_145924_q < -3.1415927F) {
             this.field_145924_q += 6.2831855F;
         }
 
         float f2;
-        for (f2 = this.field_145924_q - this.bookRotation; f2 >= 3.141F; f2 -= 6.2831855F) {}
+        for (f2 = this.field_145924_q - this.bookRotation; f2 >= 3.1415927F; f2 -= 6.2831855F) {}
 
-        while (f2 < -3.141F) {
+        while (f2 < -3.1415927F) {
             f2 += 6.2831855F;
         }
 

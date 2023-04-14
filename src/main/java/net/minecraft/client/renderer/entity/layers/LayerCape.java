@@ -50,8 +50,8 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
             double d1 = abstractclientplayer.prevChasingPosY + (abstractclientplayer.chasingPosY - abstractclientplayer.prevChasingPosY) * (double) f - (abstractclientplayer.prevPosY + (abstractclientplayer.posY - abstractclientplayer.prevPosY) * (double) f);
             double d2 = abstractclientplayer.prevChasingPosZ + (abstractclientplayer.chasingPosZ - abstractclientplayer.prevChasingPosZ) * (double) f - (abstractclientplayer.prevPosZ + (abstractclientplayer.posZ - abstractclientplayer.prevPosZ) * (double) f);
             float f1 = abstractclientplayer.prevRenderYawOffset + (abstractclientplayer.renderYawOffset - abstractclientplayer.prevRenderYawOffset) * f;
-            double d3 = (double) MathHelper.sin(f1 * 3.141F / 180.0F);
-            double d4 = (double) (-MathHelper.cos(f1 * 3.141F / 180.0F));
+            double d3 = (double) MathHelper.sin(f1 * 3.1415927F / 180.0F);
+            double d4 = (double) (-MathHelper.cos(f1 * 3.1415927F / 180.0F));
             float f2 = (float) d1 * 10.0F;
             f2 = MathHelper.clamp_float(f2, -6.0F, 32.0F);
             float f3 = (float) (d0 * d3 + d2 * d4) * 100.0F;

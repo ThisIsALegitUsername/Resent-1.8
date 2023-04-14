@@ -122,12 +122,12 @@ public class ModelBiped extends ModelBase {
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float var6, Entity var7) {
         this.bipedHead.rotateAngleY = f3 / 57.295776F;
         this.bipedHead.rotateAngleX = f4 / 57.295776F;
-        this.bipedRightArm.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 2.0F * f1 * 0.5F;
+        this.bipedRightArm.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 2.0F * f1 * 0.5F;
         this.bipedLeftArm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
         this.bipedRightArm.rotateAngleZ = 0.0F;
         this.bipedLeftArm.rotateAngleZ = 0.0F;
         this.bipedRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        this.bipedLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1;
+        this.bipedLeftLeg.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1;
         this.bipedRightLeg.rotateAngleY = 0.0F;
         this.bipedLeftLeg.rotateAngleY = 0.0F;
         if (this.isRiding) {
@@ -161,7 +161,7 @@ public class ModelBiped extends ModelBase {
         this.bipedLeftArm.rotateAngleY = 0.0F;
         if (this.swingProgress > -9990.0F) {
             float f5 = this.swingProgress;
-            this.bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt_float(f5) * 3.141F * 2.0F) * 0.2F;
+            this.bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt_float(f5) * 3.1415927F * 2.0F) * 0.2F;
             this.bipedRightArm.rotationPointZ = MathHelper.sin(this.bipedBody.rotateAngleY) * 5.0F;
             this.bipedRightArm.rotationPointX = -MathHelper.cos(this.bipedBody.rotateAngleY) * 5.0F;
             this.bipedLeftArm.rotationPointZ = -MathHelper.sin(this.bipedBody.rotateAngleY) * 5.0F;
@@ -173,11 +173,11 @@ public class ModelBiped extends ModelBase {
             f5 = f5 * f5;
             f5 = f5 * f5;
             f5 = 1.0F - f5;
-            float f6 = MathHelper.sin(f5 * 3.141F);
-            float f7 = MathHelper.sin(this.swingProgress * 3.141F) * -(this.bipedHead.rotateAngleX - 0.7F) * 0.75F;
+            float f6 = MathHelper.sin(f5 * 3.1415927F);
+            float f7 = MathHelper.sin(this.swingProgress * 3.1415927F) * -(this.bipedHead.rotateAngleX - 0.7F) * 0.75F;
             this.bipedRightArm.rotateAngleX = (float) ((double) this.bipedRightArm.rotateAngleX - ((double) f6 * 1.2D + (double) f7));
             this.bipedRightArm.rotateAngleY += this.bipedBody.rotateAngleY * 2.0F;
-            this.bipedRightArm.rotateAngleZ += MathHelper.sin(this.swingProgress * 3.141F) * -0.4F;
+            this.bipedRightArm.rotateAngleZ += MathHelper.sin(this.swingProgress * 3.1415927F) * -0.4F;
         }
 
         if (this.isSneak) {

@@ -180,8 +180,8 @@ public class EntityChicken extends EntityAnimal {
 
     public void updateRiderPosition() {
         super.updateRiderPosition();
-        float f = MathHelper.sin(this.renderYawOffset * 3.141F / 180.0F);
-        float f1 = MathHelper.cos(this.renderYawOffset * 3.141F / 180.0F);
+        float f = MathHelper.sin(this.renderYawOffset * 3.1415927F / 180.0F);
+        float f1 = MathHelper.cos(this.renderYawOffset * 3.1415927F / 180.0F);
         float f2 = 0.1F;
         float f3 = 0.0F;
         this.riddenByEntity.setPosition(this.posX + (double) (f2 * f), this.posY + (double) (this.height * 0.5F) + this.riddenByEntity.getYOffset() + (double) f3, this.posZ - (double) (f2 * f1));

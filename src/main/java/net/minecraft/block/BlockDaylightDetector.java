@@ -68,7 +68,7 @@ public class BlockDaylightDetector extends BlockContainer {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             int i = worldIn.getLightFor(EnumSkyBlock.SKY, pos) - worldIn.getSkylightSubtracted();
             float f = worldIn.getCelestialAngleRadians(1.0F);
-            float f1 = f < 3.141F ? 0.0F : 6.2831855F;
+            float f1 = f < 3.1415927F ? 0.0F : 6.2831855F;
             f = f + (f1 - f) * 0.2F;
             i = Math.round((float) i * MathHelper.cos(f));
             i = MathHelper.clamp_int(i, 0, 15);

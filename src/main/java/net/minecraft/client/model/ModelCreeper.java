@@ -85,8 +85,8 @@ public class ModelCreeper extends ModelBase {
         this.head.rotateAngleY = f2 / 57.295776F;
         this.head.rotateAngleX = f3 / 57.295776F;
         this.leg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        this.leg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1;
-        this.leg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1;
+        this.leg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1;
+        this.leg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1;
         this.leg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
     }
 }

@@ -142,8 +142,8 @@ public class ModelWolf extends ModelBase {
             this.wolfLeg3.setRotationPoint(-2.5F, 16.0F, -4.0F);
             this.wolfLeg4.setRotationPoint(0.5F, 16.0F, -4.0F);
             this.wolfLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-            this.wolfLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1;
-            this.wolfLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141F) * 1.4F * f1;
+            this.wolfLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1;
+            this.wolfLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * f1;
             this.wolfLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
         }
 
