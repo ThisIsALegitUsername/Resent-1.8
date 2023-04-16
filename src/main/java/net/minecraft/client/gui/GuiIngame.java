@@ -9,6 +9,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import dev.resent.client.Resent;
+import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
 import dev.resent.util.misc.W;
 import dev.resent.visual.crosshair.CrosshairManager;

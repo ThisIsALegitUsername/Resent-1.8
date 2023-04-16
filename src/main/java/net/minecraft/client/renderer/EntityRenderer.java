@@ -28,6 +28,7 @@ import dev.resent.client.Resent;
 import dev.resent.module.base.ModManager;
 import dev.resent.module.base.RenderMod;
 import dev.resent.module.impl.misc.FPSOptions;
+import dev.resent.module.impl.misc.ScrollZoom;
 import dev.resent.util.misc.W;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -35,6 +36,8 @@ import net.lax1dude.eaglercraft.v1_8.Display;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.HString;
 import net.lax1dude.eaglercraft.v1_8.Mouse;
+import net.lax1dude.eaglercraft.v1_8.internal.EnumPlatformType;
+import net.lax1dude.eaglercraft.v1_8.internal.PlatformRuntime;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
@@ -394,6 +397,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
      * Changes the field of view of the player depending on if they
      * are underwater or not
      */
+    
+    double zoomLevel = 1.0;
+    
     private float getFOVModifier(float partialTicks, boolean parFlag) {
         if (this.debugView) {
             return 90.0F;
@@ -402,6 +408,38 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             float f = 70.0F;
             if (parFlag) {
                 f = this.mc.gameSettings.keyBindZoomCamera.isKeyDown() ? 17.0f : this.mc.gameSettings.fovSetting;
+                if (ModManager.scrollZoom.isEnabled() && this.mc.gameSettings.keyBindZoomCamera.isKeyDown()) {
+                	if (PlatformRuntime.getPlatformType() == EnumPlatformType.JAVASCRIPT) {
+                		zoomLevel += Mouse.getDWheel() * 0.01;
+                	}
+                	else {
+                		zoomLevel += Mouse.getDWheel();
+                	}
+                	if (PlatformRuntime.getPlatformType() == EnumPlatformType.JAVASCRIPT) {
+                		zoomLevel = Math.max(-15, Math.min(30, zoomLevel));
+                		
+                	} else {
+                		zoomLevel = Math.max(-30, Math.min(15.0, zoomLevel));
+                	}
+                	System.out.println(zoomLevel);
+                	if (PlatformRuntime.getPlatformType() == EnumPlatformType.JAVASCRIPT) {
+                		f += zoomLevel;
+                	}
+                	else {
+                		f -= zoomLevel;
+                	}
+                	
+                	if (f < 0) {
+                		f = 0.1f;
+                	}
+                	if (f > 180) {
+                		f = 179.9f;
+                	}
+                }
+                else {
+                	zoomLevel = 1.0;
+                }
+
                 f = f * (this.fovModifierHandPrev + (this.fovModifierHand - this.fovModifierHandPrev) * partialTicks);
             }
 
@@ -420,6 +458,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private void hurtCameraEffect(float partialTicks) {
+    	if (ModManager.noHurtCam.isEnabled())
+    		return;
         if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
             EntityLivingBase entitylivingbase = (EntityLivingBase) this.mc.getRenderViewEntity();
             float f = (float) entitylivingbase.hurtTime - partialTicks;

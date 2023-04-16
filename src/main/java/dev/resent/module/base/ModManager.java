@@ -27,8 +27,10 @@ import dev.resent.module.impl.misc.DynamicFOV;
 import dev.resent.module.impl.misc.FPSOptions;
 import dev.resent.module.impl.misc.Fullbright;
 import dev.resent.module.impl.misc.HUD;
+import dev.resent.module.impl.misc.NoHurtCam;
 import dev.resent.module.impl.misc.ParticleMultiplier;
 import dev.resent.module.impl.misc.Scoreboard;
+import dev.resent.module.impl.misc.ScrollZoom;
 import dev.resent.module.impl.misc.Sprint;
 import dev.resent.module.impl.misc.TabSettings;
 import dev.resent.module.impl.setting.Animations;
@@ -82,7 +84,9 @@ public class ModManager {
     public static AdminSpawner adminSpawner = new AdminSpawner();
     public static ParticleMultiplier particleMultiplier = new ParticleMultiplier();
     public static Hand hand;
-    private static TabSettings tabSettings;
+    public static TabSettings tabSettings;
+    public static ScrollZoom scrollZoom = new ScrollZoom();
+    public static NoHurtCam noHurtCam = new NoHurtCam();
 
     //public static Crosshair crosshair = new Crosshair();
 
@@ -111,6 +115,8 @@ public class ModManager {
         register(coordinate = new Info());
         register(fps = new FPS());
         register(potCounter = new PotCounter());
+        register(scrollZoom);
+        register(noHurtCam);
 
         //Mechanic
         register(particleMultiplier);
