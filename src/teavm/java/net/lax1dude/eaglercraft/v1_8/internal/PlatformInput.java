@@ -515,7 +515,7 @@ public class PlatformInput {
         pointerLockFlag = grab;
         mouseGrabTimer = t;
         if (grab) {
-            canvas.requestPointerLock();
+            if (!PlatformRuntime.isMobile) canvas.requestPointerLock();
             if (mouseUngrabTimeout != -1) Window.clearTimeout(mouseUngrabTimeout);
             mouseUngrabTimeout = -1;
             if (t - mouseUngrabTimer < 3000l) {
@@ -524,7 +524,7 @@ public class PlatformInput {
                         new TimerHandler() {
                             @Override
                             public void onTimer() {
-                                canvas.requestPointerLock();
+                                if (!PlatformRuntime.isMobile) canvas.requestPointerLock();
                             }
                         },
                         3100 - (int) (t - mouseUngrabTimer)
@@ -533,7 +533,7 @@ public class PlatformInput {
         } else {
             if (mouseUngrabTimeout != -1) Window.clearTimeout(mouseUngrabTimeout);
             mouseUngrabTimeout = -1;
-            Window.current().getDocument().exitPointerLock();
+            if (!PlatformRuntime.isMobile) Window.current().getDocument().exitPointerLock();
         }
         mouseDX = 0.0D;
         mouseDY = 0.0D;

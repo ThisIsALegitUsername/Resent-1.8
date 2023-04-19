@@ -72,6 +72,7 @@ public class PlatformRuntime {
     public static HTMLElement parent = null;
     public static HTMLCanvasElement canvas = null;
     public static WebGL2RenderingContext webgl = null;
+    public static boolean isMobile = false;
 
     static WebGLFramebuffer mainFramebuffer = null;
 
@@ -119,7 +120,8 @@ public class PlatformRuntime {
         try {
             doc.exitPointerLock();
         } catch (Throwable t) {
-            throw new PlatformIncompatibleException("Mouse cursor lock is not available on this device!");
+            isMobile = true;
+            //throw new PlatformIncompatibleException("Mouse cursor lock is not available on this device!");
         }
 
         logger.info("Creating WebGL context");
