@@ -117,9 +117,12 @@ public class PlatformRuntime {
             throw new RuntimeInitializationFailureException("Exception while registering window event handlers", t);
         }
 
+
+
         try {
             doc.exitPointerLock();
         } catch (Throwable t) {
+            doMobileStuff();
             isMobile = true;
             //throw new PlatformIncompatibleException("Mouse cursor lock is not available on this device!");
         }
@@ -188,6 +191,9 @@ public class PlatformRuntime {
 
         logger.info("Platform initialization complete");
     }
+
+    @JSBody(params = {  }, script = "doMobileStuff()")
+    public static native void doMobileStuff();
 
     @JSBody(params = { "event", "epkSize" }, script = "setBarProg(event, epkSize)")
     public static native void setBarProgress(Event event, int epkSize);
