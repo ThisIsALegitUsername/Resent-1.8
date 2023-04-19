@@ -421,7 +421,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 	} else {
                 		zoomLevel = Math.max(-30, Math.min(15.0, zoomLevel));
                 	}
-                	System.out.println(zoomLevel);
+                	//System.out.println(zoomLevel);
                 	if (PlatformRuntime.getPlatformType() == EnumPlatformType.JAVASCRIPT) {
                 		f += zoomLevel;
                 	}

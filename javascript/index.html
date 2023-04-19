@@ -285,10 +285,8 @@
 					document.getElementById("favicon").href = localStorage.getItem("imageBase64");
 				}
 			}
-
 		</script>
 		<script type="text/javascript">
-
 			"use strict";
 			window.addEventListener("load", () => {
 				if(document.location.href.startsWith("file:")) {
@@ -303,7 +301,8 @@
 							{ addr: "wss://zentic.org/", name: "Zentic" },
 							{ addr: "wss://hyper-network.me/", name: "Hyper Network" },
 							{ addr: "wss://mc.asspixel.net/", name: "Ass Pixel" },
-							{ addr: "wss://konemc.ga/", name: "koneMC" }
+							{ addr: "wss://konemc.ga/", name: "koneMC" },
+							{ addr: "wss://eagler.lopobia.com/", name: "Lopobia Network" },
 							
 						]
 					};
@@ -326,16 +325,17 @@
 				document.body.style.overflowY = "scroll";
 				document.body.style.width = "85vw";
 				document.body.style.height = "85vh";
-				document.getElementById("fakeCursor").style.display = "block";
-				document.body.addEventListener("click", (e) => {
-					document.getElementById("fakeCursor").style.top = e.offsetY;
-					console.log("asdasd");
-				});
+				document.getElementById("keyboardButton").style.display = "block";
+				document.getElementById("fakeKeyboard").style.display = "block";
+				document.getElementById("toggleControls").style.display = "block";
+				
 			}
+			
+			
 		</script>
 
 	</head>
-	<body style="margin:0px;width:100vw;height:100vh;overflow:hidden;" id="game_frame">
+	<body style="margin:0px;width:100vw;height:100vh;overflow:hidden; user-select: none;" id="game_frame">
 			<div id = "dividk">
 				<h1 id="clienttitle">Resent Client</h1>
 				<!--everything breaks if u remove this and i dont feel like changing the functions in here to fix it-->
@@ -351,275 +351,8 @@
 				
 				 
 			</div>
-			<img id="fakeCursor" style="position: absolute; z-index: 100; width: 25px; display: none;" src="data:image/png;base64,iV
-			BORw0KGgoAAAANSUhEUgAAAE
-			4AAAB6CAYAAAARQWWmAAAAAX
-			NSR0IArs4c6QAAAARnQU1BAA
-			Cxjwv8YQUAAAAJcEhZcwAADs
-			MAAA7DAcdvqGQAABJ7SURBVH
-			he7Z1/cFTlucdXgkoUhEsvXB
-			VRykXhoiAKoi0/ChR6Iy2iFo
-			ugVEsveu1FC9c7U4W2gB30Dx
-			VQ8QqjjKOx1dFBBwNmFOwgxF
-			HBiPwYjaj8aBQxFhRIQgJJts
-			9n+zxw3t2z2bM/wm5IvjPf2d
-			2z73l/fN/nfZ7nPXtyEmpoaN
-			hfVlZWEAqFOgk7CtsL84WnC9
-			sK84SnKFthCAtEvNp169b9VD
-			52FX5PiIBnChHvVGEbYat4Xi
-			AcqKurq3j55Zd/JofOE/6b8F
-			+EWF87Yat40VDdIhDxvlu0aN
-			F/yuEewnOEnYWt4vlBNTuGmp
-			qavfPmzUO8nsJzha3i+UH1cn
-			D06NF9CxcuvF6+7iXsJsTvec
-			VrDRiqVQzq6+urHnvssYlSJJ
-			54LdvyVCdfHDly5O9PPPHEjV
-			LsQmGreF6oRnEhy/aA+LzxUt
-			TEa/V5QPVpFBIwvr733ntJVV
-			otz6DaJIQs230PPfTQBDnFT7
-			zThOwyENBEPLmhugQCy1YDRq
-			vlqSaBQcB49NFHJ8mpLVs81S
-			MptAYMgWoRgw0bNug7f7T4gK
-			E6ODh8+HC4b9++4SVLlugRfy
-			QIGIh38u4wVAMHCNenT59wXl
-			5euLCwUI/6o8UGDB2/AxOOr9
-			u0aRNevny5fuMPAobH8lrGhQ
-			EduwOvcBDLe+GFF/Rbf7S4gK
-			HjdhAtHOzcuXN47dq1WsIfLS
-			pg6Jgd+AkHTzvttPBLL72kpf
-			zRYgKGjtdBPOFgfn5+uKioSE
-			v6o0UEDB2rg8aEg1jeW2+9pa
-			X9cdIHDB2ng0TCQSzvtdde0z
-			P8cVIHDB2jgyDCwRYdMHR8Do
-			IKB1tswNCxOUhGONi+ffvwyp
-			Ur9Wx/4PM8AaP5+zwdl4NkhY
-			MtLmDomBykIhwkYKxbt05r8Y
-			cnYPDrWfMVT8fjIFXhYIsJGD
-			oWB+kIB1tEwNBxOEhXOHjSBw
-			wdg4NMCAdP6oCh/XeQKeHgSR
-			swtO8OMikcPCkDhvbbQaaFgy
-			zb4uJibcEfBAwVL/ctT/vsoC
-			mEg0EDhsfyclc87a+DphIOYn
-			klJSXakj+qq6t3TpkyZZSUz1
-			3L0746aErhYJCAIT7vq5wWT/
-			vpoKmFg0EChvTjb7fddttPpH
-			zuBQzto4MTIRwMEjDE8ipUvN
-			yyPO2fgxMlHAwSMPB506dP54
-			bu3AkY2jcHJ1I42CwDhvbLwY
-			kWDja7gKF9cpAN4SABI9HeVv
-			r2t9tvv32MlM/ustX+OMiWcL
-			DZBAzti4NsCgcJGIlSlaz7PO
-			2Hg2wLB3M+YGgfHOSCcDCnA4
-			a27yBXhIM5GzC0bQe5JBzMyY
-			Ch7TrINeFgzgUMbdNBLgoHcy
-			pgaHsOclU42KVLl4QBA5/X5O
-			JpWw5yWTiYEwFD23GQ68JBlu
-			0bb7yhPfYHAWPs2LHDpXzmLU
-			/bcNAchINZDRhav4PmIhzMWs
-			DQuh00J+EgAWPjxo3ae3/g8z
-			IqntbroLkJB7t27RrevHmzjs
-			AfiJexgKF1OmiOwkF8XmlpqY
-			7CHxkLGFqfg+YqHDz77LMTLt
-			sAPi/xLWZal4PmLBwkz/v444
-			91NP6orKzcHiWe3/15Zn2x0H
-			ocNHfh4HnnnRfI53nEs99tOw
-			gTincKFej7YxA/ELrssstCZW
-			VleqRp0aZNm9BZZ52lnzIHCR
-			ihoqKi0EUXXaRHYiFjLZ8xY8
-			avly5duks+VnNIeERYp2wQei
-			clgpwRbs2aNaErrrhCj2QWEj
-			T0nT9qa2u/ue66624oLi7eIx
-			8PCxGvVhhfPISLRjaW6lVXXc
-			UNhtqDE4+qqqqdN91004+lL6
-			QqPEPPb9keDxh6noNs+bjXX3
-			9de5AdHDp06NM40dYee3k8Vd
-			FzHGRLuF69emXV6gAB49Zbbx
-			0h/fm+8Gwhzw49Q8jTfI5bnZ
-			Z3kK5wvXv3Dnfq1Mn3u8bYtm
-			3b8LJly7QX2YP4+N133303SX
-			J3oaUprtVpWQfpCDd8+PDwJ5
-			98El64cKHv94lIAltXV6c9ic
-			WRI0fEl9fWQHmfLg+LhXtZLW
-			3DKhFvpwSMS6RPPHCVkO/sLD
-			IaVfv37x9avnx5SJZcSBLMSJ
-			RMJTIvXLAwNGPmDP3kYsWKFW
-			8uXrx4Q15eXp1E40jUk/cN8r
-			5BhsKrjOqUmDF50dDQEKYMD2
-			mQ1wZ5rae+008/vRaeccYZNZ
-			IeHRYB98+fP3+3nOJNUYiwDR
-			kTTqJiqLCwMCKa4amnngpNmz
-			ZNPwVHt27dQtu2bQvJctcjxy
-			HR75BM0PwdO3Z8Jx8ZDDwqjJ
-			tzNQLKRIQQcj71kIYgFGmJNz
-			VxhMPs0oYsz9CqVasc0cDNN9
-			8c6tu3r34Kji+//DIkVqWfXJ
-			x55pkdHnnkkSHyloEwsCphpf
-			Cg8IAQQZMh58BDQuoxsUyoeq
-			FNCIi8pi2ciSb7Qz1yHO3atQ
-			uJqUcS3GTx8MMPh7744gv95G
-			LMmDGjRowYwQOesQSyfQbMwE
-			24b5OgiYfwXvG8VhYtnrzzQZ
-			DggI+Y+qup4a+++krP8oc48b
-			Ase986ElGWudYSi61bt/5Vyn
-			BbP6kDWw4cOXsrHsN7gfB8IV
-			ExCEl42auSu5GCdBFiCQQFJi
-			h276r9cJBIOES7YcIN4YqKCj
-			2jcaxfv963nkQUJx33Koc4+P
-			obb7xxqpQbJrxMiGiIZQMnjW
-			DwQchTtqE9750dAymIPfM9es
-			OfvHBEogkTJgQWDdTX14cLCg
-			p860vE66+/XmuJxa5du9ZLGf
-			KtAULv5SEshYFjLSSvQYhIEO
-			tCLBJeBLMH5R8XDWgfHDQmnD
-			j8RvOseNiyZUvEUv3qbIySFr
-			AstRYXMiG1s2bN+i8pd7nQLo
-			d7n9Fugw9KRDIiVrRg/xQNaB
-			8cxBMO0bCexiCpzGF9G4OpU6
-			fG1BmEWGs8SAR+W8pcKfwPIf
-			6KpefN9G3wydIrlisa0PYdRA
-			vHT3CzZ88Of/vtt1rCH3v37t
-			0zadKkRdXV1VV6yAEXFjt06O
-			CIEpRvvvmm1uJCfF3D/fffT7
-			J4qZD9pTfTR7h4IgRhfGj7Dr
-			zCIdo999zDZRf91h979uwpHz
-			ly5H1yzm9lv/miHo7B5MmTY0
-			QJwlGjRvFbgdbiYv/+/dvy8/
-			OvknJ9hERHlit+y92YZxLatg
-			MTjqh25513JhStvLx8h+Rzs6
-			W624W3iV/6zcGDB/fp1w4IKq
-			eeeqqvOI0R/9jYI4lklzJTyi
-			WyusxB23Vgws2bN0+PxIeI9m
-			m/fv3o9K3Cm4WTef1/gRaJwd
-			y5c33FSUT6FM/HyuSWSxL+Qy
-			mH1ZGX4euazuq0XQcI9/zzz+
-			un+JB04GPZN94l1SDWz4XXCM
-			cJx7dv336i+LztWtTBvn37wu
-			ecc46vOIn45JNPai0uxNXVFR
-			cX3y9lSE3+Xch/QWk6q9N2k4
-			YkpqUDBw68U6rgKQ6IxW2kZP
-			E/EnIV9eoFCxb8SYpy1SIGDz
-			zwgK8widizZ0+u1GotLmTC/y
-			5l8HVEWLM6crnMW522mRQ+++
-			yzbYMGDZoup98gHCtEMDo8UE
-			hOxRZomCTLBbIl803CDhw4ED
-			7//PN9xUlE8WdaSyxKSkoelT
-			LsJJrW6rS9oGjYvn37ZvE1WB
-			qiXS0kc0ewi4VseyAzjoDD7r
-			vvvv9lGen5Dp555hlfYRKRZR
-			4vYInVVQwdOnS0lOOyjOV1mb
-			c6bS8QysrKNnXs2PHXchrLE9
-			Fsn9hbyD8IIhWAbLJx0gOl/G
-			hJVT7QKhzw+0KPHj18xWmMRN
-			jfz/691hKLDRs2LJVyTWt12l
-			YiNEhn1l188cX/I6dgafi0oU
-			LbXONPSAGYXfaKdBbxmPUfTJ
-			w48ZcSDY9oXQ6ee+65lLZi3G
-			AT78qMTMihcePGMbFNZ3XaVl
-			xwFQLRLrnkkjukuC1PfBqi2W
-			+Q/ypkVtnqQBJQrlIw4wPatm
-			074qOPPvJNwkgvBg8e7CtOIt
-			51111aSyzED6+QMrgLNv/0ha
-			sebOIzY3Xaji8Q7Z133vnrhR
-			de+N9SlMf4EAjwaYOEWJr3fg
-			u7BMOSQDyOIyr+7krZVfwinq
-			9jOyVlkia7mniXnerq6g5Pmz
-			btOimH78Xq6I/X6tITT9uJgY
-			nWrl07EltEKxDi05hFxPCKhl
-			h2dYFXPmOBLFkuLJJbDS8tLY
-			377O9ULztx4SAedu/e/bqUaR
-			qr0zZisGnTpvWyNfqlFCGxRT
-			TzaQQC/Fe0aDaLvDKrZO0sWa
-			yOQHHl+PHjJ9fU1HynTTh477
-			33IhYk5ZKiTGz4gw98Yw9WVz
-			lr1iySc6yOi5y4FLtykp6v0z
-			aOQXzO0ZUrV77YvXv3X8nXmD
-			oPEeDHEfaBLE/MntnzE41O8M
-			qM8h1lCBpYHef/6N133/2LNu
-			UAXzdmzBhfcRJx7Nixce8A+P
-			rrr9+TMqRL+GP+LSBXebE6+p
-			261Wn9ESDa6tWrX+zWrdsU+Y
-			qna3G/LPs/Bo25Yz1clsaSvK
-			LZzBmjrY5ljdUN7tWr17jq6u
-			r92qQD2fdGnuYv5ZIidwA0dh
-			fmkiVLfiPl+E2ClRJtdamJp3
-			Vj1jWSdb8g2fwv5DD/MpQ7d9
-			gN9BcSHbm6atETS4oWzcB7sz
-			o6Z1bHVQsmYHhRUdFj2mwM7r
-			jjDl9xEvHyyy/XGmJRUVGxUd
-			wOuxlWDONI3+q07vCaNWv4IZ
-			P9JlbGfnOwkFlimdl/vkQErA
-			j6iQbsGN/TMa/V4R8Hd+nS5W
-			rZb+7Rph3I0or4LSmXFLFU/G
-			QcNDz77LNcweknxOpYNelZHb
-			W+//77i+QtSxJfhpURiUge2Q
-			3gzxg4DbE8WYK8+olm4Hi01d
-			FZ6qPzQ5cuXTonMiQfcLVZyg
-			QiIl977bVhyRP1bH9UVlbuzs
-			/Pxxjst4n0rO7DDz/8wwUXXE
-			C0ZBlB+32SmSGdoAHyHwSgEc
-			RAvEQN8b3X6qiHDlP3oJ49e4
-			795ptvynRcDtgRcA+vlItLLO
-			yaa65h0uNeLYlGcXHxHDnXIm
-			x0Xkd/g4snzhr/BZkJAgC+iG
-			WFhXhFQzAagDSWCHSCmaQ852
-			Ox+EgmhMkZ8uCDD/5OxxSDuX
-			P8L3aSsgwZMiTyWCGuGyaDqq
-			qq3f3792dF4X7wu6wEG1vSVo
-			dVYQmIxSufmQ2CAJaCSFaxCY
-			EVBYGJR3mWBROBv2SSSBFG7d
-			27d4uOywGicMuXlIkQC7v00k
-			sjV1S4JJUsJF2p2rlz5xu33H
-			KL/fk5LiitzT/+C6EgAcD7n8
-			vNjK1SEy9Z4cxKzepYKiyZH8
-			6fP/9u2aX4Xux8/PHHI6Kde+
-			65YfGJCX/7iIddu3Z9uGDBgj
-			+KPxwp9eGWvDuJlIVjKTIgyH
-			sEM3/mFc2YjHDAzqFz1E1n6T
-			SdJwiN3LFjh++f/+G7+N9g+/
-			f7pn2NgsmQLVeZ7By4nG5bRo
-			If6VXaP+hQEJEMx5aGD4GJh6
-			DcSxYE1hk6ZsuczuIG8DEdJ0
-			+e3LuwsPBJWY4MIF3wI/XORY
-			sWLX/llVc+/fzzz7kbiVvB7K
-			4maJ+5I4lxeO9GsrE2Cgbl7a
-			yd5K3AW1EqwgE7zyyPyUI8rJ
-			xZ77hly5b/69evH4l3ypBovG
-			vZsmVFixcv3ir5IALZDYKI5G
-			X0PXCRmwWFILBwDMYL74nRla
-			QjHIhrdQUFBT0kUj6dl5fnXQ
-			EJwZKULdwBCRrLn3766a2lpa
-			X8YGN3VZpwJpS9xrv3LZBowI
-			SIRrwKUhUO2LlmdQQLfB5Wh3
-			idNm3a9NsBAwZcK+8DQYLFwV
-			dfffW1uXPnlmzfvp0l6RUsmi
-			YWrwjmFS0pawN+ojWGdIUDXq
-			vDuszqzho2bFh32fotk1yN5R
-			sXNTU1VW+//XbJ9OnTV5aVlS
-			GYCWMWZZ95NbHoLzTBoFmZMT
-			BOpHDAzo+2OqJ5RLzVq1dPGT
-			16tO8d19xiLzuFd2bOnFkk1r
-			lPcjOEMoGiyXFEM8EQyuvPvF
-			aWlGggG8IBszoLFFhdJFB07d
-			q1s+Rdz8m+knwvgtra2mpJLT
-			6ZM2fOy6tWrfpC0hSLiEEE8y
-			7JaCsDSYsG6HwyMOEYuM1Ysj
-			DxDN4624jfCg0aNKimT58+Q7
-			jUVV5e/pEkwn+eNGnSis2bN1
-			eI1ZFK+DE6WtrytGXpFc2Qkm
-			ggehCJYINM1eIMx4QSmtWxZC
-			OWJ1utTiUlJfeuXbt244wZMz
-			ZVVlbawGkTQbzWZhZmVub1Yb
-			YkMyaYIVXhGDAdTBVWD0S4aP
-			Eg6Ypt+QDtIQwCea0qkWAg+j
-			VtpLpUYapL1Q/U5wUDRADEMI
-			FYhtCWpAWGaOFMNJBxwQzRHU
-			4EK4/F0cl04K3LliwpClYGec
-			/E8p1XSBOJV455xaKcEWRcME
-			M2hQPUZ0QkaEvXRPMKF80TLp
-			ghWeGADdSWQzqw9nlFIF69gk
-			FgophQWRPMYB1PBpwDMyEcsD
-			5YvdBEBLx6BYqmwfs+J2GDa0
-			UKaBWuFakgFPoHic+0KZ1mxu
-			sAAAAASUVORK5CYII=">
+		
+			<button id="keyboardButton" style="display:none; position: absolute; left: 85vw; top: 0px; font-size: 15px; height: 50px; width: 100px;">Open Keyboard</button>	<input type="text" id="fakeKeyboard" style="display:none; position: absolute; top: 0px; left: 85vw; width: 100px; height: 50px; opacity: 0;">
+			<button id="toggleControls" style="display:none; position: absolute; left: 85vw; top: 50px; font-size: 15px; height: 50px; width: 100px;">Toggle Controls</button>	
 		</body>
 </html>
