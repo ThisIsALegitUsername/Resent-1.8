@@ -23,6 +23,12 @@
 				text-align: center;
 			}
 
+			*{
+				-webkit-tap-highlight-color: transparent;
+				user-select: none;
+				-webkit-user-select: none;
+			}
+
 			#progresstext {
 				font-weight: bold;
 				top: 30vh;
@@ -101,6 +107,9 @@
                 transform: translate(-50%);
                 opacity: 0;
             }
+			#toggleControls:active {
+				background-color: black;
+			}
 		</style>
 		<script type="text/javascript">
 					
@@ -335,7 +344,7 @@
 		</script>
 
 	</head>
-	<body style="margin:0px;width:100vw;height:100vh;overflow:hidden; user-select: none;" id="game_frame">
+	<body style="margin:0px;width:100vw;height:100vh;overflow:hidden; user-select: none; -webkit-tap-highlight-color: transparent;" id="game_frame">
 			<div id = "dividk">
 				<h1 id="clienttitle">Resent Client</h1>
 				<!--everything breaks if u remove this and i dont feel like changing the functions in here to fix it-->
@@ -352,7 +361,7 @@
 				 
 			</div>
 		
-			<button id="keyboardButton" style="display:none; position: absolute; left: 85vw; top: 0px; font-size: 15px; height: 50px; width: 100px;">Open Keyboard</button>	<input type="text" id="fakeKeyboard" style="display:none; position: absolute; top: 0px; left: 85vw; width: 100px; height: 50px; opacity: 0;">
-			<button id="toggleControls" style="display:none; position: absolute; left: 85vw; top: 50px; font-size: 15px; height: 50px; width: 100px;">Toggle Controls</button>	
+			<button id="keyboardButton" style="display:none; position: absolute; left: 85vw; top: 0px; font-size: 15px; height: 50px; width: 100px; -webkit-tap-highlight-color: transparent;">Open Keyboard</button>	<input type="text" id="fakeKeyboard" style="display:none; position: absolute; top: 0px; left: 85vw; width: 100px; height: 50px; opacity: 0; -webkit-tap-highlight-color: transparent;">
+			<button id="toggleControls" style="display:none; position: absolute; left: 85vw; top: 50px; font-size: 15px; height: 50px; width: 100px; -webkit-tap-highlight-color: transparent;">Toggle Controls</button>	
 		</body>
 </html>
