@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
+import net.lax1dude.eaglercraft.v1_8.internal.IFramebufferGL;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.MathHelper;
@@ -30,7 +31,7 @@ public class TextureClock extends EaglerTextureAtlasSprite {
 		super(iconName);
 	}
 
-	public void updateAnimation() {
+	public void updateAnimation(IFramebufferGL[] copyColorFramebuffer) {
 		if (!this.framesTextureData.isEmpty()) {
 			Minecraft minecraft = Minecraft.getMinecraft();
 			double d0 = 0.0D;
@@ -65,7 +66,7 @@ public class TextureClock extends EaglerTextureAtlasSprite {
 			if (i != this.frameCounter) {
 				this.frameCounter = i;
 				animationCache.copyFrameLevelsToTex2D(this.frameCounter, this.originX, this.originY, this.width,
-						this.height);
+						this.height, copyColorFramebuffer);
 			}
 
 		}

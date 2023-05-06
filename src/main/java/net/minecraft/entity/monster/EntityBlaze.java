@@ -1,5 +1,6 @@
 package net.minecraft.entity.monster;
 
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DynamicLightManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
@@ -181,4 +182,10 @@ public class EntityBlaze extends EntityMob {
 		return true;
 	}
 
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		float mag = 5.0f;
+		DynamicLightManager.renderDynamicLight("entity_" + getEntityId() + "_blaze", entityX, entityY + 0.75, entityZ,
+				mag, 0.487f * mag, 0.1411f * mag, false);
+	}
 }

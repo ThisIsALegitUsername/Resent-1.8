@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
  * 
  */
 public class RenderSlime extends RenderLiving<EntitySlime> {
-	private static final ResourceLocation slimeTextures = new ResourceLocation("textures/entity/slime/slime.png");
+	public static final ResourceLocation slimeTextures = new ResourceLocation("textures/entity/slime/slime.png");
 
 	public RenderSlime(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
 		super(renderManagerIn, modelBaseIn, shadowSizeIn);

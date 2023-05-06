@@ -1,8 +1,11 @@
 package net.minecraft.client.renderer.entity;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DynamicLightManager;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.entity.layers.LayerCreeperCharge;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -61,6 +64,18 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 			int i = (int) (f1 * 0.2F * 255.0F);
 			i = MathHelper.clamp_int(i, 0, 255);
 			return i << 24 | 16777215;
+		}
+	}
+
+	public void doRender(EntityCreeper entitycreeper, double d0, double d1, double d2, float f, float f1) {
+		float ff = entitycreeper.getCreeperFlashIntensity(f);
+		if ((int) (ff * 10.0F) % 2 != 0) {
+			DeferredStateManager.setEmissionConstant(1.0f);
+		}
+		try {
+			super.doRender(entitycreeper, d0, d1, d2, f, f1);
+		} finally {
+			DeferredStateManager.setEmissionConstant(0.0f);
 		}
 	}
 

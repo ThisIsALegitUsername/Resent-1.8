@@ -1,5 +1,6 @@
 package net.minecraft.entity.item;
 
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DynamicLightManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -254,5 +255,16 @@ public class EntityXPOrb extends Entity {
 	 */
 	public boolean canAttackWithItem() {
 		return false;
+	}
+
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		super.renderDynamicLightsEaglerAt(entityX, entityY, entityZ, renderX, renderY, renderZ, partialTicks,
+				isInFrustum);
+		if (isInFrustum && renderX * renderX + renderY * renderY + renderZ * renderZ < 150.0) {
+			float mag = 0.025f;
+			DynamicLightManager.renderDynamicLight("entity_" + getEntityId() + "_xp", entityX, entityY + 0.2, entityZ,
+					mag * 0.3f, mag, mag * 0.2f, false);
+		}
 	}
 }

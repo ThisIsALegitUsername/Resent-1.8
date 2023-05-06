@@ -2,6 +2,7 @@ package net.minecraft.client.particle;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -64,27 +65,28 @@ public class EntityLargeExplodeFX extends EntityFX {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			GlStateManager.disableLighting();
 			RenderHelper.disableStandardItemLighting();
+			int l = DeferredStateManager.isInDeferredPass() ? ((var2.getBrightnessForRender(f) >> 16) & 0xFF) : 0;
 			worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 			worldrenderer
 					.pos((double) (f11 - f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
 							(double) (f13 - f3 * f10 - f5 * f10))
 					.tex((double) f7, (double) f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
-					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+					.lightmap(l, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 			worldrenderer
 					.pos((double) (f11 - f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
 							(double) (f13 - f3 * f10 + f5 * f10))
 					.tex((double) f7, (double) f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
-					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+					.lightmap(l, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 			worldrenderer
 					.pos((double) (f11 + f1 * f10 + f4 * f10), (double) (f12 + f2 * f10),
 							(double) (f13 + f3 * f10 + f5 * f10))
 					.tex((double) f6, (double) f8).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
-					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+					.lightmap(l, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 			worldrenderer
 					.pos((double) (f11 + f1 * f10 - f4 * f10), (double) (f12 - f2 * f10),
 							(double) (f13 + f3 * f10 - f5 * f10))
 					.tex((double) f6, (double) f9).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F)
-					.lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+					.lightmap(l, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 			Tessellator.getInstance().draw();
 			GlStateManager.enableLighting();
 		}

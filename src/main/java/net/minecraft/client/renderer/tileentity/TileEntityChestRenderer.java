@@ -76,7 +76,6 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 			ModelChest modelchest;
 			if (tileentitychest.adjacentChestXPos == null && tileentitychest.adjacentChestZPos == null) {
 				modelchest = this.simpleChest;
-
 				if (i >= 0) {
 					this.bindTexture(DESTROY_STAGES[i]);
 					GlStateManager.matrixMode(GL_TEXTURE);

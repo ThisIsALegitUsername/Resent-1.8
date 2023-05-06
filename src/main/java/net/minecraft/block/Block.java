@@ -1625,4 +1625,8 @@ public class Block {
 			return this.getBreakSound();
 		}
 	}
+
+	public boolean eaglerShadersShouldRenderGlassHighlights() {
+		return false;
+	}
 }

@@ -4,10 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +25,10 @@ import net.lax1dude.eaglercraft.v1_8.IOUtils;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.BlockVertexIDs;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.VertexMarkerState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockPart;
@@ -406,6 +407,7 @@ public class ModelBakery {
 	}
 
 	private void bakeBlockModels() {
+		boolean deferred = Minecraft.getMinecraft().gameSettings.shaders;
 		for (ModelResourceLocation modelresourcelocation : this.variants.keySet()) {
 			WeightedBakedModel.Builder weightedbakedmodel$builder = new WeightedBakedModel.Builder();
 			int i = 0;
@@ -415,6 +417,31 @@ public class ModelBakery {
 				ModelBlock modelblock = (ModelBlock) this.models.get(modelblockdefinition$variant.getModelLocation());
 				if (modelblock != null && modelblock.isResolved()) {
 					++i;
+					if (deferred) {
+						ModelBlock currentBlockModel = modelblock;
+						ResourceLocation currentResourceLocation = modelblockdefinition$variant.getModelLocation();
+						Integer blockId = null;
+						do {
+							blockId = BlockVertexIDs.modelToID.get(currentResourceLocation.toString());
+							if (blockId != null) {
+								break;
+							}
+							currentResourceLocation = currentBlockModel.getParentLocation();
+							currentBlockModel = models.get(currentResourceLocation);
+						} while (currentBlockModel != null);
+						if (blockId != null) {
+							VertexMarkerState.markId = blockId.intValue();
+							try {
+								weightedbakedmodel$builder.add(
+										this.bakeModel(modelblock, modelblockdefinition$variant.getRotation(),
+												modelblockdefinition$variant.isUvLocked()),
+										modelblockdefinition$variant.getWeight());
+							} finally {
+								VertexMarkerState.markId = 0;
+							}
+							continue;
+						}
+					}
 					weightedbakedmodel$builder.add(
 							this.bakeModel(modelblock, modelblockdefinition$variant.getRotation(),
 									modelblockdefinition$variant.isUvLocked()),

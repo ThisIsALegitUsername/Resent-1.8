@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -187,6 +187,10 @@ public class BlockPane extends Block {
 
 	public EnumWorldBlockLayer getBlockLayer() {
 		return EnumWorldBlockLayer.CUTOUT_MIPPED;
+	}
+
+	public boolean eaglerShadersShouldRenderGlassHighlights() {
+		return this == Blocks.glass_pane && DeferredStateManager.isRenderingGlassHighlights();
 	}
 
 	/**+

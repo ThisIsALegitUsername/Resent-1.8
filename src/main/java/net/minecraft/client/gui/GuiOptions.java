@@ -1,11 +1,10 @@
 package net.minecraft.client.gui;
 
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.EaglerDeferredPipeline;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.gui.GuiShaderConfig;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.gui.GuiShadersNotSupported;
 import net.lax1dude.eaglercraft.v1_8.vfs.SYS;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundCategory;
-import net.minecraft.client.audio.SoundEventAccessorComposite;
-import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatComponentText;
@@ -38,7 +37,6 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 	private GuiButton field_175357_i;
 	private GuiLockIconButton field_175356_r;
 	protected String field_146442_a = "Options";
-	private GuiButton notSoSuperSecret;
 	private GuiButton broadcastSettings;
 
 	public GuiOptions(GuiScreen parGuiScreen, GameSettings parGameSettings) {
@@ -91,19 +89,8 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 
 		this.buttonList.add(new GuiButton(110, this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20,
 				I18n.format("options.skinCustomisation", new Object[0])));
-		this.buttonList.add(notSoSuperSecret = new GuiButton(8675309, this.width / 2 + 5, this.height / 6 + 48 - 6, 150,
-				20, "Super Secret Settings...") {
-			public void playPressSound(SoundHandler soundhandler) {
-				SoundEventAccessorComposite soundeventaccessorcomposite = soundhandler
-						.getRandomSoundFromCategories(new SoundCategory[] { SoundCategory.ANIMALS, SoundCategory.BLOCKS,
-								SoundCategory.MOBS, SoundCategory.PLAYERS, SoundCategory.WEATHER });
-				if (soundeventaccessorcomposite != null) {
-					soundhandler.playSound(
-							PositionedSoundRecord.create(soundeventaccessorcomposite.getSoundEventLocation(), 0.5F));
-				}
-
-			}
-		});
+		this.buttonList.add(new GuiButton(8675309, this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20,
+				I18n.format("shaders.gui.optionsButton")));
 		this.buttonList.add(new GuiButton(106, this.width / 2 - 155, this.height / 6 + 72 - 6, 150, 20,
 				I18n.format("options.sounds", new Object[0])));
 		this.buttonList.add(broadcastSettings = new GuiButton(107, this.width / 2 + 5, this.height / 6 + 72 - 6, 150,
@@ -187,7 +174,12 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 			}
 
 			if (parGuiButton.id == 8675309) {
-				notSoSuperSecret.displayString = "Nope!";
+				if (EaglerDeferredPipeline.isSupported()) {
+					this.mc.displayGuiScreen(new GuiShaderConfig(this));
+				} else {
+					this.mc.displayGuiScreen(new GuiShadersNotSupported(this,
+							I18n.format(EaglerDeferredPipeline.getReasonUnsupported())));
+				}
 			}
 
 			if (parGuiButton.id == 101) {

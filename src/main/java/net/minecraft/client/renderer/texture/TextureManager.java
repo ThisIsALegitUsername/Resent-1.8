@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
+import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,9 @@ import com.google.common.collect.Maps;
 import net.lax1dude.eaglercraft.v1_8.HString;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
+import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
@@ -49,8 +54,9 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public void bindTexture(ResourceLocation resource) {
+		int glTex;
 		if (resource.cachedPointer != null) {
-			TextureUtil.bindTexture(((ITextureObject) resource.cachedPointer).getGlTextureId()); // unsafe, lol
+			TextureUtil.bindTexture(glTex = ((ITextureObject) resource.cachedPointer).getGlTextureId()); // unsafe, lol
 		} else {
 			Object object = (ITextureObject) this.mapTextureObjects.get(resource);
 			if (object == null) {
@@ -59,7 +65,18 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 			}
 
 			resource.cachedPointer = object;
-			TextureUtil.bindTexture(((ITextureObject) object).getGlTextureId());
+			TextureUtil.bindTexture(glTex = ((ITextureObject) object).getGlTextureId());
+		}
+		if (DeferredStateManager.isInDeferredPass()) {
+			TextureMap blocksTex = Minecraft.getMinecraft().getTextureMapBlocks();
+			if (blocksTex != null) {
+				if (blocksTex.getGlTextureId() == glTex) {
+					DeferredStateManager.enableMaterialTexture();
+					GlStateManager.quickBindTexture(GL_TEXTURE2, blocksTex.eaglerPBRMaterialTexture);
+				} else {
+					DeferredStateManager.disableMaterialTexture();
+				}
+			}
 		}
 	}
 

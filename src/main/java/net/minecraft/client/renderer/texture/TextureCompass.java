@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
+import net.lax1dude.eaglercraft.v1_8.internal.IFramebufferGL;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
@@ -34,13 +35,13 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 		field_176608_l = iconName;
 	}
 
-	public void updateAnimation() {
+	public void updateAnimation(IFramebufferGL[] copyColorFramebuffer) {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		if (minecraft.theWorld != null && minecraft.thePlayer != null) {
 			this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ,
-					(double) minecraft.thePlayer.rotationYaw, false, false);
+					(double) minecraft.thePlayer.rotationYaw, false, false, copyColorFramebuffer);
 		} else {
-			this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false);
+			this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false, copyColorFramebuffer);
 		}
 
 	}
@@ -50,7 +51,7 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 	 * direction
 	 */
 	public void updateCompass(World worldIn, double parDouble1, double parDouble2, double parDouble3, boolean parFlag,
-			boolean parFlag2) {
+			boolean parFlag2, IFramebufferGL[] copyColorFramebuffer) {
 		if (!this.framesTextureData.isEmpty()) {
 			double d0 = 0.0D;
 			if (worldIn != null && !parFlag) {
@@ -92,7 +93,7 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 			if (i != this.frameCounter) {
 				this.frameCounter = i;
 				animationCache.copyFrameLevelsToTex2D(this.frameCounter, this.originX, this.originY, this.width,
-						this.height);
+						this.height, copyColorFramebuffer);
 			}
 
 		}

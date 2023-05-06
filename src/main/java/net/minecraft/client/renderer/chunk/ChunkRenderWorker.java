@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.chunk;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.minecraft.ChunkUpdateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.entity.Entity;
@@ -81,9 +82,6 @@ public class ChunkRenderWorker {
 			generator.setStatus(ChunkCompileTaskGenerator.Status.UPLOADING);
 
 			final CompiledChunk compiledchunk = generator.getCompiledChunk();
-			if (compiledchunk == null) {
-				System.out.println(chunkcompiletaskgenerator$type);
-			}
 			if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
 				for (EnumWorldBlockLayer enumworldblocklayer : EnumWorldBlockLayer.values()) {
 					if (!compiledchunk.isLayerEmpty(enumworldblocklayer)) {
@@ -99,6 +97,12 @@ public class ChunkRenderWorker {
 						EnumWorldBlockLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder()
 								.getWorldRendererByLayer(EnumWorldBlockLayer.TRANSLUCENT),
 						generator.getRenderChunk(), compiledchunk);
+				if (DeferredStateManager.isRenderingRealisticWater()) {
+					this.chunkRenderDispatcher.uploadChunk(
+							EnumWorldBlockLayer.REALISTIC_WATER, generator.getRegionRenderCacheBuilder()
+									.getWorldRendererByLayer(EnumWorldBlockLayer.REALISTIC_WATER),
+							generator.getRenderChunk(), compiledchunk);
+				}
 				generator.getRenderChunk().setCompiledChunk(compiledchunk);
 				generator.setStatus(ChunkCompileTaskGenerator.Status.DONE);
 			}

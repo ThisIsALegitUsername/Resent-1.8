@@ -132,8 +132,7 @@ public class GuiLanguage extends GuiScreen {
 			Language language = (Language) this.languageMap.get(this.langCodeList.get(i));
 			GuiLanguage.this.languageManager.setCurrentLanguage(language);
 			GuiLanguage.this.game_settings_3.language = language.getLanguageCode();
-			this.mc.loadingScreen.eaglerShow(I18n.format("resourcePack.load.refreshing"),
-					I18n.format("resourcePack.load.pleaseWait"));
+			this.mc.loadingScreen.eaglerShowRefreshResources();
 			this.mc.refreshResources();
 			GuiLanguage.this.fontRendererObj.setUnicodeFlag(GuiLanguage.this.languageManager.isCurrentLocaleUnicode()
 					|| GuiLanguage.this.game_settings_3.forceUnicodeFont);

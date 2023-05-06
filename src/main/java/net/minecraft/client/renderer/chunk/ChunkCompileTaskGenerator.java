@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.util.EnumWorldBlockLayer;
 
@@ -100,7 +101,13 @@ public class ChunkCompileTaskGenerator {
 
 	public boolean canExecuteYet() {
 		if (this.type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-			return !this.renderChunk.getCompiledChunk().isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
+			CompiledChunk ch = this.renderChunk.getCompiledChunk();
+			if (DeferredStateManager.isRenderingRealisticWater()) {
+				return !ch.isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT)
+						|| !ch.isLayerEmpty(EnumWorldBlockLayer.REALISTIC_WATER);
+			} else {
+				return !ch.isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT);
+			}
 		} else {
 			return true;
 		}

@@ -96,6 +96,19 @@ public class BlockPos extends Vec3i {
 		return this.up(1);
 	}
 
+	/**
+	 * eagler
+	 */
+	/**+
+	 * Offset this BlockPos 1 block up
+	 */
+	public BlockPos up(BlockPos dst) {
+		dst.x = x;
+		dst.y = y + 1;
+		dst.z = z;
+		return dst;
+	}
+
 	/**+
 	 * Offset this BlockPos 1 block up
 	 */
@@ -108,6 +121,19 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos down() {
 		return this.down(1);
+	}
+
+	/**
+	 * eagler
+	 */
+	/**+
+	 * Offset this BlockPos 1 block down
+	 */
+	public BlockPos down(BlockPos dst) {
+		dst.x = x;
+		dst.y = y - 1;
+		dst.z = z;
+		return dst;
 	}
 
 	/**+
@@ -124,6 +150,19 @@ public class BlockPos extends Vec3i {
 		return this.north(1);
 	}
 
+	/**
+	 * eagler
+	 */
+	/**+
+	 * Offset this BlockPos 1 block in northern direction
+	 */
+	public BlockPos north(BlockPos dst) {
+		dst.x = x;
+		dst.y = y;
+		dst.z = z - 1;
+		return dst;
+	}
+
 	/**+
 	 * Offset this BlockPos 1 block in northern direction
 	 */
@@ -136,6 +175,19 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos south() {
 		return this.south(1);
+	}
+
+	/**
+	 * eagler
+	 */
+	/**+
+	 * Offset this BlockPos 1 block in southern direction
+	 */
+	public BlockPos south(BlockPos dst) {
+		dst.x = x;
+		dst.y = y;
+		dst.z = z + 1;
+		return dst;
 	}
 
 	/**+
@@ -159,6 +211,19 @@ public class BlockPos extends Vec3i {
 		return this.offset(EnumFacing.WEST, n);
 	}
 
+	/**
+	 * eagler
+	 */
+	/**+
+	 * Offset this BlockPos 1 block in western direction
+	 */
+	public BlockPos west(BlockPos dst) {
+		dst.x = x - 1;
+		dst.y = y;
+		dst.z = z;
+		return dst;
+	}
+
 	/**+
 	 * Offset this BlockPos 1 block in eastern direction
 	 */
@@ -173,6 +238,19 @@ public class BlockPos extends Vec3i {
 		return this.offset(EnumFacing.EAST, n);
 	}
 
+	/**
+	 * eagler
+	 */
+	/**+
+	 * Offset this BlockPos 1 block in eastern direction
+	 */
+	public BlockPos east(BlockPos dst) {
+		dst.x = x + 1;
+		dst.y = y;
+		dst.z = z;
+		return dst;
+	}
+
 	/**+
 	 * Offset this BlockPos 1 block in the given direction
 	 */
@@ -180,7 +258,7 @@ public class BlockPos extends Vec3i {
 		return this.offset(facing, 1);
 	}
 
-	public BlockPos offsetFaster(EnumFacing facing, MutableBlockPos ret) {
+	public BlockPos offsetFaster(EnumFacing facing, BlockPos ret) {
 		ret.x = this.getX() + facing.getFrontOffsetX();
 		ret.y = this.getY() + facing.getFrontOffsetY();
 		ret.z = this.getZ() + facing.getFrontOffsetZ();
@@ -190,7 +268,7 @@ public class BlockPos extends Vec3i {
 	/**
 	 * only use with a regular "net.minecraft.util.BlockPos"!
 	 */
-	public BlockPos offsetEvenFaster(EnumFacing facing, MutableBlockPos ret) {
+	public BlockPos offsetEvenFaster(EnumFacing facing, BlockPos ret) {
 		ret.x = this.x + facing.getFrontOffsetX();
 		ret.y = this.y + facing.getFrontOffsetY();
 		ret.z = this.z + facing.getFrontOffsetZ();
@@ -202,8 +280,8 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos offset(EnumFacing facing, int n) {
 		return n == 0 ? this
-				: new BlockPos(this.getX() + facing.getFrontOffsetX() * n, this.getY() + facing.getFrontOffsetY() * n,
-						this.getZ() + facing.getFrontOffsetZ() * n);
+				: new BlockPos(this.x + facing.getFrontOffsetX() * n, this.y + facing.getFrontOffsetY() * n,
+						this.z + facing.getFrontOffsetZ() * n);
 	}
 
 	/**+

@@ -22,17 +22,30 @@ import net.minecraft.util.EnumFacing;
  */
 public class BakedQuad {
 	protected final int[] vertexData;
+	protected final int[] vertexDataWithNormals;
 	protected final int tintIndex;
 	protected final EnumFacing face;
 
 	public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn) {
 		this.vertexData = vertexDataIn;
+		this.vertexDataWithNormals = null;
+		this.tintIndex = tintIndexIn;
+		this.face = faceIn;
+	}
+
+	public BakedQuad(int[] vertexDataIn, int[] vertexDataWithNormalsIn, int tintIndexIn, EnumFacing faceIn) {
+		this.vertexData = vertexDataIn;
+		this.vertexDataWithNormals = vertexDataWithNormalsIn;
 		this.tintIndex = tintIndexIn;
 		this.face = faceIn;
 	}
 
 	public int[] getVertexData() {
 		return this.vertexData;
+	}
+
+	public int[] getVertexDataWithNormals() {
+		return this.vertexDataWithNormals;
 	}
 
 	public boolean hasTintIndex() {

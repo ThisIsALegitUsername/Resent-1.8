@@ -4,6 +4,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.client.model.ModelDragon;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -71,6 +72,30 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 	 * Renders the model in RenderLiving
 	 */
 	protected void renderModel(EntityDragon entitydragon, float f, float f1, float f2, float f3, float f4, float f5) {
+		if (DeferredStateManager.isDeferredRenderer()) {
+			if (entitydragon.deathTicks > 0) {
+				float f6 = (float) entitydragon.deathTicks / 200.0F;
+				GlStateManager.depthFunc(GL_LEQUAL);
+				GlStateManager.enableAlpha();
+				GlStateManager.alphaFunc(GL_GREATER, f6);
+				this.bindTexture(enderDragonExplodingTextures);
+				this.mainModel.render(entitydragon, f, f1, f2, f3, f4, f5);
+				GlStateManager.alphaFunc(GL_GREATER, 0.1F);
+				GlStateManager.depthFunc(GL_EQUAL);
+			}
+			if (entitydragon.hurtTime > 0) {
+				GlStateManager.enableShaderBlendAdd();
+				GlStateManager.setShaderBlendSrc(0.5f, 0.5f, 0.5f, 1.0f);
+				GlStateManager.setShaderBlendAdd(1.0f, 0.0f, 0.0f, 0.0f);
+			}
+			this.bindEntityTexture(entitydragon);
+			this.mainModel.render(entitydragon, f, f1, f2, f3, f4, f5);
+			GlStateManager.depthFunc(GL_LEQUAL);
+			if (entitydragon.hurtTime > 0) {
+				GlStateManager.disableShaderBlendAdd();
+			}
+			return;
+		}
 		if (entitydragon.deathTicks > 0) {
 			float f6 = (float) entitydragon.deathTicks / 200.0F;
 			GlStateManager.depthFunc(GL_LEQUAL);

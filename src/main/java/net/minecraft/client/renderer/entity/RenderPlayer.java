@@ -189,7 +189,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
 	/**+
 	 * Sets a simple glTranslate on a LivingEntity.
 	 */
-	protected void renderLivingAt(AbstractClientPlayer abstractclientplayer, double d0, double d1, double d2) {
+	public void renderLivingAt(AbstractClientPlayer abstractclientplayer, double d0, double d1, double d2) {
 		if (abstractclientplayer.isEntityAlive() && abstractclientplayer.isPlayerSleeping()) {
 			super.renderLivingAt(abstractclientplayer, d0 + (double) abstractclientplayer.renderOffsetX,
 					d1 + (double) abstractclientplayer.renderOffsetY, d2 + (double) abstractclientplayer.renderOffsetZ);

@@ -7,6 +7,11 @@ import java.util.concurrent.Callable;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.EaglerDeferredPipeline;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShadersRenderPassFuture;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShadersRenderPassFuture.PassType;
+import net.lax1dude.eaglercraft.v1_8.vector.Matrix4f;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
@@ -52,11 +57,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3i;
@@ -138,6 +145,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 		tessellator.draw();
 	}
 
+	public static float renderPosX = 0.0f;
+	public static float renderPosY = 0.0f;
+	public static float renderPosZ = 0.0f;
+
 	public void renderItem(ItemStack stack, IBakedModel model) {
 		if (stack != null) {
 			GlStateManager.pushMatrix();
@@ -150,9 +161,76 @@ public class RenderItem implements IResourceManagerReloadListener {
 				TileEntityItemStackRenderer.instance.renderByItem(stack);
 			} else {
 				GlStateManager.translate(-0.5F, -0.5F, -0.5F);
-				this.renderModel(model, stack);
-				if (stack.hasEffect()) {
-					this.renderEffect(model);
+				if (DeferredStateManager.isInDeferredPass() && isTransparentItem(stack)) {
+					if (DeferredStateManager.forwardCallbackHandler != null) {
+						final Matrix4f mat = new Matrix4f(GlStateManager.getModelViewReference());
+						final float lx = GlStateManager.getTexCoordX(1), ly = GlStateManager.getTexCoordY(1);
+						DeferredStateManager.forwardCallbackHandler.push(new ShadersRenderPassFuture(renderPosX,
+								renderPosY, renderPosZ, EaglerDeferredPipeline.instance.getPartialTicks()) {
+							@Override
+							public void draw(PassType pass) {
+								if (pass == PassType.MAIN) {
+									DeferredStateManager.reportForwardRenderObjectPosition2(x, y, z);
+								}
+								EntityRenderer.enableLightmapStatic();
+								GlStateManager.pushMatrix();
+								GlStateManager.loadMatrix(mat);
+								GlStateManager.texCoords2DDirect(1, lx, ly);
+								Minecraft.getMinecraft().getTextureManager()
+										.bindTexture(TextureMap.locationBlocksTexture);
+								RenderItem.this.renderModel(model, stack);
+								if (pass != PassType.SHADOW && stack.hasEffect()) {
+									GlStateManager.color(1.5F, 0.5F, 1.5F, 1.0F);
+									DeferredStateManager.setDefaultMaterialConstants();
+									DeferredStateManager.setRoughnessConstant(0.05f);
+									DeferredStateManager.setMetalnessConstant(0.01f);
+									GlStateManager.blendFunc(GL_SRC_COLOR, GL_ONE);
+									renderEffect(model);
+									DeferredStateManager.setHDRTranslucentPassBlendFunc();
+								}
+								GlStateManager.popMatrix();
+								EntityRenderer.disableLightmapStatic();
+								GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+							}
+						});
+					}
+				} else {
+					this.renderModel(model, stack);
+					if (stack.hasEffect()) {
+						if (DeferredStateManager.isInDeferredPass()) {
+							if (DeferredStateManager.forwardCallbackHandler != null
+									&& !DeferredStateManager.isEnableShadowRender()) {
+								final Matrix4f mat = new Matrix4f(GlStateManager.getModelViewReference());
+								final float lx = GlStateManager.getTexCoordX(1), ly = GlStateManager.getTexCoordY(1);
+								DeferredStateManager.forwardCallbackHandler.push(new ShadersRenderPassFuture(renderPosX,
+										renderPosY, renderPosZ, EaglerDeferredPipeline.instance.getPartialTicks()) {
+									@Override
+									public void draw(PassType pass) {
+										if (pass == PassType.MAIN) {
+											DeferredStateManager.reportForwardRenderObjectPosition2(x, y, z);
+										}
+										EntityRenderer.enableLightmapStatic();
+										GlStateManager.color(1.5F, 0.5F, 1.5F, 1.0F);
+										DeferredStateManager.setDefaultMaterialConstants();
+										DeferredStateManager.setRoughnessConstant(0.05f);
+										DeferredStateManager.setMetalnessConstant(0.01f);
+										GlStateManager.pushMatrix();
+										GlStateManager.loadMatrix(mat);
+										GlStateManager.texCoords2DDirect(1, lx, ly);
+										GlStateManager.tryBlendFuncSeparate(GL_ONE, GL_ONE, GL_ZERO, GL_ONE);
+										renderEffect(model);
+										DeferredStateManager.setHDRTranslucentPassBlendFunc();
+										GlStateManager.popMatrix();
+										EntityRenderer.disableLightmapStatic();
+										GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+									}
+								});
+							}
+						} else {
+							GlStateManager.blendFunc(GL_SRC_COLOR, GL_ONE);
+							this.renderEffect(model);
+						}
+					}
 				}
 			}
 
@@ -160,11 +238,16 @@ public class RenderItem implements IResourceManagerReloadListener {
 		}
 	}
 
+	private static boolean isTransparentItem(ItemStack stack) {
+		Item itm = stack.getItem();
+		return itm instanceof ItemBlock
+				&& ((ItemBlock) itm).getBlock().getBlockLayer() == EnumWorldBlockLayer.TRANSLUCENT;
+	}
+
 	private void renderEffect(IBakedModel model) {
 		GlStateManager.depthMask(false);
 		GlStateManager.depthFunc(GL_EQUAL);
 		GlStateManager.disableLighting();
-		GlStateManager.blendFunc(GL_SRC_COLOR, GL_ONE);
 		this.textureManager.bindTexture(RES_ITEM_GLINT);
 		GlStateManager.matrixMode(GL_TEXTURE);
 		GlStateManager.pushMatrix();
@@ -288,12 +371,13 @@ public class RenderItem implements IResourceManagerReloadListener {
 		GlStateManager.pushMatrix();
 		ItemCameraTransforms itemcameratransforms = model.getItemCameraTransforms();
 		itemcameratransforms.applyTransform(cameraTransformType);
+		boolean flag = DeferredStateManager.isEnableShadowRender();
 		if (this.func_183005_a(itemcameratransforms.getTransform(cameraTransformType))) {
-			GlStateManager.cullFace(GL_FRONT);
+			GlStateManager.cullFace(flag ? GL_BACK : GL_FRONT);
 		}
 
 		this.renderItem(stack, model);
-		GlStateManager.cullFace(GL_BACK);
+		GlStateManager.cullFace(flag ? GL_FRONT : GL_BACK);
 		GlStateManager.popMatrix();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();

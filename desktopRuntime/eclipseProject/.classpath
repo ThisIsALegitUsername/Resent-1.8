@@ -7,17 +7,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/CompileEPK.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/Java-WebSocket-1.5.1-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/MakeOfflineDownload.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/codecjorbis-20101023.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/codecwav-20101023.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-egl.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-glfw.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-jemalloc.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-openal.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-opengles.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl.jar"/>
-	<classpathentry kind="lib" path="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime/soundsystem-20120107.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/codecjorbis-20101023.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/codecwav-20101023.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/CompileEPK.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/Java-WebSocket-1.5.1-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-egl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-glfw.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-jemalloc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-openal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl-opengles.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/lwjgl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/MakeOfflineDownload.jar"/>
+	<classpathentry kind="lib" path="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime/soundsystem-20120107.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

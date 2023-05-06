@@ -47,6 +47,7 @@ public class CompiledChunk {
 	private final List<TileEntity> tileEntities = Lists.newArrayList();
 	private SetVisibility setVisibility = new SetVisibility();
 	private WorldRenderer.State state;
+	private WorldRenderer.State stateWater;
 
 	public boolean isEmpty() {
 		return this.empty;
@@ -91,5 +92,13 @@ public class CompiledChunk {
 
 	public void setState(WorldRenderer.State stateIn) {
 		this.state = stateIn;
+	}
+
+	public WorldRenderer.State getStateRealisticWater() {
+		return this.stateWater;
+	}
+
+	public void setStateRealisticWater(WorldRenderer.State stateIn) {
+		this.stateWater = stateIn;
 	}
 }

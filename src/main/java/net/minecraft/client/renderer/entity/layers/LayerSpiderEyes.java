@@ -4,6 +4,11 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShadersRenderPassFuture;
+import net.lax1dude.eaglercraft.v1_8.vector.Matrix4f;
+import net.minecraft.client.model.ModelSpider;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +41,53 @@ public class LayerSpiderEyes implements LayerRenderer<EntitySpider> {
 
 	public void doRenderLayer(EntitySpider entityspider, float f, float f1, float f2, float f3, float f4, float f5,
 			float f6) {
+		if (DeferredStateManager.isInDeferredPass()) {
+			if (entityspider.isInvisible()) {
+				if (!DeferredStateManager.isEnableShadowRender()
+						&& DeferredStateManager.forwardCallbackHandler != null) {
+					final Matrix4f mat = new Matrix4f(GlStateManager.getModelViewReference());
+					DeferredStateManager.forwardCallbackHandler.push(new ShadersRenderPassFuture(entityspider) {
+						@Override
+						public void draw(PassType pass) {
+							if (pass == PassType.MAIN) {
+								DeferredStateManager.reportForwardRenderObjectPosition2(x, y, z);
+							}
+							LayerSpiderEyes.this.spiderRenderer.bindTexture(SPIDER_EYES);
+							DeferredStateManager.setDefaultMaterialConstants();
+							DeferredStateManager.setRoughnessConstant(0.3f);
+							DeferredStateManager.setMetalnessConstant(0.1f);
+							DeferredStateManager.setEmissionConstant(0.9f);
+							EntityRenderer.disableLightmapStatic();
+							GlStateManager.tryBlendFuncSeparate(GL_ONE, GL_ONE, GL_ZERO, GL_ZERO);
+							GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
+							GlStateManager.depthMask(false);
+							GlStateManager.pushMatrix();
+							GlStateManager.loadMatrix(mat);
+							GlStateManager.disableCull();
+							ModelSpider eee = (ModelSpider) LayerSpiderEyes.this.spiderRenderer.getMainModel();
+							eee.setLivingAnimations(entityspider, f, f1, f1);
+							eee.render(entityspider, f, f1, f3, f4, f5, f6);
+							GlStateManager.popMatrix();
+							GlStateManager.depthMask(true);
+							GlStateManager.enableCull();
+							DeferredStateManager.setDefaultMaterialConstants();
+							DeferredStateManager.setHDRTranslucentPassBlendFunc();
+							GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+						}
+					});
+				}
+				return;
+			}
+			this.spiderRenderer.bindTexture(SPIDER_EYES);
+			DeferredStateManager.setEmissionConstant(0.5f);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.enablePolygonOffset();
+			GlStateManager.doPolygonOffset(-0.025f, 1.0f);
+			this.spiderRenderer.getMainModel().render(entityspider, f, f1, f3, f4, f5, f6);
+			GlStateManager.disablePolygonOffset();
+			DeferredStateManager.setEmissionConstant(0.0f);
+			return;
+		}
 		this.spiderRenderer.bindTexture(SPIDER_EYES);
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();

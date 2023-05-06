@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.util.Vec3;
 
 /**+
@@ -36,10 +37,12 @@ public class RenderHelper {
 	 * enableStandardItemLighting
 	 */
 	public static void disableStandardItemLighting() {
-		GlStateManager.disableLighting();
-		GlStateManager.disableMCLight(0);
-		GlStateManager.disableMCLight(1);
-		GlStateManager.disableColorMaterial();
+		if (!DeferredStateManager.isInDeferredPass()) {
+			GlStateManager.disableLighting();
+			GlStateManager.disableMCLight(0);
+			GlStateManager.disableMCLight(1);
+			GlStateManager.disableColorMaterial();
+		}
 	}
 
 	/**+
@@ -47,11 +50,13 @@ public class RenderHelper {
 	 * rendering blocks as items
 	 */
 	public static void enableStandardItemLighting() {
-		GlStateManager.enableLighting();
-		GlStateManager.enableMCLight(0, 0.6f, LIGHT0_POS.xCoord, LIGHT0_POS.yCoord, LIGHT0_POS.zCoord, 0.0D);
-		GlStateManager.enableMCLight(1, 0.6f, LIGHT1_POS.xCoord, LIGHT1_POS.yCoord, LIGHT1_POS.zCoord, 0.0D);
-		GlStateManager.setMCLightAmbient(0.4f, 0.4f, 0.4f);
-		GlStateManager.enableColorMaterial();
+		if (!DeferredStateManager.isInDeferredPass()) {
+			GlStateManager.enableLighting();
+			GlStateManager.enableMCLight(0, 0.6f, LIGHT0_POS.xCoord, LIGHT0_POS.yCoord, LIGHT0_POS.zCoord, 0.0D);
+			GlStateManager.enableMCLight(1, 0.6f, LIGHT1_POS.xCoord, LIGHT1_POS.yCoord, LIGHT1_POS.zCoord, 0.0D);
+			GlStateManager.setMCLightAmbient(0.4f, 0.4f, 0.4f);
+			GlStateManager.enableColorMaterial();
+		}
 	}
 
 	/**+
@@ -83,10 +88,12 @@ public class RenderHelper {
 	 * screens (such as containers).
 	 */
 	public static void enableGUIStandardItemLighting() {
-		GlStateManager.pushMatrix();
-		GlStateManager.rotate(-30.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(165.0F, 1.0F, 0.0F, 0.0F);
-		enableStandardItemLighting();
-		GlStateManager.popMatrix();
+		if (!DeferredStateManager.isInDeferredPass()) {
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(-30.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(165.0F, 1.0F, 0.0F, 0.0F);
+			enableStandardItemLighting();
+			GlStateManager.popMatrix();
+		}
 	}
 }

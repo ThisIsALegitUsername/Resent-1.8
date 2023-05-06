@@ -3,6 +3,7 @@ package net.minecraft.entity.item;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -394,5 +395,14 @@ public class EntityItem extends Entity {
 	public void func_174870_v() {
 		this.setInfinitePickupDelay();
 		this.age = 5999;
+	}
+
+	public boolean eaglerEmissiveFlag = false;
+
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		super.renderDynamicLightsEaglerAt(entityX, entityY, entityZ, renderX, renderY, renderZ, partialTicks,
+				isInFrustum);
+		eaglerEmissiveFlag = Minecraft.getMinecraft().entityRenderer.renderItemEntityLight(this, 0.1f);
 	}
 }

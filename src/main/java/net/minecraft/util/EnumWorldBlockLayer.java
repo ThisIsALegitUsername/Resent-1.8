@@ -19,7 +19,8 @@ package net.minecraft.util;
  * 
  */
 public enum EnumWorldBlockLayer {
-	SOLID("Solid"), CUTOUT_MIPPED("Mipped Cutout"), CUTOUT("Cutout"), TRANSLUCENT("Translucent");
+	SOLID("Solid"), CUTOUT_MIPPED("Mipped Cutout"), CUTOUT("Cutout"), TRANSLUCENT("Translucent"),
+	REALISTIC_WATER("EaglerShaderWater"), GLASS_HIGHLIGHTS("EaglerShaderGlassHighlights");
 
 	private final String layerName;
 

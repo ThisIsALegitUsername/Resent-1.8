@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.minecraft.AcceleratedEffectRenderer;
+import net.lax1dude.eaglercraft.v1_8.minecraft.IAcceleratedParticleEngine;
 
 import java.util.concurrent.Callable;
 
@@ -15,6 +16,8 @@ import com.google.common.collect.Maps;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.GBufferAcceleratedEffectRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -54,6 +57,8 @@ import net.minecraft.world.World;
  */
 public class EffectRenderer {
 	private static final ResourceLocation particleTextures = new ResourceLocation("textures/particle/particles.png");
+	private static final ResourceLocation particleMaterialsTextures = new ResourceLocation(
+			"eagler:glsl/deferred/particles_s.png");
 	protected World worldObj;
 	private List<EntityFX>[][] fxLayers = new List[4][];
 	private List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
@@ -64,7 +69,8 @@ public class EffectRenderer {
 	private EaglercraftRandom rand = new EaglercraftRandom();
 	private Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
 
-	private AcceleratedEffectRenderer acceleratedParticleRenderer = new AcceleratedEffectRenderer();
+	public static final AcceleratedEffectRenderer vanillaAcceleratedParticleRenderer = new AcceleratedEffectRenderer();
+	public IAcceleratedParticleEngine acceleratedParticleRenderer = vanillaAcceleratedParticleRenderer;
 
 	public EffectRenderer(World worldIn, TextureManager rendererIn) {
 		this.worldObj = worldIn;
@@ -226,10 +232,19 @@ public class EffectRenderer {
 		}
 	}
 
+	public boolean hasParticlesInAlphaLayer() {
+		for (int i = 0; i < 3; ++i) {
+			if (!this.fxLayers[i][0].isEmpty()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**+
 	 * Renders all current particles. Args player, partialTickTime
 	 */
-	public void renderParticles(Entity entityIn, float partialTicks) {
+	public void renderParticles(Entity entityIn, float partialTicks, int pass) {
 		float f = ActiveRenderInfo.getRotationX();
 		float f1 = ActiveRenderInfo.getRotationZ();
 		float f2 = ActiveRenderInfo.getRotationYZ();
@@ -238,12 +253,17 @@ public class EffectRenderer {
 		EntityFX.interpPosX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
 		EntityFX.interpPosY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
 		EntityFX.interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		if (!DeferredStateManager.isDeferredRenderer()) {
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
 		GlStateManager.alphaFunc(GL_GREATER, 0.003921569F);
 
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 1; j >= 0; --j) {
+				if (pass != 2 && j != pass) {
+					continue;
+				}
 				if (!this.fxLayers[i][j].isEmpty()) {
 //					switch (j) {
 //					case 0:
@@ -258,10 +278,17 @@ public class EffectRenderer {
 					switch (i) {
 					case 0:
 					default:
+						GBufferAcceleratedEffectRenderer.isMaterialNormalTexture = false;
 						this.renderer.bindTexture(particleTextures);
+						if (DeferredStateManager.isDeferredRenderer()) {
+							GlStateManager.setActiveTexture(GL_TEXTURE2);
+							this.renderer.bindTexture(particleMaterialsTextures);
+							GlStateManager.setActiveTexture(GL_TEXTURE0);
+						}
 						texCoordWidth = texCoordHeight = 1.0f / 256.0f;
 						break;
 					case 1:
+						GBufferAcceleratedEffectRenderer.isMaterialNormalTexture = true;
 						this.renderer.bindTexture(TextureMap.locationBlocksTexture);
 						TextureMap blockMap = (TextureMap) this.renderer.getTexture(TextureMap.locationBlocksTexture);
 						texCoordWidth = 1.0f / blockMap.getWidth();

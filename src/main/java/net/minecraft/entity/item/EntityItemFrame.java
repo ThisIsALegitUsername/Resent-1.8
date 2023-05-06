@@ -1,5 +1,6 @@
 package net.minecraft.entity.item;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
@@ -221,5 +222,14 @@ public class EntityItemFrame extends EntityHanging {
 
 	public int func_174866_q() {
 		return this.getDisplayedItem() == null ? 0 : this.getRotation() % 8 + 1;
+	}
+
+	public boolean eaglerEmissiveFlag = false;
+
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		super.renderDynamicLightsEaglerAt(entityX, entityY, entityZ, renderX, renderY, renderZ, partialTicks,
+				isInFrustum);
+		eaglerEmissiveFlag = Minecraft.getMinecraft().entityRenderer.renderItemEntityLight(this, 0.1f);
 	}
 }

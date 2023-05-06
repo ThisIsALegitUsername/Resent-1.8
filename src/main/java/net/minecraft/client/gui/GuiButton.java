@@ -37,6 +37,7 @@ public class GuiButton extends Gui {
 	public boolean enabled;
 	public boolean visible;
 	protected boolean hovered;
+	public float fontScale = 1.0f;
 
 	public GuiButton(int buttonId, int x, int y, String buttonText) {
 		this(buttonId, x, y, 200, 20, buttonText);
@@ -96,8 +97,21 @@ public class GuiButton extends Gui {
 				j = 16777120;
 			}
 
-			this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2,
-					this.yPosition + (this.height - 8) / 2, j);
+			if (fontScale == 1.0f) {
+				this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2,
+						this.yPosition + (this.height - 8) / 2, j);
+			} else {
+				float xScale = fontScale;
+				float yScale = 1.0f + (fontScale - 1.0f) * 0.7f;
+				float strWidth = fontrenderer.getStringWidth(displayString) / xScale;
+				GlStateManager.pushMatrix();
+				GlStateManager.translate(this.xPosition + this.width / 2,
+						this.yPosition + (this.height - 8 * yScale) / 2, 1.0f);
+				GlStateManager.scale(xScale, yScale, 1.0f);
+				GlStateManager.translate(-strWidth * 0.5f * xScale, 0.0f, 0.0f);
+				fontrenderer.drawStringWithShadow(displayString, 0, 0, j);
+				GlStateManager.popMatrix();
+			}
 		}
 	}
 

@@ -2,10 +2,11 @@ package net.minecraft.client.renderer.tileentity;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
-import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.NameTagRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -15,7 +16,6 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureCompass;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
@@ -28,7 +28,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.MapData;
 
@@ -142,6 +141,11 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 					this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
 				}
 			} else {
+				boolean emissive = itemFrame.eaglerEmissiveFlag;
+				itemFrame.eaglerEmissiveFlag = false;
+				if (emissive) {
+					DeferredStateManager.setEmissionConstant(1.0f);
+				}
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 				if (!this.itemRenderer.shouldRenderItemIn3D(entityitem.getEntityItem()) || item instanceof ItemSkull) {
 					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
@@ -152,6 +156,9 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 				this.itemRenderer.func_181564_a(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
 				RenderHelper.disableStandardItemLighting();
 				GlStateManager.popLightCoords();
+				if (emissive) {
+					DeferredStateManager.setEmissionConstant(0.0f);
+				}
 			}
 
 			GlStateManager.enableLighting();
@@ -170,6 +177,10 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 			if (d3 < (double) (f2 * f2)) {
 				String s = entityitemframe.getDisplayedItem().getDisplayName();
 				if (entityitemframe.isSneaking()) {
+					if (DeferredStateManager.isInDeferredPass()) {
+						NameTagRenderer.renderNameTag(entityitemframe, null, d0, d1, d2, -69);
+						return;
+					}
 					FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
 					GlStateManager.pushMatrix();
 					GlStateManager.translate((float) d0 + 0.0F, (float) d1 + entityitemframe.height + 0.5F, (float) d2);

@@ -8,7 +8,12 @@ import com.google.common.collect.Maps;
 
 import net.lax1dude.eaglercraft.v1_8.HString;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.EaglerDeferredPipeline;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShadersRenderPassFuture;
+import net.lax1dude.eaglercraft.v1_8.vector.Matrix4f;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemArmor;
@@ -60,6 +65,24 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 			this.func_177179_a((T) modelbase, parInt1);
 			boolean flag = this.isSlotForLeggings(parInt1);
 			this.renderer.bindTexture(this.getArmorResource(itemarmor, flag));
+			DeferredStateManager.setDefaultMaterialConstants();
+			switch (itemarmor.getArmorMaterial()) {
+			case CHAIN:
+			case IRON:
+				DeferredStateManager.setRoughnessConstant(0.123f);
+				DeferredStateManager.setMetalnessConstant(0.902f);
+				break;
+			case GOLD:
+				DeferredStateManager.setRoughnessConstant(0.108f);
+				DeferredStateManager.setMetalnessConstant(0.907f);
+				break;
+			case DIAMOND:
+				DeferredStateManager.setRoughnessConstant(0.078f);
+				DeferredStateManager.setMetalnessConstant(0.588f);
+				break;
+			default:
+				break;
+			}
 			switch (itemarmor.getArmorMaterial()) {
 			case LEATHER:
 				int i = itemarmor.getColor(itemstack);
@@ -75,8 +98,47 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 			case DIAMOND:
 				GlStateManager.color(this.colorR, this.colorG, this.colorB, this.alpha);
 				modelbase.render(entitylivingbaseIn, armorSlot, parFloat2, parFloat4, parFloat5, parFloat6, parFloat7);
+				DeferredStateManager.setDefaultMaterialConstants();
 			default:
 				if (!this.field_177193_i && itemstack.isItemEnchanted()) {
+					if (DeferredStateManager.isInDeferredPass()) {
+						if (!DeferredStateManager.isEnableShadowRender()
+								&& DeferredStateManager.forwardCallbackHandler != null) {
+							final Matrix4f mat = new Matrix4f(GlStateManager.getModelViewReference());
+							final float lx = GlStateManager.getTexCoordX(1), ly = GlStateManager.getTexCoordY(1);
+							DeferredStateManager.forwardCallbackHandler.push(new ShadersRenderPassFuture(
+									entitylivingbaseIn, EaglerDeferredPipeline.instance.getPartialTicks()) {
+								@Override
+								public void draw(PassType pass) {
+									if (pass == PassType.MAIN) {
+										DeferredStateManager.reportForwardRenderObjectPosition2(x, y, z);
+									}
+									EntityRenderer.enableLightmapStatic();
+									float f = 0.55f;
+									GlStateManager.color(1.5F * f, 0.5F * f, 1.5F * f, 1.0F);
+									DeferredStateManager.setDefaultMaterialConstants();
+									DeferredStateManager.setRoughnessConstant(0.05f);
+									DeferredStateManager.setMetalnessConstant(0.01f);
+									GlStateManager.pushMatrix();
+									GlStateManager.loadMatrix(mat);
+									GlStateManager.texCoords2DDirect(1, lx, ly);
+									GlStateManager.enableBlend();
+									GlStateManager.tryBlendFuncSeparate(GL_ONE, GL_ONE, GL_ZERO, GL_ONE);
+									modelbase.setModelAttributes(LayerArmorBase.this.renderer.getMainModel());
+									modelbase.setLivingAnimations(entitylivingbaseIn, armorSlot, parFloat2, parFloat3);
+									LayerArmorBase.this.func_177179_a((T) modelbase, parInt1);
+									LayerArmorBase.this.func_177183_a(entitylivingbaseIn, (T) modelbase, armorSlot,
+											parFloat2, parFloat3, parFloat4, parFloat5, parFloat6, parFloat7);
+									DeferredStateManager.setHDRTranslucentPassBlendFunc();
+									GlStateManager.enableBlend();
+									GlStateManager.popMatrix();
+									EntityRenderer.disableLightmapStatic();
+									GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+								}
+							});
+						}
+						break;
+					}
 					this.func_177183_a(entitylivingbaseIn, (T) modelbase, armorSlot, parFloat2, parFloat3, parFloat4,
 							parFloat5, parFloat6, parFloat7);
 				}
@@ -105,13 +167,18 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 		GlStateManager.depthFunc(GL_EQUAL);
 		GlStateManager.depthMask(false);
 		float f1 = 0.5F;
-		GlStateManager.color(f1, f1, f1, 1.0F);
+		boolean d = !DeferredStateManager.isInDeferredPass();
+		if (d) {
+			GlStateManager.color(f1, f1, f1, 1.0F);
+		}
 
 		for (int i = 0; i < 2; ++i) {
 			GlStateManager.disableLighting();
-			GlStateManager.blendFunc(GL_SRC_COLOR, GL_ONE);
 			float f2 = 0.76F;
-			GlStateManager.color(0.5F * f2, 0.25F * f2, 0.8F * f2, 1.0F);
+			if (d) {
+				GlStateManager.blendFunc(GL_SRC_COLOR, GL_ONE);
+				GlStateManager.color(0.5F * f2, 0.25F * f2, 0.8F * f2, 1.0F);
+			}
 			GlStateManager.matrixMode(GL_TEXTURE);
 			GlStateManager.loadIdentity();
 			float f3 = 0.33333334F;

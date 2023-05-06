@@ -1,7 +1,7 @@
 package net.minecraft.block;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -196,7 +196,10 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public EnumWorldBlockLayer getBlockLayer() {
-		return this.blockMaterial == Material.water ? EnumWorldBlockLayer.TRANSLUCENT : EnumWorldBlockLayer.SOLID;
+		return this.blockMaterial == Material.water
+				? (DeferredStateManager.isRenderingRealisticWater() ? EnumWorldBlockLayer.REALISTIC_WATER
+						: EnumWorldBlockLayer.TRANSLUCENT)
+				: EnumWorldBlockLayer.SOLID;
 	}
 
 	public void randomDisplayTick(World world, BlockPos blockpos, IBlockState iblockstate, EaglercraftRandom random) {

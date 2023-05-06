@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelEnderman;
 import net.minecraft.client.renderer.entity.layers.LayerEndermanEyes;

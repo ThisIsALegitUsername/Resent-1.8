@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.entity;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -60,9 +61,18 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 		float f4 = (1.0F - ((float) entitytntprimed.fuse - f1 + 1.0F) / 100.0F) * 0.8F;
 		this.bindEntityTexture(entitytntprimed);
 		GlStateManager.translate(-0.5F, -0.5F, 0.5F);
+		boolean light = entitytntprimed.fuse / 5 % 2 == 0;
+		boolean deferred = DeferredStateManager.isInDeferredPass();
+		if (light && deferred) {
+			DeferredStateManager.setEmissionConstant(1.0f);
+			DeferredStateManager.disableMaterialTexture();
+			GlStateManager.enableShaderBlendAdd();
+			GlStateManager.setShaderBlendSrc(0.0f, 0.0f, 0.0f, 0.0f);
+			GlStateManager.setShaderBlendAdd(1.0f, 1.0f, 1.0f, 1.0f);
+		}
 		blockrendererdispatcher.renderBlockBrightness(Blocks.tnt.getDefaultState(), entitytntprimed.getBrightness(f1));
 		GlStateManager.translate(0.0F, 0.0F, 1.0F);
-		if (entitytntprimed.fuse / 5 % 2 == 0) {
+		if (light && !deferred) {
 			GlStateManager.disableTexture2D();
 			GlStateManager.disableLighting();
 			GlStateManager.enableBlend();
@@ -81,6 +91,12 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 
 		GlStateManager.popMatrix();
 		super.doRender(entitytntprimed, d0, d1, d2, f, f1);
+		if (light && deferred) {
+			DeferredStateManager.setEmissionConstant(0.0f);
+			DeferredStateManager.enableMaterialTexture();
+			GlStateManager.disableShaderBlendAdd();
+			GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+		}
 	}
 
 	/**+

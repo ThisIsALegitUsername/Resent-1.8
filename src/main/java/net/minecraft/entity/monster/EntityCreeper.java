@@ -1,5 +1,8 @@
 package net.minecraft.entity.monster;
 
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DynamicLightManager;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -248,5 +251,18 @@ public class EntityCreeper extends EntityMob {
 
 	public void func_175493_co() {
 		++this.field_175494_bm;
+	}
+
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		super.renderDynamicLightsEaglerAt(entityX, entityY, entityZ, renderX, renderY, renderZ, partialTicks,
+				isInFrustum);
+		float ff = getCreeperFlashIntensity(partialTicks);
+		if ((int) (ff * 10.0F) % 2 != 0) {
+			float dynamicLightMag = 7.0f;
+			DynamicLightManager.renderDynamicLight("entity_" + getEntityId() + "_creeper_flash", entityX, entityY + 1.0,
+					entityZ, dynamicLightMag, dynamicLightMag * 0.7792f, dynamicLightMag * 0.618f, false);
+			DeferredStateManager.setEmissionConstant(1.0f);
+		}
 	}
 }

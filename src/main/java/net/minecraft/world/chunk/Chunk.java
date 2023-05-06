@@ -12,6 +12,7 @@ import com.google.common.collect.Maps;
 
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -624,9 +625,10 @@ public class Chunk {
 		int j = blockpos.getY();
 		int k = blockpos.getZ() & 15;
 		ExtendedBlockStorage extendedblockstorage = this.storageArrays[j >> 4];
-		return extendedblockstorage == null ? (this.canSeeSky(blockpos) ? enumskyblock.defaultLightValue : 0)
+		return extendedblockstorage == null
+				? (this.canSeeSky(blockpos) ? enumskyblock.defaultLightValue : getNoSkyLightValue())
 				: (enumskyblock == EnumSkyBlock.SKY
-						? (this.worldObj.provider.getHasNoSky() ? 0
+						? (this.worldObj.provider.getHasNoSky() ? getNoSkyLightValue()
 								: extendedblockstorage.getExtSkylightValue(i, j & 15, k))
 						: (enumskyblock == EnumSkyBlock.BLOCK ? extendedblockstorage.getExtBlocklightValue(i, j & 15, k)
 								: enumskyblock.defaultLightValue));
@@ -662,9 +664,10 @@ public class Chunk {
 		if (extendedblockstorage == null) {
 			return !this.worldObj.provider.getHasNoSky() && i < EnumSkyBlock.SKY.defaultLightValue
 					? EnumSkyBlock.SKY.defaultLightValue - i
-					: 0;
+					: getNoSkyLightValue();
 		} else {
-			int i1 = this.worldObj.provider.getHasNoSky() ? 0 : extendedblockstorage.getExtSkylightValue(j, k & 15, l);
+			int i1 = this.worldObj.provider.getHasNoSky() ? getNoSkyLightValue()
+					: extendedblockstorage.getExtSkylightValue(j, k & 15, l);
 			i1 = i1 - i;
 			int j1 = extendedblockstorage.getExtBlocklightValue(j, k & 15, l);
 			if (j1 > i1) {
@@ -673,6 +676,10 @@ public class Chunk {
 
 			return i1;
 		}
+	}
+
+	public static int getNoSkyLightValue() {
+		return DeferredStateManager.isDeferredRenderer() ? 5 : 0;
 	}
 
 	/**+

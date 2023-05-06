@@ -4,6 +4,8 @@ import java.util.List;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftUUID;
 import net.lax1dude.eaglercraft.v1_8.HString;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DynamicLightManager;
+
 import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
@@ -13,6 +15,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -2207,5 +2210,31 @@ public abstract class Entity {
 		}
 
 		EnchantmentHelper.applyArthropodEnchantments(entityLivingBaseIn, entityIn);
+	}
+
+	public void renderDynamicLightsEagler(float partialTicks, boolean isInFrustum) {
+		double entityX = prevPosX + (posX - prevPosX) * (double) partialTicks;
+		double entityY = prevPosY + (posY - prevPosY) * (double) partialTicks;
+		double entityZ = prevPosZ + (posZ - prevPosZ) * (double) partialTicks;
+		double entityX2 = entityX - TileEntityRendererDispatcher.staticPlayerX;
+		double entityY2 = entityY - TileEntityRendererDispatcher.staticPlayerY;
+		double entityZ2 = entityZ - TileEntityRendererDispatcher.staticPlayerZ;
+		if (Math.sqrt(entityX2 * entityX2 + entityY2 * entityY2 + entityZ2 * entityZ2) < 48.0 * 48.0) {
+			renderDynamicLightsEaglerAt(entityX, entityY, entityZ, entityX2, entityY2, entityZ2, partialTicks,
+					isInFrustum);
+		}
+	}
+
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		if (this.isBurning()) {
+			float size = Math.max(width, height);
+			if (size < 1.0f && !isInFrustum) {
+				return;
+			}
+			float mag = 5.0f * size;
+			DynamicLightManager.renderDynamicLight("entity_" + entityId + "_fire", entityX, entityY + height * 0.75,
+					entityZ, mag, 0.487f * mag, 0.1411f * mag, false);
+		}
 	}
 }

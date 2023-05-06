@@ -15,19 +15,23 @@ public abstract class AbstractTexture implements ITextureObject {
 		if (blur != parFlag || mipmap != parFlag2) {
 			this.blur = parFlag;
 			this.mipmap = parFlag2;
-			int i = -1;
-			short short1 = -1;
-			if (parFlag) {
-				i = parFlag2 ? 9987 : 9729;
-				short1 = 9729;
-			} else {
-				i = parFlag2 ? 9986 : 9728;
-				short1 = 9728;
-			}
-
-			EaglercraftGPU.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, i);
-			EaglercraftGPU.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, short1);
+			setBlurMipmapDirect0(parFlag, parFlag2);
 		}
+	}
+
+	protected void setBlurMipmapDirect0(boolean parFlag, boolean parFlag2) {
+		int i = -1;
+		short short1 = -1;
+		if (parFlag) {
+			i = parFlag2 ? 9987 : 9729;
+			short1 = 9729;
+		} else {
+			i = parFlag2 ? 9986 : 9728;
+			short1 = 9728;
+		}
+
+		EaglercraftGPU.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, i);
+		EaglercraftGPU.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, short1);
 	}
 
 	public void setBlurMipmap(boolean parFlag, boolean parFlag2) {

@@ -7,6 +7,8 @@ import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShadersRenderPassFuture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GLAllocation;
@@ -40,6 +42,34 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
 	public void renderTileEntityAt(TileEntityEndPortal var1, double d0, double d1, double d2, float var8, int var9) {
+		if (DeferredStateManager.isInDeferredPass()) {
+			if (!DeferredStateManager.isInParaboloidPass() && !DeferredStateManager.isEnableShadowRender()
+					&& DeferredStateManager.forwardCallbackHandler != null) {
+				DeferredStateManager.forwardCallbackHandler
+						.push(new ShadersRenderPassFuture((float) d0, (float) d1, (float) d2, var8) {
+							@Override
+							public void draw(PassType pass) {
+								if (pass == PassType.MAIN) {
+									DeferredStateManager.reportForwardRenderObjectPosition2(x, y, z);
+								}
+								DeferredStateManager.setDefaultMaterialConstants();
+								DeferredStateManager.setRoughnessConstant(0.3f);
+								DeferredStateManager.setMetalnessConstant(0.3f);
+								DeferredStateManager.setEmissionConstant(0.9f);
+								renderTileEntityAt0(var1, d0, d1, d2, var8, var9);
+								DeferredStateManager.setDefaultMaterialConstants();
+								DeferredStateManager.setHDRTranslucentPassBlendFunc();
+							}
+						});
+			}
+			return;
+		}
+		GlStateManager.enableBlend();
+		renderTileEntityAt0(var1, d0, d1, d2, var8, var9);
+		GlStateManager.disableBlend();
+	}
+
+	private void renderTileEntityAt0(TileEntityEndPortal var1, double d0, double d1, double d2, float var8, int var9) {
 		float f = (float) this.rendererDispatcher.entityX;
 		float f1 = (float) this.rendererDispatcher.entityY;
 		float f2 = (float) this.rendererDispatcher.entityZ;
@@ -57,8 +87,11 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 				f6 = 0.1F;
 				f4 = 65.0F;
 				f5 = 0.125F;
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				if (DeferredStateManager.isInDeferredPass()) {
+					DeferredStateManager.setHDRTranslucentPassBlendFunc();
+				} else {
+					GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				}
 			}
 
 			if (i >= 1) {
@@ -66,8 +99,11 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			}
 
 			if (i == 1) {
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL_ONE, GL_ONE);
+				if (DeferredStateManager.isInDeferredPass()) {
+					GlStateManager.tryBlendFuncSeparate(GL_ONE, GL_ONE, GL_ZERO, GL_ZERO);
+				} else {
+					GlStateManager.blendFunc(GL_ONE, GL_ONE);
+				}
 				f5 = 0.5F;
 			}
 
@@ -119,7 +155,6 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			this.bindTexture(END_SKY_TEXTURE);
 		}
 
-		GlStateManager.disableBlend();
 		GlStateManager.disableTexGen();
 		GlStateManager.enableLighting();
 	}

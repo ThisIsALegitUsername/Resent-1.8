@@ -13,10 +13,17 @@ import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.EaglerDeferredPipeline;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.NameTagRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShadersRenderPassFuture;
+import net.lax1dude.eaglercraft.v1_8.vector.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -177,7 +184,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 		if (!this.renderOutlines) {
 			super.doRender(entitylivingbase, d0, d1, d2, f, f1);
 		}
-
 	}
 
 	protected boolean setScoreTeamColor(T entityLivingBaseIn) {
@@ -217,11 +223,75 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 	/**+
 	 * Renders the model in RenderLiving
 	 */
-	protected void renderModel(T entitylivingbase, float f, float f1, float f2, float f3, float f4, float f5) {
+	protected void renderModel(T entitylivingbase, float f, float f1, float f2, float f3, float f4, float f5) { // f8,
+																												// f7,
+																												// f10,
+																												// f4,
+																												// f9,
+																												// 0.0625
 		boolean flag = !entitylivingbase.isInvisible();
 		boolean flag1 = !flag && !entitylivingbase.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
 		if (flag || flag1) {
 			if (!this.bindEntityTexture(entitylivingbase)) {
+				return;
+			}
+			if (flag1 && DeferredStateManager.isDeferredRenderer()) {
+				if (!DeferredStateManager.isEnableShadowRender()
+						&& DeferredStateManager.forwardCallbackHandler != null) {
+					final Matrix4f mat = new Matrix4f(GlStateManager.getModelViewReference());
+					final float lx = GlStateManager.getTexCoordX(1), ly = GlStateManager.getTexCoordY(1);
+					DeferredStateManager.forwardCallbackHandler.push(new ShadersRenderPassFuture(entitylivingbase,
+							EaglerDeferredPipeline.instance.getPartialTicks()) {
+						@Override
+						public void draw(PassType pass) {
+							if (pass == PassType.MAIN) {
+								DeferredStateManager.reportForwardRenderObjectPosition2(x, y, z);
+							}
+							EntityRenderer.enableLightmapStatic();
+							GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+							DeferredStateManager.setDefaultMaterialConstants();
+							DeferredStateManager.setRoughnessConstant(0.05f);
+							DeferredStateManager.setMetalnessConstant(0.2f);
+							DeferredStateManager.setEmissionConstant(0.5f);
+							GlStateManager.pushMatrix();
+							GlStateManager.loadMatrix(mat);
+							GlStateManager.texCoords2DDirect(1, lx, ly);
+							DeferredStateManager.setHDRTranslucentPassBlendFunc();
+							GlStateManager.enableAlpha();
+							GlStateManager.alphaFunc(GL_GREATER, 0.003921569F);
+							GlStateManager.color(1.0F, 1.0F, 1.0F, 0.15F);
+							RendererLivingEntity.this.bindEntityTexture(entitylivingbase);
+							RendererLivingEntity.this.mainModel.swingProgress = RendererLivingEntity.this
+									.getSwingProgress(entitylivingbase, f1);
+							RendererLivingEntity.this.mainModel.isRiding = entitylivingbase.isRiding();
+							RendererLivingEntity.this.mainModel.isChild = entitylivingbase.isChild();
+							if (RendererLivingEntity.this.mainModel instanceof ModelBiped) {
+								if ((entitylivingbase instanceof EntityPlayer)
+										&& ((EntityPlayer) entitylivingbase).isSpectator()) {
+									((ModelBiped) RendererLivingEntity.this.mainModel).setInvisible(false);
+									((ModelBiped) RendererLivingEntity.this.mainModel).bipedHead.showModel = true;
+									((ModelBiped) RendererLivingEntity.this.mainModel).bipedHeadwear.showModel = true;
+								} else {
+									((ModelBiped) RendererLivingEntity.this.mainModel).setInvisible(true);
+								}
+							}
+							RendererLivingEntity.this.mainModel.setLivingAnimations(entitylivingbase, f, f1, f1);
+							RendererLivingEntity.this.mainModel.setRotationAngles(f, f1, f2, f3, f4, f5,
+									entitylivingbase);
+							RendererLivingEntity.this.mainModel.render(entitylivingbase, f, f1, f2, f3, f4, f5);
+							if (RendererLivingEntity.this.mainModel instanceof ModelBiped) {
+								if ((entitylivingbase instanceof EntityPlayer)
+										&& ((EntityPlayer) entitylivingbase).isSpectator()) {
+									((ModelBiped) RendererLivingEntity.this.mainModel).setInvisible(true);
+								}
+							}
+							GlStateManager.alphaFunc(GL_GREATER, 0.1F);
+							GlStateManager.popMatrix();
+							EntityRenderer.disableLightmapStatic();
+							GlStateManager.disableAlpha();
+						}
+					});
+				}
 				return;
 			}
 
@@ -249,7 +319,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 		return this.setBrightness(entityLivingBaseIn, partialTicks, true);
 	}
 
-	protected boolean setBrightness(T entitylivingbaseIn, float partialTicks, boolean combineTextures) {
+	public boolean setBrightness(T entitylivingbaseIn, float partialTicks, boolean combineTextures) {
 		float f = entitylivingbaseIn.getBrightness(partialTicks);
 		int i = this.getColorMultiplier(entitylivingbaseIn, f, partialTicks);
 		boolean flag = (i >> 24 & 255) > 0;
@@ -270,14 +340,14 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 		}
 	}
 
-	protected void unsetBrightness() {
+	public void unsetBrightness() {
 		GlStateManager.disableShaderBlendAdd();
 	}
 
 	/**+
 	 * Sets a simple glTranslate on a LivingEntity.
 	 */
-	protected void renderLivingAt(T entityLivingBaseIn, double x, double y, double z) {
+	public void renderLivingAt(T entityLivingBaseIn, double x, double y, double z) {
 		GlStateManager.translate((float) x, (float) y, (float) z);
 	}
 
@@ -361,6 +431,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 				float f1 = 0.02666667F;
 				GlStateManager.alphaFunc(GL_GREATER, 0.1F);
 				if (entitylivingbase.isSneaking()) {
+					if (DeferredStateManager.isInDeferredPass()) {
+						NameTagRenderer.renderNameTag(entitylivingbase, null, d0, d1, d2, -69);
+						return;
+					}
 					FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
 					GlStateManager.pushMatrix();
 					GlStateManager.translate((float) d0, (float) d1 + entitylivingbase.height + 0.5F

@@ -22,10 +22,12 @@ import net.minecraft.block.BlockSnow;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -531,7 +533,7 @@ public abstract class World implements IBlockAccess {
 
 	public int getLightFromNeighborsFor(EnumSkyBlock type, BlockPos pos) {
 		if (this.provider.getHasNoSky() && type == EnumSkyBlock.SKY) {
-			return 0;
+			return Chunk.getNoSkyLightValue();
 		} else {
 			if (pos.getY() < 0) {
 				pos = new BlockPos(pos.getX(), 0, pos.getZ());
@@ -1530,6 +1532,37 @@ public abstract class World implements IBlockAccess {
 				}
 			}
 
+		}
+		int fastMathSetting = Minecraft.getMinecraft().gameSettings.fastMath;
+		if (fastMathSetting > 0) {
+			double posPrec = fastMathSetting == 2 ? 256.0 : 1024.0;
+			float rotPrec = fastMathSetting == 2 ? 64.0f : 128.0f;
+			double velPrec = fastMathSetting == 2 ? 2048.0 : 4096.0;
+			entityIn.lastTickPosX = (long) (entityIn.lastTickPosX * posPrec) / posPrec;
+			entityIn.lastTickPosY = (long) (entityIn.lastTickPosY * posPrec) / posPrec;
+			entityIn.lastTickPosZ = (long) (entityIn.lastTickPosZ * posPrec) / posPrec;
+			entityIn.prevPosX = (int) (entityIn.prevPosX * posPrec) / posPrec;
+			entityIn.prevPosY = (int) (entityIn.prevPosY * posPrec) / posPrec;
+			entityIn.prevPosZ = (int) (entityIn.prevPosZ * posPrec) / posPrec;
+			entityIn.posX = (int) (entityIn.posX * posPrec) / posPrec;
+			entityIn.posY = (int) (entityIn.posY * posPrec) / posPrec;
+			entityIn.posZ = (int) (entityIn.posZ * posPrec) / posPrec;
+			entityIn.prevRotationPitch = (int) (entityIn.prevRotationPitch * rotPrec) / rotPrec;
+			entityIn.prevRotationYaw = (int) (entityIn.prevRotationYaw * rotPrec) / rotPrec;
+			entityIn.rotationPitch = (int) (entityIn.rotationPitch * rotPrec) / rotPrec;
+			entityIn.rotationYaw = (int) (entityIn.rotationYaw * rotPrec) / rotPrec;
+			if (entityIn instanceof EntityLivingBase) {
+				EntityLivingBase l = (EntityLivingBase) entityIn;
+				l.prevRotationYawHead = (int) (l.prevRotationYawHead * rotPrec) / rotPrec;
+				l.rotationYawHead = (int) (l.rotationYawHead * rotPrec) / rotPrec;
+				l.prevRenderYawOffset = (int) (l.prevRenderYawOffset * rotPrec) / rotPrec;
+				l.renderYawOffset = (int) (l.renderYawOffset * rotPrec) / rotPrec;
+				l.prevRotationPitch = (int) (l.prevRotationPitch * rotPrec) / rotPrec;
+				l.rotationPitch = (int) (l.rotationPitch * rotPrec) / rotPrec;
+			}
+			entityIn.motionX = (int) (entityIn.motionX * velPrec) / velPrec;
+			entityIn.motionY = (int) (entityIn.motionY * velPrec) / velPrec;
+			entityIn.motionZ = (int) (entityIn.motionZ * velPrec) / velPrec;
 		}
 	}
 

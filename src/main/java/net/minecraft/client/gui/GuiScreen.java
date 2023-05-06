@@ -228,7 +228,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
 			for (int i2 = 0; i2 < list.size(); ++i2) {
 				String s1 = (String) list.get(i2);
-				this.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
+				if (s1.length() > 0) {
+					this.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
+				}
 				if (i2 == 0) {
 					k2 += 2;
 				}

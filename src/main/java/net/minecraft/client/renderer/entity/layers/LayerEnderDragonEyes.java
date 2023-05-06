@@ -4,6 +4,7 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.client.renderer.entity.RenderDragon;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.ResourceLocation;
@@ -37,6 +38,17 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 	public void doRenderLayer(EntityDragon entitydragon, float f, float f1, float f2, float f3, float f4, float f5,
 			float f6) {
 		this.dragonRenderer.bindTexture(TEXTURE);
+		if (DeferredStateManager.isInDeferredPass()) {
+			DeferredStateManager.setEmissionConstant(0.5f);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.enablePolygonOffset();
+			GlStateManager.doPolygonOffset(-0.025f, 1.0f);
+			this.dragonRenderer.getMainModel().render(entitydragon, f, f1, f3, f4, f5, f6);
+			this.dragonRenderer.func_177105_a(entitydragon, f2);
+			GlStateManager.disablePolygonOffset();
+			DeferredStateManager.setEmissionConstant(0.0f);
+			return;
+		}
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.blendFunc(GL_ONE, GL_ONE);

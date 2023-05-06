@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.OpenGlHelper;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.IBlockState;
@@ -316,6 +317,7 @@ public class RenderManager {
 		float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
 		int i = entity.getBrightnessForRender(partialTicks);
 		if (entity.isBurning()) {
+			DeferredStateManager.setEmissionConstant(1.0f);
 			i = 15728880;
 		}
 
@@ -323,8 +325,23 @@ public class RenderManager {
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f,
-				partialTicks, parFlag);
+		try {
+			return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f,
+					partialTicks, parFlag);
+		} finally {
+			DeferredStateManager.setEmissionConstant(0.0f);
+		}
+	}
+
+	public static void setupLightmapCoords(Entity entity, float partialTicks) {
+		int i = entity.getBrightnessForRender(partialTicks);
+		if (entity.isBurning()) {
+			DeferredStateManager.setEmissionConstant(1.0f);
+			i = 15728880;
+		}
+		int j = i % 65536;
+		int k = i / 65536;
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
 	}
 
 	public void renderWitherSkull(Entity entityIn, float partialTicks) {
@@ -345,7 +362,11 @@ public class RenderManager {
 
 	public boolean renderEntityWithPosYaw(Entity entityIn, double x, double y, double z, float entityYaw,
 			float partialTicks) {
-		return this.doRenderEntity(entityIn, x, y, z, entityYaw, partialTicks, false);
+		try {
+			return this.doRenderEntity(entityIn, x, y, z, entityYaw, partialTicks, false);
+		} finally {
+			DeferredStateManager.setEmissionConstant(0.0f);
+		}
 	}
 
 	public boolean doRenderEntity(Entity entity, double x, double y, double z, float entityYaw, float partialTicks,
@@ -360,6 +381,9 @@ public class RenderManager {
 						((RendererLivingEntity) render).setRenderOutlines(this.renderOutlines);
 					}
 
+					RenderItem.renderPosX = (float) x;
+					RenderItem.renderPosY = (float) y + entity.height * 0.5f;
+					RenderItem.renderPosZ = (float) z;
 					render.doRender(entity, x, y, z, entityYaw, partialTicks);
 				} catch (Throwable throwable2) {
 					throw new ReportedException(CrashReport.makeCrashReport(throwable2, "Rendering entity in world"));
@@ -374,7 +398,8 @@ public class RenderManager {
 							CrashReport.makeCrashReport(throwable1, "Post-rendering entity in world"));
 				}
 
-				if (this.debugBoundingBox && !entity.isInvisible() && !parFlag) {
+				if (this.debugBoundingBox && !entity.isInvisible() && !parFlag
+						&& !DeferredStateManager.isDeferredRenderer()) {
 					try {
 						this.renderDebugBoundingBox(entity, x, y, z, entityYaw, partialTicks);
 					} catch (Throwable throwable) {

@@ -30,7 +30,7 @@ public class RenderList extends ChunkRenderContainer {
 			for (RenderChunk renderchunk : this.renderChunks) {
 				ListedRenderChunk listedrenderchunk = (ListedRenderChunk) renderchunk;
 				GlStateManager.pushMatrix();
-				this.preRenderChunk(renderchunk);
+				this.preRenderChunk(renderchunk, enumworldblocklayer);
 				EaglercraftGPU.glCallList(
 						listedrenderchunk.getDisplayList(enumworldblocklayer, listedrenderchunk.getCompiledChunk()));
 				GlStateManager.popMatrix();

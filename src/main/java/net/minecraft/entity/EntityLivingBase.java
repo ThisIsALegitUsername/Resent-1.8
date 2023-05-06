@@ -13,6 +13,7 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
@@ -1619,4 +1620,15 @@ public abstract class EntityLivingBase extends Entity {
 	protected void markPotionsDirty() {
 		this.potionsNeedUpdate = true;
 	}
+
+	protected void renderDynamicLightsEaglerAt(double entityX, double entityY, double entityZ, double renderX,
+			double renderY, double renderZ, float partialTicks, boolean isInFrustum) {
+		super.renderDynamicLightsEaglerAt(entityX, entityY, entityZ, renderX, renderY, renderZ, partialTicks,
+				isInFrustum);
+		Minecraft mc = Minecraft.getMinecraft();
+		if (mc.gameSettings.thirdPersonView != 0 || !(mc.getRenderViewEntity() == this)) {
+			Minecraft.getMinecraft().entityRenderer.renderHeldItemLight(this, 1.0f);
+		}
+	}
+
 }

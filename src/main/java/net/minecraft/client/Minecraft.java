@@ -2,6 +2,8 @@ package net.minecraft.client;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
+import static net.lax1dude.eaglercraft.v1_8.internal.PlatformOpenGL._wglBindFramebuffer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -35,6 +37,15 @@ import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.ImageData;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.BlockVertexIDs;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DebugFramebufferView;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.EaglerDeferredPipeline;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ShaderPackInfoReloadListener;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.program.ShaderSource;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.texture.EmissiveItems;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.texture.MetalsLUT;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.texture.PBRTextureMapUtils;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.texture.TemperaturesLUT;
 import net.lax1dude.eaglercraft.v1_8.profile.EaglerProfile;
 import net.lax1dude.eaglercraft.v1_8.profile.GuiScreenEditProfile;
 import net.lax1dude.eaglercraft.v1_8.profile.SkinPreviewRenderer;
@@ -132,6 +143,8 @@ import net.minecraft.stats.IStatStringFormat;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.FrameTimer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.MathHelper;
@@ -270,6 +283,8 @@ public class Minecraft implements IThreadListener {
 	private String debugProfilerName = "root";
 	public int joinWorldTickCounter = 0;
 	private int dontPauseTimer = 0;
+	public int bungeeOutdatedMsgTimer = 0;
+	public String bungeeOutdatedMsgVer = null;
 
 	public Minecraft(GameConfiguration gameConfig) {
 		theMinecraft = this;
@@ -385,6 +400,12 @@ public class Minecraft implements IThreadListener {
 		this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);
 		this.mcResourceManager.registerReloadListener(new GrassColorReloadListener());
 		this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
+		this.mcResourceManager.registerReloadListener(new ShaderPackInfoReloadListener());
+		this.mcResourceManager.registerReloadListener(PBRTextureMapUtils.blockMaterialConstants);
+		this.mcResourceManager.registerReloadListener(new TemperaturesLUT());
+		this.mcResourceManager.registerReloadListener(new MetalsLUT());
+		this.mcResourceManager.registerReloadListener(new EmissiveItems());
+		this.mcResourceManager.registerReloadListener(new BlockVertexIDs());
 		AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat() {
 			public String formatString(String parString1) {
 				try {
@@ -410,6 +431,7 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.matrixMode(GL_MODELVIEW);
 		this.checkGLError("Startup");
 		this.textureMapBlocks = new TextureMap("textures");
+		this.textureMapBlocks.setEnablePBREagler(gameSettings.shaders);
 		this.textureMapBlocks.setMipmapLevels(this.gameSettings.mipmapLevels);
 		this.renderEngine.loadTickableTexture(TextureMap.locationBlocksTexture, this.textureMapBlocks);
 		this.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -534,6 +556,8 @@ public class Minecraft implements IThreadListener {
 			this.gameSettings.field_183018_l.clear();
 			this.gameSettings.saveOptions();
 		}
+
+		ShaderSource.clearCache();
 
 		this.mcLanguageManager.parseLanguageMetadata(arraylist);
 		if (this.renderGlobal != null) {
@@ -739,6 +763,11 @@ public class Minecraft implements IThreadListener {
 		this.mcProfiler.startSection("render");
 
 		if (!Display.contextLost()) {
+			this.mcProfiler.startSection("EaglercraftGPU_optimize");
+			EaglercraftGPU.optimize();
+			this.mcProfiler.endSection();
+			_wglBindFramebuffer(0x8D40, null);
+			GlStateManager.viewport(0, 0, this.displayWidth, this.displayHeight);
 			GlStateManager.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			GlStateManager.pushMatrix();
 			GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -1203,6 +1232,7 @@ public class Minecraft implements IThreadListener {
 		this.mcProfiler.endStartSection("textures");
 		if (!this.isGamePaused) {
 			this.renderEngine.tick();
+			GlStateManager.viewport(0, 0, displayWidth, displayHeight); // to be safe
 		}
 
 		if (this.currentScreen == null && this.thePlayer != null) {
@@ -1334,8 +1364,14 @@ public class Minecraft implements IThreadListener {
 
 				this.dispatchKeypresses();
 				if (Keyboard.getEventKeyState()) {
-					if (k == 62 && this.entityRenderer != null) {
-						this.entityRenderer.switchUseShader();
+					if (EaglerDeferredPipeline.instance != null) {
+						if (k == 62) {
+							DebugFramebufferView.toggleDebugView();
+						} else if (k == 0xCB || k == 0xC8) {
+							DebugFramebufferView.switchView(-1);
+						} else if (k == 0xCD || k == 0xD0) {
+							DebugFramebufferView.switchView(1);
+						}
 					}
 
 					if (this.currentScreen != null) {
@@ -1351,6 +1387,13 @@ public class Minecraft implements IThreadListener {
 
 						if (k == 31 && Keyboard.isKeyDown(61)) {
 							this.refreshResources();
+						}
+
+						if (k == 19 && Keyboard.isKeyDown(61)) { // F3+R
+							if (gameSettings.shaders) {
+								ShaderSource.clearCache();
+								this.renderGlobal.loadRenderers();
+							}
 						}
 
 						if (k == 17 && Keyboard.isKeyDown(61)) {
@@ -1592,6 +1635,31 @@ public class Minecraft implements IThreadListener {
 
 		if (this.theWorld != null) {
 			++joinWorldTickCounter;
+			if (bungeeOutdatedMsgTimer > 0) {
+				if (--bungeeOutdatedMsgTimer == 0) {
+					String pfx = EnumChatFormatting.GOLD + "[EagX]" + EnumChatFormatting.AQUA;
+					ingameGUI.getChatGUI()
+							.printChatMessage(new ChatComponentText(pfx + " ---------------------------------------"));
+					ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(
+							pfx + EnumChatFormatting.GREEN + EnumChatFormatting.BOLD + " MESSAGE FROM LAX:"));
+					ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(pfx));
+					ingameGUI.getChatGUI()
+							.printChatMessage(new ChatComponentText(
+									pfx + " This server appears to be using version " + EnumChatFormatting.YELLOW
+											+ bungeeOutdatedMsgVer + EnumChatFormatting.AQUA + " of"));
+					ingameGUI.getChatGUI().printChatMessage(
+							new ChatComponentText(pfx + " the EaglerXBungee plugin which has memory leaks"));
+					ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(pfx));
+					ingameGUI.getChatGUI()
+							.printChatMessage(new ChatComponentText(pfx + " If you are the admin update to "
+									+ EnumChatFormatting.YELLOW + "1.0.6" + EnumChatFormatting.AQUA + " or newer"));
+					ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(pfx));
+					ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(pfx + EnumChatFormatting.GREEN
+							+ " https://ftp.deev.is/EaglerXBungee-1.0.6-MemleakFix.jar"));
+					ingameGUI.getChatGUI()
+							.printChatMessage(new ChatComponentText(pfx + " ---------------------------------------"));
+				}
+			}
 		} else {
 			joinWorldTickCounter = 0;
 		}
@@ -1726,7 +1794,10 @@ public class Minecraft implements IThreadListener {
 	 * Returns if ambient occlusion is enabled
 	 */
 	public static boolean isAmbientOcclusionEnabled() {
-		return theMinecraft != null && theMinecraft.gameSettings.ambientOcclusion != 0;
+		if (theMinecraft == null)
+			return false;
+		GameSettings g = theMinecraft.gameSettings;
+		return g.ambientOcclusion != 0 && !g.shadersAODisable;
 	}
 
 	/**+
@@ -2115,5 +2186,9 @@ public class Minecraft implements IThreadListener {
 
 	public boolean areKeysLocked() {
 		return PlatformInput.lockKeys;
+	}
+
+	public ModelManager getModelManager() {
+		return modelManager;
 	}
 }

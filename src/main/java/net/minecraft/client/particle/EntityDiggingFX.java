@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -42,6 +43,7 @@ public class EntityDiggingFX extends EntityFX {
 		this.particleGravity = state.getBlock().blockParticleGravity;
 		this.particleRed = this.particleGreen = this.particleBlue = 0.6F;
 		this.particleScale /= 2.0F;
+		this.particleAlpha = state.getBlock().getBlockLayer() == EnumWorldBlockLayer.TRANSLUCENT ? 0.999f : 1.0f;
 	}
 
 	public EntityDiggingFX func_174846_a(BlockPos pos) {

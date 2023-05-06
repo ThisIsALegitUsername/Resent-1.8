@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-        <listEntry value="/eclipseProject/src_main_java/net/lax1dude/eaglercraft/v1_8/internal/lwjgl/MainClass.java"/>
+        <listEntry value="/eclipseProject/src_lwjgl_java/net/lax1dude/eaglercraft/v1_8/internal/lwjgl/MainClass.java"/>
     </listAttribute>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
         <listEntry value="1"/>
@@ -18,5 +18,5 @@
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="eclipseProject"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="eclipseProject"/>
     <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.library.path=."/>
-    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="/workspace/Resent-1.8/eaglercraftx-1.8/../eaglercraft_1.8_workspace/desktopRuntime"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="C:/Users/suvan/Downloads/bafybeiakklgbdjufhlcbsf2hksxbmxgyilobmvtcogt6ltdtweh5nyvbvi/../eaglercraft_1.8_workspace/desktopRuntime"/>
 </launchConfiguration>

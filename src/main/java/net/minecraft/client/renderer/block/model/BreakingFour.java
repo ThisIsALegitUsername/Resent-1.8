@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import java.util.Arrays;
 
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -26,8 +27,9 @@ public class BreakingFour extends BakedQuad {
 	private final EaglerTextureAtlasSprite texture;
 
 	public BreakingFour(BakedQuad parBakedQuad, EaglerTextureAtlasSprite textureIn) {
-		super(Arrays.copyOf(parBakedQuad.getVertexData(), parBakedQuad.getVertexData().length), parBakedQuad.tintIndex,
-				FaceBakery.getFacingFromVertexData(parBakedQuad.getVertexData()));
+		super(Arrays.copyOf(parBakedQuad.getVertexData(), parBakedQuad.getVertexData().length),
+				Arrays.copyOf(parBakedQuad.getVertexDataWithNormals(), parBakedQuad.getVertexDataWithNormals().length),
+				parBakedQuad.tintIndex, parBakedQuad.face);
 		this.texture = textureIn;
 		this.func_178217_e();
 	}
@@ -74,5 +76,11 @@ public class BreakingFour extends BakedQuad {
 
 		this.vertexData[i + 4] = Float.floatToRawIntBits(this.texture.getInterpolatedU((double) f3));
 		this.vertexData[i + 4 + 1] = Float.floatToRawIntBits(this.texture.getInterpolatedV((double) f4));
+		if (this.vertexDataWithNormals != null) {
+			int i2 = 8 * parInt1;
+			this.vertexDataWithNormals[i2 + 4] = this.vertexData[i + 4];
+			this.vertexDataWithNormals[i2 + 4 + 1] = this.vertexData[i + 4 + 1];
+
+		}
 	}
 }

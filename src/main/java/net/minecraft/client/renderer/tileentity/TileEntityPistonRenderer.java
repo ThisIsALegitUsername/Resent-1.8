@@ -3,7 +3,9 @@ package net.minecraft.client.renderer.tileentity;
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.VertexFormat;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonExtension;
@@ -60,7 +62,8 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 				GlStateManager.shadeModel(GL_FLAT);
 			}
 
-			worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
+			worldrenderer.begin(7, DeferredStateManager.isDeferredRenderer() ? VertexFormat.BLOCK_SHADERS
+					: DefaultVertexFormats.BLOCK);
 			worldrenderer.setTranslation(
 					(double) ((float) d0 - (float) blockpos.getX() + tileentitypiston.getOffsetX(f)),
 					(double) ((float) d1 - (float) blockpos.getY() + tileentitypiston.getOffsetY(f)),
@@ -99,6 +102,8 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 			worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
 			tessellator.draw();
 			RenderHelper.enableStandardItemLighting();
+			GlStateManager.enableCull();
+			GlStateManager.disableBlend();
 		}
 	}
 }

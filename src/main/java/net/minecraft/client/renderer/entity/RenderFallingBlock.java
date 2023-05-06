@@ -1,7 +1,9 @@
 package net.minecraft.client.renderer.entity;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.VertexFormat;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -62,7 +64,8 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 					GlStateManager.disableLighting();
 					Tessellator tessellator = Tessellator.getInstance();
 					WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-					worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
+					worldrenderer.begin(7, DeferredStateManager.isDeferredRenderer() ? VertexFormat.BLOCK_SHADERS
+							: DefaultVertexFormats.BLOCK);
 					int i = blockpos.getX();
 					int j = blockpos.getY();
 					int k = blockpos.getZ();

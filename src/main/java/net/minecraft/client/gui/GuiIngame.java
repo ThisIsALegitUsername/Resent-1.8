@@ -132,6 +132,8 @@ public class GuiIngame extends Gui {
 		this.mc.entityRenderer.setupOverlayRendering();
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+		GlStateManager.enableDepth();
+		GlStateManager.disableLighting();
 
 		ItemStack itemstack = this.mc.thePlayer.inventory.armorItemInSlot(3);
 		if (this.mc.gameSettings.thirdPersonView == 0 && itemstack != null

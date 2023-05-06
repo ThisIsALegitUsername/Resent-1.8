@@ -2,10 +2,15 @@ package net.minecraft.client.renderer.tileentity;
 
 import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 
+import static net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.ExtGLEnums.*;
+import static net.lax1dude.eaglercraft.v1_8.internal.PlatformOpenGL.*;
+
 import java.util.List;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.EaglerDeferredPipeline;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
@@ -94,6 +99,11 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 		GlStateManager.depthMask(false);
 		byte b0 = 0;
 		if (i < 0) {
+			if (DeferredStateManager.isInDeferredPass()) {
+				_wglDrawBuffers(_GL_COLOR_ATTACHMENT0);
+				GlStateManager.colorMask(true, true, true, false);
+				GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+			}
 			for (int j = 0; j < tileentitysign.signText.length; ++j) {
 				if (tileentitysign.signText[j] != null) {
 					IChatComponent ichatcomponent = tileentitysign.signText[j];
@@ -108,6 +118,10 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 								j * 10 - tileentitysign.signText.length * 5, b0);
 					}
 				}
+			}
+			if (DeferredStateManager.isInDeferredPass()) {
+				_wglDrawBuffers(EaglerDeferredPipeline.instance.gBufferDrawBuffers);
+				GlStateManager.colorMask(true, true, true, true);
 			}
 		}
 

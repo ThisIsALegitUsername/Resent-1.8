@@ -2,11 +2,15 @@ package net.minecraft.client.renderer;
 
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.BlockVertexIDs;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
@@ -48,22 +52,28 @@ public class BlockFluidRenderer {
 
 	public boolean renderFluid(IBlockAccess blockAccess, IBlockState blockStateIn, BlockPos blockPosIn,
 			WorldRenderer worldRendererIn) {
+		BlockPos tmp = new BlockPos(0, 0, 0);
+		boolean deferred = DeferredStateManager.isDeferredRenderer();
 		BlockLiquid blockliquid = (BlockLiquid) blockStateIn.getBlock();
+		boolean lava = blockliquid.getMaterial() == Material.lava;
+		boolean realistic = !lava && DeferredStateManager.isRenderingRealisticWater();
 		blockliquid.setBlockBoundsBasedOnState(blockAccess, blockPosIn);
-		EaglerTextureAtlasSprite[] atextureatlassprite = blockliquid.getMaterial() == Material.lava
-				? this.atlasSpritesLava
-				: this.atlasSpritesWater;
+		EaglerTextureAtlasSprite[] atextureatlassprite = lava ? this.atlasSpritesLava : this.atlasSpritesWater;
 		int i = blockliquid.colorMultiplier(blockAccess, blockPosIn);
 		float f = (float) (i >> 16 & 255) / 255.0F;
 		float f1 = (float) (i >> 8 & 255) / 255.0F;
 		float f2 = (float) (i & 255) / 255.0F;
-		boolean flag = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.up(), EnumFacing.UP);
-		boolean flag1 = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.down(), EnumFacing.DOWN);
+		boolean flag = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.up(tmp), EnumFacing.UP);
+		if (realistic && blockStateIn.getValue(BlockLiquid.LEVEL).intValue() == 0) {
+			Block blockUp = blockAccess.getBlockState(blockPosIn.up(tmp)).getBlock();
+			flag &= !blockUp.isFullCube() || !blockUp.isBlockSolid(blockAccess, blockPosIn.up(tmp), EnumFacing.DOWN);
+		}
+		boolean flag1 = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.down(tmp), EnumFacing.DOWN);
 		boolean[] aboolean = new boolean[] {
-				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.north(), EnumFacing.NORTH),
-				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.south(), EnumFacing.SOUTH),
-				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.west(), EnumFacing.WEST),
-				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.east(), EnumFacing.EAST) };
+				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.north(tmp), EnumFacing.NORTH),
+				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.south(tmp), EnumFacing.SOUTH),
+				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.west(tmp), EnumFacing.WEST),
+				blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.east(tmp), EnumFacing.EAST) };
 		if (!flag && !flag1 && !aboolean[0] && !aboolean[1] && !aboolean[2] && !aboolean[3]) {
 			return false;
 		} else {
@@ -74,12 +84,12 @@ public class BlockFluidRenderer {
 			float f6 = 0.6F;
 			Material material = blockliquid.getMaterial();
 			float f7 = this.getFluidHeight(blockAccess, blockPosIn, material);
-			float f8 = this.getFluidHeight(blockAccess, blockPosIn.south(), material);
-			float f9 = this.getFluidHeight(blockAccess, blockPosIn.east().south(), material);
-			float f10 = this.getFluidHeight(blockAccess, blockPosIn.east(), material);
-			double d0 = (double) blockPosIn.getX();
-			double d1 = (double) blockPosIn.getY();
-			double d2 = (double) blockPosIn.getZ();
+			float f8 = this.getFluidHeight(blockAccess, blockPosIn.south(tmp), material);
+			float f9 = this.getFluidHeight(blockAccess, blockPosIn.east(tmp).south(tmp), material);
+			float f10 = this.getFluidHeight(blockAccess, blockPosIn.east(tmp), material);
+			double d0 = (double) blockPosIn.x;
+			double d1 = (double) blockPosIn.y;
+			double d2 = (double) blockPosIn.z;
 			float f11 = 0.001F;
 			if (flag) {
 				flag2 = true;
@@ -101,12 +111,14 @@ public class BlockFluidRenderer {
 				float f18;
 				float f19;
 				float f20;
-				if (f12 < -999.0F) {
-					f13 = textureatlassprite.getInterpolatedU(0.0D);
-					f17 = textureatlassprite.getInterpolatedV(0.0D);
+				if (realistic || f12 < -999.0F) {
+					f13 = realistic ? (f12 < -999.0F ? 0.0f : MathHelper.sin(f12))
+							: textureatlassprite.getInterpolatedU(0.0D);
+					f17 = realistic ? (f12 < -999.0F ? 0.0f : -MathHelper.cos(f12))
+							: textureatlassprite.getInterpolatedV(0.0D);
 					f14 = f13;
-					f18 = textureatlassprite.getInterpolatedV(16.0D);
-					f15 = textureatlassprite.getInterpolatedU(16.0D);
+					f18 = realistic ? f17 : textureatlassprite.getInterpolatedV(16.0D);
+					f15 = realistic ? f13 : textureatlassprite.getInterpolatedU(16.0D);
 					f19 = f18;
 					f16 = f15;
 					f20 = f17;
@@ -138,7 +150,11 @@ public class BlockFluidRenderer {
 						.tex((double) f15, (double) f19).lightmap(l2, i3).endVertex();
 				worldRendererIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f24, f25, f26, 1.0F)
 						.tex((double) f16, (double) f20).lightmap(l2, i3).endVertex();
-				if (blockliquid.func_176364_g(blockAccess, blockPosIn.up())) {
+				if (deferred)
+					worldRendererIn.genNormals(true, f12 <= -999.0F ? BlockVertexIDs.builtin_water_still_vertex_id
+							: BlockVertexIDs.builtin_water_flow_vertex_id);
+
+				if (blockliquid.func_176364_g(blockAccess, blockPosIn.up(tmp))) {
 					worldRendererIn.pos(d0 + 0.0D, d1 + (double) f7, d2 + 0.0D).color(f24, f25, f26, 1.0F)
 							.tex((double) f13, (double) f17).lightmap(l2, i3).endVertex();
 					worldRendererIn.pos(d0 + 1.0D, d1 + (double) f10, d2 + 0.0D).color(f24, f25, f26, 1.0F)
@@ -147,15 +163,18 @@ public class BlockFluidRenderer {
 							.tex((double) f15, (double) f19).lightmap(l2, i3).endVertex();
 					worldRendererIn.pos(d0 + 0.0D, d1 + (double) f8, d2 + 1.0D).color(f24, f25, f26, 1.0F)
 							.tex((double) f14, (double) f18).lightmap(l2, i3).endVertex();
+					if (deferred)
+						worldRendererIn.genNormals(true, f12 <= -999.0F ? BlockVertexIDs.builtin_water_still_vertex_id
+								: BlockVertexIDs.builtin_water_flow_vertex_id);
 				}
 			}
 
 			if (flag1) {
-				float f35 = atextureatlassprite[0].getMinU();
-				float f36 = atextureatlassprite[0].getMaxU();
-				float f37 = atextureatlassprite[0].getMinV();
-				float f38 = atextureatlassprite[0].getMaxV();
-				int l1 = blockliquid.getMixedBrightnessForBlock(blockAccess, blockPosIn.down());
+				float f35 = realistic ? 0.0f : atextureatlassprite[0].getMinU();
+				float f36 = realistic ? 0.0f : atextureatlassprite[0].getMaxU();
+				float f37 = realistic ? 0.0f : atextureatlassprite[0].getMinV();
+				float f38 = realistic ? 0.0f : atextureatlassprite[0].getMaxV();
+				int l1 = blockliquid.getMixedBrightnessForBlock(blockAccess, blockPosIn.down(tmp));
 				int i2 = l1 >> 16 & '\uffff';
 				int j2 = l1 & '\uffff';
 				worldRendererIn.pos(d0, d1, d2 + 1.0D).color(f3, f3, f3, 1.0F).tex((double) f35, (double) f38)
@@ -166,6 +185,8 @@ public class BlockFluidRenderer {
 						.lightmap(i2, j2).endVertex();
 				worldRendererIn.pos(d0 + 1.0D, d1, d2 + 1.0D).color(f3, f3, f3, 1.0F).tex((double) f36, (double) f38)
 						.lightmap(i2, j2).endVertex();
+				if (deferred)
+					worldRendererIn.putNormal(0.0f, -1.0f, 0.0f, BlockVertexIDs.builtin_water_still_vertex_id);
 				flag2 = true;
 			}
 
@@ -228,11 +249,13 @@ public class BlockFluidRenderer {
 					}
 
 					flag2 = true;
-					float f41 = textureatlassprite1.getInterpolatedU(0.0D);
-					float f27 = textureatlassprite1.getInterpolatedU(8.0D);
-					float f28 = textureatlassprite1.getInterpolatedV((double) ((1.0F - f39) * 16.0F * 0.5F));
-					float f29 = textureatlassprite1.getInterpolatedV((double) ((1.0F - f40) * 16.0F * 0.5F));
-					float f30 = textureatlassprite1.getInterpolatedV(8.0D);
+					float f41 = realistic ? 1.0f : textureatlassprite1.getInterpolatedU(0.0D);
+					float f27 = realistic ? 1.0f : textureatlassprite1.getInterpolatedU(8.0D);
+					float f28 = realistic ? 0.0f
+							: textureatlassprite1.getInterpolatedV((double) ((1.0F - f39) * 16.0F * 0.5F));
+					float f29 = realistic ? 0.0f
+							: textureatlassprite1.getInterpolatedV((double) ((1.0F - f40) * 16.0F * 0.5F));
+					float f30 = realistic ? 0.0f : textureatlassprite1.getInterpolatedV(8.0D);
 					int j = blockliquid.getMixedBrightnessForBlock(blockAccess, blockpos);
 					int k = j >> 16 & '\uffff';
 					int l = j & '\uffff';
@@ -248,14 +271,20 @@ public class BlockFluidRenderer {
 							.lightmap(k, l).endVertex();
 					worldRendererIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F).tex((double) f41, (double) f30)
 							.lightmap(k, l).endVertex();
-					worldRendererIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F).tex((double) f41, (double) f30)
-							.lightmap(k, l).endVertex();
-					worldRendererIn.pos(d5, d1 + 0.0D, d6).color(f32, f33, f34, 1.0F).tex((double) f27, (double) f30)
-							.lightmap(k, l).endVertex();
-					worldRendererIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1.0F)
-							.tex((double) f27, (double) f29).lightmap(k, l).endVertex();
-					worldRendererIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1.0F)
-							.tex((double) f41, (double) f28).lightmap(k, l).endVertex();
+					if (deferred)
+						worldRendererIn.putNormal(j1, 0.0f, k1, BlockVertexIDs.builtin_water_flow_vertex_id);
+					if (!realistic) {
+						worldRendererIn.pos(d3, d1 + 0.0D, d4).color(f32, f33, f34, 1.0F)
+								.tex((double) f41, (double) f30).lightmap(k, l).endVertex();
+						worldRendererIn.pos(d5, d1 + 0.0D, d6).color(f32, f33, f34, 1.0F)
+								.tex((double) f27, (double) f30).lightmap(k, l).endVertex();
+						worldRendererIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1.0F)
+								.tex((double) f27, (double) f29).lightmap(k, l).endVertex();
+						worldRendererIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1.0F)
+								.tex((double) f41, (double) f28).lightmap(k, l).endVertex();
+						if (deferred)
+							worldRendererIn.putNormal(-j1, 0.0f, -k1, BlockVertexIDs.builtin_water_flow_vertex_id);
+					}
 				}
 			}
 

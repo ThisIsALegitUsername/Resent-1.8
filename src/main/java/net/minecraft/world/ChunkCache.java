@@ -104,7 +104,7 @@ public class ChunkCache implements IBlockAccess {
 
 	private int getLightForExt(EnumSkyBlock pos, BlockPos parBlockPos) {
 		if (pos == EnumSkyBlock.SKY && this.worldObj.provider.getHasNoSky()) {
-			return 0;
+			return Chunk.getNoSkyLightValue();
 		} else if (parBlockPos.getY() >= 0 && parBlockPos.getY() < 256) {
 			if (this.getBlockState(parBlockPos).getBlock().getUseNeighborBrightness()) {
 				int l = 0;

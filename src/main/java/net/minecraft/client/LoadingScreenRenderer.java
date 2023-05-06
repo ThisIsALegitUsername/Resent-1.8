@@ -8,6 +8,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MinecraftError;
 
@@ -115,6 +116,10 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 			this.setLoadingProgress(-1);
 			this.systemTime = 0L;
 		}
+	}
+
+	public void eaglerShowRefreshResources() {
+		eaglerShow(I18n.format("resourcePack.load.refreshing"), I18n.format("resourcePack.load.pleaseWait"));
 	}
 
 	/**+

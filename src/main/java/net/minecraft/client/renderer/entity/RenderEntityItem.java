@@ -5,6 +5,8 @@ import static net.lax1dude.eaglercraft.v1_8.opengl.RealOpenGLEnums.*;
 import net.lax1dude.eaglercraft.v1_8.EaglercraftRandom;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.IBakedModel;
@@ -99,6 +101,8 @@ public class RenderEntityItem extends Render<EntityItem> {
 	 * double d2, float f, float f1). But JAD is pre 1.5 so doe
 	 */
 	public void doRender(EntityItem entityitem, double d0, double d1, double d2, float f, float f1) {
+		boolean emissive = entityitem.eaglerEmissiveFlag;
+		entityitem.eaglerEmissiveFlag = false;
 		ItemStack itemstack = entityitem.getEntityItem();
 		this.field_177079_e.setSeed(187L);
 		boolean flag = false;
@@ -107,6 +111,9 @@ public class RenderEntityItem extends Render<EntityItem> {
 			flag = true;
 		}
 
+		if (emissive) {
+			DeferredStateManager.setEmissionConstant(1.0f);
+		}
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.alphaFunc(GL_GREATER, 0.1F);
 		GlStateManager.enableBlend();
@@ -150,6 +157,9 @@ public class RenderEntityItem extends Render<EntityItem> {
 		}
 
 		super.doRender(entityitem, d0, d1, d2, f, f1);
+		if (emissive) {
+			DeferredStateManager.setEmissionConstant(0.0f);
+		}
 	}
 
 	/**+

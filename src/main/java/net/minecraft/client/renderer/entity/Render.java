@@ -6,6 +6,8 @@ import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 import net.lax1dude.eaglercraft.v1_8.opengl.EaglercraftGPU;
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.v1_8.opengl.WorldRenderer;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.DeferredStateManager;
+import net.lax1dude.eaglercraft.v1_8.opengl.ext.deferred.NameTagRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -37,6 +39,9 @@ public abstract class Render<T extends Entity> {
 	}
 
 	public boolean shouldRender(T livingEntity, ICamera camera, double camX, double camY, double camZ) {
+		if (DeferredStateManager.isEnableShadowRender()) {
+			return true;
+		}
 		AxisAlignedBB axisalignedbb = livingEntity.getEntityBoundingBox();
 		if (axisalignedbb.func_181656_b() || axisalignedbb.getAverageEdgeLength() == 0.0D) {
 			axisalignedbb = new AxisAlignedBB(livingEntity.posX - 2.0D, livingEntity.posY - 2.0D,
@@ -65,6 +70,10 @@ public abstract class Render<T extends Entity> {
 		if (this.canRenderName(entity)) {
 			this.renderLivingLabel(entity, entity.getDisplayName().getFormattedText(), x, y, z, 64);
 		}
+	}
+
+	public static void renderNameAdapter(Render r, Entity e, double x, double y, double z) {
+		r.renderName(e, x, y, z);
 	}
 
 	protected boolean canRenderName(T entity) {
@@ -286,8 +295,8 @@ public abstract class Render<T extends Entity> {
 	 */
 	public void doRenderShadowAndFire(Entity entityIn, double x, double y, double z, float yaw, float partialTicks) {
 		if (this.renderManager.options != null) {
-			if (this.renderManager.options.field_181151_V && this.shadowSize > 0.0F && !entityIn.isInvisible()
-					&& this.renderManager.isRenderShadow()) {
+			if (!DeferredStateManager.isInDeferredPass() && this.renderManager.options.field_181151_V
+					&& this.shadowSize > 0.0F && !entityIn.isInvisible() && this.renderManager.isRenderShadow()) {
 				double d0 = this.renderManager.getDistanceToCamera(entityIn.posX, entityIn.posY, entityIn.posZ);
 				float f = (float) ((1.0D - d0 / 256.0D) * (double) this.shadowOpaque);
 				if (f > 0.0F) {
@@ -313,9 +322,13 @@ public abstract class Render<T extends Entity> {
 	/**+
 	 * Renders an entity's name above its head
 	 */
-	protected void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance) {
+	public void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance) {
 		double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
 		if (d0 <= (double) (maxDistance * maxDistance)) {
+			if (DeferredStateManager.isInDeferredPass()) {
+				NameTagRenderer.renderNameTag(entityIn, str, x, y, z, maxDistance);
+				return;
+			}
 			FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
 			float f = 1.6F;
 			float f1 = 0.016666668F * f;

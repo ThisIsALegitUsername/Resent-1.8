@@ -454,7 +454,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 			this.drawTexturedModalRect(k + 99, b0 + 0, 129, 0, 27, 44);
 			this.drawTexturedModalRect(k + 99 + 26, b0 + 0, 126, 0, 3, 44);
 			this.drawTexturedModalRect(k + 99 + 26 + 3, b0 + 0, 99, 0, 26, 44);
-			this.drawTexturedModalRect(k + 155, b0 + 0, 0, 45, 155, 44);
+			this.drawTexturedModalRect(k + 154, b0 + 0, 0, 45, 155, 44);
 		} else {
 			this.drawTexturedModalRect(k + 0, b0 + 0, 0, 0, 155, 44);
 			this.drawTexturedModalRect(k + 155, b0 + 0, 0, 45, 155, 44);
@@ -497,6 +497,35 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		s1 = EaglercraftVersion.mainMenuStringD;
 		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2,
 				this.height - 10, -1);
+
+		GlStateManager.pushMatrix();
+		GlStateManager.scale(0.75f, 0.75f, 0.75f);
+		int www = 0;
+		int hhh = 0;
+		s1 = EaglercraftVersion.mainMenuStringG;
+		if (s1 != null) {
+			www = this.fontRendererObj.getStringWidth(s1);
+			hhh += 10;
+		}
+		s1 = EaglercraftVersion.mainMenuStringH;
+		if (s1 != null) {
+			www = Math.max(www, this.fontRendererObj.getStringWidth(s1));
+			hhh += 10;
+		}
+		if (www > 0) {
+			drawRect(0, 0, www + 6, hhh + 4, 0x55200000);
+			s1 = EaglercraftVersion.mainMenuStringG;
+			if (s1 != null) {
+				www = this.fontRendererObj.getStringWidth(s1);
+				this.drawString(this.fontRendererObj, s1, 3, 3, 0xFFFFFF99);
+			}
+			s1 = EaglercraftVersion.mainMenuStringH;
+			if (s1 != null) {
+				www = Math.max(www, this.fontRendererObj.getStringWidth(s1));
+				this.drawString(this.fontRendererObj, s1, 3, 13, 0xFFFFFF99);
+			}
+		}
+		GlStateManager.popMatrix();
 
 		String lbl = "CREDITS.txt";
 		int w = fontRendererObj.getStringWidth(lbl) * 3 / 4;
