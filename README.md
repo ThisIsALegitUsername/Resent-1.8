@@ -1,6 +1,9 @@
 # in case this repo is open-sourced, here's some info:
 
-i have decided to fully quit eaglercraft and everything related for personal reasons (dont dig into my past, seriously. if you ever do find The Thing, i'll wipe your ass off The Thing in minutes). i first started working on this project a long time ago, and that means my code base and half of the code sucks an incredible amount of ass. if you're going to comment on code quality, don't. my discord is still the same as before, DO NOT DM ME. only in the event of extreme urgence (things like an eaglerxbungee security issue) should you add and message me. there are cheats in resent, what a surprise (xray and spawner esp, 3.5 reach), it's not hard to block the activation of these serverside. i loved my time in the eagler community, and let my final words be known: fuck you all! alright, this is long enough. さようなら, 再见, and goodbye! (if you ever hear from me again i'll be back with a surprise)
+i have decided to fully quit eaglercraft and everything related for personal reasons (dont dig into my past, seriously. if you ever do find The Thing, i'll wipe your ass off The Thing in minutes). i first started working on this project a long time ago, and that means my code base and half of the code sucks an incredible amount of ass. if you're going to comment on code quality, don't. there are cheats in resent, what a surprise (xray and spawner esp, 3.5 reach), it's not hard to block the activation of these serverside. i loved my time in the eagler community, and let my final words be known: fuck you all! 
+
+
+alright, this notice is long enough. さようなら! (if you ever hear from me again i'll be back with a surprise)
 
 # Resent-1.8 (fatal i know you're skidding this right now kys)
 
