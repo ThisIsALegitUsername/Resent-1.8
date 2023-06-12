@@ -5,7 +5,13 @@ i have decided to fully quit eaglercraft and everything related for personal rea
 
 alright, this notice is long enough. さようなら! (if you ever hear from me again i'll be back with a surprise)
 
-# Resent-1.8 (fatal i know you're skidding this right now kys)
+
+## fatal i know you're skidding this right now kys (uwu client always better)
+
+
+ORIGINAL README BELOW:
+
+# Resent-1.8
 
 
 if you're reading this, that means one of the following:
