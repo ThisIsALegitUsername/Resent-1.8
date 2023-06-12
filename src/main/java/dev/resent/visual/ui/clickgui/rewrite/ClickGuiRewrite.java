@@ -160,7 +160,11 @@ public class ClickGuiRewrite extends GuiScreen {
         
         // Mod Categories
         RenderUtils.drawRoundedRect(x + 80, y+90, (x + width) - 30, y+120, 8, new Color(30, 30, 30).getRGB());
-        // pls dont remove the thing that switches the colors, doesnt look good without the color switching
+        // pls dont remove the thing that switches the colors, doesnt look good without the color switching - kone
+
+//if anyone is reading this someone fix the code below, it's ass (sorry kone)
+//holy fuck it would have been so much easier to make a categories enum instead, i didn't think it would be necessary at the time but now i see that it was the right choice. 
+
         if (selectedCategory == null) {
         	RenderUtils.drawRoundedRect(x + 85, y+95, x + 130, y+115, 8, secondaryFontColor.getRGB());
         }
@@ -265,6 +269,8 @@ public class ClickGuiRewrite extends GuiScreen {
 	                    GlStateManager.popMatrix();
 	                    GlUtils.startScale(x+92+offsetX, y+190+offset+scrollOffset, 0.7f);
 	                    if (!m.getDescription().startsWith("No des")) {
+
+//skull emoji
 	                    	String description0 = (m.getDescription() + "                                                             ").substring(0, 21);
 	                    	String description1 = (m.getDescription() + "                                                             ").substring(21, 41);
 	                    	String description2 = (m.getDescription() + "                                                             ").substring(41, 61);
