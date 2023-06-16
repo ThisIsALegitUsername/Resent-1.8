@@ -2,7 +2,7 @@
 
 (i wrote this with like 2 hours of sleep)
 
-i have decided to fully quit eaglercraft and everything related for personal reasons (dont dig into my past, seriously. i don't like having severe paranoia that one of ur 12 year old asses is gonna raid my friend group). i first started working on this project a long time ago, and that means my code base and half of the code sucks an incredible amount of ass. if you're going to comment on code quality, don't. there are cheats in resent, what a surprise (xray and spawner esp, 3.5 reach), it's not hard to block the activation of these serverside. i loved my time in the eagler community.
+i have decided to fully quit eaglercraft and everything related for personal reasons (dont dig into my past, seriously. i don't like having severe paranoia that one of ur 12 year old asses is gonna raid my friend group). i first started working on this project a long time ago, and that means my code base and half of the code sucks an incredible amount of ass. if you're going to comment on code quality, don't. there are cheats in resent, what a surprise (xray and spawner esp, 3.5 reach), it's not hard to block the activation of these serverside. Finally, i loved my time in the eagler community (not really you all suck ngl) and it has affected me in many ways. (you may see me on mmc or mcpvp, feel free to talk to me or something)
 
 
 alright, this notice is long enough. さようなら! (if you ever hear from me again i'll be back with a surprise)
