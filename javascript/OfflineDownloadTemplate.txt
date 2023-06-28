@@ -167,7 +167,7 @@ Compile it yourself here: https://gitlab.com/lax1dude/eaglercraftx-1.8/
 
 	function setPatchNum(patchNum){
 		patchNumber = patchNum;
-		checkForUpdates();
+		//checkForUpdates();
 	}
 	
 	function setBarProg(event, epkSize){
