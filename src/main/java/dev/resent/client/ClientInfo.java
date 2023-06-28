@@ -6,7 +6,7 @@ public class ClientInfo {
 
     public static final String name = "Resent";
     public static final String version = "3.7";
-    public static final String patchNum = "2";
+    public static final String patchNum = "3";
     public static final String author = "Nitwit";
     public static final String release = Release.STABLE.name;
 
